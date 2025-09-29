@@ -1,0 +1,61 @@
+---
+title: "Get available LLM models"
+api: "GET /user/assistants/models"
+description: "Retrieve all available LLM models for assistant configuration"
+---
+
+This endpoint returns a list of all available Large Language Models (LLMs) that can be used when creating or updating assistants.
+
+### Response fields
+
+<ResponseField name="data" type="array">
+  <Expandable title="properties">
+    <ResponseField name="id" type="integer">
+      The unique identifier of the LLM model
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      The display name of the LLM model
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+
+```json 200 Response
+[
+    {
+        "id": 1,
+        "name": "GPT-4o-mini"
+    },
+    {
+        "id": 2,
+        "name": "GPT-4.1-mini"
+    },
+    {
+        "id": 3,
+        "name": "GPT-4.1-nano"
+    },
+    {
+        "id": 4,
+        "name": "Llama 3.3 70B"
+    },
+    {
+        "id": 5,
+        "name": "Llama 4 Scout 17B"
+    },
+    {
+        "id": 6,
+        "name": "Llama 4 Maverick 17B"
+    }
+]
+```
+
+</ResponseExample>
+
+### Notes
+
+- This endpoint does not require any parameters
+- Use the `name` field when creating or updating assistants
+- All available LLM models are returned in a single request
+- Different models may have varying capabilities, performance, and cost characteristics

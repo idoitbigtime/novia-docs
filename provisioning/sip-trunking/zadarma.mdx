@@ -1,0 +1,232 @@
+---
+title: "Zadarma Integration"
+description: "A step by step guide to connect to your Zadarma account via SIP trunking"
+---
+
+## Step 1: Gather Your Information
+
+-  PBX Extension:
+
+Go to My Switchboard, Extensions on the main page.
+   <Frame>
+     <img
+       src="/resources/zadarma-mypbx-extensions.png"
+       alt="Zadarma My Switchboard Extensions"
+     />
+   </Frame> 
+Find the following information: 
+
+```
+Extension number: e.g., 1000
+Server address: e.g., pbx.zadarma.com
+Username: Your extension username
+Password: Your extension password
+```
+
+    <Frame>
+     <img
+       src="/resources/zadarma-switch-extension-settings.PNG"
+       alt="Zadarma My Switchboard Extensions Settings"
+     />
+   </Frame> 
+
+-  SIP Connection:
+
+```
+Phone number: e.g., +1 555 0123
+SIP server: e.g., sip.zadarma.com
+Username: Provided by your phone company
+Password: Provided by your phone company
+```
+
+Go to Configuration, SIP Settings on the main page.
+   <Frame>
+     <img
+       src="/resources/zadarma-sip-settings.png"
+       alt="Zadarma SIP Settings"
+     />
+   </Frame> 
+
+Find the following information: 
+
+   <Frame>
+     <img
+       src="/resources/zadarma-sip-connection-settings.png"
+       alt="Zadarma SIP Connection Settings"
+     />
+   </Frame> 
+
+- For **IP Authorization type**:
+
+1. Go to Services, Connect number on the main page.
+   <Frame>
+     <img
+       src="/resources/zadarma-services.png"
+       alt="Zadarma Services"
+     />
+   </Frame> 
+
+2. Go to Active numbers.
+   <Frame>
+     <img
+       src="/resources/zadarma-active-numbers.png"
+       alt="Zadarma Active Numbers"
+     />
+   </Frame> 
+
+3. Click on the number you want to connect and press settings button.
+   <Frame>
+     <img
+       src="/resources/zadarma-settings-button.png"
+       alt="Zadarma Settings Button"
+     />
+   </Frame> 
+4. Click on external services and then check the option for SIP URI.
+
+  Add ```sip:extension@5wed79aeavr.sip.livekit.cloud ``` (this is Autocalls SIP server address) .
+
+   <Frame>
+     <img
+       src="/resources/zadarma-external-services.png"
+       alt="Zadarma External Services"
+     />
+   </Frame> 
+
+<Note>
+You will need these IPs which you will put in step 2 for inbound authorization type.
+</Note>
+
+## Step 2: Import numbers to Autocalls
+
+You need to import to Autocalls.
+
+1. Go to your Autocalls.ai dashboard
+2. Navigate to **Your Phone Numbers**
+3. Click “Integrate SIP trunk”
+
+   <Frame>
+     <img
+       src="/resources/twillio-import-autocalls-sip1.png"
+       alt="Import numbers to Autocalls"
+     />
+   </Frame>
+4. Fill in your details based on your integration type 
+
+For PBX Extension:
+
+   <Frame>
+     <img
+       src="/resources/zadarma-autocalls-type.png"
+       alt="Fill in your details based on your integration type"
+     />
+   </Frame>
+For SIP Connection:
+   <Frame>
+     <img
+       src="/resources/twillio-autocalls-auth-integration.png"
+       alt="Fill in your details based on your integration type"
+     />
+   </Frame>
+5. Here you will supply the termination SIP URI you set up in Step 1.
+```
+Server address: e.g., pbx.zadarma.com / sip.zadarma.com based on your integration type
+```
+
+   <Frame>
+     <img
+       src="/resources/zadarma-outbound-settings.png"
+       alt="Zadarma Outbound Settings"
+     />
+   </Frame>
+
+6. Here select Authorization type. 
+
+{/* - If you opted for auth route select Username and password.
+
+   <Frame>
+     <img
+       src="/resources/twillio-autocalls-credentials-auth-type.png"
+       alt="Twillio Autocalls Credentials Auth Type"
+     />
+   </Frame> */}
+
+- Add the **IPs** from **Zadarma** (Step 1).
+
+   <Frame>
+     <img
+       src="/resources/zadarma-ip-inbound.png"
+       alt="Twillio Autocalls Credentials IP Type"
+     />
+   </Frame> 
+   
+7. Select the country of where your SIP trunk is located. 
+
+    <Frame>
+      <img
+        src="/resources/twillio-autocalls-sip-country.png"
+        alt="Twillio Autocalls SIP Country"
+      />
+    </Frame>
+
+### Step 3: Verify Setup
+
+After configuration:
+
+1. Make a test call to your number/extension
+2. Check that the AI assistant answers
+3. Use the test call feature to verify outbound calling
+
+## Security Requirements
+
+Your SIP credentials need to be secure:
+
+- **Username**: Your extension number or provider-supplied username
+- **Password must have**:
+  - 12 or more characters
+  - Numbers
+  - Upper and lowercase letters
+  - Special characters recommended
+## Common Issues
+
+<AccordionGroup>
+  <Accordion title="After connecting, inbound works but outbound does not work?">
+    - Check your Termination SIP URI If there’s a space in it, please remove. Also you should use a localized termination uri that’s near your region. Check out this [doc](https://www.twilio.com/docs/global-infrastructure/localized-uris/termination) to select one.
+    - Check your user name and credentials Please make sure you entered the right user name and credentials which shows in this dialog. Please note the user name is not the friendly name that shows in the credential list. The friendly is different to user name, you need to double check if you happen to give a different name.
+    
+    <Frame>
+     <img
+       src="/resources/twillio-outbound-not-work.png"
+       alt="Twillio outbound not work"
+     />
+   </Frame>
+  </Accordion>
+
+{" "}
+
+<Accordion title="How do I set up dialing to international countries?">
+- Search “geo” to find the “Voice Geographic Permissions” setting.  
+    <Frame>
+     <img
+       src="/resources/twillio-setup-dialing-international.png"
+       alt="Twillio setup dialing international"
+     />
+   </Frame>
+- Choose “Elastic Sip Trunking” in selector, and select the countries you would like to dial. 
+    <Frame>
+     <img
+       src="/resources/twillio-choose-elastic-sip-trunking.png"
+       alt="Twillio setup dialing international"
+     />
+   </Frame>
+
+</Accordion>
+{" "}
+</AccordionGroup>
+
+---
+
+<Note>
+  Need help setting up? Our support team specializes in helping customers
+  integrate their phone systems. We'll guide you through the entire process,
+  ensuring a smooth setup with your specific phone system configuration.
+</Note>

@@ -1,0 +1,325 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Autocalls",
+  "logo": {
+    "dark": "/resources/logo/dark.png",
+    "light": "/resources/logo/light.png"
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#06df4b",
+    "light": "#06df4b",
+    "dark": "#65fe50",
+    "anchors": {
+      "from": "#01df4a",
+      "to": "#65fe50"
+    }
+  },
+  "topAnchor": {
+    "name": "Platform Guide",
+    "icon": "book"
+  },
+  "sidebar": {
+    "items": "card"
+  },
+  "topbarLinks": [{
+    "name": "Home",
+    "url": "https://autocalls.ai"
+  }, {
+    "name": "Support",
+    "url": "https://autocalls.ai/contact"
+  }],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://app.autocalls.ai"
+  },
+  "anchors": [{
+    "name": "No-Code Automation",
+    "icon": "wand-magic-sparkles",
+    "color": "#6c63ff",
+    "url": "automation-platform"
+  }, {
+    "name": "White Label",
+    "icon": "tag",
+    "color": "#ff0142",
+    "url": "white-label"
+  }, {
+    "name": "API Reference",
+    "icon": "code",
+    "color": "#1c51fc",
+    "url": "api-reference"
+  }, {
+    "name": "Platform updates",
+    "icon": "scroll",
+    "color": "#ffbb00",
+    "url": "releases"
+  }],
+  "navigation": [{
+      "group": "Introduction",
+      "pages": [
+        "introduction/what-is-autocalls",
+        "introduction/how-it-works",
+        "introduction/key-terminology"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": [
+        "getting-started/core-concepts",
+        "getting-started/understanding-billing"
+      ]
+    },
+    {
+      "group": "AI Assistants Overview",
+      "pages": [
+        "ai-assistants/what-is-ai-assistant",
+        {
+          "group": "Creating and Editing an AI Assistant",
+          "icon": "robot",
+          "pages": [
+            "ai-assistants/settings/general",
+            "ai-assistants/settings/prompt-and-tools",
+            "ai-assistants/settings/post-call-actions"
+          ]
+        },
+        "ai-assistants/assistant-modes",
+        "ai-assistants/assistant-configuration",
+        "ai-assistants/system-prompt",
+        "ai-assistants/initial-message",
+        "ai-assistants/tools-and-functions",
+        "ai-assistants/custom-tools",
+        "ai-assistants/voice-selection",
+        "ai-assistants/filler-audio",
+        "ai-assistants/cal-com-scheduling",
+        "ai-assistants/gohighlevel-scheduling",
+        "ai-assistants/testing"
+      ]
+    },
+    {
+      "group": "Campaigns",
+      "icon": "bullhorn",
+      "pages": [
+        "campaigns/index",
+        "campaigns/creating-campaigns"
+      ]
+    },
+    {
+      "group": "Leads",
+      "icon": "users",
+      "pages": [
+        "leads/index",
+        "leads/managing-leads",
+        "leads/importing-leads"
+      ]
+    },
+    {
+      "group": "Phone Numbers",
+      "pages": [
+        "phone-numbers/types",
+        "phone-numbers/purchasing-and-managing",
+        "phone-numbers/pricing-and-regions",
+        "phone-numbers/sms-capabilities",
+        "phone-numbers/assigning-to-assistants"
+      ]
+    },
+    {
+      "group": "Inbound Calls",
+      "pages": [
+        "inbound-calls/overview",
+        "inbound-calls/provisioning",
+        "inbound-calls/configuring",
+        "inbound-calls/insights"
+      ]
+    },
+    {
+      "group": "Outbound Calls",
+      "pages": [
+        "outbound-calls/overview",
+        "outbound-calls/campaigns",
+        "outbound-calls/caller-id",
+        "outbound-calls/voicemail-handling",
+        "outbound-calls/scripts-and-prompts",
+        "outbound-calls/mass-dialing"
+      ]
+    },
+    {
+      "group": "AI Prompting & Conversation Design",
+      "pages": [
+        "conversation-design/prompt-basics",
+        "conversation-design/knowledge-bases",
+        "conversation-design/interruptions",
+        "conversation-design/language-support"
+      ]
+    },
+    {
+      "group": "Automation & Integrations",
+      "pages": [
+        "automation/overview",
+        "automation/webhook-api",
+        "provisioning/phone-system-integrations"
+      ]
+    },
+    {
+      "group": "Costs & Pricing",
+      "pages": [
+        "pricing/overview",
+        "pricing/usage-based",
+        "pricing/number-rentals"
+      ]
+    },
+    {
+      "group": "Number Provisioning",
+      "pages": [
+        "provisioning/supported-countries",
+        "provisioning/managing-numbers",
+        {
+          "group": "SIP trunking",
+          "icon": "phone-volume",
+          "pages": [
+            "provisioning/sip-trunking/sip-integration",
+            "provisioning/sip-trunking/twilio",
+            "provisioning/sip-trunking/zadarma"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "White Label Program",
+      "pages": [
+        "white-label/overview",
+        "white-label/onboarding",
+        "white-label/plans-setup",
+        "white-label/user-limits",
+        {
+          "group": "Social Logins",
+          "icon": "share-nodes",
+          "pages": [
+            "white-label/social-logins/google",
+            "white-label/social-logins/linkedin"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Troubleshooting & FAQs",
+      "pages": [
+        "troubleshooting/ai-behavior",
+        "troubleshooting/billing",
+        "troubleshooting/cal-com",
+        "troubleshooting/call-quality",
+        "troubleshooting/campaigns",
+        "troubleshooting/gohighlevel",
+        "troubleshooting/leads",
+        "troubleshooting/sip-integration",
+        "troubleshooting/voice-problems"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "api-reference/introduction",
+        "api-reference/authentication"
+      ]
+    },
+    {
+      "group": "Assistants",
+      "pages": [
+        "api-reference/assistants/get-assistants",
+        "api-reference/assistants/get-outbound-assistants",
+        "api-reference/assistants/create-assistant",
+        "api-reference/assistants/update-assistant",
+        "api-reference/assistants/delete-assistant",
+        "api-reference/assistants/enable-inbound-webhook",
+        "api-reference/assistants/disable-inbound-webhook",
+        "api-reference/assistants/disable-webhook",
+        "api-reference/assistants/get-languages",
+        "api-reference/assistants/get-voices",
+        "api-reference/assistants/get-models",
+        "api-reference/assistants/get-phone-numbers"
+      ]
+    },
+    {
+      "group": "Calls",
+      "pages": [
+        "api-reference/calls/get-calls",
+        "api-reference/calls/make-phone-call",
+        "api-reference/calls/delete-call"
+      ]
+    },
+    {
+      "group": "Leads",
+      "pages": [
+        "api-reference/leads/get-lead",
+        "api-reference/leads/create",
+        "api-reference/leads/update-lead",
+        "api-reference/leads/delete"
+      ]
+    },
+    {
+      "group": "Campaigns",
+      "pages": [
+        "api-reference/campaigns/get-campaigns",
+        "api-reference/campaigns/update-status"
+      ]
+    },
+    {
+      "group": "SMS",
+      "pages": [
+        "api-reference/sms/send-sms"
+      ]
+    },
+    {
+      "group": "Webhooks",
+      "pages": [
+        "api-reference/webhooks/post-call-webhook"
+      ]
+    },
+    {
+      "group": "No-Code Automation platform",
+      "pages": [
+        "automation-platform/introduction",
+        "automation-platform/building-flows",
+        "automation-platform/passing-data",
+        "automation-platform/publishing-flows",
+        "automation-platform/debugging-runs",
+        "automation-platform/versioning",
+        "automation-platform/known-limits"
+      ]
+    },
+    {
+      "group": "Calls Related",
+      "pages": [
+        "automation-platform/calls-related/autocalls-tool",
+        "automation-platform/calls-related/common-integrations",
+        "automation-platform/calls-related/sms-capabilities"
+      ]
+    },
+    {
+      "group": "Tutorials",
+      "pages": [
+        "automation-platform/tutorials/outbound-form-call",
+        "automation-platform/tutorials/inbound-context-injection",
+        "automation-platform/tutorials/gohighlevel-leads-automation",
+        "automation-platform/tutorials/google-sheets-sync",
+        "automation-platform/tutorials/post-call-sms-automation",
+        "automation-platform/tutorials/google-sheets-qualified-leads",
+        "automation-platform/tutorials/post-call-email-automation"
+      ]
+    },
+    {
+      "group": "Platform updates",
+      "pages": [
+        "releases/index"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "linkedin": "https://www.linkedin.com/company/autocalls-ai"
+  },
+  "api": {
+    "baseUrl": "https://app.autocalls.ai/api/",
+    "auth": {
+      "method": "bearer"
+    }
+  }
+}

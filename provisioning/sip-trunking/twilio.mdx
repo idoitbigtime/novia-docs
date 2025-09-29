@@ -1,0 +1,212 @@
+---
+title: "Twilio Integration"
+description: "A step by step guide to connect to your Twilio account via SIP trunking"
+---
+
+## Step 1: Create Elastic SIP Trunking
+
+1. Create the trunk, give it a name, and toggle some general settings
+   <Frame>
+     <img
+       src="/resources/twillio-create-elastic-sip1.jpeg"
+       alt="Create Elastic SIP Trunking"
+     />
+   </Frame>
+
+2. Setup termination (this is for outbound)
+
+- the termination SIP URI here is important, we would use it in later steps. You might want to use a localized termination uri that’s near your region. You can expand and view your localized uris in the twilio console.
+    <Frame>
+      <img
+        src="/resources/twillio-setup-termination1.jpeg"
+        alt="Setup Termination"
+      />
+    </Frame>
+
+- For your elastic SIP trunk to accept our outbound request, you need to whitelist IP address or create a auth with username and password.
+
+{/* - If you opt for the auth route, you need to specify the username and password in the next step when importing the number to Autocalls.
+   <Frame>
+     <img
+       src="/resources/twillio-auth-route.jpeg"
+       alt="Twilio Auth Route"
+     />
+   </Frame> */}
+
+- Currently Autocalls SIP server does not have a static IP, so if you opt for the IP route, you need to whitelist all the IP addresses in the range like following:
+
+   <Frame>
+     <img
+       src="/resources/twillio-new-access-control.jpeg"
+       alt="Twilio New Access Control"
+     />
+   </Frame>
+
+    <Frame>
+     <img
+       src="/resources/twillio-new-access-control2.jpeg"
+       alt="Twilio New Access Control"
+     />
+   </Frame>
+
+3. Setup origination (this is for inbound)
+
+- Here you will specify Autocalls SIP server address as the origination SIP URI: ```sip:5wed79aeavr.sip.livekit.cloud ``` 
+
+    <Frame>
+      <img
+        src="/resources/twillio-setup-origination1.jpeg"
+        alt="Setup Origination"
+      />
+    </Frame>
+
+## Step 2: Move numbers to Elastic SIP Trunking
+
+You’ve created the elastic SIP trunk, now you would need to purchase numbers / move existing numbers to this trunk.
+
+   <Frame>
+     <img
+       src="/resources/twillio-move-numbers1.jpeg"
+       alt="Move numbers to Elastic SIP Trunking"
+     />
+   </Frame>
+
+## Step 3: Import numbers to Autocalls
+
+Now the number is set up with your elastic SIP trunking, you need to import the number to Autocalls so that we will know how to route the call.
+
+1. Go to your Autocalls.ai dashboard
+2. Navigate to ** Your Phone Numbers**
+3. Click “Integrate SIP trunk”
+
+   <Frame>
+     <img
+       src="/resources/twillio-import-autocalls-sip1.png"
+       alt="Import numbers to Autocalls"
+     />
+   </Frame>
+4. Fill in your details based on your integration type 
+```
+Phone number: e.g., +1 555 0123
+Username: Your extension username
+Password: Your extension password
+```
+   <Frame>
+     <img
+       src="/resources/twillio-autocalls-auth-integration.png"
+       alt="Fill in your details based on your integration type"
+     />
+   </Frame>
+
+5. Here you will supply the termination SIP URI you set up in Step 1.
+```
+Server address: e.g., xxx.pstn.twillio.com
+```
+
+   <Frame>
+     <img
+       src="/resources/twillio-outbound-settings.PNG"
+       alt="Twillio Connect Number via SIP"
+     />
+   </Frame>
+
+6. Here select Authorization type as you opted in step 2. 
+
+{/* - If you opted for auth route select Username and password.
+
+   <Frame>
+     <img
+       src="/resources/twillio-autocalls-credentials-auth-type.png"
+       alt="Twillio Autocalls Credentials Auth Type"
+     />
+   </Frame> */}
+
+- If IP type is the option you have selected, add the IPs 
+```
+54.244.51.0
+  54.244.51.1  
+  54.244.51.2
+  54.244.51.3
+54.172.60.0
+  54.172.60.1
+  54.172.60.2
+  54.172.60.3
+```
+   <Frame>
+     <img
+       src="/resources/twillio-autocalls-credentials-ip-type1.png"
+       alt="Twillio Autocalls Credentials IP Type"
+     />
+   </Frame> 
+   
+7. Select the country of where your SIP trunk is located. 
+
+    <Frame>
+      <img
+        src="/resources/twillio-autocalls-sip-country.png"
+        alt="Twillio Autocalls SIP Country"
+      />
+    </Frame>
+
+### Step 4: Verify Setup
+
+After configuration:
+
+1. Make a test call to your number/extension
+2. Check that the AI assistant answers
+3. Use the test call feature to verify outbound calling
+
+## Security Requirements
+
+Your SIP credentials need to be secure:
+
+- **Username**: Your extension number or provider-supplied username
+- **Password must have**:
+  - 12 or more characters
+  - Numbers
+  - Upper and lowercase letters
+  - Special characters recommended
+## Common Issues
+
+<AccordionGroup>
+  <Accordion title="After connecting, inbound works but outbound does not work?">
+    - Check your Termination SIP URI If there’s a space in it, please remove. Also you should use a localized termination uri that’s near your region. Check out this [doc](https://www.twilio.com/docs/global-infrastructure/localized-uris/termination) to select one.
+    - Check your user name and credentials Please make sure you entered the right user name and credentials which shows in this dialog. Please note the user name is not the friendly name that shows in the credential list. The friendly is different to user name, you need to double check if you happen to give a different name.
+    
+    <Frame>
+     <img
+       src="/resources/twillio-outbound-not-work.png"
+       alt="Twillio outbound not work"
+     />
+   </Frame>
+  </Accordion>
+
+{" "}
+
+<Accordion title="How do I set up dialing to international countries?">
+- Search “geo” to find the “Voice Geographic Permissions” setting.  
+    <Frame>
+     <img
+       src="/resources/twillio-setup-dialing-international.png"
+       alt="Twillio setup dialing international"
+     />
+   </Frame>
+- Choose “Elastic Sip Trunking” in selector, and select the countries you would like to dial. 
+    <Frame>
+     <img
+       src="/resources/twillio-choose-elastic-sip-trunking.png"
+       alt="Twillio setup dialing international"
+     />
+   </Frame>
+
+</Accordion>
+{" "}
+</AccordionGroup>
+
+---
+
+<Note>
+  Need help setting up? Our support team specializes in helping customers
+  integrate their phone systems. We'll guide you through the entire process,
+  ensuring a smooth setup with your specific phone system configuration.
+</Note>
