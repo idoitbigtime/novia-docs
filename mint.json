@@ -113,6 +113,14 @@
       ]
     },
     {
+      "group": "Custom Dashboards",
+      "icon": "chart-line",
+      "pages": [
+        "custom-dashboards/overview",
+        "custom-dashboards/widget-types"
+      ]
+    },
+    {
       "group": "Phone Numbers",
       "pages": [
         "phone-numbers/types",
@@ -244,6 +252,16 @@
         "api-reference/calls/get-calls",
         "api-reference/calls/make-phone-call",
         "api-reference/calls/delete-call"
+      ]
+    },
+    {
+      "group": "Mid Call Tools",
+      "pages": [
+        "api-reference/mid-call-tools/get-tools",
+        "api-reference/mid-call-tools/get-tool",
+        "api-reference/mid-call-tools/create-tool",
+        "api-reference/mid-call-tools/update-tool",
+        "api-reference/mid-call-tools/delete-tool"
       ]
     },
     {

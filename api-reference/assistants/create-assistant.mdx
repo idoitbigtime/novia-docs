@@ -52,6 +52,10 @@ This endpoint allows you to create a new AI assistant with comprehensive configu
   The ID of a phone number to assign to the assistant (must exist in user's phone numbers)
 </ParamField>
 
+<ParamField body="tool_ids" type="integer[]" optional>
+  Array of mid call tool IDs to attach to the assistant. Each element must be a valid tool ID that belongs to your account.
+</ParamField>
+
 <ParamField body="endpoint_type" type="string" optional>
   Voice activity detection type. Options: `vad`, `ai`
 </ParamField>

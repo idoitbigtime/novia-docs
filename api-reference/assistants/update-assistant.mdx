@@ -58,6 +58,10 @@ This endpoint allows you to update an existing AI assistant's configuration. All
   The ID of a phone number to assign to the assistant (set to null to unassign)
 </ParamField>
 
+<ParamField body="tool_ids" type="integer[]" optional>
+  Array of mid call tool IDs to sync with the assistant. Replaces all existing tool assignments. Pass an empty array to remove all tools. Each element must be a valid tool ID that belongs to your account.
+</ParamField>
+
 <ParamField body="endpoint_type" type="string" optional>
   Voice activity detection type. Options: `vad`, `ai`
 </ParamField>
