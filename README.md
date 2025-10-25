@@ -1,6 +1,6 @@
 # White‑Label the Documentation (Mintlify)
 
-Novia AI Call Center is a voice AI platform for automated outbound/inbound calls, SMS, and workflow automation. You can fully white-label the product and these docs to your own brand. To learn more about white-labeling the platform beyond documentation, see our [White-Label program](https://app.autocalls.ai/white-label).
+Novia AI Call Center is a voice AI platform for automated outbound/inbound calls, SMS, and workflow automation. You can fully white-label the product and these docs to your own brand. To learn more about white-labeling the platform beyond documentation, see our [White-Label program](https://callcenter.novia.ltd/white-label).
 This guide walks you through creating your own white‑labeled copy of our documentation using Mintlify, updating the branding (colors, logos, name), deploying it to your Mintlify subdomain or custom domain, and finally linking the live docs in your admin panel.
 
 ## What you'll set up
