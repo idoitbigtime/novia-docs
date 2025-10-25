@@ -2,8 +2,8 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Novia AI Call Center",
   "logo": {
-    "dark": "/resources/logo/dark.png",
-    "light": "/resources/logo/light.png"
+    "dark": "/resources/logo/logo-dark.png",
+    "light": "/resources/logo/logo-light.png"
   },
   "favicon": "/favicon.png",
   "colors": {
