@@ -31,7 +31,7 @@
   }],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://app.autocalls.ai"
+    "url": "https://callcenter.novia.ltd"
   },
   "anchors": [{
     "name": "No-Code Automation",
@@ -317,7 +317,7 @@
     "linkedin": "https://www.linkedin.com/company/autocalls-ai"
   },
   "api": {
-    "baseUrl": "https://app.autocalls.ai/api/",
+    "baseUrl": "https://callcenter.novia.ltd/api/",
     "auth": {
       "method": "bearer"
     }
