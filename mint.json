@@ -39,11 +39,6 @@
     "color": "#6c63ff",
     "url": "automation-platform"
   }, {
-    "name": "White Label",
-    "icon": "tag",
-    "color": "#ff0142",
-    "url": "white-label"
-  }, {
     "name": "API Reference",
     "icon": "code",
     "color": "#1c51fc",
@@ -187,23 +182,6 @@
             "provisioning/sip-trunking/sip-integration",
             "provisioning/sip-trunking/twilio",
             "provisioning/sip-trunking/zadarma"
-          ]
-        }
-      ]
-    },
-    {
-      "group": "White Label Program",
-      "pages": [
-        "white-label/overview",
-        "white-label/onboarding",
-        "white-label/plans-setup",
-        "white-label/user-limits",
-        {
-          "group": "Social Logins",
-          "icon": "share-nodes",
-          "pages": [
-            "white-label/social-logins/google",
-            "white-label/social-logins/linkedin"
           ]
         }
       ]
