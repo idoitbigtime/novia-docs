@@ -1,0 +1,19 @@
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.local
+.env.*.local
+.netlify
+.vite
+.DS_Store
+.idea
+.vscode
+*.log
+coverage
+
+# build info
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
