@@ -38,7 +38,14 @@ export default function Overview() {
     })();
   }, [business?.id]);
 
-  if (!business) return <p className="text-slate-500">אין עסק משויך למשתמש.</p>;
+  if (!business) return (
+    <div className="card p-8 text-center max-w-md mx-auto mt-10">
+      <div className="text-3xl mb-3">🏪</div>
+      <h2 className="text-xl font-bold mb-2">ברוך הבא ל-ReviewFlow AI</h2>
+      <p className="text-slate-500 mb-5">עדיין אין לך עסק במערכת. בוא נקים את הראשון.</p>
+      <a href="/app/new" className="btn-primary inline-block">+ יצירת עסק חדש</a>
+    </div>
+  );
   if (!stats) return <p className="text-slate-500">טוען…</p>;
 
   const cards: Array<[string, string | number]> = [

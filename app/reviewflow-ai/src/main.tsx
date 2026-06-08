@@ -13,6 +13,8 @@ import RequireAuth from "./pages/auth/RequireAuth";
 
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import Overview from "./pages/dashboard/Overview";
+import Onboarding from "./pages/dashboard/Onboarding";
+import Admin from "./pages/dashboard/Admin";
 import ReviewsPage from "./pages/dashboard/Reviews";
 import NegativePage from "./pages/dashboard/Negative";
 import CouponsPage from "./pages/dashboard/Coupons";
@@ -43,6 +45,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           }
         >
           <Route index element={<Overview />} />
+          <Route path="new" element={<Onboarding />} />
+          <Route path="admin" element={<Admin />} />
           <Route path="reviews" element={<ReviewsPage />} />
           <Route path="negative" element={<NegativePage />} />
           <Route path="coupons" element={<CouponsPage />} />
