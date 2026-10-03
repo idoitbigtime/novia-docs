@@ -65,10 +65,30 @@ def _word_span(tok, t, style, ltr=False):
     return f'<span class="{cls}" dir="{d}" data-t="{t:.3f}">{esc(tok)}</span>'
 
 
-def kinetic_html(text, t0=0.0, step=0.2, pause=0.32):
+PHRASE_END = re.compile(r"[.,:;!?]$")
+
+
+def group_times(tokens, gstep=0.8, wstep=0.05, max_words=7):
+    """Phrase-group rhythm: words of a phrase spring in together (small stagger), phrases
+    arrive gstep apart, so a paragraph is complete early and stays readable longer."""
+    times, g, i_in, t = [], 0, 0, 0.0
+    for k, (tok, _, _) in enumerate(tokens):
+        times.append(round(g * gstep + i_in * wstep, 3))
+        i_in += 1
+        if PHRASE_END.search(tok) or i_in >= max_words:
+            if k < len(tokens) - 1:
+                g += 1
+            i_in = 0
+    return times, round(times[-1] + 0.4 if times else 0.0, 3)
+
+
+def kinetic_html(text, t0=0.0, step=0.2, pause=0.32, groups=False):
     """Build kinetic HTML for a text block. Returns (html, end_time, accent_times)."""
     tokens = parse_marked(text)
-    times, end = word_times(tokens, step, pause)
+    if groups:
+        times, end = group_times(tokens, **(groups if isinstance(groups, dict) else {}))
+    else:
+        times, end = word_times(tokens, step, pause)
     times = [t0 + t for t in times]
     end = t0 + end
 

@@ -9,7 +9,7 @@ fs.mkdirSync(outdir, { recursive: true });
 const html = fs.readFileSync(file, 'utf8');
 const W = +(/data-width="(\d+)"/.exec(html) || [0, 1080])[1], H = +(/data-height="(\d+)"/.exec(html) || [0, 1920])[1];
 console.log('launching', W, H);
-const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell' });
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell', args: ['--disable-lcd-text', '--force-color-profile=srgb'] });
 const p = await b.newPage({ viewport: { width: W, height: H } });
 const errs = [];
 p.on('pageerror', (e) => errs.push('pageerror: ' + e.message));

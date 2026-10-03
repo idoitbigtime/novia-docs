@@ -71,7 +71,7 @@ def topic_scene(cfg):
     """Return (inner_html, js_cfg, cues, cfg) for a standard topic scene. Times are scene-local."""
     cfg = auto_times(cfg)
     title, _, _ = kinetic_html(cfg["title"], t0=cfg["tTitle"], step=STEP_TITLE, pause=0.2)
-    exp, _, _ = kinetic_html(cfg["exp"], t0=cfg["tExp"], step=STEP_EXP, pause=0.32)
+    exp, _, _ = kinetic_html(cfg["exp"], t0=cfg["tExp"], groups=True)
     simmod = importlib.import_module("sims." + cfg["sim"])
     sim = simmod.html(cfg)
 
@@ -100,11 +100,11 @@ def topic_scene(cfg):
             tabs = '<div class="pc-tabs">' + "".join(
                 f'<span class="tab" data-sec="{s}">{s}<i class="tul"></i></span>' for s in SECTION_ORDER if s in sections
             ) + "</div>"
-        pvp_top = "" if sections else ' style="top:118px"'
+        pvp_top = "" if sections else ' style="top:114px"'
         title_txt = cfg.get("promptTitle", "הפרומפט המוכן")
         card = (f'<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>{esc(title_txt)}</span>'
                 f'<span class="pc-num" dir="ltr"><b>{p}</b> / 21</span></div>{tabs}'
-                f'<div class="pvp"{pvp_top}><div class="pct" dir="rtl">{body}</div></div></div>')
+                f'<div class="pvp"{pvp_top}><div class="pct" dir="rtl">{body}<i class="pdim"></i></div></div></div>')
 
     tipbox = ""
     if cfg.get("tip"):

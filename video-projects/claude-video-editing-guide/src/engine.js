@@ -94,64 +94,80 @@
      paused frame is readable); holds on highlighted lines (highlight bar + bouncy zoom,
      the bar fades when the hold ends); section tabs follow the page; exits at t1. */
   E.prompt = function (tl, ctx, card, t0, t1, hls) {
-    const vp = E.q(".pvp", card), ct = E.q(".pct", card);
-    const ROW = 44, ROWS = 22;                       // every line is a whole number of 44 px rows
+    const vp = E.q(".pvp", card), ct = E.q(".pct", card), dim = E.q(".pdim", card);
+    const ROW = 44, ROWS = 23;                     // the viewport is exactly 23 rows: no line is ever cut
     const totalRows = Math.round(ct.scrollHeight / ROW);
     const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
     const H = (hls || []).map((h) => {
       const ln = E.q('[data-hl="' + h.id + '"]', card);
-      return { ln, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, hold: h.hold || 1.6, zoom: h.zoom == null ? 0.1 : h.zoom };
+      const words = ln.textContent.trim().split(/\s+/).length;
+      return { ln, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, hold: h.hold || 2.4, words };
     });
-    // pages advance by 21 rows (one row of overlap); a page is pulled up so a key line never straddles a page edge
+    // pages advance by 22 rows (one row of overlap); a page is pulled up so a key line never straddles an edge
     const pages = [0];
     while (pages[pages.length - 1] < lastTop) {
       const cur = pages[pages.length - 1];
       let nxt = Math.min(lastTop, cur + (ROWS - 1) * ROW);
-      for (const h of H) if (h.top > cur && h.top < nxt + ROWS * ROW && h.bot > cur + ROWS * ROW && h.top < cur + ROWS * ROW) nxt = Math.min(nxt, h.top - ROW);
+      for (const h of H) if (h.top > cur && h.top < cur + ROWS * ROW && h.bot > cur + ROWS * ROW) nxt = Math.min(nxt, h.top - 2 * ROW);
       if (nxt <= cur) nxt = Math.min(lastTop, cur + ROW);
       pages.push(nxt);
     }
-    const pageOf = (h) => { let k = 0; pages.forEach((p, i) => { if (p <= h.top && h.bot <= p + ROWS * ROW) k = i; }); return k; };
-    H.forEach((h) => { h.page = pageOf(h); });
-    const n = pages.length, slide = 0.3, lead = 0.25, exitD = 0.3;
-    const holdsT = H.reduce((a, h) => a + h.hold + 0.25, 0);
-    const dwell = Math.max(0.45, (t1 - t0 - lead - exitD - (n - 1) * slide - holdsT) / n);
+    H.forEach((h) => { h.page = 0; pages.forEach((p, i) => { if (p <= h.top && h.bot <= p + ROWS * ROW) h.page = i; }); });
+    // time: quick pages (full verbatim text, readable when paused) and long holds on the key lines
+    const n = pages.length, slide = 0.25, lead = 0.25, exitD = 0.3, gap = 0.2;
+    const holdPages = new Set(H.map((h) => h.page));
+    const budget = t1 - t0 - lead - exitD - (n - 1) * slide;
+    let holdsT = H.reduce((a, h) => a + h.hold + gap, 0);
+    const minPage = 0.5;
+    if (budget - holdsT < n * minPage) {
+      const room = Math.max(H.length * 2.0, budget - n * minPage - gap * H.length);
+      const k = room / H.reduce((a, h) => a + h.hold, 0);
+      H.forEach((h) => { h.hold = Math.max(2.0, h.hold * k); });
+      holdsT = H.reduce((a, h) => a + h.hold + gap, 0);
+    }
+    const dwell = Math.max(0.35, (budget - holdsT) / n);
     tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
     tl.fromTo(card, { scale: 0.97, y: 40 }, A({ scale: 1, y: 0, duration: 0.6, ease: SPRING }), t0);
-    const vpo = E.off(vp, ctx.scene);
     const arrivals = [], holdTimes = [];
     let t = t0 + lead;
     for (let i = 0; i < n; i++) {
       arrivals.push(t);
-      let tt = t + dwell * 0.35;
-      for (const h of H.filter((x) => x.page === i)) {
+      const mine = H.filter((h) => h.page === i);
+      let tt = t + (mine.length ? dwell * 0.4 : dwell);
+      mine.forEach((h, j) => {
         const hb = E.q(".hlbg", h.ln);
-        tl.fromTo(hb, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power2.out" }), tt);
-        const cy = vpo.y + ct.offsetTop + (h.top - pages[i]) + (h.bot - h.top) / 2;
-        const cx = vpo.x + vp.clientWidth / 2;
-        if (h.zoom) {
-          // the chapter header steps aside while the card is zoomed, so the card never covers it
-          if (ctx.hdr) {
-            tl.fromTo(ctx.hdr, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), tt);
-            tl.fromTo(ctx.hdr, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), tt + h.hold);
-          }
-          E.zoom(tl, ctx, cx, cy, tt, h.zoom, tt + h.hold - 0.45, 0.45, [vpo.x, vpo.x + vp.clientWidth]);
-        }
-        tl.fromTo(hb, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power2.in" }), tt + h.hold);
+        // key line lifts out of the page (bouncy zoom on the line itself); the rest of the page dims
+        tl.set(h.ln, { zIndex: 2, transformOrigin: "50% 50%" }, tt);
+        tl.fromTo(hb, { opacity: 0 }, A({ opacity: 1, duration: 0.2, ease: "power2.out" }), tt);
+        tl.fromTo(h.ln, { scale: 1 }, A({ scale: 1.08, duration: 0.6, ease: SPRING }), tt);
+        if (j === 0) tl.fromTo(dim, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), tt);
+        tl.fromTo(h.ln, { scale: 1.08 }, A({ scale: 1, duration: 0.3, ease: "power2.inOut" }), tt + h.hold - 0.3);
+        tl.fromTo(hb, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), tt + h.hold - 0.25);
+        tl.set(h.ln, { zIndex: 0 }, tt + h.hold);
+        if (j === mine.length - 1) tl.fromTo(dim, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), tt + h.hold - 0.3);
         holdTimes.push(+tt.toFixed(3));
-        tt += h.hold + 0.25;
-      }
-      t = tt + dwell * 0.65;
+        tt += h.hold + gap;
+      });
+      t = mine.length ? tt + dwell * 0.6 - gap : tt;
       if (i < n - 1) {
         tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: slide, ease: "power2.inOut" }), t);
         t += slide;
       }
     }
-    // tabs follow the page: the last section whose tag sits above the page's upper third
+    // tabs follow the page: the section that fills most of the visible rows
     const tabs = E.qa(".tab", card);
     if (tabs.length) {
       const tags = tabs.map((tab) => E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card));
-      const secAt = (p) => { let k = 0; tags.forEach((g, j) => { if (g && g.offsetTop <= p + ROWS * ROW * 0.3) k = j; }); return k; };
+      const starts = tags.map((g) => (g ? g.offsetTop : 1e9));
+      const secAt = (p) => {
+        let best = 0, bestRows = -1;
+        starts.forEach((st, j) => {
+          const en = j + 1 < starts.length ? starts[j + 1] : 1e9;
+          const vis = Math.max(0, Math.min(en, p + ROWS * ROW) - Math.max(st, p));
+          if (vis > bestRows) { bestRows = vis; best = j; }
+        });
+        return best;
+      };
       let cur = -1;
       for (let i = 0; i < n; i++) {
         const k = secAt(pages[i]);
@@ -162,12 +178,24 @@
           tl.fromTo(E.q(".tul", tabs[cur]), { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), ta);
         }
         tl.fromTo(tabs[k], { color: "#9c99ae" }, A({ color: "#f5f2ea", duration: 0.2 }), ta);
-        tl.fromTo(E.q(".tul", tabs[k]), { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), ta);
+        tl.fromTo(E.q(".tul", tabs[k]), { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), ta);
         cur = k;
+      }
+      // on the last page, once its key lines are done, the last visible section takes over
+      const lastP = pages[n - 1];
+      let lastVis = cur;
+      starts.forEach((st, j) => { if (st < lastP + ROWS * ROW && st >= lastP) lastVis = Math.max(lastVis, j); });
+      if (lastVis > cur) {
+        const mineLast = H.filter((h) => h.page === n - 1);
+        const ta = mineLast.length ? holdTimes[holdTimes.length - 1] + mineLast[mineLast.length - 1].hold + 0.05 : arrivals[n - 1] + dwell * 0.5;
+        tl.fromTo(tabs[cur], { color: "#f5f2ea" }, A({ color: "#9c99ae", duration: 0.2 }), ta);
+        tl.fromTo(E.q(".tul", tabs[cur]), { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), ta);
+        tl.fromTo(tabs[lastVis], { color: "#9c99ae" }, A({ color: "#f5f2ea", duration: 0.2 }), ta);
+        tl.fromTo(E.q(".tul", tabs[lastVis]), { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), ta);
       }
     }
     tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: exitD, ease: "power2.in" }), t1 - exitD);
-    return { pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3), holds: holdTimes };
+    return { pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3), holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)) };
   };
 
   /* Standard topic scene. Layout is measured once (static), then:
@@ -195,7 +223,7 @@
     tl.set(main, { transformOrigin: "100% 0%" }, S + cfg.tDock);
     tl.fromTo(main, { y: 0, scale: 1 }, A({ y: dockTop - top0, scale: dockS, duration: 0.75, ease: SPRING }), S + cfg.tDock);
     E.dim(tl, exp, S + cfg.tDock, 0.3, 1, 0.5);
-    E.qa(".accgrp", exp).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#8a86a0", duration: 0.5 }), S + cfg.tDock));
+    E.qa(".accgrp", exp).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#dcd9e6", duration: 0.5 }), S + cfg.tDock));
     E.qa(".ul", exp).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + cfg.tDock));
     // simulation
     E.fadeIn(tl, simtag, S + cfg.tStage - 0.15, 0.4, 0);

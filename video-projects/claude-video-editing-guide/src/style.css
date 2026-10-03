@@ -68,10 +68,9 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
 .tab .tul { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
 .tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
-.pvp { position: absolute; top: 180px; height: 1016px; left: 30px; right: 30px; overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0px, #000 22px, #000 calc(100% - 22px), rgba(0,0,0,0) 100%);
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0px, #000 22px, #000 calc(100% - 22px), rgba(0,0,0,0) 100%); }
-.pct { position: absolute; top: 24px; left: 0; right: 0; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
+.pvp { position: absolute; top: 182px; height: 1012px; left: 30px; right: 30px; overflow: hidden;
+  }
+.pct { position: absolute; top: 0; left: 30px; right: 30px; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
 .pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
 .pl-empty { height: 44px; }
 .ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
@@ -80,7 +79,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .tk { white-space: nowrap; }
 .nb, .neg { white-space: nowrap; }
 .code .bt, .codeblock .bt { color: #6f6b86; }
-.hlbg { position: absolute; z-index: -1; top: 2px; bottom: 2px; left: -4px; right: -4px; background: rgba(229, 72, 77, 0.17); border-right: 4px solid #e5484d; border-radius: 10px; opacity: 0; display: block; }
+.hlbg { position: absolute; z-index: -1; top: 0; bottom: 0; left: -14px; right: -14px; background: #2e1626; border-right: 4px solid #e5484d; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); opacity: 0; display: block; }
+.pdim { position: absolute; left: -30px; right: -30px; top: 0; bottom: 0; z-index: 1; background: rgba(15, 14, 28, 0.66); opacity: 0; display: block; pointer-events: none; }
 
 /* ---------- tip ---------- */
 .tipwrap { position: absolute; left: 140px; width: 800px; top: 0; height: 1920px; display: flex; align-items: center; justify-content: center; }

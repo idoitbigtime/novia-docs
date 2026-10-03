@@ -10,7 +10,9 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
     const ar = E.q(".s22-arrow", row), good = E.q(".s22-good", row);
     tl.fromTo(bad, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }), t);
     tl.fromTo(st, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.inOut" }), t + 0.3);
-    tl.fromTo(bad, { opacity: 1 }, A({ opacity: 0.5, duration: 0.3 }), t + 0.62);
+    // a resolved row goes quiet: the struck word turns grey, its strike stays at 60%
+    tl.fromTo(bad, { color: "#ff6b61" }, A({ color: "#5e5870", duration: 0.35 }), t + 0.62);
+    tl.fromTo(st, { opacity: 1 }, A({ opacity: 0.6, duration: 0.35 }), t + 0.62);
     tl.fromTo(ar, { opacity: 0, x: 12 }, A({ opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }), t + 0.48);
     tl.fromTo(good, { opacity: 0 }, A({ opacity: 1, duration: 0.22 }), t + 0.62);
     tl.fromTo(good, { scale: 0.82 }, A({ scale: 1, duration: 0.55, ease: "back.out(2)" }), t + 0.62);
@@ -21,9 +23,11 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
     const cb = E.q(".s22-capbad", cap), cs = E.q(".s22-capstrike", cap), cg = E.q(".s22-capgood", cap);
     tl.set(cap, { opacity: 1 }, t);
     tl.fromTo(cs, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.inOut" }), t + 0.3);
-    tl.fromTo(cb, { opacity: 1 }, A({ opacity: 0, duration: 0.18 }), t + 0.62);
-    tl.fromTo(cg, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), t + 0.62);
-    tl.fromTo(cg, { scale: 0.85 }, A({ scale: 1, duration: 0.5, ease: "back.out(2)" }), t + 0.62);
+    // swap in sequence: the wrong word leaves first, then the correction springs in (no overlap)
+    tl.fromTo(cb, { opacity: 1 }, A({ opacity: 0, duration: 0.12, ease: "power1.in" }), t + 0.6);
+    tl.fromTo(cb, { filter: "blur(0px)" }, A({ filter: "blur(6px)", duration: 0.12 }), t + 0.6);
+    tl.fromTo(cg, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t + 0.73);
+    tl.fromTo(cg, { scale: 0.94 }, A({ scale: 1, duration: 0.3, ease: E.SPRING }), t + 0.73);
     const tEnd = i < rows.length - 1 ? T(c.fix0 + (i + 1) * c.fixStep) : T(c.pills0 - 0.35);
     tl.set(cap, { opacity: 0 }, tEnd);
   });
