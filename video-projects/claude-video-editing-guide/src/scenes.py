@@ -29,6 +29,13 @@ def prompt_text(cfg):
     return "\n".join(lines)
 
 
+def _lift_html(body, hid):
+    """Inner HTML of the key line (same markup as in the card) for its lifted copy."""
+    import re as _re
+    m = _re.search(r'<div class="pl" dir="rtl" data-hl="' + hid + r'"><i class="hlbg"></i>(.*?)</div>\n', body + "\n", _re.S)
+    return '<i class="hlbg"></i>' + (m.group(1) if m else "")
+
+
 def auto_times(cfg):
     """Fill in scene-local times that were not set by hand, from text lengths."""
     c = dict(cfg)
@@ -45,8 +52,8 @@ def auto_times(cfg):
         if f.get("line"):
             end = f["t"] + 0.45 + _dur(f["line"], STEP_FACT, 0.25)
         if f.get("meta"):
-            f.setdefault("tMeta", round(end + 0.25, 2))
-            end = f["tMeta"] + _dur(f["meta"], STEP_META, 0.2)
+            f.setdefault("tMeta", round(end + 0.05, 2))
+            end = f["tMeta"] + 0.6
         c["fact"] = f
         t = end + c.get("factHold", 1.4)
     if c.get("prompt") is not None:
@@ -85,7 +92,7 @@ def topic_scene(cfg):
             line, _, _ = kinetic_html(f["line"], t0=f["t"] + 0.45, step=STEP_FACT, pause=0.25)
             parts.append(f'<p class="factline kin" dir="rtl">{line}</p>')
         if f.get("meta"):
-            m, _, _ = kinetic_html(f["meta"], t0=f["tMeta"], step=STEP_META, pause=0.2)
+            m, _, _ = kinetic_html(f["meta"], t0=f["tMeta"], step=0.03, pause=0.0)
             parts.append(f'<p class="metaline kin" dir="rtl">{m}</p>')
         fact = f'<div class="factbox">{"".join(parts)}</div>'
 
@@ -95,16 +102,18 @@ def topic_scene(cfg):
         p = cfg["prompt"]
         hl_subs = [h[0] for h in cfg.get("hls", [])]
         body, sections, hl_ids = prompt_html(prompt_text(cfg), hl_subs)
+        lifts = "".join(f'<div class="pl-lift" dir="rtl" data-for="{hid}">{_lift_html(body, hid)}</div>' for hid in hl_ids)
         tabs = ""
         if sections:
             tabs = '<div class="pc-tabs">' + "".join(
                 f'<span class="tab" data-sec="{s}">{s}<i class="tul"></i></span>' for s in SECTION_ORDER if s in sections
-            ) + "</div>"
-        pvp_top = "" if sections else ' style="top:114px"'
+            ) + '<i class="tabul"></i></div>'
+        pvp_top = "" if sections else ' style="top:110px"'
         title_txt = cfg.get("promptTitle", "הפרומפט המוכן")
         card = (f'<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>{esc(title_txt)}</span>'
                 f'<span class="pc-num" dir="ltr"><b>{p}</b> / 21</span></div>{tabs}'
-                f'<div class="pvp"{pvp_top}><div class="pct" dir="rtl">{body}<i class="pdim"></i></div></div></div>')
+                f'<div class="pvp"{pvp_top}><div class="pct" dir="rtl"><div class="pbody">{body}</div></div></div></div>'
+                f'<div class="plift">{lifts}</div>')
 
     tipbox = ""
     if cfg.get("tip"):
