@@ -1,0 +1,88 @@
+{
+ "samplerate": 48000,
+ "subtype": "PCM_24",
+ "channels": 2,
+ "peak_target_dbfs": -6.0,
+ "highpass": "200 Hz, 8th-order Butterworth (causal)",
+ "criterion": "energy below 200 Hz < 1 %",
+ "all_pass": true,
+ "sfx": {
+  "whoosh_soft": {
+   "duration_sec": 0.6696,
+   "peak_dbfs": -6.0,
+   "true_peak_dbtp": -5.99,
+   "rms_dbfs": -21.55,
+   "energy_below_200hz_pct": 0.0,
+   "energy_200_500hz_pct": 0.22,
+   "energy_3k_6k_pct": 7.62,
+   "centroid_hz": 1875.5,
+   "passes_no_bass": true
+  },
+  "tick": {
+   "duration_sec": 0.0422,
+   "peak_dbfs": -6.0,
+   "true_peak_dbtp": -5.99,
+   "rms_dbfs": -22.91,
+   "energy_below_200hz_pct": 0.0038,
+   "energy_200_500hz_pct": 0.27,
+   "energy_3k_6k_pct": 6.38,
+   "centroid_hz": 2027.8,
+   "passes_no_bass": true
+  },
+  "pop": {
+   "duration_sec": 0.1389,
+   "peak_dbfs": -6.0,
+   "true_peak_dbtp": -5.99,
+   "rms_dbfs": -20.02,
+   "energy_below_200hz_pct": 0.0065,
+   "energy_200_500hz_pct": 7.06,
+   "energy_3k_6k_pct": 0.01,
+   "centroid_hz": 708.6,
+   "passes_no_bass": true
+  },
+  "shimmer": {
+   "duration_sec": 0.795,
+   "peak_dbfs": -6.0,
+   "true_peak_dbtp": -5.96,
+   "rms_dbfs": -20.44,
+   "energy_below_200hz_pct": 0.0,
+   "energy_200_500hz_pct": 0.0,
+   "energy_3k_6k_pct": 8.03,
+   "centroid_hz": 2552.8,
+   "passes_no_bass": true
+  },
+  "snap": {
+   "duration_sec": 0.0866,
+   "peak_dbfs": -6.0,
+   "true_peak_dbtp": -5.99,
+   "rms_dbfs": -23.8,
+   "energy_below_200hz_pct": 0.0054,
+   "energy_200_500hz_pct": 0.91,
+   "energy_3k_6k_pct": 11.18,
+   "centroid_hz": 1730.1,
+   "passes_no_bass": true
+  },
+  "swipe": {
+   "duration_sec": 0.3459,
+   "peak_dbfs": -6.0,
+   "true_peak_dbtp": -5.98,
+   "rms_dbfs": -20.35,
+   "energy_below_200hz_pct": 0.0003,
+   "energy_200_500hz_pct": 1.61,
+   "energy_3k_6k_pct": 5.98,
+   "centroid_hz": 1612.8,
+   "passes_no_bass": true
+  },
+  "glitch_soft": {
+   "duration_sec": 0.1264,
+   "peak_dbfs": -6.0,
+   "true_peak_dbtp": -5.93,
+   "rms_dbfs": -20.1,
+   "energy_below_200hz_pct": 0.0001,
+   "energy_200_500hz_pct": 0.01,
+   "energy_3k_6k_pct": 6.96,
+   "centroid_hz": 1759.6,
+   "passes_no_bass": true
+  }
+ }
+}

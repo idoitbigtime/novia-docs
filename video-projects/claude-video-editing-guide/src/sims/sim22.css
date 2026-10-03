@@ -1,0 +1,27 @@
+/* 2.2 Hebrew captions in two styles: transcription fixes + white pill + kinetic */
+.sim22 .s22-phone { position: absolute; left: 430px; top: 0; width: 370px; height: 600px; border-radius: 40px; border: 2px solid rgba(201, 194, 255, 0.6); box-shadow: 0 0 26px rgba(201, 194, 255, 0.22); background: #09090f; }
+.sim22 .s22-screen { position: absolute; inset: 9px; border-radius: 31px; overflow: hidden; background: linear-gradient(180deg, #221d47 0%, #171433 55%, #0e0c1f 100%); }
+.sim22 .s22-lamp { position: absolute; left: -60px; top: -40px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(169, 147, 255, 0.22), rgba(169, 147, 255, 0) 70%); }
+.sim22 .s22-win { position: absolute; right: 22px; top: 54px; width: 86px; height: 124px; border: 2px solid rgba(201, 194, 255, 0.2); border-radius: 6px; }
+.sim22 .s22-win i { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(201, 194, 255, 0.2); display: block; }
+.sim22 .s22-person { position: absolute; left: -70px; top: -13px; width: 492px; height: 600px; }
+.sim22 .s22-caps { position: absolute; left: 14px; right: 14px; top: 404px; display: grid; place-items: center; }
+.sim22 .s22-cap { grid-area: 1 / 1; display: grid; place-items: center; opacity: 0; font: 800 38px/1.2 "Rubik"; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); white-space: nowrap; }
+.sim22 .s22-capbad, .sim22 .s22-capgood { grid-area: 1 / 1; position: relative; }
+.sim22 .s22-capbad { color: #ff6b61; }
+.sim22 .s22-capgood { color: #ffffff; opacity: 0; }
+.sim22 .s22-capstrike { position: absolute; left: -4px; right: -4px; top: 54%; height: 4px; border-radius: 2px; background: #ff6b61; display: block; opacity: 0; transform-origin: 100% 50%; }
+.sim22 .s22-pillrow { position: absolute; left: 0; right: 0; top: 318px; display: grid; place-items: center; }
+.sim22 .s22-pill { grid-area: 1 / 1; background: #ffffff; color: #0b0b0b; font: 800 32px/1 "Rubik"; padding: 14px 22px 13px; border-radius: 14px; opacity: 0; white-space: nowrap; direction: rtl; }
+.sim22 .s22-kinrow { position: absolute; left: 16px; right: 16px; top: 404px; text-align: center; font: 800 38px/1.25 "Rubik"; color: #ffffff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); }
+.sim22 .s22-kinrow .accgrp { color: #ff5a4f; font-weight: 900; }
+.sim22 .s22-fixes { position: absolute; left: 0; top: 70px; width: 392px; }
+.sim22 .s22-fix { display: flex; direction: rtl; align-items: center; gap: 16px; height: 76px; margin-bottom: 14px; }
+.sim22 .s22-bad { position: relative; font: 600 38px/1 "Rubik"; color: #ff6b61; opacity: 0; white-space: nowrap; }
+.sim22 .s22-strike { position: absolute; left: -5px; right: -5px; top: 52%; height: 4px; border-radius: 2px; background: #ff6b61; display: block; opacity: 0; transform-origin: 100% 50%; }
+.sim22 .s22-arrow { width: 46px; height: 22px; opacity: 0; flex: none; }
+.sim22 .s22-good { font: 700 40px/1 "Rubik"; color: var(--ink); opacity: 0; white-space: nowrap; }
+.sim22 .s22-label { position: absolute; left: 0; width: 392px; display: flex; direction: rtl; align-items: center; gap: 14px; font: 600 36px/1 "Rubik"; color: var(--ink); opacity: 0; }
+.sim22 .s22-label i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; }
+.sim22 .s22-l1 { top: 400px; }
+.sim22 .s22-l2 { top: 480px; }

@@ -1,0 +1,6 @@
+renders/
+frames/
+qc/
+.hyperframes/
+__pycache__/
+audio/build/

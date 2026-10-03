@@ -1,0 +1,245 @@
+"""Hebrew RTL text layout for the HyperFrames composition.
+
+Kinetic text: every word becomes its own inline-block span (so it can be animated),
+with dir="rtl" so trailing punctuation stays on the correct side. Inline-block words are
+bidi-neutral objects, so a run of two or more non-Hebrew tokens ("Claude Code", "x 140",
+"14 LUFS") is wrapped in one dir="ltr" island, otherwise it would render reversed.
+A single token with a leading minus ("-14") is isolated too, otherwise the minus sign
+lands on the wrong side in an RTL line.
+
+Markup inside text: {accent phrase} = accent color + weight 900 + underline drawn
+right to left; *strong phrase* = weight 900 only.
+"""
+import html
+import re
+
+HEB = re.compile(r"[֐-׿]")
+NEG_NUM_TOKEN = re.compile(r"^-\d")
+TRAIL_PUNCT = re.compile(r"^(.*?)([.,:;!?]+)$")
+SENTENCE_END = re.compile(r"[.!?:]$")
+
+
+def esc(s):
+    return html.escape(s, quote=True)
+
+
+def has_heb(tok):
+    return bool(HEB.search(tok))
+
+
+def parse_marked(text):
+    """Return a list of (token, style) where style is '', 'acc' or 'str', plus group ids."""
+    out = []
+    gid = 0
+    for m in re.finditer(r"\{([^}]*)\}|\*([^*]*)\*|([^{*]+)", text):
+        if m.group(1) is not None:
+            gid += 1
+            for t in m.group(1).split():
+                out.append((t, "acc", gid))
+        elif m.group(2) is not None:
+            gid += 1
+            for t in m.group(2).split():
+                out.append((t, "str", gid))
+        else:
+            for t in m.group(3).split():
+                out.append((t, "", 0))
+    return out
+
+
+def word_times(tokens, step=0.2, pause=0.32):
+    """Reading rhythm for on-screen kinetic text (no narration): one word every `step`
+    seconds, plus a pause after sentence-final punctuation."""
+    times = []
+    t = 0.0
+    for tok, _, _ in tokens:
+        times.append(round(t, 3))
+        t += step
+        if SENTENCE_END.search(tok):
+            t += pause
+    return times, round(t, 3)
+
+
+def _word_span(tok, t, style, ltr=False):
+    cls = "w" + (" s-str" if style in ("acc", "str") else "")
+    d = "ltr" if ltr else "rtl"
+    return f'<span class="{cls}" dir="{d}" data-t="{t:.3f}">{esc(tok)}</span>'
+
+
+def kinetic_html(text, t0=0.0, step=0.2, pause=0.32):
+    """Build kinetic HTML for a text block. Returns (html, end_time, accent_times)."""
+    tokens = parse_marked(text)
+    times, end = word_times(tokens, step, pause)
+    times = [t0 + t for t in times]
+    end = t0 + end
+
+    # 1) split into runs: islands of consecutive non-Hebrew tokens
+    items = []  # each: ('w', idx) or ('isl', [idx...])
+    i = 0
+    n = len(tokens)
+    while i < n:
+        if not has_heb(tokens[i][0]):
+            j = i
+            while j < n and not has_heb(tokens[j][0]) and tokens[j][2] == tokens[i][2]:
+                j += 1
+            run = list(range(i, j))
+            if len(run) >= 2 or NEG_NUM_TOKEN.match(tokens[i][0]):
+                items.append(("isl", run))
+            else:
+                items.append(("w", i))
+            i = j
+        else:
+            items.append(("w", i))
+            i += 1
+
+    # 2) emit, grouping accent/strong phrases into one inline-block with a single underline
+    parts = []
+    accent_times = []
+    k = 0
+    while k < len(items):
+        kind, val = items[k]
+        first_idx = val if kind == "w" else val[0]
+        style, gid = tokens[first_idx][1], tokens[first_idx][2]
+        if style in ("acc", "str") and gid:
+            # collect all items of this group
+            grp = []
+            while k < len(items):
+                kk, vv = items[k]
+                fi = vv if kk == "w" else vv[0]
+                if tokens[fi][2] != gid:
+                    break
+                grp.append(items[k])
+                k += 1
+            inner = " ".join(_emit(it, tokens, times) for it in grp)
+            gfirst = grp[0][1] if grp[0][0] == "w" else grp[0][1][0]
+            tg = times[gfirst]
+            if style == "acc":
+                accent_times.append(tg)
+                parts.append(
+                    f'<span class="accgrp" data-t="{tg:.3f}">{inner}'
+                    f'<i class="ul" data-t="{tg + 0.18:.3f}"></i></span>'
+                )
+            else:
+                parts.append(f'<span class="strgrp">{inner}</span>')
+            continue
+        parts.append(_emit(items[k], tokens, times))
+        k += 1
+    return " ".join(parts), end, accent_times
+
+
+def _emit(item, tokens, times):
+    kind, val = item
+    if kind == "w":
+        tok, style, _ = tokens[val]
+        return _word_span(tok, times[val], style)
+    # island: move trailing punctuation of the last token outside the LTR island
+    idxs = val
+    last_tok = tokens[idxs[-1]][0]
+    suffix = ""
+    m = TRAIL_PUNCT.match(last_tok)
+    if m and m.group(1):
+        last_tok, suffix = m.group(1), m.group(2)
+    words = []
+    for j, ix in enumerate(idxs):
+        tok = tokens[ix][0] if j < len(idxs) - 1 else last_tok
+        words.append(_word_span(tok, times[ix], tokens[ix][1], ltr=True))
+    out = f'<span class="isl" dir="ltr">{" ".join(words)}</span>'
+    if suffix:
+        out += f'<span class="w" dir="rtl" data-t="{times[idxs[-1]]:.3f}">{esc(suffix)}</span>'
+    return out
+
+
+# ---------------------------------------------------------------- prompt cards
+SECTION_TAG = re.compile(r"^<(/?)(קלט|כיוון|בנייה|מלכודות|התחלה)>$")
+NEG_IN_TEXT = re.compile(r"(?<![\w\-/=])(-\d[\d.,]*(?:\s?(?:LUFS|dBTP|dBFS|dB|Hz|kHz|ms))?)")
+
+
+def _inline_text(s):
+    """Escape plain prompt text and isolate negative numbers (bidi)."""
+    out = []
+    last = 0
+    for m in NEG_IN_TEXT.finditer(s):
+        out.append(esc(s[last:m.start()]))
+        out.append(f'<span dir="ltr" class="neg">{esc(m.group(1))}</span>')
+        last = m.end()
+    out.append(esc(s[last:]))
+    return "".join(out)
+
+
+FLAG_VALUE = re.compile(r"(?<=\S) (?=[^\s-])")
+
+
+def _code(seg, trail=""):
+    """A verbatim code span as an LTR isolate. A flag and its value ("--language he") are
+    joined with a no-break space so a line never breaks between them; punctuation that
+    follows the closing backtick stays inside the isolate, right after it."""
+    toks = seg.split(" ")
+    out = []
+    for i, tok in enumerate(toks):
+        out.append(esc(tok))
+        if i < len(toks) - 1:
+            nxt = toks[i + 1]
+            out.append("\u00a0" if tok.startswith("-") and nxt and not nxt.startswith("-") else " ")
+    return (f'<span class="code" dir="ltr"><span class="bt">`</span>{"".join(out)}<span class="bt">`</span>'
+            f'{esc(trail)}</span>')
+
+
+def prompt_line_html(line):
+    """One verbatim prompt line. Backtick code stays verbatim (backticks shown, muted)
+    inside an LTR isolate so commands read left to right."""
+    segs = line.split("`")
+    out = []
+    i = 0
+    carry = ""
+    while i < len(segs):
+        seg = segs[i]
+        if i % 2 == 1 and i < len(segs) - 1:
+            nxt = segs[i + 1]
+            m = re.match(r"^[.,:;!?)]+", nxt)
+            trail = m.group(0) if m else ""
+            segs[i + 1] = nxt[len(trail):]
+            out.append(_code(seg, trail))
+        elif i % 2 == 1:
+            out.append(_inline_text("`" + seg))
+        else:
+            out.append(_inline_text(seg))
+        i += 1
+    return "".join(out)
+
+
+def prompt_html(text, highlights=()):
+    """Verbatim prompt as lines. Returns (html, sections, hl_ids).
+    highlights: substrings; the first line containing each gets an id hl{n}."""
+    lines = text.split("\n")
+    out = []
+    sections = []
+    hl_ids = []
+    used = set()
+    for li, ln in enumerate(lines):
+        if not ln.strip():
+            out.append('<div class="pl pl-empty"></div>')
+            continue
+        m = SECTION_TAG.match(ln.strip())
+        if m:
+            sec = m.group(2)
+            closing = bool(m.group(1))
+            attrs = f' data-sec="{sec}"' if not closing else ""
+            if not closing:
+                sections.append(sec)
+            out.append(f'<div class="pl ptag{" pclose" if closing else ""}" dir="rtl"{attrs}>{esc(ln)}</div>')
+            continue
+        hid = ""
+        for hi, sub in enumerate(highlights):
+            if hi in used:
+                continue
+            if sub in ln:
+                hid = f"hl{hi + 1}"
+                used.add(hi)
+                hl_ids.append(hid)
+                break
+        idattr = f' data-hl="{hid}"' if hid else ""
+        bg = '<i class="hlbg"></i>' if hid else ""
+        out.append(f'<div class="pl" dir="rtl"{idattr}>{bg}{prompt_line_html(ln)}</div>')
+    missing = [h for i, h in enumerate(highlights) if i not in used]
+    if missing:
+        raise ValueError(f"highlight substrings not found: {missing}")
+    return "\n".join(out), sections, hl_ids

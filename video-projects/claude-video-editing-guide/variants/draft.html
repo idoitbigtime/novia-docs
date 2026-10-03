@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="he">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=540, height=960" />
+<title>עריכת וידאו עם Claude</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+/* IBM Plex Mono 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 300 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-300.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-300.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-300.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 400 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-400.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 500 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-500.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 600 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-600.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 700 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-700.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Rubik 300 900 normal — hebrew */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-hebrew-300-900.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* Rubik 300 900 normal — latin-ext */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-ext-300-900.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Rubik 300 900 normal — latin */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-300-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Design tokens. Safe area for text: x 140..940, y 300..1570 (1080x1920). */
+:root {
+  --bg: #06060b;
+  --ink: #f5f2ea;
+  --ink2: #dcd9e6;
+  --muted: #9c99ae;
+  --acc: #ff453a;
+  --acc-soft: #ff8a80;
+  --line: #c9c2ff;
+  --line-glow: rgba(201, 194, 255, 0.55);
+  --panel: rgba(18, 17, 34, 0.96);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: "Rubik", sans-serif; }
+.stagewrap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; overflow: hidden; }
+
+/* ---------- background ---------- */
+#bg { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #08080f 0%, #0b0a17 55%, #07070d 100%); }
+#bg .glow { position: absolute; border-radius: 50%; }
+#bg .g1 { width: 1500px; height: 1500px; left: -420px; top: -380px; background: radial-gradient(circle, rgba(124, 92, 255, 0.20) 0%, rgba(124, 92, 255, 0.07) 38%, rgba(124, 92, 255, 0) 66%); }
+#bg .g2 { width: 1400px; height: 1400px; left: 260px; top: 980px; background: radial-gradient(circle, rgba(255, 69, 58, 0.15) 0%, rgba(255, 69, 58, 0.05) 40%, rgba(255, 69, 58, 0) 66%); }
+#bg .grain { position: absolute; inset: 0; background-image: url("assets/grain.png"); background-size: 256px 256px; opacity: 0.07; mix-blend-mode: screen; }
+#bg .vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
+
+#cam { position: absolute; inset: 0; transform-origin: 540px 960px; }
+.scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.part { position: absolute; inset: 0; }
+
+/* ---------- header (chapter indicator) ---------- */
+.hdr { position: absolute; top: 300px; left: 140px; width: 800px; height: 46px; display: flex; justify-content: space-between; align-items: center; direction: rtl; opacity: 0; }
+.hdr-ch { font: 500 26px/1 "Rubik"; color: var(--muted); }
+.hdr-num { font: 600 25px/1 "IBM Plex Mono"; color: var(--acc); border: 1.5px solid rgba(255, 69, 58, 0.55); border-radius: 10px; padding: 7px 12px 6px; }
+
+/* ---------- kinetic text ---------- */
+.kin { direction: rtl; text-align: right; }
+.w { display: inline-block; white-space: pre; opacity: 0; }
+.isl { unicode-bidi: isolate; }
+.accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
+.accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
+.strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+
+/* ---------- topic layout ---------- */
+.main { position: absolute; top: 366px; left: 140px; width: 800px; height: 1200px; display: flex; flex-direction: column; gap: 18px; direction: rtl; }
+.ttl { font: 800 62px/1.16 "Rubik"; color: var(--ink); letter-spacing: -0.005em; }
+.exp { font: 400 38px/1.42 "Rubik"; color: var(--ink2); }
+.exp .accgrp { font-weight: 800; }
+.stage { position: relative; width: 800px; flex: 1 1 auto; min-height: 520px; margin-top: 10px; opacity: 0; }
+.simtag { position: absolute; top: calc(50% - 352px); left: 0; display: flex; align-items: center; gap: 10px; font: 500 22px/1 "Rubik"; color: var(--muted); direction: rtl; opacity: 0; }
+.simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
+.simwrap { position: absolute; left: 0; right: 0; top: calc(50% - 300px); height: 600px; }
+
+/* fact overlay inside the stage */
+.factbox { position: absolute; left: 0; right: 0; top: calc(50% - 150px); display: flex; flex-direction: column; align-items: center; gap: 30px; direction: rtl; }
+.pill { display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
+.factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
+.metaline { font: 400 28px/1.4 "Rubik"; color: var(--muted); text-align: center; max-width: 760px; }
+.metaline .w, .factline .w { opacity: 0; }
+
+/* ---------- prompt card ---------- */
+.pcard { position: absolute; left: 110px; top: 366px; width: 860px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
+.pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
+.pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
+.pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
+.pc-num b { color: var(--ink); font-weight: 600; }
+.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 68px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
+.tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
+.tab .tul { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
+.pvp { position: absolute; top: 186px; bottom: 26px; left: 30px; right: 30px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0px, #000 36px, #000 calc(100% - 80px), rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0px, #000 36px, #000 calc(100% - 80px), rgba(0,0,0,0) 100%); }
+.pct { position: absolute; top: 18px; left: 0; right: 0; direction: rtl; font: 400 32px/1.5 "Rubik"; color: #e7e4f1; white-space: normal; padding-bottom: 120px; }
+.pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
+.pl-empty { height: 22px; }
+.ptag { color: var(--acc-soft); font-weight: 600; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 27px; color: #ffd9a8; background: rgba(255, 255, 255, 0.06); border-radius: 6px; padding: 0 5px; overflow-wrap: anywhere; }
+.code .bt { color: #807c96; }
+.hlbg { position: absolute; z-index: -1; top: -3px; bottom: -3px; left: -2px; right: -2px; background: rgba(255, 69, 58, 0.17); border-right: 5px solid var(--acc); border-radius: 10px; opacity: 0; display: block; }
+
+/* ---------- tip ---------- */
+.tipbox { position: absolute; left: 140px; width: 800px; top: 760px; direction: rtl; text-align: right; opacity: 0; }
+.tip-badge { display: inline-flex; align-items: center; gap: 12px; font: 700 30px/1 "Rubik"; color: #ffffff; background: var(--acc); border-radius: 12px; padding: 12px 18px 11px; margin-bottom: 30px; }
+.tip-text { font: 600 48px/1.36 "Rubik"; color: var(--ink); }
+.tip-text .w { opacity: 0; }
+
+/* ---------- chapter card ---------- */
+.chap { position: absolute; inset: 0; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); }
+.ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
+.ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 30px/1.45 "Rubik"; color: var(--muted); }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0; }
+.ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
+.ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+
+/* 2.2 Hebrew captions in two styles: transcription fixes + white pill + kinetic */
+.sim22 .s22-phone { position: absolute; left: 430px; top: 0; width: 370px; height: 600px; border-radius: 40px; border: 2px solid rgba(201, 194, 255, 0.6); box-shadow: 0 0 26px rgba(201, 194, 255, 0.22); background: #09090f; }
+.sim22 .s22-screen { position: absolute; inset: 9px; border-radius: 31px; overflow: hidden; background: linear-gradient(180deg, #221d47 0%, #171433 55%, #0e0c1f 100%); }
+.sim22 .s22-neon { position: absolute; left: 36px; top: 52px; width: 6px; height: 230px; border-radius: 3px; background: #a993ff; box-shadow: 0 0 18px 4px rgba(169, 147, 255, 0.55); opacity: 0.85; }
+.sim22 .s22-shelf { position: absolute; right: 28px; top: 138px; width: 96px; height: 4px; border-radius: 2px; background: rgba(201, 194, 255, 0.35); }
+.sim22 .s22-person { position: absolute; left: 0; bottom: 0; width: 352px; height: 429px; }
+.sim22 .s22-pillrow { position: absolute; left: 0; right: 0; top: 262px; display: grid; place-items: center; }
+.sim22 .s22-pill { grid-area: 1 / 1; background: #ffffff; color: #0b0b0b; font: 800 32px/1 "Rubik"; padding: 14px 22px 13px; border-radius: 14px; opacity: 0; white-space: nowrap; direction: rtl; }
+.sim22 .s22-kinrow { position: absolute; left: 16px; right: 16px; top: 372px; text-align: center; font: 800 38px/1.25 "Rubik"; color: #ffffff; text-shadow: 0 3px 12px rgba(0, 0, 0, 0.55); }
+.sim22 .s22-kinrow .accgrp { color: #ff5a4f; font-weight: 900; }
+.sim22 .s22-fixes { position: absolute; left: 0; top: 70px; width: 410px; }
+.sim22 .s22-fix { display: flex; direction: rtl; align-items: center; gap: 18px; height: 76px; margin-bottom: 14px; }
+.sim22 .s22-bad { position: relative; font: 600 38px/1 "Rubik"; color: #ff6b61; opacity: 0; white-space: nowrap; }
+.sim22 .s22-strike { position: absolute; left: -5px; right: -5px; top: 52%; height: 4px; border-radius: 2px; background: #ff6b61; display: block; opacity: 0; transform-origin: 100% 50%; }
+.sim22 .s22-arrow { width: 46px; height: 22px; opacity: 0; flex: none; }
+.sim22 .s22-good { font: 700 40px/1 "Rubik"; color: var(--ink); opacity: 0; white-space: nowrap; }
+.sim22 .s22-label { position: absolute; left: 0; width: 410px; display: flex; direction: rtl; align-items: center; gap: 14px; font: 600 34px/1 "Rubik"; color: var(--ink); opacity: 0; }
+.sim22 .s22-label i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; }
+.sim22 .s22-l1 { top: 400px; }
+.sim22 .s22-l2 { top: 480px; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="15.000" data-fps="30" data-width="540" data-height="960">
+<div class="stagewrap" style="transform: scale(0.5);">
+<div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
+<div id="cam">
+<div id="sc-t22" class="clip scene" data-start="0.000" data-duration="15.000" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 2 · עריכה בסיסית</span><span class="hdr-num" dir="ltr">2.2</span></div>
+<div class="part part-main"><div class="main">
+<h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">כתוביות</span> <span class="w" dir="rtl" data-t="0.430">בעברית</span> <span class="w" dir="rtl" data-t="0.560">בשני</span> <span class="w" dir="rtl" data-t="0.690">סגנונות</span></h2>
+<p class="exp kin" dir="rtl"><span class="w" dir="rtl" data-t="1.350">התמלול</span> <span class="w" dir="rtl" data-t="1.530">נעשה</span> <span class="w" dir="rtl" data-t="1.710">עם</span> <span class="w" dir="rtl" data-t="1.890">המודל</span> <span class="w" dir="rtl" data-t="2.070">הגדול</span> <span class="w" dir="rtl" data-t="2.250">(large-v3),</span> <span class="w" dir="rtl" data-t="2.430">כי</span> <span class="w" dir="rtl" data-t="2.610">ברירת</span> <span class="w" dir="rtl" data-t="2.790">המחדל</span> <span class="w" dir="rtl" data-t="2.970">של</span> <span class="w" dir="rtl" data-t="3.150">HyperFrames</span> <span class="w" dir="rtl" data-t="3.330">מבינה</span> <span class="w" dir="rtl" data-t="3.510">רק</span> <span class="w" dir="rtl" data-t="3.690">אנגלית.</span> <span class="w" dir="rtl" data-t="4.190">אחר</span> <span class="w" dir="rtl" data-t="4.370">כך</span> <span class="w" dir="rtl" data-t="4.550">קלוד</span> <span class="w" dir="rtl" data-t="4.730">קורא</span> <span class="w" dir="rtl" data-t="4.910">כל</span> <span class="w" dir="rtl" data-t="5.090">כתובית</span> <span class="accgrp" data-t="5.270"><span class="w s-str" dir="rtl" data-t="5.270">כמשפט</span> <span class="w s-str" dir="rtl" data-t="5.450">שלם</span><i class="ul" data-t="5.450"></i></span> <span class="w" dir="rtl" data-t="5.630">ומתקן</span> <span class="w" dir="rtl" data-t="5.810">מילים</span> <span class="w" dir="rtl" data-t="5.990">שנשמעות</span> <span class="w" dir="rtl" data-t="6.170">אותו</span> <span class="w" dir="rtl" data-t="6.350">דבר</span> <span class="w" dir="rtl" data-t="6.530">ונכתבות</span> <span class="w" dir="rtl" data-t="6.710">אחרת.</span></p>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="simwrap sim22">
+<div class="s22-phone"><div class="s22-screen"><div class="s22-neon"></div><div class="s22-shelf"></div>
+<svg class="s22-person" viewBox="0 0 312 380" aria-hidden="true">
+<defs>
+<linearGradient id="pf22" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
+<linearGradient id="pr22" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
+</defs>
+<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380 Z" fill="url(#pf22)"/>
+<rect x="128" y="196" width="56" height="70" rx="22" fill="url(#pf22)"/>
+<ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pf22)"/>
+<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#pr22)" stroke-width="3"/>
+<ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#pr22)" stroke-width="3"/>
+</svg>
+<div class="s22-pillrow"><span class="s22-pill" id="t22-p1">הכתוביות</span><span class="s22-pill" id="t22-p2">מתחלפות</span><span class="s22-pill" id="t22-p3">בפריים אחד</span><span class="s22-pill" id="t22-p4">בלי אנימציה</span></div>
+<div class="s22-kinrow kin" dir="rtl"><span class="w" dir="rtl" data-t="15.000">וכאן</span> <span class="w" dir="rtl" data-t="15.360">כל</span> <span class="w" dir="rtl" data-t="15.720">מילה</span> <span class="w" dir="rtl" data-t="16.080">נכנסת</span> <span class="accgrp" data-t="16.440"><span class="w s-str" dir="rtl" data-t="16.440">בתנועה</span><i class="ul" data-t="16.620"></i></span></div>
+</div></div>
+<div class="s22-fixes"><div class="s22-fix"><span class="s22-bad">הקאבל<i class="s22-strike"></i></span><svg class="s22-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="s22-good">הכבל</span></div><div class="s22-fix"><span class="s22-bad">בסכוכית<i class="s22-strike"></i></span><svg class="s22-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="s22-good">בזכוכית</span></div><div class="s22-fix"><span class="s22-bad">מחובר עליו<i class="s22-strike"></i></span><svg class="s22-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="s22-good">מחובר אליו</span></div></div>
+<div class="s22-label s22-l1"><i></i><span>סגנון 1 · גלולה לבנה</span></div>
+<div class="s22-label s22-l2"><i></i><span>סגנון 2 · קינטי</span></div>
+</div><div class="factbox"><span class="pill">9 טעויות תמלול</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="18.050">בקטע</span> <span class="w" dir="rtl" data-t="18.200">של</span> <span class="w" dir="rtl" data-t="18.350">33</span> <span class="w" dir="rtl" data-t="18.500">שניות:</span> <span class="w" dir="rtl" data-t="18.900">7</span> <span class="w" dir="rtl" data-t="19.050">נתפסו</span> <span class="w" dir="rtl" data-t="19.200">בקריאה,</span> <span class="w" dir="rtl" data-t="19.350">ו-2</span> <span class="w" dir="rtl" data-t="19.500">רק</span> <span class="w" dir="rtl" data-t="19.650">באוזן.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="20.000">הכתוביות</span> <span class="w" dir="rtl" data-t="20.130">בסרטון</span> <span class="w" dir="rtl" data-t="20.260">הזה</span> <span class="w" dir="rtl" data-t="20.390">בנויות</span> <span class="w" dir="rtl" data-t="20.520">באותה</span> <span class="w" dir="rtl" data-t="20.650">שיטה.</span></p></div></div>
+</div></div>
+<div class="part part-prompt"><div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>2</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span></div><div class="pvp"><div class="pct" dir="rtl"><div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על שלושה דברים:</div>
+<div class="pl" dir="rtl">- איזה סרטון לערוך, אם יש בתיקייה יותר מאחד.</div>
+<div class="pl" dir="rtl">- איזה סגנון כתוביות לבנות, אחד מהשניים:</div>
+<div class="pl" dir="rtl">  - גלולה לבנה עם טקסט שחור, שורה אחת באמצע המסך.</div>
+<div class="pl" dir="rtl">  - כתוביות קינטיות, שבהן כל מילה נכנסת למסך בתנועה ברגע שהיא נאמרת.</div>
+<div class="pl" dir="rtl">- צבע הדגשה למילים החשובות (ברירת המחדל אדום) ופונט עברי (ברירת המחדל Rubik).</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/קלט&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="כיוון">&lt;כיוון&gt;</div>
+<div class="pl" dir="rtl">כל מילה שנאמרת מופיעה בכתוביות, בדיוק כמו שנאמרה, כולל פיסוק.</div>
+<div class="pl" dir="rtl">שם של מוצר או תקן (iPhone, USB) נכתב באנגלית, ומילה שעברה לעברית (פרומפט, אינטרנט) נכתבת בעברית.</div>
+<div class="pl" dir="rtl">מספר מדויק נכתב בספרות, ו&quot;אלף&quot; או &quot;אלפי&quot; נשארים במילים, למשל &quot;200 אלף&quot;.</div>
+<div class="pl" dir="rtl">בלי מקף בין שתי מילים.</div>
+<div class="pl" dir="rtl">כתובית לא נחתכת בין מילים ששייכות יחד, כמו &quot;כבל רשת&quot; או &quot;מחובר אליו&quot;.</div>
+<div class="pl" dir="rtl">אם בחרתי גלולה:</div>
+<div class="pl" dir="rtl">- מלבן לבן עם פינות מעוגלות (רדיוס 20), בגובה של בערך 100 פיקסלים ברוחב 1080, וטקסט שחור במשקל 800, במרכז המסך לרוחב ולגובה.</div>
+<div class="pl" dir="rtl">- בכל כתובית 1 עד 4 מילים (רוב הזמן 3), עד 18 תווים, בין 0.3 ל-1.2 שניות, וכתובית שנמתחת מעבר ל-1.2 בגלל הפסקה מתפצלת לשתיים.</div>
+<div class="pl" dir="rtl">- כתובית נסגרת על פסיק או נקודה שנופלים במילה השנייה עד הרביעית.</div>
+<div class="pl" dir="rtl">- הכתוביות מתחלפות בלי אנימציה, בפריים אחד, בלי חור ובלי חפיפה ביניהן.</div>
+<div class="pl" dir="rtl">- 1 עד 4 מילים בצבע ההדגשה בכל הסרטון: שם של מוצר בפעם הראשונה שהוא נאמר, מספר, או מילה של דחיפות כמו &quot;עכשיו&quot;.</div>
+<div class="pl" dir="rtl">אם בחרתי כתוביות קינטיות:</div>
+<div class="pl" dir="rtl">- בכל קבוצה 1 עד 3 מילים, שיורדות שורה אם הן לא נכנסות בשורה אחת, עד 3 שורות, בפס קבוע בחלק התחתון של המרכז.</div>
+<div class="pl" dir="rtl">- כל מילה נכנסת בתחילת המילה המדוברת, בתנועת קפיץ: מתבהרת מטשטוש, וגדלה מעט מעל הגודל הסופי ומתיישבת.</div>
+<div class="pl" dir="rtl">- המילה החזקה בכל משפט במשקל 900 וקצת יותר גדולה, ועד 8 מילים בצבע ההדגשה בכל הסרטון, עם קו תחתון דק שנמתח מימין לשמאל.</div>
+<div class="pl" dir="rtl">- המילה האחרונה בכל קבוצה נשארת על המסך לפחות 0.3 שנייה, ומילה שמתחילה פחות מ-0.3 שנייה אחריה עוברת לאותה קבוצה.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/כיוון&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="בנייה">&lt;בנייה&gt;</div>
+<div class="pl" dir="rtl">1. אם כבר חתכתי את הסרטון עם פרומפט החיתוך, תשתמש בזמני המילים שחושבו שם, ורק אם אין כאלה תתמלל עם <span class="code" dir="ltr"><span class="bt">`</span>npx hyperframes transcribe &lt;הקובץ&gt; --language he --model large-v3<span class="bt">`</span></span>.</div>
+<div class="pl" dir="rtl">2. תקרא את כל הכתוביות כמשפטים שלמים ותתקן מילים שנשמעות אותו דבר ונכתבות אחרת: א/ע, כ/ח, ט/ת, ק/כ, ב/ו, ס/ז, ס/ש (למשל &quot;מחובר אליו&quot; ולא &quot;עליו&quot;, &quot;בזכוכית&quot; ולא &quot;בסכוכית&quot;).</div>
+<div class="pl" dir="rtl">3. תתקן גם מילים ש-whisper פיצל או הדביק (&quot;על פיות&quot; שהיא &quot;אלפיות&quot;), ראשי תיבות בלי גרשיים (כמש שהוא קמ&quot;ש), וכתיב של מילים לועזיות, ותשאיר את הניסוח המדובר כמו שהוא.</div>
+<div class="pl" dir="rtl">4. תתקן את הזמנים לפי עוצמת הקול: אחרי שקט whisper מקדים את המילה ב-0.1 עד 0.3 שנייה או מכניס את השקט לתוכה, אז המילה מתחילה ברגע הראשון שבו הקול עולה.</div>
+<div class="pl" dir="rtl">5. את שכבת הכתוביות תבנה בעצמך בקוד, כקומפוזיציה של HyperFrames מעל הסרטון, ולא דרך הסקיל <span class="code" dir="ltr"><span class="bt">`</span>embedded-captions<span class="bt">`</span></span> שהסקיל <span class="code" dir="ltr"><span class="bt">`</span>hyperframes<span class="bt">`</span></span> מפנה אליו, כי אין בו עברית ואין בו את שני הסגנונות.</div>
+<div class="pl" dir="rtl">6. אם Rubik לא נמצא בתיקיית הפרויקט, תוריד אותו מ-Google Fonts לתיקייה <span class="code" dir="ltr"><span class="bt">`</span>assets/fonts<span class="bt">`</span></span> ותטען אותו עם <span class="code" dir="ltr"><span class="bt">`</span>@font-face<span class="bt">`</span></span>.</div>
+<div class="pl" dir="rtl">7. אם בחרתי בשני הסגנונות, כל סגנון נבנה בתיקיית פרויקט משלו.</div>
+<div class="pl" dir="rtl">8. תמסור את הסרטון עם הכתוביות ובלי הכתוביות, באותה רזולוציה, באותו אורך ועם הקול המקורי (<span class="code" dir="ltr"><span class="bt">`</span>data-has-audio=&quot;true&quot;<span class="bt">`</span></span> בלי <span class="code" dir="ltr"><span class="bt">`</span>muted<span class="bt">`</span></span>).</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/בנייה&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="מלכודות">&lt;מלכודות&gt;</div>
+<div class="pl" dir="rtl">כל זמן של כתובית מעוגל לפריים, ואחרי הרינדור תבדוק בפריימים שאין בשום החלפה פריים בלי כתובית, כי הבדיקה האוטומטית של HyperFrames לא תופסת את זה.</div>
+<div class="pl" dir="rtl">את הטשטוש בקינטי תנפיש בנפרד מהקפיץ, ולא תיתן לו לרדת מתחת ל-0, כי הדפדפן פוסל <span class="code" dir="ltr"><span class="bt">`</span>blur<span class="bt">`</span></span> שלילי והמילה נשארת מטושטשת.</div>
+<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i><span class="code" dir="ltr"><span class="bt">`</span>dir=&quot;rtl&quot;<span class="bt">`</span></span> לא נכנס לתגית ה-html, כי אז הרינדור יוצא שחור.</div>
+<div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>כל מילה ב-span משלה עם <span class="code" dir="ltr"><span class="bt">`</span>dir=&quot;rtl&quot;<span class="bt">`</span></span>, אחרת פסיק או נקודה בסוף המילה עוברים לצד הלא נכון.</div>
+<div class="pl" dir="rtl">בתוך flex הרווח בין שני span נעלם, אז המרווח בין מילים נקבע עם gap.</div>
+<div class="pl" dir="rtl">הפונט נטען עם טקסט עברי, <span class="code" dir="ltr"><span class="bt">`</span>document.fonts.load(&#x27;800 100px Rubik&#x27;, &#x27;אבג&#x27;)<span class="bt">`</span></span>, אחרת נטען רק החלק הלטיני ורוחבי המילים יוצאים שגויים.</div>
+<div class="pl" dir="rtl">טקסט רק בין x 140 ל-940 מתוך 1080, כי בטלפונים גבוהים אינסטגרם חותך את הצדדים.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/מלכודות&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="התחלה">&lt;התחלה&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על הקלט, תתמלל, ותראה לי את כל הכתוביות כרשימת משפטים עם זמנים, עם סימון של כל מילה שתיקנת, של המילים להדגשה ושל מילים שאתה לא בטוח בהן, כדי שאבדוק אותן באוזן.</div>
+<div class="pl" dir="rtl">אחרי שאישרתי, תרנדר תצוגה של 10 שניות (תשנה זמנית את <span class="code" dir="ltr"><span class="bt">`</span>data-duration<span class="bt">`</span></span> ל-10 ותרנדר עם <span class="code" dir="ltr"><span class="bt">`</span>--quality draft<span class="bt">`</span></span>), ואת כל הסרטון רק אחרי שאישרתי את הסגנון.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div></div></div></div></div>
+<div class="part part-tip"><div class="tipbox"><div class="tip-badge">טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="33.000">לפני</span> <span class="w" dir="rtl" data-t="33.160">שמאשרים,</span> <span class="w" dir="rtl" data-t="33.320">מקשיבים</span> <span class="w" dir="rtl" data-t="33.480">לכל</span> <span class="w" dir="rtl" data-t="33.640">מילה</span> <span class="w" dir="rtl" data-t="33.800">שקלוד</span> <span class="w" dir="rtl" data-t="33.960">מסמן</span> <span class="w" dir="rtl" data-t="34.120">שהוא</span> <span class="w" dir="rtl" data-t="34.280">לא</span> <span class="w" dir="rtl" data-t="34.440">בטוח</span> <span class="w" dir="rtl" data-t="34.600">בה.</span></p></div></div></div>
+</div>
+</div>
+</div>
+<script>
+/* Runtime helpers that add tweens to one paused GSAP master timeline.
+   Every tween is a fromTo with explicit values and immediateRender:false (CSS holds the
+   initial state), so any frame can be rendered by seeking to it in any order. */
+(function () {
+  const E = (window.ENG = {});
+  // The guide's no-overshoot spring (prompts 9 and 13).
+  const SPRING = (p) => (1 - (1 + 7 * p) * Math.exp(-7 * p)) / (1 - 8 * Math.exp(-7));
+  E.SPRING = SPRING;
+  E.debug = (window.__ENG_DEBUG = { scenes: {} });
+  E.q = (s, r) => (r || document).querySelector(s);
+  E.qa = (s, r) => Array.from((r || document).querySelectorAll(s));
+  E.off = function (el, top) {
+    let x = 0, y = 0, e = el;
+    while (e && e !== top) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+    return { x, y };
+  };
+  E.center = function (el, top) {
+    const o = E.off(el, top);
+    return { x: o.x + el.offsetWidth / 2, y: o.y + el.offsetHeight / 2 };
+  };
+  const NI = { immediateRender: false };
+  E.NI = NI;
+  /* Deterministic PRNG (mulberry32): never use Math.random in scenes. */
+  E.rand = function (seed) {
+    let a = seed >>> 0;
+    return function () { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  };
+
+  E.fadeIn = function (tl, el, t, d, dy) {
+    tl.fromTo(el, { opacity: 0, y: dy || 0 }, Object.assign({ opacity: 1, y: 0, duration: d || 0.5, ease: SPRING }, NI), t);
+  };
+  E.fadeOut = function (tl, el, t, d, dy) {
+    tl.fromTo(el, { opacity: 1, y: 0 }, Object.assign({ opacity: 0, y: dy || 0, duration: d || 0.35, ease: "power2.in" }, NI), t);
+  };
+  E.dim = function (tl, el, t, to, from) {
+    tl.fromTo(el, { opacity: from == null ? 1 : from }, Object.assign({ opacity: to, duration: 0.35, ease: "power2.out" }, NI), t);
+  };
+
+  /* Kinetic words: each word enters on its time with a spring (slightly above final size,
+     then settles) and unblurs. Blur is animated separately from the spring and ends on
+     0px then "none", so it never goes negative (prompt 2's pitfall). */
+  E.kin = function (tl, root, S, o) {
+    if (!root) return;
+    o = o || {};
+    const dy = o.dy == null ? 18 : o.dy;
+    E.qa(".w", root).forEach((w) => {
+      const t = S + parseFloat(w.dataset.t || "0");
+      tl.fromTo(w, { opacity: 0 }, Object.assign({ opacity: 1, duration: 0.22, ease: "power2.out" }, NI), t);
+      tl.fromTo(w, { y: dy, scale: 0.82 }, Object.assign({ y: 0, scale: 1, duration: 0.62, ease: "back.out(2.1)" }, NI), t);
+      tl.fromTo(w, { filter: "blur(9px)" }, Object.assign({ filter: "blur(0px)", duration: 0.3, ease: "power2.out" }, NI), t);
+      tl.set(w, { filter: "none" }, t + 0.31);
+    });
+    E.qa(".ul", root).forEach((u) => {
+      const t = S + parseFloat(u.dataset.t || "0");
+      tl.fromTo(u, { opacity: 1, scaleX: 0 }, Object.assign({ opacity: 1, scaleX: 1, duration: 0.5, ease: "power3.inOut" }, NI), t);
+    });
+  };
+
+  /* White pill caption: switches in one frame, no animation (prompt 2). */
+  E.pill = function (tl, el, tin, tout) {
+    tl.set(el, { opacity: 1 }, tin);
+    if (tout != null) tl.set(el, { opacity: 0 }, tout);
+  };
+
+  /* Bouncy zoom on the camera: 10-15% punch-in with the guide's spring, centred on (cx, cy). */
+  E.zoom = function (tl, ctx, cx, cy, t, amt, tBack, backDur) {
+    tl.set(ctx.cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(ctx.cam, { scale: 1 }, Object.assign({ scale: 1 + amt, duration: 0.8, ease: SPRING }, NI), t);
+    if (tBack != null) {
+      if (backDur) tl.fromTo(ctx.cam, { scale: 1 + amt }, Object.assign({ scale: 1, duration: backDur, ease: "power2.inOut" }, NI), tBack);
+      else tl.set(ctx.cam, { scale: 1 }, tBack);
+    }
+  };
+  E.zoomOn = function (tl, ctx, el, t, amt, tBack, backDur) {
+    const c = E.center(el, ctx.stage);
+    E.zoom(tl, ctx, c.x, c.y, t, amt, tBack, backDur);
+  };
+
+  /* Prompt card: enters, scrolls the full verbatim text, holds on highlighted lines
+     (highlight bar + bouncy zoom), lights the section tabs, exits at t1. */
+  E.prompt = function (tl, ctx, card, t0, t1, hls) {
+    const vp = E.q(".pvp", card), ct = E.q(".pct", card);
+    const vh = vp.clientHeight, H = ct.scrollHeight;
+    const maxS = Math.max(0, H - vh + 40);
+    tl.fromTo(card, { opacity: 0, y: 80, scale: 0.97 }, Object.assign({ opacity: 1, y: 0, scale: 1, duration: 0.75, ease: SPRING }, NI), t0 - 0.14);
+    const lead = 0.9, tail = 0.9, exitD = 0.35;
+    const stops = (hls || []).map((h) => {
+      const ln = E.q('[data-hl="' + h.id + '"]', card);
+      const target = Math.min(maxS, Math.max(0, ln.offsetTop - vh * 0.3));
+      return { ln, target, hold: h.hold || 1.8, zoom: h.zoom == null ? 0.1 : h.zoom };
+    });
+    const pts = [0].concat(stops.map((s) => s.target)).concat([maxS]);
+    const holdsT = stops.reduce((a, s) => a + s.hold, 0);
+    const moveT = Math.max(0.6, t1 - t0 - lead - tail - holdsT - exitD);
+    const dists = pts.slice(1).map((p, i) => Math.abs(p - pts[i]));
+    const D = dists.reduce((a, b) => a + b, 0) || 1;
+    const plan = [];
+    const holds = [];
+    let t = t0 + lead;
+    for (let i = 0; i < dists.length; i++) {
+      const segT = (moveT * dists[i]) / D;
+      if (dists[i] > 0.5 && segT > 0.05) {
+        plan.push({ t, dur: segT, from: pts[i], to: pts[i + 1] });
+        tl.fromTo(ct, { y: -pts[i] }, Object.assign({ y: -pts[i + 1], duration: segT, ease: "sine.inOut" }, NI), t);
+      }
+      t += segT;
+      if (i < stops.length) {
+        const s = stops[i];
+        tl.fromTo(E.q(".hlbg", s.ln), { opacity: 0 }, Object.assign({ opacity: 1, duration: 0.3, ease: "power2.out" }, NI), t);
+        const vpo = E.off(vp, ctx.stage);
+        const cy = vpo.y + ct.offsetTop + (s.ln.offsetTop - s.target) + s.ln.offsetHeight / 2;
+        const cx = vpo.x + vp.clientWidth / 2;
+        if (s.zoom) E.zoom(tl, ctx, cx, cy, t, s.zoom, t + s.hold - 0.5, 0.5);
+        holds.push({ t: +t.toFixed(3), hold: s.hold });
+        t += s.hold;
+      }
+    }
+    // section tabs
+    const scrollAt = (tt) => {
+      let y = 0;
+      for (const p of plan) {
+        if (tt <= p.t) break;
+        const k = Math.min(1, (tt - p.t) / p.dur);
+        y = p.from + (p.to - p.from) * (0.5 - Math.cos(Math.PI * k) / 2);
+      }
+      return y;
+    };
+    const tabs = E.qa(".tab", card);
+    let prev = null;
+    tabs.forEach((tab, i) => {
+      const ln = E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card);
+      let ta = t0 + 0.3;
+      if (ln && i > 0) {
+        const ly = ln.offsetTop;
+        for (let tt = t0; tt <= t1; tt += 1 / 30) { if (ly - scrollAt(tt) <= vh * 0.42) { ta = tt; break; } ta = t1; }
+      }
+      if (prev) {
+        tl.fromTo(prev, { color: "#f5f2ea" }, Object.assign({ color: "#9c99ae", duration: 0.25 }, NI), ta);
+        tl.fromTo(E.q(".tul", prev), { opacity: 1 }, Object.assign({ opacity: 0, duration: 0.25 }, NI), ta);
+      }
+      tl.fromTo(tab, { color: "#9c99ae" }, Object.assign({ color: "#f5f2ea", duration: 0.25 }, NI), ta);
+      tl.fromTo(E.q(".tul", tab), { opacity: 0 }, Object.assign({ opacity: 1, duration: 0.25 }, NI), ta);
+      prev = tab;
+    });
+    tl.fromTo(card, { opacity: 1, y: 0 }, Object.assign({ opacity: 0, y: -50, duration: exitD, ease: "power2.in" }, NI), t1 - exitD);
+    return { plan, holds, maxS, vh, end: t };
+  };
+
+  E.tip = function (tl, ctx, box, S, t0, t1) {
+    E.fadeIn(tl, box, t0, 0.5, 30);
+    E.kin(tl, E.q(".tip-text", box), S);
+    E.fadeOut(tl, box, t1 - 0.35, 0.35, -30);
+  };
+
+  /* Standard topic scene: header, kinetic title + explanation (zoom on the accent phrase),
+     simulation stage, fact overlay, prompt card, tip. All cfg times are scene-local. */
+  E.topic = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const hdr = E.q(".hdr", sc), main = E.q(".part-main", sc);
+    E.fadeIn(tl, hdr, S + 0.05, 0.5, 0);
+    E.kin(tl, E.q(".ttl", sc), S);
+    E.kin(tl, E.q(".exp", sc), S);
+    const acc = E.q(".exp .accgrp", sc);
+    if (acc && cfg.expZoom) E.zoomOn(tl, ctx, acc, S + parseFloat(acc.dataset.t), cfg.expZoom, S + cfg.tStage - 0.15, 0.45);
+    const stg = E.q(".stage", sc);
+    tl.fromTo(stg, { opacity: 0, y: 46 }, Object.assign({ opacity: 1, y: 0, duration: 0.8, ease: SPRING }, NI), S + cfg.tStage);
+    E.fadeIn(tl, E.q(".simtag", sc), S + cfg.tStage + 0.35, 0.4, 0);
+    if (window.SIMS[cfg.sim]) window.SIMS[cfg.sim](tl, ctx, cfg, S);
+    if (cfg.tFact != null) {
+      E.dim(tl, E.q(".simwrap", sc), S + cfg.tFact - 0.35, 0.1);
+      const pill = E.q(".factbox .pill", sc);
+      if (pill) E.pill(tl, pill, S + cfg.tFact, null);
+      E.kin(tl, E.q(".factbox", sc), S, { dy: 12 });
+    }
+    // the main part leaves at the first cut: prompt card, else tip, else scene end
+    const tMainOut = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.15;
+    E.fadeOut(tl, main, S + tMainOut - 0.35, 0.35, -50);
+    let info = null;
+    if (cfg.tPrompt != null) {
+      const pend = cfg.tTip != null ? cfg.tTip : cfg.tPromptEnd;
+      info = E.prompt(tl, ctx, E.q(".pcard", sc), S + cfg.tPrompt, S + pend, cfg.hls);
+    }
+    if (cfg.tTip != null) E.tip(tl, ctx, E.q(".tipbox", sc), S, S + cfg.tTip, S + cfg.D - 0.15);
+    E.fadeOut(tl, hdr, S + cfg.D - 0.5, 0.35, 0);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, prompt: info };
+  };
+
+  /* Chapter title card. */
+  E.chapter = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30 }, Object.assign({ opacity: 1, scale: 1, y: 0, duration: 0.9, ease: SPRING }, NI), S + 0.12);
+    tl.fromTo(n, { filter: "blur(14px)" }, Object.assign({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }, NI), S + 0.12);
+    tl.set(n, { filter: "none" }, S + 0.58);
+    E.fadeIn(tl, k, S + 0.25, 0.5, 14);
+    E.kin(tl, E.q(".ch-title", sc), S);
+    tl.fromTo(line, { opacity: 1, scaleX: 0 }, Object.assign({ opacity: 1, scaleX: 1, duration: 0.7, ease: "power3.inOut" }, NI), S + 0.75);
+    E.kin(tl, E.q(".ch-sub", sc), S, { dy: 12 });
+    E.kin(tl, E.q(".ch-tag", sc), S, { dy: 10 });
+    E.fadeIn(tl, dots, S + 0.6, 0.6, 10);
+    const out = S + cfg.D - 0.4;
+    tl.fromTo(E.q(".chap", sc), { opacity: 1, scale: 1 }, Object.assign({ opacity: 0, scale: 1.04, duration: 0.38, ease: "power2.in" }, NI), out);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "chapter" };
+  };
+
+  window.SIMS = window.SIMS || {};
+})();
+
+window.SIMS = window.SIMS || {};
+window.SIMS.sim22 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, sc = ctx.scene, c = cfg.sim22;
+  const NI = { immediateRender: false };
+  const T = (x) => S + x;
+  // transcription fixes: wrong word, strike drawn right to left, arrow, corrected word
+  E.qa(".s22-fix", sc).forEach((row, i) => {
+    const t = T(c.fix0 + i * c.fixStep);
+    const bad = E.q(".s22-bad", row), st = E.q(".s22-strike", row);
+    const ar = E.q(".s22-arrow", row), good = E.q(".s22-good", row);
+    tl.fromTo(bad, { opacity: 0, y: 14 }, Object.assign({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }, NI), t);
+    tl.fromTo(st, { opacity: 1, scaleX: 0 }, Object.assign({ opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.inOut" }, NI), t + 0.3);
+    tl.fromTo(bad, { opacity: 1 }, Object.assign({ opacity: 0.5, duration: 0.3 }, NI), t + 0.62);
+    tl.fromTo(ar, { opacity: 0, x: 12 }, Object.assign({ opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, NI), t + 0.48);
+    tl.fromTo(good, { opacity: 0 }, Object.assign({ opacity: 1, duration: 0.22 }, NI), t + 0.62);
+    tl.fromTo(good, { scale: 0.82 }, Object.assign({ scale: 1, duration: 0.55, ease: "back.out(2)" }, NI), t + 0.62);
+    tl.fromTo(good, { filter: "blur(8px)" }, Object.assign({ filter: "blur(0px)", duration: 0.3, ease: "power2.out" }, NI), t + 0.62);
+    tl.set(good, { filter: "none" }, t + 0.93);
+  });
+  // style 1: white pill, switching in one frame
+  E.dim(tl, E.q(".s22-fixes", sc), T(c.pills0 - 0.35), 0.3);
+  E.fadeIn(tl, E.q(".s22-l1", sc), T(c.pills0 - 0.3), 0.5, 16);
+  c.pills.forEach((p, i) => E.pill(tl, E.q("#t22-p" + (i + 1), sc), T(p[1]), T(p[2])));
+  // style 2: kinetic words
+  E.dim(tl, E.q(".s22-l1", sc), T(c.kin0 - 0.3), 0.35);
+  E.fadeIn(tl, E.q(".s22-l2", sc), T(c.kin0 - 0.25), 0.5, 16);
+  E.kin(tl, E.q(".s22-kinrow", sc), S, { dy: 14 });
+  const acc = E.q(".s22-kinrow .accgrp", sc);
+  if (acc) E.zoomOn(tl, ctx, acc, S + parseFloat(acc.dataset.t), 0.09, T(cfg.tFact - 0.75), 0.45);
+};
+
+
+(function () {
+  const CFGS = [{"id": "t22", "sim": "sim22", "D": 37.5, "tStage": 8.5, "tFact": 17.6, "tPrompt": 21.6, "tPromptEnd": 32.6, "tTip": 32.6, "expZoom": 0.1, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim22": {"fix0": 9.1, "fixStep": 0.72, "fixes": [["הקאבל", "הכבל"], ["בסכוכית", "בזכוכית"], ["מחובר עליו", "מחובר אליו"]], "label1": "סגנון 1 · גלולה לבנה", "label2": "סגנון 2 · קינטי", "pills0": 11.7, "pills": [["הכתוביות", 12.0, 12.65], ["מתחלפות", 12.65, 13.3], ["בפריים אחד", 13.3, 13.95], ["בלי אנימציה", 13.95, 14.65]], "kin0": 14.8, "kinStep": 0.36, "kin": "וכאן כל מילה נכנסת {בתנועה}"}, "S": 92.97}];
+  const WINDOW = [105.97, 120.97];
+  const fontsReady = Promise.all([
+    document.fonts.load('400 38px Rubik', 'אבג abc 123'),
+    document.fonts.load('800 62px Rubik', 'אבג abc'),
+    document.fonts.load('900 40px Rubik', 'אבג'),
+    document.fonts.load('600 27px "IBM Plex Mono"', 'abc 123'),
+    document.fonts.load('400 27px "IBM Plex Sans Hebrew"', 'אבג'),
+  ]).then(() => document.fonts.ready);
+  fontsReady.then(() => {
+    const stage = document.querySelector('.stagewrap');
+    const cam = document.getElementById('cam');
+    const master = gsap.timeline({ paused: true });
+    // slow background drift for the whole video (the "camera that never stops")
+    const TOT = 891.170;
+    master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    for (const cfg of CFGS) {
+      const scene = document.getElementById('sc-' + cfg.id);
+      if (cfg.type === 'chapter') window.ENG.chapter(master, { stage, cam, scene }, cfg);
+      else window.ENG.topic(master, { stage, cam, scene }, cfg);
+    }
+    let root = master;
+    if (WINDOW) {
+      root = gsap.timeline({ paused: true });
+      root.add(master.tweenFromTo(WINDOW[0], WINDOW[1], { duration: WINDOW[1] - WINDOW[0], ease: 'none' }), 0);
+    }
+    window.__ENG_DEBUG.ready = true;
+    window.__timelines['main'] = root;
+  });
+})();
+
+</script>
+</body>
+</html>
