@@ -10,7 +10,8 @@ PROMPTS = json.loads((ROOT / "data" / "prompts.json").read_text(encoding="utf-8"
 SECTION_ORDER = ["קלט", "כיוון", "בנייה", "מלכודות", "התחלה"]
 
 # reading rhythm (no narration): seconds per word
-STEP_TITLE, STEP_EXP, STEP_FACT, STEP_META, STEP_TIP = 0.13, 0.2, 0.15, 0.13, 0.16
+STEP_TITLE, STEP_EXP, STEP_FACT, STEP_META, STEP_TIP = 0.13, 0.2, 0.12, 0.13, 0.16
+PAUSE_FACT = 0.2
 
 
 def _dur(text, step, pause):
@@ -48,14 +49,18 @@ def auto_times(cfg):
     if f:
         f = dict(f)
         f.setdefault("t", round(t, 2))
-        end = f["t"] + 0.6
+        # the fact screen is complete when its last word has landed; it then holds factHold
+        # seconds before it fades (the fade starts 0.3 s before the next beat)
+        done = f["t"] + 0.6
+        end = f["t"] + 0.45
         if f.get("line"):
-            end = f["t"] + 0.45 + _dur(f["line"], STEP_FACT, 0.25)
+            end = f["t"] + 0.45 + _dur(f["line"], STEP_FACT, PAUSE_FACT)
+            done = end + 0.1
         if f.get("meta"):
-            f.setdefault("tMeta", round(end + 0.05, 2))
-            end = f["tMeta"] + 0.6
+            f.setdefault("tMeta", round(end, 2))
+            done = f["tMeta"] + 0.03 * (len(f["meta"].split()) - 1) + 0.35
         c["fact"] = f
-        t = end + c.get("factHold", 1.4)
+        t = done + c.get("factHold", 2.0 if f.get("meta") else 1.8) + 0.2
     if c.get("prompt") is not None:
         c.setdefault("tPrompt", round(t + 0.1, 2))
         if "tPromptEnd" not in c:
@@ -89,7 +94,7 @@ def topic_scene(cfg):
         if f.get("pill"):
             parts.append(f'<span class="pill">{esc(f["pill"])}</span>')
         if f.get("line"):
-            line, _, _ = kinetic_html(f["line"], t0=f["t"] + 0.45, step=STEP_FACT, pause=0.25)
+            line, _, _ = kinetic_html(f["line"], t0=f["t"] + 0.45, step=STEP_FACT, pause=PAUSE_FACT)
             parts.append(f'<p class="factline kin" dir="rtl">{line}</p>')
         if f.get("meta"):
             m, _, _ = kinetic_html(f["meta"], t0=f["tMeta"], step=0.03, pause=0.0)
@@ -158,14 +163,15 @@ def chapter_scene(cfg):
     c = dict(cfg)
     c.setdefault("tTitle", 0.45)
     title, tend, _ = kinetic_html(c["title"], t0=c["tTitle"], step=0.16, pause=0.2)
-    sub, send, _ = kinetic_html(c["sub"], t0=tend + 0.35, step=0.16, pause=0.25)
+    # the subtitle arrives in phrases, then stays whole long enough to read
+    sub, send, _ = kinetic_html(c["sub"], t0=tend + 0.35, groups=dict(gstep=0.45))
     end = send
     tag = ""
     if c.get("tag"):
         tg, tgend, _ = kinetic_html(c["tag"], t0=send + 0.3, step=0.12, pause=0.2)
         tag = f'<p class="ch-tag kin" dir="rtl">{tg}</p>'
         end = tgend
-    c.setdefault("D", round(end + c.get("hold", 1.3), 2))
+    c.setdefault("D", round(end + c.get("hold", 2.2), 2))
     dots = "".join(f'<i class="ch-dot{" on" if i == c["n"] else ""}"></i>' for i in range(1, 9))
     inner = f"""<div class="chap">
 <div class="ch-k" dir="rtl">פרק</div>

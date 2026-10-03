@@ -123,7 +123,7 @@
         if (m >= 0 && m > bestM + 0.5) { bestM = m; h.page = i; }
       });
     });
-    // schedule: plain pages flip on a 0.6 s cadence (slide included); key lines get the rest of the
+    // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
     // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
     const n = pages.length;
     const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.35, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
@@ -131,7 +131,8 @@
     const mineOf = (i) => H.filter((h) => h.page === i);
     const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
     const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.62 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
-    let fixed = LEAD + EXIT, nPlain = 0, tail = 0.2;
+    // a plain last page stays settled a little longer before the exit
+    let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
     for (let i = 0; i < n; i++) {
       const mine = mineOf(i);
       if (!mine.length) nPlain++;
@@ -140,10 +141,10 @@
     }
     fixed += tail;
     const want = H.reduce((a, h) => a + h.want, 0);
-    let dwell = 0.35;
+    let dwell = 0.27;
     let room = t1 - t0 - fixed - nPlain * dwell;
     if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
-      dwell = Math.max(0.2, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
+      dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
       room = t1 - t0 - fixed - nPlain * dwell;
     }
     if (H.length) {

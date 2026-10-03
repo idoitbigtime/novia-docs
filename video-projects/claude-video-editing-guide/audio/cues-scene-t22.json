@@ -1,6 +1,6 @@
 {
  "window": null,
- "total": 37.57,
+ "total": 37.82,
  "cues": [
   {
    "sfx": "whoosh_soft",
@@ -14,12 +14,12 @@
   },
   {
    "sfx": "whoosh_soft",
-   "t": 23.56,
+   "t": 23.81,
    "scene": "t22"
   },
   {
    "sfx": "pop",
-   "t": 33.76,
+   "t": 34.01,
    "scene": "t22"
   },
   {

@@ -284,8 +284,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
 
 /* ---------- topic layout ---------- */
-.main { position: absolute; top: 380px; left: 180px; width: 720px; display: flex; flex-direction: column; gap: 18px; direction: rtl; }
-.ttl { font: 800 62px/1.16 "Rubik"; color: var(--ink); letter-spacing: -0.005em; }
+.main { position: absolute; top: 380px; left: 220px; width: 720px; display: flex; flex-direction: column; gap: 18px; direction: rtl; }
+.ttl { font: 800 62px/1.16 "Rubik"; color: var(--ink); letter-spacing: -0.005em; text-wrap: balance; }
 .exp { font: 400 38px/1.45 "Rubik"; color: var(--ink2); }
 .exp .accgrp { font-weight: 800; }
 .stage { position: absolute; left: 140px; top: 760px; width: 800px; height: 800px; opacity: 0; }
@@ -301,26 +301,35 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .metaline .w, .factline .w { opacity: 0; }
 
 /* ---------- prompt card ---------- */
-.pcard { position: absolute; left: 150px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
+.pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
 .pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
 .pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
 .pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
 .pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
 .pc-num b { color: var(--ink); font-weight: 600; }
-.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 68px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
+.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
 .tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
-.tab .tul { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tab .tul { display: none; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
 .tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
-.pvp { position: absolute; top: 186px; bottom: 26px; left: 30px; right: 30px; overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0px, #000 48px, #000 calc(100% - 64px), rgba(0,0,0,0) 100%);
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0px, #000 48px, #000 calc(100% - 64px), rgba(0,0,0,0) 100%); }
-.pct { position: absolute; top: 40px; left: 0; right: 0; direction: rtl; font: 400 30px/1.46 "Rubik"; color: #e7e4f1; white-space: normal; padding-bottom: 120px; }
+.pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
+  }
+.pct { position: absolute; top: 0; left: 48px; right: 48px; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
 .pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
-.pl-empty { height: 22px; }
+.pl-empty { height: 44px; }
 .ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
-.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; color: #d8d4ea; overflow-wrap: anywhere; }
-.code .bt { color: #6f6b86; }
-.hlbg { position: absolute; z-index: -1; top: 2px; bottom: 2px; left: -4px; right: -4px; background: rgba(229, 72, 77, 0.17); border-right: 4px solid #e5484d; border-radius: 10px; opacity: 0; display: block; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; color: #d8d4ea; white-space: nowrap; }
+.codeblock { display: block; direction: ltr; text-align: left; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.tk { white-space: nowrap; }
+.nb, .neg { white-space: nowrap; }
+.code .bt, .codeblock .bt { color: #6f6b86; }
+.hlbg { position: absolute; z-index: -1; top: 0; bottom: 0; left: -14px; right: -14px; background: #2e1626; border-right: 4px solid #e5484d; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); opacity: 0; display: block; }
+.pbody { position: relative; }
+/* lifted key lines: a layer over the card (same box, not clipped by it) */
+.plift { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; pointer-events: none; }
+.pl-lift { position: absolute; z-index: 3; opacity: 0; box-sizing: border-box; padding: 0 12px; font: 400 30px/44px "Rubik"; color: #f5f2ea; direction: rtl; white-space: pre-wrap; transform-origin: 50% 50%; }
+/* the lifted backing is as wide as the line, so at x1.10 it stays clear of the card border */
+.pl-lift .hlbg { opacity: 1; left: 0; right: 0; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55); }
 
 /* ---------- tip ---------- */
 .tipwrap { position: absolute; left: 140px; width: 800px; top: 0; height: 1920px; display: flex; align-items: center; justify-content: center; }
@@ -338,6 +347,9 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
 .ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
 .ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 30px/1.45 "Rubik"; color: var(--muted); }
+/* centred blocks wrap into even lines; paragraphs never end on a lone word */
+.ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
+.exp, .tip-text { text-wrap: pretty; }
 .ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0; }
 .ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
 .ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
@@ -360,11 +372,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim22 .s22-kinrow { position: absolute; left: 16px; right: 16px; top: 404px; text-align: center; font: 800 38px/1.25 "Rubik"; color: #ffffff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); }
 .sim22 .s22-kinrow .accgrp { color: #ff5a4f; font-weight: 900; }
 .sim22 .s22-fixes { position: absolute; left: 0; top: 70px; width: 392px; }
-.sim22 .s22-fix { display: flex; direction: rtl; align-items: center; gap: 16px; height: 76px; margin-bottom: 14px; }
-.sim22 .s22-bad { position: relative; font: 600 38px/1 "Rubik"; color: #ff6b61; opacity: 0; white-space: nowrap; }
+.sim22 .s22-fix { display: flex; direction: rtl; align-items: center; gap: 12px; height: 72px; margin-bottom: 14px; }
+.sim22 .s22-bad { position: relative; font: 600 32px/1 "Rubik"; color: #ff6b61; opacity: 0; white-space: nowrap; }
 .sim22 .s22-strike { position: absolute; left: -5px; right: -5px; top: 52%; height: 4px; border-radius: 2px; background: #ff6b61; display: block; opacity: 0; transform-origin: 100% 50%; }
-.sim22 .s22-arrow { width: 46px; height: 22px; opacity: 0; flex: none; }
-.sim22 .s22-good { font: 700 40px/1 "Rubik"; color: var(--ink); opacity: 0; white-space: nowrap; }
+.sim22 .s22-arrow { width: 40px; height: 20px; opacity: 0; flex: none; }
+.sim22 .s22-good { font: 700 34px/1 "Rubik"; color: var(--ink); opacity: 0; white-space: nowrap; }
 .sim22 .s22-label { position: absolute; left: 0; width: 392px; display: flex; direction: rtl; align-items: center; gap: 14px; font: 600 36px/1 "Rubik"; color: var(--ink); opacity: 0; }
 .sim22 .s22-label i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; }
 .sim22 .s22-l1 { top: 400px; }
@@ -373,16 +385,16 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="5.160" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="6.020" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-c2" class="clip scene" data-start="0.000" data-duration="5.160" data-track-index="1"><div class="chap">
+<div id="sc-c2" class="clip scene" data-start="0.000" data-duration="6.020" data-track-index="1"><div class="chap">
 <div class="ch-k" dir="rtl">פרק</div>
 <div class="ch-n" dir="ltr">2</div>
 <h2 class="ch-title kin" dir="rtl"><span class="w" dir="rtl" data-t="0.450">עריכה</span> <span class="w" dir="rtl" data-t="0.610">בסיסית</span></h2>
 <i class="ch-line"></i>
-<p class="ch-sub kin" dir="rtl"><span class="w" dir="rtl" data-t="1.120">חיתוך,</span> <span class="w" dir="rtl" data-t="1.280">כתוביות,</span> <span class="w" dir="rtl" data-t="1.440">מעבר</span> <span class="w" dir="rtl" data-t="1.600">לאורך,</span> <span class="w" dir="rtl" data-t="1.760">צבע</span> <span class="w" dir="rtl" data-t="1.920">וסאונד:</span> <span class="w" dir="rtl" data-t="2.330">את</span> <span class="w" dir="rtl" data-t="2.490">כל</span> <span class="w" dir="rtl" data-t="2.650">העבודה</span> <span class="w" dir="rtl" data-t="2.810">השחורה</span> <span class="w" dir="rtl" data-t="2.970">מעבירים</span> <span class="w" dir="rtl" data-t="3.130">לקלוד,</span> <span class="w" dir="rtl" data-t="3.290">ורק</span> <span class="w" dir="rtl" data-t="3.450">מאשרים.</span></p>
+<p class="ch-sub kin" dir="rtl"><span class="w" dir="rtl" data-t="1.120">חיתוך,</span> <span class="w" dir="rtl" data-t="1.570">כתוביות,</span> <span class="w" dir="rtl" data-t="2.020">מעבר</span> <span class="w" dir="rtl" data-t="2.070">לאורך,</span> <span class="w" dir="rtl" data-t="2.470">צבע</span> <span class="w" dir="rtl" data-t="2.520">וסאונד:</span> <span class="w" dir="rtl" data-t="2.920">את</span> <span class="w" dir="rtl" data-t="2.970">כל</span> <span class="w" dir="rtl" data-t="3.020">העבודה</span> <span class="w" dir="rtl" data-t="3.070">השחורה</span> <span class="w" dir="rtl" data-t="3.120">מעבירים</span> <span class="w" dir="rtl" data-t="3.170">לקלוד,</span> <span class="w" dir="rtl" data-t="3.370">ורק</span> <span class="w" dir="rtl" data-t="3.420">מאשרים.</span></p>
 
 <div class="ch-dots" dir="rtl"><i class="ch-dot"></i><i class="ch-dot on"></i><i class="ch-dot"></i><i class="ch-dot"></i><i class="ch-dot"></i><i class="ch-dot"></i><i class="ch-dot"></i><i class="ch-dot"></i></div>
 </div></div>
@@ -465,7 +477,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
      content column [colL, colR] scaled by (1+amt) stays inside the safe area x 140..940. */
   E.zoom = function (tl, ctx, cx, cy, t, amt, tBack, backDur, col) {
     const s = 1 + amt;
-    const L = col ? col[0] : 180, R = col ? col[1] : 900;
+    const L = col ? col[0] : 220, R = col ? col[1] : 940;
     const lo = (s * R - 940) / (s - 1), hi = (s * L - 140) / (s - 1);
     if (lo <= hi) cx = Math.min(hi, Math.max(lo, cx));
     else cx = (L + R) / 2;
@@ -483,73 +495,169 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   };
 
   /* Prompt card: the full verbatim text, paged (static pages and short slides, so any
-     paused frame is readable); holds on highlighted lines (highlight bar + bouncy zoom,
-     the bar fades when the hold ends); section tabs follow the page; exits at t1. */
+     paused frame is readable). On a key line the page text dims and a copy of the line
+     lifts above the card (bouncy zoom on the line; it sits in its own layer, so its backing
+     is never clipped). One underline slides between the section tabs. Exits at t1. */
   E.prompt = function (tl, ctx, card, t0, t1, hls) {
-    const vp = E.q(".pvp", card), ct = E.q(".pct", card);
-    const vh = vp.clientHeight;
-    const usable = vh - 70;
-    const lines = E.qa(".pl", ct);
-    const pages = [0];
-    let pageTop = 0;
-    for (const ln of lines) {
-      const top = ln.offsetTop, bot = top + ln.offsetHeight;
-      if (bot - pageTop > usable && top > pageTop) { pageTop = top - 6; pages.push(pageTop); }
-    }
-    const pageOf = (y) => { let k = 0; for (let i = 0; i < pages.length; i++) if (pages[i] <= y + 1) k = i; return k; };
+    const vp = E.q(".pvp", card), ct = E.q(".pct", card), body = E.q(".pbody", card);
+    const ROW = 44, ROWS = 23;                     // the viewport is exactly 23 rows: no line is ever cut
+    const totalRows = Math.round(body.offsetHeight / ROW);
+    const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
+    const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
     const H = (hls || []).map((h) => {
       const ln = E.q('[data-hl="' + h.id + '"]', card);
-      return { ln, page: pageOf(ln.offsetTop), hold: h.hold || 1.6, zoom: h.zoom == null ? 0.08 : h.zoom };
+      const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
+      return { id: h.id, ln, lift, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, want: h.hold || 2.4 };
+    }).sort((a, b) => a.top - b.top);
+    // pages advance by 22 rows (one row of overlap); a page is pulled up so a key line never straddles an edge
+    const pages = [0];
+    while (pages[pages.length - 1] < lastTop) {
+      const cur = pages[pages.length - 1];
+      let nxt = Math.min(lastTop, cur + (ROWS - 1) * ROW);
+      for (const h of H) if (h.top > cur && h.top < cur + ROWS * ROW && h.bot > cur + ROWS * ROW) nxt = Math.min(nxt, h.top - 2 * ROW);
+      if (nxt <= cur) nxt = Math.min(lastTop, cur + ROW);
+      pages.push(nxt);
+    }
+    // a key line is held on the page where it sits furthest from the edges (the lift needs room)
+    H.forEach((h) => {
+      let bestM = -1e9;
+      h.page = 0;
+      pages.forEach((p, i) => {
+        const m = Math.min(h.top - p, p + ROWS * ROW - h.bot);
+        if (m >= 0 && m > bestM + 0.5) { bestM = m; h.page = i; }
+      });
     });
-    const n = pages.length, slide = 0.3, lead = 0.25, exitD = 0.3;
-    const holdsT = H.reduce((a, h) => a + h.hold + 0.25, 0);
-    const dwell = Math.max(0.45, (t1 - t0 - lead - exitD - (n - 1) * slide - holdsT) / n);
+    // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
+    // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
+    const n = pages.length;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.35, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LIFT = 1.1, DIM = 0.38;
+    const mineOf = (i) => H.filter((h) => h.page === i);
+    const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.62 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
+    // a plain last page stays settled a little longer before the exit
+    let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
+    for (let i = 0; i < n; i++) {
+      const mine = mineOf(i);
+      if (!mine.length) nPlain++;
+      else fixed += liftDelay(i) + (mine.length - 1) * UNLIFT + (isHold(i + 1) ? UNLIFT : UNDIM);
+      if (i < n - 1) fixed += isHold(i) && isHold(i + 1) ? DSLIDE : SLIDE;
+    }
+    fixed += tail;
+    const want = H.reduce((a, h) => a + h.want, 0);
+    let dwell = 0.27;
+    let room = t1 - t0 - fixed - nPlain * dwell;
+    if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
+      dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
+      room = t1 - t0 - fixed - nPlain * dwell;
+    }
+    if (H.length) {
+      let k = room / want;
+      if (k > 1.35) {
+        const extra = room - want * 1.35;
+        k = 1.35;
+        dwell += extra / (nPlain + 1);
+        tail += extra / (nPlain + 1);
+      }
+      H.forEach((h) => { h.hold = h.want * k; });
+      // keep a 2 s floor on every hold where the budget allows it
+      for (let it = 0; it < 3; it++) {
+        const low = H.filter((h) => h.hold < MINH), high = H.filter((h) => h.hold >= MINH);
+        if (!low.length || !high.length) break;
+        const need = low.reduce((a, h) => a + MINH - h.hold, 0);
+        const spare = high.reduce((a, h) => a + h.hold - MINH, 0);
+        const take = Math.min(need, spare);
+        low.forEach((h) => { h.hold += (MINH - h.hold) * (take / need); });
+        high.forEach((h) => { h.hold -= (h.hold - MINH) * (take / spare); });
+      }
+    } else {
+      dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
+    }
+    // the lifted copies sit over their line on the page where it is held (static layout)
+    H.forEach((h) => {
+      h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
+      h.lift.style.top = (bw + vp.offsetTop + h.top - pages[h.page]) + "px";
+      h.lift.style.width = h.ln.offsetWidth + "px";
+    });
     tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
     tl.fromTo(card, { scale: 0.97, y: 40 }, A({ scale: 1, y: 0, duration: 0.6, ease: SPRING }), t0);
-    const vpo = E.off(vp, ctx.scene);
-    const arrivals = [];
-    const holdTimes = [];
-    let t = t0 + lead;
+    const arrivals = [], slides = [], holdTimes = [];
+    let t = t0 + LEAD, dimmed = false, tFinal = null;
     for (let i = 0; i < n; i++) {
       arrivals.push(t);
-      let tt = t + dwell * 0.35;
-      for (const h of H.filter((x) => x.page === i)) {
-        const hb = E.q(".hlbg", h.ln);
-        tl.fromTo(hb, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power2.out" }), tt);
-        const cy = vpo.y + ct.offsetTop + (h.ln.offsetTop - pages[i]) + h.ln.offsetHeight / 2;
-        const cx = vpo.x + vp.clientWidth / 2;
-        if (h.zoom) E.zoom(tl, ctx, cx, cy, tt, h.zoom, tt + h.hold - 0.45, 0.45, [vpo.x, vpo.x + vp.clientWidth]);
-        tl.fromTo(hb, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power2.in" }), tt + h.hold);
-        holdTimes.push(+tt.toFixed(3));
-        tt += h.hold + 0.25;
+      const mine = mineOf(i);
+      if (!mine.length) t += dwell;
+      else {
+        t += liftDelay(i);
+        mine.forEach((h, j) => {
+          if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
+          dimmed = true;
+          tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          holdTimes.push(+t.toFixed(3));
+          t += h.hold;
+          const keepDim = j < mine.length - 1 || isHold(i + 1);
+          const d = keepDim ? UNLIFT : UNDIM;
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d, ease: "power2.inOut" }), t);
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d, ease: "power2.in" }), t);
+          if (!keepDim) {
+            tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
+            dimmed = false;
+            if (i === n - 1) tFinal = t;
+          }
+          t += d;
+        });
       }
-      t = tt + dwell * 0.65;
       if (i < n - 1) {
-        tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: slide, ease: "power2.inOut" }), t);
-        t += slide;
+        const sd = dimmed ? DSLIDE : SLIDE;
+        tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: sd, ease: "power2.inOut" }), t);
+        slides.push([t, sd]);
+        t += sd;
       }
     }
-    // tabs follow the page: the last section whose tag sits above the page's upper third
-    const tabs = E.qa(".tab", card);
-    if (tabs.length) {
+    // tabs: one underline slides with the page to the section that fills most of the visible rows
+    const tabs = E.qa(".tab", card), ul = E.q(".tabul", card);
+    if (tabs.length && ul) {
       const tags = tabs.map((tab) => E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card));
-      const secAt = (p) => { let k = 0; tags.forEach((g, j) => { if (g && g.offsetTop <= p + vh * 0.3) k = j; }); return k; };
-      let cur = -1;
-      for (let i = 0; i < n; i++) {
-        const k = secAt(pages[i]);
-        if (k === cur) continue;
-        const ta = i === 0 ? t0 + 0.1 : arrivals[i] - slide * 0.5;
-        if (cur >= 0) {
-          tl.fromTo(tabs[cur], { color: "#f5f2ea" }, A({ color: "#9c99ae", duration: 0.2 }), ta);
-          tl.fromTo(E.q(".tul", tabs[cur]), { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), ta);
-        }
-        tl.fromTo(tabs[k], { color: "#9c99ae" }, A({ color: "#f5f2ea", duration: 0.2 }), ta);
-        tl.fromTo(E.q(".tul", tabs[k]), { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), ta);
+      const starts = tags.map((g) => (g ? g.offsetTop : 1e9));
+      const secAt = (p) => {
+        let best = 0, bestRows = -1;
+        starts.forEach((st, j) => {
+          const en = j + 1 < starts.length ? starts[j + 1] : 1e9;
+          const vis = Math.max(0, Math.min(en, p + ROWS * ROW) - Math.max(st, p));
+          if (vis > bestRows) { bestRows = vis; best = j; }
+        });
+        return best;
+      };
+      const MUTED = "#9c99ae", INK = "#f5f2ea";
+      const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
+      let cur = secAt(pages[0]);
+      ul.style.left = pos(cur).left + "px";
+      ul.style.width = pos(cur).width + "px";
+      tl.fromTo(ul, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power2.out" }), t0 + 0.1);
+      tl.fromTo(tabs[cur], { color: MUTED }, A({ color: INK, duration: 0.2 }), t0 + 0.1);
+      const move = (k, ta, d) => {
+        const a = pos(cur), b = pos(k);
+        tl.fromTo(ul, { left: a.left, width: a.width }, A({ left: b.left, width: b.width, duration: d, ease: "power3.inOut" }), ta);
+        tl.fromTo(tabs[cur], { color: INK }, A({ color: MUTED, duration: 0.2 }), ta + d / 2 - 0.1);
+        tl.fromTo(tabs[k], { color: MUTED }, A({ color: INK, duration: 0.2 }), ta + d / 2 - 0.1);
         cur = k;
+      };
+      // the section that holds the last visible row (the end of the prompt on the last page)
+      const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      for (let i = 1; i < n; i++) {
+        const k = i === n - 1 && !isHold(i) ? lastVisible(pages[i]) : secAt(pages[i]);
+        if (k !== cur) move(k, slides[i - 1][0], Math.max(0.3, slides[i - 1][1]));
       }
+      // a last page with key lines: its last section takes over when the page undims
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) > cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
     }
-    tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: exitD, ease: "power2.in" }), t1 - exitD);
-    return { pages: pages.length, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3), holds: holdTimes };
+    tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
+    return {
+      pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
+      holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, liftH: h.lift.offsetHeight })),
+    };
   };
 
   /* Standard topic scene. Layout is measured once (static), then:
@@ -576,7 +684,9 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     // dock
     tl.set(main, { transformOrigin: "100% 0%" }, S + cfg.tDock);
     tl.fromTo(main, { y: 0, scale: 1 }, A({ y: dockTop - top0, scale: dockS, duration: 0.75, ease: SPRING }), S + cfg.tDock);
-    E.dim(tl, exp, S + cfg.tDock, 0.55, 1, 0.5);
+    E.dim(tl, exp, S + cfg.tDock, 0.3, 1, 0.5);
+    E.qa(".accgrp", exp).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#dcd9e6", duration: 0.5 }), S + cfg.tDock));
+    E.qa(".ul", exp).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + cfg.tDock));
     // simulation
     E.fadeIn(tl, simtag, S + cfg.tStage - 0.15, 0.4, 0);
     tl.fromTo(stage, { opacity: 0, y: 46 }, A({ opacity: 1, y: 0, duration: 0.8, ease: SPRING }), S + cfg.tStage);
@@ -585,10 +695,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const tOut1 = cfg.tFact != null ? cfg.tFact - 0.45 : tNext - 0.35;
     E.dim(tl, stage, S + tOut1, 0, 1, 0.35);
     E.dim(tl, simtag, S + tOut1, 0, 1, 0.3);
-    E.dim(tl, exp, S + tOut1, 0, 0.55, 0.35);
+    E.dim(tl, exp, S + tOut1, 0, 0.3, 0.35);
     if (cfg.tFact != null) {
       const pill = E.q(".factbox .pill", sc);
-      if (pill) E.pill(tl, pill, S + cfg.tFact, null);
+      if (pill) {
+        tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
+        tl.fromTo(pill, { scale: 0.92, y: 20 }, A({ scale: 1, y: 0, duration: 0.45, ease: SPRING }), S + cfg.tFact - 0.1);
+      }
       E.kin(tl, fact, S, { dy: 12 });
     }
     // first cut: the docked title (and the fact) leave before the card or the tip arrives
@@ -642,7 +755,9 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
     const ar = E.q(".s22-arrow", row), good = E.q(".s22-good", row);
     tl.fromTo(bad, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }), t);
     tl.fromTo(st, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.inOut" }), t + 0.3);
-    tl.fromTo(bad, { opacity: 1 }, A({ opacity: 0.5, duration: 0.3 }), t + 0.62);
+    // a resolved row goes quiet: the struck word turns grey, its strike stays at 60%
+    tl.fromTo(bad, { color: "#ff6b61" }, A({ color: "#5e5870", duration: 0.35 }), t + 0.62);
+    tl.fromTo(st, { opacity: 1 }, A({ opacity: 0.6, duration: 0.35 }), t + 0.62);
     tl.fromTo(ar, { opacity: 0, x: 12 }, A({ opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }), t + 0.48);
     tl.fromTo(good, { opacity: 0 }, A({ opacity: 1, duration: 0.22 }), t + 0.62);
     tl.fromTo(good, { scale: 0.82 }, A({ scale: 1, duration: 0.55, ease: "back.out(2)" }), t + 0.62);
@@ -653,9 +768,11 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
     const cb = E.q(".s22-capbad", cap), cs = E.q(".s22-capstrike", cap), cg = E.q(".s22-capgood", cap);
     tl.set(cap, { opacity: 1 }, t);
     tl.fromTo(cs, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.inOut" }), t + 0.3);
-    tl.fromTo(cb, { opacity: 1 }, A({ opacity: 0, duration: 0.18 }), t + 0.62);
-    tl.fromTo(cg, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), t + 0.62);
-    tl.fromTo(cg, { scale: 0.85 }, A({ scale: 1, duration: 0.5, ease: "back.out(2)" }), t + 0.62);
+    // swap in sequence: the wrong word leaves first, then the correction springs in (no overlap)
+    tl.fromTo(cb, { opacity: 1 }, A({ opacity: 0, duration: 0.12, ease: "power1.in" }), t + 0.6);
+    tl.fromTo(cb, { filter: "blur(0px)" }, A({ filter: "blur(6px)", duration: 0.12 }), t + 0.6);
+    tl.fromTo(cg, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t + 0.73);
+    tl.fromTo(cg, { scale: 0.94 }, A({ scale: 1, duration: 0.3, ease: E.SPRING }), t + 0.73);
     const tEnd = i < rows.length - 1 ? T(c.fix0 + (i + 1) * c.fixStep) : T(c.pills0 - 0.35);
     tl.set(cap, { opacity: 0 }, tEnd);
   });
@@ -668,13 +785,11 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
   E.dim(tl, E.q(".s22-l1", sc), T(c.kin0 - 0.3), 0.35);
   E.fadeIn(tl, E.q(".s22-l2", sc), T(c.kin0 - 0.25), 0.5, 16);
   E.kin(tl, E.q(".s22-kinrow", sc), S, { dy: 14 });
-  const acc = E.q(".s22-kinrow .accgrp", sc);
-  if (acc) E.zoomOn(tl, ctx, acc, S + parseFloat(acc.dataset.t), 0.04, S + cfg.tStage + cfg.simDur - 0.6, 0.45, [140, 940]);
 };
 
 
 (function () {
-  const CFGS = [{"id": "c2", "type": "chapter", "D": 5.16, "S": 0.0}];
+  const CFGS = [{"id": "c2", "type": "chapter", "D": 6.02, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -688,14 +803,15 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 5.160;
+    const TOT = 6.020;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     for (const cfg of CFGS) {
       const scene = document.getElementById('sc-' + cfg.id);
       const scam = scene.querySelector('.scam') || cam;
-      if (cfg.type === 'chapter') window.ENG.chapter(master, { stage, cam: scam, scene }, cfg);
-      else window.ENG.topic(master, { stage, cam: scam, scene }, cfg);
+      const hdr = scene.querySelector('.hdr');
+      if (cfg.type === 'chapter') window.ENG.chapter(master, { stage, cam: scam, scene, hdr }, cfg);
+      else window.ENG.topic(master, { stage, cam: scam, scene, hdr }, cfg);
     }
     let root = master;
     if (WINDOW) {
