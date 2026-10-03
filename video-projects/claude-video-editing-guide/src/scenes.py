@@ -34,9 +34,9 @@ def auto_times(cfg):
     c = dict(cfg)
     c.setdefault("tTitle", 0.3)
     c.setdefault("tExp", round(c["tTitle"] + _dur(c["title"], STEP_TITLE, 0.2) + 0.3, 2))
-    c.setdefault("tDock", round(c["tExp"] + _dur(c["exp"], STEP_EXP, 0.32) + c.get("readHold", 0.85), 2))
+    c.setdefault("tDock", round(c["tExp"] + _dur(c["exp"], STEP_EXP, 0.32) + c.get("readHold", 0.75), 2))
     c.setdefault("tStage", round(c["tDock"] + 0.35, 2))
-    t = c["tStage"] + c.get("simDur", 7.2)
+    t = c["tStage"] + c.get("simDur", 6.8)
     f = c.get("fact")
     if f:
         f = dict(f)
@@ -48,7 +48,7 @@ def auto_times(cfg):
             f.setdefault("tMeta", round(end + 0.25, 2))
             end = f["tMeta"] + _dur(f["meta"], STEP_META, 0.2)
         c["fact"] = f
-        t = end + c.get("factHold", 1.15)
+        t = end + c.get("factHold", 1.4)
     if c.get("prompt") is not None:
         c.setdefault("tPrompt", round(t + 0.1, 2))
         if "tPromptEnd" not in c:
@@ -57,12 +57,12 @@ def auto_times(cfg):
             else:
                 n = len(prompt_text(c))
                 holds = sum(h[1] for h in c.get("hls", []))
-                pd = c.get("promptDur") or min(9.6, max(5.5, 2.4 + n / 1000 * 1.15 + holds))
+                pd = c.get("promptDur") or min(9.6, max(5.5, 2.2 + n / 1000 * 1.15 + holds))
                 c["tPromptEnd"] = round(c["tPrompt"] + pd, 2)
         t = c["tPromptEnd"]
     if c.get("tip"):
         c.setdefault("tTip", round(t, 2))
-        t = c["tTip"] + 0.4 + _dur(c["tip"], STEP_TIP, 0.25) + c.get("tipHold", 1.05)
+        t = c["tTip"] + 0.4 + _dur(c["tip"], STEP_TIP, 0.25) + c.get("tipHold", 0.95)
     c.setdefault("D", round(t + 0.45, 2))
     return c
 
@@ -127,7 +127,7 @@ def topic_scene(cfg):
         "tPrompt": cfg.get("tPrompt") if cfg.get("prompt") is not None else None,
         "tPromptEnd": cfg.get("tPromptEnd"),
         "tTip": cfg.get("tTip") if cfg.get("tip") else None,
-        "expZoom": cfg.get("expZoom", 0.1), "simDur": cfg.get("simDur", 7.2),
+        "expZoom": cfg.get("expZoom", 0.1), "simDur": cfg.get("simDur", 6.8),
         "hls": [{"id": hid, "hold": h[1], "zoom": h[2]} for hid, h in zip(hl_ids, cfg.get("hls", []))],
     }
     if cfg["sim"] in cfg:

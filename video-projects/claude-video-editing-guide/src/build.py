@@ -28,7 +28,7 @@ ORDER = ["hook", "ch1",
          "c6", "t61", "t62",
          "c7", "t71", "t72", "t73",
          "summary"]
-PLACEHOLDER_D = {"hook": 10.0, "ch1": 45.0, "summary": 36.0}
+PLACEHOLDER_D = {"hook": 10.0, "ch1": 42.0, "summary": 34.0}
 
 
 def load_cfg(name):
@@ -132,8 +132,9 @@ def build(window=None, name="index", only=None, scale_override=None):
     for (const cfg of CFGS) {{
       const scene = document.getElementById('sc-' + cfg.id);
       const scam = scene.querySelector('.scam') || cam;
-      if (cfg.type === 'chapter') window.ENG.chapter(master, {{ stage, cam: scam, scene }}, cfg);
-      else window.ENG.topic(master, {{ stage, cam: scam, scene }}, cfg);
+      const hdr = scene.querySelector('.hdr');
+      if (cfg.type === 'chapter') window.ENG.chapter(master, {{ stage, cam: scam, scene, hdr }}, cfg);
+      else window.ENG.topic(master, {{ stage, cam: scam, scene, hdr }}, cfg);
     }}
     let root = master;
     if (WINDOW) {{

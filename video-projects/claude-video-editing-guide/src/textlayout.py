@@ -153,56 +153,69 @@ SECTION_TAG = re.compile(r"^<(/?)(קלט|כיוון|בנייה|מלכודות|ה
 NEG_IN_TEXT = re.compile(r"(?<![\w\-/=])(-\d[\d.,]*(?:\s?(?:LUFS|dBTP|dBFS|dB|Hz|kHz|ms))?)")
 
 
+PREFIX_HYPHEN = re.compile(r"(?<![\w\u0590-\u05FF])([\u05D0-\u05EA]{1,3}-[^\s]+)")
+
+
+def _nobreak_prefix(s_escaped):
+    """A Hebrew prefix joined to the next word with a hyphen ("מ-Google", "ל-940") never
+    breaks across lines."""
+    return PREFIX_HYPHEN.sub(lambda m: f'<span class="nb">{m.group(1)}</span>', s_escaped)
+
+
 def _inline_text(s):
-    """Escape plain prompt text and isolate negative numbers (bidi)."""
+    """Escape plain prompt text, isolate negative numbers (bidi), keep prefix-hyphen words whole."""
     out = []
     last = 0
     for m in NEG_IN_TEXT.finditer(s):
-        out.append(esc(s[last:m.start()]))
+        out.append(_nobreak_prefix(esc(s[last:m.start()])))
         out.append(f'<span dir="ltr" class="neg">{esc(m.group(1))}</span>')
         last = m.end()
-    out.append(esc(s[last:]))
+    out.append(_nobreak_prefix(esc(s[last:])))
     return "".join(out)
 
 
-FLAG_VALUE = re.compile(r"(?<=\S) (?=[^\s-])")
+INLINE_CODE_MAX = 26
 
 
-def _code(seg, trail=""):
-    """A verbatim code span as an LTR isolate. A flag and its value ("--language he") are
-    joined with a no-break space so a line never breaks between them; punctuation that
-    follows the closing backtick stays inside the isolate, right after it."""
+def _code_tokens(seg):
+    """Code tokens are unbreakable (no break inside "--language" or "data-has-audio");
+    a flag and its value ("--language he") stay together on one line."""
     toks = seg.split(" ")
-    out = []
-    for i, tok in enumerate(toks):
-        out.append(esc(tok))
-        if i < len(toks) - 1:
-            nxt = toks[i + 1]
-            out.append("\u00a0" if tok.startswith("-") and nxt and not nxt.startswith("-") else " ")
-    return (f'<span class="code" dir="ltr"><span class="bt">`</span>{"".join(out)}<span class="bt">`</span>'
-            f'{esc(trail)}</span>')
+    groups, i = [], 0
+    while i < len(toks):
+        tok = toks[i]
+        if tok.startswith("-") and i + 1 < len(toks) and toks[i + 1] and not toks[i + 1].startswith("-"):
+            groups.append(tok + "\u00a0" + toks[i + 1])
+            i += 2
+        else:
+            groups.append(tok)
+            i += 1
+    return " ".join(f'<span class="tk">{esc(g)}</span>' for g in groups)
 
 
 def prompt_line_html(line):
-    """One verbatim prompt line. Backtick code stays verbatim (backticks shown, muted)
-    inside an LTR isolate so commands read left to right."""
+    """One verbatim prompt line. Backtick code stays verbatim (backticks shown, muted).
+    Short code is an inline LTR isolate and punctuation after it stays outside, so it lands
+    after the code in RTL reading order. Long code gets its own LTR line, with the
+    punctuation that follows it kept inside, right after the closing backtick."""
     segs = line.split("`")
     out = []
-    i = 0
-    carry = ""
-    while i < len(segs):
+    for i in range(len(segs)):
         seg = segs[i]
         if i % 2 == 1 and i < len(segs) - 1:
-            nxt = segs[i + 1]
-            m = re.match(r"^[.,:;!?)]+", nxt)
-            trail = m.group(0) if m else ""
-            segs[i + 1] = nxt[len(trail):]
-            out.append(_code(seg, trail))
+            bt = '<span class="bt">`</span>'
+            if len(seg) <= INLINE_CODE_MAX:
+                out.append(f'<span class="code" dir="ltr">{bt}{_code_tokens(seg)}{bt}</span>')
+            else:
+                nxt = segs[i + 1]
+                m = re.match(r"^[.,:;!?]+", nxt)
+                trail = m.group(0) if m else ""
+                segs[i + 1] = nxt[len(trail):].lstrip(" ")
+                out.append(f'<span class="codeblock" dir="ltr">{bt}{_code_tokens(seg)}{bt}{esc(trail)}</span>')
         elif i % 2 == 1:
             out.append(_inline_text("`" + seg))
         else:
             out.append(_inline_text(seg))
-        i += 1
     return "".join(out)
 
 

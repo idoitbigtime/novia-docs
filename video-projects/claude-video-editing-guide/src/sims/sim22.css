@@ -16,11 +16,11 @@
 .sim22 .s22-kinrow { position: absolute; left: 16px; right: 16px; top: 404px; text-align: center; font: 800 38px/1.25 "Rubik"; color: #ffffff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); }
 .sim22 .s22-kinrow .accgrp { color: #ff5a4f; font-weight: 900; }
 .sim22 .s22-fixes { position: absolute; left: 0; top: 70px; width: 392px; }
-.sim22 .s22-fix { display: flex; direction: rtl; align-items: center; gap: 16px; height: 76px; margin-bottom: 14px; }
-.sim22 .s22-bad { position: relative; font: 600 38px/1 "Rubik"; color: #ff6b61; opacity: 0; white-space: nowrap; }
+.sim22 .s22-fix { display: flex; direction: rtl; align-items: center; gap: 12px; height: 72px; margin-bottom: 14px; }
+.sim22 .s22-bad { position: relative; font: 600 32px/1 "Rubik"; color: #ff6b61; opacity: 0; white-space: nowrap; }
 .sim22 .s22-strike { position: absolute; left: -5px; right: -5px; top: 52%; height: 4px; border-radius: 2px; background: #ff6b61; display: block; opacity: 0; transform-origin: 100% 50%; }
-.sim22 .s22-arrow { width: 46px; height: 22px; opacity: 0; flex: none; }
-.sim22 .s22-good { font: 700 40px/1 "Rubik"; color: var(--ink); opacity: 0; white-space: nowrap; }
+.sim22 .s22-arrow { width: 40px; height: 20px; opacity: 0; flex: none; }
+.sim22 .s22-good { font: 700 34px/1 "Rubik"; color: var(--ink); opacity: 0; white-space: nowrap; }
 .sim22 .s22-label { position: absolute; left: 0; width: 392px; display: flex; direction: rtl; align-items: center; gap: 14px; font: 600 36px/1 "Rubik"; color: var(--ink); opacity: 0; }
 .sim22 .s22-label i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; }
 .sim22 .s22-l1 { top: 400px; }

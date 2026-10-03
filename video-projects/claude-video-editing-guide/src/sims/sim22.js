@@ -36,6 +36,4 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
   E.dim(tl, E.q(".s22-l1", sc), T(c.kin0 - 0.3), 0.35);
   E.fadeIn(tl, E.q(".s22-l2", sc), T(c.kin0 - 0.25), 0.5, 16);
   E.kin(tl, E.q(".s22-kinrow", sc), S, { dy: 14 });
-  const acc = E.q(".s22-kinrow .accgrp", sc);
-  if (acc) E.zoomOn(tl, ctx, acc, S + parseFloat(acc.dataset.t), 0.04, S + cfg.tStage + cfg.simDur - 0.6, 0.45, [140, 940]);
 };

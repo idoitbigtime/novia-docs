@@ -16,5 +16,5 @@ CFG = {'id': 't52',
  'simDur': 9.0,
  'promptDur': 6.0,
  'fact': {'line': 'מחירים מהמדריך: קליפ AI של 5 שניות עם הפנים, בערך דולר. מילוי חדר ריק, 15 סנט לתמונה.'},
- 'hls': [('claude mcp add --transport http --scope user fal', 2.2, 0.1)],
+ 'hls': [('claude mcp add --transport http --scope user fal', 2.2, 0.10)],
  'tip': 'חלק מהמודלים חוסמים פנים אמיתיות, ולכן קלוד בוחר ב-fal מודל שמקבל אותן.'}

@@ -73,7 +73,7 @@
      content column [colL, colR] scaled by (1+amt) stays inside the safe area x 140..940. */
   E.zoom = function (tl, ctx, cx, cy, t, amt, tBack, backDur, col) {
     const s = 1 + amt;
-    const L = col ? col[0] : 180, R = col ? col[1] : 900;
+    const L = col ? col[0] : 220, R = col ? col[1] : 940;
     const lo = (s * R - 940) / (s - 1), hi = (s * L - 140) / (s - 1);
     if (lo <= hi) cx = Math.min(hi, Math.max(lo, cx));
     else cx = (L + R) / 2;
@@ -95,28 +95,31 @@
      the bar fades when the hold ends); section tabs follow the page; exits at t1. */
   E.prompt = function (tl, ctx, card, t0, t1, hls) {
     const vp = E.q(".pvp", card), ct = E.q(".pct", card);
-    const vh = vp.clientHeight;
-    const usable = vh - 70;
-    const lines = E.qa(".pl", ct);
-    const pages = [0];
-    let pageTop = 0;
-    for (const ln of lines) {
-      const top = ln.offsetTop, bot = top + ln.offsetHeight;
-      if (bot - pageTop > usable && top > pageTop) { pageTop = top - 6; pages.push(pageTop); }
-    }
-    const pageOf = (y) => { let k = 0; for (let i = 0; i < pages.length; i++) if (pages[i] <= y + 1) k = i; return k; };
+    const ROW = 44, ROWS = 22;                       // every line is a whole number of 44 px rows
+    const totalRows = Math.round(ct.scrollHeight / ROW);
+    const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
     const H = (hls || []).map((h) => {
       const ln = E.q('[data-hl="' + h.id + '"]', card);
-      return { ln, page: pageOf(ln.offsetTop), hold: h.hold || 1.6, zoom: h.zoom == null ? 0.08 : h.zoom };
+      return { ln, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, hold: h.hold || 1.6, zoom: h.zoom == null ? 0.1 : h.zoom };
     });
+    // pages advance by 21 rows (one row of overlap); a page is pulled up so a key line never straddles a page edge
+    const pages = [0];
+    while (pages[pages.length - 1] < lastTop) {
+      const cur = pages[pages.length - 1];
+      let nxt = Math.min(lastTop, cur + (ROWS - 1) * ROW);
+      for (const h of H) if (h.top > cur && h.top < nxt + ROWS * ROW && h.bot > cur + ROWS * ROW && h.top < cur + ROWS * ROW) nxt = Math.min(nxt, h.top - ROW);
+      if (nxt <= cur) nxt = Math.min(lastTop, cur + ROW);
+      pages.push(nxt);
+    }
+    const pageOf = (h) => { let k = 0; pages.forEach((p, i) => { if (p <= h.top && h.bot <= p + ROWS * ROW) k = i; }); return k; };
+    H.forEach((h) => { h.page = pageOf(h); });
     const n = pages.length, slide = 0.3, lead = 0.25, exitD = 0.3;
     const holdsT = H.reduce((a, h) => a + h.hold + 0.25, 0);
     const dwell = Math.max(0.45, (t1 - t0 - lead - exitD - (n - 1) * slide - holdsT) / n);
     tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
     tl.fromTo(card, { scale: 0.97, y: 40 }, A({ scale: 1, y: 0, duration: 0.6, ease: SPRING }), t0);
     const vpo = E.off(vp, ctx.scene);
-    const arrivals = [];
-    const holdTimes = [];
+    const arrivals = [], holdTimes = [];
     let t = t0 + lead;
     for (let i = 0; i < n; i++) {
       arrivals.push(t);
@@ -124,9 +127,16 @@
       for (const h of H.filter((x) => x.page === i)) {
         const hb = E.q(".hlbg", h.ln);
         tl.fromTo(hb, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power2.out" }), tt);
-        const cy = vpo.y + ct.offsetTop + (h.ln.offsetTop - pages[i]) + h.ln.offsetHeight / 2;
+        const cy = vpo.y + ct.offsetTop + (h.top - pages[i]) + (h.bot - h.top) / 2;
         const cx = vpo.x + vp.clientWidth / 2;
-        if (h.zoom) E.zoom(tl, ctx, cx, cy, tt, h.zoom, tt + h.hold - 0.45, 0.45, [vpo.x, vpo.x + vp.clientWidth]);
+        if (h.zoom) {
+          // the chapter header steps aside while the card is zoomed, so the card never covers it
+          if (ctx.hdr) {
+            tl.fromTo(ctx.hdr, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), tt);
+            tl.fromTo(ctx.hdr, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), tt + h.hold);
+          }
+          E.zoom(tl, ctx, cx, cy, tt, h.zoom, tt + h.hold - 0.45, 0.45, [vpo.x, vpo.x + vp.clientWidth]);
+        }
         tl.fromTo(hb, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power2.in" }), tt + h.hold);
         holdTimes.push(+tt.toFixed(3));
         tt += h.hold + 0.25;
@@ -141,7 +151,7 @@
     const tabs = E.qa(".tab", card);
     if (tabs.length) {
       const tags = tabs.map((tab) => E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card));
-      const secAt = (p) => { let k = 0; tags.forEach((g, j) => { if (g && g.offsetTop <= p + vh * 0.3) k = j; }); return k; };
+      const secAt = (p) => { let k = 0; tags.forEach((g, j) => { if (g && g.offsetTop <= p + ROWS * ROW * 0.3) k = j; }); return k; };
       let cur = -1;
       for (let i = 0; i < n; i++) {
         const k = secAt(pages[i]);
@@ -157,7 +167,7 @@
       }
     }
     tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: exitD, ease: "power2.in" }), t1 - exitD);
-    return { pages: pages.length, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3), holds: holdTimes };
+    return { pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3), holds: holdTimes };
   };
 
   /* Standard topic scene. Layout is measured once (static), then:
@@ -184,7 +194,9 @@
     // dock
     tl.set(main, { transformOrigin: "100% 0%" }, S + cfg.tDock);
     tl.fromTo(main, { y: 0, scale: 1 }, A({ y: dockTop - top0, scale: dockS, duration: 0.75, ease: SPRING }), S + cfg.tDock);
-    E.dim(tl, exp, S + cfg.tDock, 0.55, 1, 0.5);
+    E.dim(tl, exp, S + cfg.tDock, 0.3, 1, 0.5);
+    E.qa(".accgrp", exp).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#8a86a0", duration: 0.5 }), S + cfg.tDock));
+    E.qa(".ul", exp).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + cfg.tDock));
     // simulation
     E.fadeIn(tl, simtag, S + cfg.tStage - 0.15, 0.4, 0);
     tl.fromTo(stage, { opacity: 0, y: 46 }, A({ opacity: 1, y: 0, duration: 0.8, ease: SPRING }), S + cfg.tStage);
@@ -193,10 +205,13 @@
     const tOut1 = cfg.tFact != null ? cfg.tFact - 0.45 : tNext - 0.35;
     E.dim(tl, stage, S + tOut1, 0, 1, 0.35);
     E.dim(tl, simtag, S + tOut1, 0, 1, 0.3);
-    E.dim(tl, exp, S + tOut1, 0, 0.55, 0.35);
+    E.dim(tl, exp, S + tOut1, 0, 0.3, 0.35);
     if (cfg.tFact != null) {
       const pill = E.q(".factbox .pill", sc);
-      if (pill) E.pill(tl, pill, S + cfg.tFact, null);
+      if (pill) {
+        tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
+        tl.fromTo(pill, { scale: 0.92, y: 20 }, A({ scale: 1, y: 0, duration: 0.45, ease: SPRING }), S + cfg.tFact - 0.1);
+      }
       E.kin(tl, fact, S, { dy: 12 });
     }
     // first cut: the docked title (and the fact) leave before the card or the tip arrives
