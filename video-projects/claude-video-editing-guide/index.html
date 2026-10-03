@@ -307,13 +307,14 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
 .pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
 .pc-num b { color: var(--ink); font-weight: 600; }
-.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 68px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
+.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
 .tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
-.tab .tul { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tab .tul { display: none; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
 .tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
-.pvp { position: absolute; top: 182px; height: 1012px; left: 30px; right: 30px; overflow: hidden;
+.pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
   }
-.pct { position: absolute; top: 0; left: 30px; right: 30px; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
+.pct { position: absolute; top: 0; left: 48px; right: 48px; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
 .pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
 .pl-empty { height: 44px; }
 .ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
@@ -323,7 +324,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .nb, .neg { white-space: nowrap; }
 .code .bt, .codeblock .bt { color: #6f6b86; }
 .hlbg { position: absolute; z-index: -1; top: 0; bottom: 0; left: -14px; right: -14px; background: #2e1626; border-right: 4px solid #e5484d; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); opacity: 0; display: block; }
-.pdim { position: absolute; left: -30px; right: -30px; top: 0; bottom: 0; z-index: 1; background: rgba(15, 14, 28, 0.66); opacity: 0; display: block; pointer-events: none; }
+.pbody { position: relative; }
+/* lifted key lines: a layer over the card (same box, not clipped by it) */
+.plift { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; pointer-events: none; }
+.pl-lift { position: absolute; z-index: 3; opacity: 0; box-sizing: border-box; padding: 0 12px; font: 400 30px/44px "Rubik"; color: #f5f2ea; direction: rtl; white-space: pre-wrap; transform-origin: 50% 50%; }
+.pl-lift .hlbg { opacity: 1; }
 
 /* ---------- tip ---------- */
 .tipwrap { position: absolute; left: 140px; width: 800px; top: 0; height: 1920px; display: flex; align-items: center; justify-content: center; }
@@ -376,7 +381,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="895.070" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="886.460" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
@@ -389,7 +394,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 
 <div class="ch-dots" dir="rtl"><i class="ch-dot"></i><i class="ch-dot on"></i><i class="ch-dot"></i><i class="ch-dot"></i><i class="ch-dot"></i><i class="ch-dot"></i><i class="ch-dot"></i><i class="ch-dot"></i></div>
 </div></div>
-<div id="sc-t22" class="clip scene" data-start="89.640" data-duration="37.550" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 2 · עריכה בסיסית</span><span class="hdr-num" dir="ltr">2.2</span></div>
+<div id="sc-t22" class="clip scene" data-start="89.640" data-duration="37.570" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 2 · עריכה בסיסית</span><span class="hdr-num" dir="ltr">2.2</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">כתוביות</span> <span class="w" dir="rtl" data-t="0.430">בעברית</span> <span class="w" dir="rtl" data-t="0.560">בשני</span> <span class="w" dir="rtl" data-t="0.690">סגנונות</span></h2><p class="exp kin" dir="rtl"><span class="w" dir="rtl" data-t="1.120">התמלול</span> <span class="w" dir="rtl" data-t="1.170">נעשה</span> <span class="w" dir="rtl" data-t="1.220">עם</span> <span class="w" dir="rtl" data-t="1.270">המודל</span> <span class="w" dir="rtl" data-t="1.320">הגדול</span> <span class="w" dir="rtl" data-t="1.370">(large-v3),</span> <span class="w" dir="rtl" data-t="1.920">כי</span> <span class="w" dir="rtl" data-t="1.970">ברירת</span> <span class="w" dir="rtl" data-t="2.020">המחדל</span> <span class="w" dir="rtl" data-t="2.070">של</span> <span class="w" dir="rtl" data-t="2.120">HyperFrames</span> <span class="w" dir="rtl" data-t="2.170">מבינה</span> <span class="w" dir="rtl" data-t="2.220">רק</span> <span class="w" dir="rtl" data-t="2.720">אנגלית.</span> <span class="w" dir="rtl" data-t="3.520">אחר</span> <span class="w" dir="rtl" data-t="3.570">כך</span> <span class="w" dir="rtl" data-t="3.620">קלוד</span> <span class="w" dir="rtl" data-t="3.670">קורא</span> <span class="w" dir="rtl" data-t="3.720">כל</span> <span class="w" dir="rtl" data-t="3.770">כתובית</span> <span class="accgrp" data-t="3.820"><span class="w s-str" dir="rtl" data-t="3.820">כמשפט</span> <span class="w s-str" dir="rtl" data-t="4.320">שלם</span><i class="ul" data-t="4.000"></i></span> <span class="w" dir="rtl" data-t="4.370">ומתקן</span> <span class="w" dir="rtl" data-t="4.420">מילים</span> <span class="w" dir="rtl" data-t="4.470">שנשמעות</span> <span class="w" dir="rtl" data-t="4.520">אותו</span> <span class="w" dir="rtl" data-t="4.570">דבר</span> <span class="w" dir="rtl" data-t="4.620">ונכתבות</span> <span class="w" dir="rtl" data-t="5.120">אחרת.</span></p></div>
 <div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="simwrap sim22">
@@ -407,14 +412,14 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 </svg>
 <div class="s22-caps"><div class="s22-cap" dir="rtl"><span class="s22-capbad">הקאבל<i class="s22-capstrike"></i></span><span class="s22-capgood">הכבל</span></div><div class="s22-cap" dir="rtl"><span class="s22-capbad">בסכוכית<i class="s22-capstrike"></i></span><span class="s22-capgood">בזכוכית</span></div><div class="s22-cap" dir="rtl"><span class="s22-capbad">מחובר עליו<i class="s22-capstrike"></i></span><span class="s22-capgood">מחובר אליו</span></div></div>
 <div class="s22-pillrow"><span class="s22-pill" id="t22-p1">הכתוביות</span><span class="s22-pill" id="t22-p2">מתחלפות</span><span class="s22-pill" id="t22-p3">בפריים אחד</span><span class="s22-pill" id="t22-p4">בלי אנימציה</span></div>
-<div class="s22-kinrow kin" dir="rtl"><span class="w" dir="rtl" data-t="15.560">וכאן</span> <span class="w" dir="rtl" data-t="15.920">כל</span> <span class="w" dir="rtl" data-t="16.280">מילה</span> <span class="w" dir="rtl" data-t="16.640">נכנסת</span> <span class="accgrp" data-t="17.000"><span class="w s-str" dir="rtl" data-t="17.000">בתנועה</span><i class="ul" data-t="17.180"></i></span></div>
+<div class="s22-kinrow kin" dir="rtl"><span class="w" dir="rtl" data-t="15.410">וכאן</span> <span class="w" dir="rtl" data-t="15.710">כל</span> <span class="w" dir="rtl" data-t="16.010">מילה</span> <span class="w" dir="rtl" data-t="16.310">נכנסת</span> <span class="accgrp" data-t="16.610"><span class="w s-str" dir="rtl" data-t="16.610">בתנועה</span><i class="ul" data-t="16.790"></i></span></div>
 </div></div>
 <div class="s22-fixes"><div class="s22-fix"><span class="s22-bad">הקאבל<i class="s22-strike"></i></span><svg class="s22-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="s22-good">הכבל</span></div><div class="s22-fix"><span class="s22-bad">בסכוכית<i class="s22-strike"></i></span><svg class="s22-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="s22-good">בזכוכית</span></div><div class="s22-fix"><span class="s22-bad">מחובר עליו<i class="s22-strike"></i></span><svg class="s22-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="s22-good">מחובר אליו</span></div></div>
 <div class="s22-label s22-l1"><i></i><span>סגנון 1 · גלולה לבנה</span></div>
 <div class="s22-label s22-l2"><i></i><span>סגנון 2 · קינטי</span></div>
 </div></div>
-<div class="factbox"><span class="pill">9 טעויות תמלול</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="19.410">בקטע</span> <span class="w" dir="rtl" data-t="19.560">של</span> <span class="w" dir="rtl" data-t="19.710">33</span> <span class="w" dir="rtl" data-t="19.860">שניות:</span> <span class="w" dir="rtl" data-t="20.260">7</span> <span class="w" dir="rtl" data-t="20.410">נתפסו</span> <span class="w" dir="rtl" data-t="20.560">בקריאה,</span> <span class="w" dir="rtl" data-t="20.710">ו-2</span> <span class="w" dir="rtl" data-t="20.860">רק</span> <span class="w" dir="rtl" data-t="21.010">באוזן.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="21.660">הכתוביות</span> <span class="w" dir="rtl" data-t="21.790">בסרטון</span> <span class="w" dir="rtl" data-t="21.920">הזה</span> <span class="w" dir="rtl" data-t="22.050">בנויות</span> <span class="w" dir="rtl" data-t="22.180">באותה</span> <span class="w" dir="rtl" data-t="22.310">שיטה.</span></p></div>
-<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>2</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span></div><div class="pvp"><div class="pct" dir="rtl"><div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
+<div class="factbox"><span class="pill">9 טעויות תמלול</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="19.410">בקטע</span> <span class="w" dir="rtl" data-t="19.560">של</span> <span class="w" dir="rtl" data-t="19.710">33</span> <span class="w" dir="rtl" data-t="19.860">שניות:</span> <span class="w" dir="rtl" data-t="20.260">7</span> <span class="w" dir="rtl" data-t="20.410">נתפסו</span> <span class="w" dir="rtl" data-t="20.560">בקריאה,</span> <span class="w" dir="rtl" data-t="20.710">ו-2</span> <span class="w" dir="rtl" data-t="20.860">רק</span> <span class="w" dir="rtl" data-t="21.010">באוזן.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="21.460">הכתוביות</span> <span class="w" dir="rtl" data-t="21.490">בסרטון</span> <span class="w" dir="rtl" data-t="21.520">הזה</span> <span class="w" dir="rtl" data-t="21.550">בנויות</span> <span class="w" dir="rtl" data-t="21.580">באותה</span> <span class="w" dir="rtl" data-t="21.610">שיטה.</span></p></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>2</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
 <div class="pl" dir="rtl">תשאל אותי על שלושה דברים:</div>
 <div class="pl" dir="rtl">- איזה סרטון לערוך, אם יש בתיקייה יותר מאחד.</div>
 <div class="pl" dir="rtl">- איזה סגנון כתוביות לבנות, אחד מהשניים:</div>
@@ -466,8 +471,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl ptag" dir="rtl" data-sec="התחלה">&lt;התחלה&gt;</div>
 <div class="pl" dir="rtl">תשאל אותי על הקלט, תתמלל, ותראה לי את כל הכתוביות כרשימת משפטים עם זמנים, עם סימון של כל מילה שתיקנת, של המילים להדגשה ושל מילים שאתה לא בטוח בהן, כדי שאבדוק אותן באוזן.</div>
 <div class="pl" dir="rtl">אחרי שאישרתי, תרנדר תצוגה של 10 שניות (תשנה זמנית את <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">data-duration</span><span class="bt">`</span></span> <span class="nb">ל-10</span> ותרנדר עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">--quality draft</span><span class="bt">`</span></span>), ואת כל הסרטון רק אחרי שאישרתי את הסגנון.</div>
-<div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div><i class="pdim"></i></div></div></div>
-<div class="tipwrap"><div class="tipcard"><div class="tip-label"><i></i>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="34.140">לפני</span> <span class="w" dir="rtl" data-t="34.300">שמאשרים,</span> <span class="w" dir="rtl" data-t="34.460">מקשיבים</span> <span class="w" dir="rtl" data-t="34.620">לכל</span> <span class="w" dir="rtl" data-t="34.780">מילה</span> <span class="w" dir="rtl" data-t="34.940">שקלוד</span> <span class="w" dir="rtl" data-t="35.100">מסמן</span> <span class="w" dir="rtl" data-t="35.260">שהוא</span> <span class="w" dir="rtl" data-t="35.420">לא</span> <span class="w" dir="rtl" data-t="35.580">בטוח</span> <span class="w" dir="rtl" data-t="35.740">בה.</span></p></div></div>
+<div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i><span class="code" dir="ltr"><span class="bt">`</span><span class="tk">dir=&quot;rtl&quot;</span><span class="bt">`</span></span> לא נכנס לתגית <span class="nb">ה-html,</span> כי אז הרינדור יוצא שחור.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>כל מילה <span class="nb">ב-span</span> משלה עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">dir=&quot;rtl&quot;</span><span class="bt">`</span></span>, אחרת פסיק או נקודה בסוף המילה עוברים לצד הלא נכון.</div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><i></i>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="34.160">לפני</span> <span class="w" dir="rtl" data-t="34.320">שמאשרים,</span> <span class="w" dir="rtl" data-t="34.480">מקשיבים</span> <span class="w" dir="rtl" data-t="34.640">לכל</span> <span class="w" dir="rtl" data-t="34.800">מילה</span> <span class="w" dir="rtl" data-t="34.960">שקלוד</span> <span class="w" dir="rtl" data-t="35.120">מסמן</span> <span class="w" dir="rtl" data-t="35.280">שהוא</span> <span class="w" dir="rtl" data-t="35.440">לא</span> <span class="w" dir="rtl" data-t="35.600">בטוח</span> <span class="w" dir="rtl" data-t="35.760">בה.</span></p></div></div>
 </div></div>
 </div>
 </div>
@@ -566,18 +571,20 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   };
 
   /* Prompt card: the full verbatim text, paged (static pages and short slides, so any
-     paused frame is readable); holds on highlighted lines (highlight bar + bouncy zoom,
-     the bar fades when the hold ends); section tabs follow the page; exits at t1. */
+     paused frame is readable). On a key line the page text dims and a copy of the line
+     lifts above the card (bouncy zoom on the line; it sits in its own layer, so its backing
+     is never clipped). One underline slides between the section tabs. Exits at t1. */
   E.prompt = function (tl, ctx, card, t0, t1, hls) {
-    const vp = E.q(".pvp", card), ct = E.q(".pct", card), dim = E.q(".pdim", card);
+    const vp = E.q(".pvp", card), ct = E.q(".pct", card), body = E.q(".pbody", card);
     const ROW = 44, ROWS = 23;                     // the viewport is exactly 23 rows: no line is ever cut
-    const totalRows = Math.round(ct.scrollHeight / ROW);
+    const totalRows = Math.round(body.offsetHeight / ROW);
     const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
+    const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
     const H = (hls || []).map((h) => {
       const ln = E.q('[data-hl="' + h.id + '"]', card);
-      const words = ln.textContent.trim().split(/\s+/).length;
-      return { ln, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, hold: h.hold || 2.4, words };
-    });
+      const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
+      return { id: h.id, ln, lift, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, want: h.hold || 2.4 };
+    }).sort((a, b) => a.top - b.top);
     // pages advance by 22 rows (one row of overlap); a page is pulled up so a key line never straddles an edge
     const pages = [0];
     while (pages[pages.length - 1] < lastTop) {
@@ -587,51 +594,105 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
       if (nxt <= cur) nxt = Math.min(lastTop, cur + ROW);
       pages.push(nxt);
     }
-    H.forEach((h) => { h.page = 0; pages.forEach((p, i) => { if (p <= h.top && h.bot <= p + ROWS * ROW) h.page = i; }); });
-    // time: quick pages (full verbatim text, readable when paused) and long holds on the key lines
-    const n = pages.length, slide = 0.25, lead = 0.25, exitD = 0.3, gap = 0.2;
-    const holdPages = new Set(H.map((h) => h.page));
-    const budget = t1 - t0 - lead - exitD - (n - 1) * slide;
-    let holdsT = H.reduce((a, h) => a + h.hold + gap, 0);
-    const minPage = 0.5;
-    if (budget - holdsT < n * minPage) {
-      const room = Math.max(H.length * 2.0, budget - n * minPage - gap * H.length);
-      const k = room / H.reduce((a, h) => a + h.hold, 0);
-      H.forEach((h) => { h.hold = Math.max(2.0, h.hold * k); });
-      holdsT = H.reduce((a, h) => a + h.hold + gap, 0);
+    // a key line is held on the page where it sits furthest from the edges (the lift needs room)
+    H.forEach((h) => {
+      let bestM = -1e9;
+      h.page = 0;
+      pages.forEach((p, i) => {
+        const m = Math.min(h.top - p, p + ROWS * ROW - h.bot);
+        if (m >= 0 && m > bestM + 0.5) { bestM = m; h.page = i; }
+      });
+    });
+    // schedule: plain pages flip on a 0.6 s cadence (slide included); key lines get the rest of the
+    // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
+    const n = pages.length;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.35, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LIFT = 1.1, DIM = 0.38;
+    const mineOf = (i) => H.filter((h) => h.page === i);
+    const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.62 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
+    let fixed = LEAD + EXIT, nPlain = 0, tail = 0.2;
+    for (let i = 0; i < n; i++) {
+      const mine = mineOf(i);
+      if (!mine.length) nPlain++;
+      else fixed += liftDelay(i) + (mine.length - 1) * UNLIFT + (isHold(i + 1) ? UNLIFT : UNDIM);
+      if (i < n - 1) fixed += isHold(i) && isHold(i + 1) ? DSLIDE : SLIDE;
     }
-    const dwell = Math.max(0.35, (budget - holdsT) / n);
+    fixed += tail;
+    const want = H.reduce((a, h) => a + h.want, 0);
+    let dwell = 0.35;
+    let room = t1 - t0 - fixed - nPlain * dwell;
+    if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
+      dwell = Math.max(0.2, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
+      room = t1 - t0 - fixed - nPlain * dwell;
+    }
+    if (H.length) {
+      let k = room / want;
+      if (k > 1.35) {
+        const extra = room - want * 1.35;
+        k = 1.35;
+        dwell += extra / (nPlain + 1);
+        tail += extra / (nPlain + 1);
+      }
+      H.forEach((h) => { h.hold = h.want * k; });
+      // keep a 2 s floor on every hold where the budget allows it
+      for (let it = 0; it < 3; it++) {
+        const low = H.filter((h) => h.hold < MINH), high = H.filter((h) => h.hold >= MINH);
+        if (!low.length || !high.length) break;
+        const need = low.reduce((a, h) => a + MINH - h.hold, 0);
+        const spare = high.reduce((a, h) => a + h.hold - MINH, 0);
+        const take = Math.min(need, spare);
+        low.forEach((h) => { h.hold += (MINH - h.hold) * (take / need); });
+        high.forEach((h) => { h.hold -= (h.hold - MINH) * (take / spare); });
+      }
+    } else {
+      dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
+    }
+    // the lifted copies sit over their line on the page where it is held (static layout)
+    H.forEach((h) => {
+      h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
+      h.lift.style.top = (bw + vp.offsetTop + h.top - pages[h.page]) + "px";
+      h.lift.style.width = h.ln.offsetWidth + "px";
+    });
     tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
     tl.fromTo(card, { scale: 0.97, y: 40 }, A({ scale: 1, y: 0, duration: 0.6, ease: SPRING }), t0);
-    const arrivals = [], holdTimes = [];
-    let t = t0 + lead;
+    const arrivals = [], slides = [], holdTimes = [];
+    let t = t0 + LEAD, dimmed = false, tFinal = null;
     for (let i = 0; i < n; i++) {
       arrivals.push(t);
-      const mine = H.filter((h) => h.page === i);
-      let tt = t + (mine.length ? dwell * 0.4 : dwell);
-      mine.forEach((h, j) => {
-        const hb = E.q(".hlbg", h.ln);
-        // key line lifts out of the page (bouncy zoom on the line itself); the rest of the page dims
-        tl.set(h.ln, { zIndex: 2, transformOrigin: "50% 50%" }, tt);
-        tl.fromTo(hb, { opacity: 0 }, A({ opacity: 1, duration: 0.2, ease: "power2.out" }), tt);
-        tl.fromTo(h.ln, { scale: 1 }, A({ scale: 1.08, duration: 0.6, ease: SPRING }), tt);
-        if (j === 0) tl.fromTo(dim, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), tt);
-        tl.fromTo(h.ln, { scale: 1.08 }, A({ scale: 1, duration: 0.3, ease: "power2.inOut" }), tt + h.hold - 0.3);
-        tl.fromTo(hb, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), tt + h.hold - 0.25);
-        tl.set(h.ln, { zIndex: 0 }, tt + h.hold);
-        if (j === mine.length - 1) tl.fromTo(dim, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), tt + h.hold - 0.3);
-        holdTimes.push(+tt.toFixed(3));
-        tt += h.hold + gap;
-      });
-      t = mine.length ? tt + dwell * 0.6 - gap : tt;
+      const mine = mineOf(i);
+      if (!mine.length) t += dwell;
+      else {
+        t += liftDelay(i);
+        mine.forEach((h, j) => {
+          if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
+          dimmed = true;
+          tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          holdTimes.push(+t.toFixed(3));
+          t += h.hold;
+          const keepDim = j < mine.length - 1 || isHold(i + 1);
+          const d = keepDim ? UNLIFT : UNDIM;
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d, ease: "power2.inOut" }), t);
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d, ease: "power2.in" }), t);
+          if (!keepDim) {
+            tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
+            dimmed = false;
+            if (i === n - 1) tFinal = t;
+          }
+          t += d;
+        });
+      }
       if (i < n - 1) {
-        tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: slide, ease: "power2.inOut" }), t);
-        t += slide;
+        const sd = dimmed ? DSLIDE : SLIDE;
+        tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: sd, ease: "power2.inOut" }), t);
+        slides.push([t, sd]);
+        t += sd;
       }
     }
-    // tabs follow the page: the section that fills most of the visible rows
-    const tabs = E.qa(".tab", card);
-    if (tabs.length) {
+    // tabs: one underline slides with the page to the section that fills most of the visible rows
+    const tabs = E.qa(".tab", card), ul = E.q(".tabul", card);
+    if (tabs.length && ul) {
       const tags = tabs.map((tab) => E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card));
       const starts = tags.map((g) => (g ? g.offsetTop : 1e9));
       const secAt = (p) => {
@@ -643,34 +704,35 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         });
         return best;
       };
-      let cur = -1;
-      for (let i = 0; i < n; i++) {
-        const k = secAt(pages[i]);
-        if (k === cur) continue;
-        const ta = i === 0 ? t0 + 0.1 : arrivals[i] - slide * 0.5;
-        if (cur >= 0) {
-          tl.fromTo(tabs[cur], { color: "#f5f2ea" }, A({ color: "#9c99ae", duration: 0.2 }), ta);
-          tl.fromTo(E.q(".tul", tabs[cur]), { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), ta);
-        }
-        tl.fromTo(tabs[k], { color: "#9c99ae" }, A({ color: "#f5f2ea", duration: 0.2 }), ta);
-        tl.fromTo(E.q(".tul", tabs[k]), { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), ta);
+      const MUTED = "#9c99ae", INK = "#f5f2ea";
+      const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
+      let cur = secAt(pages[0]);
+      ul.style.left = pos(cur).left + "px";
+      ul.style.width = pos(cur).width + "px";
+      tl.fromTo(ul, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power2.out" }), t0 + 0.1);
+      tl.fromTo(tabs[cur], { color: MUTED }, A({ color: INK, duration: 0.2 }), t0 + 0.1);
+      const move = (k, ta, d) => {
+        const a = pos(cur), b = pos(k);
+        tl.fromTo(ul, { left: a.left, width: a.width }, A({ left: b.left, width: b.width, duration: d, ease: "power3.inOut" }), ta);
+        tl.fromTo(tabs[cur], { color: INK }, A({ color: MUTED, duration: 0.2 }), ta + d / 2 - 0.1);
+        tl.fromTo(tabs[k], { color: MUTED }, A({ color: INK, duration: 0.2 }), ta + d / 2 - 0.1);
         cur = k;
+      };
+      // the section that holds the last visible row (the end of the prompt on the last page)
+      const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      for (let i = 1; i < n; i++) {
+        const k = i === n - 1 && !isHold(i) ? lastVisible(pages[i]) : secAt(pages[i]);
+        if (k !== cur) move(k, slides[i - 1][0], Math.max(0.3, slides[i - 1][1]));
       }
-      // on the last page, once its key lines are done, the last visible section takes over
-      const lastP = pages[n - 1];
-      let lastVis = cur;
-      starts.forEach((st, j) => { if (st < lastP + ROWS * ROW && st >= lastP) lastVis = Math.max(lastVis, j); });
-      if (lastVis > cur) {
-        const mineLast = H.filter((h) => h.page === n - 1);
-        const ta = mineLast.length ? holdTimes[holdTimes.length - 1] + mineLast[mineLast.length - 1].hold + 0.05 : arrivals[n - 1] + dwell * 0.5;
-        tl.fromTo(tabs[cur], { color: "#f5f2ea" }, A({ color: "#9c99ae", duration: 0.2 }), ta);
-        tl.fromTo(E.q(".tul", tabs[cur]), { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), ta);
-        tl.fromTo(tabs[lastVis], { color: "#9c99ae" }, A({ color: "#f5f2ea", duration: 0.2 }), ta);
-        tl.fromTo(E.q(".tul", tabs[lastVis]), { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), ta);
-      }
+      // a last page with key lines: its last section takes over when the page undims
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) > cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
     }
-    tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: exitD, ease: "power2.in" }), t1 - exitD);
-    return { pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3), holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)) };
+    tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
+    return {
+      pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
+      holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, liftH: h.lift.offsetHeight })),
+    };
   };
 
   /* Standard topic scene. Layout is measured once (static), then:
@@ -802,7 +864,7 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"id": "c2", "type": "chapter", "D": 5.16, "S": 52.0}, {"id": "t22", "sim": "sim22", "D": 37.55, "tStage": 8.66, "tDock": 8.31, "tFact": 18.96, "tPrompt": 24.14, "tPromptEnd": 33.74, "tTip": 33.74, "expZoom": 0.1, "simDur": 10.3, "hls": [{"id": "hl1", "hold": 2.4, "zoom": 0.1}, {"id": "hl2", "hold": 3.0, "zoom": 0.1}], "sim22": {"fix0": 0.5, "fixStep": 1.1, "fixes": [["הקאבל", "הכבל"], ["בסכוכית", "בזכוכית"], ["מחובר עליו", "מחובר אליו"]], "label1": "סגנון 1 · גלולה לבנה", "label2": "סגנון 2 · קינטי", "pills0": 4.1, "pillStep": 0.62, "pills": ["הכתוביות", "מתחלפות", "בפריים אחד", "בלי אנימציה"], "kin0": 6.7, "kinStep": 0.36, "kin": "וכאן כל מילה נכנסת {בתנועה}"}, "S": 89.64}];
+  const CFGS = [{"id": "c2", "type": "chapter", "D": 5.16, "S": 52.0}, {"id": "t22", "sim": "sim22", "D": 37.57, "tStage": 8.66, "tDock": 8.31, "tFact": 18.96, "tPrompt": 23.56, "tPromptEnd": 33.76, "tTip": 33.76, "expZoom": 0.1, "simDur": 10.3, "hls": [{"id": "hl1", "hold": 2.6, "zoom": 0.1}, {"id": "hl2", "hold": 3.2, "zoom": 0.1}], "sim22": {"fix0": 0.5, "fixStep": 1.1, "fixes": [["הקאבל", "הכבל"], ["בסכוכית", "בזכוכית"], ["מחובר עליו", "מחובר אליו"]], "label1": "סגנון 1 · גלולה לבנה", "label2": "סגנון 2 · קינטי", "pills0": 4.1, "pillStep": 0.58, "pills": ["הכתוביות", "מתחלפות", "בפריים אחד", "בלי אנימציה"], "kin0": 6.55, "kinStep": 0.3, "kin": "וכאן כל מילה נכנסת {בתנועה}"}, "S": 89.64}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -816,7 +878,7 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 895.070;
+    const TOT = 886.460;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     for (const cfg of CFGS) {
