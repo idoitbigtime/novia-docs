@@ -77,7 +77,7 @@ window.SIMS.sim25 = function (tl, ctx, cfg, S) {
   tl.fromTo(mt, { textShadow: "0 0 18px rgba(201, 194, 255, 1)", color: "#ffffff" }, A({ textShadow: "0 0 0px rgba(201, 194, 255, 0)", color: "#ece9f7", duration: 0.6 }), T(b2 + 1.6));
 
   // B3 "קלוד מודד, מכוון ומודד שוב": pass 1 measures, pass 2 (linear) levels it, a second measurement confirms
-  const b3 = P[3], gp = q(".s25-gp"), p1 = q(".s25-p1"), p2 = q(".s25-p2"), scan = q(".s25-gscan");
+  const b3 = P[3], gp = q(".s25-gp"), p1 = q(".s25-p1"), p2 = q(".s25-p2"), scan = q(".s25-gs1"), scan2 = q(".s25-gs2");
   fade(ro, T(b3 - 0.3), 0.25);
   fade(earw, T(b3 - 0.3), 0.25);
   tl.fromTo(gp, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b3 + 0.05));
@@ -102,9 +102,9 @@ window.SIMS.sim25 = function (tl, ctx, cfg, S) {
   });
   level(-14, T(b3 + 0.95), 0.55);
   // measure again
-  tl.fromTo(scan, { opacity: 0 }, A({ opacity: 1, duration: 0.06 }), T(b3 + 1.4));
-  tl.fromTo(scan, { x: 0 }, A({ x: -span, duration: 0.24, ease: "none" }), T(b3 + 1.4));
-  tl.fromTo(scan, { opacity: 1 }, A({ opacity: 0, duration: 0.06 }), T(b3 + 1.6));
+  tl.fromTo(scan2, { opacity: 0 }, A({ opacity: 1, duration: 0.06 }), T(b3 + 1.4));
+  tl.fromTo(scan2, { x: 0 }, A({ x: -span, duration: 0.24, ease: "none" }), T(b3 + 1.4));
+  tl.fromTo(scan2, { opacity: 1 }, A({ opacity: 0, duration: 0.06 }), T(b3 + 1.6));
   const ok = q(".s25-ok");
   tl.fromTo(ok, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.2)" }), T(b3 + 1.5));
   E.draw(tl, q(".s25-ok path"), T(b3 + 1.55), 0.3);

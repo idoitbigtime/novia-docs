@@ -394,9 +394,9 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim33 .s33-cut { fill: none; stroke: #ffffff; stroke-width: 2.6; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.95)); }
 
 /* the text on the wall (layer 2): white, weight 900, a soft dark shadow; every word enters whole */
-.sim33 .s33-text { position: absolute; right: 268px; top: 70px; width: 470px; font: 900 68px/1.22 "Rubik"; color: #ffffff; text-align: right; text-shadow: 0 4px 18px rgba(0, 0, 0, 0.55); }
+.sim33 .s33-text { position: absolute; right: 254px; top: 70px; width: 470px; font: 900 68px/1.22 "Rubik"; color: #ffffff; text-align: right; text-shadow: 0 4px 18px rgba(0, 0, 0, 0.55); }
 .sim33 .s33-w { display: inline-block; opacity: 0; }
-.sim33 .s33-text > div:nth-child(2) { margin-right: 58px; }
+.sim33 .s33-text > div:nth-child(2) { margin-right: 74px; }
 
 /* the frame: viewfinder corners and border over the stack */
 .sim33 .s33-frame { position: absolute; left: 10px; top: 40px; width: 780px; height: 439px; border-radius: 20px; border: 1.5px solid rgba(201, 194, 255, 0.28); box-shadow: 0 0 30px rgba(201, 194, 255, 0.12); pointer-events: none; }
@@ -435,7 +435,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 /* payoff: the three layers, bottom to top, each named with a dot and a line */
 .sim33 .s33-leads { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
 .sim33 .s33-leads path { fill: none; stroke: rgba(201, 194, 255, 0.8); stroke-width: 2; }
-.sim33 .s33-lab { position: absolute; display: flex; align-items: center; gap: 12px; direction: rtl; font: 600 32px/1 "Rubik"; color: #f5f2ea; white-space: nowrap; opacity: 0; }
+.sim33 .s33-lab { position: absolute; display: flex; align-items: center; gap: 12px; direction: rtl; font: 600 31px/1 "Rubik"; color: #f5f2ea; white-space: nowrap; opacity: 0; }
 .sim33 .s33-lab i { width: 14px; height: 14px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.95); display: block; flex: none; }
 
 /* B3: each word enters whole when it is said (a time strip; time runs right to left) */
@@ -1003,7 +1003,7 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
   const T = (x) => S + x;                    // scene-local -> master time
   const q = (s) => E.q(".sim33 " + s, sc), qa = (s) => E.qa(".sim33 " + s, sc);
   const persp = q(".s33-persp"), root = persp.parentNode, stack = q(".s33-stack"), lys = qa(".s33-ly");
-  const R = { x: -96, y: 58, rz: -20, rx: 48, s: 0.66 }, Z0 = [0, 0.6, 1.2], Z = [-150, 0, 150];
+  const R = { x: -112, y: 54, rz: -20, rx: 48, s: 0.58 }, Z0 = [0, 0.6, 1.2], Z = [-150, 0, 150];
 
   // static layout: measure where each layer's right edge lands in the payoff's side view, then place the names
   stack.style.transform = "translate(" + R.x + "px, " + R.y + "px) rotate(" + R.rz + "deg) rotateX(" + R.rx + "deg) scale(" + R.s + ")";
@@ -1017,7 +1017,7 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
   lys.forEach((l) => { l.style.transform = ""; });
   const labs = qa(".s33-lab"), leads = qa(".s33-leads path");
   pts.forEach((p, i) => {
-    const lx = Math.round(p.x + 44), ly = Math.round(p.y);
+    const lx = Math.round(p.x + 36), ly = Math.round(p.y);
     labs[i].style.left = lx + "px";
     labs[i].style.top = ly - 16 + "px";
     leads[i].setAttribute("d", "M" + (p.x + 2).toFixed(1) + " " + p.y.toFixed(1) + " H" + (lx + 2));

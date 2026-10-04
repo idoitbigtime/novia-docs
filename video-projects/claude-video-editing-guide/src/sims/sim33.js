@@ -4,7 +4,7 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
   const T = (x) => S + x;                    // scene-local -> master time
   const q = (s) => E.q(".sim33 " + s, sc), qa = (s) => E.qa(".sim33 " + s, sc);
   const persp = q(".s33-persp"), root = persp.parentNode, stack = q(".s33-stack"), lys = qa(".s33-ly");
-  const R = { x: -96, y: 58, rz: -20, rx: 48, s: 0.66 }, Z0 = [0, 0.6, 1.2], Z = [-150, 0, 150];
+  const R = { x: -112, y: 54, rz: -20, rx: 48, s: 0.58 }, Z0 = [0, 0.6, 1.2], Z = [-150, 0, 150];
 
   // static layout: measure where each layer's right edge lands in the payoff's side view, then place the names
   stack.style.transform = "translate(" + R.x + "px, " + R.y + "px) rotate(" + R.rz + "deg) rotateX(" + R.rx + "deg) scale(" + R.s + ")";
@@ -18,7 +18,7 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
   lys.forEach((l) => { l.style.transform = ""; });
   const labs = qa(".s33-lab"), leads = qa(".s33-leads path");
   pts.forEach((p, i) => {
-    const lx = Math.round(p.x + 44), ly = Math.round(p.y);
+    const lx = Math.round(p.x + 36), ly = Math.round(p.y);
     labs[i].style.left = lx + "px";
     labs[i].style.top = ly - 16 + "px";
     leads[i].setAttribute("d", "M" + (p.x + 2).toFixed(1) + " " + p.y.toFixed(1) + " H" + (lx + 2));

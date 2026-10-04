@@ -10,10 +10,9 @@ from textlayout import esc
 
 # main strip: 8 frames, right to left (time runs in the reading direction); frames 0-5 scene A, 6-7 scene B
 STRIP = dict(x=20, y=116, w=760, h=176)
-FW, FH, FSTEP, FRIGHT = 72, 128, 92, 748      # frame size, step, right edge of frame 0 (inside the strip)
+FW, FSTEP, FRIGHT = 72, 92, 748      # frame width, step, right edge of frame 0 (inside the strip; frames are 72 x 128)
 # dense strip around the cut: 9 frames every 0.1 s, d0..d3 before the cut, d4..d8 after it
-DENSE = dict(x=40, y=380, w=720, h=214)
-DW, DH, DSTEP, DRIGHT = 64, 114, 78, 704
+DW, DSTEP, DRIGHT = 64, 78, 704      # dense strip (at 40, 380, 720 x 214): frames 64 x 114
 DTOP = 16
 
 TEXT_ICO = ('<svg class="s72-mi" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 6h16M13 6v15"/></svg>')

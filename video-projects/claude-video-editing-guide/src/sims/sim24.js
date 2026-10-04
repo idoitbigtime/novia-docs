@@ -124,6 +124,9 @@ window.SIMS.sim24 = function (tl, ctx, cfg, S) {
     tl.fromTo(swi, { backgroundColor: st.skin.c[0] }, A({ backgroundColor: st.skin.k[i], duration: 0.5 }), T(pe + 1.9 + i * 0.1));
   });
   E.draw(tl, q(".s24-eq path"), T(pe + 2.35), 0.5);
-  popIn(q(".s24-eqs"), T(pe + 2.55), 0);
+  const eqs = q(".s24-eqs");
+  popIn(eqs, T(pe + 2.55), 0);
+  // found: the skin is the same in the medium and the strong one
+  E.burst(tl, q(".s24-pay"), eqs.offsetLeft + eqs.offsetWidth / 2, eqs.offsetTop + 20, T(pe + 2.6), { n: 10, seed: 24, r0: 24, r1: 56, color: "#c9c2ff" });
   E.kin(tl, q(".s24-pc"), S, { dy: 12 });
 };

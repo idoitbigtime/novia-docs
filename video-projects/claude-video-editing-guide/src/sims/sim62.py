@@ -12,8 +12,6 @@ import math
 from textlayout import esc
 from art import person_svg
 
-W, H = 504, 314  # recording (screen) size in px
-
 MAG = ('<svg class="s62-mag" viewBox="0 0 22 22" aria-hidden="true"><circle cx="9" cy="9" r="5.6"/>'
        '<path d="M13.2 13.2 L18.5 18.5"/></svg>')
 

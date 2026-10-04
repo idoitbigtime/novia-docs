@@ -111,7 +111,7 @@ def html(cfg):
 
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
-    out = [("whoosh_soft", P[0] + 0.3), ("swipe", P[1] + 0.05), ("tick", P[1] + 0.6), ("pop", P[2] + 0.65), ("pop", P[3] + 0.45),
+    out = [("whoosh_soft", P[0] + 0.3), ("swipe", P[1] + 0.05), ("pop", P[2] + 0.65), ("pop", P[3] + 0.45),
            ("snap", P[4] + 1.62)]
     out += [("pop", pe + 0.35 + k * 1.1) for k in range(3)]
     return out

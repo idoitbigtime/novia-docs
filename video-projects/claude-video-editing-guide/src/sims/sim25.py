@@ -209,7 +209,8 @@ def html(cfg):
               f'<span class="s25-pill s25-p2" dir="rtl">{esc(c["pass2"])}</span></div>'
               f'<i class="s25-gbase" style="top:{base}px"></i>{gbars}'
               f'<i class="s25-gl s25-gt" style="top:{ty - 1.5:.1f}px"></i><i class="s25-gl s25-gc" style="top:{cy - 1:.1f}px"></i>'
-              f'<i class="s25-gscan" style="left:566px;top:{my(CEIL) - 34:.1f}px;height:{base - my(CEIL) + 38:.1f}px"></i></div>')
+              + "".join(f'<i class="s25-gscan s25-gs{k}" style="left:566px;top:{my(CEIL) - 34:.1f}px;height:{base - my(CEIL) + 38:.1f}px"></i>' for k in (1, 2))
+              + '</div>')
     # B4 spectrum
     sbars, cut, curve = spectrum()
     spanel = (f'<div class="s25-sp"><i class="s25-sbg"></i><div class="s25-sh" dir="rtl"><i></i>{esc(c["sfxTitle"])}</div>{sbars}{curve}'

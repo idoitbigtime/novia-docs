@@ -129,7 +129,7 @@ window.SIMS.sim21 = function (tl, ctx, cfg, S) {
   tl.fromTo(lab5, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(pe + 0.1));
   const btn = q(".s21-btn"), ring = q(".s21-bring");
   E.fadeIn(tl, btn, T(pe + 0.1), 0.5, 14);
-  [0.35, 0.7].forEach((d) => tl.fromTo(ring, { opacity: 0.8, scale: 1 }, A({ opacity: 0, scale: 1.22, duration: 0.38, ease: "power2.out" }), T(pe + d)));
+  [0.35, 0.7].forEach((d) => tl.fromTo(ring, { opacity: 0.8, scale: 1 }, A({ opacity: 0, scale: 1.22, duration: 0.33, ease: "power2.out" }), T(pe + d)));
   tl.fromTo(q(".s21-hand"), { rotation: 0, svgOrigin: "15 15" }, A({ rotation: 360, svgOrigin: "15 15", duration: 0.9, ease: "none" }), T(pe + 0.1));
   const cur = q(".s21-cur"), tap = q(".s21-tap");
   tl.fromTo(cur, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), T(pe + 0.42));
