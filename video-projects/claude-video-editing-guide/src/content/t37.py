@@ -17,4 +17,19 @@ CFG = {'id': 't37',
           'meta': 'שמתם לב? הזום הזה מופיע לאורך כל הסרטון.'},
  'hls': [('ותבחר בכל משפט לכל היותר מילה אחת, הכי חזקה', 1.9, 0.1),
          ('הזום נשאר עד החיתוך הבא וחוזר שם ל-100 אחוז בבת אחת', 1.9, 0.1)],
- 'tip': 'זום של 15 אחוז על סרטון של 1080 מרכך את התמונה. יודעים מראש שתעשו זומים? מצלמים ב-4K.'}
+ 'tip': 'זום של 15 אחוז על סרטון של 1080 מרכך את התמונה. יודעים מראש שתעשו זומים? מצלמים ב-4K.',
+ # the payoff plays the guide's whole opening: three punch-ins, then the slow push on the long sentence
+ 'payoff': 6.5,
+ # sim-only params (sims/sim37.*); every label quotes the guide or this file's approved texts
+ 'sim37': dict(
+     # the important words, one per sentence. Guide 3.7: 'בפתיחה של 7 שניות מהסרטון שלי קלוד בחר את "קלוד",
+     # "נבדוק" ו"אותו", ובמשפט האחרון ויתר על זום ושם רק דחיפה איטית של 3 אחוז.'
+     words=["קלוד", "נבדוק", "אותו"],
+     # the punch-in. Guide 3.7 (image caption): "זום קפיצי של 12 אחוז על המילה החשובה בכל משפט"
+     zoom=12,
+     # the range on the meter: the explanation, "ב-10 עד 15 אחוז"
+     zoomRange=[10, 15],
+     # the slow push on the long sentence (guide 3.7, above) and the reset level. Guide, prompt 13:
+     # "הזום נשאר עד החיתוך הבא וחוזר שם ל-100 אחוז בבת אחת"
+     push=3, base=100,
+ )}

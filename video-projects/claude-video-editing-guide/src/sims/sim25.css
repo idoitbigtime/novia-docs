@@ -1,0 +1,93 @@
+/* 2.5 same loudness, -14 LUFS (canvas 800 x 700). LUFS meter at the right; the main area (x 0..575) changes per beat. */
+.sim25 .s25-main { position: absolute; left: 0; top: 0; width: 575px; height: 700px; }
+
+/* LUFS meter */
+.sim25 .s25-meter { position: absolute; border-radius: 24px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.24); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); opacity: 0; }
+.sim25 .s25-mtitle { position: absolute; height: 44px; text-align: center; font: 600 32px/44px "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ece9f7; opacity: 0; }
+.sim25 .s25-track { position: absolute; width: 48px; border-radius: 12px; background: rgba(8, 7, 18, 0.75); box-shadow: inset 0 0 0 1.5px rgba(201, 194, 255, 0.16); display: block; opacity: 0; }
+.sim25 .s25-lvl { position: absolute; width: 48px; border-radius: 12px; display: block; transform-origin: 50% 100%; transform: scaleY(0);
+  background: linear-gradient(180deg, #ffffff 0%, #d9d4ff 10%, #9d8cff 55%, #5b45c9 100%); box-shadow: 0 0 18px rgba(157, 140, 255, 0.55); }
+.sim25 .s25-ticks { position: absolute; width: 14px; display: block; opacity: 0;
+  background: repeating-linear-gradient(180deg, rgba(201, 194, 255, 0.45) 0 2px, rgba(0, 0, 0, 0) 2px 17.33px); }
+.sim25 .s25-tline, .sim25 .s25-cline { position: absolute; width: 184px; display: block; opacity: 0; transform-origin: 100% 50%; }
+.sim25 .s25-tline { height: 3px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff, 0 0 4px #ffffff; }
+.sim25 .s25-cline { height: 2px; border-radius: 1px; background: #ff453a; box-shadow: 0 0 10px rgba(255, 69, 58, 0.8); }
+.sim25 .s25-ttag, .sim25 .s25-ctag { position: absolute; font: 600 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; white-space: nowrap; opacity: 0; }
+.sim25 .s25-ttag { color: #ffffff; text-shadow: 0 0 12px rgba(201, 194, 255, 0.8); }
+.sim25 .s25-ctag { color: #ff8a80; font-size: 26px; }
+.sim25 .s25-ok { position: absolute; width: 38px; height: 38px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.7); display: grid; place-items: center; opacity: 0; }
+.sim25 .s25-ok svg { width: 26px; height: 26px; overflow: visible; }
+.sim25 .s25-ok path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* B0: the feed */
+.sim25 .s25-phone { position: absolute; left: 162px; top: 80px; width: 250px; height: 520px; border-radius: 40px; border: 2px solid rgba(201, 194, 255, 0.6);
+  box-shadow: 0 0 30px rgba(201, 194, 255, 0.22); background: #09090f; opacity: 0; }
+.sim25 .s25-screen { position: absolute; inset: 8px; border-radius: 32px; overflow: hidden; }
+.sim25 .s25-feed { position: absolute; left: 0; top: 0; width: 230px; }
+.sim25 .s25-card { position: relative; width: 230px; height: 500px; overflow: hidden; }
+.sim25 .s25-cp { position: absolute; left: -10px; top: 92px; width: 250px; height: 304px; }
+.sim25 .s25-ctop { position: absolute; left: 14px; right: 14px; top: 26px; display: flex; align-items: center; gap: 10px; direction: rtl; font: 700 30px/1 "Rubik"; color: #ffffff; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); }
+.sim25 .s25-spk { width: 40px; height: 38px; flex: none; overflow: visible; }
+.sim25 .s25-spk path { fill: none; stroke: #ffffff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.sim25 .s25-spk .s25-spb { fill: #ffffff; }
+.sim25 .s25-cw { position: absolute; left: 15px; right: 15px; bottom: 26px; height: 110px; }
+.sim25 .s25-wv { width: 200px; height: 110px; display: block; overflow: visible; }
+.sim25 .s25-wl { fill: none; stroke: #e2ddff; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.7)); }
+.sim25 .s25-wr { fill: none; stroke: #ff453a; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.9)); }
+.sim25 .s25-burn { position: absolute; left: 16px; bottom: 150px; font: 700 26px/1 "Rubik"; color: #ff6b61; padding: 6px 11px 5px; border-radius: 999px;
+  border: 1.5px solid rgba(255, 107, 97, 0.7); background: rgba(42, 16, 22, 0.88); opacity: 0; }
+.sim25 .s25-swipe { position: absolute; left: 50%; top: 380px; width: 44px; height: 44px; margin-left: -22px; border-radius: 50%; background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.7); display: block; opacity: 0; }
+
+/* B1: the target readout */
+.sim25 .s25-ro { position: absolute; left: 87px; top: 170px; width: 400px; height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; }
+.sim25 .s25-halo { position: absolute; left: 50%; top: 50%; width: 420px; height: 420px; margin: -210px 0 0 -210px; border-radius: 50%; display: block;
+  background: radial-gradient(circle, rgba(157, 140, 255, 0.3), rgba(157, 140, 255, 0) 64%); }
+.sim25 .s25-ring { position: absolute; left: 50%; top: 50%; width: 300px; height: 300px; margin: -150px 0 0 -150px; overflow: visible; }
+.sim25 .s25-ring circle { fill: none; stroke: #c9c2ff; stroke-width: 2.5; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.8)); }
+.sim25 .s25-ro b { position: relative; font: 700 118px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ffffff; text-shadow: 0 0 24px rgba(201, 194, 255, 0.6); }
+.sim25 .s25-ro span { position: relative; margin-top: 10px; font: 600 44px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #d9d4ff; letter-spacing: 0.06em; }
+
+/* B2: the ear */
+.sim25 .s25-earw { position: absolute; left: 130px; top: 250px; width: 330px; height: 200px; opacity: 0; }
+.sim25 .s25-ear { position: absolute; right: 0; top: 0; width: 160px; height: 205px; overflow: visible; }
+.sim25 .s25-ear path { fill: none; stroke: #e7e3ff; stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.7)); }
+.sim25 .s25-arcs { position: absolute; left: 0; top: 20px; width: 150px; height: 160px; overflow: visible; }
+.sim25 .s25-arc { fill: none; stroke: #c9c2ff; stroke-width: 4; stroke-linecap: round; opacity: 0; }
+
+/* B3: measure, adjust, measure again */
+.sim25 .s25-gp, .sim25 .s25-sp, .sim25 .s25-lanes { position: absolute; left: 0; top: 0; width: 575px; height: 700px; opacity: 0; }
+.sim25 .s25-gbg { position: absolute; left: 0; top: 96px; width: 575px; height: 364px; border-radius: 22px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.2); display: block; }
+.sim25 .s25-pills { position: absolute; left: 0; top: 46px; width: 575px; height: 44px; display: grid; justify-items: end; }
+.sim25 .s25-pill { grid-area: 1 / 1; height: 44px; padding: 0 18px; border-radius: 999px; display: flex; align-items: center; font: 600 30px/1 "Rubik"; color: #ffffff;
+  background: rgba(28, 24, 58, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.55); box-shadow: 0 0 16px rgba(201, 194, 255, 0.22); white-space: nowrap; opacity: 0; }
+.sim25 .s25-gbase { position: absolute; left: 12px; width: 552px; height: 2px; background: rgba(201, 194, 255, 0.35); display: block; }
+.sim25 .s25-gb { position: absolute; width: 10px; border-radius: 4px 4px 2px 2px; background: linear-gradient(180deg, #e2ddff, #8f7cf2); display: block; transform-origin: 50% 100%; }
+.sim25 .s25-gb b { position: absolute; left: 0; right: 0; top: 0; border-radius: 4px 4px 0 0; background: #ff453a; box-shadow: 0 0 8px rgba(255, 69, 58, 0.9); display: block; }
+.sim25 .s25-gl { position: absolute; left: 12px; width: 552px; display: block; opacity: 0; transform-origin: 100% 50%; }
+.sim25 .s25-gt { height: 3px; background: repeating-linear-gradient(90deg, #ffffff 0 12px, rgba(0, 0, 0, 0) 12px 18px); filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+.sim25 .s25-gc { height: 2px; background: repeating-linear-gradient(90deg, #ff6b61 0 10px, rgba(0, 0, 0, 0) 10px 16px); }
+.sim25 .s25-gscan { position: absolute; width: 3px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
+
+/* B4: the effects lose their bass */
+.sim25 .s25-sbg { position: absolute; left: 0; top: 480px; width: 575px; height: 180px; border-radius: 22px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.2); display: block; }
+.sim25 .s25-sh { position: absolute; right: 18px; top: 488px; display: flex; align-items: center; gap: 10px; font: 600 30px/40px "Rubik"; color: var(--ink); direction: rtl; }
+.sim25 .s25-sh i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; }
+.sim25 .s25-sb { position: absolute; border-radius: 3px 3px 1px 1px; background: linear-gradient(180deg, #d9d4ff, #7d6be0); display: block; transform-origin: 50% 100%; }
+.sim25 .s25-hp { position: absolute; left: 0; top: 0; width: 575px; height: 700px; overflow: visible; }
+.sim25 .s25-hp path { fill: none; stroke: #ffffff; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.9)); }
+.sim25 .s25-cut { position: absolute; top: 522px; width: 2px; height: 124px; background: rgba(255, 255, 255, 0.55); display: block; opacity: 0; transform-origin: 50% 100%; }
+.sim25 .s25-hpt { position: absolute; top: 528px; font: 600 26px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ffffff; padding: 5px 9px 4px; border-radius: 8px;
+  background: rgba(20, 18, 40, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.5); white-space: nowrap; opacity: 0; }
+.sim25 .s25-nb { position: absolute; top: 494px; font: 700 30px/1 "Rubik"; color: #ffffff; white-space: nowrap; opacity: 0; }
+
+/* payoff: three channels */
+.sim25 .s25-lane { position: absolute; left: 0; width: 575px; height: 140px; }
+.sim25 .s25-lh { position: absolute; right: 6px; top: 0; height: 36px; display: flex; align-items: center; gap: 10px; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; direction: rtl; opacity: 0; }
+.sim25 .s25-lh i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; flex: none; }
+.sim25 .s25-lwv { position: absolute; left: 8px; top: 42px; width: 560px; height: 92px; border-radius: 14px; background: rgba(26, 23, 52, 0.8); border: 1.5px solid rgba(201, 194, 255, 0.16);
+  overflow: hidden; clip-path: inset(0px 0px 0px 100%); }
+.sim25 .s25-lw { width: 560px; height: 92px; display: block; }
+.sim25 .s25-duck { position: absolute; right: 6px; height: 32px; display: flex; align-items: center; opacity: 0; }
+.sim25 .s25-duck span { font: 600 26px/1 "Rubik"; color: #d9d4ff; white-space: nowrap; }
+.sim25 .s25-ph { position: absolute; left: 570px; top: 112px; width: 3px; height: 470px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }

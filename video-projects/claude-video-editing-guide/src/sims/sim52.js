@@ -38,7 +38,7 @@ window.SIMS.sim52 = function (tl, ctx, cfg, S) {
   tl.fromTo(sub, { x: -24, rotationY: 16, transformPerspective: 900 }, A({ x: 0, rotationY: 0, transformPerspective: 900, duration: 0.6, ease: E.SPRING }), T(b1 + 0.05));
   qa(".s52-subr").forEach((r, i) => tl.fromTo(r, { opacity: 0, x: 16 }, A({ opacity: 1, x: 0, duration: 0.35, ease: E.SPRING }), T(b1 + 0.22 + i * 0.1)));
   E.draw(tl, q(".s52-strike path"), T(b1 + 0.72), 0.3, "power2.in");
-  E.glitch(tl, sub, T(b1 + 0.95), 10);
+  E.glitch(tl, sub, T(b1 + 0.95), 7);
   const xb = q(".s52-x");
   tl.fromTo(xb, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(b1 + 0.95));
   qa(".s52-x path").forEach((p, i) => E.draw(tl, p, T(b1 + 1.0 + i * 0.12), 0.22));

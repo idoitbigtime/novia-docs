@@ -69,22 +69,24 @@
 .sim43 .s43-ok, .sim43 .s43-no { position: absolute; inset: 4px; width: 22px; height: 22px; overflow: visible; }
 .sim43 .s43-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
 .sim43 .s43-strike { position: absolute; left: -8px; right: -8px; top: 50%; height: 4px; margin-top: -2px; border-radius: 2px; background: #f0edff;
-  box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); transform-origin: 100% 50%; transform: rotate(-14deg) scaleX(0); display: block; }
-.sim43 .s43-pin { position: absolute; top: 536px; width: 14px; height: 14px; margin-left: -7px; border-radius: 3px; background: #ffffff;
-  box-shadow: 0 0 12px #c9c2ff; transform: rotate(45deg); display: block; opacity: 0; }
-.sim43 .s43-entry { position: absolute; top: 580px; width: 40px; height: 16px; overflow: visible; }
-.sim43 .s43-entry path { fill: none; stroke: #ffffff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 4px #c9c2ff); }
+  box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); transform-origin: 100% 50%; transform: rotate(-14deg) scaleX(0.001); display: block; }
+.sim43 .s43-pin { position: absolute; top: 442px; width: 3px; height: 136px; margin-left: -1.5px; border-radius: 2px; transform-origin: 50% 0%;
+  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0.55)); box-shadow: 0 0 10px #c9c2ff; display: block; opacity: 0; }
+.sim43 .s43-pin b { position: absolute; left: -7px; top: -9px; width: 17px; height: 17px; border-radius: 3px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; transform: rotate(45deg); display: block; }
+.sim43 .s43-entry { position: absolute; top: 582px; width: 40px; height: 16px; overflow: visible; }
+.sim43 .s43-entry path { fill: none; stroke: #ffffff; stroke-width: 3.5; stroke-linecap: round; filter: drop-shadow(0 0 5px #c9c2ff); }
 .sim43 .s43-cal { position: absolute; top: 582px; height: 60px; opacity: 0; }
 .sim43 .s43-cal svg { position: absolute; left: 0; top: 0; width: 100%; height: 18px; overflow: visible; }
 .sim43 .s43-cal path { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 5px #c9c2ff); }
+.sim43 .s43-cal path.s43-calg { stroke: rgba(255, 255, 255, 0.55); stroke-width: 2; stroke-dasharray: 5 6; filter: none; }
 .sim43 .s43-calt { position: absolute; left: -50px; right: -50px; top: 24px; text-align: center; font: 700 30px/1 "Rubik"; color: #ffffff; white-space: nowrap; }
 
 /* payoff: the rule tags */
 .sim43 .s43-rule { position: absolute; right: 40px; display: flex; direction: rtl; align-items: center; gap: 14px; padding: 12px 20px 12px 24px; border-radius: 18px;
   background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.32); box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35); opacity: 0; }
-.sim43 .s43-u1 { top: 104px; }
-.sim43 .s43-u2 { top: 192px; }
-.sim43 .s43-u3 { top: 280px; }
+.sim43 .s43-u1 { top: 144px; }
+.sim43 .s43-u2 { top: 230px; }
+.sim43 .s43-u3 { top: 316px; }
 .sim43 .s43-rico { width: 34px; height: 34px; display: block; overflow: visible; flex: none; }
 .sim43 .s43-rico path, .sim43 .s43-rico rect, .sim43 .s43-rico circle { fill: none; stroke: #c9c2ff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .sim43 .s43-rule span { font: 600 30px/1.1 "Rubik"; color: var(--ink); white-space: nowrap; }

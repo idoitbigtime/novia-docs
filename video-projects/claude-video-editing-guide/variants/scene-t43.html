@@ -379,184 +379,146 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 /* drifting dust in the background */
 .dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
 
-/* 7.3 an independent critic until the score passes 90: builder -> Claude -> a separate copy -> inputs without explanations
-   -> score and numeric fixes -> rubric, seven rounds, 96, the stopping rule (canvas 800 x 700) */
-/* a generic 9:16 frame (inside sizes in %) */
-.sim73 .s73-fr { position: absolute; overflow: hidden; border-radius: 10px; background: linear-gradient(180deg, #2c2556 0%, #181433 66%, #0e0c1f 100%); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.4); }
-.sim73 .s73-fr > i { position: absolute; display: block; }
-.sim73 .s73-h { left: 36%; top: 33%; width: 28%; height: 15.75%; border-radius: 50%; background: linear-gradient(180deg, #4a3f8c, #2c2560); box-shadow: inset 0 0 0 1px rgba(201, 194, 255, 0.35); }
-.sim73 .s73-bd { left: 16%; top: 50%; width: 68%; height: 52%; border-radius: 50% 50% 0 0 / 34% 34% 0 0; background: linear-gradient(180deg, #3b3274, #221c48); box-shadow: inset 0 1px 0 rgba(201, 194, 255, 0.4); }
-.sim73 .s73-ti { left: 14%; top: 9%; width: 72%; height: 4.4%; border-radius: 99px; background: rgba(245, 242, 234, 0.92); }
-.sim73 .s73-cp { left: 18%; top: 77%; width: 64%; height: 9%; border-radius: 4px; background: #ffffff; }
-.sim73 .s73-cp::after, .sim73 .s73-cut::after { content: ""; position: absolute; left: 16%; right: 16%; top: 36%; height: 28%; border-radius: 9px; background: rgba(20, 16, 40, 0.85); }
+/* 4.3 where to put b-rolls (canvas 800 x 700): the table Claude returns over the talking video's timeline
+   (time runs right to left on the timeline: 32 px per second from x 640) */
+.sim43 .s43-table { position: absolute; left: 40px; top: 50px; width: 720px; height: 340px; border-radius: 24px; }
+.sim43 .s43-tbg { position: absolute; inset: 0; border-radius: 24px; background: rgba(26, 23, 52, 0.88); opacity: 0; }
+.sim43 .s43-tframe { position: absolute; left: 0; top: 0; width: 720px; height: 340px; overflow: visible; }
+.sim43 .s43-tframe path { fill: none; stroke: rgba(201, 194, 255, 0.45); stroke-width: 1.5; }
+.sim43 .s43-head { position: absolute; left: 0; top: 0; width: 720px; height: 48px; }
+.sim43 .s43-h { position: absolute; top: 9px; text-align: center; font: 600 30px/1 "Rubik"; color: #d8d4ea; opacity: 0; white-space: nowrap; }
+.sim43 .s43-h1 { left: 620px; width: 100px; }
+.sim43 .s43-h2 { left: 420px; width: 200px; }
+.sim43 .s43-h3 { left: 290px; width: 130px; }
+.sim43 .s43-h4 { left: 0; width: 290px; }
+.sim43 .s43-row { position: absolute; left: 0; width: 720px; height: 58px; }
+.sim43 .s43-r1 { top: 48px; }
+.sim43 .s43-r2 { top: 106px; }
+.sim43 .s43-r3 { top: 164px; }
+.sim43 .s43-r4 { top: 222px; }
+.sim43 .s43-r5 { top: 280px; }
+.sim43 .s43-line { position: absolute; left: 16px; right: 16px; top: 0; height: 1px; background: rgba(201, 194, 255, 0.16); transform-origin: 100% 50%; transform: scaleX(0); display: block; }
+.sim43 .s43-band { position: absolute; left: 8px; right: 8px; top: 3px; bottom: 3px; border-radius: 12px; background: rgba(201, 194, 255, 0.14);
+  border: 1.5px solid rgba(201, 194, 255, 0.55); display: block; opacity: 0; }
+.sim43 .s43-c { position: absolute; top: 0; height: 58px; display: flex; align-items: center; }
+.sim43 .s43-ct { left: 620px; width: 100px; justify-content: center; }
+.sim43 .s43-cs { left: 420px; width: 200px; direction: rtl; gap: 8px; padding-right: 14px; }
+.sim43 .s43-cw { left: 290px; width: 130px; justify-content: center; }
+.sim43 .s43-cx { left: 0; width: 290px; justify-content: flex-end; padding-right: 14px; }
+.sim43 .s43-mt { position: relative; width: 80px; height: 8px; border-radius: 4px; background: rgba(201, 194, 255, 0.2); display: block; opacity: 0; transform-origin: 100% 50%; }
+.sim43 .s43-mt i { position: absolute; top: 0; bottom: 0; border-radius: 4px; background: #d9d4ff; box-shadow: 0 0 6px rgba(201, 194, 255, 0.8); display: block; }
+.sim43 .s43-wb { height: 12px; border-radius: 6px; background: rgba(201, 194, 255, 0.5); display: block; flex: none; opacity: 0; }
+.sim43 .s43-key { background: #f0edff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.8); }
+.sim43 .s43-ico { width: 34px; height: 34px; display: block; overflow: visible; }
+.sim43 .s43-ico path, .sim43 .s43-ico rect, .sim43 .s43-ico circle { fill: none; stroke: #d9d4ff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim43 .s43-cw .s43-ico { opacity: 0; }
+.sim43 .s43-what0 { width: 44px; height: 34px; border-radius: 8px; border: 2px dashed rgba(201, 194, 255, 0.4); display: block; opacity: 0; }
+.sim43 .s43-src { font: 500 30px/1 "Rubik"; color: #ece9f7; white-space: nowrap; opacity: 0; }
+.sim43 .s43-miss { color: #ff6b61; font-weight: 700; }
+.sim43 .s43-src0 { position: absolute; right: 14px; top: 23px; width: 170px; height: 12px; border-radius: 6px; border: 1.5px dashed rgba(201, 194, 255, 0.35); display: block; opacity: 0; }
+.sim43 .s43-colhl { position: absolute; left: 420px; top: 48px; width: 200px; height: 48px; display: block; opacity: 0;
+  background: linear-gradient(180deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.3) 50%, rgba(201, 194, 255, 0)); }
 
-/* the builder's side */
-.sim73 .s73-builder { position: absolute; left: 0; top: 0; width: 800px; height: 700px; transform: translateX(-160px); }
-.sim73 .s73-vid { left: 440px; top: 146px; width: 130px; height: 231px; border-radius: 14px; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.6), 0 0 24px rgba(201, 194, 255, 0.2); }
-.sim73 .s73-vid > .s73-cp { display: none; }
-.sim73 .s73-vid > .s73-cut { left: -26%; top: 77%; width: 70%; height: 9%; border-radius: 4px; background: #ffffff; }
-.sim73 .s73-flaw { position: absolute; left: 422px; top: 302px; width: 92px; height: 64px; overflow: visible; transform-origin: 50% 50%; }
-.sim73 .s73-flaw rect { fill: none; stroke: #ff453a; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.85)); }
-.sim73 .s73-bub { position: absolute; left: 430px; top: 398px; width: 160px; height: 96px; border-radius: 22px 6px 22px 22px; background: rgba(38, 33, 76, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.4);
-  opacity: 0; transform-origin: 100% 0%; }
-.sim73 .s73-bub > i { position: absolute; right: 20px; height: 9px; border-radius: 5px; background: rgba(220, 216, 240, 0.7); display: block; transform-origin: 100% 50%; }
-.sim73 .s73-bub > i:nth-child(1) { top: 22px; width: 116px; }
-.sim73 .s73-bub > i:nth-child(2) { top: 42px; width: 92px; }
-.sim73 .s73-bub > i:nth-child(3) { top: 62px; width: 104px; }
-.sim73 .s73-expl { position: absolute; right: 10px; top: -40px; font: 600 30px/1 "Rubik"; color: var(--ink); background: rgba(26, 23, 52, 0.96); padding: 6px 12px; border-radius: 999px;
-  border: 1.5px solid rgba(201, 194, 255, 0.45); white-space: nowrap; opacity: 0; }
-.sim73 .s73-no { position: absolute; left: -16px; top: -16px; width: 40px; height: 40px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: grid; place-items: center; opacity: 0; }
-.sim73 .s73-no svg { width: 26px; height: 26px; overflow: visible; display: block; }
-.sim73 .s73-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
-.sim73 .s73-list { position: absolute; left: 600px; top: 372px; width: 150px; height: 116px; border-radius: 18px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.28);
-  padding: 12px 16px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; }
-.sim73 .s73-li { display: flex; direction: rtl; align-items: center; gap: 10px; height: 26px; }
-.sim73 .s73-li svg { width: 24px; height: 24px; overflow: visible; display: block; flex: none; }
-.sim73 .s73-li path { fill: none; stroke: #c9c2ff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
-.sim73 .s73-li i { width: 70px; height: 8px; border-radius: 4px; background: rgba(201, 194, 255, 0.35); display: block; }
-.sim73 .s73-person { position: absolute; left: 600px; top: 138px; width: 150px; height: 183px; }
-.sim73 .s73-card { position: absolute; top: 160px; width: 150px; height: 150px; border-radius: 30px; background: linear-gradient(160deg, #2e2862 0%, #191537 100%);
-  border: 2px solid rgba(201, 194, 255, 0.65); box-shadow: 0 0 26px rgba(201, 194, 255, 0.28); display: grid; place-items: center; opacity: 0; overflow: hidden; }
-.sim73 .s73-card b { font: 600 52px/1 "IBM Plex Mono"; color: #ece9ff; text-shadow: 0 0 14px rgba(201, 194, 255, 0.8); }
-.sim73 .s73-glow { position: absolute; left: -40px; top: -50px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 194, 255, 0.28), rgba(201, 194, 255, 0) 70%); display: block; }
-.sim73 .s73-me { left: 600px; }
-.sim73 .s73-cr, .sim73 .s73-ghost { left: 56px; }
-.sim73 .s73-ghost { border-color: rgba(201, 194, 255, 0.4); box-shadow: none; }
-.sim73 .s73-name { position: absolute; top: 324px; text-align: center; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
-.sim73 .s73-mename { left: 600px; width: 150px; }
-.sim73 .s73-crname { left: 16px; width: 230px; }
+/* the timeline (a container over the whole canvas; children use canvas coordinates) */
+.sim43 .s43-tl { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
+.sim43 .s43-ruler { position: absolute; left: 60px; top: 424px; width: 584px; height: 14px;
+  background: repeating-linear-gradient(270deg, rgba(201, 194, 255, 0.4) 0 2px, rgba(0, 0, 0, 0) 2px 32px); }
+.sim43 .s43-lane { position: absolute; left: 60px; width: 584px; height: 58px; border-radius: 12px; }
+.sim43 .s43-lb { top: 448px; border: 1.5px dashed rgba(201, 194, 255, 0.25); background: rgba(201, 194, 255, 0.03); }
+.sim43 .s43-ls { top: 514px; background: rgba(201, 194, 255, 0.07); overflow: hidden; }
+.sim43 .s43-wave { position: absolute; left: 0; top: 0; width: 584px; height: 58px; display: block; }
+.sim43 .s43-wave path { fill: none; stroke: rgba(201, 194, 255, 0.55); stroke-width: 4.5; stroke-linecap: round; }
+.sim43 .s43-tlbl { position: absolute; right: 56px; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim43 .s43-tl1 { top: 462px; }
+.sim43 .s43-tl2 { top: 528px; }
+.sim43 .s43-span { position: absolute; top: 514px; height: 58px; border-radius: 10px; background: rgba(201, 194, 255, 0.22); border: 1.5px solid rgba(201, 194, 255, 0.6); display: block; opacity: 0; }
+.sim43 .s43-scan { position: absolute; left: 638px; top: 504px; width: 4px; height: 78px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 14px #c9c2ff; display: block; opacity: 0; }
+.sim43 .s43-gap { position: absolute; top: 448px; height: 58px; border-radius: 10px; border: 2px dashed rgba(201, 194, 255, 0.8); display: grid; place-items: center; opacity: 0; }
+.sim43 .s43-gok { width: 26px; height: 26px; overflow: visible; }
+.sim43 .s43-gok path, .sim43 .s43-ok path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim43 .s43-hole { position: absolute; top: 448px; height: 58px; border-radius: 10px; border: 2.5px dashed #ff6b61; background: rgba(255, 69, 58, 0.1);
+  box-shadow: 0 0 14px rgba(255, 69, 58, 0.35); display: grid; place-items: center; opacity: 0; }
+.sim43 .s43-hlbl { font: 700 30px/1 "Rubik"; color: #ffffff; opacity: 0; }
+.sim43 .s43-blk, .sim43 .s43-sim, .sim43 .s43-acc { position: absolute; top: 452px; height: 50px; border-radius: 10px; display: grid; place-items: center; opacity: 0; }
+.sim43 .s43-blk { background: rgba(74, 54, 184, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.75); }
+.sim43 .s43-sim, .sim43 .s43-acc { background: rgba(52, 46, 98, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.5); }
+.sim43 .s43-blk .s43-ico, .sim43 .s43-sim .s43-ico, .sim43 .s43-acc .s43-ico { width: 30px; height: 30px; }
+.sim43 .s43-blk .s43-ico path, .sim43 .s43-blk .s43-ico rect, .sim43 .s43-blk .s43-ico circle { stroke: #ffffff; }
+.sim43 .s43-bok, .sim43 .s43-bno { position: absolute; right: -12px; top: -15px; width: 30px; height: 30px; border-radius: 50%; display: block; opacity: 0; }
+.sim43 .s43-bok { background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 10px rgba(201, 194, 255, 0.6); }
+.sim43 .s43-bno { background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 12px rgba(255, 69, 58, 0.7); }
+.sim43 .s43-ok, .sim43 .s43-no { position: absolute; inset: 4px; width: 22px; height: 22px; overflow: visible; }
+.sim43 .s43-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
+.sim43 .s43-strike { position: absolute; left: -8px; right: -8px; top: 50%; height: 4px; margin-top: -2px; border-radius: 2px; background: #f0edff;
+  box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); transform-origin: 100% 50%; transform: rotate(-14deg) scaleX(0.001); display: block; }
+.sim43 .s43-pin { position: absolute; top: 442px; width: 3px; height: 136px; margin-left: -1.5px; border-radius: 2px; transform-origin: 50% 0%;
+  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0.55)); box-shadow: 0 0 10px #c9c2ff; display: block; opacity: 0; }
+.sim43 .s43-pin b { position: absolute; left: -7px; top: -9px; width: 17px; height: 17px; border-radius: 3px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; transform: rotate(45deg); display: block; }
+.sim43 .s43-entry { position: absolute; top: 582px; width: 40px; height: 16px; overflow: visible; }
+.sim43 .s43-entry path { fill: none; stroke: #ffffff; stroke-width: 3.5; stroke-linecap: round; filter: drop-shadow(0 0 5px #c9c2ff); }
+.sim43 .s43-cal { position: absolute; top: 582px; height: 60px; opacity: 0; }
+.sim43 .s43-cal svg { position: absolute; left: 0; top: 0; width: 100%; height: 18px; overflow: visible; }
+.sim43 .s43-cal path { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 5px #c9c2ff); }
+.sim43 .s43-cal path.s43-calg { stroke: rgba(255, 255, 255, 0.55); stroke-width: 2; stroke-dasharray: 5 6; filter: none; }
+.sim43 .s43-calt { position: absolute; left: -50px; right: -50px; top: 24px; text-align: center; font: 700 30px/1 "Rubik"; color: #ffffff; white-space: nowrap; }
 
-/* the critic's side: the divider and the tray of inputs */
-.sim73 .s73-div { position: absolute; left: 328px; top: 150px; width: 4px; height: 360px; overflow: visible; }
-.sim73 .s73-div path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.8)); }
-.sim73 .s73-tray { position: absolute; left: 56px; top: 380px; width: 264px; height: 130px; border-radius: 20px; border: 2px dashed rgba(201, 194, 255, 0.4); opacity: 0; }
-.sim73 .s73-doc { position: absolute; left: 70px; top: 385px; width: 96px; height: 120px; border-radius: 12px; background: #f4f2fb; box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4); opacity: 0; }
-.sim73 .s73-doc > i { position: absolute; left: 14px; height: 7px; border-radius: 4px; background: rgba(40, 34, 80, 0.35); display: block; }
-.sim73 .s73-doc > i:nth-child(1) { top: 16px; width: 68px; }
-.sim73 .s73-doc > i:nth-child(2) { top: 30px; width: 54px; }
-.sim73 .s73-doc > i:nth-child(3) { top: 44px; width: 62px; }
-.sim73 .s73-doc span { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font: 700 28px/1 "Rubik"; color: #1a1636; }
-.sim73 .s73-th { width: 44px; height: 78px; border-radius: 7px; }
-.sim73 .s73-in { top: 410px; opacity: 0; }
-.sim73 .s73-in0 { left: 176px; }
-.sim73 .s73-in1 { left: 222px; }
-.sim73 .s73-in2 { left: 268px; }
+/* payoff: the rule tags */
+.sim43 .s43-rule { position: absolute; right: 40px; display: flex; direction: rtl; align-items: center; gap: 14px; padding: 12px 20px 12px 24px; border-radius: 18px;
+  background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.32); box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35); opacity: 0; }
+.sim43 .s43-u1 { top: 144px; }
+.sim43 .s43-u2 { top: 230px; }
+.sim43 .s43-u3 { top: 316px; }
+.sim43 .s43-rico { width: 34px; height: 34px; display: block; overflow: visible; flex: none; }
+.sim43 .s43-rico path, .sim43 .s43-rico rect, .sim43 .s43-rico circle { fill: none; stroke: #c9c2ff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim43 .s43-rule span { font: 600 30px/1.1 "Rubik"; color: var(--ink); white-space: nowrap; }
 
-/* B4: the gauge (0 at the right end, 100 at the left end) and the numeric fixes */
-.sim73 .s73-gauge { position: absolute; left: 330px; top: 130px; width: 340px; height: 200px; }
-.sim73 .s73-gsvg { position: absolute; left: 0; top: 0; width: 340px; height: 200px; overflow: visible; }
-.sim73 .s73-track { fill: none; stroke: rgba(201, 194, 255, 0.16); stroke-width: 16; stroke-linecap: round; }
-.sim73 .s73-fill { fill: none; stroke: url(#s73gr); stroke-width: 16; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.7)); }
-.sim73 .s73-tk { fill: none; stroke: rgba(236, 233, 255, 0.85); stroke-width: 3; stroke-linecap: round; opacity: 0; }
-.sim73 .s73-tl { position: absolute; width: 60px; text-align: center; font: 600 30px/1 "IBM Plex Mono"; color: #b8b4cc; opacity: 0; }
-.sim73 .s73-score { position: absolute; left: 0; top: 96px; width: 340px; display: flex; justify-content: center; align-items: baseline; gap: 6px; }
-.sim73 .s73-nn { display: grid; }
-.sim73 .s73-n { grid-area: 1 / 1; font: 800 92px/1 "Rubik"; color: #ffffff; text-shadow: 0 0 22px rgba(201, 194, 255, 0.55); text-align: center; opacity: 0; }
-.sim73 .s73-of { font: 600 34px/1 "IBM Plex Mono"; color: #9c99ae; opacity: 0; }
-.sim73 .s73-pass { position: absolute; left: -26px; top: 58px; width: 38px; height: 38px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2.5px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.7); display: grid; place-items: center; opacity: 0; }
-.sim73 .s73-pass svg { width: 24px; height: 24px; overflow: visible; display: block; }
-.sim73 .s73-pass path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
-.sim73 .s73-rows { position: absolute; left: 100px; top: 436px; width: 600px; height: 176px; }
-.sim73 .s73-row { position: absolute; left: 0; width: 600px; height: 84px; opacity: 0; }
-.sim73 .s73-row0 { top: 0; }
-.sim73 .s73-row1 { top: 92px; }
-.sim73 .s73-dth0, .sim73 .s73-dth1 { left: 540px; top: 3px; }
-.sim73 .s73-dth0 > .s73-cp { left: -22%; width: 70%; }
-.sim73 .s73-dth1 > .s73-ti { left: 34%; top: 4%; }
-.sim73 .s73-dm { left: -6%; top: 68%; width: 70%; height: 28%; border-radius: 6px; border: 2.5px solid #ff453a; box-shadow: 0 0 8px rgba(255, 69, 58, 0.8); opacity: 0; }
-.sim73 .s73-dth1 > .s73-dm { left: 24%; top: -2%; width: 72%; height: 18%; }
-.sim73 .s73-arr { position: absolute; left: 480px; top: 32px; width: 40px; height: 20px; opacity: 0; }
-.sim73 .s73-sl { position: absolute; left: 110px; top: 24px; width: 340px; height: 36px; border-radius: 12px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); }
-.sim73 .s73-rule { position: absolute; left: 14px; right: 14px; top: 9px; height: 15px; display: block;
-  background: repeating-linear-gradient(90deg, rgba(201, 194, 255, 0.55) 0 2px, rgba(201, 194, 255, 0) 2px 31.2px); }
-.sim73 .s73-knob { position: absolute; left: 60px; top: 4px; width: 25px; height: 25px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #c9c2ff, 0 0 0 4px rgba(201, 194, 255, 0.35); display: block; }
-
-/* payoff: seven rounds of the same critic, the rubric, the stopping rule */
-.sim73 .s73-steps { position: absolute; left: 340px; top: 358px; width: 340px; height: 70px; }
-.sim73 .s73-line, .sim73 .s73-linef { position: absolute; left: 10px; top: 10px; width: 300px; height: 2px; border-radius: 1px; display: block; transform-origin: 100% 50%; transform: scaleX(0); }
-.sim73 .s73-line { background: rgba(201, 194, 255, 0.3); }
-.sim73 .s73-linef { background: #e6e2ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); }
-.sim73 .s73-nd { position: absolute; top: 1px; width: 20px; height: 20px; border-radius: 50%; display: block; opacity: 0;
-  background: radial-gradient(circle, #5c5480 0 5.5px, rgba(0, 0, 0, 0) 6.5px); }
-.sim73 .s73-ndx { background: #2a2450; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.7); }
-.sim73 .s73-sv { position: absolute; top: 30px; width: 60px; text-align: center; font: 700 30px/1 "Rubik"; color: #ffffff; opacity: 0; }
-.sim73 .s73-sv1 { left: 280px; }
-.sim73 .s73-sv7 { left: -20px; }
-.sim73 .s73-slbl { position: absolute; left: 328px; top: -3px; font: 500 28px/1 "Rubik"; color: #9c99ae; white-space: nowrap; opacity: 0; }
-.sim73 .s73-lbl { position: absolute; display: flex; align-items: center; gap: 12px; direction: rtl; font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
-.sim73 .s73-lbl > i { width: 14px; height: 14px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.8); display: block; flex: none; }
-.sim73 .s73-rublbl { right: 60px; top: 444px; }
-.sim73 .s73-rub { position: absolute; left: 40px; top: 486px; width: 720px; display: flex; flex-direction: column; gap: 10px; }
-.sim73 .s73-tagrow { display: flex; direction: rtl; justify-content: center; gap: 12px; }
-.sim73 .s73-tag { font: 600 28px/1 "Rubik"; color: #ece9f7; padding: 8px 16px 7px; border-radius: 999px; background: rgba(36, 31, 72, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.5); white-space: nowrap; opacity: 0; }
-.sim73 .s73-rulecard { position: absolute; left: 40px; top: 590px; width: 720px; height: 104px; border-radius: 20px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.34);
-  display: flex; direction: rtl; align-items: center; gap: 20px; padding: 0 28px; opacity: 0; }
-.sim73 .s73-stop { width: 46px; height: 46px; display: block; flex: none; overflow: visible; }
-.sim73 .s73-stop path { fill: none; stroke: #ff453a; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.8)); }
-.sim73 .s73-rtx p { font: 600 31px/1.35 "Rubik"; color: var(--ink); white-space: nowrap; }
-.sim73 .s73-rtx p + p { color: #dcd9e6; font-weight: 500; }
-/* a light sweep without skew (nothing shows at rest) */
-.sim73 .s73-swp { position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
-.sim73 .s73-swp b { position: absolute; top: 0; bottom: 0; left: 100%; width: 80%; display: block;
-  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 15%, var(--sw, rgba(255, 255, 255, 0.24)) 50%, rgba(255, 255, 255, 0) 85%); }
+/* local light sweep (see sweep() in the js): the band starts and ends fully outside the element */
+.sim43 .s43-swp { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.sim43 .s43-swp b { position: absolute; top: 0; bottom: 0; left: 100%; display: block; }
 
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="32.060" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="31.430" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t73" class="clip scene" data-start="0.000" data-duration="32.060" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 7 · חיסכון ברינדורים</span><span class="hdr-num" dir="ltr">7.3</span></div>
+<div id="sc-t43" class="clip scene" data-start="0.000" data-duration="31.430" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 4 · בירולים</span><span class="hdr-num" dir="ltr">4.3</span></div>
 <div class="scam">
-<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">מבקר</span> <span class="w" dir="rtl" data-t="0.430">עצמאי,</span> <span class="w" dir="rtl" data-t="0.560">עד</span> <span class="w" dir="rtl" data-t="0.690">שהציון</span> <span class="w" dir="rtl" data-t="0.820">עובר</span> <span class="w" dir="rtl" data-t="0.950">90</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.780">מי</span> <span class="w" dir="rtl" data-t="1.840">שבנה</span> <span class="w" dir="rtl" data-t="1.900">את</span> <span class="w" dir="rtl" data-t="1.960">הסרטון</span> <span class="w" dir="rtl" data-t="2.020">הכי</span> <span class="w" dir="rtl" data-t="2.080">פחות</span> <span class="w" dir="rtl" data-t="2.140">מתאים</span> <span class="w" dir="rtl" data-t="2.200">לבקר</span> <span class="w" dir="rtl" data-t="2.260">אותו,</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.480">וזה</span> <span class="w" dir="rtl" data-t="4.540">נכון</span> <span class="w" dir="rtl" data-t="4.600">גם</span> <span class="w" dir="rtl" data-t="4.660">לקלוד.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.080">מבקר</span> <span class="w" dir="rtl" data-t="6.140">עצמאי</span> <span class="w" dir="rtl" data-t="6.200">הוא</span> <span class="w" dir="rtl" data-t="6.260">עותק</span> <span class="w" dir="rtl" data-t="6.320">נפרד</span> <span class="w" dir="rtl" data-t="6.380">של</span> <span class="w" dir="rtl" data-t="6.440">קלוד</span> <span class="w" dir="rtl" data-t="6.500">שלא</span> <span class="w" dir="rtl" data-t="6.560">בנה</span> <span class="w" dir="rtl" data-t="6.620">כלום.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.030">הוא</span> <span class="w" dir="rtl" data-t="9.090">מקבל</span> <span class="w" dir="rtl" data-t="9.150">את</span> <span class="w" dir="rtl" data-t="9.210">הבקשה</span> <span class="w" dir="rtl" data-t="9.270">ופריימים</span> <span class="w" dir="rtl" data-t="9.330">מכל</span> <span class="w" dir="rtl" data-t="9.390">סצנה,</span> <span class="w" dir="rtl" data-t="9.450">בלי</span> <span class="w" dir="rtl" data-t="9.510">ההסברים,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="11.730">ונותן</span> <span class="accgrp" data-t="11.790"><span class="w s-str" dir="rtl" data-t="11.790">ציון</span> <span class="w s-str" dir="rtl" data-t="11.850">מתוך</span> <span class="w s-str" dir="rtl" data-t="11.910">100</span><i class="ul" data-t="11.970"></i></span> <span class="w" dir="rtl" data-t="11.970">עם</span> <span class="w" dir="rtl" data-t="12.030">תיקון</span> <span class="w" dir="rtl" data-t="12.090">במספרים</span> <span class="w" dir="rtl" data-t="12.150">לכל</span> <span class="w" dir="rtl" data-t="12.210">פגם.</span></span></p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim73">
-<div class="s73-builder">
-<div class="s73-fr s73-vid"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class="s73-cut"></i></div>
-<svg class="s73-flaw" viewBox="0 0 92 64" aria-hidden="true"><rect x="3" y="3" width="86" height="58" rx="18"/></svg>
-<div class="s73-bub"><i></i><i></i><i></i><span class="s73-expl" dir="rtl">ההסברים</span><div class="s73-no"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M9.5 9.5l11 11"/><path d="M20.5 9.5l-11 11"/></svg></div></div>
-<div class="s73-list"><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div></div>
-<svg class="s73-person" viewBox="0 0 312 380" aria-hidden="true">
-<defs>
-<linearGradient id="pf73" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
-<linearGradient id="pr73" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
-</defs>
-<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380 Z" fill="url(#pf73)"/>
-<rect x="128" y="196" width="56" height="70" rx="22" fill="url(#pf73)"/>
-<ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pf73)"/>
-<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#pr73)" stroke-width="3"/>
-<ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#pr73)" stroke-width="3"/>
-</svg>
-<div class="s73-card s73-me"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div>
-<div class="s73-name s73-mename" dir="rtl">קלוד</div>
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">איפה</span> <span class="w" dir="rtl" data-t="0.430">לשים</span> <span class="w" dir="rtl" data-t="0.560">בירולים,</span> <span class="w" dir="rtl" data-t="0.690">ומה</span> <span class="w" dir="rtl" data-t="0.820">להראות</span> <span class="w" dir="rtl" data-t="0.950">בכל</span> <span class="w" dir="rtl" data-t="1.080">אחד</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.910">על</span> <span class="w" dir="rtl" data-t="1.970">בסיס</span> <span class="w" dir="rtl" data-t="2.030">התמלול</span> <span class="w" dir="rtl" data-t="2.090">קלוד</span> <span class="w" dir="rtl" data-t="2.150">מחזיר</span> <span class="w" dir="rtl" data-t="2.210">טבלה:</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.860">הזמן,</span> <span class="w" dir="rtl" data-t="3.920">המשפט,</span> <span class="w" dir="rtl" data-t="3.980">מה</span> <span class="w" dir="rtl" data-t="4.040">רואים</span> <span class="w" dir="rtl" data-t="4.100">בבירול</span> <span class="w" dir="rtl" data-t="4.160">ומאיפה</span> <span class="w" dir="rtl" data-t="4.220">הוא</span> <span class="w" dir="rtl" data-t="4.280">מגיע.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.310">הכלל:</span> <span class="w" dir="rtl" data-t="6.370">אף</span> <span class="w" dir="rtl" data-t="6.430">פעם</span> <span class="w" dir="rtl" data-t="6.490">לא</span> <span class="w" dir="rtl" data-t="6.550">יותר</span> <span class="accgrp" data-t="6.610"><span class="w s-str" dir="rtl" data-t="6.610">מ-</span> <span class="w s-str" dir="rtl" data-t="6.610">3</span> <span class="w s-str" dir="rtl" data-t="6.730">שניות</span><i class="ul" data-t="6.790"></i></span> <span class="w" dir="rtl" data-t="6.790">של</span> <span class="w" dir="rtl" data-t="6.850">דיבור</span> <span class="w" dir="rtl" data-t="6.910">בלי</span> <span class="w" dir="rtl" data-t="6.970">בירול,</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.410">וכל</span> <span class="w" dir="rtl" data-t="9.470">קליפ</span> <span class="w" dir="rtl" data-t="9.530">מראה</span> <span class="w" dir="rtl" data-t="9.590">בדיוק</span> <span class="w" dir="rtl" data-t="9.650">את</span> <span class="w" dir="rtl" data-t="9.710">מה</span> <span class="w" dir="rtl" data-t="9.770">שנאמר</span> <span class="w" dir="rtl" data-t="9.830">באותו</span> <span class="w" dir="rtl" data-t="9.890">משפט.</span></span></p></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim43">
+<div class="s43-table"><i class="s43-tbg"></i><div class="s43-head"><span class="s43-h s43-h1" dir="rtl">הזמן</span><span class="s43-h s43-h2" dir="rtl">המשפט</span><span class="s43-h s43-h3" dir="rtl">מה רואים</span><span class="s43-h s43-h4" dir="rtl">מאיפה</span></div><div class="s43-row s43-r1"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:2.2%;width:12.2%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb" style="width:52px" data-x="615.5"></i><i class="s43-wb" style="width:34px" data-x="579.2"></i><i class="s43-wb s43-key" style="width:60px" data-x="542.9"></i></span><span class="s43-c s43-cw"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="5" width="24" height="16" rx="2.5"/><path d="M11 25.5h8M15 21v4.5"/><path d="M13.5 8.5l6 4.5-3.2.7-1.5 2.9z"/></svg></span><span class="s43-c s43-cx"><span class="s43-src" dir="rtl">הקלטת מסך שתצלמו</span></span></div><div class="s43-row s43-r2"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:26.7%;width:11.1%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb" style="width:40px" data-x="499.2"></i><i class="s43-wb s43-key" style="width:58px" data-x="460.8"></i><i class="s43-wb" style="width:36px" data-x="422.4"></i></span><span class="s43-c s43-cw"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 4l2.4 6.2L24 12l-6.6 1.8L15 20l-2.4-6.2L6 12l6.6-1.8z"/><path d="M5 25h5M20 25h5"/></svg></span><span class="s43-c s43-cx"><span class="s43-src" dir="rtl">אנימציה שקלוד יבנה</span></span></div><div class="s43-row s43-r3"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:51.1%;width:10.0%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb s43-key" style="width:60px" data-x="378.7"></i><i class="s43-wb" style="width:30px" data-x="342.4"></i><i class="s43-wb" style="width:48px" data-x="306.1"></i></span><span class="s43-c s43-cw"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="7" width="22" height="17" rx="3"/><path d="M11.5 11.5v8l6.5-4z"/><path d="M25.5 2.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg></span><span class="s43-c s43-cx"><span class="s43-src" dir="rtl">קליפ AI</span></span></div><div class="s43-row s43-r4"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:61.1%;width:27.8%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb" style="width:36px" data-x="257.1"></i><i class="s43-wb s43-key" style="width:52px" data-x="208.0"></i><i class="s43-wb" style="width:44px" data-x="158.9"></i></span><span class="s43-c s43-cw"><i class="s43-what0"></i></span><span class="s43-c s43-cx"><span class="s43-src s43-miss" dir="rtl">חסר</span><i class="s43-src0"></i></span></div><div class="s43-row s43-r5"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:88.9%;width:11.1%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb" style="width:48px" data-x="117.3"></i><i class="s43-wb" style="width:40px" data-x="96.0"></i><i class="s43-wb s43-key" style="width:54px" data-x="74.7"></i></span><span class="s43-c s43-cw"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M3 9.5a2 2 0 0 1 2-2h6l2.5 2.5H25a2 2 0 0 1 2 2V23a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="s43-c s43-cx"><span class="s43-src" dir="rtl">קובץ שכבר בתיקייה</span></span></div><i class="s43-colhl"></i><svg class="s43-tframe" viewBox="0 0 720 340" preserveAspectRatio="none" aria-hidden="true"><path d="M694 1.5H26A24.5 24.5 0 0 0 1.5 26V314A24.5 24.5 0 0 0 26 338.5H694A24.5 24.5 0 0 0 718.5 314V26A24.5 24.5 0 0 0 694 1.5Z"/></svg></div>
+<div class="s43-tl">
+<div class="s43-ruler"></div>
+<div class="s43-lane s43-lb"></div><div class="s43-lane s43-ls"><svg class="s43-wave" viewBox="60 0 584 58" preserveAspectRatio="none" aria-hidden="true"><path d="M66.0 25.4v7.2 M74.0 23.6v10.8 M82.1 13.7v30.6 M90.2 22.7v12.6 M98.2 20.0v18.0 M106.2 18.2v21.6 M114.3 18.2v21.6 M122.4 13.7v30.6 M130.4 24.5v9.0 M138.4 15.5v27.0 M146.5 16.4v25.2 M154.6 20.9v16.2 M162.6 20.0v18.0 M170.7 21.8v14.4 M178.7 15.5v27.0 M186.8 25.4v7.2 M194.8 19.1v19.8 M202.9 11.9v34.2 M210.9 22.7v12.6 M219.0 22.7v12.6 M227.0 17.3v23.4 M235.1 17.3v23.4 M243.1 25.4v7.2 M251.2 23.6v10.8 M259.2 13.7v30.6 M267.2 22.7v12.6 M275.3 20.0v18.0 M283.4 18.2v21.6 M291.4 18.2v21.6 M299.5 13.7v30.6 M307.5 24.5v9.0 M315.6 15.5v27.0 M323.6 16.4v25.2 M331.7 20.9v16.2 M339.7 20.0v18.0 M347.8 21.8v14.4 M355.8 15.5v27.0 M363.9 25.4v7.2 M371.9 19.1v19.8 M380.0 11.9v34.2 M388.0 22.7v12.6 M396.1 22.7v12.6 M404.1 17.3v23.4 M412.2 17.3v23.4 M420.2 25.4v7.2 M428.3 23.6v10.8 M436.3 13.7v30.6 M444.4 22.7v12.6 M452.4 20.0v18.0 M460.5 18.2v21.6 M468.5 18.2v21.6 M476.6 13.7v30.6 M484.6 24.5v9.0 M492.7 15.5v27.0 M500.7 16.4v25.2 M508.8 20.9v16.2 M516.8 20.0v18.0 M524.9 21.8v14.4 M532.9 15.5v27.0 M541.0 25.4v7.2 M549.0 19.1v19.8 M557.1 11.9v34.2 M565.1 22.7v12.6 M573.2 22.7v12.6 M581.2 17.3v23.4 M589.2 17.3v23.4 M597.3 25.4v7.2 M605.4 23.6v10.8 M613.4 13.7v30.6 M621.5 22.7v12.6 M629.5 20.0v18.0 M637.6 18.2v21.6"/></svg></div>
+<span class="s43-tlbl s43-tl1" dir="rtl">בירול</span><span class="s43-tlbl s43-tl2" dir="rtl">דיבור</span>
+<i class="s43-span s43-sp1" style="left:524.8px;width:108.8px"></i><i class="s43-span s43-sp2" style="left:403.2px;width:115.2px"></i><i class="s43-span s43-sp3" style="left:288.0px;width:108.8px"></i><i class="s43-span s43-sp4" style="left:134.4px;width:147.2px"></i><i class="s43-span s43-sp5" style="left:64.0px;width:64.0px"></i>
+<i class="s43-scan"></i>
+<i class="s43-gap s43-g1" style="left:486.4px;width:70.4px"><svg class="s43-gok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i><i class="s43-gap s43-g2" style="left:345.6px;width:76.8px"><svg class="s43-gok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i>
+<div class="s43-hole" style="left:128.0px;width:160.0px"><span class="s43-hlbl" dir="rtl">חסר</span></div>
+<div class="s43-blk s43-b1" style="left:556.8px;width:70.4px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="5" width="24" height="16" rx="2.5"/><path d="M11 25.5h8M15 21v4.5"/><path d="M13.5 8.5l6 4.5-3.2.7-1.5 2.9z"/></svg><i class="s43-bok"><svg class="s43-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i></div><div class="s43-blk s43-b2" style="left:422.4px;width:64.0px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 4l2.4 6.2L24 12l-6.6 1.8L15 20l-2.4-6.2L6 12l6.6-1.8z"/><path d="M5 25h5M20 25h5"/></svg><i class="s43-bok"><svg class="s43-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i></div><div class="s43-blk s43-b3" style="left:288.0px;width:57.6px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="7" width="22" height="17" rx="3"/><path d="M11.5 11.5v8l6.5-4z"/><path d="M25.5 2.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg><i class="s43-bok"><svg class="s43-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i></div><div class="s43-blk s43-b5" style="left:64.0px;width:64.0px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M3 9.5a2 2 0 0 1 2-2h6l2.5 2.5H25a2 2 0 0 1 2 2V23a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><i class="s43-bok"><svg class="s43-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i></div>
+<div class="s43-sim" style="left:150.0px;width:116.0px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="5" width="24" height="20" rx="3"/><path d="M5 22l7-7 4.5 4.5 3.5-3.5 5 5"/><circle cx="20.5" cy="11" r="2.4"/></svg><i class="s43-bno"><svg class="s43-no" viewBox="0 0 30 30" aria-hidden="true"><path d="M9.5 9.5l11 11"/><path d="M20.5 9.5l-11 11"/></svg></i></div>
+<div class="s43-acc s43-az" style="left:158.0px;width:100.0px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="13" r="5.5"/><path d="M8 25c1.6-4 4-6 7-6s5.4 2 7 6"/><path d="M3 9V3h6M21 3h6v6M27 21v6h-6M9 27H3v-6"/></svg><i class="s43-strike"></i></div>
+<div class="s43-acc s43-ad" style="left:173.0px;width:70.4px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="5" width="24" height="16" rx="2.5"/><path d="M11 25.5h8M15 21v4.5"/><path d="M13.5 8.5l6 4.5-3.2.7-1.5 2.9z"/></svg><i class="s43-strike"></i></div>
+<i class="s43-pin" style="left:446.4px"><b></b></i>
+<svg class="s43-entry" style="left:446.4px" viewBox="0 0 40 16" aria-hidden="true"><path d="M2 3v10M2 8H38M38 3v10"/></svg>
+<div class="s43-cal" data-focus="2" style="left:192.0px;width:96px"><svg viewBox="0 0 96 18" preserveAspectRatio="none" aria-hidden="true"><path class="s43-calg" d="M2 -132V2M94 -132V2"/><path d="M2 2v14M2 9H94M94 2v14"/></svg>
+<span class="s43-calt" dir="rtl">3 שניות</span></div>
 </div>
-<svg class="s73-div" viewBox="0 0 4 360" aria-hidden="true"><path d="M2 2 V358"/></svg>
-<div class="s73-tray"></div>
-<div class="s73-doc"><i></i><i></i><i></i><span dir="rtl">הבקשה</span></div>
-<div class="s73-fr s73-th s73-in s73-in0"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div><div class="s73-fr s73-th s73-in s73-in1"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div><div class="s73-fr s73-th s73-in s73-in2"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div>
-<div class="s73-card s73-ghost s73-gh2"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div><div class="s73-card s73-ghost s73-gh1"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div><div class="s73-card s73-cr"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div>
-<div class="s73-name s73-crname" dir="rtl">מבקר עצמאי</div>
-<div class="s73-gauge" data-focus="4"><svg class="s73-gsvg" viewBox="0 0 340 200" aria-hidden="true">
-<defs><linearGradient id="s73gr" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#9d92f0"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs>
-<path class="s73-track" d="M320 170 A150 150 0 0 0 20 170"/><path class="s73-fill" d="M320 170 A150 150 0 0 0 20 170"/><path class="s73-tk s73-tk70" d="M88.9 58.4 L74.8 38.9"/><path class="s73-tk s73-tk90" d="M38.8 127.4 L15.9 119.9"/></svg><span class="s73-tl s73-tl70" dir="ltr" style="left:28.3px;top:-0.7px">70</span><span class="s73-tl s73-tl90" dir="ltr" style="left:-40.7px;top:94.3px">90</span>
-<div class="s73-score" dir="ltr"><span class="s73-nn"><span class="s73-n s73-n1">68</span><span class="s73-n s73-n2">96</span></span><span class="s73-of">/100</span></div>
-<div class="s73-pass"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></div></div>
-<div class="s73-rows"><div class="s73-row s73-row0"><div class="s73-fr s73-th s73-dth0"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class=s73-dm></i></div><svg class="s73-arr" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="s73-sl"><i class="s73-rule"></i><i class="s73-knob"></i></div></div><div class="s73-row s73-row1"><div class="s73-fr s73-th s73-dth1"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class=s73-dm></i></div><svg class="s73-arr" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="s73-sl"><i class="s73-rule"></i><i class="s73-knob"></i></div></div></div>
-<div class="s73-steps"><i class="s73-line"></i><i class="s73-linef"></i><i class="s73-nd s73-ndx" style="left:300px"></i><i class="s73-nd" style="left:250px"></i><i class="s73-nd" style="left:200px"></i><i class="s73-nd" style="left:150px"></i><i class="s73-nd" style="left:100px"></i><i class="s73-nd" style="left:50px"></i><i class="s73-nd s73-ndx" style="left:0px"></i>
-<span class="s73-sv s73-sv1" dir="ltr">68</span><span class="s73-sv s73-sv7" dir="ltr">96</span>
-<span class="s73-slbl" dir="rtl">סבבים</span></div>
-<div class="s73-lbl s73-rublbl" dir="rtl"><i></i><span>מחוון</span></div>
-<div class="s73-rub" dir="rtl"><div class="s73-tagrow"><span class=s73-tag>ביצוע</span><span class=s73-tag>גימור</span><span class=s73-tag>תנועה</span></div><div class="s73-tagrow"><span class=s73-tag>טקסט ועברית</span><span class=s73-tag>התאמה לסגנון</span><span class=s73-tag>היגיון פיזי</span></div></div>
-<div class="s73-rulecard" dir="rtl"><svg class="s73-stop" viewBox="0 0 40 40" aria-hidden="true"><path d="M13.4 3h13.2L37 13.4v13.2L26.6 37H13.4L3 26.6V13.4z"/><path d="M13 20h14"/></svg><div class="s73-rtx"><p>אחרי שני סבבים עדיין מתחת ל-70?</p><p>עוצרים ומביאים את הפער.</p></div></div>
+<div class="s43-rule s43-u1" dir="rtl"><svg class="s43-rico" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="13" r="5.5"/><path d="M8 25c1.6-4 4-6 7-6s5.4 2 7 6"/><path d="M3 9V3h6M21 3h6v6M27 21v6h-6M9 27H3v-6"/></svg><span>זום על הפנים לא נחשב בירול</span></div><div class="s43-rule s43-u2" dir="rtl"><svg class="s43-rico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="10" width="17" height="14" rx="2.5"/><rect x="10" y="4" width="17" height="14" rx="2.5"/></svg><span>אותו קליפ לא מופיע פעמיים</span></div><div class="s43-rule s43-u3" dir="rtl"><svg class="s43-rico" viewBox="0 0 30 30" aria-hidden="true"><path d="M3 15h11M10.5 11l4 4-4 4"/><path d="M19 6v18"/><path d="M24 11.5l3.5 3.5-3.5 3.5-3.5-3.5z"/></svg><span>כניסה עד שנייה וחצי לפני המילה</span></div>
 </div></div></div></div>
-<div class="factbox"><span class="pill">מ-68 ל-96</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="21.880">ריל</span> <span class="w" dir="rtl" data-t="22.000">אנימציה</span> <span class="w" dir="rtl" data-t="22.120">של</span> <span class="w" dir="rtl" data-t="22.240">47</span> <span class="w" dir="rtl" data-t="22.360">שניות,</span> <span class="w" dir="rtl" data-t="22.480">בשבעה</span> <span class="w" dir="rtl" data-t="22.600">סבבים</span> <span class="w" dir="rtl" data-t="22.720">של</span> <span class="w" dir="rtl" data-t="22.840">אותו</span> <span class="w" dir="rtl" data-t="22.960">מבקר.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="23.280">גם</span> <span class="w" dir="rtl" data-t="23.310">הסצנות</span> <span class="w" dir="rtl" data-t="23.340">בסרטון</span> <span class="w" dir="rtl" data-t="23.370">הזה</span> <span class="w" dir="rtl" data-t="23.400">עברו</span> <span class="w" dir="rtl" data-t="23.430">מבקר</span> <span class="w" dir="rtl" data-t="23.460">עצמאי.</span></p></div>
-<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>21</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">תפעיל סוכן נפרד שלא בנה את הסרטון, בתור מבקר קשוח של סטודיו לאנימציה.</div>
-<div class="pl" dir="rtl">תן לו את הבריף, פריים מכל סצנה ורצועת פריימים מכל מעבר, בלי ההסברים שלך.</div>
-<div class="pl" dir="rtl">הוא נותן ציון מתוך 100 לפי מחוון קבוע: ביצוע של כל מה שביקשתי, גימור, תנועה, טקסט ועברית, התאמה לסגנון, והיגיון פיזי.</div>
-<div class="pl" dir="rtl">לכל סצנה הוא מחזיר רשימת פגמים, ולכל פגם זמן, מה לא בסדר ותיקון עם מספרים.</div>
-<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>אתה מתקן, ואותו מבקר בודק שוב, עד שהציון עובר 90.</div>
-<div class="pl" dir="rtl">אם אחרי שני סבבים הציון עדיין רחוק <span class="nb">מ-90</span> <span class="nb">ב-20</span> נקודות או יותר, תעצור ותביא לי את הפער ואת האפשרויות במקום לפתוח עוד סבבים.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>אתה מתקן, ואותו מבקר בודק שוב, עד שהציון עובר 90.</div></div>
-
+<div class="factbox"><span class="pill">מקסימום 3 שניות</span></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>16</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">לפני שאתה מתמלל, תשאל אותי איזה סרטון, ובאיזו תיקייה נמצאים הקבצים שכבר יש לי.</div>
+<div class="pl" dir="rtl">תתמלל את הסרטון עם זמן לכל מילה, בעזרת <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk">&lt;הקובץ&gt;</span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span><span class="bt">`</span>,</span>ותציע לי רשימת בירולים כטבלה.</div>
+<div class="pl" dir="rtl">בכל שורה יהיו זמן ההתחלה והסוף, המשפט, המילה המרכזית והזמן שלה (לפיה נקבעת הכניסה), מה רואים בבירול, ומאיפה הוא מגיע (הקלטת מסך שאצלם, אנימציה שתבנה, קליפ AI, או קובץ שכבר יש בתיקייה).</div>
+<div class="pl" dir="rtl">אף פעם לא יותר <span class="nb">מ-3</span> שניות ברצף של דיבור שלי למצלמה בלי בירול, וזום על הפנים לא נחשב בירול.</div>
+<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>כל בירול מראה בדיוק את מה שנאמר באותו משפט, ואם אין משהו שמתאים באמת, תכתוב &quot;חסר&quot; במקום למלא בקליפ דומה.</div>
+<div class="pl" dir="rtl">שורה של &quot;חסר&quot; נספרת כחור בכיסוי, ותסמן אותה כך שאראה איפה חסר לי חומר.</div>
+<div class="pl" dir="rtl">אותו קליפ לא מופיע פעמיים, גם כקטע אחר מאותו קובץ.</div>
+<div class="pl" dir="rtl">הבירול נכנס בתוך המשפט שמזכיר אותו, בערך באמצע הדרך בין תחילת המשפט למילה המרכזית, ואף פעם לא יותר משנייה וחצי לפני המילה.</div>
+<div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>הקלטות מסך של החשבונות שלי אצלם בעצמי, ובשבילן תכתוב לי מה לצלם, כמה זמן ובאיזה רגע בסרטון, בלי לבנות צילום מסך מזויף.</div>
+<div class="pl" dir="rtl">תראה לי את הטבלה ותחכה לאישור לפני שאתה בונה או מייצר משהו.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>כל בירול מראה בדיוק את מה שנאמר באותו משפט, ואם אין משהו שמתאים באמת, תכתוב &quot;חסר&quot; במקום למלא בקליפ דומה.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>הקלטות מסך של החשבונות שלי אצלם בעצמי, ובשבילן תכתוב לי מה לצלם, כמה זמן ובאיזה רגע בסרטון, בלי לבנות צילום מסך מזויף.</div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="27.380">נפסלו</span> <span class="w" dir="rtl" data-t="27.540">בירולים</span> <span class="w" dir="rtl" data-t="27.700">שהתאימו</span> <span class="w" dir="rtl" data-t="27.860">רק</span> <span class="w" dir="rtl" data-t="28.020">בערך</span> <span class="w" dir="rtl" data-t="28.180">למשפט,</span> <span class="w" dir="rtl" data-t="28.340">וגם</span> <span class="w" dir="rtl" data-t="28.500">קליפ</span> <span class="w" dir="rtl" data-t="28.660">שחזר</span> <span class="w" dir="rtl" data-t="28.820">פעמיים,</span> <span class="w" dir="rtl" data-t="28.980">אפילו</span> <span class="w" dir="rtl" data-t="29.140">כשכל</span> <span class="w" dir="rtl" data-t="29.300">הסרטון</span> <span class="w" dir="rtl" data-t="29.460">היה</span> <span class="w" dir="rtl" data-t="29.620">מכוסה.</span></p></div></div>
 </div></div>
 </div>
 </div>
@@ -1030,170 +992,136 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   window.SIMS = window.SIMS || {};
 })();
 
-/* 7.3 an independent critic, iterated until the score passes 90: one visual beat per explanation phrase, then the rounds.
-   Every tween is a fromTo with explicit values (immediateRender:false via E.A); times are scene-local via T(). */
 window.SIMS = window.SIMS || {};
-window.SIMS.sim73 = function (tl, ctx, cfg, S) {
-  const E = window.ENG, A = E.A, sc = ctx.scene, c = cfg.sim73, P = cfg.phr, pe = cfg.phrEnd;
+window.SIMS.sim43 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, P = cfg.phr, pe = cfg.phrEnd;
   const T = (x) => S + x;                    // scene-local -> master time
   const q = (s) => E.q(s, sc), qa = (s) => E.qa(s, sc);
-  const tw = (el, from, to, t) => tl.fromTo(el, from, A(to), T(t));
-  const pop = (el, t, s0) => tw(el, { opacity: 0, scale: s0 || 0.7 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, t);
-  const ts = cfg.tStage, b0 = P[0], b1 = P[1], b2 = P[2], b3 = P[3], b4 = P[4];
-  const wrap = q(".sim73");
-  const sweep = (el, t, d, color) => {       // light sweep, right to left (no skew, so nothing shows at rest)
+  const root = q(".sim43"), table = q(".s43-table"), rows = qa(".s43-row"), hole = q(".s43-hole");
+  const badge = (el, t) => tl.fromTo(el, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }), t);
+  // light sweep, right to left; it starts and ends fully outside its element
+  const sweep = (el, t, d, color) => {
     const fx = document.createElement("i"), b = document.createElement("b");
-    fx.className = "s73-swp";
-    if (color) fx.style.setProperty("--sw", color);
+    fx.className = "s43-swp";
+    b.style.background = "linear-gradient(105deg, rgba(255, 255, 255, 0) 25%, " + color + " 50%, rgba(255, 255, 255, 0) 75%)";
     fx.appendChild(b);
     el.appendChild(fx);
-    tw(b, { x: 0 }, { x: -(el.clientWidth * 1.8 + 10), duration: d, ease: "power2.inOut" }, t);
+    const w = el.offsetWidth, bw = Math.round(Math.max(140, w * 0.6));
+    b.style.width = bw + "px";
+    tl.fromTo(b, { x: 0 }, A({ x: -(w + bw + 4), duration: d, ease: "power2.inOut" }), t);
   };
+  const MATCHED = [0, 1, 2, 4];               // rows whose b-roll fits its sentence; row 4 (index 3) has none
 
-  const vid = q(".s73-vid"), person = q(".s73-person"), bub = q(".s73-bub"), list = q(".s73-list"), flaw = q(".s73-flaw");
-  const me = q(".s73-me"), mename = q(".s73-mename"), cr = q(".s73-cr"), crname = q(".s73-crname");
+  // B0 "על בסיס התמלול קלוד מחזיר טבלה": a scanner transcribes the speech (word chips pop over the track),
+  // the table draws in and the words fly up into its sentence column
+  const b0 = P[0], scan = q(".s43-scan"), RUN = 0.95, X0 = 640, SPAN = 580, chipY = 477;
+  tl.fromTo(scan, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(b0 + 0.05));
+  tl.fromTo(scan, { x: 0 }, A({ x: -SPAN, duration: RUN, ease: "none" }), T(b0 + 0.05));
+  tl.fromTo(scan, { opacity: 1 }, A({ opacity: 0, duration: 0.12 }), T(b0 + 0.05 + RUN));
+  tl.fromTo(q(".s43-tbg"), { opacity: 0 }, A({ opacity: 1, duration: 0.45 }), T(b0 + 0.55));
+  E.draw(tl, q(".s43-tframe path"), T(b0 + 0.55), 0.8);
+  qa(".s43-line").forEach((l, k) => tl.fromTo(l, { scaleX: 0 }, A({ scaleX: 1, duration: 0.45, ease: "power2.out" }), T(b0 + 0.7 + k * 0.06)));
+  rows.forEach((row, k) => E.qa(".s43-wb", row).forEach((bar, j) => {
+    const c = E.center(bar, root), cx = parseFloat(bar.dataset.x), dx = cx - c.x, dy = chipY - c.y;
+    const tp = b0 + 0.05 + (RUN * (X0 - cx)) / SPAN, tf = b0 + 0.95 + k * 0.08 + j * 0.025;
+    tl.fromTo(bar, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(tp));
+    tl.fromTo(bar, { x: dx, y: dy, scale: 0.35 }, A({ x: dx, y: dy, scale: 0.55, duration: 0.25, ease: "back.out(2)" }), T(tp));
+    tl.fromTo(bar, { x: dx, y: dy, scale: 0.55 }, A({ x: 0, y: 0, scale: 1, duration: 0.6, ease: E.SPRING }), T(tf));
+  }));
 
-  // establishing shot: the video that was built, and its builder (centred until the critic needs room)
-  const builder = q(".s73-builder"), SHIFT = -160;
-  tw(vid, { scale: 0.94 }, { scale: 1, duration: 0.7, ease: E.SPRING }, ts + 0.1);
+  // B1 "הזמן, המשפט, מה רואים בבירול ומאיפה הוא מגיע": the columns fill one by one, right to left
+  const b1 = P[1];
+  qa(".s43-h").forEach((h, i) => E.fadeIn(tl, h, T(b1 + 0.05 + i * 0.45), 0.45, 10));
+  qa(".s43-mt").forEach((m, k) => tl.fromTo(m, { opacity: 0, scaleX: 0.3 }, A({ opacity: 1, scaleX: 1, duration: 0.45, ease: E.SPRING }), T(b1 + 0.12 + k * 0.06)));
+  const colhl = q(".s43-colhl");
+  tl.fromTo(colhl, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(b1 + 0.55));
+  tl.fromTo(colhl, { y: 0 }, A({ y: 242, duration: 0.6, ease: "power1.inOut" }), T(b1 + 0.55));
+  tl.fromTo(colhl, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), T(b1 + 1.05));
+  MATCHED.forEach((k, n) => {
+    badge(E.q(".s43-cw .s43-ico", rows[k]), T(b1 + 1.0 + n * 0.07));
+    E.fadeIn(tl, E.q(".s43-src", rows[k]), T(b1 + 1.45 + n * 0.1), 0.45, 10);
+  });
+  tl.fromTo(q(".s43-what0"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b1 + 1.2));
+  tl.fromTo(q(".s43-src0"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b1 + 1.75));
 
-  // B0 "whoever built the video is the least suited to critique it": the builder's explanations,
-  // its own checklist ticked one by one, while the caption is cut at the frame's edge
-  tw(bub, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, b0 + 0.05);
-  qa(".s73-bub > i").forEach((l, i) => tw(l, { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out" }, b0 + 0.3 + i * 0.12));
-  E.fadeIn(tl, list, T(b0 + 0.7), 0.45, 14);
-  qa(".s73-li path").forEach((p, i) => E.draw(tl, p, T(b0 + 0.95 + i * 0.25), 0.25));
-  E.draw(tl, q(".s73-flaw rect"), T(b0 + 1.85), 0.45);
-  tw(flaw, { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out" }, b0 + 2.3);
-  tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b0 + 2.55);
-  tw(person, { y: 0 }, { y: 5, duration: 0.18, ease: "power2.out" }, b0 + 2.1);
-  tw(person, { y: 5 }, { y: 0, duration: 0.3, ease: "back.out(2)" }, b0 + 2.28);
+  // B2 "הכלל: אף פעם לא יותר מ-3 שניות של דיבור בלי בירול": the b-rolls drop onto the track; a 3-second caliper
+  // measures each stretch of speech between them: two fit, the third is longer (a red hole; the punch-in is here)
+  const b2 = P[2], blocks = qa(".s43-blk"), cal = q(".s43-cal"), g1 = q(".s43-g1"), g2 = q(".s43-g2");
+  tl.fromTo(table, { opacity: 1 }, A({ opacity: 0.32, duration: 0.4 }), T(b2));
+  blocks.forEach((bk, i) => tl.fromTo(bk, { opacity: 0, y: -26 }, A({ opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }), T(b2 + 0.1 + i * 0.12)));
+  const calR = cal.offsetLeft + cal.offsetWidth, dx1 = g1.offsetLeft + g1.offsetWidth - calR, dx2 = g2.offsetLeft + g2.offsetWidth - calR;
+  tl.fromTo(cal, { opacity: 0, x: dx1, y: 10 }, A({ opacity: 1, x: dx1, y: 0, duration: 0.35, ease: E.SPRING }), T(b2 + 0.6));
+  badge(g1, T(b2 + 0.9));
+  E.draw(tl, E.q(".s43-gok path", g1), T(b2 + 0.95), 0.25);
+  tl.fromTo(cal, { x: dx1 }, A({ x: dx2, duration: 0.5, ease: "power2.inOut" }), T(b2 + 1.25));
+  badge(g2, T(b2 + 1.6));
+  E.draw(tl, E.q(".s43-gok path", g2), T(b2 + 1.65), 0.25);
+  tl.fromTo(cal, { x: dx2 }, A({ x: 0, duration: 0.55, ease: "power2.inOut" }), T(b2 + 1.95));
+  tl.fromTo(hole, { opacity: 0, scale: 0.92 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: E.SPRING }), T(b2 + 2.35));
+  E.glitch(tl, hole, T(b2 + 2.4), 7);
 
-  // B1 "and this is true for Claude too": the builder glitches into Claude (an agent card), same ticked checklist
-  E.glitch(tl, person, T(b1 + 0.02), 8);
-  tw(person, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b1 + 0.22);
-  pop(me, b1 + 0.25, 0.75);
-  E.fadeIn(tl, mename, T(b1 + 0.4), 0.45, 10);
-  sweep(me, b1 + 0.65, 0.7, "rgba(255, 255, 255, 0.22)");
-  tw(list, { borderColor: "rgba(201, 194, 255, 0.28)" }, { borderColor: "rgba(255, 255, 255, 0.85)", duration: 0.15 }, b1 + 0.7);
-  tw(list, { borderColor: "rgba(255, 255, 255, 0.85)" }, { borderColor: "rgba(201, 194, 255, 0.28)", duration: 0.4 }, b1 + 0.85);
-  tw(flaw, { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out" }, b1 + 0.95);
-  tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b1 + 1.2);
-
-  // B2 "an independent critic is a separate copy of Claude that built nothing": a copy slides out (with a depth trail),
-  // a divider goes up between them, the critic's tray is empty
-  E.fadeOut(tl, list, T(b2), 0.3, 10);
-  tw(flaw, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b2);
-  tw(builder, { x: SHIFT }, { x: 0, duration: 0.75, ease: E.SPRING }, b2 + 0.1);
-  const DX = me.offsetLeft - cr.offsetLeft + SHIFT;
-  const slide = (el, t, peak) => {
-    tw(el, { x: DX, rotationY: -38, scale: 0.92, transformPerspective: 900, opacity: 0 }, { x: 0, rotationY: 0, scale: 1, transformPerspective: 900, opacity: peak, duration: 0.95, ease: E.SPRING }, t);
+  // B3 "וכל קליפ מראה בדיוק את מה שנאמר באותו משפט": each clip is checked against its own sentence (row, speech
+  // span and block light up together); a merely similar clip is rejected, and the row says "חסר"
+  const b3 = P[3], spans = qa(".s43-span"), bands = qa(".s43-band");
+  tl.fromTo(table, { opacity: 0.32 }, A({ opacity: 1, duration: 0.35 }), T(b3));
+  [g1, g2, cal].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b3)));
+  const lit = (k, t, hold) => {
+    tl.fromTo(bands[k], { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(t));
+    tl.fromTo(spans[k], { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(t));
+    tl.fromTo(bands[k], { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(t + hold));
+    tl.fromTo(spans[k], { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(t + hold));
   };
-  slide(q(".s73-gh2"), b2 + 0.27, 0.18);
-  slide(q(".s73-gh1"), b2 + 0.21, 0.36);
-  slide(cr, b2 + 0.15, 1);
-  qa(".s73-ghost").forEach((g, i) => tw(g, { opacity: i ? 0.36 : 0.18 }, { opacity: 0, duration: 0.3 }, b2 + 1.25 + i * 0.05));
-  E.draw(tl, q(".s73-div path"), T(b2 + 1.05), 0.5);
-  E.fadeIn(tl, crname, T(b2 + 1.2), 0.45, 10);
-  E.fadeIn(tl, q(".s73-tray"), T(b2 + 1.5), 0.45, 10);
-  sweep(cr, b2 + 1.7, 0.7, "rgba(255, 255, 255, 0.22)");
-
-  // B3 "it gets the request and frames from every scene, without the explanations": into the tray they go;
-  // the explanations hit the divider and are refused
-  const doc = q(".s73-doc");
-  tw(doc, { x: 530, y: -5, scale: 0.8, rotation: -8, opacity: 0 }, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, duration: 0.85, ease: E.SPRING }, b3 + 0.1);
-  const vc = E.center(vid, wrap);
-  qa(".s73-in").forEach((th, i) => {
-    const o = E.center(th, wrap);
-    tw(th, { x: vc.x - o.x, y: vc.y - o.y, scale: 2.4, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.8, ease: E.SPRING }, b3 + 0.45 + i * 0.15);
+  MATCHED.forEach((k, n) => {
+    const t = b3 + 0.2 + n * 0.25, bk = blocks[n];
+    lit(k, t, 0.45);
+    badge(E.q(".s43-bok", bk), T(t + 0.08));
+    E.draw(tl, E.q(".s43-ok path", bk), T(t + 0.12), 0.22);
   });
-  const expl = q(".s73-expl"), no = q(".s73-no"), dv = q(".s73-div path");
-  pop(expl, b3 + 1.1, 0.8);
-  tw(bub, { x: 0 }, { x: -88, duration: 0.3, ease: "power2.in" }, b3 + 1.35);
-  E.glitch(tl, q(".s73-div"), T(b3 + 1.65), 6);
-  tw(dv, { stroke: "#c9c2ff" }, { stroke: "#ff6b61", duration: 0.1 }, b3 + 1.65);
-  tw(dv, { stroke: "#ff6b61" }, { stroke: "#c9c2ff", duration: 0.5 }, b3 + 1.9);
-  pop(no, b3 + 1.68, 0.5);
-  qa(".s73-no path").forEach((p, i) => E.draw(tl, p, T(b3 + 1.72 + i * 0.12), 0.22));
-  tw(bub, { x: -88 }, { x: -36, duration: 0.4, ease: "power2.out" }, b3 + 1.65);
-  tw(bub, { opacity: 1 }, { opacity: 0, duration: 0.35 }, b3 + 2.15);
+  const t4 = b3 + 1.05, sim = q(".s43-sim");
+  lit(3, t4, 0.9);
+  tl.fromTo(sim, { opacity: 0, y: -26 }, A({ opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.6)" }), T(t4 + 0.05));
+  E.glitch(tl, sim, T(t4 + 0.4), 8);
+  badge(q(".s43-bno"), T(t4 + 0.45));
+  qa(".s43-no path").forEach((p, i) => E.draw(tl, p, T(t4 + 0.5 + i * 0.1), 0.2));
+  tl.fromTo(sim, { opacity: 1, y: 0 }, A({ opacity: 0, y: 22, duration: 0.3, ease: "power2.in" }), T(t4 + 0.75));
+  E.fadeIn(tl, q(".s43-hlbl"), T(t4 + 0.9), 0.45, 10);
+  tl.fromTo(q(".s43-src0"), { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(t4 + 0.9));
+  E.fadeIn(tl, q(".s43-miss"), T(t4 + 1.05), 0.45, 10);
 
-  // B4 "and gives a score out of 100 with a numeric fix for every defect": the gauge lands on 68 (the first round);
-  // two defects, each with its fix dialled in (the punch-in lands on the gauge)
-  E.fadeOut(tl, q(".s73-builder"), T(b4), 0.2, 0);
-  tw(q(".s73-div"), { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4);
-  [q(".s73-tray"), doc].concat(qa(".s73-in")).forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4));
-  const fill = q(".s73-fill"), L = Math.ceil(fill.getTotalLength()) + 2;
-  fill.style.strokeDasharray = L + " " + L;
-  fill.style.strokeDashoffset = L;
-  E.draw(tl, q(".s73-track"), T(b4 + 0.2), 0.5);
-  tw(fill, { strokeDashoffset: L }, { strokeDashoffset: +(L * (1 - c.scoreFrom / 100)).toFixed(1), duration: 0.8, ease: "power2.out" }, b4 + 0.4);
-  qa(".s73-tk").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.5));
-  qa(".s73-tl").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.55));
-  const n1 = q(".s73-n1"), n2 = q(".s73-n2");
-  pop(n1, b4 + 0.6, 0.6);
-  tw(q(".s73-of"), { opacity: 0 }, { opacity: 1, duration: 0.35 }, b4 + 0.75);
-  qa(".s73-row").forEach((row, i) => {
-    const t = b4 + 1.0 + i * 0.3;
-    tw(row, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }, t);
-    tw(E.q(".s73-dm", row), { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, t + 0.25);
-    tw(E.q(".s73-arr", row), { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, t + 0.35);
-    const kn = E.q(".s73-knob", row), to = i ? -31.2 * 1.5 : 31.2 * 4;
-    tw(kn, { x: 0 }, { x: to, duration: 0.55, ease: "power3.inOut" }, t + 0.5);
-    tw(kn, { scale: 1 }, { scale: 1.25, duration: 0.15, ease: "power2.out" }, t + 1.05);
-    tw(kn, { scale: 1.25 }, { scale: 1, duration: 0.25, ease: "power2.in" }, t + 1.2);
-  });
-
-  // payoff: the same critic, round after round; the middle rounds are dots (no numbers in the guide);
-  // the gauge passes 90 and lands on 96; then the stopping rule
-  qa(".s73-row").forEach((row) => E.fadeOut(tl, row, T(pe), 0.3, 10));
-  const line = q(".s73-line"), linef = q(".s73-linef"), nds = qa(".s73-nd");
-  tw(line, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, pe + 0.1);
-  nds.forEach((n, k) => pop(n, pe + 0.15 + k * 0.05, 0.4));
-  E.fadeIn(tl, q(".s73-slbl"), T(pe + 0.3), 0.4, 6);
-  const lit = (n, t) => tw(n, { boxShadow: "0 0 0 2px rgba(201, 194, 255, 0.7), 0 0 0px rgba(201, 194, 255, 0)", backgroundColor: "#2a2450" },
-    { boxShadow: "0 0 0 2px rgba(255, 255, 255, 1), 0 0 14px rgba(201, 194, 255, 0.9)", backgroundColor: "#c9c2ff", duration: 0.25 }, t);
-  lit(nds[0], pe + 0.45);
-  E.fadeIn(tl, q(".s73-sv1"), T(pe + 0.5), 0.4, 8);
-  E.fadeIn(tl, q(".s73-rublbl"), T(pe + 0.65), 0.4, 10);
-  qa(".s73-tag").forEach((g, i) => pop(g, pe + 0.75 + i * 0.08, 0.7));
-  // rounds 2..7
-  const r0 = pe + 1.55, step = 0.33, rEnd = r0 + 5 * step + 0.2;
-  for (let k = 1; k <= 6; k++) {
-    const t = r0 + (k - 1) * step;
-    tw(linef, { scaleX: (k - 1) / 6 }, { scaleX: k / 6, duration: 0.22, ease: "power2.out" }, t);
-    if (k < 6) {
-      tw(nds[k], { scale: 1 }, { scale: 1.7, duration: 0.15, ease: "power2.out" }, t + 0.12);
-      tw(nds[k], { scale: 1.7 }, { scale: 1, duration: 0.2, ease: "power2.in" }, t + 0.27);
-    } else {
-      lit(nds[6], t + 0.12);
-    }
-    tw(cr, { scale: 1 }, { scale: 1.06, duration: 0.12, ease: "power2.out" }, t + 0.05);
-    tw(cr, { scale: 1.06 }, { scale: 1, duration: 0.18, ease: "power2.in" }, t + 0.17);
-  }
-  tw(n1, { opacity: 1 }, { opacity: 0, duration: 0.25 }, r0);
-  const f68 = +(L * (1 - c.scoreFrom / 100)).toFixed(1), f96 = +(L * (1 - c.scoreTo / 100)).toFixed(1);
-  tw(fill, { strokeDashoffset: f68 }, { strokeDashoffset: f96, duration: rEnd - r0, ease: "power1.inOut" }, r0);
-  // the gauge passes the target: its tick and label light up, a check mark
-  const tPass = r0 + (rEnd - r0) * 0.72;
-  tw(q(".s73-tk" + c.target), { stroke: "rgba(236, 233, 255, 0.85)" }, { stroke: "#ffffff", duration: 0.2 }, tPass);
-  tw(q(".s73-tl" + c.target), { color: "#b8b4cc", scale: 1 }, { color: "#ffffff", scale: 1.2, duration: 0.3, ease: "back.out(2)" }, tPass);
-  const pass = q(".s73-pass");
-  pop(pass, tPass + 0.05, 0.5);
-  E.draw(tl, q(".s73-pass path"), T(tPass + 0.1), 0.25);
-  pop(n2, rEnd - 0.05, 0.6);
-  E.fadeIn(tl, q(".s73-sv7"), T(rEnd), 0.4, 8);
-  E.burst(tl, q(".s73-gauge"), 21, 151, T(rEnd), { n: 14, seed: 73, r0: 26, r1: 70, color: "#c9c2ff" });
-  // the stopping rule
-  const rule = q(".s73-rulecard");
-  tw(rule, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }, pe + 4.1);
-  qa(".s73-stop path").forEach((p, i) => E.draw(tl, p, T(pe + 4.25 + i * 0.2), 0.35));
-  sweep(rule, pe + 4.6, 0.9, "rgba(201, 194, 255, 0.2)");
+  // payoff: the rules, each acted out on the track; the hole stays marked
+  E.fadeOut(tl, table, T(pe), 0.35, -16);
+  qa(".s43-bok").forEach((b) => tl.fromTo(b, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe)));
+  const rule = (el, t) => {
+    tl.fromTo(el, { opacity: 0, x: 30 }, A({ opacity: 1, x: 0, duration: 0.55, ease: E.SPRING }), T(t));
+    sweep(el, T(t + 0.45), 0.8, "rgba(201, 194, 255, 0.2)");
+  };
+  // 1. a zoom on the face does not count as a b-roll: it is tried in the hole and struck out
+  const az = q(".s43-az"), ad = q(".s43-ad");
+  rule(q(".s43-u1"), pe + 0.35);
+  tl.fromTo(az, { opacity: 0, y: -26 }, A({ opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.6)" }), T(pe + 0.55));
+  tl.fromTo(E.q(".s43-strike", az), { scaleX: 0.001 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), T(pe + 0.95));
+  tl.fromTo(az, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe + 1.45));
+  // 2. the same clip never appears twice: a copy of the first b-roll is tried in the hole and struck out
+  rule(q(".s43-u2"), pe + 1.15);
+  const dxd = blocks[0].offsetLeft - ad.offsetLeft;
+  tl.fromTo(ad, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(pe + 1.3));
+  tl.fromTo(ad, { x: dxd }, A({ x: 0, duration: 0.6, ease: "power2.inOut" }), T(pe + 1.3));
+  tl.fromTo(ad, { y: 0 }, A({ y: -48, duration: 0.3, ease: "power2.out" }), T(pe + 1.3));
+  tl.fromTo(ad, { y: -48 }, A({ y: 0, duration: 0.3, ease: "power2.in" }), T(pe + 1.6));
+  tl.fromTo(E.q(".s43-strike", ad), { scaleX: 0.001 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), T(pe + 1.95));
+  tl.fromTo(ad, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe + 2.4));
+  // 3. a b-roll enters at most a second and a half before its word: the word's pin and the lead before it
+  rule(q(".s43-u3"), pe + 1.95);
+  const pin = q(".s43-pin");
+  tl.fromTo(pin, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(pe + 2.15));
+  tl.fromTo(pin, { scaleY: 0.05 }, A({ scaleY: 1, duration: 0.45, ease: E.SPRING }), T(pe + 2.15));
+  E.draw(tl, q(".s43-entry path"), T(pe + 2.3), 0.4);
+  tl.fromTo(blocks[1], { boxShadow: "0 0 0px rgba(201, 194, 255, 0)" }, A({ boxShadow: "0 0 22px rgba(201, 194, 255, 0.8)", duration: 0.35 }), T(pe + 2.3));
 };
 
 
 (function () {
-  const CFGS = [{"id": "t73", "sim": "sim73", "D": 32.06, "tStage": 1.18, "tExp": 1.78, "phr": [1.78, 4.48, 6.08, 9.03, 11.73], "phrEnd": 14.43, "tSimEnd": 21.43, "tFact": 21.43, "tPrompt": 26.11, "tPromptEnd": 31.61, "tTip": null, "expZoom": 0.1, "simDur": 20.25, "hls": [{"id": "hl1", "hold": 2.2, "zoom": 0.1}], "sim73": {"builderName": "קלוד", "criticLabel": "מבקר עצמאי", "reqLabel": "הבקשה", "explLabel": "ההסברים", "scoreFrom": 68, "scoreTo": 96, "target": 90, "stopAt": 70, "rounds": 7, "roundsLabel": "סבבים", "rubricLabel": "מחוון", "rubric": ["ביצוע", "גימור", "תנועה", "טקסט ועברית", "התאמה לסגנון", "היגיון פיזי"], "rule": ["אחרי שני סבבים עדיין מתחת ל-70?", "עוצרים ומביאים את הפער."]}, "S": 0.0}];
+  const CFGS = [{"id": "t43", "sim": "sim43", "D": 31.43, "tStage": 1.31, "tExp": 1.91, "phr": [1.91, 3.86, 6.31, 9.41], "phrEnd": 12.11, "tSimEnd": 17.11, "tFact": 17.11, "tPrompt": 19.81, "tPromptEnd": 26.98, "tTip": 26.98, "expZoom": 0.1, "simDur": 15.8, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim43": {"tracks": ["בירול", "דיבור"], "cols": ["הזמן", "המשפט", "מה רואים", "מאיפה"], "sources": ["הקלטת מסך שתצלמו", "אנימציה שקלוד יבנה", "קליפ AI", "קובץ שכבר בתיקייה"], "missing": "חסר", "gap": "3 שניות", "rules": ["זום על הפנים לא נחשב בירול", "אותו קליפ לא מופיע פעמיים", "כניסה עד שנייה וחצי לפני המילה"]}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1207,7 +1135,7 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 32.060;
+    const TOT = 31.430;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

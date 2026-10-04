@@ -17,6 +17,8 @@ CFG = {'id': 't32',
  'hls': [('הוא עוקב אחרי היד באיחור קטן של בערך 0.1 שנייה', 1.9, 0.1),
          ('ביציאה הלוגו מתכווץ חזרה לנקודת אור ונעלם.', 1.9, 0.1)],
  'tip': 'מביאים את הלוגו כקובץ SVG. מ-PNG קלוד צריך לשרטט את קווי המתאר בעצמו, והקצוות יוצאים פחות חדים.',
+ # the payoff ends on the exit (back into a point of light); 5 s leaves that final state on screen for about a second
+ 'payoff': 5.0,
  # sim-only labels (every one quotes the guide or this topic's explanation)
  'sim32': dict(
      # guide prompt 8 step 2: "ותשמור לכל יד את 21 הנקודות שלה"

@@ -419,7 +419,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim52 .s52-cg circle + circle { fill: none; stroke: rgba(217, 212, 255, 0.6); }
 .sim52 .s52-strike { position: absolute; left: 0; top: 0; width: 410px; height: 300px; overflow: visible; }
 .sim52 .s52-strike path { fill: none; stroke: #ff453a; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(255, 69, 58, 0.7)); }
-.sim52 .s52-x { position: absolute; left: -16px; top: -16px; width: 44px; height: 44px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: block; opacity: 0; }
+.sim52 .s52-x { position: absolute; left: -8px; top: -14px; width: 44px; height: 44px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: block; opacity: 0; }
 .sim52 .s52-x svg { width: 44px; height: 44px; display: block; }
 .sim52 .s52-x path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
 
@@ -1104,7 +1104,7 @@ window.SIMS.sim52 = function (tl, ctx, cfg, S) {
   tl.fromTo(sub, { x: -24, rotationY: 16, transformPerspective: 900 }, A({ x: 0, rotationY: 0, transformPerspective: 900, duration: 0.6, ease: E.SPRING }), T(b1 + 0.05));
   qa(".s52-subr").forEach((r, i) => tl.fromTo(r, { opacity: 0, x: 16 }, A({ opacity: 1, x: 0, duration: 0.35, ease: E.SPRING }), T(b1 + 0.22 + i * 0.1)));
   E.draw(tl, q(".s52-strike path"), T(b1 + 0.72), 0.3, "power2.in");
-  E.glitch(tl, sub, T(b1 + 0.95), 10);
+  E.glitch(tl, sub, T(b1 + 0.95), 7);
   const xb = q(".s52-x");
   tl.fromTo(xb, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(b1 + 0.95));
   qa(".s52-x path").forEach((p, i) => E.draw(tl, p, T(b1 + 1.0 + i * 0.12), 0.22));

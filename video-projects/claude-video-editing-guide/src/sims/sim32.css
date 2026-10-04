@@ -1,11 +1,12 @@
 /* 3.2 a 3D logo floating over the palm (canvas 800 x 700; CSS 3D only) */
-.sim32 .s32-floor { position: absolute; left: 380px; top: 560px; width: 360px; height: 120px; border-radius: 50%; background: radial-gradient(ellipse, rgba(169, 147, 255, 0.16), rgba(169, 147, 255, 0) 70%); }
+.sim32 .s32-floor { position: absolute; left: 330px; top: 600px; width: 380px; height: 100px; border-radius: 50%; background: radial-gradient(ellipse, rgba(169, 147, 255, 0.16), rgba(169, 147, 255, 0) 70%); }
 
 /* the hand: a line-art plane with the 21 tracking points; it tilts back (palm up) */
-.sim32 .s32-mover { position: absolute; left: 0; top: 0; width: 800px; height: 700px; perspective: 900px; perspective-origin: 560px 620px; }
-.sim32 .s32-plane { position: absolute; width: 360px; height: 480px; transform-origin: 192px 468px; }
-.sim32 .s32-psv { position: absolute; left: 0; top: 0; width: 360px; height: 480px; display: block; overflow: visible; }
-.sim32 .s32-ol { fill: rgba(42, 36, 86, 0.35); stroke: #c9c2ff; stroke-width: 2.4; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.85)); }
+.sim32 .s32-mover { position: absolute; left: 0; top: 0; width: 800px; height: 700px; perspective: 900px; perspective-origin: 520px 660px; }
+.sim32 .s32-plane { position: absolute; width: 450px; height: 600px; transform-origin: 240px 585px; }
+.sim32 .s32-psv { position: absolute; left: 0; top: 0; width: 450px; height: 600px; display: block; overflow: visible; }
+.sim32 .s32-fill { fill: rgba(42, 36, 86, 0.42); opacity: 0; }
+.sim32 .s32-ol { fill: none; stroke: #c9c2ff; stroke-width: 2.1; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.85)); }
 .sim32 .s32-bn { fill: none; stroke: rgba(255, 255, 255, 0.72); stroke-width: 1.7; stroke-linecap: round; }
 .sim32 .s32-lm { fill: #ffffff; stroke: rgba(201, 194, 255, 0.9); stroke-width: 2; opacity: 0; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.95)); }
 .sim32 .s32-sp { fill: none; stroke: #ffd2c4; stroke-width: 1.8; stroke-dasharray: 5 4; opacity: 0; }
@@ -16,9 +17,9 @@
 .sim32 .s32-hl path { fill: none; stroke: rgba(255, 255, 255, 0.85); stroke-width: 2; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
 .sim32 .s32-hov { position: absolute; width: 32px; height: 32px; border-radius: 50%; border: 2.5px solid #ffffff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.9); opacity: 0; }
 .sim32 .s32-hov i { position: absolute; left: 11px; top: 11px; width: 6px; height: 6px; border-radius: 50%; background: #ffffff; display: block; }
-.sim32 .s32-hlab { position: absolute; left: 236px; width: 260px; display: flex; justify-content: flex-start; align-items: center; gap: 10px; direction: rtl; font: 600 31px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
+.sim32 .s32-hlab { position: absolute; left: 150px; width: 260px; display: flex; justify-content: flex-start; align-items: center; gap: 10px; direction: rtl; font: 600 31px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
 .sim32 .s32-hlab i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.9); display: block; flex: none; }
-.sim32 .s32-plab { position: absolute; left: 430px; top: 118px; width: 236px; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0; }
+.sim32 .s32-plab { position: absolute; left: 392px; top: 24px; width: 236px; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0; }
 .sim32 .s32-plab span { font: 600 32px/1 "Rubik"; color: #f5f2ea; direction: rtl; white-space: nowrap; }
 .sim32 .s32-plab i { width: 2px; height: 34px; background: linear-gradient(180deg, rgba(201, 194, 255, 0.9), rgba(201, 194, 255, 0.2)); display: block; }
 
@@ -31,12 +32,12 @@
 .sim32 .s32-fsel { position: absolute; left: -5px; top: -5px; width: 230px; height: 130px; border-radius: 17px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 16px rgba(201, 194, 255, 0.6); display: block; opacity: 0; }
 
 /* B2: the chosen word on a word strip; a playhead finds it */
-.sim32 .s32-wstrip { position: absolute; right: 29px; top: 52px; height: 46px; display: flex; gap: 10px; direction: rtl; opacity: 0; }
+.sim32 .s32-wstrip { position: absolute; right: 76px; top: 52px; height: 46px; display: flex; gap: 10px; direction: rtl; opacity: 0; }
 .sim32 .s32-wd { height: 46px; border-radius: 12px; background: rgba(201, 194, 255, 0.14); border: 1.5px solid rgba(201, 194, 255, 0.26); display: block; flex: none; }
 .sim32 .s32-cw { position: relative; width: 90px; height: 46px; border-radius: 12px; background: rgba(26, 23, 52, 0.95); border: 2px solid rgba(201, 194, 255, 0.55); display: block; flex: none; }
 .sim32 .s32-cw .hl { position: absolute; inset: -2px; border-radius: 12px; background: rgba(255, 255, 255, 0.9); box-shadow: 0 0 22px rgba(255, 255, 255, 0.8), 0 0 40px rgba(201, 194, 255, 0.7); display: block; opacity: 0; }
 .sim32 .s32-wph { position: absolute; right: 0; top: -10px; width: 3px; height: 66px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
-.sim32 .s32-wlab { position: absolute; left: 400px; top: 8px; width: 260px; display: flex; justify-content: center; align-items: center; gap: 10px; direction: rtl; font: 600 30px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
+.sim32 .s32-wlab { position: absolute; left: 353px; top: 8px; width: 260px; display: flex; justify-content: center; align-items: center; gap: 10px; direction: rtl; font: 600 30px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
 .sim32 .s32-wlab i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.9); display: block; }
 .sim32 .s32-wlink { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
 .sim32 .s32-wlink path { fill: none; stroke: rgba(255, 255, 255, 0.8); stroke-width: 2; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
@@ -57,14 +58,14 @@
 
 /* the logo layer: it follows the hand a little late */
 .sim32 .s32-fol { position: absolute; left: 0; top: 0; width: 800px; height: 700px; pointer-events: none; }
-.sim32 .s32-beam { position: absolute; width: 220px; height: 140px; opacity: 0;
+.sim32 .s32-beam { position: absolute; width: 260px; height: 150px; opacity: 0;
   background: linear-gradient(180deg, rgba(255, 120, 96, 0.4), rgba(255, 120, 96, 0)); clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%); }
-.sim32 .s32-lglow { position: absolute; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 110, 90, 0.36), rgba(255, 110, 90, 0) 66%); opacity: 0; }
-.sim32 .s32-gh, .sim32 .s32-ghost { position: absolute; width: 170px; height: 170px; opacity: 0; }
-.sim32 .s32-gh svg, .sim32 .s32-ghost svg { width: 170px; height: 170px; display: block; overflow: visible; }
+.sim32 .s32-lglow { position: absolute; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 110, 90, 0.36), rgba(255, 110, 90, 0) 66%); opacity: 0; }
+.sim32 .s32-gh, .sim32 .s32-ghost { position: absolute; width: 210px; height: 210px; opacity: 0; }
+.sim32 .s32-gh svg, .sim32 .s32-ghost svg { width: 210px; height: 210px; display: block; overflow: visible; }
 .sim32 .s32-gh path { fill: none; stroke: #ffb3a3; stroke-width: 2.2; }
 .sim32 .s32-ghost path { fill: none; stroke: #ffffff; stroke-width: 2.2; stroke-dasharray: 7 6; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
-.sim32 .s32-lgw { position: absolute; width: 170px; height: 170px; perspective: 700px; opacity: 0; }
+.sim32 .s32-lgw { position: absolute; width: 210px; height: 210px; perspective: 800px; opacity: 0; }
 .sim32 .s32-lg3 { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: 50% 100%; transform: scale(0.05); }
-.sim32 .s32-ly { position: absolute; left: 0; top: 0; width: 170px; height: 170px; display: block; }
+.sim32 .s32-ly { position: absolute; left: 0; top: 0; width: 210px; height: 210px; display: block; }
 .sim32 .s32-lp { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #ffd8cc, 0 0 30px rgba(255, 110, 90, 0.95), 0 0 60px rgba(255, 110, 90, 0.5); display: block; opacity: 0; }

@@ -379,184 +379,165 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 /* drifting dust in the background */
 .dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
 
-/* 7.3 an independent critic until the score passes 90: builder -> Claude -> a separate copy -> inputs without explanations
-   -> score and numeric fixes -> rubric, seven rounds, 96, the stopping rule (canvas 800 x 700) */
-/* a generic 9:16 frame (inside sizes in %) */
-.sim73 .s73-fr { position: absolute; overflow: hidden; border-radius: 10px; background: linear-gradient(180deg, #2c2556 0%, #181433 66%, #0e0c1f 100%); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.4); }
-.sim73 .s73-fr > i { position: absolute; display: block; }
-.sim73 .s73-h { left: 36%; top: 33%; width: 28%; height: 15.75%; border-radius: 50%; background: linear-gradient(180deg, #4a3f8c, #2c2560); box-shadow: inset 0 0 0 1px rgba(201, 194, 255, 0.35); }
-.sim73 .s73-bd { left: 16%; top: 50%; width: 68%; height: 52%; border-radius: 50% 50% 0 0 / 34% 34% 0 0; background: linear-gradient(180deg, #3b3274, #221c48); box-shadow: inset 0 1px 0 rgba(201, 194, 255, 0.4); }
-.sim73 .s73-ti { left: 14%; top: 9%; width: 72%; height: 4.4%; border-radius: 99px; background: rgba(245, 242, 234, 0.92); }
-.sim73 .s73-cp { left: 18%; top: 77%; width: 64%; height: 9%; border-radius: 4px; background: #ffffff; }
-.sim73 .s73-cp::after, .sim73 .s73-cut::after { content: ""; position: absolute; left: 16%; right: 16%; top: 36%; height: 28%; border-radius: 9px; background: rgba(20, 16, 40, 0.85); }
+/* 3.2 a 3D logo floating over the palm (canvas 800 x 700; CSS 3D only) */
+.sim32 .s32-floor { position: absolute; left: 330px; top: 600px; width: 380px; height: 100px; border-radius: 50%; background: radial-gradient(ellipse, rgba(169, 147, 255, 0.16), rgba(169, 147, 255, 0) 70%); }
 
-/* the builder's side */
-.sim73 .s73-builder { position: absolute; left: 0; top: 0; width: 800px; height: 700px; transform: translateX(-160px); }
-.sim73 .s73-vid { left: 440px; top: 146px; width: 130px; height: 231px; border-radius: 14px; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.6), 0 0 24px rgba(201, 194, 255, 0.2); }
-.sim73 .s73-vid > .s73-cp { display: none; }
-.sim73 .s73-vid > .s73-cut { left: -26%; top: 77%; width: 70%; height: 9%; border-radius: 4px; background: #ffffff; }
-.sim73 .s73-flaw { position: absolute; left: 422px; top: 302px; width: 92px; height: 64px; overflow: visible; transform-origin: 50% 50%; }
-.sim73 .s73-flaw rect { fill: none; stroke: #ff453a; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.85)); }
-.sim73 .s73-bub { position: absolute; left: 430px; top: 398px; width: 160px; height: 96px; border-radius: 22px 6px 22px 22px; background: rgba(38, 33, 76, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.4);
-  opacity: 0; transform-origin: 100% 0%; }
-.sim73 .s73-bub > i { position: absolute; right: 20px; height: 9px; border-radius: 5px; background: rgba(220, 216, 240, 0.7); display: block; transform-origin: 100% 50%; }
-.sim73 .s73-bub > i:nth-child(1) { top: 22px; width: 116px; }
-.sim73 .s73-bub > i:nth-child(2) { top: 42px; width: 92px; }
-.sim73 .s73-bub > i:nth-child(3) { top: 62px; width: 104px; }
-.sim73 .s73-expl { position: absolute; right: 10px; top: -40px; font: 600 30px/1 "Rubik"; color: var(--ink); background: rgba(26, 23, 52, 0.96); padding: 6px 12px; border-radius: 999px;
-  border: 1.5px solid rgba(201, 194, 255, 0.45); white-space: nowrap; opacity: 0; }
-.sim73 .s73-no { position: absolute; left: -16px; top: -16px; width: 40px; height: 40px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: grid; place-items: center; opacity: 0; }
-.sim73 .s73-no svg { width: 26px; height: 26px; overflow: visible; display: block; }
-.sim73 .s73-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
-.sim73 .s73-list { position: absolute; left: 600px; top: 372px; width: 150px; height: 116px; border-radius: 18px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.28);
-  padding: 12px 16px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; }
-.sim73 .s73-li { display: flex; direction: rtl; align-items: center; gap: 10px; height: 26px; }
-.sim73 .s73-li svg { width: 24px; height: 24px; overflow: visible; display: block; flex: none; }
-.sim73 .s73-li path { fill: none; stroke: #c9c2ff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
-.sim73 .s73-li i { width: 70px; height: 8px; border-radius: 4px; background: rgba(201, 194, 255, 0.35); display: block; }
-.sim73 .s73-person { position: absolute; left: 600px; top: 138px; width: 150px; height: 183px; }
-.sim73 .s73-card { position: absolute; top: 160px; width: 150px; height: 150px; border-radius: 30px; background: linear-gradient(160deg, #2e2862 0%, #191537 100%);
-  border: 2px solid rgba(201, 194, 255, 0.65); box-shadow: 0 0 26px rgba(201, 194, 255, 0.28); display: grid; place-items: center; opacity: 0; overflow: hidden; }
-.sim73 .s73-card b { font: 600 52px/1 "IBM Plex Mono"; color: #ece9ff; text-shadow: 0 0 14px rgba(201, 194, 255, 0.8); }
-.sim73 .s73-glow { position: absolute; left: -40px; top: -50px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 194, 255, 0.28), rgba(201, 194, 255, 0) 70%); display: block; }
-.sim73 .s73-me { left: 600px; }
-.sim73 .s73-cr, .sim73 .s73-ghost { left: 56px; }
-.sim73 .s73-ghost { border-color: rgba(201, 194, 255, 0.4); box-shadow: none; }
-.sim73 .s73-name { position: absolute; top: 324px; text-align: center; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
-.sim73 .s73-mename { left: 600px; width: 150px; }
-.sim73 .s73-crname { left: 16px; width: 230px; }
+/* the hand: a line-art plane with the 21 tracking points; it tilts back (palm up) */
+.sim32 .s32-mover { position: absolute; left: 0; top: 0; width: 800px; height: 700px; perspective: 900px; perspective-origin: 520px 660px; }
+.sim32 .s32-plane { position: absolute; width: 450px; height: 600px; transform-origin: 240px 585px; }
+.sim32 .s32-psv { position: absolute; left: 0; top: 0; width: 450px; height: 600px; display: block; overflow: visible; }
+.sim32 .s32-fill { fill: rgba(42, 36, 86, 0.42); opacity: 0; }
+.sim32 .s32-ol { fill: none; stroke: #c9c2ff; stroke-width: 2.1; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.85)); }
+.sim32 .s32-bn { fill: none; stroke: rgba(255, 255, 255, 0.72); stroke-width: 1.7; stroke-linecap: round; }
+.sim32 .s32-lm { fill: #ffffff; stroke: rgba(201, 194, 255, 0.9); stroke-width: 2; opacity: 0; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.95)); }
+.sim32 .s32-sp { fill: none; stroke: #ffd2c4; stroke-width: 1.8; stroke-dasharray: 5 4; opacity: 0; }
+.sim32 .s32-m25 { fill: none; stroke: rgba(255, 255, 255, 0.6); stroke-width: 1.6; stroke-dasharray: 4 4; opacity: 0; }
+.sim32 .s32-pcm { fill: rgba(255, 255, 255, 0.15); stroke: #ffffff; stroke-width: 2.4; opacity: 0; }
+.sim32 .s32-light { opacity: 0; }
+.sim32 .s32-hl { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
+.sim32 .s32-hl path { fill: none; stroke: rgba(255, 255, 255, 0.85); stroke-width: 2; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+.sim32 .s32-hov { position: absolute; width: 32px; height: 32px; border-radius: 50%; border: 2.5px solid #ffffff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.9); opacity: 0; }
+.sim32 .s32-hov i { position: absolute; left: 11px; top: 11px; width: 6px; height: 6px; border-radius: 50%; background: #ffffff; display: block; }
+.sim32 .s32-hlab { position: absolute; left: 150px; width: 260px; display: flex; justify-content: flex-start; align-items: center; gap: 10px; direction: rtl; font: 600 31px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
+.sim32 .s32-hlab i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.9); display: block; flex: none; }
+.sim32 .s32-plab { position: absolute; left: 392px; top: 24px; width: 236px; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0; }
+.sim32 .s32-plab span { font: 600 32px/1 "Rubik"; color: #f5f2ea; direction: rtl; white-space: nowrap; }
+.sim32 .s32-plab i { width: 2px; height: 34px; background: linear-gradient(180deg, rgba(201, 194, 255, 0.9), rgba(201, 194, 255, 0.2)); display: block; }
 
-/* the critic's side: the divider and the tray of inputs */
-.sim73 .s73-div { position: absolute; left: 328px; top: 150px; width: 4px; height: 360px; overflow: visible; }
-.sim73 .s73-div path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.8)); }
-.sim73 .s73-tray { position: absolute; left: 56px; top: 380px; width: 264px; height: 130px; border-radius: 20px; border: 2px dashed rgba(201, 194, 255, 0.4); opacity: 0; }
-.sim73 .s73-doc { position: absolute; left: 70px; top: 385px; width: 96px; height: 120px; border-radius: 12px; background: #f4f2fb; box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4); opacity: 0; }
-.sim73 .s73-doc > i { position: absolute; left: 14px; height: 7px; border-radius: 4px; background: rgba(40, 34, 80, 0.35); display: block; }
-.sim73 .s73-doc > i:nth-child(1) { top: 16px; width: 68px; }
-.sim73 .s73-doc > i:nth-child(2) { top: 30px; width: 54px; }
-.sim73 .s73-doc > i:nth-child(3) { top: 44px; width: 62px; }
-.sim73 .s73-doc span { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font: 700 28px/1 "Rubik"; color: #1a1636; }
-.sim73 .s73-th { width: 44px; height: 78px; border-radius: 7px; }
-.sim73 .s73-in { top: 410px; opacity: 0; }
-.sim73 .s73-in0 { left: 176px; }
-.sim73 .s73-in1 { left: 222px; }
-.sim73 .s73-in2 { left: 268px; }
+/* B0: a strip of frames, each one tracked */
+.sim32 .s32-frames { position: absolute; left: 16px; top: 96px; width: 220px; height: 520px; display: flex; flex-direction: column; gap: 14px; }
+.sim32 .s32-th { position: relative; width: 220px; height: 120px; border-radius: 14px; background: linear-gradient(180deg, #221d47, #120f27); border: 1.5px solid rgba(201, 194, 255, 0.22); overflow: hidden; opacity: 0; flex: none; }
+.sim32 .s32-th svg { position: absolute; left: 0; top: 0; width: 220px; height: 120px; display: block; }
+.sim32 .s32-th .b { fill: none; stroke: rgba(255, 255, 255, 0.55); stroke-width: 1.3; }
+.sim32 .s32-th .d { fill: none; stroke: #ffffff; stroke-width: 4.4; stroke-linecap: round; }
+.sim32 .s32-fsel { position: absolute; left: -5px; top: -5px; width: 230px; height: 130px; border-radius: 17px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 16px rgba(201, 194, 255, 0.6); display: block; opacity: 0; }
 
-/* B4: the gauge (0 at the right end, 100 at the left end) and the numeric fixes */
-.sim73 .s73-gauge { position: absolute; left: 330px; top: 130px; width: 340px; height: 200px; }
-.sim73 .s73-gsvg { position: absolute; left: 0; top: 0; width: 340px; height: 200px; overflow: visible; }
-.sim73 .s73-track { fill: none; stroke: rgba(201, 194, 255, 0.16); stroke-width: 16; stroke-linecap: round; }
-.sim73 .s73-fill { fill: none; stroke: url(#s73gr); stroke-width: 16; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.7)); }
-.sim73 .s73-tk { fill: none; stroke: rgba(236, 233, 255, 0.85); stroke-width: 3; stroke-linecap: round; opacity: 0; }
-.sim73 .s73-tl { position: absolute; width: 60px; text-align: center; font: 600 30px/1 "IBM Plex Mono"; color: #b8b4cc; opacity: 0; }
-.sim73 .s73-score { position: absolute; left: 0; top: 96px; width: 340px; display: flex; justify-content: center; align-items: baseline; gap: 6px; }
-.sim73 .s73-nn { display: grid; }
-.sim73 .s73-n { grid-area: 1 / 1; font: 800 92px/1 "Rubik"; color: #ffffff; text-shadow: 0 0 22px rgba(201, 194, 255, 0.55); text-align: center; opacity: 0; }
-.sim73 .s73-of { font: 600 34px/1 "IBM Plex Mono"; color: #9c99ae; opacity: 0; }
-.sim73 .s73-pass { position: absolute; left: -26px; top: 58px; width: 38px; height: 38px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2.5px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.7); display: grid; place-items: center; opacity: 0; }
-.sim73 .s73-pass svg { width: 24px; height: 24px; overflow: visible; display: block; }
-.sim73 .s73-pass path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
-.sim73 .s73-rows { position: absolute; left: 100px; top: 436px; width: 600px; height: 176px; }
-.sim73 .s73-row { position: absolute; left: 0; width: 600px; height: 84px; opacity: 0; }
-.sim73 .s73-row0 { top: 0; }
-.sim73 .s73-row1 { top: 92px; }
-.sim73 .s73-dth0, .sim73 .s73-dth1 { left: 540px; top: 3px; }
-.sim73 .s73-dth0 > .s73-cp { left: -22%; width: 70%; }
-.sim73 .s73-dth1 > .s73-ti { left: 34%; top: 4%; }
-.sim73 .s73-dm { left: -6%; top: 68%; width: 70%; height: 28%; border-radius: 6px; border: 2.5px solid #ff453a; box-shadow: 0 0 8px rgba(255, 69, 58, 0.8); opacity: 0; }
-.sim73 .s73-dth1 > .s73-dm { left: 24%; top: -2%; width: 72%; height: 18%; }
-.sim73 .s73-arr { position: absolute; left: 480px; top: 32px; width: 40px; height: 20px; opacity: 0; }
-.sim73 .s73-sl { position: absolute; left: 110px; top: 24px; width: 340px; height: 36px; border-radius: 12px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); }
-.sim73 .s73-rule { position: absolute; left: 14px; right: 14px; top: 9px; height: 15px; display: block;
-  background: repeating-linear-gradient(90deg, rgba(201, 194, 255, 0.55) 0 2px, rgba(201, 194, 255, 0) 2px 31.2px); }
-.sim73 .s73-knob { position: absolute; left: 60px; top: 4px; width: 25px; height: 25px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #c9c2ff, 0 0 0 4px rgba(201, 194, 255, 0.35); display: block; }
+/* B2: the chosen word on a word strip; a playhead finds it */
+.sim32 .s32-wstrip { position: absolute; right: 76px; top: 52px; height: 46px; display: flex; gap: 10px; direction: rtl; opacity: 0; }
+.sim32 .s32-wd { height: 46px; border-radius: 12px; background: rgba(201, 194, 255, 0.14); border: 1.5px solid rgba(201, 194, 255, 0.26); display: block; flex: none; }
+.sim32 .s32-cw { position: relative; width: 90px; height: 46px; border-radius: 12px; background: rgba(26, 23, 52, 0.95); border: 2px solid rgba(201, 194, 255, 0.55); display: block; flex: none; }
+.sim32 .s32-cw .hl { position: absolute; inset: -2px; border-radius: 12px; background: rgba(255, 255, 255, 0.9); box-shadow: 0 0 22px rgba(255, 255, 255, 0.8), 0 0 40px rgba(201, 194, 255, 0.7); display: block; opacity: 0; }
+.sim32 .s32-wph { position: absolute; right: 0; top: -10px; width: 3px; height: 66px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
+.sim32 .s32-wlab { position: absolute; left: 353px; top: 8px; width: 260px; display: flex; justify-content: center; align-items: center; gap: 10px; direction: rtl; font: 600 30px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
+.sim32 .s32-wlab i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.9); display: block; }
+.sim32 .s32-wlink { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
+.sim32 .s32-wlink path { fill: none; stroke: rgba(255, 255, 255, 0.8); stroke-width: 2; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
 
-/* payoff: seven rounds of the same critic, the rubric, the stopping rule */
-.sim73 .s73-steps { position: absolute; left: 340px; top: 358px; width: 340px; height: 70px; }
-.sim73 .s73-line, .sim73 .s73-linef { position: absolute; left: 10px; top: 10px; width: 300px; height: 2px; border-radius: 1px; display: block; transform-origin: 100% 50%; transform: scaleX(0); }
-.sim73 .s73-line { background: rgba(201, 194, 255, 0.3); }
-.sim73 .s73-linef { background: #e6e2ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); }
-.sim73 .s73-nd { position: absolute; top: 1px; width: 20px; height: 20px; border-radius: 50%; display: block; opacity: 0;
-  background: radial-gradient(circle, #5c5480 0 5.5px, rgba(0, 0, 0, 0) 6.5px); }
-.sim73 .s73-ndx { background: #2a2450; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.7); }
-.sim73 .s73-sv { position: absolute; top: 30px; width: 60px; text-align: center; font: 700 30px/1 "Rubik"; color: #ffffff; opacity: 0; }
-.sim73 .s73-sv1 { left: 280px; }
-.sim73 .s73-sv7 { left: -20px; }
-.sim73 .s73-slbl { position: absolute; left: 328px; top: -3px; font: 500 28px/1 "Rubik"; color: #9c99ae; white-space: nowrap; opacity: 0; }
-.sim73 .s73-lbl { position: absolute; display: flex; align-items: center; gap: 12px; direction: rtl; font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
-.sim73 .s73-lbl > i { width: 14px; height: 14px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.8); display: block; flex: none; }
-.sim73 .s73-rublbl { right: 60px; top: 444px; }
-.sim73 .s73-rub { position: absolute; left: 40px; top: 486px; width: 720px; display: flex; flex-direction: column; gap: 10px; }
-.sim73 .s73-tagrow { display: flex; direction: rtl; justify-content: center; gap: 12px; }
-.sim73 .s73-tag { font: 600 28px/1 "Rubik"; color: #ece9f7; padding: 8px 16px 7px; border-radius: 999px; background: rgba(36, 31, 72, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.5); white-space: nowrap; opacity: 0; }
-.sim73 .s73-rulecard { position: absolute; left: 40px; top: 590px; width: 720px; height: 104px; border-radius: 20px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.34);
-  display: flex; direction: rtl; align-items: center; gap: 20px; padding: 0 28px; opacity: 0; }
-.sim73 .s73-stop { width: 46px; height: 46px; display: block; flex: none; overflow: visible; }
-.sim73 .s73-stop path { fill: none; stroke: #ff453a; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.8)); }
-.sim73 .s73-rtx p { font: 600 31px/1.35 "Rubik"; color: var(--ink); white-space: nowrap; }
-.sim73 .s73-rtx p + p { color: #dcd9e6; font-weight: 500; }
-/* a light sweep without skew (nothing shows at rest) */
-.sim73 .s73-swp { position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
-.sim73 .s73-swp b { position: absolute; top: 0; bottom: 0; left: 100%; width: 80%; display: block;
-  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 15%, var(--sw, rgba(255, 255, 255, 0.24)) 50%, rgba(255, 255, 255, 0) 85%); }
+/* B3: the two paths, the logo's 0.1 s behind the hand's */
+.sim32 .s32-graph { position: absolute; left: 16px; top: 236px; width: 286px; height: 236px; border-radius: 20px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.26); opacity: 0; }
+.sim32 .s32-gsv { position: absolute; left: 8px; top: 52px; width: 270px; height: 130px; overflow: visible; }
+.sim32 .s32-gsv .ax { fill: none; stroke: rgba(201, 194, 255, 0.35); stroke-width: 1.5; }
+.sim32 .s32-gsv .gh { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.8)); }
+.sim32 .s32-gsv .gl { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 9 6; opacity: 0; }
+.sim32 .s32-gsv .br { fill: none; stroke: #ffffff; stroke-width: 2.2; }
+.sim32 .s32-lag { position: absolute; left: 0; right: 0; top: 16px; text-align: center; font: 600 31px/1 "Rubik"; color: #ffffff; opacity: 0; }
+.sim32 .s32-leg { position: absolute; left: 0; right: 0; bottom: 18px; display: flex; justify-content: center; gap: 26px; direction: rtl; font: 500 27px/1 "Rubik"; color: #dcd9e6; }
+.sim32 .s32-leg span { display: flex; align-items: center; gap: 8px; }
+.sim32 .s32-leg i { width: 22px; height: 4px; border-radius: 2px; display: block; }
+.sim32 .s32-leg .h i { background: #c9c2ff; }
+.sim32 .s32-leg .l i { background: repeating-linear-gradient(90deg, #ffffff 0px, #ffffff 7px, rgba(255, 255, 255, 0) 7px, rgba(255, 255, 255, 0) 11px); }
+
+/* the logo layer: it follows the hand a little late */
+.sim32 .s32-fol { position: absolute; left: 0; top: 0; width: 800px; height: 700px; pointer-events: none; }
+.sim32 .s32-beam { position: absolute; width: 260px; height: 150px; opacity: 0;
+  background: linear-gradient(180deg, rgba(255, 120, 96, 0.4), rgba(255, 120, 96, 0)); clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%); }
+.sim32 .s32-lglow { position: absolute; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 110, 90, 0.36), rgba(255, 110, 90, 0) 66%); opacity: 0; }
+.sim32 .s32-gh, .sim32 .s32-ghost { position: absolute; width: 210px; height: 210px; opacity: 0; }
+.sim32 .s32-gh svg, .sim32 .s32-ghost svg { width: 210px; height: 210px; display: block; overflow: visible; }
+.sim32 .s32-gh path { fill: none; stroke: #ffb3a3; stroke-width: 2.2; }
+.sim32 .s32-ghost path { fill: none; stroke: #ffffff; stroke-width: 2.2; stroke-dasharray: 7 6; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+.sim32 .s32-lgw { position: absolute; width: 210px; height: 210px; perspective: 800px; opacity: 0; }
+.sim32 .s32-lg3 { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: 50% 100%; transform: scale(0.05); }
+.sim32 .s32-ly { position: absolute; left: 0; top: 0; width: 210px; height: 210px; display: block; }
+.sim32 .s32-lp { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #ffd8cc, 0 0 30px rgba(255, 110, 90, 0.95), 0 0 60px rgba(255, 110, 90, 0.5); display: block; opacity: 0; }
 
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="32.060" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="37.290" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t73" class="clip scene" data-start="0.000" data-duration="32.060" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 7 · חיסכון ברינדורים</span><span class="hdr-num" dir="ltr">7.3</span></div>
+<div id="sc-t32" class="clip scene" data-start="0.000" data-duration="37.290" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.2</span></div>
 <div class="scam">
-<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">מבקר</span> <span class="w" dir="rtl" data-t="0.430">עצמאי,</span> <span class="w" dir="rtl" data-t="0.560">עד</span> <span class="w" dir="rtl" data-t="0.690">שהציון</span> <span class="w" dir="rtl" data-t="0.820">עובר</span> <span class="w" dir="rtl" data-t="0.950">90</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.780">מי</span> <span class="w" dir="rtl" data-t="1.840">שבנה</span> <span class="w" dir="rtl" data-t="1.900">את</span> <span class="w" dir="rtl" data-t="1.960">הסרטון</span> <span class="w" dir="rtl" data-t="2.020">הכי</span> <span class="w" dir="rtl" data-t="2.080">פחות</span> <span class="w" dir="rtl" data-t="2.140">מתאים</span> <span class="w" dir="rtl" data-t="2.200">לבקר</span> <span class="w" dir="rtl" data-t="2.260">אותו,</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.480">וזה</span> <span class="w" dir="rtl" data-t="4.540">נכון</span> <span class="w" dir="rtl" data-t="4.600">גם</span> <span class="w" dir="rtl" data-t="4.660">לקלוד.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.080">מבקר</span> <span class="w" dir="rtl" data-t="6.140">עצמאי</span> <span class="w" dir="rtl" data-t="6.200">הוא</span> <span class="w" dir="rtl" data-t="6.260">עותק</span> <span class="w" dir="rtl" data-t="6.320">נפרד</span> <span class="w" dir="rtl" data-t="6.380">של</span> <span class="w" dir="rtl" data-t="6.440">קלוד</span> <span class="w" dir="rtl" data-t="6.500">שלא</span> <span class="w" dir="rtl" data-t="6.560">בנה</span> <span class="w" dir="rtl" data-t="6.620">כלום.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.030">הוא</span> <span class="w" dir="rtl" data-t="9.090">מקבל</span> <span class="w" dir="rtl" data-t="9.150">את</span> <span class="w" dir="rtl" data-t="9.210">הבקשה</span> <span class="w" dir="rtl" data-t="9.270">ופריימים</span> <span class="w" dir="rtl" data-t="9.330">מכל</span> <span class="w" dir="rtl" data-t="9.390">סצנה,</span> <span class="w" dir="rtl" data-t="9.450">בלי</span> <span class="w" dir="rtl" data-t="9.510">ההסברים,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="11.730">ונותן</span> <span class="accgrp" data-t="11.790"><span class="w s-str" dir="rtl" data-t="11.790">ציון</span> <span class="w s-str" dir="rtl" data-t="11.850">מתוך</span> <span class="w s-str" dir="rtl" data-t="11.910">100</span><i class="ul" data-t="11.970"></i></span> <span class="w" dir="rtl" data-t="11.970">עם</span> <span class="w" dir="rtl" data-t="12.030">תיקון</span> <span class="w" dir="rtl" data-t="12.090">במספרים</span> <span class="w" dir="rtl" data-t="12.150">לכל</span> <span class="w" dir="rtl" data-t="12.210">פגם.</span></span></p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim73">
-<div class="s73-builder">
-<div class="s73-fr s73-vid"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class="s73-cut"></i></div>
-<svg class="s73-flaw" viewBox="0 0 92 64" aria-hidden="true"><rect x="3" y="3" width="86" height="58" rx="18"/></svg>
-<div class="s73-bub"><i></i><i></i><i></i><span class="s73-expl" dir="rtl">ההסברים</span><div class="s73-no"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M9.5 9.5l11 11"/><path d="M20.5 9.5l-11 11"/></svg></div></div>
-<div class="s73-list"><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div></div>
-<svg class="s73-person" viewBox="0 0 312 380" aria-hidden="true">
-<defs>
-<linearGradient id="pf73" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
-<linearGradient id="pr73" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
-</defs>
-<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380 Z" fill="url(#pf73)"/>
-<rect x="128" y="196" width="56" height="70" rx="22" fill="url(#pf73)"/>
-<ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pf73)"/>
-<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#pr73)" stroke-width="3"/>
-<ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#pr73)" stroke-width="3"/>
-</svg>
-<div class="s73-card s73-me"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div>
-<div class="s73-name s73-mename" dir="rtl">קלוד</div>
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">לוגו</span> <span class="w" dir="rtl" data-t="0.430">בתלת</span> <span class="w" dir="rtl" data-t="0.560">ממד</span> <span class="w" dir="rtl" data-t="0.690">מרחף</span> <span class="w" dir="rtl" data-t="0.820">מעל</span> <span class="w" dir="rtl" data-t="0.950">כף</span> <span class="w" dir="rtl" data-t="1.080">היד</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.910">בכל</span> <span class="w" dir="rtl" data-t="1.970">פריים</span> <span class="w" dir="rtl" data-t="2.030">קלוד</span> <span class="w" dir="rtl" data-t="2.090">יודע</span> <span class="w" dir="rtl" data-t="2.150">איפה</span> <span class="w" dir="rtl" data-t="2.210">היד</span> <span class="w" dir="rtl" data-t="2.270">שלכם.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.110">מעליה</span> <span class="w" dir="rtl" data-t="4.170">הוא</span> <span class="w" dir="rtl" data-t="4.230">מעמיד</span> <span class="w" dir="rtl" data-t="4.290">לוגו</span> <span class="w" dir="rtl" data-t="4.350">בתלת</span> <span class="w" dir="rtl" data-t="4.410">ממד</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.060">שנכנס</span> <span class="w" dir="rtl" data-t="6.120">על</span> <span class="w" dir="rtl" data-t="6.180">המילה</span> <span class="w" dir="rtl" data-t="6.240">שבחרתם</span> <span class="w" dir="rtl" data-t="6.300">ומאיר</span> <span class="w" dir="rtl" data-t="6.360">את</span> <span class="w" dir="rtl" data-t="6.420">כף</span> <span class="w" dir="rtl" data-t="6.480">היד</span> <span class="w" dir="rtl" data-t="6.540">בצבע</span> <span class="w" dir="rtl" data-t="6.600">של</span> <span class="w" dir="rtl" data-t="6.660">הלוגו.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.160">הלוגו</span> <span class="w" dir="rtl" data-t="9.220">עוקב</span> <span class="w" dir="rtl" data-t="9.280">אחרי</span> <span class="w" dir="rtl" data-t="9.340">היד</span> <span class="w" dir="rtl" data-t="9.400">באיחור</span> <span class="w" dir="rtl" data-t="9.460">של</span> <span class="w" dir="rtl" data-t="9.520">עשירית</span> <span class="w" dir="rtl" data-t="9.580">שנייה,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="11.610">כמו</span> <span class="w" dir="rtl" data-t="11.670">משהו</span> <span class="accgrp" data-t="11.730"><span class="w s-str" dir="rtl" data-t="11.730">שמרחף</span><i class="ul" data-t="11.910"></i></span> <span class="w" dir="rtl" data-t="11.790">מעליה.</span></span></p></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim32" style="--hx:483.3px;--hy:409.3px">
+<div class="s32-floor"></div>
+<div class="s32-frames"><div class="s32-th"><svg viewBox="0 0 220 120" aria-hidden="true"><path class="b" d="M110.0 112.0L99.6 101.6 M99.6 101.6L89.7 91.2 M89.7 91.2L83.0 81.3 M83.0 81.3L77.8 73.0 M110.0 112.0L97.5 65.7 M97.5 65.7L95.4 48.6 M95.4 48.6L94.4 37.6 M94.4 37.6L93.6 28.3 M97.5 65.7L107.4 63.6 M107.4 63.6L107.4 44.4 M107.4 44.4L107.4 32.4 M107.4 32.4L107.4 22.0 M107.4 63.6L116.8 65.2 M116.8 65.2L118.3 47.5 M118.3 47.5L119.4 36.6 M119.4 36.6L120.1 27.8 M116.8 65.2L125.1 70.4 M110.0 112.0L125.1 70.4 M125.1 70.4L127.7 56.9 M127.7 56.9L129.2 48.0 M129.2 48.0L130.3 40.2"/><path class="d" d="M110.0 112.0h0.01 M99.6 101.6h0.01 M89.7 91.2h0.01 M83.0 81.3h0.01 M77.8 73.0h0.01 M97.5 65.7h0.01 M95.4 48.6h0.01 M94.4 37.6h0.01 M93.6 28.3h0.01 M107.4 63.6h0.01 M107.4 44.4h0.01 M107.4 32.4h0.01 M107.4 22.0h0.01 M116.8 65.2h0.01 M118.3 47.5h0.01 M119.4 36.6h0.01 M120.1 27.8h0.01 M125.1 70.4h0.01 M127.7 56.9h0.01 M129.2 48.0h0.01 M130.3 40.2h0.01"/></svg></div><div class="s32-th"><svg viewBox="0 0 220 120" aria-hidden="true"><path class="b" d="M120.0 106.0L110.4 94.9 M110.4 94.9L101.2 83.8 M101.2 83.8L95.2 73.5 M95.2 73.5L90.6 64.8 M120.0 106.0L110.8 59.0 M110.8 59.0L109.9 41.7 M109.9 41.7L109.6 30.7 M109.6 30.7L109.5 21.3 M110.8 59.0L120.8 57.6 M120.8 57.6L122.1 38.4 M122.1 38.4L123.0 26.5 M123.0 26.5L123.7 16.1 M120.8 57.6L130.0 59.8 M130.0 59.8L132.8 42.3 M132.8 42.3L134.6 31.4 M134.6 31.4L136.0 22.7 M130.0 59.8L137.9 65.6 M120.0 106.0L137.9 65.6 M137.9 65.6L141.5 52.2 M141.5 52.2L143.7 43.5 M143.7 43.5L145.2 35.8"/><path class="d" d="M120.0 106.0h0.01 M110.4 94.9h0.01 M101.2 83.8h0.01 M95.2 73.5h0.01 M90.6 64.8h0.01 M110.8 59.0h0.01 M109.9 41.7h0.01 M109.6 30.7h0.01 M109.5 21.3h0.01 M120.8 57.6h0.01 M122.1 38.4h0.01 M123.0 26.5h0.01 M123.7 16.1h0.01 M130.0 59.8h0.01 M132.8 42.3h0.01 M134.6 31.4h0.01 M136.0 22.7h0.01 M137.9 65.6h0.01 M141.5 52.2h0.01 M143.7 43.5h0.01 M145.2 35.8h0.01"/></svg></div><div class="s32-th"><svg viewBox="0 0 220 120" aria-hidden="true"><path class="b" d="M130.0 100.0L121.1 88.3 M121.1 88.3L112.8 76.6 M112.8 76.6L107.5 65.9 M107.5 65.9L103.5 56.9 M130.0 100.0L124.1 52.4 M124.1 52.4L124.4 35.2 M124.4 35.2L124.9 24.2 M124.9 24.2L125.4 14.8 M124.1 52.4L134.2 51.7 M134.2 51.7L136.8 32.7 M136.8 32.7L138.5 20.9 M138.5 20.9L139.9 10.6 M134.2 51.7L143.2 54.6 M143.2 54.6L147.2 37.3 M147.2 37.3L149.8 26.6 M149.8 26.6L151.8 18.0 M143.2 54.6L150.7 60.9 M130.0 100.0L150.7 60.9 M150.7 60.9L155.2 47.9 M155.2 47.9L158.0 39.3 M158.0 39.3L160.1 31.8"/><path class="d" d="M130.0 100.0h0.01 M121.1 88.3h0.01 M112.8 76.6h0.01 M107.5 65.9h0.01 M103.5 56.9h0.01 M124.1 52.4h0.01 M124.4 35.2h0.01 M124.9 24.2h0.01 M125.4 14.8h0.01 M134.2 51.7h0.01 M136.8 32.7h0.01 M138.5 20.9h0.01 M139.9 10.6h0.01 M143.2 54.6h0.01 M147.2 37.3h0.01 M149.8 26.6h0.01 M151.8 18.0h0.01 M150.7 60.9h0.01 M155.2 47.9h0.01 M158.0 39.3h0.01 M160.1 31.8h0.01"/></svg></div><div class="s32-th"><svg viewBox="0 0 220 120" aria-hidden="true"><path class="b" d="M122.0 108.0L112.2 97.1 M112.2 97.1L102.8 86.2 M102.8 86.2L96.6 75.9 M96.6 75.9L91.8 67.4 M122.0 108.0L112.0 61.1 M112.0 61.1L110.8 43.9 M110.8 43.9L110.3 32.9 M110.3 32.9L110.0 23.5 M112.0 61.1L121.9 59.6 M121.9 59.6L122.9 40.4 M122.9 40.4L123.6 28.4 M123.6 28.4L124.1 18.0 M121.9 59.6L131.2 61.6 M131.2 61.6L133.7 44.0 M133.7 44.0L135.3 33.2 M135.3 33.2L136.5 24.4 M131.2 61.6L139.2 67.2 M122.0 108.0L139.2 67.2 M139.2 67.2L142.5 53.9 M142.5 53.9L144.6 45.1 M144.6 45.1L146.0 37.4"/><path class="d" d="M122.0 108.0h0.01 M112.2 97.1h0.01 M102.8 86.2h0.01 M96.6 75.9h0.01 M91.8 67.4h0.01 M112.0 61.1h0.01 M110.8 43.9h0.01 M110.3 32.9h0.01 M110.0 23.5h0.01 M121.9 59.6h0.01 M122.9 40.4h0.01 M123.6 28.4h0.01 M124.1 18.0h0.01 M131.2 61.6h0.01 M133.7 44.0h0.01 M135.3 33.2h0.01 M136.5 24.4h0.01 M139.2 67.2h0.01 M142.5 53.9h0.01 M144.6 45.1h0.01 M146.0 37.4h0.01"/></svg></div><i class="s32-fsel"></i></div>
+<div class="s32-wstrip" dir="rtl"><i class="s32-wd" style="width:56px"></i><i class="s32-wd" style="width:40px"></i><i class="s32-wd" style="width:70px"></i><span class="s32-cw"><i class="hl"></i></span><i class="s32-wd" style="width:58px"></i><i class="s32-wd" style="width:76px"></i><i class="s32-wd" style="width:46px"></i><i class="s32-wd" style="width:64px"></i><i class="s32-wd" style="width:70px"></i><i class="s32-wd" style="width:52px"></i><i class="s32-wph"></i></div>
+<div class="s32-wlab" dir="rtl"><i></i><span>המילה שבחרתם</span></div>
+<svg class="s32-wlink" viewBox="0 0 800 700" aria-hidden="true"><path d="M483.3 118 V403.3"/></svg>
+<div class="s32-graph"><svg class="s32-gsv" viewBox="0 0 270 130" aria-hidden="true"><path class="ax" d="M258 112 H8"/><path class="gh" d="M250.0 70.0 L246.2 67.2 L242.4 64.3 L238.6 61.5 L234.8 58.8 L231.0 56.2 L227.2 53.6 L223.4 51.2 L219.6 48.9 L215.8 46.7 L212.0 44.7 L208.2 42.9 L204.4 41.3 L200.6 39.9 L196.8 38.7 L193.0 37.7 L189.2 36.9 L185.4 36.4 L181.6 36.1 L177.8 36.0 L174.0 36.2 L170.2 36.6 L166.4 37.3 L162.6 38.1 L158.8 39.2 L155.0 40.6 L151.2 42.1 L147.4 43.8 L143.6 45.7 L139.8 47.8 L136.0 50.0 L132.2 52.4 L128.4 54.9 L124.6 57.5 L120.8 60.2 L117.0 62.9 L113.2 65.7 L109.4 68.6 L105.6 71.4 L101.8 74.3 L98.0 77.1 L94.2 79.8 L90.4 82.5 L86.6 85.1 L82.8 87.6 L79.0 90.0 L75.2 92.2 L71.4 94.3 L67.6 96.2 L63.8 97.9 L60.0 99.4 L56.2 100.8 L52.4 101.9 L48.6 102.7 L44.8 103.4 L41.0 103.8 L37.2 104.0 L33.4 103.9 L29.6 103.6 L25.8 103.1 L22.0 102.3"/><path class="gl" d="M220.0 70.0 L216.2 67.2 L212.4 64.3 L208.6 61.5 L204.8 58.8 L201.0 56.2 L197.2 53.6 L193.4 51.2 L189.6 48.9 L185.8 46.7 L182.0 44.7 L178.2 42.9 L174.4 41.3 L170.6 39.9 L166.8 38.7 L163.0 37.7 L159.2 36.9 L155.4 36.4 L151.6 36.1 L147.8 36.0 L144.0 36.2 L140.2 36.6 L136.4 37.3 L132.6 38.1 L128.8 39.2 L125.0 40.6 L121.2 42.1 L117.4 43.8 L113.6 45.7 L109.8 47.8 L106.0 50.0 L102.2 52.4 L98.4 54.9 L94.6 57.5 L90.8 60.2 L87.0 62.9 L83.2 65.7 L79.4 68.6 L75.6 71.4 L71.8 74.3 L68.0 77.1 L64.2 79.8 L60.4 82.5 L56.6 85.1 L52.8 87.6 L49.0 90.0 L45.2 92.2 L41.4 94.3 L37.6 96.2 L33.8 97.9 L30.0 99.4 L26.2 100.8 L22.4 101.9 L18.6 102.7 L14.8 103.4 L11.0 103.8 L7.2 104.0 L3.4 103.9 L-0.4 103.6 L-4.2 103.1 L-8.0 102.3"/><path class="br" d="M168 26 v-8 h-30 v8"/></svg><div class="s32-lag" dir="rtl">0.1 שנייה</div><div class="s32-leg" dir="rtl"><span class="h"><i></i>היד</span><span class="l"><i></i>הלוגו</span></div></div>
+<div class="s32-mover">
+<div class="s32-plane" style="left:280.0px;top:75.0px"><svg class="s32-psv" viewBox="0 0 300 400" aria-hidden="true">
+<defs><clipPath id="s32clip"><path transform="translate(160 390)" d="M-56 12 C-58 -10 -70 -40 -96 -70 C-118 -96 -136 -122 -144 -146 C-150 -166 -126 -184 -112 -164 C-100 -146 -86 -126 -66 -112 C-70 -150 -78 -240 -82 -312 C-84 -338 -44 -342 -42 -318 C-40 -270 -36 -230 -32 -196 C-34 -250 -35 -320 -34 -346 C-33 -370 14 -370 13 -346 C12 -300 12 -240 10 -196 C12 -240 14 -290 18 -318 C20 -342 58 -342 58 -318 C56 -270 50 -230 46 -190 C50 -220 54 -250 58 -272 C62 -296 98 -296 96 -270 C92 -220 86 -180 82 -150 C78 -100 72 -40 64 12 Z"/></clipPath>
+<radialGradient id="s32pl"><stop offset="0" stop-color="#ff7a5f" stop-opacity="0.85"/><stop offset="0.45" stop-color="#ff5a4c" stop-opacity="0.38"/><stop offset="1" stop-color="#ff5a4c" stop-opacity="0"/></radialGradient></defs>
+<g clip-path="url(#s32clip)"><ellipse class="s32-light" cx="159.2" cy="209.2" rx="150" ry="190" fill="url(#s32pl)"/></g>
+<path class="s32-fill" transform="translate(160 390)" d="M-56 12 C-58 -10 -70 -40 -96 -70 C-118 -96 -136 -122 -144 -146 C-150 -166 -126 -184 -112 -164 C-100 -146 -86 -126 -66 -112 C-70 -150 -78 -240 -82 -312 C-84 -338 -44 -342 -42 -318 C-40 -270 -36 -230 -32 -196 C-34 -250 -35 -320 -34 -346 C-33 -370 14 -370 13 -346 C12 -300 12 -240 10 -196 C12 -240 14 -290 18 -318 C20 -342 58 -342 58 -318 C56 -270 50 -230 46 -190 C50 -220 54 -250 58 -272 C62 -296 98 -296 96 -270 C92 -220 86 -180 82 -150 C78 -100 72 -40 64 12 Z"/>
+<path class="s32-ol" transform="translate(160 390)" d="M-56 12 C-58 -10 -70 -40 -96 -70 C-118 -96 -136 -122 -144 -146 C-150 -166 -126 -184 -112 -164 C-100 -146 -86 -126 -66 -112 C-70 -150 -78 -240 -82 -312 C-84 -338 -44 -342 -42 -318 C-40 -270 -36 -230 -32 -196 C-34 -250 -35 -320 -34 -346 C-33 -370 14 -370 13 -346 C12 -300 12 -240 10 -196 C12 -240 14 -290 18 -318 C20 -342 58 -342 58 -318 C56 -270 50 -230 46 -190 C50 -220 54 -250 58 -272 C62 -296 98 -296 96 -270 C92 -220 86 -180 82 -150 C78 -100 72 -40 64 12"/>
+<path class="s32-bn" d="M160.0 390.0 L120.0 350.0 M120.0 350.0 L82.0 310.0 M82.0 310.0 L56.0 272.0 M56.0 272.0 L36.0 240.0 M160.0 390.0 L112.0 212.0 M112.0 212.0 L104.0 146.0 M104.0 146.0 L100.0 104.0 M100.0 104.0 L97.0 68.0 M112.0 212.0 L150.0 204.0 M150.0 204.0 L150.0 130.0 M150.0 130.0 L150.0 84.0 M150.0 84.0 L150.0 44.0 M150.0 204.0 L186.0 210.0 M186.0 210.0 L192.0 142.0 M192.0 142.0 L196.0 100.0 M196.0 100.0 L199.0 66.0 M186.0 210.0 L218.0 230.0 M160.0 390.0 L218.0 230.0 M218.0 230.0 L228.0 178.0 M228.0 178.0 L234.0 144.0 M234.0 144.0 L238.0 114.0"/>
+<path class="s32-sp" d="M160.0 390.0 L165.2 249.2 M112.0 212.0 L165.2 249.2 M150.0 204.0 L165.2 249.2 M186.0 210.0 L165.2 249.2 M218.0 230.0 L165.2 249.2"/>
+<path class="s32-m25" d="M82.0 310.0 L112.0 212.0"/>
+<circle class="s32-lm s32-pp" cx="160.0" cy="390.0" r="5.2"/><circle class="s32-lm" cx="120.0" cy="350.0" r="5.2"/><circle class="s32-lm" cx="82.0" cy="310.0" r="5.2"/><circle class="s32-lm" cx="56.0" cy="272.0" r="5.2"/><circle class="s32-lm" cx="36.0" cy="240.0" r="5.2"/><circle class="s32-lm s32-pp" cx="112.0" cy="212.0" r="5.2"/><circle class="s32-lm" cx="104.0" cy="146.0" r="5.2"/><circle class="s32-lm" cx="100.0" cy="104.0" r="5.2"/><circle class="s32-lm" cx="97.0" cy="68.0" r="5.2"/><circle class="s32-lm s32-pp" cx="150.0" cy="204.0" r="5.2"/><circle class="s32-lm" cx="150.0" cy="130.0" r="5.2"/><circle class="s32-lm" cx="150.0" cy="84.0" r="5.2"/><circle class="s32-lm" cx="150.0" cy="44.0" r="5.2"/><circle class="s32-lm s32-pp" cx="186.0" cy="210.0" r="5.2"/><circle class="s32-lm" cx="192.0" cy="142.0" r="5.2"/><circle class="s32-lm" cx="196.0" cy="100.0" r="5.2"/><circle class="s32-lm" cx="199.0" cy="66.0" r="5.2"/><circle class="s32-lm s32-pp" cx="218.0" cy="230.0" r="5.2"/><circle class="s32-lm" cx="228.0" cy="178.0" r="5.2"/><circle class="s32-lm" cx="234.0" cy="144.0" r="5.2"/><circle class="s32-lm" cx="238.0" cy="114.0" r="5.2"/>
+<circle class="s32-pcm" cx="165.2" cy="249.2" r="9"/>
+</svg></div>
+<svg class="s32-hl" viewBox="0 0 800 700" aria-hidden="true"><path d="M526.6 544.9 L483.3 413.3"/></svg>
+<div class="s32-hov" style="left:467.3px;top:393.3px"><i></i></div>
+<div class="s32-hlab" dir="rtl" style="top:431.3px"><i></i><span>נקודת הריחוף</span></div>
 </div>
-<svg class="s73-div" viewBox="0 0 4 360" aria-hidden="true"><path d="M2 2 V358"/></svg>
-<div class="s73-tray"></div>
-<div class="s73-doc"><i></i><i></i><i></i><span dir="rtl">הבקשה</span></div>
-<div class="s73-fr s73-th s73-in s73-in0"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div><div class="s73-fr s73-th s73-in s73-in1"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div><div class="s73-fr s73-th s73-in s73-in2"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div>
-<div class="s73-card s73-ghost s73-gh2"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div><div class="s73-card s73-ghost s73-gh1"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div><div class="s73-card s73-cr"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div>
-<div class="s73-name s73-crname" dir="rtl">מבקר עצמאי</div>
-<div class="s73-gauge" data-focus="4"><svg class="s73-gsvg" viewBox="0 0 340 200" aria-hidden="true">
-<defs><linearGradient id="s73gr" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#9d92f0"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs>
-<path class="s73-track" d="M320 170 A150 150 0 0 0 20 170"/><path class="s73-fill" d="M320 170 A150 150 0 0 0 20 170"/><path class="s73-tk s73-tk70" d="M88.9 58.4 L74.8 38.9"/><path class="s73-tk s73-tk90" d="M38.8 127.4 L15.9 119.9"/></svg><span class="s73-tl s73-tl70" dir="ltr" style="left:28.3px;top:-0.7px">70</span><span class="s73-tl s73-tl90" dir="ltr" style="left:-40.7px;top:94.3px">90</span>
-<div class="s73-score" dir="ltr"><span class="s73-nn"><span class="s73-n s73-n1">68</span><span class="s73-n s73-n2">96</span></span><span class="s73-of">/100</span></div>
-<div class="s73-pass"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></div></div>
-<div class="s73-rows"><div class="s73-row s73-row0"><div class="s73-fr s73-th s73-dth0"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class=s73-dm></i></div><svg class="s73-arr" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="s73-sl"><i class="s73-rule"></i><i class="s73-knob"></i></div></div><div class="s73-row s73-row1"><div class="s73-fr s73-th s73-dth1"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class=s73-dm></i></div><svg class="s73-arr" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="s73-sl"><i class="s73-rule"></i><i class="s73-knob"></i></div></div></div>
-<div class="s73-steps"><i class="s73-line"></i><i class="s73-linef"></i><i class="s73-nd s73-ndx" style="left:300px"></i><i class="s73-nd" style="left:250px"></i><i class="s73-nd" style="left:200px"></i><i class="s73-nd" style="left:150px"></i><i class="s73-nd" style="left:100px"></i><i class="s73-nd" style="left:50px"></i><i class="s73-nd s73-ndx" style="left:0px"></i>
-<span class="s73-sv s73-sv1" dir="ltr">68</span><span class="s73-sv s73-sv7" dir="ltr">96</span>
-<span class="s73-slbl" dir="rtl">סבבים</span></div>
-<div class="s73-lbl s73-rublbl" dir="rtl"><i></i><span>מחוון</span></div>
-<div class="s73-rub" dir="rtl"><div class="s73-tagrow"><span class=s73-tag>ביצוע</span><span class=s73-tag>גימור</span><span class=s73-tag>תנועה</span></div><div class="s73-tagrow"><span class=s73-tag>טקסט ועברית</span><span class=s73-tag>התאמה לסגנון</span><span class=s73-tag>היגיון פיזי</span></div></div>
-<div class="s73-rulecard" dir="rtl"><svg class="s73-stop" viewBox="0 0 40 40" aria-hidden="true"><path d="M13.4 3h13.2L37 13.4v13.2L26.6 37H13.4L3 26.6V13.4z"/><path d="M13 20h14"/></svg><div class="s73-rtx"><p>אחרי שני סבבים עדיין מתחת ל-70?</p><p>עוצרים ומביאים את הפער.</p></div></div>
+<div class="s32-plab" dir="rtl"><span>21 נקודות</span><i></i></div>
+<div class="s32-gh s32-gh2" style="left:378.3px;top:199.3px"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg></div>
+<div class="s32-gh s32-gh1" style="left:378.3px;top:199.3px"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg></div>
+<div class="s32-fol">
+<div class="s32-beam" style="left:353.3px;top:401.3px"></div>
+<div class="s32-ghost" style="left:378.3px;top:199.3px"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg></div>
+<div class="s32-lglow" style="left:323.3px;top:144.3px"></div>
+<div class="s32-lgw" data-focus="4" style="left:378.3px;top:199.3px"><div class="s32-lg3"><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-17.00px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#c4443b"/><path d="M42.9 20.1Q50.0 16.0 57.1 20.1 L72.4 28.9Q79.4 33.0 79.4 41.2 L79.4 58.8Q79.4 67.0 72.4 71.1 L57.1 79.9Q50.0 84.0 42.9 79.9 L27.6 71.1Q20.6 67.0 20.6 58.8 L20.6 41.2Q20.6 33.0 27.6 28.9Z" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-14.17px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#ab3530"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-11.33px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#ae3732"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-8.50px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#b13934"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-5.67px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#b43b36"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-2.83px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#b73d38"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(0.00px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#ba3f3a"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(2.83px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#bd413c"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(5.67px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#c0433e"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(8.50px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#c34540"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(11.33px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#c64742"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(14.17px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#c94944"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(17.00px)" aria-hidden="true"><defs><linearGradient id="s32lg" x1="0" y1="0" x2="0.45" y2="1"><stop offset="0" stop-color="#ffa07e"/><stop offset="0.55" stop-color="#ff5a4c"/><stop offset="1" stop-color="#e8413a"/></linearGradient><linearGradient id="s32ls" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/><stop offset="0.45" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="url(#s32lg)"/><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="url(#s32ls)"/><path d="M42.9 20.1Q50.0 16.0 57.1 20.1 L72.4 28.9Q79.4 33.0 79.4 41.2 L79.4 58.8Q79.4 67.0 72.4 71.1 L57.1 79.9Q50.0 84.0 42.9 79.9 L27.6 71.1Q20.6 67.0 20.6 58.8 L20.6 41.2Q20.6 33.0 27.6 28.9Z" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/><path d="M50 28 C 52 44, 56 48, 72 50 C 56 52, 52 56, 50 72 C 48 56, 44 52, 28 50 C 44 48, 48 44, 50 28Z" fill="#ffffff"/></svg></div></div>
+<i class="s32-lp" style="left:474.3px;top:400.3px"></i>
+</div>
 </div></div></div></div>
-<div class="factbox"><span class="pill">מ-68 ל-96</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="21.880">ריל</span> <span class="w" dir="rtl" data-t="22.000">אנימציה</span> <span class="w" dir="rtl" data-t="22.120">של</span> <span class="w" dir="rtl" data-t="22.240">47</span> <span class="w" dir="rtl" data-t="22.360">שניות,</span> <span class="w" dir="rtl" data-t="22.480">בשבעה</span> <span class="w" dir="rtl" data-t="22.600">סבבים</span> <span class="w" dir="rtl" data-t="22.720">של</span> <span class="w" dir="rtl" data-t="22.840">אותו</span> <span class="w" dir="rtl" data-t="22.960">מבקר.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="23.280">גם</span> <span class="w" dir="rtl" data-t="23.310">הסצנות</span> <span class="w" dir="rtl" data-t="23.340">בסרטון</span> <span class="w" dir="rtl" data-t="23.370">הזה</span> <span class="w" dir="rtl" data-t="23.400">עברו</span> <span class="w" dir="rtl" data-t="23.430">מבקר</span> <span class="w" dir="rtl" data-t="23.460">עצמאי.</span></p></div>
-<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>21</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">תפעיל סוכן נפרד שלא בנה את הסרטון, בתור מבקר קשוח של סטודיו לאנימציה.</div>
-<div class="pl" dir="rtl">תן לו את הבריף, פריים מכל סצנה ורצועת פריימים מכל מעבר, בלי ההסברים שלך.</div>
-<div class="pl" dir="rtl">הוא נותן ציון מתוך 100 לפי מחוון קבוע: ביצוע של כל מה שביקשתי, גימור, תנועה, טקסט ועברית, התאמה לסגנון, והיגיון פיזי.</div>
-<div class="pl" dir="rtl">לכל סצנה הוא מחזיר רשימת פגמים, ולכל פגם זמן, מה לא בסדר ותיקון עם מספרים.</div>
-<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>אתה מתקן, ואותו מבקר בודק שוב, עד שהציון עובר 90.</div>
-<div class="pl" dir="rtl">אם אחרי שני סבבים הציון עדיין רחוק <span class="nb">מ-90</span> <span class="nb">ב-20</span> נקודות או יותר, תעצור ותביא לי את הפער ואת האפשרויות במקום לפתוח עוד סבבים.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>אתה מתקן, ואותו מבקר בודק שוב, עד שהציון עובר 90.</div></div>
-
+<div class="factbox"><span class="pill">איחור של 0.1 שנייה</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="18.660">MediaPipe</span> <span class="w" dir="rtl" data-t="18.780">מניח</span> <span class="w" dir="rtl" data-t="18.900">תמונת</span> <span class="w" dir="rtl" data-t="19.020">מראה:</span> <span class="w" dir="rtl" data-t="19.340">מה</span> <span class="w" dir="rtl" data-t="19.460">שהוא</span> <span class="w" dir="rtl" data-t="19.580">קורא</span> <span class="w" dir="rtl" data-t="19.700">&quot;יד</span> <span class="w" dir="rtl" data-t="19.820">ימין&quot;</span> <span class="w" dir="rtl" data-t="19.940">הוא</span> <span class="w" dir="rtl" data-t="20.060">בדרך</span> <span class="w" dir="rtl" data-t="20.180">כלל</span> <span class="w" dir="rtl" data-t="20.300">היד</span> <span class="w" dir="rtl" data-t="20.420">שבצד</span> <span class="w" dir="rtl" data-t="20.540">שמאל</span> <span class="w" dir="rtl" data-t="20.660">של</span> <span class="w" dir="rtl" data-t="20.780">המסך.</span></p></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>8</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">ההוראות כאן מחליפות את ראיון הפתיחה של HyperFrames, אז אל תריץ אותו.</div>
+<div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על ארבעה דברים:</div>
+<div class="pl" dir="rtl">- הסרטון, ומעל איזו יד הלוגו מרחף: היד שבצד ימין של המסך, זו שבצד שמאל, או שתיהן עם לוגו אחר לכל יד.</div>
+<div class="pl" dir="rtl">- קובץ הלוגו, עדיף SVG, וקובץ לכל לוגו אם יש שניים.</div>
+<div class="pl" dir="rtl">- כמה גדול הלוגו, וברירת המחדל היא בערך הרוחב של כף היד.</div>
+<div class="pl" dir="rtl">- הרגע שבו כל לוגו מופיע והרגע שבו הוא נעלם, לפי מילה שאמרתי או לפי זמן.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/קלט&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="כיוון">&lt;כיוון&gt;</div>
+<div class="pl" dir="rtl">על המילה שבחרתי נדלקת נקודת אור קטנה מעל כף היד, והלוגו צומח ממנה עם סיבוב אחד.</div>
+<div class="pl" dir="rtl">הלוגו בתלת ממד, עם עובי וקצוות מעוגלים, בצבעים האמיתיים שלו.</div>
+<div class="pl" dir="rtl">הוא מרחף מעל כף היד בתנודה איטית של כמה פיקסלים ומסתובב לאט, כדי שרואים שיש לו עומק.</div>
+<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>הוא עוקב אחרי היד באיחור קטן של בערך 0.1 שנייה, כמו משהו שמרחף מעליה ולא כמו מדבקה.</div>
+<div class="pl" dir="rtl">אור בצבע הלוגו נופל על כף היד ועל האצבעות, ונחלש כשהלוגו מתרחק מהן.</div>
+<div class="pl" dir="rtl">אם בלוגו כמה צבעים, האור בצבע הדומיננטי שלו.</div>
+<div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>ביציאה הלוגו מתכווץ חזרה לנקודת אור ונעלם.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/כיוון&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="בנייה">&lt;בנייה&gt;</div>
+<div class="pl" dir="rtl">1. את MediaPipe תתקין בתוך venv עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">pip</span> <span class="tk">install</span> <span class="tk">mediapipe==0.10.35</span><span class="bt">`</span></span>ותשתמש <span class="nb">ב-Tasks</span> API, כי הגרסה האחרונה <span class="nb">ב-pip</span> קורסת <span class="nb">ב-Mac</span> בזיהוי הראשון.</div>
+<div class="pl" dir="rtl">2. תריץ את <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">HandLandmarker</span><span class="bt">`</span></span> על כל פריים, ותשמור לכל יד את 21 הנקודות שלה בקובץ JSON.</div>
+<div class="pl" dir="rtl">3. פריים שבו היד לא זוהתה מקבל את הערכים של הפריים הקרוב שבו היא כן זוהתה.</div>
+<div class="pl" dir="rtl">4. את נקודת הריחוף תחשב מהנקודות: לרוחב, באמצע בין מרכז כף היד (ממוצע הנקודות 0, 5, 9, 13 <span class="nb">ו-17)</span> לאמצע שבין נקודה 2 לנקודה 5, ולגובה, הגובה הנמוך ביותר שבו הלוגו לא נוגע באף אצבע (מרווח של בערך 12 פיקסלים).</div>
+<div class="pl" dir="rtl">5. את המעקב תחליק בתנועת קפיץ שקצת עוברת את היעד ונרגעת, מחושבת מהזמן בלבד.</div>
+<div class="pl" dir="rtl">6. את הלוגו תבנה <span class="nb">מה-SVG</span> <span class="nb">ב-three.js</span> עם ExtrudeGeometry ושוליים מעוגלים, עם חומר מבריק ושתי מנורות.</div>
+<div class="pl" dir="rtl">7. אם יש רק PNG, תהפוך אותו לצורות וקטוריות לפי השקיפות שלו, צורה נפרדת לכל צבע, ותראה לי אותן לפני הבנייה.</div>
+<div class="pl" dir="rtl">8. את האור על היד תצייר רק בתוך היד, בעזרת הגוף שלי בלי הרקע מ-<span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">remove-background</span><span class="bt">`</span>.</span></div>
+<div class="pl" dir="rtl">9. הכל בקומפוזיציה של HyperFrames מעל הסרטון, כשכל פריים מחושב מהזמן.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/בנייה&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="מלכודות">&lt;מלכודות&gt;</div>
+<div class="pl" dir="rtl">כשהיד זזה מהר היא מטושטשת והזיהוי נופל, ואז בלי מילוי מהפריים הקרוב הלוגו קופץ לפינה של המסך.</div>
+<div class="pl" dir="rtl">MediaPipe מניח תמונת מראה, ולכן בסרטון רגיל מה שהוא קורא &quot;יד ימין&quot; הוא בדרך כלל היד שבצד שמאל של המסך, והיד נבחרת לפי הצד שלה במסך.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/מלכודות&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="התחלה">&lt;התחלה&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על הקלט, תריץ את המעקב, ותראה לי גיליון של 6 פריימים עם הנקודות של היד ונקודת הריחוף מסומנות.</div>
+<div class="pl" dir="rtl">אחרי שאישרתי, תראה לי פריים בכניסה, פריים בתנועה מהירה ופריים ביציאה, ורק אז תרנדר 5 שניות סביב הכניסה מעותק זמני וקצר של הקומפוזיציה <span class="nb">ב-540</span> על 960 (או 960 על 540), כי ל-<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">render</span><span class="bt">`</span></span> אין דגל לטווח זמן או להקטנה.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>הוא עוקב אחרי היד באיחור קטן של בערך 0.1 שנייה, כמו משהו שמרחף מעליה ולא כמו מדבקה.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>ביציאה הלוגו מתכווץ חזרה לנקודת אור ונעלם.</div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="32.510">מביאים</span> <span class="w" dir="rtl" data-t="32.670">את</span> <span class="w" dir="rtl" data-t="32.830">הלוגו</span> <span class="w" dir="rtl" data-t="32.990">כקובץ</span> <span class="w" dir="rtl" data-t="33.150">SVG.</span> <span class="glu"><span class="w" dir="rtl" data-t="33.560">מ-</span><span class="w" dir="rtl" data-t="33.560">PNG</span></span> <span class="w" dir="rtl" data-t="33.880">קלוד</span> <span class="w" dir="rtl" data-t="34.040">צריך</span> <span class="w" dir="rtl" data-t="34.200">לשרטט</span> <span class="w" dir="rtl" data-t="34.360">את</span> <span class="w" dir="rtl" data-t="34.520">קווי</span> <span class="w" dir="rtl" data-t="34.680">המתאר</span> <span class="w" dir="rtl" data-t="34.840">בעצמו,</span> <span class="w" dir="rtl" data-t="35.000">והקצוות</span> <span class="w" dir="rtl" data-t="35.160">יוצאים</span> <span class="w" dir="rtl" data-t="35.320">פחות</span> <span class="w" dir="rtl" data-t="35.480">חדים.</span></p></div></div>
 </div></div>
 </div>
 </div>
@@ -1030,170 +1011,149 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   window.SIMS = window.SIMS || {};
 })();
 
-/* 7.3 an independent critic, iterated until the score passes 90: one visual beat per explanation phrase, then the rounds.
-   Every tween is a fromTo with explicit values (immediateRender:false via E.A); times are scene-local via T(). */
 window.SIMS = window.SIMS || {};
-window.SIMS.sim73 = function (tl, ctx, cfg, S) {
-  const E = window.ENG, A = E.A, sc = ctx.scene, c = cfg.sim73, P = cfg.phr, pe = cfg.phrEnd;
+window.SIMS.sim32 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, P = cfg.phr, pe = cfg.phrEnd;
   const T = (x) => S + x;                    // scene-local -> master time
-  const q = (s) => E.q(s, sc), qa = (s) => E.qa(s, sc);
-  const tw = (el, from, to, t) => tl.fromTo(el, from, A(to), T(t));
-  const pop = (el, t, s0) => tw(el, { opacity: 0, scale: s0 || 0.7 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, t);
-  const ts = cfg.tStage, b0 = P[0], b1 = P[1], b2 = P[2], b3 = P[3], b4 = P[4];
-  const wrap = q(".sim73");
-  const sweep = (el, t, d, color) => {       // light sweep, right to left (no skew, so nothing shows at rest)
-    const fx = document.createElement("i"), b = document.createElement("b");
-    fx.className = "s73-swp";
-    if (color) fx.style.setProperty("--sw", color);
-    fx.appendChild(b);
-    el.appendChild(fx);
-    tw(b, { x: 0 }, { x: -(el.clientWidth * 1.8 + 10), duration: d, ease: "power2.inOut" }, t);
-  };
+  const q = (s) => E.q(".sim32 " + s, sc), qa = (s) => E.qa(".sim32 " + s, sc);
+  const mover = q(".s32-mover"), root = mover.parentNode, plane = q(".s32-plane"), fol = q(".s32-fol");
+  const lgw = q(".s32-lgw"), lg3 = q(".s32-lg3"), lp = q(".s32-lp"), light = q(".s32-light");
+  const ghs = [q(".s32-gh1"), q(".s32-gh2")];
+  const LAG = 0.2;                            // drawn a little longer than 0.1 s so the lag reads on screen
+  const C50 = { transformOrigin: "50% 50%" };
 
-  const vid = q(".s73-vid"), person = q(".s73-person"), bub = q(".s73-bub"), list = q(".s73-list"), flaw = q(".s73-flaw");
-  const me = q(".s73-me"), mename = q(".s73-mename"), cr = q(".s73-cr"), crname = q(".s73-crname");
+  // establishing: the hand, drawn in thin glowing lines
+  E.draw(tl, q(".s32-ol"), T(cfg.tStage + 0.1), 0.95, "power2.inOut");
+  tl.fromTo(q(".s32-fill"), { opacity: 0 }, A({ opacity: 1, duration: 0.5 }), T(cfg.tStage + 0.6));
 
-  // establishing shot: the video that was built, and its builder (centred until the critic needs room)
-  const builder = q(".s73-builder"), SHIFT = -160;
-  tw(vid, { scale: 0.94 }, { scale: 1, duration: 0.7, ease: E.SPRING }, ts + 0.1);
-
-  // B0 "whoever built the video is the least suited to critique it": the builder's explanations,
-  // its own checklist ticked one by one, while the caption is cut at the frame's edge
-  tw(bub, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, b0 + 0.05);
-  qa(".s73-bub > i").forEach((l, i) => tw(l, { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out" }, b0 + 0.3 + i * 0.12));
-  E.fadeIn(tl, list, T(b0 + 0.7), 0.45, 14);
-  qa(".s73-li path").forEach((p, i) => E.draw(tl, p, T(b0 + 0.95 + i * 0.25), 0.25));
-  E.draw(tl, q(".s73-flaw rect"), T(b0 + 1.85), 0.45);
-  tw(flaw, { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out" }, b0 + 2.3);
-  tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b0 + 2.55);
-  tw(person, { y: 0 }, { y: 5, duration: 0.18, ease: "power2.out" }, b0 + 2.1);
-  tw(person, { y: 5 }, { y: 0, duration: 0.3, ease: "back.out(2)" }, b0 + 2.28);
-
-  // B1 "and this is true for Claude too": the builder glitches into Claude (an agent card), same ticked checklist
-  E.glitch(tl, person, T(b1 + 0.02), 8);
-  tw(person, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b1 + 0.22);
-  pop(me, b1 + 0.25, 0.75);
-  E.fadeIn(tl, mename, T(b1 + 0.4), 0.45, 10);
-  sweep(me, b1 + 0.65, 0.7, "rgba(255, 255, 255, 0.22)");
-  tw(list, { borderColor: "rgba(201, 194, 255, 0.28)" }, { borderColor: "rgba(255, 255, 255, 0.85)", duration: 0.15 }, b1 + 0.7);
-  tw(list, { borderColor: "rgba(255, 255, 255, 0.85)" }, { borderColor: "rgba(201, 194, 255, 0.28)", duration: 0.4 }, b1 + 0.85);
-  tw(flaw, { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out" }, b1 + 0.95);
-  tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b1 + 1.2);
-
-  // B2 "an independent critic is a separate copy of Claude that built nothing": a copy slides out (with a depth trail),
-  // a divider goes up between them, the critic's tray is empty
-  E.fadeOut(tl, list, T(b2), 0.3, 10);
-  tw(flaw, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b2);
-  tw(builder, { x: SHIFT }, { x: 0, duration: 0.75, ease: E.SPRING }, b2 + 0.1);
-  const DX = me.offsetLeft - cr.offsetLeft + SHIFT;
-  const slide = (el, t, peak) => {
-    tw(el, { x: DX, rotationY: -38, scale: 0.92, transformPerspective: 900, opacity: 0 }, { x: 0, rotationY: 0, scale: 1, transformPerspective: 900, opacity: peak, duration: 0.95, ease: E.SPRING }, t);
-  };
-  slide(q(".s73-gh2"), b2 + 0.27, 0.18);
-  slide(q(".s73-gh1"), b2 + 0.21, 0.36);
-  slide(cr, b2 + 0.15, 1);
-  qa(".s73-ghost").forEach((g, i) => tw(g, { opacity: i ? 0.36 : 0.18 }, { opacity: 0, duration: 0.3 }, b2 + 1.25 + i * 0.05));
-  E.draw(tl, q(".s73-div path"), T(b2 + 1.05), 0.5);
-  E.fadeIn(tl, crname, T(b2 + 1.2), 0.45, 10);
-  E.fadeIn(tl, q(".s73-tray"), T(b2 + 1.5), 0.45, 10);
-  sweep(cr, b2 + 1.7, 0.7, "rgba(255, 255, 255, 0.22)");
-
-  // B3 "it gets the request and frames from every scene, without the explanations": into the tray they go;
-  // the explanations hit the divider and are refused
-  const doc = q(".s73-doc");
-  tw(doc, { x: 530, y: -5, scale: 0.8, rotation: -8, opacity: 0 }, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, duration: 0.85, ease: E.SPRING }, b3 + 0.1);
-  const vc = E.center(vid, wrap);
-  qa(".s73-in").forEach((th, i) => {
-    const o = E.center(th, wrap);
-    tw(th, { x: vc.x - o.x, y: vc.y - o.y, scale: 2.4, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.8, ease: E.SPRING }, b3 + 0.45 + i * 0.15);
-  });
-  const expl = q(".s73-expl"), no = q(".s73-no"), dv = q(".s73-div path");
-  pop(expl, b3 + 1.1, 0.8);
-  tw(bub, { x: 0 }, { x: -88, duration: 0.3, ease: "power2.in" }, b3 + 1.35);
-  E.glitch(tl, q(".s73-div"), T(b3 + 1.65), 6);
-  tw(dv, { stroke: "#c9c2ff" }, { stroke: "#ff6b61", duration: 0.1 }, b3 + 1.65);
-  tw(dv, { stroke: "#ff6b61" }, { stroke: "#c9c2ff", duration: 0.5 }, b3 + 1.9);
-  pop(no, b3 + 1.68, 0.5);
-  qa(".s73-no path").forEach((p, i) => E.draw(tl, p, T(b3 + 1.72 + i * 0.12), 0.22));
-  tw(bub, { x: -88 }, { x: -36, duration: 0.4, ease: "power2.out" }, b3 + 1.65);
-  tw(bub, { opacity: 1 }, { opacity: 0, duration: 0.35 }, b3 + 2.15);
-
-  // B4 "and gives a score out of 100 with a numeric fix for every defect": the gauge lands on 68 (the first round);
-  // two defects, each with its fix dialled in (the punch-in lands on the gauge)
-  E.fadeOut(tl, q(".s73-builder"), T(b4), 0.2, 0);
-  tw(q(".s73-div"), { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4);
-  [q(".s73-tray"), doc].concat(qa(".s73-in")).forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4));
-  const fill = q(".s73-fill"), L = Math.ceil(fill.getTotalLength()) + 2;
-  fill.style.strokeDasharray = L + " " + L;
-  fill.style.strokeDashoffset = L;
-  E.draw(tl, q(".s73-track"), T(b4 + 0.2), 0.5);
-  tw(fill, { strokeDashoffset: L }, { strokeDashoffset: +(L * (1 - c.scoreFrom / 100)).toFixed(1), duration: 0.8, ease: "power2.out" }, b4 + 0.4);
-  qa(".s73-tk").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.5));
-  qa(".s73-tl").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.55));
-  const n1 = q(".s73-n1"), n2 = q(".s73-n2");
-  pop(n1, b4 + 0.6, 0.6);
-  tw(q(".s73-of"), { opacity: 0 }, { opacity: 1, duration: 0.35 }, b4 + 0.75);
-  qa(".s73-row").forEach((row, i) => {
-    const t = b4 + 1.0 + i * 0.3;
-    tw(row, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }, t);
-    tw(E.q(".s73-dm", row), { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, t + 0.25);
-    tw(E.q(".s73-arr", row), { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, t + 0.35);
-    const kn = E.q(".s73-knob", row), to = i ? -31.2 * 1.5 : 31.2 * 4;
-    tw(kn, { x: 0 }, { x: to, duration: 0.55, ease: "power3.inOut" }, t + 0.5);
-    tw(kn, { scale: 1 }, { scale: 1.25, duration: 0.15, ease: "power2.out" }, t + 1.05);
-    tw(kn, { scale: 1.25 }, { scale: 1, duration: 0.25, ease: "power2.in" }, t + 1.2);
-  });
-
-  // payoff: the same critic, round after round; the middle rounds are dots (no numbers in the guide);
-  // the gauge passes 90 and lands on 96; then the stopping rule
-  qa(".s73-row").forEach((row) => E.fadeOut(tl, row, T(pe), 0.3, 10));
-  const line = q(".s73-line"), linef = q(".s73-linef"), nds = qa(".s73-nd");
-  tw(line, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, pe + 0.1);
-  nds.forEach((n, k) => pop(n, pe + 0.15 + k * 0.05, 0.4));
-  E.fadeIn(tl, q(".s73-slbl"), T(pe + 0.3), 0.4, 6);
-  const lit = (n, t) => tw(n, { boxShadow: "0 0 0 2px rgba(201, 194, 255, 0.7), 0 0 0px rgba(201, 194, 255, 0)", backgroundColor: "#2a2450" },
-    { boxShadow: "0 0 0 2px rgba(255, 255, 255, 1), 0 0 14px rgba(201, 194, 255, 0.9)", backgroundColor: "#c9c2ff", duration: 0.25 }, t);
-  lit(nds[0], pe + 0.45);
-  E.fadeIn(tl, q(".s73-sv1"), T(pe + 0.5), 0.4, 8);
-  E.fadeIn(tl, q(".s73-rublbl"), T(pe + 0.65), 0.4, 10);
-  qa(".s73-tag").forEach((g, i) => pop(g, pe + 0.75 + i * 0.08, 0.7));
-  // rounds 2..7
-  const r0 = pe + 1.55, step = 0.33, rEnd = r0 + 5 * step + 0.2;
-  for (let k = 1; k <= 6; k++) {
-    const t = r0 + (k - 1) * step;
-    tw(linef, { scaleX: (k - 1) / 6 }, { scaleX: k / 6, duration: 0.22, ease: "power2.out" }, t);
-    if (k < 6) {
-      tw(nds[k], { scale: 1 }, { scale: 1.7, duration: 0.15, ease: "power2.out" }, t + 0.12);
-      tw(nds[k], { scale: 1.7 }, { scale: 1, duration: 0.2, ease: "power2.in" }, t + 0.27);
-    } else {
-      lit(nds[6], t + 0.12);
-    }
-    tw(cr, { scale: 1 }, { scale: 1.06, duration: 0.12, ease: "power2.out" }, t + 0.05);
-    tw(cr, { scale: 1.06 }, { scale: 1, duration: 0.18, ease: "power2.in" }, t + 0.17);
+  // B0 "בכל פריים קלוד יודע איפה היד שלכם": the 21 tracking points and their bones; a strip of frames, each one tracked
+  const b0 = P[0];
+  qa(".s32-lm").forEach((d, i) => tl.fromTo(d, Object.assign({ opacity: 0, scale: 0.2 }, C50), A({ opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }), T(b0 + 0.05 + i * 0.03)));
+  E.draw(tl, q(".s32-bn"), T(b0 + 0.2), 0.85, "power1.inOut");
+  tl.fromTo(q(".s32-plab"), { opacity: 0, y: -10 }, A({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }), T(b0 + 0.8));
+  qa(".s32-th").forEach((th, i) => tl.fromTo(th, { opacity: 0, x: -20 }, A({ opacity: 1, x: 0, duration: 0.45, ease: E.SPRING }), T(b0 + 0.1 + i * 0.08)));
+  const fsel = q(".s32-fsel"), steps = [[0, 0], [6, -4], [12, -8], [7, -3]];
+  tl.fromTo(fsel, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), T(b0 + 0.6));
+  for (let k = 1; k < 4; k++) {
+    const t = T(b0 + 0.6 + k * 0.38);
+    tl.fromTo(fsel, { y: (k - 1) * 134 }, A({ y: k * 134, duration: 0.25, ease: "power2.inOut" }), t);
+    tl.fromTo(mover, { x: steps[k - 1][0], y: steps[k - 1][1] }, A({ x: steps[k][0], y: steps[k][1], duration: 0.25, ease: "power2.inOut" }), t);
   }
-  tw(n1, { opacity: 1 }, { opacity: 0, duration: 0.25 }, r0);
-  const f68 = +(L * (1 - c.scoreFrom / 100)).toFixed(1), f96 = +(L * (1 - c.scoreTo / 100)).toFixed(1);
-  tw(fill, { strokeDashoffset: f68 }, { strokeDashoffset: f96, duration: rEnd - r0, ease: "power1.inOut" }, r0);
-  // the gauge passes the target: its tick and label light up, a check mark
-  const tPass = r0 + (rEnd - r0) * 0.72;
-  tw(q(".s73-tk" + c.target), { stroke: "rgba(236, 233, 255, 0.85)" }, { stroke: "#ffffff", duration: 0.2 }, tPass);
-  tw(q(".s73-tl" + c.target), { color: "#b8b4cc", scale: 1 }, { color: "#ffffff", scale: 1.2, duration: 0.3, ease: "back.out(2)" }, tPass);
-  const pass = q(".s73-pass");
-  pop(pass, tPass + 0.05, 0.5);
-  E.draw(tl, q(".s73-pass path"), T(tPass + 0.1), 0.25);
-  pop(n2, rEnd - 0.05, 0.6);
-  E.fadeIn(tl, q(".s73-sv7"), T(rEnd), 0.4, 8);
-  E.burst(tl, q(".s73-gauge"), 21, 151, T(rEnd), { n: 14, seed: 73, r0: 26, r1: 70, color: "#c9c2ff" });
-  // the stopping rule
-  const rule = q(".s73-rulecard");
-  tw(rule, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }, pe + 4.1);
-  qa(".s73-stop path").forEach((p, i) => E.draw(tl, p, T(pe + 4.25 + i * 0.2), 0.35));
-  sweep(rule, pe + 4.6, 0.9, "rgba(201, 194, 255, 0.2)");
+  tl.fromTo(mover, { x: 7, y: -3 }, A({ x: 0, y: 0, duration: 0.3, ease: "power2.inOut" }), T(b0 + 2.02));
+
+  // B1 "מעליה הוא מעמיד לוגו בתלת ממד": the hand lies back, palm up; the palm centre (points 0, 5, 9, 13, 17) and the
+  // midpoint of 2 and 5 give the hover point, just over the fingers; the logo's place turns there in 3D
+  const b1 = P[1], ghost = q(".s32-ghost"), hov = q(".s32-hov"), hlab = q(".s32-hlab"), hl = q(".s32-hl");
+  tl.fromTo(q(".s32-frames"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b1));
+  tl.fromTo(q(".s32-plab"), { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(b1));
+  tl.fromTo(plane, { rotationX: 0 }, A({ rotationX: 50, duration: 0.95, ease: E.SPRING }), T(b1 + 0.05));
+  qa(".s32-pp").forEach((d, i) => {
+    tl.fromTo(d, Object.assign({ scale: 1 }, C50), A({ scale: 1.7, duration: 0.25, ease: "power2.out" }), T(b1 + 0.75 + i * 0.04));
+    tl.fromTo(d, Object.assign({ scale: 1.7 }, C50), A({ scale: 1, duration: 0.3, ease: "power2.in" }), T(b1 + 1.05 + i * 0.04));
+  });
+  tl.fromTo(q(".s32-sp"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b1 + 0.8));
+  tl.fromTo(q(".s32-m25"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b1 + 0.9));
+  tl.fromTo(q(".s32-pcm"), Object.assign({ opacity: 0, scale: 0.4 }, C50), A({ opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }), T(b1 + 1.0));
+  E.draw(tl, q(".s32-hl path"), T(b1 + 1.2), 0.35);
+  tl.fromTo(hov, { opacity: 0, scale: 0.4 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(b1 + 1.45));
+  tl.fromTo(hlab, { opacity: 0, x: 12 }, A({ opacity: 1, x: 0, duration: 0.45, ease: E.SPRING }), T(b1 + 1.5));
+  tl.fromTo(ghost, { opacity: 0, scale: 0.6 }, A({ opacity: 0.9, scale: 1, duration: 0.45, ease: E.SPRING }), T(b1 + 1.5));
+  tl.fromTo(ghost, { rotationY: -50, transformPerspective: 600 }, A({ rotationY: 50, duration: 1.75, ease: "sine.inOut" }), T(b1 + 1.5));
+
+  // B2 "שנכנס על המילה שבחרתם ומאיר את כף היד בצבע של הלוגו": a playhead reaches the chosen word; a point of light
+  // ignites at the hover point and the logo grows from it with one turn; its light falls on the palm and the fingers
+  const b2 = P[2], ws = q(".s32-wstrip"), wph = q(".s32-wph"), cw = q(".s32-cw"), wlab = q(".s32-wlab");
+  [q(".s32-sp"), q(".s32-m25"), q(".s32-pcm")].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b2)));
+  tl.fromTo(ws, { opacity: 0, y: -12 }, A({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }), T(b2 + 0.05));
+  tl.fromTo(wlab, { opacity: 0, y: -8 }, A({ opacity: 1, y: 0, duration: 0.4, ease: E.SPRING }), T(b2 + 0.3));
+  tl.fromTo(cw, { borderColor: "rgba(201, 194, 255, 0.55)" }, A({ borderColor: "#ffffff", duration: 0.3 }), T(b2 + 0.3));
+  const wsW = ws.offsetWidth, cwC = cw.offsetLeft + cw.offsetWidth / 2;
+  const x1 = cwC - (wsW - 1.5), x2 = -(wsW - 4);
+  tl.fromTo(wph, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(b2 + 0.45));
+  tl.fromTo(wph, { x: 0 }, A({ x: x1, duration: 0.6, ease: "none" }), T(b2 + 0.45));
+  tl.fromTo(wph, { x: x1 }, A({ x: x2, duration: 0.9, ease: "none" }), T(b2 + 1.05));
+  tl.fromTo(wph, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b2 + 1.8));
+  const whl = E.q(".hl", cw);
+  tl.fromTo(whl, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(b2 + 1.05));
+  tl.fromTo(whl, { opacity: 1 }, A({ opacity: 0.35, duration: 0.6 }), T(b2 + 1.3));
+  E.draw(tl, q(".s32-wlink path"), T(b2 + 1.05), 0.3, "power2.in");
+  const tg = b2 + 1.3;
+  tl.fromTo(lp, { opacity: 0, scale: 0.2 }, A({ opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2.5)" }), T(tg));
+  [ghost, hov, hlab, hl].forEach((el) => tl.fromTo(el, { opacity: el === ghost ? 0.9 : 1 }, A({ opacity: 0, duration: 0.3 }), T(tg)));
+  tl.fromTo(lgw, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(tg + 0.12));
+  tl.fromTo(lg3, { scale: 0.05, rotationY: -360 }, A({ scale: 1, rotationY: 0, duration: 0.9, ease: E.SPRING }), T(tg + 0.12));
+  tl.fromTo(lp, { opacity: 1 }, A({ opacity: 0, duration: 0.35 }), T(tg + 0.5));
+  tl.fromTo(light, { opacity: 0 }, A({ opacity: 1, duration: 0.6 }), T(tg + 0.45));
+  tl.fromTo(q(".s32-beam"), { opacity: 0 }, A({ opacity: 1, duration: 0.6 }), T(tg + 0.5));
+  tl.fromTo(q(".s32-lglow"), { opacity: 0 }, A({ opacity: 1, duration: 0.5 }), T(tg + 0.4));
+  tl.fromTo(q(".s32-wlink"), { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), T(tg + 0.9));
+  E.burst(tl, root, E.center(lp, root).x, E.center(lp, root).y, T(tg + 0.05), { n: 10, seed: 32, r0: 16, r1: 60, color: "#ffb3a3" });
+  // from here on it turns slowly (its edge shows the depth), until it leaves
+  const tx = pe + 2.6;
+  let ta = tg + 1.02, a0 = 0;
+  const swing = [26, -22, 20, -18, 14], seg = (tx - ta) / swing.length;
+  swing.forEach((a1) => { tl.fromTo(lg3, { rotationY: a0 }, A({ rotationY: a1, duration: seg - 0.02, ease: "sine.inOut" }), T(ta)); a0 = a1; ta += seg; });
+
+  // the hand moves; the logo layer follows LAG later, with a light trail; the palm light dims while the logo lags
+  const move = (x0, y0, x1m, y1m, t, d) => {
+    tl.fromTo(mover, { x: x0, y: y0 }, A({ x: x1m, y: y1m, duration: d, ease: "sine.inOut" }), T(t));
+    tl.fromTo(fol, { x: x0, y: y0 }, A({ x: x1m, y: y1m, duration: d, ease: "sine.inOut" }), T(t + LAG));
+    ghs.forEach((g, j) => tl.fromTo(g, { x: x0, y: y0 }, A({ x: x1m, y: y1m, duration: d, ease: "sine.inOut" }), T(t + LAG + (j + 1) * 0.08)));
+  };
+  // the palm light weakens while the logo lags behind the hand
+  const dim = (t0, t1) => {
+    tl.fromTo(light, { opacity: 1 }, A({ opacity: 0.5, duration: LAG + 0.15, ease: "power1.out" }), T(t0));
+    if (t1 != null) tl.fromTo(light, { opacity: 0.5 }, A({ opacity: 1, duration: 0.35, ease: "power1.inOut" }), T(t1));
+  };
+  const trail = (t0, t1) => ghs.forEach((g, j) => {
+    tl.fromTo(g, { opacity: 0 }, A({ opacity: j ? 0.22 : 0.4, duration: 0.15 }), T(t0));
+    tl.fromTo(g, { opacity: j ? 0.22 : 0.4 }, A({ opacity: 0, duration: 0.25 }), T(t1));
+  });
+
+  // B3 "הלוגו עוקב אחרי היד באיחור של עשירית שנייה": the hand moves, the logo follows a little late; the two paths
+  const b3 = P[3], gr = q(".s32-graph");
+  tl.fromTo([ws, wlab], { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b3));
+  tl.fromTo(gr, { opacity: 0, x: -16 }, A({ opacity: 1, x: 0, duration: 0.5, ease: E.SPRING }), T(b3 + 0.05));
+  E.draw(tl, q(".s32-gsv .gh"), T(b3 + 0.3), 0.7);
+  tl.fromTo(q(".s32-gsv .gl"), { opacity: 0 }, A({ opacity: 1, duration: 0.4 }), T(b3 + 0.7));
+  E.draw(tl, q(".s32-gsv .br"), T(b3 + 1.0), 0.3);
+  tl.fromTo(q(".s32-lag"), { opacity: 0, y: 8 }, A({ opacity: 1, y: 0, duration: 0.4, ease: E.SPRING }), T(b3 + 1.05));
+  const m0 = b3 + 0.25;
+  trail(m0 + LAG, m0 + 1.75 + LAG);
+  dim(m0, m0 + 1.75 + LAG);
+  move(0, 0, 90, -36, m0, 0.75);
+  move(90, -36, 0, 0, m0 + 1.0, 0.75);
+
+  // B4 "כמו משהו שמרחף מעליה": it floats: a slow bob; its glow breathes on the palm (punch-in on the logo)
+  const b4 = P[4], glow = q(".s32-lglow");
+  tl.fromTo(gr, { opacity: 1 }, A({ opacity: 0.35, duration: 0.35 }), T(b4));
+  tl.fromTo(lgw, { y: 0 }, A({ y: -12, duration: 0.75, ease: "sine.inOut" }), T(b4 + 0.12));
+  tl.fromTo(lgw, { y: -12 }, A({ y: 0, duration: 0.72, ease: "sine.inOut" }), T(b4 + 0.88));
+  tl.fromTo(glow, { scale: 1 }, A({ scale: 1.14, duration: 0.75, ease: "sine.inOut" }), T(b4 + 0.12));
+  tl.fromTo(glow, { scale: 1.14 }, A({ scale: 1, duration: 0.72, ease: "sine.inOut" }), T(b4 + 0.88));
+  tl.fromTo(light, { opacity: 1 }, A({ opacity: 0.78, duration: 0.75, ease: "sine.inOut" }), T(b4 + 0.12));
+  tl.fromTo(light, { opacity: 0.78 }, A({ opacity: 1, duration: 0.72, ease: "sine.inOut" }), T(b4 + 0.88));
+
+  // payoff: a big move (the lag, the trail, the light following), then the exit: back into a point of light
+  tl.fromTo(gr, { opacity: 0.35 }, A({ opacity: 0, duration: 0.3 }), T(pe));
+  trail(pe + 0.1 + LAG, pe + 2.35 + LAG);
+  dim(pe + 0.1, null);
+  move(0, 0, -170, -20, pe + 0.1, 0.8);
+  move(-170, -20, 60, -50, pe + 0.95, 0.8);
+  move(60, -50, 0, 0, pe + 1.8, 0.55);
+  tl.fromTo(lg3, { scale: 1 }, A({ scale: 0.05, duration: 0.4, ease: "power2.in" }), T(tx));
+  tl.fromTo(lgw, { opacity: 1 }, A({ opacity: 0, duration: 0.1 }), T(tx + 0.4));
+  tl.fromTo(lp, { opacity: 0, scale: 0.4 }, A({ opacity: 1, scale: 1.3, duration: 0.3, ease: "power2.out" }), T(tx + 0.3));
+  tl.fromTo(lp, { scale: 1.3 }, A({ scale: 1, duration: 0.45, ease: "sine.inOut" }), T(tx + 0.6));
+  tl.fromTo(q(".s32-beam"), { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), T(tx + 0.1));
+  tl.fromTo(light, { opacity: 0.5 }, A({ opacity: 0.22, duration: 0.5 }), T(tx + 0.2));
+  tl.fromTo(glow, { opacity: 1 }, A({ opacity: 0.45, duration: 0.5 }), T(tx + 0.2));
+  E.burst(tl, root, E.center(lp, root).x, E.center(lp, root).y, T(tx + 0.35), { n: 12, seed: 23, r0: 20, r1: 70, color: "#ffb3a3" });
 };
 
 
 (function () {
-  const CFGS = [{"id": "t73", "sim": "sim73", "D": 32.06, "tStage": 1.18, "tExp": 1.78, "phr": [1.78, 4.48, 6.08, 9.03, 11.73], "phrEnd": 14.43, "tSimEnd": 21.43, "tFact": 21.43, "tPrompt": 26.11, "tPromptEnd": 31.61, "tTip": null, "expZoom": 0.1, "simDur": 20.25, "hls": [{"id": "hl1", "hold": 2.2, "zoom": 0.1}], "sim73": {"builderName": "קלוד", "criticLabel": "מבקר עצמאי", "reqLabel": "הבקשה", "explLabel": "ההסברים", "scoreFrom": 68, "scoreTo": 96, "target": 90, "stopAt": 70, "rounds": 7, "roundsLabel": "סבבים", "rubricLabel": "מחוון", "rubric": ["ביצוע", "גימור", "תנועה", "טקסט ועברית", "התאמה לסגנון", "היגיון פיזי"], "rule": ["אחרי שני סבבים עדיין מתחת ל-70?", "עוצרים ומביאים את הפער."]}, "S": 0.0}];
+  const CFGS = [{"id": "t32", "sim": "sim32", "D": 37.29, "tStage": 1.31, "tExp": 1.91, "phr": [1.91, 4.11, 6.06, 9.16, 11.61], "phrEnd": 13.21, "tSimEnd": 18.21, "tFact": 18.21, "tPrompt": 23.3, "tPromptEnd": 32.11, "tTip": 32.11, "expZoom": 0.1, "simDur": 16.9, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim32": {"points": "21 נקודות", "hover": "נקודת הריחוף", "word": "המילה שבחרתם", "hand": "היד", "logo": "הלוגו", "lag": "0.1 שנייה"}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1207,7 +1167,7 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 32.060;
+    const TOT = 37.290;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

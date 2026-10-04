@@ -28,9 +28,9 @@ OUTLINE = ("M-56 12 C-58 -10 -70 -40 -96 -70 C-118 -96 -136 -122 -144 -146 C-150
            "C56 -270 50 -230 46 -190 C50 -220 54 -250 58 -272 C62 -296 98 -296 96 -270 "
            "C92 -220 86 -180 82 -150 C78 -100 72 -40 64 12")
 # the plane: viewBox 300 x 400 with the wrist at (160, 390), drawn at K x; the wrist sits at canvas (WX, WY)
-K, OX, OY, WX, WY = 1.2, 160, 390, 560, 620
+K, OX, OY, WX, WY = 1.5, 160, 390, 520, 660
 TILT, PERSP = 50, 900                      # rotateX of the plane (deg) and the perspective (px)
-LOGO = 170                                 # logo box (px)
+LOGO = 210                                 # logo box (px)
 
 
 def proj(dx, h, tilt=TILT):
@@ -63,7 +63,7 @@ def _hexpath(cx, cy, r, k=0.24):
 STAR = "M50 28 C 52 44, 56 48, 72 50 C 56 52, 52 56, 50 72 C 48 56, 44 52, 28 50 C 44 48, 48 44, 50 28Z"
 
 
-def logo3d(n=13, depth=30):
+def logo3d(n=13, depth=34):
     """Generic extruded badge (rounded hexagon): n layers at different depths; glossy front with a spark."""
     hexd = _hexpath(50, 50, 45)
     out = []
@@ -96,8 +96,9 @@ def _plane():
     spokes = " ".join(f"M{_pt(LM[i])} L{_pt(PC)}" for i in PALM)
     return f"""<svg class="s32-psv" viewBox="0 0 300 400" aria-hidden="true">
 <defs><clipPath id="s32clip"><path transform="translate({OX} {OY})" d="{OUTLINE} Z"/></clipPath>
-<radialGradient id="s32pl"><stop offset="0" stop-color="#ff7a5f" stop-opacity="0.75"/><stop offset="0.45" stop-color="#ff5a4c" stop-opacity="0.32"/><stop offset="1" stop-color="#ff5a4c" stop-opacity="0"/></radialGradient></defs>
+<radialGradient id="s32pl"><stop offset="0" stop-color="#ff7a5f" stop-opacity="0.85"/><stop offset="0.45" stop-color="#ff5a4c" stop-opacity="0.38"/><stop offset="1" stop-color="#ff5a4c" stop-opacity="0"/></radialGradient></defs>
 <g clip-path="url(#s32clip)"><ellipse class="s32-light" cx="{PC[0] + OX - 6:.1f}" cy="{PC[1] + OY - 40:.1f}" rx="150" ry="190" fill="url(#s32pl)"/></g>
+<path class="s32-fill" transform="translate({OX} {OY})" d="{OUTLINE} Z"/>
 <path class="s32-ol" transform="translate({OX} {OY})" d="{OUTLINE}"/>
 <path class="s32-bn" d="{bones}"/>
 <path class="s32-sp" d="{spokes}"/>
@@ -160,9 +161,9 @@ def html(cfg):
 <div class="s32-gh s32-gh2" style="left:{lg_left:.1f}px;top:{lg_top:.1f}px"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="{_hexpath(50, 50, 45)}"/></svg></div>
 <div class="s32-gh s32-gh1" style="left:{lg_left:.1f}px;top:{lg_top:.1f}px"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="{_hexpath(50, 50, 45)}"/></svg></div>
 <div class="s32-fol">
-<div class="s32-beam" style="left:{hov_x - 110:.1f}px;top:{hov_y - 8:.1f}px"></div>
+<div class="s32-beam" style="left:{hov_x - 130:.1f}px;top:{hov_y - 8:.1f}px"></div>
 <div class="s32-ghost" style="left:{lg_left:.1f}px;top:{lg_top:.1f}px"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="{_hexpath(50, 50, 45)}"/></svg></div>
-<div class="s32-lglow" style="left:{hov_x - 130:.1f}px;top:{lg_top - 40:.1f}px"></div>
+<div class="s32-lglow" style="left:{hov_x - 160:.1f}px;top:{lg_top - 55:.1f}px"></div>
 <div class="s32-lgw" data-focus="4" style="left:{lg_left:.1f}px;top:{lg_top:.1f}px"><div class="s32-lg3">{logo3d()}</div></div>
 <i class="s32-lp" style="left:{hov_x - 9:.1f}px;top:{hov_y - 9:.1f}px"></i>
 </div>

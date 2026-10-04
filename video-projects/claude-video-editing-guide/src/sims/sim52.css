@@ -38,7 +38,7 @@
 .sim52 .s52-cg circle + circle { fill: none; stroke: rgba(217, 212, 255, 0.6); }
 .sim52 .s52-strike { position: absolute; left: 0; top: 0; width: 410px; height: 300px; overflow: visible; }
 .sim52 .s52-strike path { fill: none; stroke: #ff453a; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(255, 69, 58, 0.7)); }
-.sim52 .s52-x { position: absolute; left: -16px; top: -16px; width: 44px; height: 44px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: block; opacity: 0; }
+.sim52 .s52-x { position: absolute; left: -8px; top: -14px; width: 44px; height: 44px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: block; opacity: 0; }
 .sim52 .s52-x svg { width: 44px; height: 44px; display: block; }
 .sim52 .s52-x path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
 

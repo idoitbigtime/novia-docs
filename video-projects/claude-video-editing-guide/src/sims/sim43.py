@@ -97,9 +97,9 @@ def html(cfg):
 <div class="s43-sim" style="left:{hole_l + 22:.1f}px;width:{hole_w - 44:.1f}px">{ico("img")}<i class="s43-bno">{CROSS.format(cls="s43-no")}</i></div>
 <div class="s43-acc s43-az" style="left:{hole_l + 30:.1f}px;width:{hole_w - 60:.1f}px">{ico("zoom")}<i class="s43-strike"></i></div>
 <div class="s43-acc s43-ad" style="left:{hole_l + 45:.1f}px;width:{X(ROWS[0][0]) - X(ROWS[0][1]):.1f}px">{ico("scr")}<i class="s43-strike"></i></div>
-<i class="s43-pin" style="left:{b2r - 40:.1f}px"></i>
+<i class="s43-pin" style="left:{b2r - 40:.1f}px"><b></b></i>
 <svg class="s43-entry" style="left:{b2r - 40:.1f}px" viewBox="0 0 40 16" aria-hidden="true"><path d="M2 3v10M2 8H38M38 3v10"/></svg>
-<div class="s43-cal" data-focus="2" style="left:{cal_l:.1f}px;width:{3 * PX}px"><svg viewBox="0 0 96 18" preserveAspectRatio="none" aria-hidden="true"><path d="M2 2v14M2 9H94M94 2v14"/></svg>
+<div class="s43-cal" data-focus="2" style="left:{cal_l:.1f}px;width:{3 * PX}px"><svg viewBox="0 0 96 18" preserveAspectRatio="none" aria-hidden="true"><path class="s43-calg" d="M2 -132V2M94 -132V2"/><path d="M2 2v14M2 9H94M94 2v14"/></svg>
 <span class="s43-calt" dir="rtl">{esc(c["gap"])}</span></div>
 </div>
 {rules}
@@ -108,6 +108,6 @@ def html(cfg):
 
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
-    return [("tick", P[0] + 0.05), ("whoosh_soft", P[0] + 0.98), ("shimmer", P[1] + 0.05),
-            ("snap", P[2] + 0.12), ("glitch_soft", P[2] + 1.72), ("glitch_soft", P[3] + 1.5),
-            ("pop", P[3] + 1.95), ("swipe", pe + 0.4)]
+    return [("tick", P[0] + 0.05), ("whoosh_soft", P[0] + 0.95), ("shimmer", P[1] + 1.0),
+            ("snap", P[2] + 0.12), ("glitch_soft", P[2] + 2.4), ("glitch_soft", P[3] + 1.45),
+            ("pop", P[3] + 1.95), ("swipe", pe + 0.35)]

@@ -21,7 +21,8 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
   const vid = q(".s73-vid"), person = q(".s73-person"), bub = q(".s73-bub"), list = q(".s73-list"), flaw = q(".s73-flaw");
   const me = q(".s73-me"), mename = q(".s73-mename"), cr = q(".s73-cr"), crname = q(".s73-crname");
 
-  // establishing shot: the video that was built, and its builder
+  // establishing shot: the video that was built, and its builder (centred until the critic needs room)
+  const builder = q(".s73-builder"), SHIFT = -160;
   tw(vid, { scale: 0.94 }, { scale: 1, duration: 0.7, ease: E.SPRING }, ts + 0.1);
 
   // B0 "whoever built the video is the least suited to critique it": the builder's explanations,
@@ -51,7 +52,8 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
   // a divider goes up between them, the critic's tray is empty
   E.fadeOut(tl, list, T(b2), 0.3, 10);
   tw(flaw, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b2);
-  const DX = me.offsetLeft - cr.offsetLeft;
+  tw(builder, { x: SHIFT }, { x: 0, duration: 0.75, ease: E.SPRING }, b2 + 0.1);
+  const DX = me.offsetLeft - cr.offsetLeft + SHIFT;
   const slide = (el, t, peak) => {
     tw(el, { x: DX, rotationY: -38, scale: 0.92, transformPerspective: 900, opacity: 0 }, { x: 0, rotationY: 0, scale: 1, transformPerspective: 900, opacity: peak, duration: 0.95, ease: E.SPRING }, t);
   };
@@ -86,19 +88,19 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
 
   // B4 "and gives a score out of 100 with a numeric fix for every defect": the gauge lands on 68 (the first round);
   // two defects, each with its fix dialled in (the punch-in lands on the gauge)
-  E.fadeOut(tl, q(".s73-builder"), T(b4), 0.3, 0);
-  tw(q(".s73-div"), { opacity: 1 }, { opacity: 0, duration: 0.3 }, b4);
-  [q(".s73-tray"), doc].concat(qa(".s73-in")).forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b4 + 0.02));
+  E.fadeOut(tl, q(".s73-builder"), T(b4), 0.2, 0);
+  tw(q(".s73-div"), { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4);
+  [q(".s73-tray"), doc].concat(qa(".s73-in")).forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4));
   const fill = q(".s73-fill"), L = Math.ceil(fill.getTotalLength()) + 2;
   fill.style.strokeDasharray = L + " " + L;
   fill.style.strokeDashoffset = L;
-  E.draw(tl, q(".s73-track"), T(b4 + 0.1), 0.5);
-  tw(fill, { strokeDashoffset: L }, { strokeDashoffset: +(L * (1 - c.scoreFrom / 100)).toFixed(1), duration: 0.8, ease: "power2.out" }, b4 + 0.35);
-  qa(".s73-tk").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.45));
-  qa(".s73-tl").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.5));
+  E.draw(tl, q(".s73-track"), T(b4 + 0.2), 0.5);
+  tw(fill, { strokeDashoffset: L }, { strokeDashoffset: +(L * (1 - c.scoreFrom / 100)).toFixed(1), duration: 0.8, ease: "power2.out" }, b4 + 0.4);
+  qa(".s73-tk").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.5));
+  qa(".s73-tl").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.55));
   const n1 = q(".s73-n1"), n2 = q(".s73-n2");
-  pop(n1, b4 + 0.55, 0.6);
-  tw(q(".s73-of"), { opacity: 0 }, { opacity: 1, duration: 0.35 }, b4 + 0.7);
+  pop(n1, b4 + 0.6, 0.6);
+  tw(q(".s73-of"), { opacity: 0 }, { opacity: 1, duration: 0.35 }, b4 + 0.75);
   qa(".s73-row").forEach((row, i) => {
     const t = b4 + 1.0 + i * 0.3;
     tw(row, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }, t);

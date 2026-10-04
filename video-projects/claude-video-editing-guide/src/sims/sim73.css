@@ -10,13 +10,13 @@
 .sim73 .s73-cp::after, .sim73 .s73-cut::after { content: ""; position: absolute; left: 16%; right: 16%; top: 36%; height: 28%; border-radius: 9px; background: rgba(20, 16, 40, 0.85); }
 
 /* the builder's side */
-.sim73 .s73-builder { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
-.sim73 .s73-vid { left: 440px; top: 66px; width: 130px; height: 231px; border-radius: 14px; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.6), 0 0 24px rgba(201, 194, 255, 0.2); }
+.sim73 .s73-builder { position: absolute; left: 0; top: 0; width: 800px; height: 700px; transform: translateX(-160px); }
+.sim73 .s73-vid { left: 440px; top: 146px; width: 130px; height: 231px; border-radius: 14px; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.6), 0 0 24px rgba(201, 194, 255, 0.2); }
 .sim73 .s73-vid > .s73-cp { display: none; }
 .sim73 .s73-vid > .s73-cut { left: -26%; top: 77%; width: 70%; height: 9%; border-radius: 4px; background: #ffffff; }
-.sim73 .s73-flaw { position: absolute; left: 418px; top: 230px; width: 92px; height: 64px; overflow: visible; transform-origin: 50% 50%; }
+.sim73 .s73-flaw { position: absolute; left: 422px; top: 302px; width: 92px; height: 64px; overflow: visible; transform-origin: 50% 50%; }
 .sim73 .s73-flaw rect { fill: none; stroke: #ff453a; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.85)); }
-.sim73 .s73-bub { position: absolute; left: 430px; top: 318px; width: 160px; height: 96px; border-radius: 22px 22px 6px 22px; background: rgba(38, 33, 76, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.4);
+.sim73 .s73-bub { position: absolute; left: 430px; top: 398px; width: 160px; height: 96px; border-radius: 22px 6px 22px 22px; background: rgba(38, 33, 76, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.4);
   opacity: 0; transform-origin: 100% 0%; }
 .sim73 .s73-bub > i { position: absolute; right: 20px; height: 9px; border-radius: 5px; background: rgba(220, 216, 240, 0.7); display: block; transform-origin: 100% 50%; }
 .sim73 .s73-bub > i:nth-child(1) { top: 22px; width: 116px; }
@@ -27,39 +27,39 @@
 .sim73 .s73-no { position: absolute; left: -16px; top: -16px; width: 40px; height: 40px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: grid; place-items: center; opacity: 0; }
 .sim73 .s73-no svg { width: 26px; height: 26px; overflow: visible; display: block; }
 .sim73 .s73-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
-.sim73 .s73-list { position: absolute; left: 600px; top: 266px; width: 150px; height: 116px; border-radius: 18px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.28);
+.sim73 .s73-list { position: absolute; left: 600px; top: 372px; width: 150px; height: 116px; border-radius: 18px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.28);
   padding: 12px 16px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; }
 .sim73 .s73-li { display: flex; direction: rtl; align-items: center; gap: 10px; height: 26px; }
 .sim73 .s73-li svg { width: 24px; height: 24px; overflow: visible; display: block; flex: none; }
 .sim73 .s73-li path { fill: none; stroke: #c9c2ff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
 .sim73 .s73-li i { width: 70px; height: 8px; border-radius: 4px; background: rgba(201, 194, 255, 0.35); display: block; }
-.sim73 .s73-person { position: absolute; left: 600px; top: 58px; width: 150px; height: 183px; }
-.sim73 .s73-card { position: absolute; top: 80px; width: 150px; height: 150px; border-radius: 30px; background: linear-gradient(160deg, #2e2862 0%, #191537 100%);
+.sim73 .s73-person { position: absolute; left: 600px; top: 138px; width: 150px; height: 183px; }
+.sim73 .s73-card { position: absolute; top: 160px; width: 150px; height: 150px; border-radius: 30px; background: linear-gradient(160deg, #2e2862 0%, #191537 100%);
   border: 2px solid rgba(201, 194, 255, 0.65); box-shadow: 0 0 26px rgba(201, 194, 255, 0.28); display: grid; place-items: center; opacity: 0; overflow: hidden; }
 .sim73 .s73-card b { font: 600 52px/1 "IBM Plex Mono"; color: #ece9ff; text-shadow: 0 0 14px rgba(201, 194, 255, 0.8); }
 .sim73 .s73-glow { position: absolute; left: -40px; top: -50px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 194, 255, 0.28), rgba(201, 194, 255, 0) 70%); display: block; }
 .sim73 .s73-me { left: 600px; }
 .sim73 .s73-cr, .sim73 .s73-ghost { left: 56px; }
 .sim73 .s73-ghost { border-color: rgba(201, 194, 255, 0.4); box-shadow: none; }
-.sim73 .s73-name { position: absolute; top: 244px; text-align: center; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim73 .s73-name { position: absolute; top: 324px; text-align: center; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
 .sim73 .s73-mename { left: 600px; width: 150px; }
 .sim73 .s73-crname { left: 16px; width: 230px; }
 
 /* the critic's side: the divider and the tray of inputs */
-.sim73 .s73-div { position: absolute; left: 328px; top: 70px; width: 4px; height: 360px; overflow: visible; }
+.sim73 .s73-div { position: absolute; left: 328px; top: 150px; width: 4px; height: 360px; overflow: visible; }
 .sim73 .s73-div path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.8)); }
-.sim73 .s73-tray { position: absolute; left: 56px; top: 300px; width: 264px; height: 130px; border-radius: 20px; border: 2px dashed rgba(201, 194, 255, 0.4); opacity: 0; }
-.sim73 .s73-doc { position: absolute; left: 70px; top: 305px; width: 96px; height: 120px; border-radius: 12px; background: #f4f2fb; box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4); opacity: 0; }
+.sim73 .s73-tray { position: absolute; left: 56px; top: 380px; width: 264px; height: 130px; border-radius: 20px; border: 2px dashed rgba(201, 194, 255, 0.4); opacity: 0; }
+.sim73 .s73-doc { position: absolute; left: 70px; top: 385px; width: 96px; height: 120px; border-radius: 12px; background: #f4f2fb; box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4); opacity: 0; }
 .sim73 .s73-doc > i { position: absolute; left: 14px; height: 7px; border-radius: 4px; background: rgba(40, 34, 80, 0.35); display: block; }
 .sim73 .s73-doc > i:nth-child(1) { top: 16px; width: 68px; }
 .sim73 .s73-doc > i:nth-child(2) { top: 30px; width: 54px; }
 .sim73 .s73-doc > i:nth-child(3) { top: 44px; width: 62px; }
 .sim73 .s73-doc span { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font: 700 28px/1 "Rubik"; color: #1a1636; }
 .sim73 .s73-th { width: 44px; height: 78px; border-radius: 7px; }
-.sim73 .s73-in { top: 330px; opacity: 0; }
-.sim73 .s73-in0 { left: 182px; }
-.sim73 .s73-in1 { left: 228px; }
-.sim73 .s73-in2 { left: 274px; }
+.sim73 .s73-in { top: 410px; opacity: 0; }
+.sim73 .s73-in0 { left: 176px; }
+.sim73 .s73-in1 { left: 222px; }
+.sim73 .s73-in2 { left: 268px; }
 
 /* B4: the gauge (0 at the right end, 100 at the left end) and the numeric fixes */
 .sim73 .s73-gauge { position: absolute; left: 330px; top: 130px; width: 340px; height: 200px; }

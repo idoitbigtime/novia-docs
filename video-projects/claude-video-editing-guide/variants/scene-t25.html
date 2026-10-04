@@ -379,184 +379,169 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 /* drifting dust in the background */
 .dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
 
-/* 7.3 an independent critic until the score passes 90: builder -> Claude -> a separate copy -> inputs without explanations
-   -> score and numeric fixes -> rubric, seven rounds, 96, the stopping rule (canvas 800 x 700) */
-/* a generic 9:16 frame (inside sizes in %) */
-.sim73 .s73-fr { position: absolute; overflow: hidden; border-radius: 10px; background: linear-gradient(180deg, #2c2556 0%, #181433 66%, #0e0c1f 100%); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.4); }
-.sim73 .s73-fr > i { position: absolute; display: block; }
-.sim73 .s73-h { left: 36%; top: 33%; width: 28%; height: 15.75%; border-radius: 50%; background: linear-gradient(180deg, #4a3f8c, #2c2560); box-shadow: inset 0 0 0 1px rgba(201, 194, 255, 0.35); }
-.sim73 .s73-bd { left: 16%; top: 50%; width: 68%; height: 52%; border-radius: 50% 50% 0 0 / 34% 34% 0 0; background: linear-gradient(180deg, #3b3274, #221c48); box-shadow: inset 0 1px 0 rgba(201, 194, 255, 0.4); }
-.sim73 .s73-ti { left: 14%; top: 9%; width: 72%; height: 4.4%; border-radius: 99px; background: rgba(245, 242, 234, 0.92); }
-.sim73 .s73-cp { left: 18%; top: 77%; width: 64%; height: 9%; border-radius: 4px; background: #ffffff; }
-.sim73 .s73-cp::after, .sim73 .s73-cut::after { content: ""; position: absolute; left: 16%; right: 16%; top: 36%; height: 28%; border-radius: 9px; background: rgba(20, 16, 40, 0.85); }
+/* 2.5 same loudness, -14 LUFS (canvas 800 x 700). LUFS meter at the right; the main area (x 0..575) changes per beat. */
+.sim25 .s25-main { position: absolute; left: 0; top: 0; width: 575px; height: 700px; }
 
-/* the builder's side */
-.sim73 .s73-builder { position: absolute; left: 0; top: 0; width: 800px; height: 700px; transform: translateX(-160px); }
-.sim73 .s73-vid { left: 440px; top: 146px; width: 130px; height: 231px; border-radius: 14px; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.6), 0 0 24px rgba(201, 194, 255, 0.2); }
-.sim73 .s73-vid > .s73-cp { display: none; }
-.sim73 .s73-vid > .s73-cut { left: -26%; top: 77%; width: 70%; height: 9%; border-radius: 4px; background: #ffffff; }
-.sim73 .s73-flaw { position: absolute; left: 422px; top: 302px; width: 92px; height: 64px; overflow: visible; transform-origin: 50% 50%; }
-.sim73 .s73-flaw rect { fill: none; stroke: #ff453a; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.85)); }
-.sim73 .s73-bub { position: absolute; left: 430px; top: 398px; width: 160px; height: 96px; border-radius: 22px 6px 22px 22px; background: rgba(38, 33, 76, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.4);
-  opacity: 0; transform-origin: 100% 0%; }
-.sim73 .s73-bub > i { position: absolute; right: 20px; height: 9px; border-radius: 5px; background: rgba(220, 216, 240, 0.7); display: block; transform-origin: 100% 50%; }
-.sim73 .s73-bub > i:nth-child(1) { top: 22px; width: 116px; }
-.sim73 .s73-bub > i:nth-child(2) { top: 42px; width: 92px; }
-.sim73 .s73-bub > i:nth-child(3) { top: 62px; width: 104px; }
-.sim73 .s73-expl { position: absolute; right: 10px; top: -40px; font: 600 30px/1 "Rubik"; color: var(--ink); background: rgba(26, 23, 52, 0.96); padding: 6px 12px; border-radius: 999px;
-  border: 1.5px solid rgba(201, 194, 255, 0.45); white-space: nowrap; opacity: 0; }
-.sim73 .s73-no { position: absolute; left: -16px; top: -16px; width: 40px; height: 40px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: grid; place-items: center; opacity: 0; }
-.sim73 .s73-no svg { width: 26px; height: 26px; overflow: visible; display: block; }
-.sim73 .s73-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
-.sim73 .s73-list { position: absolute; left: 600px; top: 372px; width: 150px; height: 116px; border-radius: 18px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.28);
-  padding: 12px 16px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; }
-.sim73 .s73-li { display: flex; direction: rtl; align-items: center; gap: 10px; height: 26px; }
-.sim73 .s73-li svg { width: 24px; height: 24px; overflow: visible; display: block; flex: none; }
-.sim73 .s73-li path { fill: none; stroke: #c9c2ff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
-.sim73 .s73-li i { width: 70px; height: 8px; border-radius: 4px; background: rgba(201, 194, 255, 0.35); display: block; }
-.sim73 .s73-person { position: absolute; left: 600px; top: 138px; width: 150px; height: 183px; }
-.sim73 .s73-card { position: absolute; top: 160px; width: 150px; height: 150px; border-radius: 30px; background: linear-gradient(160deg, #2e2862 0%, #191537 100%);
-  border: 2px solid rgba(201, 194, 255, 0.65); box-shadow: 0 0 26px rgba(201, 194, 255, 0.28); display: grid; place-items: center; opacity: 0; overflow: hidden; }
-.sim73 .s73-card b { font: 600 52px/1 "IBM Plex Mono"; color: #ece9ff; text-shadow: 0 0 14px rgba(201, 194, 255, 0.8); }
-.sim73 .s73-glow { position: absolute; left: -40px; top: -50px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 194, 255, 0.28), rgba(201, 194, 255, 0) 70%); display: block; }
-.sim73 .s73-me { left: 600px; }
-.sim73 .s73-cr, .sim73 .s73-ghost { left: 56px; }
-.sim73 .s73-ghost { border-color: rgba(201, 194, 255, 0.4); box-shadow: none; }
-.sim73 .s73-name { position: absolute; top: 324px; text-align: center; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
-.sim73 .s73-mename { left: 600px; width: 150px; }
-.sim73 .s73-crname { left: 16px; width: 230px; }
+/* LUFS meter */
+.sim25 .s25-meter { position: absolute; border-radius: 24px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.24); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); opacity: 0; }
+.sim25 .s25-mtitle { position: absolute; height: 44px; text-align: center; font: 600 32px/44px "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ece9f7; opacity: 0; }
+.sim25 .s25-track { position: absolute; width: 48px; border-radius: 12px; background: rgba(8, 7, 18, 0.75); box-shadow: inset 0 0 0 1.5px rgba(201, 194, 255, 0.16); display: block; opacity: 0; }
+.sim25 .s25-lvl { position: absolute; width: 48px; border-radius: 12px; display: block; transform-origin: 50% 100%; transform: scaleY(0);
+  background: linear-gradient(180deg, #ffffff 0%, #d9d4ff 10%, #9d8cff 55%, #5b45c9 100%); box-shadow: 0 0 18px rgba(157, 140, 255, 0.55); }
+.sim25 .s25-ticks { position: absolute; width: 14px; display: block; opacity: 0;
+  background: repeating-linear-gradient(180deg, rgba(201, 194, 255, 0.45) 0 2px, rgba(0, 0, 0, 0) 2px 17.33px); }
+.sim25 .s25-tline, .sim25 .s25-cline { position: absolute; width: 184px; display: block; opacity: 0; transform-origin: 100% 50%; }
+.sim25 .s25-tline { height: 3px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff, 0 0 4px #ffffff; }
+.sim25 .s25-cline { height: 2px; border-radius: 1px; background: #ff453a; box-shadow: 0 0 10px rgba(255, 69, 58, 0.8); }
+.sim25 .s25-ttag, .sim25 .s25-ctag { position: absolute; font: 600 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; white-space: nowrap; opacity: 0; }
+.sim25 .s25-ttag { color: #ffffff; text-shadow: 0 0 12px rgba(201, 194, 255, 0.8); }
+.sim25 .s25-ctag { color: #ff8a80; font-size: 26px; }
+.sim25 .s25-ok { position: absolute; width: 38px; height: 38px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.7); display: grid; place-items: center; opacity: 0; }
+.sim25 .s25-ok svg { width: 26px; height: 26px; overflow: visible; }
+.sim25 .s25-ok path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
 
-/* the critic's side: the divider and the tray of inputs */
-.sim73 .s73-div { position: absolute; left: 328px; top: 150px; width: 4px; height: 360px; overflow: visible; }
-.sim73 .s73-div path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.8)); }
-.sim73 .s73-tray { position: absolute; left: 56px; top: 380px; width: 264px; height: 130px; border-radius: 20px; border: 2px dashed rgba(201, 194, 255, 0.4); opacity: 0; }
-.sim73 .s73-doc { position: absolute; left: 70px; top: 385px; width: 96px; height: 120px; border-radius: 12px; background: #f4f2fb; box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4); opacity: 0; }
-.sim73 .s73-doc > i { position: absolute; left: 14px; height: 7px; border-radius: 4px; background: rgba(40, 34, 80, 0.35); display: block; }
-.sim73 .s73-doc > i:nth-child(1) { top: 16px; width: 68px; }
-.sim73 .s73-doc > i:nth-child(2) { top: 30px; width: 54px; }
-.sim73 .s73-doc > i:nth-child(3) { top: 44px; width: 62px; }
-.sim73 .s73-doc span { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font: 700 28px/1 "Rubik"; color: #1a1636; }
-.sim73 .s73-th { width: 44px; height: 78px; border-radius: 7px; }
-.sim73 .s73-in { top: 410px; opacity: 0; }
-.sim73 .s73-in0 { left: 176px; }
-.sim73 .s73-in1 { left: 222px; }
-.sim73 .s73-in2 { left: 268px; }
+/* B0: the feed */
+.sim25 .s25-phone { position: absolute; left: 162px; top: 80px; width: 250px; height: 520px; border-radius: 40px; border: 2px solid rgba(201, 194, 255, 0.6);
+  box-shadow: 0 0 30px rgba(201, 194, 255, 0.22); background: #09090f; opacity: 0; }
+.sim25 .s25-screen { position: absolute; inset: 8px; border-radius: 32px; overflow: hidden; }
+.sim25 .s25-feed { position: absolute; left: 0; top: 0; width: 230px; }
+.sim25 .s25-card { position: relative; width: 230px; height: 500px; overflow: hidden; }
+.sim25 .s25-cp { position: absolute; left: -10px; top: 92px; width: 250px; height: 304px; }
+.sim25 .s25-ctop { position: absolute; left: 14px; right: 14px; top: 26px; display: flex; align-items: center; gap: 10px; direction: rtl; font: 700 30px/1 "Rubik"; color: #ffffff; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); }
+.sim25 .s25-spk { width: 40px; height: 38px; flex: none; overflow: visible; }
+.sim25 .s25-spk path { fill: none; stroke: #ffffff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.sim25 .s25-spk .s25-spb { fill: #ffffff; }
+.sim25 .s25-cw { position: absolute; left: 15px; right: 15px; bottom: 26px; height: 110px; }
+.sim25 .s25-wv { width: 200px; height: 110px; display: block; overflow: visible; }
+.sim25 .s25-wl { fill: none; stroke: #e2ddff; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.7)); }
+.sim25 .s25-wr { fill: none; stroke: #ff453a; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.9)); }
+.sim25 .s25-burn { position: absolute; left: 16px; bottom: 150px; font: 700 26px/1 "Rubik"; color: #ff6b61; padding: 6px 11px 5px; border-radius: 999px;
+  border: 1.5px solid rgba(255, 107, 97, 0.7); background: rgba(42, 16, 22, 0.88); opacity: 0; }
+.sim25 .s25-swipe { position: absolute; left: 50%; top: 380px; width: 44px; height: 44px; margin-left: -22px; border-radius: 50%; background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.7); display: block; opacity: 0; }
 
-/* B4: the gauge (0 at the right end, 100 at the left end) and the numeric fixes */
-.sim73 .s73-gauge { position: absolute; left: 330px; top: 130px; width: 340px; height: 200px; }
-.sim73 .s73-gsvg { position: absolute; left: 0; top: 0; width: 340px; height: 200px; overflow: visible; }
-.sim73 .s73-track { fill: none; stroke: rgba(201, 194, 255, 0.16); stroke-width: 16; stroke-linecap: round; }
-.sim73 .s73-fill { fill: none; stroke: url(#s73gr); stroke-width: 16; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.7)); }
-.sim73 .s73-tk { fill: none; stroke: rgba(236, 233, 255, 0.85); stroke-width: 3; stroke-linecap: round; opacity: 0; }
-.sim73 .s73-tl { position: absolute; width: 60px; text-align: center; font: 600 30px/1 "IBM Plex Mono"; color: #b8b4cc; opacity: 0; }
-.sim73 .s73-score { position: absolute; left: 0; top: 96px; width: 340px; display: flex; justify-content: center; align-items: baseline; gap: 6px; }
-.sim73 .s73-nn { display: grid; }
-.sim73 .s73-n { grid-area: 1 / 1; font: 800 92px/1 "Rubik"; color: #ffffff; text-shadow: 0 0 22px rgba(201, 194, 255, 0.55); text-align: center; opacity: 0; }
-.sim73 .s73-of { font: 600 34px/1 "IBM Plex Mono"; color: #9c99ae; opacity: 0; }
-.sim73 .s73-pass { position: absolute; left: -26px; top: 58px; width: 38px; height: 38px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2.5px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.7); display: grid; place-items: center; opacity: 0; }
-.sim73 .s73-pass svg { width: 24px; height: 24px; overflow: visible; display: block; }
-.sim73 .s73-pass path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
-.sim73 .s73-rows { position: absolute; left: 100px; top: 436px; width: 600px; height: 176px; }
-.sim73 .s73-row { position: absolute; left: 0; width: 600px; height: 84px; opacity: 0; }
-.sim73 .s73-row0 { top: 0; }
-.sim73 .s73-row1 { top: 92px; }
-.sim73 .s73-dth0, .sim73 .s73-dth1 { left: 540px; top: 3px; }
-.sim73 .s73-dth0 > .s73-cp { left: -22%; width: 70%; }
-.sim73 .s73-dth1 > .s73-ti { left: 34%; top: 4%; }
-.sim73 .s73-dm { left: -6%; top: 68%; width: 70%; height: 28%; border-radius: 6px; border: 2.5px solid #ff453a; box-shadow: 0 0 8px rgba(255, 69, 58, 0.8); opacity: 0; }
-.sim73 .s73-dth1 > .s73-dm { left: 24%; top: -2%; width: 72%; height: 18%; }
-.sim73 .s73-arr { position: absolute; left: 480px; top: 32px; width: 40px; height: 20px; opacity: 0; }
-.sim73 .s73-sl { position: absolute; left: 110px; top: 24px; width: 340px; height: 36px; border-radius: 12px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); }
-.sim73 .s73-rule { position: absolute; left: 14px; right: 14px; top: 9px; height: 15px; display: block;
-  background: repeating-linear-gradient(90deg, rgba(201, 194, 255, 0.55) 0 2px, rgba(201, 194, 255, 0) 2px 31.2px); }
-.sim73 .s73-knob { position: absolute; left: 60px; top: 4px; width: 25px; height: 25px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #c9c2ff, 0 0 0 4px rgba(201, 194, 255, 0.35); display: block; }
+/* B1: the target readout */
+.sim25 .s25-ro { position: absolute; left: 87px; top: 170px; width: 400px; height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; }
+.sim25 .s25-halo { position: absolute; left: 50%; top: 50%; width: 420px; height: 420px; margin: -210px 0 0 -210px; border-radius: 50%; display: block;
+  background: radial-gradient(circle, rgba(157, 140, 255, 0.3), rgba(157, 140, 255, 0) 64%); }
+.sim25 .s25-ring { position: absolute; left: 50%; top: 50%; width: 300px; height: 300px; margin: -150px 0 0 -150px; overflow: visible; }
+.sim25 .s25-ring circle { fill: none; stroke: #c9c2ff; stroke-width: 2.5; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.8)); }
+.sim25 .s25-ro b { position: relative; font: 700 118px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ffffff; text-shadow: 0 0 24px rgba(201, 194, 255, 0.6); }
+.sim25 .s25-ro span { position: relative; margin-top: 10px; font: 600 44px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #d9d4ff; letter-spacing: 0.06em; }
 
-/* payoff: seven rounds of the same critic, the rubric, the stopping rule */
-.sim73 .s73-steps { position: absolute; left: 340px; top: 358px; width: 340px; height: 70px; }
-.sim73 .s73-line, .sim73 .s73-linef { position: absolute; left: 10px; top: 10px; width: 300px; height: 2px; border-radius: 1px; display: block; transform-origin: 100% 50%; transform: scaleX(0); }
-.sim73 .s73-line { background: rgba(201, 194, 255, 0.3); }
-.sim73 .s73-linef { background: #e6e2ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); }
-.sim73 .s73-nd { position: absolute; top: 1px; width: 20px; height: 20px; border-radius: 50%; display: block; opacity: 0;
-  background: radial-gradient(circle, #5c5480 0 5.5px, rgba(0, 0, 0, 0) 6.5px); }
-.sim73 .s73-ndx { background: #2a2450; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.7); }
-.sim73 .s73-sv { position: absolute; top: 30px; width: 60px; text-align: center; font: 700 30px/1 "Rubik"; color: #ffffff; opacity: 0; }
-.sim73 .s73-sv1 { left: 280px; }
-.sim73 .s73-sv7 { left: -20px; }
-.sim73 .s73-slbl { position: absolute; left: 328px; top: -3px; font: 500 28px/1 "Rubik"; color: #9c99ae; white-space: nowrap; opacity: 0; }
-.sim73 .s73-lbl { position: absolute; display: flex; align-items: center; gap: 12px; direction: rtl; font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
-.sim73 .s73-lbl > i { width: 14px; height: 14px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.8); display: block; flex: none; }
-.sim73 .s73-rublbl { right: 60px; top: 444px; }
-.sim73 .s73-rub { position: absolute; left: 40px; top: 486px; width: 720px; display: flex; flex-direction: column; gap: 10px; }
-.sim73 .s73-tagrow { display: flex; direction: rtl; justify-content: center; gap: 12px; }
-.sim73 .s73-tag { font: 600 28px/1 "Rubik"; color: #ece9f7; padding: 8px 16px 7px; border-radius: 999px; background: rgba(36, 31, 72, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.5); white-space: nowrap; opacity: 0; }
-.sim73 .s73-rulecard { position: absolute; left: 40px; top: 590px; width: 720px; height: 104px; border-radius: 20px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.34);
-  display: flex; direction: rtl; align-items: center; gap: 20px; padding: 0 28px; opacity: 0; }
-.sim73 .s73-stop { width: 46px; height: 46px; display: block; flex: none; overflow: visible; }
-.sim73 .s73-stop path { fill: none; stroke: #ff453a; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.8)); }
-.sim73 .s73-rtx p { font: 600 31px/1.35 "Rubik"; color: var(--ink); white-space: nowrap; }
-.sim73 .s73-rtx p + p { color: #dcd9e6; font-weight: 500; }
-/* a light sweep without skew (nothing shows at rest) */
-.sim73 .s73-swp { position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
-.sim73 .s73-swp b { position: absolute; top: 0; bottom: 0; left: 100%; width: 80%; display: block;
-  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 15%, var(--sw, rgba(255, 255, 255, 0.24)) 50%, rgba(255, 255, 255, 0) 85%); }
+/* B2: the ear */
+.sim25 .s25-earw { position: absolute; left: 130px; top: 250px; width: 330px; height: 200px; opacity: 0; }
+.sim25 .s25-ear { position: absolute; right: 0; top: 0; width: 160px; height: 205px; overflow: visible; }
+.sim25 .s25-ear path { fill: none; stroke: #e7e3ff; stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.7)); }
+.sim25 .s25-arcs { position: absolute; left: 0; top: 20px; width: 150px; height: 160px; overflow: visible; }
+.sim25 .s25-arc { fill: none; stroke: #c9c2ff; stroke-width: 4; stroke-linecap: round; opacity: 0; }
+
+/* B3: measure, adjust, measure again */
+.sim25 .s25-gp, .sim25 .s25-sp, .sim25 .s25-lanes { position: absolute; left: 0; top: 0; width: 575px; height: 700px; opacity: 0; }
+.sim25 .s25-gbg { position: absolute; left: 0; top: 96px; width: 575px; height: 364px; border-radius: 22px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.2); display: block; }
+.sim25 .s25-pills { position: absolute; left: 0; top: 46px; width: 575px; height: 44px; display: grid; justify-items: end; }
+.sim25 .s25-pill { grid-area: 1 / 1; height: 44px; padding: 0 18px; border-radius: 999px; display: flex; align-items: center; font: 600 30px/1 "Rubik"; color: #ffffff;
+  background: rgba(28, 24, 58, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.55); box-shadow: 0 0 16px rgba(201, 194, 255, 0.22); white-space: nowrap; opacity: 0; }
+.sim25 .s25-gbase { position: absolute; left: 12px; width: 552px; height: 2px; background: rgba(201, 194, 255, 0.35); display: block; }
+.sim25 .s25-gb { position: absolute; width: 10px; border-radius: 4px 4px 2px 2px; background: linear-gradient(180deg, #e2ddff, #8f7cf2); display: block; transform-origin: 50% 100%; }
+.sim25 .s25-gb b { position: absolute; left: 0; right: 0; top: 0; border-radius: 4px 4px 0 0; background: #ff453a; box-shadow: 0 0 8px rgba(255, 69, 58, 0.9); display: block; }
+.sim25 .s25-gl { position: absolute; left: 12px; width: 552px; display: block; opacity: 0; transform-origin: 100% 50%; }
+.sim25 .s25-gt { height: 3px; background: repeating-linear-gradient(90deg, #ffffff 0 12px, rgba(0, 0, 0, 0) 12px 18px); filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+.sim25 .s25-gc { height: 2px; background: repeating-linear-gradient(90deg, #ff6b61 0 10px, rgba(0, 0, 0, 0) 10px 16px); }
+.sim25 .s25-gscan { position: absolute; width: 3px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
+
+/* B4: the effects lose their bass */
+.sim25 .s25-sbg { position: absolute; left: 0; top: 480px; width: 575px; height: 180px; border-radius: 22px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.2); display: block; }
+.sim25 .s25-sh { position: absolute; right: 18px; top: 488px; display: flex; align-items: center; gap: 10px; font: 600 30px/40px "Rubik"; color: var(--ink); direction: rtl; }
+.sim25 .s25-sh i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; }
+.sim25 .s25-sb { position: absolute; border-radius: 3px 3px 1px 1px; background: linear-gradient(180deg, #d9d4ff, #7d6be0); display: block; transform-origin: 50% 100%; }
+.sim25 .s25-hp { position: absolute; left: 0; top: 0; width: 575px; height: 700px; overflow: visible; }
+.sim25 .s25-hp path { fill: none; stroke: #ffffff; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.9)); }
+.sim25 .s25-cut { position: absolute; top: 522px; width: 2px; height: 124px; background: rgba(255, 255, 255, 0.55); display: block; opacity: 0; transform-origin: 50% 100%; }
+.sim25 .s25-hpt { position: absolute; top: 528px; font: 600 26px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ffffff; padding: 5px 9px 4px; border-radius: 8px;
+  background: rgba(20, 18, 40, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.5); white-space: nowrap; opacity: 0; }
+.sim25 .s25-nb { position: absolute; top: 494px; font: 700 30px/1 "Rubik"; color: #ffffff; white-space: nowrap; opacity: 0; }
+
+/* payoff: three channels */
+.sim25 .s25-lane { position: absolute; left: 0; width: 575px; height: 140px; }
+.sim25 .s25-lh { position: absolute; right: 6px; top: 0; height: 36px; display: flex; align-items: center; gap: 10px; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; direction: rtl; opacity: 0; }
+.sim25 .s25-lh i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; flex: none; }
+.sim25 .s25-lwv { position: absolute; left: 8px; top: 42px; width: 560px; height: 92px; border-radius: 14px; background: rgba(26, 23, 52, 0.8); border: 1.5px solid rgba(201, 194, 255, 0.16);
+  overflow: hidden; clip-path: inset(0px 0px 0px 100%); }
+.sim25 .s25-lw { width: 560px; height: 92px; display: block; }
+.sim25 .s25-duck { position: absolute; right: 6px; height: 32px; display: flex; align-items: center; opacity: 0; }
+.sim25 .s25-duck span { font: 600 26px/1 "Rubik"; color: #d9d4ff; white-space: nowrap; }
+.sim25 .s25-ph { position: absolute; left: 570px; top: 112px; width: 3px; height: 470px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
 
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="32.060" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="34.470" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t73" class="clip scene" data-start="0.000" data-duration="32.060" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 7 · חיסכון ברינדורים</span><span class="hdr-num" dir="ltr">7.3</span></div>
+<div id="sc-t25" class="clip scene" data-start="0.000" data-duration="34.470" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 2 · עריכה בסיסית</span><span class="hdr-num" dir="ltr">2.5</span></div>
 <div class="scam">
-<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">מבקר</span> <span class="w" dir="rtl" data-t="0.430">עצמאי,</span> <span class="w" dir="rtl" data-t="0.560">עד</span> <span class="w" dir="rtl" data-t="0.690">שהציון</span> <span class="w" dir="rtl" data-t="0.820">עובר</span> <span class="w" dir="rtl" data-t="0.950">90</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.780">מי</span> <span class="w" dir="rtl" data-t="1.840">שבנה</span> <span class="w" dir="rtl" data-t="1.900">את</span> <span class="w" dir="rtl" data-t="1.960">הסרטון</span> <span class="w" dir="rtl" data-t="2.020">הכי</span> <span class="w" dir="rtl" data-t="2.080">פחות</span> <span class="w" dir="rtl" data-t="2.140">מתאים</span> <span class="w" dir="rtl" data-t="2.200">לבקר</span> <span class="w" dir="rtl" data-t="2.260">אותו,</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.480">וזה</span> <span class="w" dir="rtl" data-t="4.540">נכון</span> <span class="w" dir="rtl" data-t="4.600">גם</span> <span class="w" dir="rtl" data-t="4.660">לקלוד.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.080">מבקר</span> <span class="w" dir="rtl" data-t="6.140">עצמאי</span> <span class="w" dir="rtl" data-t="6.200">הוא</span> <span class="w" dir="rtl" data-t="6.260">עותק</span> <span class="w" dir="rtl" data-t="6.320">נפרד</span> <span class="w" dir="rtl" data-t="6.380">של</span> <span class="w" dir="rtl" data-t="6.440">קלוד</span> <span class="w" dir="rtl" data-t="6.500">שלא</span> <span class="w" dir="rtl" data-t="6.560">בנה</span> <span class="w" dir="rtl" data-t="6.620">כלום.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.030">הוא</span> <span class="w" dir="rtl" data-t="9.090">מקבל</span> <span class="w" dir="rtl" data-t="9.150">את</span> <span class="w" dir="rtl" data-t="9.210">הבקשה</span> <span class="w" dir="rtl" data-t="9.270">ופריימים</span> <span class="w" dir="rtl" data-t="9.330">מכל</span> <span class="w" dir="rtl" data-t="9.390">סצנה,</span> <span class="w" dir="rtl" data-t="9.450">בלי</span> <span class="w" dir="rtl" data-t="9.510">ההסברים,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="11.730">ונותן</span> <span class="accgrp" data-t="11.790"><span class="w s-str" dir="rtl" data-t="11.790">ציון</span> <span class="w s-str" dir="rtl" data-t="11.850">מתוך</span> <span class="w s-str" dir="rtl" data-t="11.910">100</span><i class="ul" data-t="11.970"></i></span> <span class="w" dir="rtl" data-t="11.970">עם</span> <span class="w" dir="rtl" data-t="12.030">תיקון</span> <span class="w" dir="rtl" data-t="12.090">במספרים</span> <span class="w" dir="rtl" data-t="12.150">לכל</span> <span class="w" dir="rtl" data-t="12.210">פגם.</span></span></p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim73">
-<div class="s73-builder">
-<div class="s73-fr s73-vid"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class="s73-cut"></i></div>
-<svg class="s73-flaw" viewBox="0 0 92 64" aria-hidden="true"><rect x="3" y="3" width="86" height="58" rx="18"/></svg>
-<div class="s73-bub"><i></i><i></i><i></i><span class="s73-expl" dir="rtl">ההסברים</span><div class="s73-no"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M9.5 9.5l11 11"/><path d="M20.5 9.5l-11 11"/></svg></div></div>
-<div class="s73-list"><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div></div>
-<svg class="s73-person" viewBox="0 0 312 380" aria-hidden="true">
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">קול</span> <span class="w" dir="rtl" data-t="0.430">באותה</span> <span class="w" dir="rtl" data-t="0.560">עוצמה:</span> <span class="w" dir="rtl" data-t="0.890">מינוס</span> <span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="1.020">14</span> <span class="w" dir="ltr" data-t="1.150">LUFS</span></span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.980">גוללים</span> <span class="w" dir="rtl" data-t="2.040">בפיד,</span> <span class="w" dir="rtl" data-t="2.100">סרטון</span> <span class="w" dir="rtl" data-t="2.160">אחד</span> <span class="w" dir="rtl" data-t="2.220">צועק</span> <span class="w" dir="rtl" data-t="2.280">והבא</span> <span class="w" dir="rtl" data-t="2.340">כמעט</span> <span class="w" dir="rtl" data-t="2.400">לוחש?</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.430">היעד</span> <span class="w" dir="rtl" data-t="4.490">הוא</span> <span class="glu"><span class="accgrp" data-t="4.550"><span class="w s-str" dir="rtl" data-t="4.550">מינוס</span> <span class="isl" dir="ltr"><span class="w s-str" dir="ltr" data-t="4.610">14</span> <span class="w s-str" dir="ltr" data-t="4.670">LUFS</span></span><i class="ul" data-t="4.730"></i></span><span class="w" dir="rtl" data-t="4.670">,</span></span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.380">היחידה</span> <span class="w" dir="rtl" data-t="6.440">שמודדת</span> <span class="w" dir="rtl" data-t="6.500">כמה</span> <span class="w" dir="rtl" data-t="6.560">חזק</span> <span class="w" dir="rtl" data-t="6.620">משהו</span> <span class="w" dir="rtl" data-t="6.680">נשמע</span> <span class="w" dir="rtl" data-t="6.740">לאוזן.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="8.580">קלוד</span> <span class="w" dir="rtl" data-t="8.640">מודד,</span> <span class="w" dir="rtl" data-t="8.700">מכוון</span> <span class="w" dir="rtl" data-t="8.760">ומודד</span> <span class="w" dir="rtl" data-t="8.820">שוב,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="10.280">ובדרך</span> <span class="w" dir="rtl" data-t="10.340">מנקה</span> <span class="w" dir="rtl" data-t="10.400">את</span> <span class="w" dir="rtl" data-t="10.460">הבס</span> <span class="w" dir="rtl" data-t="10.520">מהאפקטים</span> <span class="w" dir="rtl" data-t="10.580">הקוליים.</span></span></p></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim25">
+<div class="s25-meter" style="left:600px;top:30px;width:200px;height:640px"></div><div class="s25-mtitle" style="left:600px;width:200px;top:48px" dir="ltr">LUFS</div><i class="s25-track" style="left:712px;top:120px;height:520px"></i><i class="s25-lvl" style="left:712px;top:120px;height:520px"></i><i class="s25-ticks" style="left:768px;top:120px;height:520px"></i>
+<div class="s25-main"><div class="s25-phone"><div class="s25-screen"><div class="s25-feed"><div class="s25-card s25-ca" style="background:linear-gradient(180deg, #3b2b6e 0%, #241c4a 60%, #15122e 100%)"><svg class="s25-cp" viewBox="0 0 312 380" aria-hidden="true">
 <defs>
-<linearGradient id="pf73" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
-<linearGradient id="pr73" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
+<linearGradient id="pfa25" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
+<linearGradient id="pra25" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
 </defs>
-<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380 Z" fill="url(#pf73)"/>
-<rect x="128" y="196" width="56" height="70" rx="22" fill="url(#pf73)"/>
-<ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pf73)"/>
-<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#pr73)" stroke-width="3"/>
-<ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#pr73)" stroke-width="3"/>
-</svg>
-<div class="s73-card s73-me"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div>
-<div class="s73-name s73-mename" dir="rtl">קלוד</div>
-</div>
-<svg class="s73-div" viewBox="0 0 4 360" aria-hidden="true"><path d="M2 2 V358"/></svg>
-<div class="s73-tray"></div>
-<div class="s73-doc"><i></i><i></i><i></i><span dir="rtl">הבקשה</span></div>
-<div class="s73-fr s73-th s73-in s73-in0"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div><div class="s73-fr s73-th s73-in s73-in1"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div><div class="s73-fr s73-th s73-in s73-in2"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div>
-<div class="s73-card s73-ghost s73-gh2"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div><div class="s73-card s73-ghost s73-gh1"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div><div class="s73-card s73-cr"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div>
-<div class="s73-name s73-crname" dir="rtl">מבקר עצמאי</div>
-<div class="s73-gauge" data-focus="4"><svg class="s73-gsvg" viewBox="0 0 340 200" aria-hidden="true">
-<defs><linearGradient id="s73gr" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#9d92f0"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs>
-<path class="s73-track" d="M320 170 A150 150 0 0 0 20 170"/><path class="s73-fill" d="M320 170 A150 150 0 0 0 20 170"/><path class="s73-tk s73-tk70" d="M88.9 58.4 L74.8 38.9"/><path class="s73-tk s73-tk90" d="M38.8 127.4 L15.9 119.9"/></svg><span class="s73-tl s73-tl70" dir="ltr" style="left:28.3px;top:-0.7px">70</span><span class="s73-tl s73-tl90" dir="ltr" style="left:-40.7px;top:94.3px">90</span>
-<div class="s73-score" dir="ltr"><span class="s73-nn"><span class="s73-n s73-n1">68</span><span class="s73-n s73-n2">96</span></span><span class="s73-of">/100</span></div>
-<div class="s73-pass"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></div></div>
-<div class="s73-rows"><div class="s73-row s73-row0"><div class="s73-fr s73-th s73-dth0"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class=s73-dm></i></div><svg class="s73-arr" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="s73-sl"><i class="s73-rule"></i><i class="s73-knob"></i></div></div><div class="s73-row s73-row1"><div class="s73-fr s73-th s73-dth1"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class=s73-dm></i></div><svg class="s73-arr" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="s73-sl"><i class="s73-rule"></i><i class="s73-knob"></i></div></div></div>
-<div class="s73-steps"><i class="s73-line"></i><i class="s73-linef"></i><i class="s73-nd s73-ndx" style="left:300px"></i><i class="s73-nd" style="left:250px"></i><i class="s73-nd" style="left:200px"></i><i class="s73-nd" style="left:150px"></i><i class="s73-nd" style="left:100px"></i><i class="s73-nd" style="left:50px"></i><i class="s73-nd s73-ndx" style="left:0px"></i>
-<span class="s73-sv s73-sv1" dir="ltr">68</span><span class="s73-sv s73-sv7" dir="ltr">96</span>
-<span class="s73-slbl" dir="rtl">סבבים</span></div>
-<div class="s73-lbl s73-rublbl" dir="rtl"><i></i><span>מחוון</span></div>
-<div class="s73-rub" dir="rtl"><div class="s73-tagrow"><span class=s73-tag>ביצוע</span><span class=s73-tag>גימור</span><span class=s73-tag>תנועה</span></div><div class="s73-tagrow"><span class=s73-tag>טקסט ועברית</span><span class=s73-tag>התאמה לסגנון</span><span class=s73-tag>היגיון פיזי</span></div></div>
-<div class="s73-rulecard" dir="rtl"><svg class="s73-stop" viewBox="0 0 40 40" aria-hidden="true"><path d="M13.4 3h13.2L37 13.4v13.2L26.6 37H13.4L3 26.6V13.4z"/><path d="M13 20h14"/></svg><div class="s73-rtx"><p>אחרי שני סבבים עדיין מתחת ל-70?</p><p>עוצרים ומביאים את הפער.</p></div></div>
+<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380 Z" fill="url(#pfa25)"/>
+<rect x="128" y="196" width="56" height="70" rx="22" fill="url(#pfa25)"/>
+<ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pfa25)"/>
+<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#pra25)" stroke-width="3"/>
+<ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#pra25)" stroke-width="3"/>
+</svg><div class="s25-ctop" dir="rtl"><svg class="s25-spk" viewBox="0 0 36 34" aria-hidden="true"><path class="s25-spb" d="M3 12h6l7-6v22l-7-6H3z"/><path d="M17 11c2.4 3.0 2.4 9 0 12"/><path d="M21 8c3.5999999999999996 4.5 3.5999999999999996 12 0 18"/><path d="M25 5c4.8 6.0 4.8 15 0 24"/></svg><span>צועק</span></div><div class="s25-cw"><svg class="s25-wv" viewBox="0 0 200 110" aria-hidden="true"><path class="s25-wl" d="M196.2 23.5V86.5M188.5 24.2V85.8M180.8 20.7V89.3M173.1 12.1V97.9M165.4 33.2V76.8M157.7 12.1V97.9M150.0 12.1V97.9M142.3 19.9V90.1M134.6 12.1V97.9M126.9 12.5V97.5M119.2 12.1V97.9M111.5 26.8V83.2M103.8 31.9V78.1M96.2 12.1V97.9M88.5 28.4V81.6M80.8 16.6V93.4M73.1 12.1V97.9M65.4 33.2V76.8M57.7 20.7V89.3M50.0 12.1V97.9M42.3 12.1V97.9M34.6 18.6V91.4M26.9 22.4V87.6M19.2 12.1V97.9M11.5 13.2V96.8M3.8 34.3V75.7" style="stroke-width:4.5"/><path class="s25-wr" d="M173.1 8.6V12.1M173.1 97.9V101.4M157.7 0.0V12.1M157.7 97.9V110.0M150.0 0.0V12.1M150.0 97.9V110.0M134.6 3.0V12.1M134.6 97.9V107.0M119.2 10.1V12.1M119.2 97.9V99.9M96.2 0.0V12.1M96.2 97.9V110.0M73.1 4.2V12.1M73.1 97.9V105.8M50.0 0.0V12.1M50.0 97.9V110.0M42.3 0.0V12.1M42.3 97.9V110.0M19.2 9.3V12.1M19.2 97.9V100.7" style="stroke-width:4.5"/></svg></div><span class="s25-burn" dir="rtl">נשרף</span></div><div class="s25-card s25-cb" style="background:linear-gradient(180deg, #1f2f55 0%, #18213f 60%, #10142a 100%)"><svg class="s25-cp" viewBox="0 0 312 380" aria-hidden="true">
+<defs>
+<linearGradient id="pfb25" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
+<linearGradient id="prb25" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
+</defs>
+<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380 Z" fill="url(#pfb25)"/>
+<rect x="128" y="196" width="56" height="70" rx="22" fill="url(#pfb25)"/>
+<ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pfb25)"/>
+<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#prb25)" stroke-width="3"/>
+<ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#prb25)" stroke-width="3"/>
+</svg><div class="s25-ctop" dir="rtl"><svg class="s25-spk" viewBox="0 0 36 34" aria-hidden="true"><path class="s25-spb" d="M3 12h6l7-6v22l-7-6H3z"/><path d="M17 11c2.4 3.0 2.4 9 0 12"/></svg><span>כמעט לוחש</span></div><div class="s25-cw"><svg class="s25-wv" viewBox="0 0 200 110" aria-hidden="true"><path class="s25-wl" d="M196.2 47.8V62.2M188.5 51.3V58.7M180.8 51.8V58.2M173.1 51.0V59.0M165.4 49.0V61.0M157.7 51.0V59.0M150.0 51.3V58.7M142.3 46.8V63.2M134.6 47.8V62.2M126.9 48.5V61.5M119.2 47.4V62.6M111.5 51.2V58.8M103.8 50.8V59.2M96.2 49.2V60.8M88.5 51.1V58.9M80.8 51.7V58.3M73.1 52.2V57.8M65.4 50.6V59.4M57.7 49.5V60.5M50.0 46.9V63.1M42.3 51.2V58.8M34.6 48.9V61.1M26.9 48.4V61.6M19.2 46.8V63.2M11.5 51.3V58.7M3.8 49.2V60.8" style="stroke-width:4.5"/></svg></div></div></div><i class="s25-swipe"></i></div></div><div class="s25-ro" data-focus="1"><i class="s25-halo"></i><svg class="s25-ring" viewBox="0 0 300 300" aria-hidden="true"><circle cx="150" cy="150" r="140"/></svg><b dir="ltr">-14</b><span dir="ltr">LUFS</span></div><div class="s25-earw"><svg class="s25-arcs" viewBox="0 0 150 160" aria-hidden="true"><path class="s25-arc s25-arc0" d="M30 30 C52 58 52 102 30 130"/><path class="s25-arc s25-arc1" d="M66 26 C92 58 92 102 66 134"/><path class="s25-arc s25-arc2" d="M102 22 C132 58 132 102 102 138"/></svg><svg class="s25-ear" viewBox="0 0 140 180" aria-hidden="true"><path d="M38 70 C38 34 64 12 92 12 C122 12 134 40 128 66 C124 86 108 94 104 112 C100 132 96 152 76 160 C58 168 42 156 40 140"/><path d="M62 74 C62 52 76 40 92 40 C108 40 114 56 108 70 C104 80 94 82 92 94"/><path d="M80 106 C88 104 94 110 92 118"/></svg></div><div class="s25-gp"><i class="s25-gbg"></i><div class="s25-pills"><span class="s25-pill s25-p1" dir="rtl">מעבר 1: מדידה</span><span class="s25-pill s25-p2" dir="rtl">מעבר 2: linear</span></div><i class="s25-gbase" style="top:440px"></i><i class="s25-gb" data-b="53.1" data-a="87.4" style="left:550px;top:386.9px;height:53.1px"></i><i class="s25-gb" data-b="47.1" data-a="77.6" style="left:534px;top:392.9px;height:47.1px"></i><i class="s25-gb" data-b="43.6" data-a="71.8" style="left:518px;top:396.4px;height:43.6px"></i><i class="s25-gb" data-b="41.5" data-a="68.3" style="left:502px;top:398.5px;height:41.5px"></i><i class="s25-gb" data-b="326.3" data-a="283.4" style="left:486px;top:113.7px;height:326.3px"><b style="height:23.6px"></b></i><i class="s25-gb" data-b="36.7" data-a="60.4" style="left:470px;top:403.3px;height:36.7px"></i><i class="s25-gb" data-b="39.5" data-a="64.9" style="left:454px;top:400.5px;height:39.5px"></i><i class="s25-gb" data-b="46.8" data-a="77.0" style="left:438px;top:393.2px;height:46.8px"></i><i class="s25-gb" data-b="34.4" data-a="56.5" style="left:422px;top:405.6px;height:34.4px"></i><i class="s25-gb" data-b="45.4" data-a="74.7" style="left:406px;top:394.6px;height:45.4px"></i><i class="s25-gb" data-b="44.8" data-a="73.7" style="left:390px;top:395.2px;height:44.8px"></i><i class="s25-gb" data-b="334.0" data-a="284.7" style="left:374px;top:106.0px;height:334.0px"><b style="height:31.3px"></b></i><i class="s25-gb" data-b="326.6" data-a="284.9" style="left:358px;top:113.4px;height:326.6px"><b style="height:23.9px"></b></i><i class="s25-gb" data-b="39.5" data-a="65.0" style="left:342px;top:400.5px;height:39.5px"></i><i class="s25-gb" data-b="38.7" data-a="63.7" style="left:326px;top:401.3px;height:38.7px"></i><i class="s25-gb" data-b="49.9" data-a="82.2" style="left:310px;top:390.1px;height:49.9px"></i><i class="s25-gb" data-b="50.6" data-a="83.3" style="left:294px;top:389.4px;height:50.6px"></i><i class="s25-gb" data-b="59.5" data-a="91.3" style="left:278px;top:380.5px;height:59.5px"></i><i class="s25-gb" data-b="49.2" data-a="80.9" style="left:262px;top:390.8px;height:49.2px"></i><i class="s25-gb" data-b="43.6" data-a="71.8" style="left:246px;top:396.4px;height:43.6px"></i><i class="s25-gb" data-b="57.1" data-a="91.3" style="left:230px;top:382.9px;height:57.1px"></i><i class="s25-gb" data-b="39.9" data-a="65.6" style="left:214px;top:400.1px;height:39.9px"></i><i class="s25-gb" data-b="42.5" data-a="70.0" style="left:198px;top:397.5px;height:42.5px"></i><i class="s25-gb" data-b="330.6" data-a="284.8" style="left:182px;top:109.4px;height:330.6px"><b style="height:27.9px"></b></i><i class="s25-gb" data-b="46.4" data-a="76.3" style="left:166px;top:393.6px;height:46.4px"></i><i class="s25-gb" data-b="49.3" data-a="81.1" style="left:150px;top:390.7px;height:49.3px"></i><i class="s25-gb" data-b="49.2" data-a="81.0" style="left:134px;top:390.8px;height:49.2px"></i><i class="s25-gb" data-b="41.0" data-a="67.4" style="left:118px;top:399.0px;height:41.0px"></i><i class="s25-gb" data-b="35.9" data-a="59.0" style="left:102px;top:404.1px;height:35.9px"></i><i class="s25-gb" data-b="333.4" data-a="281.0" style="left:86px;top:106.6px;height:333.4px"><b style="height:30.7px"></b></i><i class="s25-gb" data-b="59.7" data-a="91.3" style="left:70px;top:380.3px;height:59.7px"></i><i class="s25-gb" data-b="43.7" data-a="71.9" style="left:54px;top:396.3px;height:43.7px"></i><i class="s25-gb" data-b="51.9" data-a="85.3" style="left:38px;top:388.1px;height:51.9px"></i><i class="s25-gb" data-b="46.5" data-a="76.6" style="left:22px;top:393.5px;height:46.5px"></i><i class="s25-gl s25-gt" style="top:361.2px"></i><i class="s25-gl s25-gc" style="top:136.3px"></i><i class="s25-gscan" style="left:566px;top:103.3px;height:340.7px"></i></div><div class="s25-sp"><i class="s25-sbg"></i><div class="s25-sh" dir="rtl"><i></i>אפקטים</div><i class="s25-sb s25-low" style="left:25.0px;top:525.3px;height:114.7px;width:14.4px"></i><i class="s25-sb s25-low" style="left:45.4px;top:529.3px;height:110.7px;width:14.4px"></i><i class="s25-sb s25-low" style="left:65.8px;top:537.6px;height:102.4px;width:14.4px"></i><i class="s25-sb s25-low" style="left:86.2px;top:541.0px;height:99.0px;width:14.4px"></i><i class="s25-sb s25-low" style="left:106.5px;top:545.3px;height:94.7px;width:14.4px"></i><i class="s25-sb s25-low" style="left:126.9px;top:535.1px;height:104.9px;width:14.4px"></i><i class="s25-sb s25-low" style="left:147.3px;top:550.2px;height:89.8px;width:14.4px"></i><i class="s25-sb s25-low" style="left:167.7px;top:536.2px;height:103.8px;width:14.4px"></i><i class="s25-sb s25-low" style="left:188.1px;top:591.9px;height:48.1px;width:14.4px"></i><i class="s25-sb" style="left:208.5px;top:594.0px;height:46.0px;width:14.4px"></i><i class="s25-sb" style="left:228.8px;top:591.6px;height:48.4px;width:14.4px"></i><i class="s25-sb" style="left:249.2px;top:593.6px;height:46.4px;width:14.4px"></i><i class="s25-sb" style="left:269.6px;top:592.9px;height:47.1px;width:14.4px"></i><i class="s25-sb" style="left:290.0px;top:592.9px;height:47.1px;width:14.4px"></i><i class="s25-sb" style="left:310.4px;top:598.5px;height:41.5px;width:14.4px"></i><i class="s25-sb" style="left:330.8px;top:587.9px;height:52.1px;width:14.4px"></i><i class="s25-sb" style="left:351.2px;top:601.7px;height:38.3px;width:14.4px"></i><i class="s25-sb" style="left:371.5px;top:603.9px;height:36.1px;width:14.4px"></i><i class="s25-sb" style="left:391.9px;top:591.6px;height:48.4px;width:14.4px"></i><i class="s25-sb" style="left:412.3px;top:606.0px;height:34.0px;width:14.4px"></i><i class="s25-sb" style="left:432.7px;top:595.3px;height:44.7px;width:14.4px"></i><i class="s25-sb" style="left:453.1px;top:604.8px;height:35.2px;width:14.4px"></i><i class="s25-sb" style="left:473.5px;top:604.7px;height:35.3px;width:14.4px"></i><i class="s25-sb" style="left:493.8px;top:605.8px;height:34.2px;width:14.4px"></i><i class="s25-sb" style="left:514.2px;top:605.1px;height:34.9px;width:14.4px"></i><i class="s25-sb" style="left:534.6px;top:603.0px;height:37.0px;width:14.4px"></i><svg class="s25-hp" viewBox="0 0 575 700" aria-hidden="true"><path d="M22 640 C129 640 159 536 199 530 H552"/></svg><i class="s25-cut" style="left:197.7px"></i><span class="s25-hpt" dir="ltr" style="left:211px">highpass 200Hz</span><span class="s25-nb" dir="rtl" style="left:49px">בלי בס</span></div><div class="s25-lanes"><div class="s25-lane s25-l1" style="top:78px"><div class="s25-lh" dir="rtl"><i></i>דיבור</div><div class="s25-lwv"><svg class="s25-lw" viewBox="0 0 560 92" aria-hidden="true"><path class="s25-wl" d="M555.0 44.5V47.5M545.0 44.5V47.5M535.0 44.5V47.5M525.0 4.6V87.4M515.0 13.8V78.2M505.0 19.5V72.5M495.0 24.2V67.8M485.0 24.8V67.2M475.0 16.4V75.6M465.0 6.5V85.5M455.0 16.9V75.1M445.0 3.6V88.4M435.0 17.3V74.7M425.0 25.0V67.0M415.0 13.9V78.1M405.0 19.8V72.2M395.0 5.6V86.4M385.0 44.5V47.5M375.0 44.5V47.5M365.0 44.5V47.5M355.0 44.5V47.5M345.0 44.5V47.5M335.0 16.4V75.6M325.0 23.0V69.0M315.0 28.7V63.3M305.0 17.6V74.4M295.0 16.3V75.7M285.0 26.8V65.2M275.0 22.1V69.9M265.0 21.9V70.1M255.0 14.3V77.7M245.0 19.9V72.1M235.0 5.6V86.4M225.0 9.0V83.0M215.0 22.5V69.5M205.0 44.5V47.5M195.0 44.5V47.5M185.0 44.5V47.5M175.0 44.5V47.5M165.0 44.5V47.5M155.0 44.5V47.5M145.0 7.6V84.4M135.0 22.0V70.0M125.0 7.7V84.3M115.0 26.7V65.3M105.0 27.1V64.9M95.0 24.0V68.0M85.0 17.2V74.8M75.0 29.3V62.7M65.0 27.7V64.3M55.0 27.9V64.1M45.0 22.3V69.7M35.0 8.5V83.5M25.0 44.5V47.5M15.0 44.5V47.5M5.0 44.5V47.5" style="stroke-width:5"/></svg></div></div><div class="s25-lane s25-l2" style="top:256px"><div class="s25-lh" dir="rtl"><i></i>מוזיקה · 9 עד <span class="isl" dir="ltr">13 dB</span> מתחת לדיבור</div><div class="s25-lwv"><svg class="s25-lw" viewBox="0 0 560 92" aria-hidden="true"><path class="s25-wl" d="M555.0 32.2V59.8M545.0 29.8V62.2M535.0 28.6V63.4M525.0 33.8V58.2M515.0 35.2V56.8M505.0 37.0V55.0M495.0 38.4V53.6M485.0 38.7V53.3M475.0 37.7V54.3M465.0 36.0V56.0M455.0 34.3V57.7M445.0 33.4V58.6M435.0 33.8V58.2M425.0 35.2V56.8M415.0 37.0V55.0M405.0 38.4V53.6M395.0 38.7V53.3M385.0 34.5V57.5M375.0 32.1V59.9M365.0 29.7V62.3M355.0 28.6V63.4M345.0 29.1V62.9M335.0 35.3V56.7M325.0 37.1V54.9M315.0 38.4V53.6M305.0 38.6V53.4M295.0 37.7V54.3M285.0 35.9V56.1M275.0 34.3V57.7M265.0 33.4V58.6M255.0 33.8V58.2M245.0 35.3V56.7M235.0 37.1V54.9M225.0 38.4V53.6M215.0 38.6V53.4M205.0 34.4V57.6M195.0 32.0V60.0M185.0 29.6V62.4M175.0 28.5V63.5M165.0 29.2V62.8M155.0 31.2V60.8M145.0 37.2V54.8M135.0 38.5V53.5M125.0 38.6V53.4M115.0 37.6V54.4M105.0 35.8V56.2M95.0 34.2V57.8M85.0 33.4V58.6M75.0 33.9V58.1M65.0 35.4V56.6M55.0 37.2V54.8M45.0 38.5V53.5M35.0 38.6V53.4M25.0 34.3V57.7M15.0 31.8V60.2M5.0 29.6V62.4" style="stroke-width:5"/></svg></div></div><div class="s25-lane s25-l3" style="top:434px"><div class="s25-lh" dir="rtl"><i></i>אפקטים · בלי בס</div><div class="s25-lwv"><svg class="s25-lw" viewBox="0 0 560 92" aria-hidden="true"><path class="s25-wl" d="M555.0 44.5V47.5M545.0 44.5V47.5M535.0 44.5V47.5M525.0 44.5V47.5M515.0 44.5V47.5M505.0 44.5V47.5M495.0 44.5V47.5M485.0 44.5V47.5M475.0 44.5V47.5M465.0 30.4V61.6M455.0 37.4V54.6M445.0 44.5V47.5M435.0 44.5V47.5M425.0 44.5V47.5M415.0 44.5V47.5M405.0 44.5V47.5M395.0 44.5V47.5M385.0 44.5V47.5M375.0 44.5V47.5M365.0 44.5V47.5M355.0 44.5V47.5M345.0 44.5V47.5M335.0 44.5V47.5M325.0 44.5V47.5M315.0 44.5V47.5M305.0 44.5V47.5M295.0 44.5V47.5M285.0 32.2V59.8M275.0 38.4V53.6M265.0 44.5V47.5M255.0 44.5V47.5M245.0 44.5V47.5M235.0 44.5V47.5M225.0 44.5V47.5M215.0 44.5V47.5M205.0 44.5V47.5M195.0 44.5V47.5M185.0 44.5V47.5M175.0 44.5V47.5M165.0 44.5V47.5M155.0 44.5V47.5M145.0 44.5V47.5M135.0 44.5V47.5M125.0 44.5V47.5M115.0 44.5V47.5M105.0 44.5V47.5M95.0 31.3V60.7M85.0 37.9V54.1M75.0 44.5V47.5M65.0 44.5V47.5M55.0 44.5V47.5M45.0 44.5V47.5M35.0 44.5V47.5M25.0 44.5V47.5M15.0 44.5V47.5M5.0 44.5V47.5" style="stroke-width:5"/></svg></div></div><div class="s25-duck" style="top:396px"><span dir="rtl">יורדת עוד 2 עד <span class="isl" dir="ltr">4 dB</span></span></div><i class="s25-ph"></i></div></div>
+<i class="s25-tline" style="left:608px;top:361.2px"></i><span class="s25-ttag" dir="ltr" style="left:612px;top:322.7px">-14</span><i class="s25-cline" style="left:608px;top:136.3px"></i><span class="s25-ctag" dir="ltr" style="left:612px;top:145.3px">-1</span><div class="s25-ok" style="left:736px;top:343.7px"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></div>
 </div></div></div></div>
-<div class="factbox"><span class="pill">מ-68 ל-96</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="21.880">ריל</span> <span class="w" dir="rtl" data-t="22.000">אנימציה</span> <span class="w" dir="rtl" data-t="22.120">של</span> <span class="w" dir="rtl" data-t="22.240">47</span> <span class="w" dir="rtl" data-t="22.360">שניות,</span> <span class="w" dir="rtl" data-t="22.480">בשבעה</span> <span class="w" dir="rtl" data-t="22.600">סבבים</span> <span class="w" dir="rtl" data-t="22.720">של</span> <span class="w" dir="rtl" data-t="22.840">אותו</span> <span class="w" dir="rtl" data-t="22.960">מבקר.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="23.280">גם</span> <span class="w" dir="rtl" data-t="23.310">הסצנות</span> <span class="w" dir="rtl" data-t="23.340">בסרטון</span> <span class="w" dir="rtl" data-t="23.370">הזה</span> <span class="w" dir="rtl" data-t="23.400">עברו</span> <span class="w" dir="rtl" data-t="23.430">מבקר</span> <span class="w" dir="rtl" data-t="23.460">עצמאי.</span></p></div>
-<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>21</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">תפעיל סוכן נפרד שלא בנה את הסרטון, בתור מבקר קשוח של סטודיו לאנימציה.</div>
-<div class="pl" dir="rtl">תן לו את הבריף, פריים מכל סצנה ורצועת פריימים מכל מעבר, בלי ההסברים שלך.</div>
-<div class="pl" dir="rtl">הוא נותן ציון מתוך 100 לפי מחוון קבוע: ביצוע של כל מה שביקשתי, גימור, תנועה, טקסט ועברית, התאמה לסגנון, והיגיון פיזי.</div>
-<div class="pl" dir="rtl">לכל סצנה הוא מחזיר רשימת פגמים, ולכל פגם זמן, מה לא בסדר ותיקון עם מספרים.</div>
-<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>אתה מתקן, ואותו מבקר בודק שוב, עד שהציון עובר 90.</div>
-<div class="pl" dir="rtl">אם אחרי שני סבבים הציון עדיין רחוק <span class="nb">מ-90</span> <span class="nb">ב-20</span> נקודות או יותר, תעצור ותביא לי את הפער ואת האפשרויות במקום לפתוח עוד סבבים.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>אתה מתקן, ואותו מבקר בודק שוב, עד שהציון עובר 90.</div></div>
-
+<div class="factbox"><span class="pill">מינוס 13.9 LUFS</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="18.180">אחרי</span> <span class="w" dir="rtl" data-t="18.300">התיקון,</span> <span class="w" dir="rtl" data-t="18.420">בלי</span> <span class="w" dir="rtl" data-t="18.540">אף</span> <span class="w" dir="rtl" data-t="18.660">רגע</span> <span class="w" dir="rtl" data-t="18.780">שנשרף.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="19.100">גם</span> <span class="w" dir="rtl" data-t="19.130">הסאונד</span> <span class="w" dir="rtl" data-t="19.160">של</span> <span class="w" dir="rtl" data-t="19.190">הסרטון</span> <span class="w" dir="rtl" data-t="19.220">הזה</span> <span class="w" dir="rtl" data-t="19.250">עבר</span> <span class="w" dir="rtl" data-t="19.280">נרמול</span> <span class="w" dir="rtl" data-t="19.310">ככה:</span> <span class="w" dir="rtl" data-t="19.340">מינוס</span> <span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="19.370">14</span> <span class="w" dir="ltr" data-t="19.400">LUFS</span></span><span class="w" dir="rtl" data-t="19.400">,</span> <span class="w" dir="rtl" data-t="19.430">שיא</span> <span class="w" dir="rtl" data-t="19.460">עד</span> <span class="w" dir="rtl" data-t="19.490">מינוס</span> <span class="w" dir="rtl" data-t="19.520">1.</span></p></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>5</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי אם בסרטון יש רק דיבור, או גם מוזיקה ואפקטים, ואם הם בקבצים נפרדים, תבקש ממני את הנתיב של כל קובץ.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/קלט&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="כיוון">&lt;כיוון&gt;</div>
+<div class="pl" dir="rtl">הדיבור ברור ובאותה עוצמה מההתחלה ועד הסוף.</div>
+<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>העוצמה הכוללת היא <span dir="ltr" class="neg">-14 LUFS</span>, והשיא האמיתי (true peak) לא עובר את <span dir="ltr" class="neg">-1.</span></div>
+<div class="pl" dir="rtl">האפקטים בלי בס, ונשמעים כמו אוויר, תקתוק או נגיעה עדינה ולא כמו חבטה.</div>
+<div class="pl" dir="rtl">המוזיקה, אם יש, נמוכה <span class="nb">ב-9</span> עד 13 dB מהדיבור, ובזמן שמדברים היא יורדת עוד 2 עד 4 dB.</div>
+<div class="pl" dir="rtl">כל אפקט יושב 23 עד 33 dB מתחת לדיבור, בעוצמה הרגעית (400ms) בשיא שלו מול החציון של הדיבור, ואף אחד לא בולט מעליו.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/כיוון&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="בנייה">&lt;בנייה&gt;</div>
+<div class="pl" dir="rtl">1. תמדוד את המקור עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">ffmpeg</span> <span class="tk">-i &lt;קובץ&gt;</span> <span class="tk">-af loudnorm=I=-14:TP=-1:LRA=11:print_format=json</span> <span class="tk">-f null</span> <span class="tk">-</span><span class="bt">`</span></span>ותראה לי את המספרים.</div>
+<div class="pl" dir="rtl">2. על כל אפקט <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">highpass=f=200</span><span class="bt">`</span></span>.</div>
+<div class="pl" dir="rtl">3. אם יש מוזיקה, היא יורדת מתחת לדיבור עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">sidechaincompress</span><span class="bt">`</span></span>, כשהדיבור מפעיל אותה.</div>
+<div class="pl" dir="rtl">4. אחרי המיקס, נרמול בשני מעברים: המעבר השני מקבל את הערכים שנמדדו בראשון (measured_I, measured_TP, measured_LRA, measured_thresh <span class="nb">ו-offset)</span> עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">linear=true</span><span class="bt">`</span></span>.</div>
+<div class="pl" dir="rtl">5. אחרי המעבר השני תבדוק שבשורה normalization_type כתוב linear, ואם כתוב dynamic, תוריד קודם את השיאים עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">alimiter</span><span class="bt">`</span></span> <span class="nb">ב-192kHz,</span> עם גבול שמשאיר את השיא מתחת למינוס 1 גם אחרי ההגברה, תמדוד שוב ותריץ שוב את המעבר השני.</div>
+<div class="pl" dir="rtl">6. תחזיר את הקול לווידאו בלי לקודד את התמונה מחדש.</div>
+<div class="pl" dir="rtl">7. תמדוד שוב את הקובץ הסופי: העוצמה <span dir="ltr" class="neg">-14 LUFS</span> עם סטייה של עד חצי יחידה, השיא עד <span dir="ltr" class="neg">-1,</span> ופחות מאחוז אחד מהאנרגיה של האפקטים מתחת <span class="nb">ל-200Hz.</span></div>
+<div class="pl ptag pclose" dir="rtl">&lt;/בנייה&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="מלכודות">&lt;מלכודות&gt;</div>
+<div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>נרמול במעבר אחד עובד במצב דינמי ומזיז את העוצמה לאורך הסרטון, ולכן תמיד שני מעברים.</div>
+<div class="pl" dir="rtl">ל-<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">alimiter</span><span class="bt">`</span></span> תמיד <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">level=false</span><span class="bt">`</span></span>, כי ברירת המחדל מרימה את כל הקול עד 0 dBFS והורסת את המדידה.</div>
+<div class="pl" dir="rtl">loudnorm מוציא קול <span class="nb">ב-192kHz,</span> אז תחזיר אותו <span class="nb">ל-48kHz</span> עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">-ar 48000</span><span class="bt">`</span></span>.</div>
+<div class="pl" dir="rtl">כשאבקש &quot;קצת יותר שקט&quot; או &quot;קצת יותר חזק&quot;, זה בערך 3dB, שנמדדים בחלונות קצרים מול הגרסה הקודמת.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/מלכודות&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="התחלה">&lt;התחלה&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על הקלט, תמדוד, ותראה לי לפני ואחרי את העוצמה, השיא והטווח, יחד עם ההגדרות שאתה מתכוון להפעיל.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>העוצמה הכוללת היא <span dir="ltr" class="neg">-14 LUFS</span>, והשיא האמיתי (true peak) לא עובר את <span dir="ltr" class="neg">-1.</span></div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>נרמול במעבר אחד עובד במצב דינמי ומזיז את העוצמה לאורך הסרטון, ולכן תמיד שני מעברים.</div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="30.650">מבקשים</span> <span class="w" dir="rtl" data-t="30.810">&quot;קצת</span> <span class="w" dir="rtl" data-t="30.970">יותר</span> <span class="w" dir="rtl" data-t="31.130">שקט&quot;?</span> <span class="w" dir="rtl" data-t="31.540">זה</span> <span class="w" dir="rtl" data-t="31.700">בערך</span> <span class="w" dir="rtl" data-t="31.860">3</span> <span class="w" dir="rtl" data-t="32.020">דציבלים,</span> <span class="w" dir="rtl" data-t="32.180">שנמדדים</span> <span class="w" dir="rtl" data-t="32.340">מול</span> <span class="w" dir="rtl" data-t="32.500">הגרסה</span> <span class="w" dir="rtl" data-t="32.660">הקודמת.</span></p></div></div>
 </div></div>
 </div>
 </div>
@@ -1030,170 +1015,159 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   window.SIMS = window.SIMS || {};
 })();
 
-/* 7.3 an independent critic, iterated until the score passes 90: one visual beat per explanation phrase, then the rounds.
-   Every tween is a fromTo with explicit values (immediateRender:false via E.A); times are scene-local via T(). */
 window.SIMS = window.SIMS || {};
-window.SIMS.sim73 = function (tl, ctx, cfg, S) {
-  const E = window.ENG, A = E.A, sc = ctx.scene, c = cfg.sim73, P = cfg.phr, pe = cfg.phrEnd;
+window.SIMS.sim25 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, P = cfg.phr, pe = cfg.phrEnd;
   const T = (x) => S + x;                    // scene-local -> master time
   const q = (s) => E.q(s, sc), qa = (s) => E.qa(s, sc);
-  const tw = (el, from, to, t) => tl.fromTo(el, from, A(to), T(t));
-  const pop = (el, t, s0) => tw(el, { opacity: 0, scale: s0 || 0.7 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, t);
-  const ts = cfg.tStage, b0 = P[0], b1 = P[1], b2 = P[2], b3 = P[3], b4 = P[4];
-  const wrap = q(".sim73");
-  const sweep = (el, t, d, color) => {       // light sweep, right to left (no skew, so nothing shows at rest)
-    const fx = document.createElement("i"), b = document.createElement("b");
-    fx.className = "s73-swp";
-    if (color) fx.style.setProperty("--sw", color);
-    fx.appendChild(b);
-    el.appendChild(fx);
-    tw(b, { x: 0 }, { x: -(el.clientWidth * 1.8 + 10), duration: d, ease: "power2.inOut" }, t);
+  const root = q(".sim25");
+  const popIn = (el, t, dy, d) => {
+    tl.fromTo(el, { opacity: 0 }, A({ opacity: 1, duration: 0.22 }), t);
+    tl.fromTo(el, { y: dy == null ? 10 : dy, scale: 0.9 }, A({ y: 0, scale: 1, duration: d || 0.55, ease: E.SPRING }), t);
+  };
+  const out = (el, t, d, dy) => tl.fromTo(el, { opacity: 1, y: 0 }, A({ opacity: 0, y: dy || 0, duration: d || 0.25, ease: "power2.in" }), t);
+  // the meter level (loudness in dB -> bar fraction), chained from state to state
+  const lvl = q(".s25-lvl"), frac = (L) => 1 + L / 30;
+  let curL = null;
+  const level = (L, t, d, ease) => {
+    const from = curL == null ? 0 : frac(curL);
+    tl.fromTo(lvl, { scaleY: from }, A({ scaleY: frac(L), duration: d, ease: ease || E.SPRING }), t);
+    curL = L;
   };
 
-  const vid = q(".s73-vid"), person = q(".s73-person"), bub = q(".s73-bub"), list = q(".s73-list"), flaw = q(".s73-flaw");
-  const me = q(".s73-me"), mename = q(".s73-mename"), cr = q(".s73-cr"), crname = q(".s73-crname");
+  // establishing shot: the meter at the right, the feed at the left
+  const t0 = cfg.tStage, phone = q(".s25-phone");
+  E.fadeIn(tl, q(".s25-meter"), T(t0 + 0.05), 0.6, 20);
+  [".s25-mtitle", ".s25-track"].forEach((s, i) => E.fadeIn(tl, q(s), T(t0 + 0.2 + i * 0.06), 0.5, 10));
+  qa(".s25-ticks").forEach((tk) => tl.fromTo(tk, { opacity: 0 }, A({ opacity: 1, duration: 0.4 }), T(t0 + 0.3)));
+  tl.fromTo(phone, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(t0 + 0.1));
+  tl.fromTo(phone, { y: 40, rotationX: 12, transformPerspective: 1200 }, A({ y: 0, rotationX: 0, transformPerspective: 1200, duration: 0.85, ease: E.SPRING }), T(t0 + 0.1));
 
-  // establishing shot: the video that was built, and its builder (centred until the critic needs room)
-  const builder = q(".s73-builder"), SHIFT = -160;
-  tw(vid, { scale: 0.94 }, { scale: 1, duration: 0.7, ease: E.SPRING }, ts + 0.1);
-
-  // B0 "whoever built the video is the least suited to critique it": the builder's explanations,
-  // its own checklist ticked one by one, while the caption is cut at the frame's edge
-  tw(bub, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, b0 + 0.05);
-  qa(".s73-bub > i").forEach((l, i) => tw(l, { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out" }, b0 + 0.3 + i * 0.12));
-  E.fadeIn(tl, list, T(b0 + 0.7), 0.45, 14);
-  qa(".s73-li path").forEach((p, i) => E.draw(tl, p, T(b0 + 0.95 + i * 0.25), 0.25));
-  E.draw(tl, q(".s73-flaw rect"), T(b0 + 1.85), 0.45);
-  tw(flaw, { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out" }, b0 + 2.3);
-  tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b0 + 2.55);
-  tw(person, { y: 0 }, { y: 5, duration: 0.18, ease: "power2.out" }, b0 + 2.1);
-  tw(person, { y: 5 }, { y: 0, duration: 0.3, ease: "back.out(2)" }, b0 + 2.28);
-
-  // B1 "and this is true for Claude too": the builder glitches into Claude (an agent card), same ticked checklist
-  E.glitch(tl, person, T(b1 + 0.02), 8);
-  tw(person, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b1 + 0.22);
-  pop(me, b1 + 0.25, 0.75);
-  E.fadeIn(tl, mename, T(b1 + 0.4), 0.45, 10);
-  sweep(me, b1 + 0.65, 0.7, "rgba(255, 255, 255, 0.22)");
-  tw(list, { borderColor: "rgba(201, 194, 255, 0.28)" }, { borderColor: "rgba(255, 255, 255, 0.85)", duration: 0.15 }, b1 + 0.7);
-  tw(list, { borderColor: "rgba(255, 255, 255, 0.85)" }, { borderColor: "rgba(201, 194, 255, 0.28)", duration: 0.4 }, b1 + 0.85);
-  tw(flaw, { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out" }, b1 + 0.95);
-  tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b1 + 1.2);
-
-  // B2 "an independent critic is a separate copy of Claude that built nothing": a copy slides out (with a depth trail),
-  // a divider goes up between them, the critic's tray is empty
-  E.fadeOut(tl, list, T(b2), 0.3, 10);
-  tw(flaw, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b2);
-  tw(builder, { x: SHIFT }, { x: 0, duration: 0.75, ease: E.SPRING }, b2 + 0.1);
-  const DX = me.offsetLeft - cr.offsetLeft + SHIFT;
-  const slide = (el, t, peak) => {
-    tw(el, { x: DX, rotationY: -38, scale: 0.92, transformPerspective: 900, opacity: 0 }, { x: 0, rotationY: 0, scale: 1, transformPerspective: 900, opacity: peak, duration: 0.95, ease: E.SPRING }, t);
-  };
-  slide(q(".s73-gh2"), b2 + 0.27, 0.18);
-  slide(q(".s73-gh1"), b2 + 0.21, 0.36);
-  slide(cr, b2 + 0.15, 1);
-  qa(".s73-ghost").forEach((g, i) => tw(g, { opacity: i ? 0.36 : 0.18 }, { opacity: 0, duration: 0.3 }, b2 + 1.25 + i * 0.05));
-  E.draw(tl, q(".s73-div path"), T(b2 + 1.05), 0.5);
-  E.fadeIn(tl, crname, T(b2 + 1.2), 0.45, 10);
-  E.fadeIn(tl, q(".s73-tray"), T(b2 + 1.5), 0.45, 10);
-  sweep(cr, b2 + 1.7, 0.7, "rgba(255, 255, 255, 0.22)");
-
-  // B3 "it gets the request and frames from every scene, without the explanations": into the tray they go;
-  // the explanations hit the divider and are refused
-  const doc = q(".s73-doc");
-  tw(doc, { x: 530, y: -5, scale: 0.8, rotation: -8, opacity: 0 }, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, duration: 0.85, ease: E.SPRING }, b3 + 0.1);
-  const vc = E.center(vid, wrap);
-  qa(".s73-in").forEach((th, i) => {
-    const o = E.center(th, wrap);
-    tw(th, { x: vc.x - o.x, y: vc.y - o.y, scale: 2.4, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.8, ease: E.SPRING }, b3 + 0.45 + i * 0.15);
+  // B0 "גוללים בפיד, סרטון אחד צועק והבא כמעט לוחש?": the loud video (burnt peaks), a swipe, the quiet one
+  const b0 = P[0], burn = q(".s25-burn");
+  level(-4, T(b0 + 0.1), 0.45, "power2.out");
+  popIn(burn, T(b0 + 0.45), 8);
+  E.qa(".s25-ca .s25-wr", root).forEach((p) => {
+    tl.fromTo(p, { opacity: 1 }, A({ opacity: 0.45, duration: 0.12 }), T(b0 + 0.55));
+    tl.fromTo(p, { opacity: 0.45 }, A({ opacity: 1, duration: 0.12 }), T(b0 + 0.67));
   });
-  const expl = q(".s73-expl"), no = q(".s73-no"), dv = q(".s73-div path");
-  pop(expl, b3 + 1.1, 0.8);
-  tw(bub, { x: 0 }, { x: -88, duration: 0.3, ease: "power2.in" }, b3 + 1.35);
-  E.glitch(tl, q(".s73-div"), T(b3 + 1.65), 6);
-  tw(dv, { stroke: "#c9c2ff" }, { stroke: "#ff6b61", duration: 0.1 }, b3 + 1.65);
-  tw(dv, { stroke: "#ff6b61" }, { stroke: "#c9c2ff", duration: 0.5 }, b3 + 1.9);
-  pop(no, b3 + 1.68, 0.5);
-  qa(".s73-no path").forEach((p, i) => E.draw(tl, p, T(b3 + 1.72 + i * 0.12), 0.22));
-  tw(bub, { x: -88 }, { x: -36, duration: 0.4, ease: "power2.out" }, b3 + 1.65);
-  tw(bub, { opacity: 1 }, { opacity: 0, duration: 0.35 }, b3 + 2.15);
+  E.glitch(tl, q(".s25-ca .s25-cw"), T(b0 + 0.55), 6);
+  level(-6, T(b0 + 0.6), 0.25, "power1.inOut");
+  level(-3.5, T(b0 + 0.85), 0.2, "power1.inOut");
+  // the swipe: a finger dot rises, the feed scrolls to the next video
+  const sw = q(".s25-swipe"), feed = q(".s25-feed");
+  tl.fromTo(sw, { opacity: 0, y: 40 }, A({ opacity: 0.9, y: 0, duration: 0.15 }), T(b0 + 1.0));
+  tl.fromTo(sw, { y: 0 }, A({ y: -220, duration: 0.45, ease: "power2.in" }), T(b0 + 1.15));
+  tl.fromTo(sw, { opacity: 0.9 }, A({ opacity: 0, duration: 0.15 }), T(b0 + 1.45));
+  tl.fromTo(feed, { y: 0 }, A({ y: -500, duration: 0.55, ease: "power3.inOut" }), T(b0 + 1.2));
+  level(-27, T(b0 + 1.45), 0.5, "power2.inOut");
+  level(-25.5, T(b0 + 1.95), 0.2, "power1.inOut");
+  level(-27, T(b0 + 2.15), 0.2, "power1.inOut");
 
-  // B4 "and gives a score out of 100 with a numeric fix for every defect": the gauge lands on 68 (the first round);
-  // two defects, each with its fix dialled in (the punch-in lands on the gauge)
-  E.fadeOut(tl, q(".s73-builder"), T(b4), 0.2, 0);
-  tw(q(".s73-div"), { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4);
-  [q(".s73-tray"), doc].concat(qa(".s73-in")).forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4));
-  const fill = q(".s73-fill"), L = Math.ceil(fill.getTotalLength()) + 2;
-  fill.style.strokeDasharray = L + " " + L;
-  fill.style.strokeDashoffset = L;
-  E.draw(tl, q(".s73-track"), T(b4 + 0.2), 0.5);
-  tw(fill, { strokeDashoffset: L }, { strokeDashoffset: +(L * (1 - c.scoreFrom / 100)).toFixed(1), duration: 0.8, ease: "power2.out" }, b4 + 0.4);
-  qa(".s73-tk").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.5));
-  qa(".s73-tl").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.55));
-  const n1 = q(".s73-n1"), n2 = q(".s73-n2");
-  pop(n1, b4 + 0.6, 0.6);
-  tw(q(".s73-of"), { opacity: 0 }, { opacity: 1, duration: 0.35 }, b4 + 0.75);
-  qa(".s73-row").forEach((row, i) => {
-    const t = b4 + 1.0 + i * 0.3;
-    tw(row, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }, t);
-    tw(E.q(".s73-dm", row), { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, t + 0.25);
-    tw(E.q(".s73-arr", row), { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, t + 0.35);
-    const kn = E.q(".s73-knob", row), to = i ? -31.2 * 1.5 : 31.2 * 4;
-    tw(kn, { x: 0 }, { x: to, duration: 0.55, ease: "power3.inOut" }, t + 0.5);
-    tw(kn, { scale: 1 }, { scale: 1.25, duration: 0.15, ease: "power2.out" }, t + 1.05);
-    tw(kn, { scale: 1.25 }, { scale: 1, duration: 0.25, ease: "power2.in" }, t + 1.2);
+  // B1 "היעד הוא מינוס 14 LUFS": the target readout (punch-in) and the target line on the meter
+  const b1 = P[1], ro = q(".s25-ro"), ring = q(".s25-ring circle");
+  tl.fromTo(phone, { opacity: 1, x: 0 }, A({ opacity: 0, x: -40, duration: 0.3, ease: "power2.in" }), T(b1));
+  tl.fromTo(ro, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), T(b1 + 0.2));
+  tl.fromTo(ro, { scale: 0.7 }, A({ scale: 1, duration: 0.7, ease: E.SPRING }), T(b1 + 0.2));
+  E.draw(tl, ring, T(b1 + 0.3), 0.8);
+  tl.fromTo(q(".s25-ro b"), { filter: "blur(10px)" }, A({ filter: "blur(0px)", duration: 0.35, ease: "power2.out" }), T(b1 + 0.2));
+  tl.set(q(".s25-ro b"), { filter: "none" }, T(b1 + 0.56));
+  E.burst(tl, ro, 200, 160, T(b1 + 0.4), { n: 14, seed: 25, r0: 120, r1: 175, color: "#c9c2ff" });
+  const tline = q(".s25-tline"), ttag = q(".s25-ttag");
+  tl.fromTo(tline, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.5, ease: "power2.out" }), T(b1 + 0.35));
+  popIn(ttag, T(b1 + 0.5), 8);
+  level(-14, T(b1 + 0.4), 0.9);
+
+  // B2 "היחידה שמודדת כמה חזק משהו נשמע לאוזן": the readout steps up, sound reaches an ear, the unit glows
+  const b2 = P[2], earw = q(".s25-earw");
+  tl.fromTo(ro, { y: 0, scale: 1 }, A({ y: -150, scale: 0.55, duration: 0.65, ease: E.SPRING }), T(b2));
+  tl.fromTo(earw, { opacity: 0, x: 24 }, A({ opacity: 1, x: 0, duration: 0.55, ease: E.SPRING }), T(b2 + 0.2));
+  E.qa(".s25-ear path", earw).forEach((p, i) => E.draw(tl, p, T(b2 + 0.25 + i * 0.12), 0.6));
+  const arcs = qa(".s25-arc");
+  [0, 0.55].forEach((w) => arcs.forEach((a, i) => {
+    const t = T(b2 + 0.55 + w + i * 0.12);
+    tl.fromTo(a, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), t);
+    tl.fromTo(a, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power2.in" }), t + 0.2);
+  }));
+  const mt = q(".s25-mtitle");
+  tl.fromTo(mt, { textShadow: "0 0 0px rgba(201, 194, 255, 0)", color: "#ece9f7" }, A({ textShadow: "0 0 18px rgba(201, 194, 255, 1)", color: "#ffffff", duration: 0.35 }), T(b2 + 0.7));
+  tl.fromTo(mt, { textShadow: "0 0 18px rgba(201, 194, 255, 1)", color: "#ffffff" }, A({ textShadow: "0 0 0px rgba(201, 194, 255, 0)", color: "#ece9f7", duration: 0.6 }), T(b2 + 1.6));
+
+  // B3 "קלוד מודד, מכוון ומודד שוב": pass 1 measures, pass 2 (linear) levels it, a second measurement confirms
+  const b3 = P[3], gp = q(".s25-gp"), p1 = q(".s25-p1"), p2 = q(".s25-p2"), scan = q(".s25-gscan");
+  out(ro, T(b3 - 0.05), 0.25);
+  out(earw, T(b3 - 0.05), 0.25);
+  tl.fromTo(gp, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b3 + 0.05));
+  popIn(p1, T(b3 + 0.12), 8, 0.45);
+  qa(".s25-gl").forEach((l, i) => tl.fromTo(l, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.45, ease: "power2.out" }), T(b3 + 0.15 + i * 0.05)));
+  const cline = q(".s25-cline"), ctag = q(".s25-ctag");
+  tl.fromTo(cline, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.45, ease: "power2.out" }), T(b3 + 0.2));
+  popIn(ctag, T(b3 + 0.3), 6, 0.45);
+  const sx = scan.offsetLeft, span = sx - 6, dS = 0.5;
+  tl.fromTo(scan, { opacity: 0 }, A({ opacity: 1, duration: 0.08 }), T(b3 + 0.25));
+  tl.fromTo(scan, { x: 0 }, A({ x: -span, duration: dS, ease: "none" }), T(b3 + 0.25));
+  tl.fromTo(scan, { opacity: 1 }, A({ opacity: 0, duration: 0.08 }), T(b3 + 0.25 + dS - 0.06));
+  level(-19, T(b3 + 0.3), 0.45, "power2.inOut");
+  // pass 2: one linear gain; the spikes were limited first, so nothing crosses the ceiling
+  tl.fromTo(p1, { opacity: 1 }, A({ opacity: 0, duration: 0.12 }), T(b3 + 0.82));
+  popIn(p2, T(b3 + 0.85), 8, 0.45);
+  qa(".s25-gb").forEach((bar) => {
+    const b = +bar.dataset.b, a = +bar.dataset.a;
+    tl.fromTo(bar, { scaleY: 1 }, A({ scaleY: a / b, duration: 0.6, ease: E.SPRING }), T(b3 + 0.9));
+    const red = E.q("b", bar);
+    if (red) tl.fromTo(red, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(b3 + 0.9));
   });
+  level(-14, T(b3 + 0.95), 0.55);
+  // measure again
+  tl.fromTo(scan, { opacity: 0, x: 0 }, A({ opacity: 1, x: 0, duration: 0.06 }), T(b3 + 1.38));
+  tl.fromTo(scan, { x: 0 }, A({ x: -span, duration: 0.24, ease: "none" }), T(b3 + 1.4));
+  tl.fromTo(scan, { opacity: 1 }, A({ opacity: 0, duration: 0.06 }), T(b3 + 1.6));
+  const ok = q(".s25-ok");
+  tl.fromTo(ok, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.2)" }), T(b3 + 1.5));
+  E.draw(tl, q(".s25-ok path"), T(b3 + 1.55), 0.3);
+  out(p2, T(P[4] - 0.05), 0.2);
 
-  // payoff: the same critic, round after round; the middle rounds are dots (no numbers in the guide);
-  // the gauge passes 90 and lands on 96; then the stopping rule
-  qa(".s73-row").forEach((row) => E.fadeOut(tl, row, T(pe), 0.3, 10));
-  const line = q(".s73-line"), linef = q(".s73-linef"), nds = qa(".s73-nd");
-  tw(line, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, pe + 0.1);
-  nds.forEach((n, k) => pop(n, pe + 0.15 + k * 0.05, 0.4));
-  E.fadeIn(tl, q(".s73-slbl"), T(pe + 0.3), 0.4, 6);
-  const lit = (n, t) => tw(n, { boxShadow: "0 0 0 2px rgba(201, 194, 255, 0.7), 0 0 0px rgba(201, 194, 255, 0)", backgroundColor: "#2a2450" },
-    { boxShadow: "0 0 0 2px rgba(255, 255, 255, 1), 0 0 14px rgba(201, 194, 255, 0.9)", backgroundColor: "#c9c2ff", duration: 0.25 }, t);
-  lit(nds[0], pe + 0.45);
-  E.fadeIn(tl, q(".s73-sv1"), T(pe + 0.5), 0.4, 8);
-  E.fadeIn(tl, q(".s73-rublbl"), T(pe + 0.65), 0.4, 10);
-  qa(".s73-tag").forEach((g, i) => pop(g, pe + 0.75 + i * 0.08, 0.7));
-  // rounds 2..7
-  const r0 = pe + 1.55, step = 0.33, rEnd = r0 + 5 * step + 0.2;
-  for (let k = 1; k <= 6; k++) {
-    const t = r0 + (k - 1) * step;
-    tw(linef, { scaleX: (k - 1) / 6 }, { scaleX: k / 6, duration: 0.22, ease: "power2.out" }, t);
-    if (k < 6) {
-      tw(nds[k], { scale: 1 }, { scale: 1.7, duration: 0.15, ease: "power2.out" }, t + 0.12);
-      tw(nds[k], { scale: 1.7 }, { scale: 1, duration: 0.2, ease: "power2.in" }, t + 0.27);
-    } else {
-      lit(nds[6], t + 0.12);
-    }
-    tw(cr, { scale: 1 }, { scale: 1.06, duration: 0.12, ease: "power2.out" }, t + 0.05);
-    tw(cr, { scale: 1.06 }, { scale: 1, duration: 0.18, ease: "power2.in" }, t + 0.17);
-  }
-  tw(n1, { opacity: 1 }, { opacity: 0, duration: 0.25 }, r0);
-  const f68 = +(L * (1 - c.scoreFrom / 100)).toFixed(1), f96 = +(L * (1 - c.scoreTo / 100)).toFixed(1);
-  tw(fill, { strokeDashoffset: f68 }, { strokeDashoffset: f96, duration: rEnd - r0, ease: "power1.inOut" }, r0);
-  // the gauge passes the target: its tick and label light up, a check mark
-  const tPass = r0 + (rEnd - r0) * 0.72;
-  tw(q(".s73-tk" + c.target), { stroke: "rgba(236, 233, 255, 0.85)" }, { stroke: "#ffffff", duration: 0.2 }, tPass);
-  tw(q(".s73-tl" + c.target), { color: "#b8b4cc", scale: 1 }, { color: "#ffffff", scale: 1.2, duration: 0.3, ease: "back.out(2)" }, tPass);
-  const pass = q(".s73-pass");
-  pop(pass, tPass + 0.05, 0.5);
-  E.draw(tl, q(".s73-pass path"), T(tPass + 0.1), 0.25);
-  pop(n2, rEnd - 0.05, 0.6);
-  E.fadeIn(tl, q(".s73-sv7"), T(rEnd), 0.4, 8);
-  E.burst(tl, q(".s73-gauge"), 21, 151, T(rEnd), { n: 14, seed: 73, r0: 26, r1: 70, color: "#c9c2ff" });
-  // the stopping rule
-  const rule = q(".s73-rulecard");
-  tw(rule, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }, pe + 4.1);
-  qa(".s73-stop path").forEach((p, i) => E.draw(tl, p, T(pe + 4.25 + i * 0.2), 0.35));
-  sweep(rule, pe + 4.6, 0.9, "rgba(201, 194, 255, 0.2)");
+  // B4 "ובדרך מנקה את הבס מהאפקטים הקוליים": a highpass at 200Hz takes the bass out of the effects
+  const b4 = P[4], sp = q(".s25-sp");
+  E.dim(tl, gp, T(b4 + 0.02), 0.4, 1, 0.35);
+  tl.fromTo(sp, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b4 + 0.05));
+  const sbs = qa(".s25-sb");
+  sbs.forEach((b, i) => tl.fromTo(b, { scaleY: 0 }, A({ scaleY: 1, duration: 0.45, ease: E.SPRING }), T(b4 + 0.1 + i * 0.015)));
+  E.draw(tl, q(".s25-hp path"), T(b4 + 0.55), 0.55);
+  tl.fromTo(q(".s25-cut"), { opacity: 1, scaleY: 0 }, A({ opacity: 1, scaleY: 1, duration: 0.35, ease: "power2.out" }), T(b4 + 0.7));
+  popIn(q(".s25-hpt"), T(b4 + 0.75), 8);
+  qa(".s25-low").forEach((b, i) => tl.fromTo(b, { scaleY: 1 }, A({ scaleY: 0.06, duration: 0.5, ease: "power2.inOut" }), T(b4 + 0.85 + i * 0.03)));
+  E.burst(tl, sp, q(".s25-cut").offsetLeft, 600, T(b4 + 0.9), { n: 10, seed: 26, r0: 24, r1: 62, color: "#c9c2ff" });
+  popIn(q(".s25-nb"), T(b4 + 1.05), 8);
+
+  // payoff: three channels at the target; a playhead runs through the mix, the meter holds -14
+  out(gp, T(pe + 0.05), 0.3);
+  tl.fromTo(gp, { opacity: 0.4 }, A({ opacity: 0, duration: 0.3 }), T(pe + 0.05));
+  out(sp, T(pe + 0.05), 0.3);
+  const lanes = q(".s25-lanes");
+  tl.fromTo(lanes, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), T(pe + 0.35));
+  qa(".s25-lane").forEach((ln, i) => {
+    const t = T(pe + 0.4 + i * 0.18);
+    popIn(E.q(".s25-lh", ln), t, 8);
+    tl.fromTo(E.q(".s25-lwv", ln), { clipPath: "inset(0px 0px 0px 100%)" }, A({ clipPath: "inset(0px 0px 0px 0%)", duration: 0.7, ease: "power2.inOut" }), t + 0.05);
+  });
+  popIn(q(".s25-duck"), T(pe + 1.25), 6);
+  const ph = q(".s25-ph"), dP = 1.6, tP = T(pe + 1.55);
+  tl.fromTo(ph, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), tP);
+  tl.fromTo(ph, { x: 0 }, A({ x: -562, duration: dP, ease: "none" }), tP);
+  tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), tP + dP - 0.1);
+  level(-13.2, tP + 0.1, 0.35, "power1.inOut");
+  level(-14.6, tP + 0.5, 0.4, "power1.inOut");
+  level(-13.6, tP + 0.95, 0.35, "power1.inOut");
+  level(-14, tP + 1.35, 0.4, "power1.inOut");
+  tl.fromTo(ok, { scale: 1 }, A({ scale: 1.25, duration: 0.2, ease: "power2.out" }), tP + dP + 0.05);
+  tl.fromTo(ok, { scale: 1.25 }, A({ scale: 1, duration: 0.4, ease: "power2.inOut" }), tP + dP + 0.25);
+  E.sweep(tl, q(".s25-meter"), tP + dP + 0.1, 0.8, { color: "rgba(201, 194, 255, 0.22)" });
 };
 
 
 (function () {
-  const CFGS = [{"id": "t73", "sim": "sim73", "D": 32.06, "tStage": 1.18, "tExp": 1.78, "phr": [1.78, 4.48, 6.08, 9.03, 11.73], "phrEnd": 14.43, "tSimEnd": 21.43, "tFact": 21.43, "tPrompt": 26.11, "tPromptEnd": 31.61, "tTip": null, "expZoom": 0.1, "simDur": 20.25, "hls": [{"id": "hl1", "hold": 2.2, "zoom": 0.1}], "sim73": {"builderName": "קלוד", "criticLabel": "מבקר עצמאי", "reqLabel": "הבקשה", "explLabel": "ההסברים", "scoreFrom": 68, "scoreTo": 96, "target": 90, "stopAt": 70, "rounds": 7, "roundsLabel": "סבבים", "rubricLabel": "מחוון", "rubric": ["ביצוע", "גימור", "תנועה", "טקסט ועברית", "התאמה לסגנון", "היגיון פיזי"], "rule": ["אחרי שני סבבים עדיין מתחת ל-70?", "עוצרים ומביאים את הפער."]}, "S": 0.0}];
+  const CFGS = [{"id": "t25", "sim": "sim25", "D": 34.47, "tStage": 1.38, "tExp": 1.98, "phr": [1.98, 4.43, 6.38, 8.58, 10.28], "phrEnd": 12.23, "tSimEnd": 17.73, "tFact": 17.73, "tPrompt": 22.17, "tPromptEnd": 30.25, "tTip": 30.25, "expZoom": 0.1, "simDur": 16.35, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim25": {"loudTag": "צועק", "quietTag": "כמעט לוחש", "burnTag": "נשרף", "meterTitle": "LUFS", "target": "-14", "ceil": "-1", "pass1": "מעבר 1: מדידה", "pass2": "מעבר 2: linear", "sfxTitle": "אפקטים", "hp": "highpass 200Hz", "noBass": "בלי בס", "lanes": ["דיבור", "מוזיקה", "אפקטים"], "musicRel": "9 עד 13 dB מתחת לדיבור", "sfxRel": "בלי בס", "duckTag": "יורדת עוד 2 עד 4 dB"}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1207,7 +1181,7 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 32.060;
+    const TOT = 34.470;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);
