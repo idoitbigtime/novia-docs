@@ -69,7 +69,7 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
   // B3 "it gets the request and frames from every scene, without the explanations": into the tray they go;
   // the explanations hit the divider and are refused
   const doc = q(".s73-doc");
-  tw(doc, { x: 530, y: -5, scale: 0.8, rotation: -8, opacity: 0 }, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, duration: 0.85, ease: E.SPRING }, b3 + 0.1);
+  tw(doc, { x: 536, y: -5, scale: 0.8, rotation: -8, opacity: 0 }, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, duration: 0.85, ease: E.SPRING }, b3 + 0.1);
   const vc = E.center(vid, wrap);
   qa(".s73-in").forEach((th, i) => {
     const o = E.center(th, wrap);
@@ -91,11 +91,14 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
   E.fadeOut(tl, q(".s73-builder"), T(b4), 0.2, 0);
   tw(q(".s73-div"), { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4);
   [q(".s73-tray"), doc].concat(qa(".s73-in")).forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4));
-  const fill = q(".s73-fill"), L = Math.ceil(fill.getTotalLength()) + 2;
-  fill.style.strokeDasharray = L + " " + L;
-  fill.style.strokeDashoffset = L;
+  // the fill shows v% of the arc at offset L - v * len; hidden, its dash ends 12 px before the arc starts,
+  // so its round cap never leaves a dot there (same as E.draw)
+  const fill = q(".s73-fill"), len = fill.getTotalLength(), L = Math.ceil(len) + 2, pad = 12;
+  fill.style.strokeDasharray = L + " " + (L + 2 * pad);
+  fill.style.strokeDashoffset = L + pad;
+  const off = (v) => +(L - (len * v) / 100).toFixed(1);
   E.draw(tl, q(".s73-track"), T(b4 + 0.2), 0.5);
-  tw(fill, { strokeDashoffset: L }, { strokeDashoffset: +(L * (1 - c.scoreFrom / 100)).toFixed(1), duration: 0.8, ease: "power2.out" }, b4 + 0.4);
+  tw(fill, { strokeDashoffset: L + pad }, { strokeDashoffset: off(c.scoreFrom), duration: 0.8, ease: "power2.out" }, b4 + 0.4);
   qa(".s73-tk").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.5));
   qa(".s73-tl").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.55));
   const n1 = q(".s73-n1"), n2 = q(".s73-n2");
@@ -140,8 +143,7 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
     tw(cr, { scale: 1.06 }, { scale: 1, duration: 0.18, ease: "power2.in" }, t + 0.17);
   }
   tw(n1, { opacity: 1 }, { opacity: 0, duration: 0.25 }, r0);
-  const f68 = +(L * (1 - c.scoreFrom / 100)).toFixed(1), f96 = +(L * (1 - c.scoreTo / 100)).toFixed(1);
-  tw(fill, { strokeDashoffset: f68 }, { strokeDashoffset: f96, duration: rEnd - r0, ease: "power1.inOut" }, r0);
+  tw(fill, { strokeDashoffset: off(c.scoreFrom) }, { strokeDashoffset: off(c.scoreTo), duration: rEnd - r0, ease: "power1.inOut" }, r0);
   // the gauge passes the target: its tick and label light up, a check mark
   const tPass = r0 + (rEnd - r0) * 0.72;
   tw(q(".s73-tk" + c.target), { stroke: "rgba(236, 233, 255, 0.85)" }, { stroke: "#ffffff", duration: 0.2 }, tPass);

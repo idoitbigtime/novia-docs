@@ -97,8 +97,9 @@ window.SIMS.sim42 = function (tl, ctx, cfg, S) {
     const L = Math.ceil(rf[i].getTotalLength());
     rf[i].style.strokeDasharray = "16 " + (L + 40);
     tl.fromTo(rf[i], { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(b3 + 0.72 + i * 0.05));
-    tl.fromTo(rf[i], { strokeDashoffset: 16 }, A({ strokeDashoffset: -L, duration: 0.45, ease: "power1.in" }), T(b3 + 0.72 + i * 0.05));
-    tl.fromTo(rf[i], { strokeDashoffset: 16 }, A({ strokeDashoffset: -L, duration: 0.45, ease: "power1.in" }), T(b3 + 1.24 + i * 0.05));
+    // two passes; the dash pattern repeats every L + 56, so the second pass simply continues from the first
+    tl.fromTo(rf[i], { strokeDashoffset: 16 }, A({ strokeDashoffset: -(L + 40), duration: 0.5, ease: "power1.in" }), T(b3 + 0.72 + i * 0.05));
+    tl.fromTo(rf[i], { strokeDashoffset: -(L + 40) }, A({ strokeDashoffset: -(2 * L + 96), duration: 0.5, ease: "power1.in" }), T(b3 + 1.24 + i * 0.05));
     tl.fromTo(rf[i], { opacity: 1 }, A({ opacity: 0, duration: 0.1 }), T(b3 + 1.62 + i * 0.05));
   });
   // the model works through the frame (a scan line), then the frame plays

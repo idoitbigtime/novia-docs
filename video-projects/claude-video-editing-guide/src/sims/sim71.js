@@ -83,7 +83,7 @@ window.SIMS.sim71 = function (tl, ctx, cfg, S) {
   // B2 "every round of fixes stays in the low resolution": draft -> fix -> draft; each fix enlarges the caption,
   // each draft re-renders the same small frame
   E.fadeOut(tl, q(".s71-b1"), T(b2), 0.3, -10);
-  tw(dok, { opacity: 1 }, { opacity: 0, duration: 0.25 }, b2);
+  tw(dok, { opacity: 1 }, { opacity: 0, duration: 0.25 }, b2 + 0.35);
   const loop = q(".s71-loop"), nd = q(".s71-nd"), nf = q(".s71-nf"), arm = q(".s71-arm");
   tw(loop, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b2 + 0.15);
   pop(nd, b2 + 0.18, 0.8);
@@ -154,7 +154,7 @@ window.SIMS.sim71 = function (tl, ctx, cfg, S) {
   const rok = q(".s71-rok");
   pop(rok, r0 + dDraft, 0.5);
   E.draw(tl, q(".s71-rok path"), T(r0 + dDraft + 0.05), 0.3);
-  E.burst(tl, q(".s71-race"), rok.offsetLeft + 22, rok.offsetTop + 22, T(r0 + dDraft + 0.03), { n: 10, seed: 17, r0: 26, r1: 60, color: "#c9c2ff" });
+  E.burst(tl, q(".s71-race"), rok.offsetLeft + 22, rok.offsetTop + 22, T(r0 + dDraft + 0.03), { n: 10, seed: 17, r0: 24, r1: 46, color: "#c9c2ff" });
   const snap = q(".s71-snap");
   tw(snap, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }, pe + 2.25);
   E.sweep(tl, snap, T(pe + 2.8), 0.9, { color: "rgba(201, 194, 255, 0.2)" });

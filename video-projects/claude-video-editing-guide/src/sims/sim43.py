@@ -108,6 +108,7 @@ def html(cfg):
 
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
-    return [("tick", P[0] + 0.05), ("whoosh_soft", P[0] + 0.95), ("shimmer", P[1] + 1.0),
-            ("snap", P[2] + 0.12), ("glitch_soft", P[2] + 2.4), ("glitch_soft", P[3] + 1.45),
-            ("pop", P[3] + 1.95), ("swipe", pe + 0.35)]
+    # one per beat: the words fly into the table, the columns fill, the hole is found, the similar clip is
+    # rejected; payoff: the first rule arrives
+    return [("whoosh_soft", P[0] + 0.95), ("shimmer", P[1] + 1.0), ("glitch_soft", P[2] + 2.4),
+            ("glitch_soft", P[3] + 1.45), ("swipe", pe + 0.35)]

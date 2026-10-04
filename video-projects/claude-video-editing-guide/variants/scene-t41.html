@@ -282,6 +282,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
 .accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
 .strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+.nbgrp { display: inline-block; white-space: nowrap; }
+.glu { display: inline-block; white-space: nowrap; }
 
 /* ---------- topic layout ---------- */
 .main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
@@ -349,12 +351,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .chap { position: absolute; inset: 0; }
 .ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
 .ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
-.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(255, 69, 58, 0.7); box-shadow: 0 0 30px rgba(255, 69, 58, 0.35), inset 0 0 30px rgba(255, 69, 58, 0.2); display: block; opacity: 0; }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
 .ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
-.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
+.ch-tin { display: inline-block; white-space: nowrap; }
 .ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
 .ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
-.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 30px/1.45 "Rubik"; color: var(--muted); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
 /* centred blocks wrap into even lines; paragraphs never end on a lone word */
 .ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
 .exp, .tip-text { text-wrap: pretty; }
@@ -504,13 +507,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="34.580" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="34.830" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t41" class="clip scene" data-start="0.000" data-duration="34.580" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 4 · בירולים</span><span class="hdr-num" dir="ltr">4.1</span></div>
+<div id="sc-t41" class="clip scene" data-start="0.000" data-duration="34.830" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 4 · בירולים</span><span class="hdr-num" dir="ltr">4.1</span></div>
 <div class="scam">
-<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">אנימציה</span> <span class="w" dir="rtl" data-t="0.430">על</span> <span class="w" dir="rtl" data-t="0.560">רקע</span> <span class="w" dir="rtl" data-t="0.690">שקוף</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.520">לפעמים</span> <span class="w" dir="rtl" data-t="1.580">כל</span> <span class="w" dir="rtl" data-t="1.640">מה</span> <span class="w" dir="rtl" data-t="1.700">שהמשפט</span> <span class="w" dir="rtl" data-t="1.760">צריך</span> <span class="w" dir="rtl" data-t="1.820">זה</span> <span class="w" dir="rtl" data-t="1.880">מילה</span> <span class="w" dir="rtl" data-t="1.940">או</span> <span class="w" dir="rtl" data-t="2.000">אייקון</span> <span class="w" dir="rtl" data-t="2.060">שקופצים</span> <span class="w" dir="rtl" data-t="2.120">ליד</span> <span class="w" dir="rtl" data-t="2.180">הראש.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.620">קלוד</span> <span class="w" dir="rtl" data-t="4.680">מוציא</span> <span class="w" dir="rtl" data-t="4.740">אותם</span> <span class="w" dir="rtl" data-t="4.800">כקובץ</span> <span class="w" dir="rtl" data-t="4.860">MOV</span> <span class="accgrp" data-t="4.920"><span class="w s-str" dir="rtl" data-t="4.920">שקוף</span><i class="ul" data-t="5.100"></i></span> <span class="w" dir="rtl" data-t="4.980">שמניחים</span> <span class="w" dir="rtl" data-t="5.040">מעל</span> <span class="w" dir="rtl" data-t="5.100">הסרטון,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="7.320">וגם</span> <span class="w" dir="rtl" data-t="7.380">כ-MP4</span> <span class="w" dir="rtl" data-t="7.440">על</span> <span class="w" dir="rtl" data-t="7.500">צבע</span> <span class="w" dir="rtl" data-t="7.560">המותג,</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.020">למקרה</span> <span class="w" dir="rtl" data-t="9.080">שהתוכנה</span> <span class="w" dir="rtl" data-t="9.140">לא</span> <span class="w" dir="rtl" data-t="9.200">קוראת</span> <span class="w" dir="rtl" data-t="9.260">קובץ</span> <span class="w" dir="rtl" data-t="9.320">שקוף.</span></span></p></div>
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">אנימציה</span> <span class="w" dir="rtl" data-t="0.430">על</span> <span class="w" dir="rtl" data-t="0.560">רקע</span> <span class="w" dir="rtl" data-t="0.690">שקוף</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.520">לפעמים</span> <span class="w" dir="rtl" data-t="1.580">כל</span> <span class="w" dir="rtl" data-t="1.640">מה</span> <span class="w" dir="rtl" data-t="1.700">שהמשפט</span> <span class="w" dir="rtl" data-t="1.760">צריך</span> <span class="w" dir="rtl" data-t="1.820">זה</span> <span class="w" dir="rtl" data-t="1.880">מילה</span> <span class="w" dir="rtl" data-t="1.940">או</span> <span class="w" dir="rtl" data-t="2.000">אייקון</span> <span class="w" dir="rtl" data-t="2.060">שקופצים</span> <span class="w" dir="rtl" data-t="2.120">ליד</span> <span class="w" dir="rtl" data-t="2.180">הראש.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.620">קלוד</span> <span class="w" dir="rtl" data-t="4.680">מוציא</span> <span class="w" dir="rtl" data-t="4.740">אותם</span> <span class="w" dir="rtl" data-t="4.800">כקובץ</span> <span class="w" dir="rtl" data-t="4.860">MOV</span> <span class="accgrp" data-t="4.920"><span class="w s-str" dir="rtl" data-t="4.920">שקוף</span><i class="ul" data-t="5.100"></i></span> <span class="w" dir="rtl" data-t="4.980">שמניחים</span> <span class="w" dir="rtl" data-t="5.040">מעל</span> <span class="w" dir="rtl" data-t="5.100">הסרטון,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="7.320">וגם</span> <span class="glu"><span class="w" dir="rtl" data-t="7.380">כ-</span><span class="w" dir="rtl" data-t="7.380">MP4</span></span> <span class="w" dir="rtl" data-t="7.500">על</span> <span class="w" dir="rtl" data-t="7.560">צבע</span> <span class="w" dir="rtl" data-t="7.620">המותג,</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.270">למקרה</span> <span class="w" dir="rtl" data-t="9.330">שהתוכנה</span> <span class="w" dir="rtl" data-t="9.390">לא</span> <span class="w" dir="rtl" data-t="9.450">קוראת</span> <span class="w" dir="rtl" data-t="9.510">קובץ</span> <span class="w" dir="rtl" data-t="9.570">שקוף.</span></span></p></div>
 <div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim41">
 <div class="s41-persp"><div class="s41-stack">
 <div class="s41-base">
@@ -575,7 +578,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="s41-gl s41-gl2" dir="rtl">השקיפות עובדת</div>
 </div>
 </div></div></div></div>
-<div class="factbox"><span class="pill">אטימות 85–90 אחוז</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="16.420">שקיפות</span> <span class="w" dir="rtl" data-t="16.540">של</span> <span class="w" dir="rtl" data-t="16.660">50</span> <span class="w" dir="rtl" data-t="16.780">עד</span> <span class="w" dir="rtl" data-t="16.900">70</span> <span class="w" dir="rtl" data-t="17.020">אחוז</span> <span class="w" dir="rtl" data-t="17.140">נראית</span> <span class="w" dir="rtl" data-t="17.260">דהויה</span> <span class="w" dir="rtl" data-t="17.380">על</span> <span class="w" dir="rtl" data-t="17.500">וידאו</span> <span class="w" dir="rtl" data-t="17.620">אמיתי.</span></p></div>
+<div class="factbox"><span class="pill">אטימות 85–90 אחוז</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="16.670">שקיפות</span> <span class="w" dir="rtl" data-t="16.790">של</span> <span class="w" dir="rtl" data-t="16.910">50</span> <span class="w" dir="rtl" data-t="17.030">עד</span> <span class="w" dir="rtl" data-t="17.150">70</span> <span class="w" dir="rtl" data-t="17.270">אחוז</span> <span class="w" dir="rtl" data-t="17.390">נראית</span> <span class="w" dir="rtl" data-t="17.510">דהויה</span> <span class="w" dir="rtl" data-t="17.630">על</span> <span class="w" dir="rtl" data-t="17.750">וידאו</span> <span class="w" dir="rtl" data-t="17.870">אמיתי.</span></p></div>
 <div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>14</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">ההוראות כאן מחליפות את ראיון הפתיחה של HyperFrames, אז אל תריץ אותו.</div>
 <div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
 <div class="pl" dir="rtl">תשאל אותי על ארבעה דברים:</div>
@@ -614,7 +617,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl ptag" dir="rtl" data-sec="התחלה">&lt;התחלה&gt;</div>
 <div class="pl" dir="rtl">תשאל אותי על הקלט, ולפני שאתה מרנדר תצלם פריים מכל שלב של האנימציה עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">snapshot</span> <span class="tk">--at &lt;זמנים&gt;</span> <span class="tk">--no-end</span><span class="bt">`</span></span>ותראה לי אותם מונחים מעל צבע מלא.</div>
 <div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>המשטחים כמעט אטומים, 85 עד 90 אחוז, כי שקיפות של 50 עד 70 אחוז נראית דהויה על וידאו אמיתי.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>טקסט עם גרדיאנט בתוך האותיות יוצא שקוף לגמרי ברינדור, ולכן משתמשים בצבע מלא עם זוהר מאחורי האותיות.</div></div>
-<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="29.160">לפני</span> <span class="w" dir="rtl" data-t="29.320">שמכניסים</span> <span class="w" dir="rtl" data-t="29.480">לתוכנת</span> <span class="w" dir="rtl" data-t="29.640">העריכה,</span> <span class="w" dir="rtl" data-t="29.800">מבקשים</span> <span class="w" dir="rtl" data-t="29.960">לראות</span> <span class="w" dir="rtl" data-t="30.120">את</span> <span class="w" dir="rtl" data-t="30.280">הקובץ</span> <span class="w" dir="rtl" data-t="30.440">מעל</span> <span class="w" dir="rtl" data-t="30.600">ירוק</span> <span class="w" dir="rtl" data-t="30.760">מלא.</span> <span class="w" dir="rtl" data-t="31.170">קובץ</span> <span class="w" dir="rtl" data-t="31.330">שקוף</span> <span class="w" dir="rtl" data-t="31.490">אחד</span> <span class="w" dir="rtl" data-t="31.650">יצא</span> <span class="w" dir="rtl" data-t="31.810">בלי</span> <span class="w" dir="rtl" data-t="31.970">שקיפות,</span> <span class="w" dir="rtl" data-t="32.130">ורק</span> <span class="w" dir="rtl" data-t="32.290">הירוק</span> <span class="w" dir="rtl" data-t="32.450">תפס</span> <span class="w" dir="rtl" data-t="32.610">את</span> <span class="w" dir="rtl" data-t="32.770">זה.</span></p></div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="29.410">לפני</span> <span class="w" dir="rtl" data-t="29.570">שמכניסים</span> <span class="w" dir="rtl" data-t="29.730">לתוכנת</span> <span class="w" dir="rtl" data-t="29.890">העריכה,</span> <span class="w" dir="rtl" data-t="30.050">מבקשים</span> <span class="w" dir="rtl" data-t="30.210">לראות</span> <span class="w" dir="rtl" data-t="30.370">את</span> <span class="w" dir="rtl" data-t="30.530">הקובץ</span> <span class="w" dir="rtl" data-t="30.690">מעל</span> <span class="w" dir="rtl" data-t="30.850">ירוק</span> <span class="w" dir="rtl" data-t="31.010">מלא.</span> <span class="w" dir="rtl" data-t="31.420">קובץ</span> <span class="w" dir="rtl" data-t="31.580">שקוף</span> <span class="w" dir="rtl" data-t="31.740">אחד</span> <span class="w" dir="rtl" data-t="31.900">יצא</span> <span class="w" dir="rtl" data-t="32.060">בלי</span> <span class="w" dir="rtl" data-t="32.220">שקיפות,</span> <span class="w" dir="rtl" data-t="32.380">ורק</span> <span class="w" dir="rtl" data-t="32.540">הירוק</span> <span class="w" dir="rtl" data-t="32.700">תפס</span> <span class="w" dir="rtl" data-t="32.860">את</span> <span class="w" dir="rtl" data-t="33.020">זה.</span></p></div></div>
 </div></div>
 </div>
 </div>
@@ -754,10 +757,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
   E.draw = function (tl, el, t, d, ease) {
     if (!el) return;
-    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2;
-    el.style.strokeDasharray = L + " " + L;
-    el.style.strokeDashoffset = L;
-    tl.fromTo(el, { strokeDashoffset: L }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+    // the hidden dash ends before the path starts, so a round cap never leaves a dot there
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2, pad = 12;
+    el.style.strokeDasharray = L + " " + (L + 2 * pad);
+    el.style.strokeDashoffset = L + pad;
+    tl.fromTo(el, { strokeDashoffset: L + pad }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
   };
   /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
   E.glitch = function (tl, el, t, amp) {
@@ -1057,13 +1061,21 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   E.chapter = function (tl, ctx, cfg) {
     const S = cfg.S, sc = ctx.scene;
     const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // static layout: the title is one line no wider than 760 px; the divider and texts flow under it
+    const tt = E.q(".ch-title", sc), tin = E.q(".ch-tin", sc);
+    if (tin && tin.offsetWidth > 760) tt.style.fontSize = (78 * 760 / tin.offsetWidth).toFixed(1) + "px";
+    const tBot = tt.offsetTop + tt.offsetHeight;
+    line.style.top = tBot + 30 + "px";
+    const sub = E.q(".ch-sub", sc), tag = E.q(".ch-tag", sc);
+    if (sub) sub.style.top = tBot + 66 + "px";
+    if (tag && sub) tag.style.top = tBot + 66 + sub.offsetHeight + 34 + "px";
     // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
     E.band(tl, sc, S);
     tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
     E.qa(".ch-ring", sc).forEach((r, i) => {
       tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
     });
-    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ff8a80" });
+    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ffffff" });
     tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
     tl.set(n, { filter: "none" }, S + 0.58);
     E.fadeIn(tl, k, S + 0.25, 0.5, 14);
@@ -1236,7 +1248,7 @@ window.SIMS.sim41 = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"id": "t41", "sim": "sim41", "D": 34.58, "tStage": 0.92, "tExp": 1.52, "phr": [1.52, 4.62, 7.32, 9.02], "phrEnd": 10.97, "tSimEnd": 15.97, "tFact": 15.97, "tPrompt": 20.14, "tPromptEnd": 28.76, "tTip": 28.76, "expZoom": 0.1, "simDur": 15.05, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim41": {"sentence": "המשפט", "cards": ["פרומפט", "סקילים"], "mov": "clip.mov", "movFmt": "ProRes 4444", "mp4": "clip-brand.mp4", "editor": "תוכנת העריכה", "green": ["הרקע נשאר ירוק:", "השקיפות עובדת"], "greenHex": "0x1E7A46"}, "S": 0.0}];
+  const CFGS = [{"id": "t41", "sim": "sim41", "D": 34.83, "tStage": 0.92, "tExp": 1.52, "phr": [1.52, 4.62, 7.32, 9.27], "phrEnd": 11.22, "tSimEnd": 16.22, "tFact": 16.22, "tPrompt": 20.39, "tPromptEnd": 29.01, "tTip": 29.01, "expZoom": 0.1, "simDur": 15.3, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim41": {"sentence": "המשפט", "cards": ["פרומפט", "סקילים"], "mov": "clip.mov", "movFmt": "ProRes 4444", "mp4": "clip-brand.mp4", "editor": "תוכנת העריכה", "green": ["הרקע נשאר ירוק:", "השקיפות עובדת"], "greenHex": "0x1E7A46"}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1250,7 +1262,7 @@ window.SIMS.sim41 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 34.580;
+    const TOT = 34.830;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

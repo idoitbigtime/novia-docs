@@ -282,6 +282,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
 .accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
 .strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+.nbgrp { display: inline-block; white-space: nowrap; }
+.glu { display: inline-block; white-space: nowrap; }
 
 /* ---------- topic layout ---------- */
 .main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
@@ -349,12 +351,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .chap { position: absolute; inset: 0; }
 .ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
 .ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
-.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(255, 69, 58, 0.7); box-shadow: 0 0 30px rgba(255, 69, 58, 0.35), inset 0 0 30px rgba(255, 69, 58, 0.2); display: block; opacity: 0; }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
 .ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
-.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
+.ch-tin { display: inline-block; white-space: nowrap; }
 .ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
 .ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
-.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 30px/1.45 "Rubik"; color: var(--muted); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
 /* centred blocks wrap into even lines; paragraphs never end on a lone word */
 .ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
 .exp, .tip-text { text-wrap: pretty; }
@@ -467,10 +470,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 /* payoff: the caught frame, grown, with its label */
 .sim72 .s72-big { left: 560px; top: 30px; width: 186px; height: 331px; border-radius: 16px; transform-origin: 0 0; opacity: 0; box-shadow: 0 0 0 3px #ff453a, 0 0 26px rgba(255, 69, 58, 0.45); }
 .sim72 .s72-big > .s72-ph { position: absolute; left: 0; top: 0; width: 186px; height: 331px; overflow: visible; opacity: 0; }
-.sim72 .s72-ph rect { fill: rgba(255, 69, 58, 0.08); stroke: #ff6b61; stroke-width: 2.5; stroke-dasharray: 7 6; }
+.sim72 .s72-ph rect { fill: rgba(255, 255, 255, 0.05); stroke: rgba(236, 233, 255, 0.75); stroke-width: 2.5; stroke-dasharray: 7 6; }
 .sim72 .s72-catch { position: absolute; right: 262px; top: 118px; width: 440px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; direction: rtl; }
 .sim72 .s72-ct1 { display: flex; align-items: center; gap: 14px; font: 700 38px/1.1 "Rubik"; color: #ffffff; white-space: nowrap; opacity: 0; }
-.sim72 .s72-ct1 i { width: 16px; height: 16px; border-radius: 50%; background: #ff453a; box-shadow: 0 0 12px rgba(255, 69, 58, 0.9); display: block; flex: none; }
+.sim72 .s72-ct1 i { width: 16px; height: 16px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.9); display: block; flex: none; }
 .sim72 .s72-ct2 { font: 500 33px/1.4 "Rubik"; color: #dcd9e6; width: 400px; margin-right: 30px; opacity: 0; }
 
 /* the check: a magnifier that looks at frames (persists) */
@@ -495,7 +498,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div id="cam">
 <div id="sc-t72" class="clip scene" data-start="0.000" data-duration="26.120" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 7 · חיסכון ברינדורים</span><span class="hdr-num" dir="ltr">7.2</span></div>
 <div class="scam">
-<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">בודקים</span> <span class="w" dir="rtl" data-t="0.430">פריימים,</span> <span class="w" dir="rtl" data-t="0.560">כי</span> <span class="w" dir="rtl" data-t="0.690">קלוד</span> <span class="w" dir="rtl" data-t="0.820">לא</span> <span class="w" dir="rtl" data-t="0.950">צופה</span> <span class="w" dir="rtl" data-t="1.080">בווידאו</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.910">קלוד</span> <span class="w" dir="rtl" data-t="1.970">בודק</span> <span class="w" dir="rtl" data-t="2.030">תמונות</span> <span class="w" dir="rtl" data-t="2.090">ולא</span> <span class="w" dir="rtl" data-t="2.150">צופה</span> <span class="w" dir="rtl" data-t="2.210">בסרטון.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.860">לכן</span> <span class="w" dir="rtl" data-t="3.920">אחרי</span> <span class="w" dir="rtl" data-t="3.980">כל</span> <span class="w" dir="rtl" data-t="4.040">רינדור</span> <span class="w" dir="rtl" data-t="4.100">הוא</span> <span class="w" dir="rtl" data-t="4.160">מוציא</span> <span class="w" dir="rtl" data-t="4.220">פריים</span> <span class="w" dir="rtl" data-t="4.280">בכל</span> <span class="w" dir="rtl" data-t="4.340">רגע</span> <span class="w" dir="rtl" data-t="4.400">חשוב</span> <span class="w" dir="rtl" data-t="4.460">ומסתכל</span> <span class="w" dir="rtl" data-t="4.520">עליו,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.960">וסביב</span> <span class="w" dir="rtl" data-t="7.020">כל</span> <span class="w" dir="rtl" data-t="7.080">מעבר</span> <span class="w" dir="rtl" data-t="7.140">פריים</span> <span class="accgrp" data-t="7.200"><span class="w s-str" dir="rtl" data-t="7.200">כל</span> <span class="w s-str" dir="rtl" data-t="7.260">עשירית</span> <span class="w s-str" dir="rtl" data-t="7.320">שנייה</span><i class="ul" data-t="7.380"></i></span><span class="w" dir="rtl" data-t="7.320">,</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.410">כדי</span> <span class="w" dir="rtl" data-t="9.470">לתפוס</span> <span class="w" dir="rtl" data-t="9.530">דברים</span> <span class="w" dir="rtl" data-t="9.590">שקופצים</span> <span class="w" dir="rtl" data-t="9.650">או</span> <span class="w" dir="rtl" data-t="9.710">קופאים.</span></span></p></div>
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">בודקים</span> <span class="w" dir="rtl" data-t="0.430">פריימים,</span> <span class="w" dir="rtl" data-t="0.560">כי</span> <span class="w" dir="rtl" data-t="0.690">קלוד</span> <span class="w" dir="rtl" data-t="0.820">לא</span> <span class="w" dir="rtl" data-t="0.950">צופה</span> <span class="w" dir="rtl" data-t="1.080">בווידאו</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.910">קלוד</span> <span class="w" dir="rtl" data-t="1.970">בודק</span> <span class="w" dir="rtl" data-t="2.030">תמונות</span> <span class="w" dir="rtl" data-t="2.090">ולא</span> <span class="w" dir="rtl" data-t="2.150">צופה</span> <span class="w" dir="rtl" data-t="2.210">בסרטון.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.860">לכן</span> <span class="w" dir="rtl" data-t="3.920">אחרי</span> <span class="w" dir="rtl" data-t="3.980">כל</span> <span class="w" dir="rtl" data-t="4.040">רינדור</span> <span class="w" dir="rtl" data-t="4.100">הוא</span> <span class="w" dir="rtl" data-t="4.160">מוציא</span> <span class="w" dir="rtl" data-t="4.220">פריים</span> <span class="w" dir="rtl" data-t="4.280">בכל</span> <span class="w" dir="rtl" data-t="4.340">רגע</span> <span class="w" dir="rtl" data-t="4.400">חשוב</span> <span class="w" dir="rtl" data-t="4.460">ומסתכל</span> <span class="w" dir="rtl" data-t="4.520">עליו,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.960">וסביב</span> <span class="w" dir="rtl" data-t="7.020">כל</span> <span class="w" dir="rtl" data-t="7.080">מעבר</span> <span class="w" dir="rtl" data-t="7.140">פריים</span> <span class="glu"><span class="accgrp" data-t="7.200"><span class="w s-str" dir="rtl" data-t="7.200">כל</span> <span class="w s-str" dir="rtl" data-t="7.260">עשירית</span> <span class="w s-str" dir="rtl" data-t="7.320">שנייה</span><i class="ul" data-t="7.380"></i></span><span class="w" dir="rtl" data-t="7.320">,</span></span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.410">כדי</span> <span class="w" dir="rtl" data-t="9.470">לתפוס</span> <span class="w" dir="rtl" data-t="9.530">דברים</span> <span class="w" dir="rtl" data-t="9.590">שקופצים</span> <span class="w" dir="rtl" data-t="9.650">או</span> <span class="w" dir="rtl" data-t="9.710">קופאים.</span></span></p></div>
 <div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim72">
 <div class="s72-b0"><div class="s72-fr sA s72-still s72-st0"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-ok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></i></div><div class="s72-fr sA s72-still s72-st1"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-ok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></i></div><div class="s72-fr sA s72-still s72-st2"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-ok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></i></div><div class="s72-fr sA s72-still s72-st3"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-ok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></i></div><div class="s72-fr sA s72-vid"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-prog"><b></b></i><i class="s72-play"><b></b></i><svg class="s72-no" viewBox="0 0 170 302" aria-hidden="true"><path d="M52 118 L118 184"/></svg></div></div>
 <div class="s72-strip"><div class="s72-holes s72-ht"><i style="left:12px"></i><i style="left:42px"></i><i style="left:72px"></i><i style="left:102px"></i><i style="left:132px"></i><i style="left:162px"></i><i style="left:192px"></i><i style="left:222px"></i><i style="left:252px"></i><i style="left:282px"></i><i style="left:312px"></i><i style="left:342px"></i><i style="left:372px"></i><i style="left:402px"></i><i style="left:432px"></i><i style="left:462px"></i><i style="left:492px"></i><i style="left:522px"></i><i style="left:552px"></i><i style="left:582px"></i><i style="left:612px"></i><i style="left:642px"></i><i style="left:672px"></i><i style="left:702px"></i><i style="left:732px"></i></div><div class="s72-holes s72-hb"><i style="left:12px"></i><i style="left:42px"></i><i style="left:72px"></i><i style="left:102px"></i><i style="left:132px"></i><i style="left:162px"></i><i style="left:192px"></i><i style="left:222px"></i><i style="left:252px"></i><i style="left:282px"></i><i style="left:312px"></i><i style="left:342px"></i><i style="left:372px"></i><i style="left:402px"></i><i style="left:432px"></i><i style="left:462px"></i><i style="left:492px"></i><i style="left:522px"></i><i style="left:552px"></i><i style="left:582px"></i><i style="left:612px"></i><i style="left:642px"></i><i style="left:672px"></i><i style="left:702px"></i><i style="left:732px"></i></div><div class="s72-fr sA notitle s72-sf" style="left:676px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA s72-sf" style="left:584px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA s72-sf" style="left:492px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA fxon s72-sf" style="left:400px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA s72-sf" style="left:308px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA s72-sf" style="left:216px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sB s72-sf" style="left:124px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sB s72-sf" style="left:32px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div></div><i class="s72-edge"></i>
@@ -664,10 +667,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
   E.draw = function (tl, el, t, d, ease) {
     if (!el) return;
-    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2;
-    el.style.strokeDasharray = L + " " + L;
-    el.style.strokeDashoffset = L;
-    tl.fromTo(el, { strokeDashoffset: L }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+    // the hidden dash ends before the path starts, so a round cap never leaves a dot there
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2, pad = 12;
+    el.style.strokeDasharray = L + " " + (L + 2 * pad);
+    el.style.strokeDashoffset = L + pad;
+    tl.fromTo(el, { strokeDashoffset: L + pad }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
   };
   /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
   E.glitch = function (tl, el, t, amp) {
@@ -967,13 +971,21 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   E.chapter = function (tl, ctx, cfg) {
     const S = cfg.S, sc = ctx.scene;
     const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // static layout: the title is one line no wider than 760 px; the divider and texts flow under it
+    const tt = E.q(".ch-title", sc), tin = E.q(".ch-tin", sc);
+    if (tin && tin.offsetWidth > 760) tt.style.fontSize = (78 * 760 / tin.offsetWidth).toFixed(1) + "px";
+    const tBot = tt.offsetTop + tt.offsetHeight;
+    line.style.top = tBot + 30 + "px";
+    const sub = E.q(".ch-sub", sc), tag = E.q(".ch-tag", sc);
+    if (sub) sub.style.top = tBot + 66 + "px";
+    if (tag && sub) tag.style.top = tBot + 66 + sub.offsetHeight + 34 + "px";
     // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
     E.band(tl, sc, S);
     tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
     E.qa(".ch-ring", sc).forEach((r, i) => {
       tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
     });
-    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ff8a80" });
+    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ffffff" });
     tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
     tl.set(n, { filter: "none" }, S + 0.58);
     E.fadeIn(tl, k, S + 0.25, 0.5, 14);

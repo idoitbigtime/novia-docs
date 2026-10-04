@@ -379,184 +379,171 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 /* drifting dust in the background */
 .dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
 
-/* 7.3 an independent critic until the score passes 90: builder -> Claude -> a separate copy -> inputs without explanations
-   -> score and numeric fixes -> rubric, seven rounds, 96, the stopping rule (canvas 800 x 700) */
-/* a generic 9:16 frame (inside sizes in %) */
-.sim73 .s73-fr { position: absolute; overflow: hidden; border-radius: 10px; background: linear-gradient(180deg, #2c2556 0%, #181433 66%, #0e0c1f 100%); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.4); }
-.sim73 .s73-fr > i { position: absolute; display: block; }
-.sim73 .s73-h { left: 36%; top: 33%; width: 28%; height: 15.75%; border-radius: 50%; background: linear-gradient(180deg, #4a3f8c, #2c2560); box-shadow: inset 0 0 0 1px rgba(201, 194, 255, 0.35); }
-.sim73 .s73-bd { left: 16%; top: 50%; width: 68%; height: 52%; border-radius: 50% 50% 0 0 / 34% 34% 0 0; background: linear-gradient(180deg, #3b3274, #221c48); box-shadow: inset 0 1px 0 rgba(201, 194, 255, 0.4); }
-.sim73 .s73-ti { left: 14%; top: 9%; width: 72%; height: 4.4%; border-radius: 99px; background: rgba(245, 242, 234, 0.92); }
-.sim73 .s73-cp { left: 18%; top: 77%; width: 64%; height: 9%; border-radius: 4px; background: #ffffff; }
-.sim73 .s73-cp::after, .sim73 .s73-cut::after { content: ""; position: absolute; left: 16%; right: 16%; top: 36%; height: 28%; border-radius: 9px; background: rgba(20, 16, 40, 0.85); }
+/* 3.7 a bouncy zoom on the important word (canvas 800 x 700; a 9:16 frame 330 x 586 and a panel at the left) */
+/* the frame */
+.sim37 .s37-frame { position: absolute; width: 330px; height: 586px; }
+.sim37 .s37-fv { position: absolute; left: 0; top: 0; width: 330px; height: 586px; perspective: 1100px; perspective-origin: 165px 293px; }
+.sim37 .s37-rig { position: absolute; left: 165px; top: 293px; width: 0; height: 0; transform-style: preserve-3d; transform: rotateY(-40deg) rotateX(-8deg); }
+.sim37 .s37-pl { position: absolute; left: -165px; top: -293px; width: 330px; height: 586px; border-radius: 26px; overflow: hidden; }
+.sim37 .s37-p0 { background: linear-gradient(180deg, #2c2659 0%, #231e4b 64%, #17142f 64.2%, #100e22 100%); transform: translateZ(-90px); }
+.sim37 .s37-p1 { transform: translateZ(0px); }
+.sim37 .s37-p2 { transform: translateZ(60px); }
+.sim37 .s37-in { position: absolute; left: 0; top: 0; width: 330px; height: 586px; transform-origin: 165px 348px; }
+.sim37 .s37-edge { position: absolute; inset: 0; border-radius: 26px; border: 2.5px solid #d6d0ff; display: block;
+  box-shadow: 0 0 16px rgba(201, 194, 255, 0.6), inset 0 0 14px rgba(201, 194, 255, 0.25); }
+.sim37 .s37-lamp { position: absolute; left: -120px; top: -150px; width: 400px; height: 400px; border-radius: 50%; display: block;
+  background: radial-gradient(circle, rgba(169, 147, 255, 0.3), rgba(169, 147, 255, 0) 68%); }
+.sim37 .s37-win { position: absolute; left: 206px; top: 62px; width: 92px; height: 132px; border: 2px solid rgba(201, 194, 255, 0.3); border-radius: 6px; display: block;
+  background: linear-gradient(155deg, rgba(170, 160, 255, 0.2), rgba(170, 160, 255, 0.04) 70%); }
+.sim37 .s37-win u { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(201, 194, 255, 0.3); display: block; }
+.sim37 .s37-win s { position: absolute; top: 46%; left: 0; right: 0; height: 2px; background: rgba(201, 194, 255, 0.3); display: block; }
+.sim37 .s37-floor { position: absolute; left: 0; right: 0; top: 375px; height: 2px; background: rgba(201, 194, 255, 0.2); display: block; }
+.sim37 .s37-person { position: absolute; left: 15px; top: 221px; width: 300px; height: 365px; display: block; }
+/* the person talks */
+.sim37 .s37-wave { position: absolute; border: 3px solid transparent; border-right-color: #d6d0ff; border-radius: 50%; display: block; opacity: 0;
+  filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+.sim37 .s37-w1 { left: 214px; top: 322px; width: 34px; height: 52px; }
+.sim37 .s37-w2 { left: 218px; top: 306px; width: 52px; height: 84px; }
+/* the face is the zoom centre */
+.sim37 .s37-face { position: absolute; width: 132px; height: 160px; opacity: 0; }
+.sim37 .s37-fc { position: absolute; width: 28px; height: 28px; border: 0 solid #ffffff; display: block; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.95)); }
+.sim37 .s37-fc0 { right: 0; top: 0; border-top-width: 3.5px; border-right-width: 3.5px; border-top-right-radius: 10px; }
+.sim37 .s37-fc1 { left: 0; top: 0; border-top-width: 3.5px; border-left-width: 3.5px; border-top-left-radius: 10px; }
+.sim37 .s37-fc2 { left: 0; bottom: 0; border-bottom-width: 3.5px; border-left-width: 3.5px; border-bottom-left-radius: 10px; }
+.sim37 .s37-fc3 { right: 0; bottom: 0; border-bottom-width: 3.5px; border-right-width: 3.5px; border-bottom-right-radius: 10px; }
+.sim37 .s37-fdot { position: absolute; left: 59px; top: 73px; width: 14px; height: 14px; border-radius: 50%; background: #ffffff; display: block;
+  box-shadow: 0 0 0 4px rgba(201, 194, 255, 0.35), 0 0 14px #c9c2ff; }
+/* the 3D effect layer that goes away */
+.sim37 .s37-ring { position: absolute; left: 30px; top: 300px; width: 270px; height: 92px; border: 2.5px solid #e6e2ff; border-radius: 50%; display: block;
+  transform: rotate(-10deg); box-shadow: 0 0 16px rgba(201, 194, 255, 0.7), inset 0 0 12px rgba(201, 194, 255, 0.4); }
+.sim37 .s37-fxd { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #ffffff; display: block; box-shadow: 0 0 12px 2px #c9c2ff; }
+/* captions (not zoomed), HUD, cut flash, border */
+.sim37 .s37-caps { position: absolute; left: 0; right: 0; top: 466px; display: grid; justify-items: center; }
+.sim37 .s37-cap { grid-area: 1 / 1; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 9px; max-width: 292px; direction: rtl; opacity: 0; }
+.sim37 .s37-bk { height: 18px; border-radius: 9px; background: rgba(255, 255, 255, 0.82); display: block; flex: none; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); }
+.sim37 .s37-kw { position: relative; font: 800 36px/1.1 "Rubik"; color: #ffffff; white-space: nowrap; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75); }
+.sim37 .s37-ul { position: absolute; left: -2px; right: -2px; bottom: -5px; height: 4.5px; border-radius: 3px; background: #ff453a; display: block; transform-origin: 100% 50%; transform: scaleX(0); }
+.sim37 .s37-hud { position: absolute; left: 12px; top: 12px; height: 42px; display: flex; align-items: center; gap: 7px; padding: 0 12px 0 10px; border-radius: 12px; opacity: 0;
+  background: rgba(10, 8, 24, 0.74); border: 1.5px solid rgba(255, 255, 255, 0.32); color: #ffffff; direction: ltr; }
+.sim37 .s37-mag { width: 22px; height: 22px; display: block; overflow: visible; }
+.sim37 .s37-mag circle, .sim37 .s37-mag path { fill: none; stroke: #ffffff; stroke-width: 2.2; stroke-linecap: round; }
+.sim37 .s37-num { display: flex; align-items: flex-start; }
+.sim37 .s37-num > b { font: 600 27px/30px "IBM Plex Mono"; }
+.sim37 .s37-odo { display: block; height: 30px; overflow: hidden; }
+.sim37 .s37-strip { display: block; }
+.sim37 .s37-strip b { display: block; width: 17px; height: 30px; font: 600 27px/30px "IBM Plex Mono"; text-align: center; }
+.sim37 .s37-flash { position: absolute; inset: 0; border-radius: 26px; background: #ffffff; display: block; opacity: 0; }
+.sim37 .s37-border { position: absolute; inset: 0; border-radius: 26px; border: 1.5px solid rgba(214, 208, 255, 0.4); display: block; opacity: 0;
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.5); }
 
-/* the builder's side */
-.sim73 .s73-builder { position: absolute; left: 0; top: 0; width: 800px; height: 700px; transform: translateX(-160px); }
-.sim73 .s73-vid { left: 440px; top: 146px; width: 130px; height: 231px; border-radius: 14px; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.6), 0 0 24px rgba(201, 194, 255, 0.2); }
-.sim73 .s73-vid > .s73-cp { display: none; }
-.sim73 .s73-vid > .s73-cut { left: -26%; top: 77%; width: 70%; height: 9%; border-radius: 4px; background: #ffffff; }
-.sim73 .s73-flaw { position: absolute; left: 422px; top: 302px; width: 92px; height: 64px; overflow: visible; transform-origin: 50% 50%; }
-.sim73 .s73-flaw rect { fill: none; stroke: #ff453a; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.85)); }
-.sim73 .s73-bub { position: absolute; left: 430px; top: 398px; width: 160px; height: 96px; border-radius: 22px 6px 22px 22px; background: rgba(38, 33, 76, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.4);
-  opacity: 0; transform-origin: 100% 0%; }
-.sim73 .s73-bub > i { position: absolute; right: 20px; height: 9px; border-radius: 5px; background: rgba(220, 216, 240, 0.7); display: block; transform-origin: 100% 50%; }
-.sim73 .s73-bub > i:nth-child(1) { top: 22px; width: 116px; }
-.sim73 .s73-bub > i:nth-child(2) { top: 42px; width: 92px; }
-.sim73 .s73-bub > i:nth-child(3) { top: 62px; width: 104px; }
-.sim73 .s73-expl { position: absolute; right: 10px; top: -40px; font: 600 30px/1 "Rubik"; color: var(--ink); background: rgba(26, 23, 52, 0.96); padding: 6px 12px; border-radius: 999px;
-  border: 1.5px solid rgba(201, 194, 255, 0.45); white-space: nowrap; opacity: 0; }
-.sim73 .s73-no { position: absolute; left: -16px; top: -16px; width: 40px; height: 40px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: grid; place-items: center; opacity: 0; }
-.sim73 .s73-no svg { width: 26px; height: 26px; overflow: visible; display: block; }
-.sim73 .s73-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
-.sim73 .s73-list { position: absolute; left: 600px; top: 372px; width: 150px; height: 116px; border-radius: 18px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.28);
-  padding: 12px 16px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; }
-.sim73 .s73-li { display: flex; direction: rtl; align-items: center; gap: 10px; height: 26px; }
-.sim73 .s73-li svg { width: 24px; height: 24px; overflow: visible; display: block; flex: none; }
-.sim73 .s73-li path { fill: none; stroke: #c9c2ff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
-.sim73 .s73-li i { width: 70px; height: 8px; border-radius: 4px; background: rgba(201, 194, 255, 0.35); display: block; }
-.sim73 .s73-person { position: absolute; left: 600px; top: 138px; width: 150px; height: 183px; }
-.sim73 .s73-card { position: absolute; top: 160px; width: 150px; height: 150px; border-radius: 30px; background: linear-gradient(160deg, #2e2862 0%, #191537 100%);
-  border: 2px solid rgba(201, 194, 255, 0.65); box-shadow: 0 0 26px rgba(201, 194, 255, 0.28); display: grid; place-items: center; opacity: 0; overflow: hidden; }
-.sim73 .s73-card b { font: 600 52px/1 "IBM Plex Mono"; color: #ece9ff; text-shadow: 0 0 14px rgba(201, 194, 255, 0.8); }
-.sim73 .s73-glow { position: absolute; left: -40px; top: -50px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 194, 255, 0.28), rgba(201, 194, 255, 0) 70%); display: block; }
-.sim73 .s73-me { left: 600px; }
-.sim73 .s73-cr, .sim73 .s73-ghost { left: 56px; }
-.sim73 .s73-ghost { border-color: rgba(201, 194, 255, 0.4); box-shadow: none; }
-.sim73 .s73-name { position: absolute; top: 324px; text-align: center; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
-.sim73 .s73-mename { left: 600px; width: 150px; }
-.sim73 .s73-crname { left: 16px; width: 230px; }
-
-/* the critic's side: the divider and the tray of inputs */
-.sim73 .s73-div { position: absolute; left: 328px; top: 150px; width: 4px; height: 360px; overflow: visible; }
-.sim73 .s73-div path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.8)); }
-.sim73 .s73-tray { position: absolute; left: 56px; top: 380px; width: 264px; height: 130px; border-radius: 20px; border: 2px dashed rgba(201, 194, 255, 0.4); opacity: 0; }
-.sim73 .s73-doc { position: absolute; left: 64px; top: 385px; width: 108px; height: 120px; border-radius: 12px; background: #f4f2fb; box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4); opacity: 0; }
-.sim73 .s73-doc > i { position: absolute; left: 14px; height: 7px; border-radius: 4px; background: rgba(40, 34, 80, 0.35); display: block; }
-.sim73 .s73-doc > i:nth-child(1) { top: 16px; width: 68px; }
-.sim73 .s73-doc > i:nth-child(2) { top: 30px; width: 54px; }
-.sim73 .s73-doc > i:nth-child(3) { top: 44px; width: 62px; }
-.sim73 .s73-doc span { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font: 700 30px/1 "Rubik"; color: #1a1636; }
-.sim73 .s73-th { width: 44px; height: 78px; border-radius: 7px; }
-.sim73 .s73-in { top: 410px; opacity: 0; }
-.sim73 .s73-in0 { left: 179px; }
-.sim73 .s73-in1 { left: 225px; }
-.sim73 .s73-in2 { left: 271px; }
-
-/* B4: the gauge (0 at the right end, 100 at the left end) and the numeric fixes */
-.sim73 .s73-gauge { position: absolute; left: 330px; top: 130px; width: 340px; height: 200px; }
-.sim73 .s73-gsvg { position: absolute; left: 0; top: 0; width: 340px; height: 200px; overflow: visible; }
-.sim73 .s73-track { fill: none; stroke: rgba(201, 194, 255, 0.16); stroke-width: 16; stroke-linecap: round; }
-.sim73 .s73-fill { fill: none; stroke: url(#s73gr); stroke-width: 16; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.7)); }
-.sim73 .s73-tk { fill: none; stroke: rgba(236, 233, 255, 0.85); stroke-width: 3; stroke-linecap: round; opacity: 0; }
-.sim73 .s73-tl { position: absolute; width: 60px; text-align: center; font: 600 31px/1 "Rubik"; color: #b8b4cc; opacity: 0; }
-.sim73 .s73-score { position: absolute; left: 0; top: 96px; width: 340px; display: flex; justify-content: center; align-items: baseline; gap: 6px; }
-.sim73 .s73-nn { display: grid; }
-.sim73 .s73-n { grid-area: 1 / 1; font: 800 92px/1 "Rubik"; color: #ffffff; text-shadow: 0 0 22px rgba(201, 194, 255, 0.55); text-align: center; opacity: 0; }
-.sim73 .s73-of { font: 600 36px/1 "Rubik"; color: #9c99ae; opacity: 0; }
-.sim73 .s73-pass { position: absolute; left: -26px; top: 58px; width: 38px; height: 38px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2.5px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.7); display: grid; place-items: center; opacity: 0; }
-.sim73 .s73-pass svg { width: 24px; height: 24px; overflow: visible; display: block; }
-.sim73 .s73-pass path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
-.sim73 .s73-rows { position: absolute; left: 100px; top: 436px; width: 600px; height: 176px; }
-.sim73 .s73-row { position: absolute; left: 0; width: 600px; height: 84px; opacity: 0; }
-.sim73 .s73-row0 { top: 0; }
-.sim73 .s73-row1 { top: 92px; }
-.sim73 .s73-dth0, .sim73 .s73-dth1 { left: 540px; top: 3px; }
-.sim73 .s73-dth0 > .s73-cp { left: -22%; width: 70%; }
-.sim73 .s73-dth1 > .s73-ti { left: 34%; top: 4%; }
-.sim73 .s73-dm { left: -6%; top: 68%; width: 70%; height: 28%; border-radius: 6px; border: 2.5px solid #ff453a; box-shadow: 0 0 8px rgba(255, 69, 58, 0.8); opacity: 0; }
-.sim73 .s73-dth1 > .s73-dm { left: 24%; top: -2%; width: 72%; height: 18%; }
-.sim73 .s73-arr { position: absolute; left: 480px; top: 32px; width: 40px; height: 20px; opacity: 0; }
-.sim73 .s73-sl { position: absolute; left: 110px; top: 24px; width: 340px; height: 36px; border-radius: 12px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); }
-.sim73 .s73-rule { position: absolute; left: 14px; right: 14px; top: 9px; height: 15px; display: block;
-  background: repeating-linear-gradient(90deg, rgba(201, 194, 255, 0.55) 0 2px, rgba(201, 194, 255, 0) 2px 31.2px); }
-.sim73 .s73-knob { position: absolute; left: 60px; top: 4px; width: 25px; height: 25px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #c9c2ff, 0 0 0 4px rgba(201, 194, 255, 0.35); display: block; }
-
-/* payoff: seven rounds of the same critic, the rubric, the stopping rule */
-.sim73 .s73-steps { position: absolute; left: 340px; top: 358px; width: 340px; height: 70px; }
-.sim73 .s73-line, .sim73 .s73-linef { position: absolute; left: 10px; top: 10px; width: 300px; height: 2px; border-radius: 1px; display: block; transform-origin: 100% 50%; transform: scaleX(0); }
-.sim73 .s73-line { background: rgba(201, 194, 255, 0.3); }
-.sim73 .s73-linef { background: #e6e2ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); }
-.sim73 .s73-nd { position: absolute; top: 1px; width: 20px; height: 20px; border-radius: 50%; display: block; opacity: 0;
-  background: radial-gradient(circle, #5c5480 0 5.5px, rgba(0, 0, 0, 0) 6.5px); }
-.sim73 .s73-ndx { background: #2a2450; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.7); }
-.sim73 .s73-sv { position: absolute; top: 30px; width: 60px; text-align: center; font: 700 30px/1 "Rubik"; color: #ffffff; opacity: 0; }
-.sim73 .s73-sv1 { left: 280px; }
-.sim73 .s73-sv7 { left: -20px; }
-.sim73 .s73-slbl { position: absolute; left: 328px; top: -4px; font: 500 30px/1 "Rubik"; color: #9c99ae; white-space: nowrap; opacity: 0; }
-.sim73 .s73-lbl { position: absolute; display: flex; align-items: center; gap: 12px; direction: rtl; font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
-.sim73 .s73-lbl > i { width: 14px; height: 14px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.8); display: block; flex: none; }
-.sim73 .s73-rublbl { right: 60px; top: 434px; }
-.sim73 .s73-rub { position: absolute; left: 40px; top: 474px; width: 720px; display: flex; flex-direction: column; gap: 10px; }
-.sim73 .s73-tagrow { display: flex; direction: rtl; justify-content: center; gap: 12px; }
-.sim73 .s73-tag { font: 600 30px/1 "Rubik"; color: #ece9f7; padding: 8px 16px 7px; border-radius: 999px; background: rgba(36, 31, 72, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.5); white-space: nowrap; opacity: 0; }
-.sim73 .s73-rulecard { position: absolute; left: 40px; top: 590px; width: 720px; height: 104px; border-radius: 20px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.34);
-  display: flex; direction: rtl; align-items: center; gap: 20px; padding: 0 28px; opacity: 0; }
-.sim73 .s73-stop { width: 46px; height: 46px; display: block; flex: none; overflow: visible; }
-.sim73 .s73-stop path { fill: none; stroke: #ff453a; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.8)); }
-.sim73 .s73-rtx p { font: 600 31px/1.35 "Rubik"; color: var(--ink); white-space: nowrap; }
-.sim73 .s73-rtx p + p { color: #dcd9e6; font-weight: 500; }
-/* a light sweep without skew (nothing shows at rest) */
-.sim73 .s73-swp { position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
-.sim73 .s73-swp b { position: absolute; top: 0; bottom: 0; left: 100%; width: 80%; display: block;
-  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 15%, var(--sw, rgba(255, 255, 255, 0.24)) 50%, rgba(255, 255, 255, 0) 85%); }
+/* the left panel */
+.sim37 .s37-panel { position: absolute; border-radius: 22px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.22); opacity: 0; }
+.sim37 .s37-rows, .sim37 .s37-meter, .sim37 .s37-graph, .sim37 .s37-tline { position: absolute; left: 0; top: 0; width: 400px; height: 470px; }
+.sim37 .s37-meter, .sim37 .s37-graph, .sim37 .s37-tline { opacity: 0; }
+/* B1: sentences, one important word each */
+.sim37 .s37-row { position: absolute; left: 22px; right: 22px; height: 70px; display: flex; align-items: center; gap: 14px; direction: rtl; padding: 0 18px; border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(201, 194, 255, 0.16); opacity: 0; }
+.sim37 .s37-spk { width: 28px; height: 24px; display: block; flex: none; }
+.sim37 .s37-rcap { display: flex; align-items: center; gap: 9px; direction: rtl; }
+.sim37 .s37-rcap .s37-bk { background: rgba(214, 208, 255, 0.45); box-shadow: none; }
+.sim37 .s37-rcap .s37-kw { font-size: 32px; text-shadow: none; }
+/* B2: the meter (0% at the right, 15% at the left): a track, the guide's 10-15% range glowing on it, a marker at 12% */
+.sim37 .s37-track { position: absolute; top: 262px; height: 3px; border-radius: 2px; background: rgba(214, 208, 255, 0.45); display: block; }
+.sim37 .s37-band { position: absolute; top: 254px; height: 19px; border-radius: 10px; display: block;
+  background: linear-gradient(90deg, rgba(230, 226, 255, 0.95), rgba(201, 194, 255, 0.7)); box-shadow: 0 0 18px rgba(201, 194, 255, 0.75); }
+.sim37 .s37-tick { position: absolute; top: 284px; width: 2px; height: 12px; background: rgba(214, 208, 255, 0.55); display: block; }
+.sim37 .s37-tk5 { height: 22px; background: #ece9ff; }
+.sim37 .s37-tl { position: absolute; top: 316px; width: 80px; text-align: center; font: 500 26px/1 "IBM Plex Mono"; color: #c4bfdc; }
+.sim37 .s37-mk { position: absolute; top: 150px; width: 0; height: 0; }
+.sim37 .s37-mkl { position: absolute; left: -1.5px; top: 56px; width: 3px; height: 90px; border-radius: 2px; background: #ffffff; display: block; box-shadow: 0 0 12px #c9c2ff; }
+.sim37 .s37-mkd { position: absolute; left: -10px; top: 101px; width: 20px; height: 20px; border-radius: 50%; background: #ffffff; display: block; box-shadow: 0 0 0 4px rgba(201, 194, 255, 0.35), 0 0 14px #c9c2ff; }
+.sim37 .s37-mkv { position: absolute; left: -48px; top: 0; width: 96px; height: 46px; border-radius: 12px; display: block; text-align: center; opacity: 0;
+  font: 700 30px/42px "IBM Plex Mono"; color: #ffffff; background: rgba(10, 8, 24, 0.85); border: 2px solid #ffffff; box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); }
+/* B3 + payoff: the spring curve, drawn in real time (time runs right to left) */
+.sim37 .s37-gsv { position: absolute; left: 0; top: 0; width: 400px; height: 470px; overflow: visible; }
+.sim37 .s37-ax { fill: none; stroke: rgba(214, 208, 255, 0.5); stroke-width: 2; stroke-linecap: round; }
+.sim37 .s37-tg { fill: none; stroke: rgba(255, 255, 255, 0.5); stroke-width: 2; stroke-dasharray: 6 8; }
+.sim37 .s37-mkt { fill: none; stroke: rgba(201, 194, 255, 0.6); stroke-width: 2; stroke-dasharray: 4 7; }
+.sim37 .s37-gclip, .sim37 .s37-gclip2 { position: absolute; left: 0; top: 0; width: 400px; height: 470px; clip-path: inset(0px 0px 0px 100%); }
+.sim37 .s37-cv, .sim37 .s37-pv { fill: none; stroke: #ffffff; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.95)); }
+.sim37 .s37-gdot { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #ffffff; display: block; opacity: 0;
+  box-shadow: 0 0 0 4px rgba(201, 194, 255, 0.35), 0 0 16px #c9c2ff; }
+.sim37 .s37-gl { position: absolute; width: 88px; text-align: center; font: 600 26px/1 "IBM Plex Mono"; color: #e6e2ff; }
+.sim37 .s37-gw { position: absolute; width: 34px; height: 30px; display: flex; justify-content: center; align-items: center; }
+/* B4: the timeline to the next cut (time runs right to left) */
+.sim37 .s37-zclip { position: absolute; left: 0; top: 0; width: 400px; height: 470px; clip-path: inset(0px 0px 0px 100%); }
+.sim37 .s37-zl { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.9)); }
+.sim37 .s37-clip { position: absolute; top: 372px; height: 52px; border-radius: 10px; display: block; border: 1.5px solid rgba(214, 208, 255, 0.55); }
+.sim37 .s37-ca { background: linear-gradient(180deg, rgba(120, 104, 220, 0.5), rgba(70, 58, 150, 0.4)); }
+.sim37 .s37-cb { background: linear-gradient(180deg, rgba(96, 120, 210, 0.45), rgba(54, 70, 150, 0.4)); }
+.sim37 .s37-cut { position: absolute; top: 120px; width: 3px; height: 318px; border-radius: 2px; background: #ff453a; display: block; box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); }
+.sim37 .s37-cutl { position: absolute; top: 78px; width: 120px; text-align: center; font: 600 30px/1 "Rubik"; color: #f5f2ea; }
+.sim37 .s37-ph { position: absolute; left: 369px; top: 112px; width: 3px; height: 330px; border-radius: 2px; background: #ffffff; display: block; opacity: 0; box-shadow: 0 0 12px #c9c2ff; }
 
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="32.060" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="38.090" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t73" class="clip scene" data-start="0.000" data-duration="32.060" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 7 · חיסכון ברינדורים</span><span class="hdr-num" dir="ltr">7.3</span></div>
+<div id="sc-t37" class="clip scene" data-start="0.000" data-duration="38.090" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.7</span></div>
 <div class="scam">
-<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">מבקר</span> <span class="w" dir="rtl" data-t="0.430">עצמאי,</span> <span class="w" dir="rtl" data-t="0.560">עד</span> <span class="w" dir="rtl" data-t="0.690">שהציון</span> <span class="w" dir="rtl" data-t="0.820">עובר</span> <span class="w" dir="rtl" data-t="0.950">90</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.780">מי</span> <span class="w" dir="rtl" data-t="1.840">שבנה</span> <span class="w" dir="rtl" data-t="1.900">את</span> <span class="w" dir="rtl" data-t="1.960">הסרטון</span> <span class="w" dir="rtl" data-t="2.020">הכי</span> <span class="w" dir="rtl" data-t="2.080">פחות</span> <span class="w" dir="rtl" data-t="2.140">מתאים</span> <span class="w" dir="rtl" data-t="2.200">לבקר</span> <span class="w" dir="rtl" data-t="2.260">אותו,</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.480">וזה</span> <span class="w" dir="rtl" data-t="4.540">נכון</span> <span class="w" dir="rtl" data-t="4.600">גם</span> <span class="w" dir="rtl" data-t="4.660">לקלוד.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.080">מבקר</span> <span class="w" dir="rtl" data-t="6.140">עצמאי</span> <span class="w" dir="rtl" data-t="6.200">הוא</span> <span class="w" dir="rtl" data-t="6.260">עותק</span> <span class="w" dir="rtl" data-t="6.320">נפרד</span> <span class="w" dir="rtl" data-t="6.380">של</span> <span class="w" dir="rtl" data-t="6.440">קלוד</span> <span class="w" dir="rtl" data-t="6.500">שלא</span> <span class="w" dir="rtl" data-t="6.560">בנה</span> <span class="w" dir="rtl" data-t="6.620">כלום.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.030">הוא</span> <span class="w" dir="rtl" data-t="9.090">מקבל</span> <span class="w" dir="rtl" data-t="9.150">את</span> <span class="w" dir="rtl" data-t="9.210">הבקשה</span> <span class="w" dir="rtl" data-t="9.270">ופריימים</span> <span class="w" dir="rtl" data-t="9.330">מכל</span> <span class="w" dir="rtl" data-t="9.390">סצנה,</span> <span class="w" dir="rtl" data-t="9.450">בלי</span> <span class="w" dir="rtl" data-t="9.510">ההסברים,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="11.730">ונותן</span> <span class="accgrp" data-t="11.790"><span class="w s-str" dir="rtl" data-t="11.790">ציון</span> <span class="w s-str" dir="rtl" data-t="11.850">מתוך</span> <span class="w s-str" dir="rtl" data-t="11.910">100</span><i class="ul" data-t="11.970"></i></span> <span class="w" dir="rtl" data-t="11.970">עם</span> <span class="w" dir="rtl" data-t="12.030">תיקון</span> <span class="w" dir="rtl" data-t="12.090">במספרים</span> <span class="w" dir="rtl" data-t="12.150">לכל</span> <span class="w" dir="rtl" data-t="12.210">פגם.</span></span></p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim73">
-<div class="s73-builder">
-<div class="s73-fr s73-vid"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class="s73-cut"></i></div>
-<svg class="s73-flaw" viewBox="0 0 92 64" aria-hidden="true"><rect x="3" y="3" width="86" height="58" rx="18"/></svg>
-<div class="s73-bub"><i></i><i></i><i></i><span class="s73-expl" dir="rtl">ההסברים</span><div class="s73-no"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M9.5 9.5l11 11"/><path d="M20.5 9.5l-11 11"/></svg></div></div>
-<div class="s73-list"><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div></div>
-<svg class="s73-person" viewBox="0 0 312 380" aria-hidden="true">
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">זום</span> <span class="w" dir="rtl" data-t="0.430">קפיצי</span> <span class="w" dir="rtl" data-t="0.560">על</span> <span class="w" dir="rtl" data-t="0.690">המילה</span> <span class="w" dir="rtl" data-t="0.820">החשובה</span> <span class="w" dir="rtl" data-t="0.950">בכל</span> <span class="w" dir="rtl" data-t="1.080">משפט</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.910">לא</span> <span class="w" dir="rtl" data-t="1.970">כל</span> <span class="w" dir="rtl" data-t="2.030">סרטון</span> <span class="w" dir="rtl" data-t="2.090">צריך</span> <span class="w" dir="rtl" data-t="2.150">תלת</span> <span class="w" dir="rtl" data-t="2.210">ממד.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.860">בכל</span> <span class="w" dir="rtl" data-t="3.920">משפט</span> <span class="w" dir="rtl" data-t="3.980">יש</span> <span class="w" dir="rtl" data-t="4.040">מילה</span> <span class="w" dir="rtl" data-t="4.100">אחת</span> <span class="w" dir="rtl" data-t="4.160">שהכי</span> <span class="w" dir="rtl" data-t="4.220">חשובה,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.060">וקלוד</span> <span class="w" dir="rtl" data-t="6.120">מקרב</span> <span class="w" dir="rtl" data-t="6.180">עליה</span> <span class="w" dir="rtl" data-t="6.240">את</span> <span class="w" dir="rtl" data-t="6.300">התמונה</span> <span class="glu"><span class="w" dir="rtl" data-t="6.360">ב-</span><span class="w" dir="rtl" data-t="6.360">10</span></span> <span class="w" dir="rtl" data-t="6.480">עד</span> <span class="w" dir="rtl" data-t="6.540">15</span> <span class="w" dir="rtl" data-t="6.600">אחוז</span></span> <span class="ph" data-p="3"><span class="glu"><span class="accgrp" data-t="9.010"><span class="w s-str" dir="rtl" data-t="9.010">בתנועת</span> <span class="w s-str" dir="rtl" data-t="9.070">קפיץ</span><i class="ul" data-t="9.190"></i></span><span class="w" dir="rtl" data-t="9.070">,</span></span> <span class="w" dir="rtl" data-t="9.190">בדיוק</span> <span class="w" dir="rtl" data-t="9.250">כשהיא</span> <span class="w" dir="rtl" data-t="9.310">נאמרת.</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="10.960">מרכז</span> <span class="w" dir="rtl" data-t="11.020">הזום</span> <span class="w" dir="rtl" data-t="11.080">תמיד</span> <span class="w" dir="rtl" data-t="11.140">על</span> <span class="w" dir="rtl" data-t="11.200">הפנים,</span> <span class="w" dir="rtl" data-t="11.260">והוא</span> <span class="w" dir="rtl" data-t="11.320">מתאפס</span> <span class="w" dir="rtl" data-t="11.380">בחיתוך</span> <span class="w" dir="rtl" data-t="11.440">הבא.</span></span></p></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim37">
+<div class="s37-panel" style="left:20px;top:116px;width:400px;height:470px">
+<div class="s37-rows"><div class="s37-row" style="top:96px"><svg class="s37-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><div class="s37-rcap" dir="rtl"><i class="s37-bk" style="width:52px"></i><span class="s37-kw" dir="rtl">קלוד<i class="s37-ul"></i></span><i class="s37-bk" style="width:40px"></i><i class="s37-bk" style="width:62px"></i></div></div><div class="s37-row" style="top:200px"><svg class="s37-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><div class="s37-rcap" dir="rtl"><i class="s37-bk" style="width:40px"></i><i class="s37-bk" style="width:66px"></i><span class="s37-kw" dir="rtl">נבדוק<i class="s37-ul"></i></span><i class="s37-bk" style="width:38px"></i></div></div><div class="s37-row" style="top:304px"><svg class="s37-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><div class="s37-rcap" dir="rtl"><i class="s37-bk" style="width:56px"></i><i class="s37-bk" style="width:42px"></i><i class="s37-bk" style="width:50px"></i><span class="s37-kw" dir="rtl">אותו<i class="s37-ul"></i></span></div></div></div><div class="s37-meter"><i class="s37-track" style="left:40.0px;width:316.0px"></i>
+<i class="s37-band" style="left:40.0px;width:105.3px"></i><i class="s37-tick s37-tk5" style="left:355.0px"></i><i class="s37-tick" style="left:333.9px"></i><i class="s37-tick" style="left:312.9px"></i><i class="s37-tick" style="left:291.8px"></i><i class="s37-tick" style="left:270.7px"></i><i class="s37-tick s37-tk5" style="left:249.7px"></i><i class="s37-tick" style="left:228.6px"></i><i class="s37-tick" style="left:207.5px"></i><i class="s37-tick" style="left:186.5px"></i><i class="s37-tick" style="left:165.4px"></i><i class="s37-tick s37-tk5" style="left:144.3px"></i><i class="s37-tick" style="left:123.3px"></i><i class="s37-tick" style="left:102.2px"></i><i class="s37-tick" style="left:81.1px"></i><i class="s37-tick" style="left:60.1px"></i><i class="s37-tick s37-tk5" style="left:39.0px"></i><span class="s37-tl" dir="ltr" style="left:316.0px">0%</span><span class="s37-tl" dir="ltr" style="left:210.7px">5%</span><span class="s37-tl" dir="ltr" style="left:105.3px">10%</span><span class="s37-tl" dir="ltr" style="left:0.0px">15%</span>
+<div class="s37-mk" style="left:356.0px"><i class="s37-mkl"></i><i class="s37-mkd"></i><span class="s37-mkv" dir="ltr">12%</span></div></div><div class="s37-graph" data-focus="3"><svg class="s37-gsv" viewBox="0 0 400 470" aria-hidden="true">
+<path class="s37-ax" d="M370 362H30M360 372V116"/>
+<path class="s37-tg" d="M360 150H38"/>
+<path class="s37-mkt" d="M360 362V120"/></svg>
+<div class="s37-gclip"><svg class="s37-gsv" viewBox="0 0 400 470" aria-hidden="true"><path class="s37-cv" d="M360.0 362.0 L353.4 359.9 L346.8 354.5 L340.2 346.6 L333.7 337.1 L327.1 326.5 L320.5 315.4 L313.9 303.9 L307.3 292.5 L300.8 281.4 L294.2 270.6 L287.6 260.3 L281.0 250.5 L274.4 241.3 L267.8 232.8 L261.2 224.8 L254.7 217.5 L248.1 210.7 L241.5 204.5 L234.9 198.9 L228.3 193.7 L221.8 189.0 L215.2 184.8 L208.6 180.9 L202.0 177.5 L195.4 174.3 L188.8 171.5 L182.2 169.0 L175.7 166.7 L169.1 164.7 L162.5 162.9 L155.9 161.3 L149.3 159.8 L142.8 158.5 L136.2 157.4 L129.6 156.4 L123.0 155.4 L116.4 154.6 L109.8 153.9 L103.2 153.3 L96.7 152.7 L90.1 152.2 L83.5 151.8 L76.9 151.4 L70.3 151.0 L63.8 150.7 L57.2 150.5 L50.6 150.2 L44.0 150.0"/></svg></div>
+<div class="s37-gclip2"><svg class="s37-gsv" viewBox="0 0 400 470" aria-hidden="true"><path class="s37-pv" d="M360 362L44 309.0"/></svg></div>
+<i class="s37-gdot" style="left:351px;top:353px"></i>
+<span class="s37-gl s37-g100" dir="ltr" style="left:272px;top:376px">100%</span>
+<span class="s37-gl s37-g112" dir="ltr" style="left:40px;top:104px">112%</span>
+<span class="s37-gw" style="left:343px;top:80px"><svg class="s37-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg></span></div><div class="s37-tline"><div class="s37-zclip"><svg class="s37-gsv" viewBox="0 0 400 470" aria-hidden="true">
+<path class="s37-zl" d="M370 186H196V330H30"/></svg></div>
+<i class="s37-clip s37-ca" style="left:200px;width:170px"></i><i class="s37-clip s37-cb" style="left:30px;width:162px"></i>
+<i class="s37-cut" style="left:194.5px"></i><span class="s37-cutl" dir="rtl" style="left:136px">חיתוך</span>
+<span class="s37-gl s37-t112" dir="ltr" style="left:226px;top:142px">112%</span><span class="s37-gl s37-t100" dir="ltr" style="left:30px;top:284px">100%</span>
+<i class="s37-ph"></i></div></div>
+<div class="s37-frame" style="left:235px;top:57px">
+<div class="s37-fv"><div class="s37-rig"><div class="s37-pl s37-p0"><div class="s37-in"><i class="s37-lamp"></i><i class="s37-win"><u></u><s></s></i><i class="s37-floor"></i></div><i class="s37-edge"></i></div>
+<div class="s37-pl s37-p1"><div class="s37-in"><svg class="s37-person" viewBox="0 0 312 380" aria-hidden="true">
 <defs>
-<linearGradient id="pf73" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
-<linearGradient id="pr73" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
+<linearGradient id="pf37" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
+<linearGradient id="pr37" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
 </defs>
-<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380 Z" fill="url(#pf73)"/>
-<rect x="128" y="196" width="56" height="70" rx="22" fill="url(#pf73)"/>
-<ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pf73)"/>
-<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#pr73)" stroke-width="3"/>
-<ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#pr73)" stroke-width="3"/>
+<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380 Z" fill="url(#pf37)"/>
+<rect x="128" y="196" width="56" height="70" rx="22" fill="url(#pf37)"/>
+<ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pf37)"/>
+<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#pr37)" stroke-width="3"/>
+<ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#pr37)" stroke-width="3"/>
 </svg>
-<div class="s73-card s73-me"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div>
-<div class="s73-name s73-mename" dir="rtl">קלוד</div>
+<i class="s37-wave s37-w1"></i><i class="s37-wave s37-w2"></i>
+<div class="s37-face" style="left:99px;top:268px"><i class="s37-fc s37-fc0"></i><i class="s37-fc s37-fc1"></i><i class="s37-fc s37-fc2"></i><i class="s37-fc s37-fc3"></i><i class="s37-fdot"></i></div>
+</div><i class="s37-edge"></i></div>
+<div class="s37-pl s37-p2"><i class="s37-ring"></i><i class="s37-fxd" style="left:60px;top:250px"></i><i class="s37-fxd" style="left:262px;top:210px"></i><i class="s37-fxd" style="left:276px;top:420px"></i><i class="s37-fxd" style="left:40px;top:470px"></i><i class="s37-fxd" style="left:150px;top:168px"></i><i class="s37-edge"></i></div></div></div>
+<div class="s37-caps"><div class="s37-cap s37-c0" dir="rtl"><i class="s37-bk" style="width:52px"></i><span class="s37-kw" dir="rtl">קלוד<i class="s37-ul"></i></span><i class="s37-bk" style="width:40px"></i><i class="s37-bk" style="width:62px"></i></div><div class="s37-cap s37-c1" dir="rtl"><i class="s37-bk" style="width:40px"></i><i class="s37-bk" style="width:66px"></i><span class="s37-kw" dir="rtl">נבדוק<i class="s37-ul"></i></span><i class="s37-bk" style="width:38px"></i></div><div class="s37-cap s37-c2" dir="rtl"><i class="s37-bk" style="width:56px"></i><i class="s37-bk" style="width:42px"></i><i class="s37-bk" style="width:50px"></i><span class="s37-kw" dir="rtl">אותו<i class="s37-ul"></i></span></div><div class="s37-cap s37-c3" dir="rtl"><i class="s37-bk" style="width:60px"></i><i class="s37-bk" style="width:44px"></i><i class="s37-bk" style="width:70px"></i><i class="s37-bk" style="width:52px"></i><i class="s37-bk" style="width:64px"></i><i class="s37-bk" style="width:40px"></i></div></div><div class="s37-hud" dir="ltr"><svg class="s37-mag" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6M7 10h6M10 7v6"/></svg><span class="s37-num"><b>1</b><span class="s37-odo s37-tens"><span class="s37-strip"><b>0</b><b>1</b></span></span><span class="s37-odo s37-units"><span class="s37-strip"><b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>0</b><b>1</b><b>2</b></span></span><b>%</b></span></div><i class="s37-flash"></i><i class="s37-border"></i>
 </div>
-<svg class="s73-div" viewBox="0 0 4 360" aria-hidden="true"><path d="M2 2 V358"/></svg>
-<div class="s73-tray"></div>
-<div class="s73-doc"><i></i><i></i><i></i><span dir="rtl">הבקשה</span></div>
-<div class="s73-fr s73-th s73-in s73-in0"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div><div class="s73-fr s73-th s73-in s73-in1"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div><div class="s73-fr s73-th s73-in s73-in2"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div>
-<div class="s73-card s73-ghost s73-gh2"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div><div class="s73-card s73-ghost s73-gh1"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div><div class="s73-card s73-cr"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div>
-<div class="s73-name s73-crname" dir="rtl">מבקר עצמאי</div>
-<div class="s73-gauge" data-focus="4"><svg class="s73-gsvg" viewBox="0 0 340 200" aria-hidden="true">
-<defs><linearGradient id="s73gr" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#9d92f0"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs>
-<path class="s73-track" d="M320 170 A150 150 0 0 0 20 170"/><path class="s73-fill" d="M320 170 A150 150 0 0 0 20 170"/><path class="s73-tk s73-tk70" d="M88.9 58.4 L74.8 38.9"/><path class="s73-tk s73-tk90" d="M38.8 127.4 L15.9 119.9"/></svg><span class="s73-tl s73-tl70" dir="ltr" style="left:28.3px;top:-0.7px">70</span><span class="s73-tl s73-tl90" dir="ltr" style="left:-40.7px;top:94.3px">90</span>
-<div class="s73-score" dir="ltr"><span class="s73-nn"><span class="s73-n s73-n1">68</span><span class="s73-n s73-n2">96</span></span><span class="s73-of">/100</span></div>
-<div class="s73-pass"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></div></div>
-<div class="s73-rows"><div class="s73-row s73-row0"><div class="s73-fr s73-th s73-dth0"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class=s73-dm></i></div><svg class="s73-arr" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="s73-sl"><i class="s73-rule"></i><i class="s73-knob"></i></div></div><div class="s73-row s73-row1"><div class="s73-fr s73-th s73-dth1"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class=s73-dm></i></div><svg class="s73-arr" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="s73-sl"><i class="s73-rule"></i><i class="s73-knob"></i></div></div></div>
-<div class="s73-steps"><i class="s73-line"></i><i class="s73-linef"></i><i class="s73-nd s73-ndx" style="left:300px"></i><i class="s73-nd" style="left:250px"></i><i class="s73-nd" style="left:200px"></i><i class="s73-nd" style="left:150px"></i><i class="s73-nd" style="left:100px"></i><i class="s73-nd" style="left:50px"></i><i class="s73-nd s73-ndx" style="left:0px"></i>
-<span class="s73-sv s73-sv1" dir="ltr">68</span><span class="s73-sv s73-sv7" dir="ltr">96</span>
-<span class="s73-slbl" dir="rtl">סבבים</span></div>
-<div class="s73-lbl s73-rublbl" dir="rtl"><i></i><span>מחוון</span></div>
-<div class="s73-rub" dir="rtl"><div class="s73-tagrow"><span class=s73-tag>ביצוע</span><span class=s73-tag>גימור</span><span class=s73-tag>תנועה</span></div><div class="s73-tagrow"><span class=s73-tag>טקסט ועברית</span><span class=s73-tag>התאמה לסגנון</span><span class=s73-tag>היגיון פיזי</span></div></div>
-<div class="s73-rulecard" dir="rtl"><svg class="s73-stop" viewBox="0 0 40 40" aria-hidden="true"><path d="M13.4 3h13.2L37 13.4v13.2L26.6 37H13.4L3 26.6V13.4z"/><path d="M13 20h14"/></svg><div class="s73-rtx"><p>אחרי שני סבבים עדיין מתחת ל-70?</p><p>עוצרים ומביאים את הפער.</p></div></div>
 </div></div></div></div>
-<div class="factbox"><span class="pill">מ-68 ל-96</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="21.880">ריל</span> <span class="w" dir="rtl" data-t="22.000">אנימציה</span> <span class="w" dir="rtl" data-t="22.120">של</span> <span class="w" dir="rtl" data-t="22.240">47</span> <span class="w" dir="rtl" data-t="22.360">שניות,</span> <span class="w" dir="rtl" data-t="22.480">בשבעה</span> <span class="w" dir="rtl" data-t="22.600">סבבים</span> <span class="w" dir="rtl" data-t="22.720">של</span> <span class="w" dir="rtl" data-t="22.840">אותו</span> <span class="w" dir="rtl" data-t="22.960">מבקר.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="23.280">גם</span> <span class="w" dir="rtl" data-t="23.310">הסצנות</span> <span class="w" dir="rtl" data-t="23.340">בסרטון</span> <span class="w" dir="rtl" data-t="23.370">הזה</span> <span class="w" dir="rtl" data-t="23.400">עברו</span> <span class="w" dir="rtl" data-t="23.430">מבקר</span> <span class="w" dir="rtl" data-t="23.460">עצמאי.</span></p></div>
-<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>21</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">תפעיל סוכן נפרד שלא בנה את הסרטון, בתור מבקר קשוח של סטודיו לאנימציה.</div>
-<div class="pl" dir="rtl">תן לו את הבריף, פריים מכל סצנה ורצועת פריימים מכל מעבר, בלי ההסברים שלך.</div>
-<div class="pl" dir="rtl">הוא נותן ציון מתוך 100 לפי מחוון קבוע: ביצוע של כל מה שביקשתי, גימור, תנועה, טקסט ועברית, התאמה לסגנון, והיגיון פיזי.</div>
-<div class="pl" dir="rtl">לכל סצנה הוא מחזיר רשימת פגמים, ולכל פגם זמן, מה לא בסדר ותיקון עם מספרים.</div>
-<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>אתה מתקן, ואותו מבקר בודק שוב, עד שהציון עובר 90.</div>
-<div class="pl" dir="rtl">אם אחרי שני סבבים הציון עדיין רחוק <span class="nb">מ-90</span> <span class="nb">ב-20</span> נקודות או יותר, תעצור ותביא לי את הפער ואת האפשרויות במקום לפתוח עוד סבבים.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>אתה מתקן, ואותו מבקר בודק שוב, עד שהציון עובר 90.</div></div>
-
+<div class="factbox"><span class="pill">10 עד 15 אחוז</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="20.610">בפתיחה</span> <span class="w" dir="rtl" data-t="20.730">של</span> <span class="w" dir="rtl" data-t="20.850">7</span> <span class="w" dir="rtl" data-t="20.970">שניות</span> <span class="w" dir="rtl" data-t="21.090">נבחרו</span> <span class="w" dir="rtl" data-t="21.210">שלוש</span> <span class="w" dir="rtl" data-t="21.330">מילים:</span> <span class="w" dir="rtl" data-t="21.650">&quot;קלוד&quot;,</span> <span class="w" dir="rtl" data-t="21.770">&quot;נבדוק&quot;</span> <span class="w" dir="rtl" data-t="21.890">ו&quot;אותו&quot;.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="22.210">שמתם</span> <span class="w" dir="rtl" data-t="22.240">לב?</span> <span class="w" dir="rtl" data-t="22.270">הזום</span> <span class="w" dir="rtl" data-t="22.300">הזה</span> <span class="w" dir="rtl" data-t="22.330">מופיע</span> <span class="w" dir="rtl" data-t="22.360">לאורך</span> <span class="w" dir="rtl" data-t="22.390">כל</span> <span class="w" dir="rtl" data-t="22.420">הסרטון.</span></p></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>13</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">ההוראות כאן מחליפות את ראיון הפתיחה של HyperFrames, אז אל תריץ אותו.</div>
+<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>תתמלל את הסרטון עם זמן לכל מילה, בעזרת <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk">&lt;הקובץ&gt;</span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span><span class="bt">`</span>,</span>ותבחר בכל משפט לכל היותר מילה אחת, הכי חזקה, כדי שהזום יישאר מיוחד.</div>
+<div class="pl" dir="rtl">תראה לי את רשימת המילים עם הזמנים, ותחכה לאישור לפני שאתה בונה.</div>
+<div class="pl" dir="rtl">על כל מילה כזאת יש זום פנימה של 10 עד 15 אחוז, בתנועת קפיץ שמתחילה עם תחילת המילה, מהירה בהתחלה ונעצרת בעדינות בלי לעבור את היעד.</div>
+<div class="pl" dir="rtl">לקפיץ הזה תשתמש <span class="nb">ב-ease</span> <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">p</span> <span class="tk">=&gt;</span> <span class="tk">(1-(1+7*p)*Math.exp(-7*p))</span> <span class="tk">/</span> <span class="tk">(1-8*Math.exp(-7))</span><span class="bt">`</span>,</span>כי <span class="nb">ב-GSAP</span> אין כזה מובנה.</div>
+<div class="pl" dir="rtl">מרכז הזום הוא הפנים שלי, כך שהן אף פעם לא יוצאות מהפריים, והוא נכתב באחוזים מהפריים ולא בפיקסלים.</div>
+<div class="pl" dir="rtl">את הפנים תמצא עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">FaceDetector</span><span class="bt">`</span></span> של MediaPipe, שתתקין בתוך venv עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">pip</span> <span class="tk">install</span> <span class="tk">mediapipe==0.10.35</span><span class="bt">`</span></span>כי הגרסה האחרונה קורסת <span class="nb">ב-Mac.</span></div>
+<div class="pl" dir="rtl">בכל פריים תבחר את הזיהוי עם הציון הכי גבוה בחצי העליון של הפריים ותחליק את המסלול, כי ידיים מזוהות לפעמים כפנים.</div>
+<div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>הזום נשאר עד החיתוך הבא וחוזר שם <span class="nb">ל-100</span> אחוז בבת אחת, ואם אין חיתוך עד המשפט הבא, הוא חוזר במילה הראשונה של המשפט הבא.</div>
+<div class="pl" dir="rtl">במשפט ארוך מותרת דחיפה איטית פנימה של 2 עד 4 אחוז, ולא יותר.</div>
+<div class="pl" dir="rtl">הסרטון מקבל <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">data-has-audio=&quot;true&quot;</span><span class="bt">`</span></span> בלי <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">muted</span><span class="bt">`</span></span>, כדי שהקול יישאר.</div>
+<div class="pl" dir="rtl">תעבוד מהקובץ ברזולוציה המקורית, ואם הוא לא גדול מהפלט לפחות <span class="nb">ב-15</span> אחוז, תגיד לי שהזום יטשטש.</div>
+<div class="pl" dir="rtl">קודם תרנדר 10 שניות מעותק זמני של הפרויקט <span class="nb">ב-540</span> על 960 (או 960 על 540), כי ל-<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">render</span><span class="bt">`</span></span> אין דגל לטווח זמן או להקטנה, ואת כל הסרטון רק אחרי שאישרתי.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>תתמלל את הסרטון עם זמן לכל מילה, בעזרת <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk">&lt;הקובץ&gt;</span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span><span class="bt">`</span>,</span>ותבחר בכל משפט לכל היותר מילה אחת, הכי חזקה, כדי שהזום יישאר מיוחד.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>הזום נשאר עד החיתוך הבא וחוזר שם <span class="nb">ל-100</span> אחוז בבת אחת, ואם אין חיתוך עד המשפט הבא, הוא חוזר במילה הראשונה של המשפט הבא.</div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="33.060">זום</span> <span class="w" dir="rtl" data-t="33.220">של</span> <span class="w" dir="rtl" data-t="33.380">15</span> <span class="w" dir="rtl" data-t="33.540">אחוז</span> <span class="w" dir="rtl" data-t="33.700">על</span> <span class="w" dir="rtl" data-t="33.860">סרטון</span> <span class="w" dir="rtl" data-t="34.020">של</span> <span class="w" dir="rtl" data-t="34.180">1080</span> <span class="w" dir="rtl" data-t="34.340">מרכך</span> <span class="w" dir="rtl" data-t="34.500">את</span> <span class="w" dir="rtl" data-t="34.660">התמונה.</span> <span class="w" dir="rtl" data-t="35.070">יודעים</span> <span class="w" dir="rtl" data-t="35.230">מראש</span> <span class="w" dir="rtl" data-t="35.390">שתעשו</span> <span class="w" dir="rtl" data-t="35.550">זומים?</span> <span class="w" dir="rtl" data-t="35.960">מצלמים</span> <span class="glu"><span class="w" dir="rtl" data-t="36.120">ב-</span><span class="w" dir="rtl" data-t="36.120">4K.</span></span></p></div></div>
 </div></div>
 </div>
 </div>
@@ -1030,172 +1017,173 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   window.SIMS = window.SIMS || {};
 })();
 
-/* 7.3 an independent critic, iterated until the score passes 90: one visual beat per explanation phrase, then the rounds.
-   Every tween is a fromTo with explicit values (immediateRender:false via E.A); times are scene-local via T(). */
 window.SIMS = window.SIMS || {};
-window.SIMS.sim73 = function (tl, ctx, cfg, S) {
-  const E = window.ENG, A = E.A, sc = ctx.scene, c = cfg.sim73, P = cfg.phr, pe = cfg.phrEnd;
+window.SIMS.sim37 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, c = cfg.sim37, P = cfg.phr, pe = cfg.phrEnd;
   const T = (x) => S + x;                    // scene-local -> master time
   const q = (s) => E.q(s, sc), qa = (s) => E.qa(s, sc);
-  const tw = (el, from, to, t) => tl.fromTo(el, from, A(to), T(t));
-  const pop = (el, t, s0) => tw(el, { opacity: 0, scale: s0 || 0.7 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, t);
-  const ts = cfg.tStage, b0 = P[0], b1 = P[1], b2 = P[2], b3 = P[3], b4 = P[4];
-  const wrap = q(".sim73");
-  const sweep = (el, t, d, color) => {       // light sweep, right to left (no skew, so nothing shows at rest)
-    const fx = document.createElement("i"), b = document.createElement("b");
-    fx.className = "s73-swp";
-    if (color) fx.style.setProperty("--sw", color);
-    fx.appendChild(b);
-    el.appendChild(fx);
-    tw(b, { x: 0 }, { x: -(el.clientWidth * 1.8 + 10), duration: d, ease: "power2.inOut" }, t);
+  const Z = 1 + c.zoom / 100, ZP = 1 + c.push / 100, DZ = 0.8, H = 30;    // punch-in scale, push scale, spring length, digit height
+  const GX0 = 360, GX1 = 44, GY0 = 362, GY1 = 150;                       // the plot (as in sims/sim37.py)
+  const R0 = { rotation: 0, skewX: 0, skewY: 0 };
+  const frame = q(".s37-frame"), rig = q(".s37-rig"), p0 = q(".s37-p0"), p1 = q(".s37-p1"), p2 = q(".s37-p2");
+  const ins = qa(".s37-in"), caps = qa(".s37-cap"), hud = q(".s37-hud");
+  const units = q(".s37-units .s37-strip"), tens = q(".s37-tens .s37-strip");
+  const waves = qa(".s37-wave");
+  const kw = (i) => E.q(".s37-kw", caps[i]), ul = (i) => E.q(".s37-ul", caps[i]);
+
+  // ---- helpers (every change is a chained fromTo; "one frame" = 0.02 s) ----
+  const inv = (v) => { let lo = 0, hi = 1; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (E.SPRING(m) < v) lo = m; else hi = m; } return hi; };
+  const punch = (t) => {                     // the picture punches in on the face, the HUD rolls 100 -> 112
+    ins.forEach((el) => tl.fromTo(el, { scale: 1 }, A({ scale: Z, duration: DZ, ease: E.SPRING }), T(t)));
+    tl.fromTo(units, { y: 0 }, A({ y: -H * c.zoom, duration: DZ, ease: E.SPRING }), T(t));
+    const a = inv(9.5 / c.zoom), b = inv(10 / c.zoom);
+    tl.fromTo(tens, { y: 0 }, A({ y: -H, duration: Math.max(0.04, (b - a) * DZ), ease: "none" }), T(t + a * DZ));
+  };
+  const reset = (t, from) => {               // back to 100% in one frame
+    ins.forEach((el) => tl.fromTo(el, { scale: from }, A({ scale: 1, duration: 0.02, ease: "none" }), T(t)));
+    const u = Math.round((from - 1) * 100);
+    tl.fromTo(units, { y: -H * u }, A({ y: 0, duration: 0.02, ease: "none" }), T(t));
+    if (u >= 10) tl.fromTo(tens, { y: -H }, A({ y: 0, duration: 0.02, ease: "none" }), T(t));
+  };
+  const swap = (t, a, b) => {                // the next sentence's caption, in one frame
+    tl.fromTo(caps[a], { opacity: 1 }, A({ opacity: 0, duration: 0.02, ease: "none" }), T(t));
+    tl.fromTo(caps[b], { opacity: 0 }, A({ opacity: 1, duration: 0.02, ease: "none" }), T(t));
+  };
+  const light = (t, i) => {                  // the important word is said
+    tl.fromTo(kw(i), { color: "#ffffff" }, A({ color: "#ff6b61", duration: 0.12 }), T(t));
+    tl.fromTo(ul(i), { scaleX: 0 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), T(t));
+    waves.forEach((w, k) => {
+      tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(t + k * 0.08));
+      tl.fromTo(w, { opacity: 1 }, A({ opacity: 0, duration: 0.45, ease: "power1.in" }), T(t + 0.2 + k * 0.08));
+    });
+  };
+  const unlight = (t, i) => {
+    tl.fromTo(kw(i), { color: "#ff6b61" }, A({ color: "#ffffff", duration: 0.02, ease: "none" }), T(t));
+    tl.fromTo(ul(i), { scaleX: 1 }, A({ scaleX: 0, duration: 0.02, ease: "none" }), T(t));
+  };
+  const gclip = q(".s37-gclip"), gdot = q(".s37-gdot");
+  const HID = "inset(0px 0px 0px " + (GX0 + 6) + "px)", ALL = "inset(0px 0px 0px " + (GX1 - 8) + "px)";
+  const drawCurve = (t) => {                 // the spring curve draws in real time; a dot rides it
+    tl.fromTo(gclip, { clipPath: HID }, A({ clipPath: ALL, duration: DZ, ease: "none" }), T(t));
+    tl.fromTo(gdot, { x: 0 }, A({ x: GX1 - GX0, duration: DZ, ease: "none" }), T(t));
+    tl.fromTo(gdot, { y: 0 }, A({ y: GY1 - GY0, duration: DZ, ease: E.SPRING }), T(t));
+  };
+  const clearCurve = (t) => {
+    tl.fromTo(gclip, { clipPath: ALL }, A({ clipPath: HID, duration: 0.02, ease: "none" }), T(t));
+    tl.fromTo(gdot, { x: GX1 - GX0, y: GY1 - GY0 }, A({ x: 0, y: 0, duration: 0.02, ease: "none" }), T(t));
   };
 
-  const vid = q(".s73-vid"), person = q(".s73-person"), bub = q(".s73-bub"), list = q(".s73-list"), flaw = q(".s73-flaw");
-  const me = q(".s73-me"), mename = q(".s73-mename"), cr = q(".s73-cr"), crname = q(".s73-crname");
+  // establishing: the video arrives as a 3D stack of layers
+  tl.fromTo(rig, { ...R0, rotationY: -40, rotationX: -8 }, A({ ...R0, rotationY: -28, rotationX: -8, duration: 0.9, ease: E.SPRING }), T(cfg.tStage));
+  tl.fromTo(p2, { opacity: 0 }, A({ opacity: 1, duration: 0.4 }), T(cfg.tStage + 0.2));
 
-  // establishing shot: the video that was built, and its builder (centred until the critic needs room)
-  const builder = q(".s73-builder"), SHIFT = -160;
-  tw(vid, { scale: 0.94 }, { scale: 1, duration: 0.7, ease: E.SPRING }, ts + 0.1);
+  // B1 "לא כל סרטון צריך תלת ממד": the effect layer goes, the layers merge and the frame turns flat
+  const b1 = P[0];
+  tl.fromTo(p2, { opacity: 1 }, A({ opacity: 0, duration: 0.45, ease: "power2.in" }), T(b1 + 0.1));
+  tl.fromTo(q(".s37-ring"), { scale: 1 }, A({ scale: 0.8, duration: 0.45, ease: "power2.in" }), T(b1 + 0.1));
+  tl.fromTo(p0, { z: -90 }, A({ z: 0, duration: 1.1, ease: E.SPRING }), T(b1 + 0.3));
+  tl.fromTo(p2, { z: 60 }, A({ z: 0, duration: 1.1, ease: E.SPRING }), T(b1 + 0.3));
+  tl.fromTo(rig, { ...R0, rotationY: -28, rotationX: -8 }, A({ ...R0, rotationY: 0, rotationX: 0, duration: 1.1, ease: E.SPRING }), T(b1 + 0.3));
+  [p0, p1].forEach((p) => tl.fromTo(E.q(".s37-edge", p), { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), T(b1 + 0.95)));
+  tl.fromTo(q(".s37-border"), { opacity: 0 }, A({ opacity: 1, duration: 0.4 }), T(b1 + 1.0));
+  tl.fromTo(hud, { opacity: 0 }, A({ opacity: 1, duration: 0.35 }), T(b1 + 1.3));
 
-  // B0 "whoever built the video is the least suited to critique it": the builder's explanations,
-  // its own checklist ticked one by one, while the caption is cut at the frame's edge
-  tw(bub, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, b0 + 0.05);
-  qa(".s73-bub > i").forEach((l, i) => tw(l, { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out" }, b0 + 0.3 + i * 0.12));
-  E.fadeIn(tl, list, T(b0 + 0.7), 0.45, 14);
-  qa(".s73-li path").forEach((p, i) => E.draw(tl, p, T(b0 + 0.95 + i * 0.25), 0.25));
-  E.draw(tl, q(".s73-flaw rect"), T(b0 + 1.85), 0.45);
-  tw(flaw, { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out" }, b0 + 2.3);
-  tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b0 + 2.55);
-  tw(person, { y: 0 }, { y: 5, duration: 0.18, ease: "power2.out" }, b0 + 2.1);
-  tw(person, { y: 5 }, { y: 0, duration: 0.3, ease: "back.out(2)" }, b0 + 2.28);
-
-  // B1 "and this is true for Claude too": the builder glitches into Claude (an agent card), same ticked checklist
-  E.glitch(tl, person, T(b1 + 0.02), 8);
-  tw(person, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b1 + 0.22);
-  pop(me, b1 + 0.25, 0.75);
-  E.fadeIn(tl, mename, T(b1 + 0.4), 0.45, 10);
-  sweep(me, b1 + 0.65, 0.7, "rgba(255, 255, 255, 0.22)");
-  tw(list, { borderColor: "rgba(201, 194, 255, 0.28)" }, { borderColor: "rgba(255, 255, 255, 0.85)", duration: 0.15 }, b1 + 0.7);
-  tw(list, { borderColor: "rgba(255, 255, 255, 0.85)" }, { borderColor: "rgba(201, 194, 255, 0.28)", duration: 0.4 }, b1 + 0.85);
-  tw(flaw, { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out" }, b1 + 0.95);
-  tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b1 + 1.2);
-
-  // B2 "an independent critic is a separate copy of Claude that built nothing": a copy slides out (with a depth trail),
-  // a divider goes up between them, the critic's tray is empty
-  E.fadeOut(tl, list, T(b2), 0.3, 10);
-  tw(flaw, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b2);
-  tw(builder, { x: SHIFT }, { x: 0, duration: 0.75, ease: E.SPRING }, b2 + 0.1);
-  const DX = me.offsetLeft - cr.offsetLeft + SHIFT;
-  const slide = (el, t, peak) => {
-    tw(el, { x: DX, rotationY: -38, scale: 0.92, transformPerspective: 900, opacity: 0 }, { x: 0, rotationY: 0, scale: 1, transformPerspective: 900, opacity: peak, duration: 0.95, ease: E.SPRING }, t);
-  };
-  slide(q(".s73-gh2"), b2 + 0.27, 0.18);
-  slide(q(".s73-gh1"), b2 + 0.21, 0.36);
-  slide(cr, b2 + 0.15, 1);
-  qa(".s73-ghost").forEach((g, i) => tw(g, { opacity: i ? 0.36 : 0.18 }, { opacity: 0, duration: 0.3 }, b2 + 1.25 + i * 0.05));
-  E.draw(tl, q(".s73-div path"), T(b2 + 1.05), 0.5);
-  E.fadeIn(tl, crname, T(b2 + 1.2), 0.45, 10);
-  E.fadeIn(tl, q(".s73-tray"), T(b2 + 1.5), 0.45, 10);
-  sweep(cr, b2 + 1.7, 0.7, "rgba(255, 255, 255, 0.22)");
-
-  // B3 "it gets the request and frames from every scene, without the explanations": into the tray they go;
-  // the explanations hit the divider and are refused
-  const doc = q(".s73-doc");
-  tw(doc, { x: 536, y: -5, scale: 0.8, rotation: -8, opacity: 0 }, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, duration: 0.85, ease: E.SPRING }, b3 + 0.1);
-  const vc = E.center(vid, wrap);
-  qa(".s73-in").forEach((th, i) => {
-    const o = E.center(th, wrap);
-    tw(th, { x: vc.x - o.x, y: vc.y - o.y, scale: 2.4, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.8, ease: E.SPRING }, b3 + 0.45 + i * 0.15);
+  // B2 "בכל משפט יש מילה אחת שהכי חשובה": the frame moves aside; sentences, one important word in each
+  const b2 = P[1], panel = q(".s37-panel");
+  tl.fromTo(frame, { x: 0 }, A({ x: 215, duration: 0.75, ease: E.SPRING }), T(b2 + 0.05));
+  tl.fromTo(panel, { opacity: 0 }, A({ opacity: 1, duration: 0.35 }), T(b2 + 0.3));
+  const rows = qa(".s37-row");
+  rows.forEach((r, i) => {
+    tl.fromTo(r, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b2 + 0.4 + i * 0.1));
+    tl.fromTo(r, { x: -18 }, A({ x: 0, duration: 0.5, ease: E.SPRING }), T(b2 + 0.4 + i * 0.1));
   });
-  const expl = q(".s73-expl"), no = q(".s73-no"), dv = q(".s73-div path");
-  pop(expl, b3 + 1.1, 0.8);
-  tw(bub, { x: 0 }, { x: -88, duration: 0.3, ease: "power2.in" }, b3 + 1.35);
-  E.glitch(tl, q(".s73-div"), T(b3 + 1.65), 6);
-  tw(dv, { stroke: "#c9c2ff" }, { stroke: "#ff6b61", duration: 0.1 }, b3 + 1.65);
-  tw(dv, { stroke: "#ff6b61" }, { stroke: "#c9c2ff", duration: 0.5 }, b3 + 1.9);
-  pop(no, b3 + 1.68, 0.5);
-  qa(".s73-no path").forEach((p, i) => E.draw(tl, p, T(b3 + 1.72 + i * 0.12), 0.22));
-  tw(bub, { x: -88 }, { x: -36, duration: 0.4, ease: "power2.out" }, b3 + 1.65);
-  tw(bub, { opacity: 1 }, { opacity: 0, duration: 0.35 }, b3 + 2.15);
-
-  // B4 "and gives a score out of 100 with a numeric fix for every defect": the gauge lands on 68 (the first round);
-  // two defects, each with its fix dialled in (the punch-in lands on the gauge)
-  E.fadeOut(tl, q(".s73-builder"), T(b4), 0.2, 0);
-  tw(q(".s73-div"), { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4);
-  [q(".s73-tray"), doc].concat(qa(".s73-in")).forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4));
-  // the fill shows v% of the arc at offset L - v * len; hidden, its dash ends 12 px before the arc starts,
-  // so its round cap never leaves a dot there (same as E.draw)
-  const fill = q(".s73-fill"), len = fill.getTotalLength(), L = Math.ceil(len) + 2, pad = 12;
-  fill.style.strokeDasharray = L + " " + (L + 2 * pad);
-  fill.style.strokeDashoffset = L + pad;
-  const off = (v) => +(L - (len * v) / 100).toFixed(1);
-  E.draw(tl, q(".s73-track"), T(b4 + 0.2), 0.5);
-  tw(fill, { strokeDashoffset: L + pad }, { strokeDashoffset: off(c.scoreFrom), duration: 0.8, ease: "power2.out" }, b4 + 0.4);
-  qa(".s73-tk").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.5));
-  qa(".s73-tl").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.55));
-  const n1 = q(".s73-n1"), n2 = q(".s73-n2");
-  pop(n1, b4 + 0.6, 0.6);
-  tw(q(".s73-of"), { opacity: 0 }, { opacity: 1, duration: 0.35 }, b4 + 0.75);
-  qa(".s73-row").forEach((row, i) => {
-    const t = b4 + 1.0 + i * 0.3;
-    tw(row, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }, t);
-    tw(E.q(".s73-dm", row), { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, t + 0.25);
-    tw(E.q(".s73-arr", row), { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, t + 0.35);
-    const kn = E.q(".s73-knob", row), to = i ? -31.2 * 1.5 : 31.2 * 4;
-    tw(kn, { x: 0 }, { x: to, duration: 0.55, ease: "power3.inOut" }, t + 0.5);
-    tw(kn, { scale: 1 }, { scale: 1.25, duration: 0.15, ease: "power2.out" }, t + 1.05);
-    tw(kn, { scale: 1.25 }, { scale: 1, duration: 0.25, ease: "power2.in" }, t + 1.2);
-  });
-
-  // payoff: the same critic, round after round; the middle rounds are dots (no numbers in the guide);
-  // the gauge passes 90 and lands on 96; then the stopping rule
-  qa(".s73-row").forEach((row) => E.fadeOut(tl, row, T(pe), 0.3, 10));
-  const line = q(".s73-line"), linef = q(".s73-linef"), nds = qa(".s73-nd");
-  tw(line, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, pe + 0.1);
-  nds.forEach((n, k) => pop(n, pe + 0.15 + k * 0.05, 0.4));
-  E.fadeIn(tl, q(".s73-slbl"), T(pe + 0.3), 0.4, 6);
-  const lit = (n, t) => tw(n, { boxShadow: "0 0 0 2px rgba(201, 194, 255, 0.7), 0 0 0px rgba(201, 194, 255, 0)", backgroundColor: "#2a2450" },
-    { boxShadow: "0 0 0 2px rgba(255, 255, 255, 1), 0 0 14px rgba(201, 194, 255, 0.9)", backgroundColor: "#c9c2ff", duration: 0.25 }, t);
-  lit(nds[0], pe + 0.45);
-  E.fadeIn(tl, q(".s73-sv1"), T(pe + 0.5), 0.4, 8);
-  E.fadeIn(tl, q(".s73-rublbl"), T(pe + 0.65), 0.4, 10);
-  qa(".s73-tag").forEach((g, i) => pop(g, pe + 0.75 + i * 0.08, 0.7));
-  // rounds 2..7
-  const r0 = pe + 1.55, step = 0.33, rEnd = r0 + 5 * step + 0.2;
-  for (let k = 1; k <= 6; k++) {
-    const t = r0 + (k - 1) * step;
-    tw(linef, { scaleX: (k - 1) / 6 }, { scaleX: k / 6, duration: 0.22, ease: "power2.out" }, t);
-    if (k < 6) {
-      tw(nds[k], { scale: 1 }, { scale: 1.7, duration: 0.15, ease: "power2.out" }, t + 0.12);
-      tw(nds[k], { scale: 1.7 }, { scale: 1, duration: 0.2, ease: "power2.in" }, t + 0.27);
-    } else {
-      lit(nds[6], t + 0.12);
+  tl.fromTo(caps[0], { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), T(b2 + 0.45));
+  rows.forEach((r, i) => {
+    const t = b2 + 0.85 + i * 0.42, k = E.q(".s37-kw", r), u = E.q(".s37-ul", r);
+    tl.fromTo(k, { color: "#ffffff" }, A({ color: "#ff6b61", duration: 0.15 }), T(t));
+    tl.fromTo(u, { scaleX: 0 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), T(t));
+    if (i < rows.length - 1) {               // stays marked, in light colours, as the next sentence's word lights
+      tl.fromTo(k, { color: "#ff6b61" }, A({ color: "#ffffff", duration: 0.1 }), T(t + 0.36));
+      tl.fromTo(u, { backgroundColor: "#ff453a" }, A({ backgroundColor: "#c9c2ff", duration: 0.1 }), T(t + 0.36));
     }
-    tw(cr, { scale: 1 }, { scale: 1.06, duration: 0.12, ease: "power2.out" }, t + 0.05);
-    tw(cr, { scale: 1.06 }, { scale: 1, duration: 0.18, ease: "power2.in" }, t + 0.17);
-  }
-  tw(n1, { opacity: 1 }, { opacity: 0, duration: 0.25 }, r0);
-  tw(fill, { strokeDashoffset: off(c.scoreFrom) }, { strokeDashoffset: off(c.scoreTo), duration: rEnd - r0, ease: "power1.inOut" }, r0);
-  // the gauge passes the target: its tick and label light up, a check mark
-  const tPass = r0 + (rEnd - r0) * 0.72;
-  tw(q(".s73-tk" + c.target), { stroke: "rgba(236, 233, 255, 0.85)" }, { stroke: "#ffffff", duration: 0.2 }, tPass);
-  tw(q(".s73-tl" + c.target), { color: "#b8b4cc", scale: 1 }, { color: "#ffffff", scale: 1.2, duration: 0.3, ease: "back.out(2)" }, tPass);
-  const pass = q(".s73-pass");
-  pop(pass, tPass + 0.05, 0.5);
-  E.draw(tl, q(".s73-pass path"), T(tPass + 0.1), 0.25);
-  pop(n2, rEnd - 0.05, 0.6);
-  E.fadeIn(tl, q(".s73-sv7"), T(rEnd), 0.4, 8);
-  E.burst(tl, q(".s73-gauge"), 21, 151, T(rEnd), { n: 14, seed: 73, r0: 26, r1: 70, color: "#c9c2ff" });
-  // the stopping rule
-  const rule = q(".s73-rulecard");
-  tw(rule, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }, pe + 4.1);
-  qa(".s73-stop path").forEach((p, i) => E.draw(tl, p, T(pe + 4.25 + i * 0.2), 0.35));
-  sweep(rule, pe + 4.6, 0.9, "rgba(201, 194, 255, 0.2)");
+  });
+  light(b2 + 0.85, 0);                       // in the video, the first sentence's word
+
+  // B3 "וקלוד מקרב עליה את התמונה ב-10 עד 15 אחוז": the picture punches in 12% on the word, inside the 10-15% range
+  const b3 = P[2], meter = q(".s37-meter");
+  tl.fromTo(q(".s37-rows"), { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), T(b3));
+  tl.fromTo(meter, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b3 + 0.3));
+  const tZ1 = b3 + 0.65, mk = q(".s37-mk"), mx = (v) => 356 - v * (316 / 15);
+  punch(tZ1);
+  tl.fromTo(mk, { x: 0 }, A({ x: mx(c.zoom) - mx(0), duration: DZ, ease: E.SPRING }), T(tZ1));
+  tl.fromTo(q(".s37-mkv"), { opacity: 0, y: 8 }, A({ opacity: 1, y: 0, duration: 0.3, ease: E.SPRING }), T(tZ1 + 0.45));
+  tl.fromTo(q(".s37-band"), { opacity: 0.45 }, A({ opacity: 1, duration: 0.3 }), T(tZ1 + 0.45));
+
+  // B4 "בתנועת קפיץ, בדיוק כשהיא נאמרת": the next sentence (back to 100%); its word is said and at that very moment
+  // the picture springs in while the guide's spring curve draws in real time
+  const b4 = P[3], graph = q(".s37-graph");
+  tl.fromTo(meter, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), T(b4));
+  tl.fromTo(graph, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b4 + 0.22));
+  swap(b4 + 0.1, 0, 1);
+  reset(b4 + 0.1, Z);
+  const tZ2 = b4 + 0.45;
+  tl.fromTo(gdot, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(tZ2 - 0.1));
+  light(tZ2, 1);
+  punch(tZ2);
+  drawCurve(tZ2);
+
+  // B5 "מרכז הזום תמיד על הפנים, והוא מתאפס בחיתוך הבא": the zoom centre is the face; at the next cut, 100% at once
+  const b5 = P[4], face = q(".s37-face"), tline = q(".s37-tline"), ph = q(".s37-ph");
+  tl.fromTo(face, { opacity: 0, scale: 1.3 }, A({ opacity: 1, scale: 1, duration: 0.5, ease: E.SPRING }), T(b5 + 0.1));
+  tl.fromTo(graph, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), T(b5 + 0.15));
+  tl.fromTo(tline, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b5 + 0.4));
+  const tP = b5 + 0.75, dP = 1.7, cutF = (370 - 196) / 340, tCut = tP + cutF * dP;
+  tl.fromTo(ph, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(tP - 0.1));
+  tl.fromTo(ph, { x: 0 }, A({ x: -340, duration: dP, ease: "none" }), T(tP));
+  tl.fromTo(q(".s37-zclip"), { clipPath: "inset(0px 0px 0px 370px)" }, A({ clipPath: "inset(0px 0px 0px 30px)", duration: dP, ease: "none" }), T(tP));
+  // the cut: a new shot, and the zoom is back to 100% in one frame
+  tl.fromTo(q(".s37-flash"), { opacity: 0 }, A({ opacity: 0.8, duration: 0.04, ease: "none" }), T(tCut));
+  tl.fromTo(q(".s37-flash"), { opacity: 0.8 }, A({ opacity: 0, duration: 0.3, ease: "power2.out" }), T(tCut + 0.04));
+  reset(tCut, Z);
+  tl.fromTo(q(".s37-win"), { x: 0 }, A({ x: -150, duration: 0.02, ease: "none" }), T(tCut));
+  tl.fromTo(face, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(tCut + 0.1));
+  tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(tP + dP));
+
+  // payoff: the guide's opening, sentence by sentence: a punch-in on each important word (the curve redraws),
+  // 100% again at each next sentence, and a slow 3% push on the long last sentence
+  tl.fromTo(tline, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), T(pe));
+  clearCurve(pe + 0.1);
+  tl.fromTo(graph, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(pe + 0.2));
+  unlight(pe + 0.08, 0);
+  swap(pe + 0.1, 1, 0);
+  const STEP = 1.1;
+  [0, 1, 2].forEach((i) => {
+    const t0 = pe + 0.1 + i * STEP;
+    if (i > 0) {
+      if (i === 1) unlight(t0 - 0.02, 1);
+      swap(t0, i - 1, i);
+      reset(t0, Z);
+      clearCurve(t0);
+    }
+    light(t0 + 0.25, i);
+    punch(t0 + 0.25);
+    drawCurve(t0 + 0.25);
+  });
+  // the long sentence: no punch-in, a slow push of 3%; the curve gives way to a straight slow line
+  const tD = pe + 0.1 + 3 * STEP, dD = 1.4, gclip2 = q(".s37-gclip2");
+  swap(tD, 2, 3);
+  reset(tD, Z);
+  clearCurve(tD);
+  ins.forEach((el) => tl.fromTo(el, { scale: 1 }, A({ scale: ZP, duration: dD, ease: "none" }), T(tD + 0.1)));
+  tl.fromTo(units, { y: 0 }, A({ y: -H * c.push, duration: dD, ease: "none" }), T(tD + 0.1));
+  tl.fromTo(gclip2, { clipPath: HID }, A({ clipPath: ALL, duration: dD, ease: "none" }), T(tD + 0.1));
+  const pushY = (GY1 - GY0) * c.push / c.zoom;
+  tl.fromTo(gdot, { x: 0, y: 0 }, A({ x: GX1 - GX0, y: pushY, duration: dD, ease: "none" }), T(tD + 0.1));
 };
 
 
 (function () {
-  const CFGS = [{"id": "t73", "sim": "sim73", "D": 32.06, "tStage": 1.18, "tExp": 1.78, "phr": [1.78, 4.48, 6.08, 9.03, 11.73], "phrEnd": 14.43, "tSimEnd": 21.43, "tFact": 21.43, "tPrompt": 26.11, "tPromptEnd": 31.61, "tTip": null, "expZoom": 0.1, "simDur": 20.25, "hls": [{"id": "hl1", "hold": 2.2, "zoom": 0.1}], "sim73": {"builderName": "קלוד", "criticLabel": "מבקר עצמאי", "reqLabel": "הבקשה", "explLabel": "ההסברים", "scoreFrom": 68, "scoreTo": 96, "target": 90, "stopAt": 70, "rounds": 7, "roundsLabel": "סבבים", "rubricLabel": "מחוון", "rubric": ["ביצוע", "גימור", "תנועה", "טקסט ועברית", "התאמה לסגנון", "היגיון פיזי"], "rule": ["אחרי שני סבבים עדיין מתחת ל-70?", "עוצרים ומביאים את הפער."]}, "S": 0.0}];
+  const CFGS = [{"id": "t37", "sim": "sim37", "D": 38.09, "tStage": 1.31, "tExp": 1.91, "phr": [1.91, 3.86, 6.06, 9.01, 10.96], "phrEnd": 13.66, "tSimEnd": 20.16, "tFact": 20.16, "tPrompt": 25.07, "tPromptEnd": 32.66, "tTip": 32.66, "expZoom": 0.1, "simDur": 18.85, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim37": {"words": ["קלוד", "נבדוק", "אותו"], "zoom": 12, "zoomRange": [10, 15], "push": 3, "base": 100, "cutLabel": "חיתוך"}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1209,7 +1197,7 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 32.060;
+    const TOT = 38.090;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

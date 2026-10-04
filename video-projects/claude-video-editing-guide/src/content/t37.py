@@ -32,4 +32,6 @@ CFG = {'id': 't37',
      # the slow push on the long sentence (guide 3.7, above) and the reset level. Guide, prompt 13:
      # "הזום נשאר עד החיתוך הבא וחוזר שם ל-100 אחוז בבת אחת"
      push=3, base=100,
+     # the cut on the timeline: the explanation, "והוא מתאפס בחיתוך הבא"
+     cutLabel="חיתוך",
  )}

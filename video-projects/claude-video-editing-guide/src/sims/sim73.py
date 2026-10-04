@@ -91,4 +91,4 @@ def html(cfg):
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
     return [("tick", P[0] + 0.9), ("glitch_soft", P[1] + 0.08), ("whoosh_soft", P[2] + 0.22),
-            ("glitch_soft", P[3] + 1.62), ("pop", P[4] + 0.12), ("shimmer", pe + 3.45), ("swipe", pe + 4.1)]
+            ("glitch_soft", P[3] + 1.65), ("pop", P[4] + 0.6), ("shimmer", pe + 3.35), ("swipe", pe + 4.1)]

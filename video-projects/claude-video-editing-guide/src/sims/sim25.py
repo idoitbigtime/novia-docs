@@ -144,7 +144,7 @@ def graph():
 
 def spectrum():
     """B4: the effects' spectrum, low to high frequency (log axis 20 Hz .. 20 kHz across x 20..550)."""
-    n, x0, x1, base = 26, 22, 552, 640
+    n, x0, x1, base = 26, 22, 552, 656
     pitch = (x1 - x0) / n
     r = _rng(31)
     cut = x0 + (x1 - x0) / 3.0                    # 200 Hz on the log axis
@@ -152,10 +152,10 @@ def spectrum():
     for i in range(n):
         x = x0 + i * pitch + 3
         f = i / (n - 1)
-        h = (98 - 40 * f + 18 * r()) if f < 0.3 else (52 - 24 * f + 16 * r())
+        h = (64 - 24 * f + 12 * r()) if f < 0.3 else (38 - 18 * f + 10 * r())
         low = x + (pitch - 6) / 2 < cut
         bars.append(f'<i class="s25-sb{" s25-low" if low else ""}" style="left:{x:.1f}px;top:{base - h:.1f}px;height:{h:.1f}px;width:{pitch - 6:.1f}px"></i>')
-    curve = (f'<svg class="s25-hp" viewBox="0 0 575 700" aria-hidden="true"><path d="M{x0} {base} C{cut - 70:.0f} {base} {cut - 40:.0f} {base - 104} {cut:.0f} {base - 110} H{x1}"/></svg>')
+    curve = (f'<svg class="s25-hp" viewBox="0 0 575 700" aria-hidden="true"><path d="M{x0} {base} C{cut - 70:.0f} {base} {cut - 40:.0f} {base - 82} {cut:.0f} {base - 86} H{x1}"/></svg>')
     return "".join(bars), cut, curve
 
 
@@ -165,18 +165,19 @@ def lanes(c):
     r = _rng(41)
     speech_on = [1 if (3 <= i <= 16 or 22 <= i <= 34 or 41 <= i <= 52) else 0 for i in range(n)]
     sp = [(0.35 + 0.6 * r()) * s for i, s in enumerate(speech_on)]
-    mu = [(0.3 + 0.08 * math.sin(i * 0.7)) * (0.72 if speech_on[i] else 1.0) for i in range(n)]
+    mu = [(0.34 + 0.08 * math.sin(i * 0.7)) * (0.55 if speech_on[i] else 1.0) for i in range(n)]
     fx = [0.0] * n
     for i, a in ((9, 0.34), (27, 0.3), (46, 0.32)):
         fx[i], fx[i + 1] = a, a * 0.55
-    rows = [("s25-l1", c["lanes"][0], wave_svg("s25-lw", W, 92, sp, bar=5)),
-            ("s25-l2", f'{c["lanes"][1]} · {c["musicRel"]}', wave_svg("s25-lw", W, 92, mu, bar=5)),
-            ("s25-l3", f'{c["lanes"][2]} · {c["sfxRel"]}', wave_svg("s25-lw", W, 92, fx, bar=5))]
+    rows = [("s25-l1", c["lanes"][0], wave_svg("s25-lw", W, 80, sp, bar=5)),
+            ("s25-l2", f'{c["lanes"][1]} · {c["musicRel"]}', wave_svg("s25-lw", W, 80, mu, bar=5)),
+            ("s25-l3", f'{c["lanes"][2]} · {c["sfxRel"]}', wave_svg("s25-lw", W, 80, fx, bar=5))]
     out = []
     for i, (cls, lab, wv) in enumerate(rows):
-        out.append(f'<div class="s25-lane {cls}" style="top:{78 + i * 178}px"><div class="s25-lh" dir="rtl"><i></i>{rtl(lab)}</div>'
+        out.append(f'<div class="s25-lane {cls}" style="top:{64 + i * 186}px"><div class="s25-lh" dir="rtl"><i></i>{rtl(lab)}</div>'
                    f'<div class="s25-lwv">{wv}</div></div>')
-    duck = (f'<div class="s25-duck" style="top:{78 + 178 + 140}px"><span dir="rtl">{rtl(c["duckTag"])}</span></div>')
+    arrow = ('<svg class="s25-dn" viewBox="0 0 20 22" aria-hidden="true"><path d="M10 2V19M3 12l7 7 7-7"/></svg>')
+    duck = (f'<div class="s25-duck" style="top:{64 + 186 + 130}px"><span dir="rtl">{arrow}{rtl(c["duckTag"])}</span></div>')
     # where the music dips: under the speech bursts (x of the first dip, lane coordinates)
     return "".join(out) + duck
 
@@ -213,8 +214,8 @@ def html(cfg):
     sbars, cut, curve = spectrum()
     spanel = (f'<div class="s25-sp"><i class="s25-sbg"></i><div class="s25-sh" dir="rtl"><i></i>{esc(c["sfxTitle"])}</div>{sbars}{curve}'
               f'<i class="s25-cut" style="left:{cut - 1:.1f}px"></i>'
-              f'<span class="s25-hpt" dir="ltr" style="left:{cut + 12:.0f}px">{esc(c["hp"])}</span>'
-              f'<span class="s25-nb" dir="rtl" style="left:{cut - 150:.0f}px">{esc(c["noBass"])}</span></div>')
+              f'<span class="s25-hpt" dir="ltr" style="left:{cut - 1:.0f}px">{esc(c["hp"])}</span>'
+              f'<span class="s25-nb" dir="rtl" style="left:22px">{esc(c["noBass"])}</span></div>')
     return f"""<div class="simwrap sim25">
 {meter}
 <div class="s25-main">{phone(c)}{readout}{ear}{gpanel}{spanel}<div class="s25-lanes">{lanes(c)}<i class="s25-ph"></i></div></div>

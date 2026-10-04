@@ -89,10 +89,10 @@
 /* payoff: the caught frame, grown, with its label */
 .sim72 .s72-big { left: 560px; top: 30px; width: 186px; height: 331px; border-radius: 16px; transform-origin: 0 0; opacity: 0; box-shadow: 0 0 0 3px #ff453a, 0 0 26px rgba(255, 69, 58, 0.45); }
 .sim72 .s72-big > .s72-ph { position: absolute; left: 0; top: 0; width: 186px; height: 331px; overflow: visible; opacity: 0; }
-.sim72 .s72-ph rect { fill: rgba(255, 69, 58, 0.08); stroke: #ff6b61; stroke-width: 2.5; stroke-dasharray: 7 6; }
+.sim72 .s72-ph rect { fill: rgba(255, 255, 255, 0.05); stroke: rgba(236, 233, 255, 0.75); stroke-width: 2.5; stroke-dasharray: 7 6; }
 .sim72 .s72-catch { position: absolute; right: 262px; top: 118px; width: 440px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; direction: rtl; }
 .sim72 .s72-ct1 { display: flex; align-items: center; gap: 14px; font: 700 38px/1.1 "Rubik"; color: #ffffff; white-space: nowrap; opacity: 0; }
-.sim72 .s72-ct1 i { width: 16px; height: 16px; border-radius: 50%; background: #ff453a; box-shadow: 0 0 12px rgba(255, 69, 58, 0.9); display: block; flex: none; }
+.sim72 .s72-ct1 i { width: 16px; height: 16px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.9); display: block; flex: none; }
 .sim72 .s72-ct2 { font: 500 33px/1.4 "Rubik"; color: #dcd9e6; width: 400px; margin-right: 30px; opacity: 0; }
 
 /* the check: a magnifier that looks at frames (persists) */

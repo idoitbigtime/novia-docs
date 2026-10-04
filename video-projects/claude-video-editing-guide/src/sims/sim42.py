@@ -140,5 +140,6 @@ def html(cfg):
 
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
-    return [("snap", P[0] + 0.16), ("whoosh_soft", P[0] + 1.72), ("shimmer", P[1] + 0.12),
-            ("pop", P[2] + 1.3), ("swipe", P[3] + 0.86), ("glitch_soft", pe + 2.46), ("snap", pe + 2.82)]
+    # one per beat: the upload, the models, the choice, the model at work; payoff: the drifting face, the cut
+    return [("whoosh_soft", P[0] + 1.72), ("shimmer", P[1] + 0.12), ("pop", P[2] + 1.3),
+            ("swipe", P[3] + 0.86), ("glitch_soft", pe + 2.5), ("snap", pe + 2.82)]

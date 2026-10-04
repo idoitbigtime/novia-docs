@@ -25,7 +25,8 @@ CFG = {'id': 't25',
      'loudTag': 'צועק', 'quietTag': 'כמעט לוחש', 'burnTag': 'נשרף',
      # meter. Explanation phrase 2: 'היעד הוא מינוס 14 LUFS' (guide: '-14 LUFS'); description: 'ותקרת שיא במינוס 1'
      # (guide prompt 5: 'השיא האמיתי (true peak) לא עובר את -1')
-     'meterTitle': 'LUFS', 'target': '-14', 'ceil': '-1',
+     # (shown with a typographic minus sign)
+     'meterTitle': 'LUFS', 'target': '\u221214', 'ceil': '\u22121',
      # B3. Description: '"מעבר 1: מדידה" ואחריו "מעבר 2: linear"'
      'pass1': 'מעבר 1: מדידה', 'pass2': 'מעבר 2: linear',
      # B4. Explanation phrase 5: 'מנקה את הבס מהאפקטים הקוליים'; description: 'אפקטים (בלי בס, highpass 200Hz)'

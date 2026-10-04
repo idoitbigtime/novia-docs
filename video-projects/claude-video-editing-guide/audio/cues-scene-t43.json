@@ -28,11 +28,6 @@
    "scene": "t43"
   },
   {
-   "sfx": "tick",
-   "t": 1.96,
-   "scene": "t43"
-  },
-  {
    "sfx": "whoosh_soft",
    "t": 2.86,
    "scene": "t43"
@@ -43,11 +38,6 @@
    "scene": "t43"
   },
   {
-   "sfx": "snap",
-   "t": 6.43,
-   "scene": "t43"
-  },
-  {
    "sfx": "glitch_soft",
    "t": 8.71,
    "scene": "t43"
@@ -55,11 +45,6 @@
   {
    "sfx": "glitch_soft",
    "t": 10.86,
-   "scene": "t43"
-  },
-  {
-   "sfx": "pop",
-   "t": 11.36,
    "scene": "t43"
   },
   {

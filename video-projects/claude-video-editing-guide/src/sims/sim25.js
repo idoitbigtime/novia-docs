@@ -8,7 +8,7 @@ window.SIMS.sim25 = function (tl, ctx, cfg, S) {
     tl.fromTo(el, { opacity: 0 }, A({ opacity: 1, duration: 0.22 }), t);
     tl.fromTo(el, { y: dy == null ? 10 : dy, scale: 0.9 }, A({ y: 0, scale: 1, duration: d || 0.55, ease: E.SPRING }), t);
   };
-  const out = (el, t, d, dy) => tl.fromTo(el, { opacity: 1, y: 0 }, A({ opacity: 0, y: dy || 0, duration: d || 0.25, ease: "power2.in" }), t);
+  const fade = (el, t, d, from) => tl.fromTo(el, { opacity: from == null ? 1 : from }, A({ opacity: 0, duration: d || 0.25, ease: "power2.in" }), t);
   // the meter level (loudness in dB -> bar fraction), chained from state to state
   const lvl = q(".s25-lvl"), frac = (L) => 1 + L / 30;
   let curL = null;
@@ -78,8 +78,8 @@ window.SIMS.sim25 = function (tl, ctx, cfg, S) {
 
   // B3 "קלוד מודד, מכוון ומודד שוב": pass 1 measures, pass 2 (linear) levels it, a second measurement confirms
   const b3 = P[3], gp = q(".s25-gp"), p1 = q(".s25-p1"), p2 = q(".s25-p2"), scan = q(".s25-gscan");
-  out(ro, T(b3 - 0.05), 0.25);
-  out(earw, T(b3 - 0.05), 0.25);
+  fade(ro, T(b3 - 0.3), 0.25);
+  fade(earw, T(b3 - 0.3), 0.25);
   tl.fromTo(gp, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b3 + 0.05));
   popIn(p1, T(b3 + 0.12), 8, 0.45);
   qa(".s25-gl").forEach((l, i) => tl.fromTo(l, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.45, ease: "power2.out" }), T(b3 + 0.15 + i * 0.05)));
@@ -102,13 +102,13 @@ window.SIMS.sim25 = function (tl, ctx, cfg, S) {
   });
   level(-14, T(b3 + 0.95), 0.55);
   // measure again
-  tl.fromTo(scan, { opacity: 0, x: 0 }, A({ opacity: 1, x: 0, duration: 0.06 }), T(b3 + 1.38));
+  tl.fromTo(scan, { opacity: 0 }, A({ opacity: 1, duration: 0.06 }), T(b3 + 1.4));
   tl.fromTo(scan, { x: 0 }, A({ x: -span, duration: 0.24, ease: "none" }), T(b3 + 1.4));
   tl.fromTo(scan, { opacity: 1 }, A({ opacity: 0, duration: 0.06 }), T(b3 + 1.6));
   const ok = q(".s25-ok");
   tl.fromTo(ok, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.2)" }), T(b3 + 1.5));
   E.draw(tl, q(".s25-ok path"), T(b3 + 1.55), 0.3);
-  out(p2, T(P[4] - 0.05), 0.2);
+  fade(p2, T(P[4] - 0.05), 0.2);
 
   // B4 "ובדרך מנקה את הבס מהאפקטים הקוליים": a highpass at 200Hz takes the bass out of the effects
   const b4 = P[4], sp = q(".s25-sp");
@@ -124,9 +124,8 @@ window.SIMS.sim25 = function (tl, ctx, cfg, S) {
   popIn(q(".s25-nb"), T(b4 + 1.05), 8);
 
   // payoff: three channels at the target; a playhead runs through the mix, the meter holds -14
-  out(gp, T(pe + 0.05), 0.3);
-  tl.fromTo(gp, { opacity: 0.4 }, A({ opacity: 0, duration: 0.3 }), T(pe + 0.05));
-  out(sp, T(pe + 0.05), 0.3);
+  fade(gp, T(pe + 0.05), 0.3, 0.4);
+  fade(sp, T(pe + 0.05), 0.3);
   const lanes = q(".s25-lanes");
   tl.fromTo(lanes, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), T(pe + 0.35));
   qa(".s25-lane").forEach((ln, i) => {

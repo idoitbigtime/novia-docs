@@ -1,0 +1,100 @@
+/* 3.7 a bouncy zoom on the important word (canvas 800 x 700; a 9:16 frame 330 x 586 and a panel at the left) */
+/* the frame */
+.sim37 .s37-frame { position: absolute; width: 330px; height: 586px; }
+.sim37 .s37-fv { position: absolute; left: 0; top: 0; width: 330px; height: 586px; perspective: 1100px; perspective-origin: 165px 293px; }
+.sim37 .s37-rig { position: absolute; left: 165px; top: 293px; width: 0; height: 0; transform-style: preserve-3d; transform: rotateY(-40deg) rotateX(-8deg); }
+.sim37 .s37-pl { position: absolute; left: -165px; top: -293px; width: 330px; height: 586px; border-radius: 26px; overflow: hidden; }
+.sim37 .s37-p0 { background: linear-gradient(180deg, #2c2659 0%, #231e4b 64%, #17142f 64.2%, #100e22 100%); transform: translateZ(-90px); }
+.sim37 .s37-p1 { transform: translateZ(0px); }
+.sim37 .s37-p2 { transform: translateZ(60px); }
+.sim37 .s37-in { position: absolute; left: 0; top: 0; width: 330px; height: 586px; transform-origin: 165px 348px; }
+.sim37 .s37-edge { position: absolute; inset: 0; border-radius: 26px; border: 2.5px solid #d6d0ff; display: block;
+  box-shadow: 0 0 16px rgba(201, 194, 255, 0.6), inset 0 0 14px rgba(201, 194, 255, 0.25); }
+.sim37 .s37-lamp { position: absolute; left: -120px; top: -150px; width: 400px; height: 400px; border-radius: 50%; display: block;
+  background: radial-gradient(circle, rgba(169, 147, 255, 0.3), rgba(169, 147, 255, 0) 68%); }
+.sim37 .s37-win { position: absolute; left: 206px; top: 62px; width: 92px; height: 132px; border: 2px solid rgba(201, 194, 255, 0.3); border-radius: 6px; display: block;
+  background: linear-gradient(155deg, rgba(170, 160, 255, 0.2), rgba(170, 160, 255, 0.04) 70%); }
+.sim37 .s37-win u { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(201, 194, 255, 0.3); display: block; }
+.sim37 .s37-win s { position: absolute; top: 46%; left: 0; right: 0; height: 2px; background: rgba(201, 194, 255, 0.3); display: block; }
+.sim37 .s37-floor { position: absolute; left: 0; right: 0; top: 375px; height: 2px; background: rgba(201, 194, 255, 0.2); display: block; }
+.sim37 .s37-person { position: absolute; left: 15px; top: 221px; width: 300px; height: 365px; display: block; }
+/* the person talks */
+.sim37 .s37-wave { position: absolute; border: 3px solid transparent; border-right-color: #d6d0ff; border-radius: 50%; display: block; opacity: 0;
+  filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+.sim37 .s37-w1 { left: 214px; top: 322px; width: 34px; height: 52px; }
+.sim37 .s37-w2 { left: 218px; top: 306px; width: 52px; height: 84px; }
+/* the face is the zoom centre */
+.sim37 .s37-face { position: absolute; width: 132px; height: 160px; opacity: 0; }
+.sim37 .s37-fc { position: absolute; width: 28px; height: 28px; border: 0 solid #ffffff; display: block; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.95)); }
+.sim37 .s37-fc0 { right: 0; top: 0; border-top-width: 3.5px; border-right-width: 3.5px; border-top-right-radius: 10px; }
+.sim37 .s37-fc1 { left: 0; top: 0; border-top-width: 3.5px; border-left-width: 3.5px; border-top-left-radius: 10px; }
+.sim37 .s37-fc2 { left: 0; bottom: 0; border-bottom-width: 3.5px; border-left-width: 3.5px; border-bottom-left-radius: 10px; }
+.sim37 .s37-fc3 { right: 0; bottom: 0; border-bottom-width: 3.5px; border-right-width: 3.5px; border-bottom-right-radius: 10px; }
+.sim37 .s37-fdot { position: absolute; left: 59px; top: 73px; width: 14px; height: 14px; border-radius: 50%; background: #ffffff; display: block;
+  box-shadow: 0 0 0 4px rgba(201, 194, 255, 0.35), 0 0 14px #c9c2ff; }
+/* the 3D effect layer that goes away */
+.sim37 .s37-ring { position: absolute; left: 30px; top: 300px; width: 270px; height: 92px; border: 2.5px solid #e6e2ff; border-radius: 50%; display: block;
+  transform: rotate(-10deg); box-shadow: 0 0 16px rgba(201, 194, 255, 0.7), inset 0 0 12px rgba(201, 194, 255, 0.4); }
+.sim37 .s37-fxd { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #ffffff; display: block; box-shadow: 0 0 12px 2px #c9c2ff; }
+/* captions (not zoomed), HUD, cut flash, border */
+.sim37 .s37-caps { position: absolute; left: 0; right: 0; top: 466px; display: grid; justify-items: center; }
+.sim37 .s37-cap { grid-area: 1 / 1; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 9px; max-width: 292px; direction: rtl; opacity: 0; }
+.sim37 .s37-bk { height: 18px; border-radius: 9px; background: rgba(255, 255, 255, 0.82); display: block; flex: none; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); }
+.sim37 .s37-kw { position: relative; font: 800 36px/1.1 "Rubik"; color: #ffffff; white-space: nowrap; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75); }
+.sim37 .s37-ul { position: absolute; left: -2px; right: -2px; bottom: -5px; height: 4.5px; border-radius: 3px; background: #ff453a; display: block; transform-origin: 100% 50%; transform: scaleX(0); }
+.sim37 .s37-hud { position: absolute; left: 12px; top: 12px; height: 42px; display: flex; align-items: center; gap: 7px; padding: 0 12px 0 10px; border-radius: 12px; opacity: 0;
+  background: rgba(10, 8, 24, 0.74); border: 1.5px solid rgba(255, 255, 255, 0.32); color: #ffffff; direction: ltr; }
+.sim37 .s37-mag { width: 22px; height: 22px; display: block; overflow: visible; }
+.sim37 .s37-mag circle, .sim37 .s37-mag path { fill: none; stroke: #ffffff; stroke-width: 2.2; stroke-linecap: round; }
+.sim37 .s37-num { display: flex; align-items: flex-start; }
+.sim37 .s37-num > b { font: 600 27px/30px "IBM Plex Mono"; }
+.sim37 .s37-odo { display: block; height: 30px; overflow: hidden; }
+.sim37 .s37-strip { display: block; }
+.sim37 .s37-strip b { display: block; width: 17px; height: 30px; font: 600 27px/30px "IBM Plex Mono"; text-align: center; }
+.sim37 .s37-flash { position: absolute; inset: 0; border-radius: 26px; background: #ffffff; display: block; opacity: 0; }
+.sim37 .s37-border { position: absolute; inset: 0; border-radius: 26px; border: 1.5px solid rgba(214, 208, 255, 0.4); display: block; opacity: 0;
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.5); }
+
+/* the left panel */
+.sim37 .s37-panel { position: absolute; border-radius: 22px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.22); opacity: 0; }
+.sim37 .s37-rows, .sim37 .s37-meter, .sim37 .s37-graph, .sim37 .s37-tline { position: absolute; left: 0; top: 0; width: 400px; height: 470px; }
+.sim37 .s37-meter, .sim37 .s37-graph, .sim37 .s37-tline { opacity: 0; }
+/* B1: sentences, one important word each */
+.sim37 .s37-row { position: absolute; left: 22px; right: 22px; height: 70px; display: flex; align-items: center; gap: 14px; direction: rtl; padding: 0 18px; border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(201, 194, 255, 0.16); opacity: 0; }
+.sim37 .s37-spk { width: 28px; height: 24px; display: block; flex: none; }
+.sim37 .s37-rcap { display: flex; align-items: center; gap: 9px; direction: rtl; }
+.sim37 .s37-rcap .s37-bk { background: rgba(214, 208, 255, 0.45); box-shadow: none; }
+.sim37 .s37-rcap .s37-kw { font-size: 32px; text-shadow: none; }
+/* B2: the meter (0% at the right, 15% at the left): a track, the guide's 10-15% range glowing on it, a marker at 12% */
+.sim37 .s37-track { position: absolute; top: 262px; height: 3px; border-radius: 2px; background: rgba(214, 208, 255, 0.45); display: block; }
+.sim37 .s37-band { position: absolute; top: 254px; height: 19px; border-radius: 10px; display: block;
+  background: linear-gradient(90deg, rgba(230, 226, 255, 0.95), rgba(201, 194, 255, 0.7)); box-shadow: 0 0 18px rgba(201, 194, 255, 0.75); }
+.sim37 .s37-tick { position: absolute; top: 284px; width: 2px; height: 12px; background: rgba(214, 208, 255, 0.55); display: block; }
+.sim37 .s37-tk5 { height: 22px; background: #ece9ff; }
+.sim37 .s37-tl { position: absolute; top: 316px; width: 80px; text-align: center; font: 500 26px/1 "IBM Plex Mono"; color: #c4bfdc; }
+.sim37 .s37-mk { position: absolute; top: 150px; width: 0; height: 0; }
+.sim37 .s37-mkl { position: absolute; left: -1.5px; top: 56px; width: 3px; height: 90px; border-radius: 2px; background: #ffffff; display: block; box-shadow: 0 0 12px #c9c2ff; }
+.sim37 .s37-mkd { position: absolute; left: -10px; top: 101px; width: 20px; height: 20px; border-radius: 50%; background: #ffffff; display: block; box-shadow: 0 0 0 4px rgba(201, 194, 255, 0.35), 0 0 14px #c9c2ff; }
+.sim37 .s37-mkv { position: absolute; left: -48px; top: 0; width: 96px; height: 46px; border-radius: 12px; display: block; text-align: center; opacity: 0;
+  font: 700 30px/42px "IBM Plex Mono"; color: #ffffff; background: rgba(10, 8, 24, 0.85); border: 2px solid #ffffff; box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); }
+/* B3 + payoff: the spring curve, drawn in real time (time runs right to left) */
+.sim37 .s37-gsv { position: absolute; left: 0; top: 0; width: 400px; height: 470px; overflow: visible; }
+.sim37 .s37-ax { fill: none; stroke: rgba(214, 208, 255, 0.5); stroke-width: 2; stroke-linecap: round; }
+.sim37 .s37-tg { fill: none; stroke: rgba(255, 255, 255, 0.5); stroke-width: 2; stroke-dasharray: 6 8; }
+.sim37 .s37-mkt { fill: none; stroke: rgba(201, 194, 255, 0.6); stroke-width: 2; stroke-dasharray: 4 7; }
+.sim37 .s37-gclip, .sim37 .s37-gclip2 { position: absolute; left: 0; top: 0; width: 400px; height: 470px; clip-path: inset(0px 0px 0px 100%); }
+.sim37 .s37-cv, .sim37 .s37-pv { fill: none; stroke: #ffffff; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.95)); }
+.sim37 .s37-gdot { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #ffffff; display: block; opacity: 0;
+  box-shadow: 0 0 0 4px rgba(201, 194, 255, 0.35), 0 0 16px #c9c2ff; }
+.sim37 .s37-gl { position: absolute; width: 88px; text-align: center; font: 600 26px/1 "IBM Plex Mono"; color: #e6e2ff; }
+.sim37 .s37-gw { position: absolute; width: 34px; height: 30px; display: flex; justify-content: center; align-items: center; }
+/* B4: the timeline to the next cut (time runs right to left) */
+.sim37 .s37-zclip { position: absolute; left: 0; top: 0; width: 400px; height: 470px; clip-path: inset(0px 0px 0px 100%); }
+.sim37 .s37-zl { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.9)); }
+.sim37 .s37-clip { position: absolute; top: 372px; height: 52px; border-radius: 10px; display: block; border: 1.5px solid rgba(214, 208, 255, 0.55); }
+.sim37 .s37-ca { background: linear-gradient(180deg, rgba(120, 104, 220, 0.5), rgba(70, 58, 150, 0.4)); }
+.sim37 .s37-cb { background: linear-gradient(180deg, rgba(96, 120, 210, 0.45), rgba(54, 70, 150, 0.4)); }
+.sim37 .s37-cut { position: absolute; top: 120px; width: 3px; height: 318px; border-radius: 2px; background: #ff453a; display: block; box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); }
+.sim37 .s37-cutl { position: absolute; top: 78px; width: 120px; text-align: center; font: 600 30px/1 "Rubik"; color: #f5f2ea; }
+.sim37 .s37-ph { position: absolute; left: 369px; top: 112px; width: 3px; height: 330px; border-radius: 2px; background: #ffffff; display: block; opacity: 0; box-shadow: 0 0 12px #c9c2ff; }

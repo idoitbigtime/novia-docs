@@ -101,8 +101,13 @@
     if (o.color) fx.style.setProperty("--sweep", o.color);
     fx.appendChild(b);
     el.appendChild(fx);
-    const w = el.offsetWidth;
-    tl.fromTo(b, { x: 0 }, A({ x: -(w * 1.34 + 60), duration: d || 0.8, ease: "power2.inOut" }), t);
+    // the band is 180% of the element's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // element's height: it starts and ends that far outside, never as a wedge inside a tall element
+    const w = el.offsetWidth, h = el.offsetHeight;
+    const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
+    b.style.width = bw + "px";
+    b.style.left = w + slant + "px";
+    tl.fromTo(b, { x: 0 }, A({ x: -(w + 2 * slant + bw), duration: d || 0.8, ease: "power2.inOut" }), t);
   };
   /* A soft light band crosses the whole frame (scene change). */
   E.band = function (tl, scene, t) {

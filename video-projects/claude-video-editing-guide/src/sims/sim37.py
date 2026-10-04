@@ -79,8 +79,9 @@ def html(cfg):
     mx = lambda v: 356 - v * (316 / 15.0)        # meter: 0% at the right, 15% at the left
     ticks = "".join(f'<i class="s37-tick{" s37-tk5" if v % 5 == 0 else ""}" style="left:{mx(v) - 1:.1f}px"></i>' for v in range(16))
     tlabels = "".join(f'<span class="s37-tl" dir="ltr" style="left:{mx(v) - 40:.1f}px">{v}%</span>' for v in (0, 5, 10, 15))
-    meter = f"""<div class="s37-meter"><i class="s37-band" style="left:{mx(hi):.1f}px;width:{mx(lo) - mx(hi):.1f}px"></i>{ticks}{tlabels}
-<div class="s37-mk" style="left:{mx(0) - 1:.1f}px"><i class="s37-mkl"></i><span class="s37-mkv" dir="ltr">{c["zoom"]}%</span></div></div>"""
+    meter = f"""<div class="s37-meter"><i class="s37-track" style="left:{mx(15):.1f}px;width:{mx(0) - mx(15):.1f}px"></i>
+<i class="s37-band" style="left:{mx(hi):.1f}px;width:{mx(lo) - mx(hi):.1f}px"></i>{ticks}{tlabels}
+<div class="s37-mk" style="left:{mx(0):.1f}px"><i class="s37-mkl"></i><i class="s37-mkd"></i><span class="s37-mkv" dir="ltr">{c["zoom"]}%</span></div></div>"""
     push_y = GY0 + (GY1 - GY0) * c["push"] / c["zoom"]
     graph = f"""<div class="s37-graph" data-focus="3"><svg class="s37-gsv" viewBox="0 0 {PW} {PH}" aria-hidden="true">
 <path class="s37-ax" d="M{GX0 + 10} {GY0}H{GX1 - 14}M{GX0} {GY0 + 10}V{GY1 - 34}"/>
@@ -94,11 +95,11 @@ def html(cfg):
 <span class="s37-gw" style="left:{GX0 - 17}px;top:{GY1 - 70}px">{SPEAKER}</span></div>"""
     # timeline: clip A at the right, the cut, clip B at the left; the zoom level above it
     cut = 196
-    tline = f"""<div class="s37-tline"><svg class="s37-gsv" viewBox="0 0 {PW} {PH}" aria-hidden="true">
-<path class="s37-zl" d="M370 186H{cut}V330H30"/></svg>
+    tline = f"""<div class="s37-tline"><div class="s37-zclip"><svg class="s37-gsv" viewBox="0 0 {PW} {PH}" aria-hidden="true">
+<path class="s37-zl" d="M370 186H{cut}V330H30"/></svg></div>
 <i class="s37-clip s37-ca" style="left:{cut + 4}px;width:{370 - cut - 4}px"></i><i class="s37-clip s37-cb" style="left:30px;width:{cut - 34}px"></i>
 <i class="s37-cut" style="left:{cut - 1.5}px"></i><span class="s37-cutl" dir="rtl" style="left:{cut - 60}px">{esc(c["cutLabel"])}</span>
-<span class="s37-gl s37-t112" dir="ltr" style="left:300px;top:140px">{c["base"] + c["zoom"]}%</span><span class="s37-gl s37-t100" dir="ltr" style="left:30px;top:284px">{c["base"]}%</span>
+<span class="s37-gl s37-t112" dir="ltr" style="left:226px;top:142px">{c["base"] + c["zoom"]}%</span><span class="s37-gl s37-t100" dir="ltr" style="left:30px;top:284px">{c["base"]}%</span>
 <i class="s37-ph"></i></div>"""
     panel = f"""<div class="s37-panel" style="left:{PX}px;top:{PY}px;width:{PW}px;height:{PH}px">
 <div class="s37-rows">{rows}</div>{meter}{graph}{tline}</div>"""
@@ -111,6 +112,6 @@ def html(cfg):
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
     out = [("whoosh_soft", P[0] + 0.3), ("swipe", P[1] + 0.05), ("tick", P[1] + 0.6), ("pop", P[2] + 0.65), ("pop", P[3] + 0.45),
-           ("snap", P[4] + 1.32)]
+           ("snap", P[4] + 1.62)]
     out += [("pop", pe + 0.35 + k * 1.1) for k in range(3)]
     return out

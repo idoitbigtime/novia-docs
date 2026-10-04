@@ -379,184 +379,136 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 /* drifting dust in the background */
 .dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
 
-/* 7.3 an independent critic until the score passes 90: builder -> Claude -> a separate copy -> inputs without explanations
-   -> score and numeric fixes -> rubric, seven rounds, 96, the stopping rule (canvas 800 x 700) */
-/* a generic 9:16 frame (inside sizes in %) */
-.sim73 .s73-fr { position: absolute; overflow: hidden; border-radius: 10px; background: linear-gradient(180deg, #2c2556 0%, #181433 66%, #0e0c1f 100%); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.4); }
-.sim73 .s73-fr > i { position: absolute; display: block; }
-.sim73 .s73-h { left: 36%; top: 33%; width: 28%; height: 15.75%; border-radius: 50%; background: linear-gradient(180deg, #4a3f8c, #2c2560); box-shadow: inset 0 0 0 1px rgba(201, 194, 255, 0.35); }
-.sim73 .s73-bd { left: 16%; top: 50%; width: 68%; height: 52%; border-radius: 50% 50% 0 0 / 34% 34% 0 0; background: linear-gradient(180deg, #3b3274, #221c48); box-shadow: inset 0 1px 0 rgba(201, 194, 255, 0.4); }
-.sim73 .s73-ti { left: 14%; top: 9%; width: 72%; height: 4.4%; border-radius: 99px; background: rgba(245, 242, 234, 0.92); }
-.sim73 .s73-cp { left: 18%; top: 77%; width: 64%; height: 9%; border-radius: 4px; background: #ffffff; }
-.sim73 .s73-cp::after, .sim73 .s73-cut::after { content: ""; position: absolute; left: 16%; right: 16%; top: 36%; height: 28%; border-radius: 9px; background: rgba(20, 16, 40, 0.85); }
+/* 3.3 text on the wall behind you (canvas 800 x 700; the frame is a CSS 3D stack of three layers) */
+.sim33 .s33-persp { position: absolute; left: 0; top: 0; width: 800px; height: 700px; perspective: 1600px; perspective-origin: 400px 260px; }
+.sim33 .s33-stack { position: absolute; left: 10px; top: 40px; width: 780px; height: 439px; transform-style: preserve-3d; transform-origin: 50% 50%; }
+.sim33 .s33-ly { position: absolute; left: 0; top: 0; width: 780px; height: 439px; border-radius: 20px; overflow: hidden; }
+.sim33 .s33-la { transform: translateZ(0px); }
+.sim33 .s33-lb { transform: translateZ(0.6px); }
+.sim33 .s33-lc { transform: translateZ(1.2px); }
+.sim33 .s33-room, .sim33 .s33-pp { position: absolute; left: 0; top: 0; width: 780px; height: 439px; display: block; }
+.sim33 .s33-chk { position: absolute; inset: 0; display: block; clip-path: inset(0px 0px 0px 100%);
+  background: repeating-conic-gradient(#2d2954 0% 25%, #1b1837 0% 50%) 0 0 / 34px 34px; }
+.sim33 .s33-edge { position: absolute; inset: 0; border-radius: 20px; border: 2.5px solid #c9c2ff; box-shadow: inset 0 0 22px rgba(201, 194, 255, 0.25), 0 0 18px rgba(201, 194, 255, 0.4); display: block; opacity: 0; }
+.sim33 .s33-mk { position: absolute; right: 0; top: 50%; width: 2px; height: 2px; display: block; }
+.sim33 .s33-cut { fill: none; stroke: #ffffff; stroke-width: 2.6; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.95)); }
 
-/* the builder's side */
-.sim73 .s73-builder { position: absolute; left: 0; top: 0; width: 800px; height: 700px; transform: translateX(-160px); }
-.sim73 .s73-vid { left: 440px; top: 146px; width: 130px; height: 231px; border-radius: 14px; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.6), 0 0 24px rgba(201, 194, 255, 0.2); }
-.sim73 .s73-vid > .s73-cp { display: none; }
-.sim73 .s73-vid > .s73-cut { left: -26%; top: 77%; width: 70%; height: 9%; border-radius: 4px; background: #ffffff; }
-.sim73 .s73-flaw { position: absolute; left: 422px; top: 302px; width: 92px; height: 64px; overflow: visible; transform-origin: 50% 50%; }
-.sim73 .s73-flaw rect { fill: none; stroke: #ff453a; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.85)); }
-.sim73 .s73-bub { position: absolute; left: 430px; top: 398px; width: 160px; height: 96px; border-radius: 22px 6px 22px 22px; background: rgba(38, 33, 76, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.4);
-  opacity: 0; transform-origin: 100% 0%; }
-.sim73 .s73-bub > i { position: absolute; right: 20px; height: 9px; border-radius: 5px; background: rgba(220, 216, 240, 0.7); display: block; transform-origin: 100% 50%; }
-.sim73 .s73-bub > i:nth-child(1) { top: 22px; width: 116px; }
-.sim73 .s73-bub > i:nth-child(2) { top: 42px; width: 92px; }
-.sim73 .s73-bub > i:nth-child(3) { top: 62px; width: 104px; }
-.sim73 .s73-expl { position: absolute; right: 10px; top: -40px; font: 600 30px/1 "Rubik"; color: var(--ink); background: rgba(26, 23, 52, 0.96); padding: 6px 12px; border-radius: 999px;
-  border: 1.5px solid rgba(201, 194, 255, 0.45); white-space: nowrap; opacity: 0; }
-.sim73 .s73-no { position: absolute; left: -16px; top: -16px; width: 40px; height: 40px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: grid; place-items: center; opacity: 0; }
-.sim73 .s73-no svg { width: 26px; height: 26px; overflow: visible; display: block; }
-.sim73 .s73-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
-.sim73 .s73-list { position: absolute; left: 600px; top: 372px; width: 150px; height: 116px; border-radius: 18px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.28);
-  padding: 12px 16px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; }
-.sim73 .s73-li { display: flex; direction: rtl; align-items: center; gap: 10px; height: 26px; }
-.sim73 .s73-li svg { width: 24px; height: 24px; overflow: visible; display: block; flex: none; }
-.sim73 .s73-li path { fill: none; stroke: #c9c2ff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
-.sim73 .s73-li i { width: 70px; height: 8px; border-radius: 4px; background: rgba(201, 194, 255, 0.35); display: block; }
-.sim73 .s73-person { position: absolute; left: 600px; top: 138px; width: 150px; height: 183px; }
-.sim73 .s73-card { position: absolute; top: 160px; width: 150px; height: 150px; border-radius: 30px; background: linear-gradient(160deg, #2e2862 0%, #191537 100%);
-  border: 2px solid rgba(201, 194, 255, 0.65); box-shadow: 0 0 26px rgba(201, 194, 255, 0.28); display: grid; place-items: center; opacity: 0; overflow: hidden; }
-.sim73 .s73-card b { font: 600 52px/1 "IBM Plex Mono"; color: #ece9ff; text-shadow: 0 0 14px rgba(201, 194, 255, 0.8); }
-.sim73 .s73-glow { position: absolute; left: -40px; top: -50px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 194, 255, 0.28), rgba(201, 194, 255, 0) 70%); display: block; }
-.sim73 .s73-me { left: 600px; }
-.sim73 .s73-cr, .sim73 .s73-ghost { left: 56px; }
-.sim73 .s73-ghost { border-color: rgba(201, 194, 255, 0.4); box-shadow: none; }
-.sim73 .s73-name { position: absolute; top: 324px; text-align: center; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
-.sim73 .s73-mename { left: 600px; width: 150px; }
-.sim73 .s73-crname { left: 16px; width: 230px; }
+/* the text on the wall (layer 2): white, weight 900, a soft dark shadow; every word enters whole */
+.sim33 .s33-text { position: absolute; right: 268px; top: 70px; width: 470px; font: 900 68px/1.22 "Rubik"; color: #ffffff; text-align: right; text-shadow: 0 4px 18px rgba(0, 0, 0, 0.55); }
+.sim33 .s33-w { display: inline-block; opacity: 0; }
 
-/* the critic's side: the divider and the tray of inputs */
-.sim73 .s73-div { position: absolute; left: 328px; top: 150px; width: 4px; height: 360px; overflow: visible; }
-.sim73 .s73-div path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.8)); }
-.sim73 .s73-tray { position: absolute; left: 56px; top: 380px; width: 264px; height: 130px; border-radius: 20px; border: 2px dashed rgba(201, 194, 255, 0.4); opacity: 0; }
-.sim73 .s73-doc { position: absolute; left: 64px; top: 385px; width: 108px; height: 120px; border-radius: 12px; background: #f4f2fb; box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4); opacity: 0; }
-.sim73 .s73-doc > i { position: absolute; left: 14px; height: 7px; border-radius: 4px; background: rgba(40, 34, 80, 0.35); display: block; }
-.sim73 .s73-doc > i:nth-child(1) { top: 16px; width: 68px; }
-.sim73 .s73-doc > i:nth-child(2) { top: 30px; width: 54px; }
-.sim73 .s73-doc > i:nth-child(3) { top: 44px; width: 62px; }
-.sim73 .s73-doc span { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font: 700 30px/1 "Rubik"; color: #1a1636; }
-.sim73 .s73-th { width: 44px; height: 78px; border-radius: 7px; }
-.sim73 .s73-in { top: 410px; opacity: 0; }
-.sim73 .s73-in0 { left: 179px; }
-.sim73 .s73-in1 { left: 225px; }
-.sim73 .s73-in2 { left: 271px; }
+/* the frame: viewfinder corners and border over the stack */
+.sim33 .s33-frame { position: absolute; left: 10px; top: 40px; width: 780px; height: 439px; border-radius: 20px; border: 1.5px solid rgba(201, 194, 255, 0.28); box-shadow: 0 0 30px rgba(201, 194, 255, 0.12); pointer-events: none; }
+.sim33 .s33-frame svg { position: absolute; left: -1.5px; top: -1.5px; width: 780px; height: 439px; overflow: visible; }
+.sim33 .s33-frame path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.85)); }
+.sim33 .s33-scan { position: absolute; left: 790px; top: 40px; width: 90px; height: 439px; display: block; opacity: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.35) 70%, #ffffff 92%, rgba(255, 255, 255, 0)); }
 
-/* B4: the gauge (0 at the right end, 100 at the left end) and the numeric fixes */
-.sim73 .s73-gauge { position: absolute; left: 330px; top: 130px; width: 340px; height: 200px; }
-.sim73 .s73-gsvg { position: absolute; left: 0; top: 0; width: 340px; height: 200px; overflow: visible; }
-.sim73 .s73-track { fill: none; stroke: rgba(201, 194, 255, 0.16); stroke-width: 16; stroke-linecap: round; }
-.sim73 .s73-fill { fill: none; stroke: url(#s73gr); stroke-width: 16; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.7)); }
-.sim73 .s73-tk { fill: none; stroke: rgba(236, 233, 255, 0.85); stroke-width: 3; stroke-linecap: round; opacity: 0; }
-.sim73 .s73-tl { position: absolute; width: 60px; text-align: center; font: 600 31px/1 "Rubik"; color: #b8b4cc; opacity: 0; }
-.sim73 .s73-score { position: absolute; left: 0; top: 96px; width: 340px; display: flex; justify-content: center; align-items: baseline; gap: 6px; }
-.sim73 .s73-nn { display: grid; }
-.sim73 .s73-n { grid-area: 1 / 1; font: 800 92px/1 "Rubik"; color: #ffffff; text-shadow: 0 0 22px rgba(201, 194, 255, 0.55); text-align: center; opacity: 0; }
-.sim73 .s73-of { font: 600 36px/1 "Rubik"; color: #9c99ae; opacity: 0; }
-.sim73 .s73-pass { position: absolute; left: -26px; top: 58px; width: 38px; height: 38px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2.5px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.7); display: grid; place-items: center; opacity: 0; }
-.sim73 .s73-pass svg { width: 24px; height: 24px; overflow: visible; display: block; }
-.sim73 .s73-pass path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
-.sim73 .s73-rows { position: absolute; left: 100px; top: 436px; width: 600px; height: 176px; }
-.sim73 .s73-row { position: absolute; left: 0; width: 600px; height: 84px; opacity: 0; }
-.sim73 .s73-row0 { top: 0; }
-.sim73 .s73-row1 { top: 92px; }
-.sim73 .s73-dth0, .sim73 .s73-dth1 { left: 540px; top: 3px; }
-.sim73 .s73-dth0 > .s73-cp { left: -22%; width: 70%; }
-.sim73 .s73-dth1 > .s73-ti { left: 34%; top: 4%; }
-.sim73 .s73-dm { left: -6%; top: 68%; width: 70%; height: 28%; border-radius: 6px; border: 2.5px solid #ff453a; box-shadow: 0 0 8px rgba(255, 69, 58, 0.8); opacity: 0; }
-.sim73 .s73-dth1 > .s73-dm { left: 24%; top: -2%; width: 72%; height: 18%; }
-.sim73 .s73-arr { position: absolute; left: 480px; top: 32px; width: 40px; height: 20px; opacity: 0; }
-.sim73 .s73-sl { position: absolute; left: 110px; top: 24px; width: 340px; height: 36px; border-radius: 12px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); }
-.sim73 .s73-rule { position: absolute; left: 14px; right: 14px; top: 9px; height: 15px; display: block;
-  background: repeating-linear-gradient(90deg, rgba(201, 194, 255, 0.55) 0 2px, rgba(201, 194, 255, 0) 2px 31.2px); }
-.sim73 .s73-knob { position: absolute; left: 60px; top: 4px; width: 25px; height: 25px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #c9c2ff, 0 0 0 4px rgba(201, 194, 255, 0.35); display: block; }
+/* B0: a title over the face */
+.sim33 .s33-title { position: absolute; left: 386px; top: 176px; width: 380px; height: 96px; border-radius: 18px; background: #ffffff; display: grid; place-items: center; opacity: 0; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45); }
+.sim33 .s33-title span { font: 900 40px/1 "Rubik"; color: #0b0b0b; white-space: nowrap; direction: rtl; }
+.sim33 .s33-tring { position: absolute; inset: -9px; border-radius: 24px; border: 3px solid #ff453a; box-shadow: 0 0 18px rgba(255, 69, 58, 0.8); display: block; opacity: 0; }
 
-/* payoff: seven rounds of the same critic, the rubric, the stopping rule */
-.sim73 .s73-steps { position: absolute; left: 340px; top: 358px; width: 340px; height: 70px; }
-.sim73 .s73-line, .sim73 .s73-linef { position: absolute; left: 10px; top: 10px; width: 300px; height: 2px; border-radius: 1px; display: block; transform-origin: 100% 50%; transform: scaleX(0); }
-.sim73 .s73-line { background: rgba(201, 194, 255, 0.3); }
-.sim73 .s73-linef { background: #e6e2ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); }
-.sim73 .s73-nd { position: absolute; top: 1px; width: 20px; height: 20px; border-radius: 50%; display: block; opacity: 0;
-  background: radial-gradient(circle, #5c5480 0 5.5px, rgba(0, 0, 0, 0) 6.5px); }
-.sim73 .s73-ndx { background: #2a2450; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.7); }
-.sim73 .s73-sv { position: absolute; top: 30px; width: 60px; text-align: center; font: 700 30px/1 "Rubik"; color: #ffffff; opacity: 0; }
-.sim73 .s73-sv1 { left: 280px; }
-.sim73 .s73-sv7 { left: -20px; }
-.sim73 .s73-slbl { position: absolute; left: 328px; top: -4px; font: 500 30px/1 "Rubik"; color: #9c99ae; white-space: nowrap; opacity: 0; }
-.sim73 .s73-lbl { position: absolute; display: flex; align-items: center; gap: 12px; direction: rtl; font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
-.sim73 .s73-lbl > i { width: 14px; height: 14px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.8); display: block; flex: none; }
-.sim73 .s73-rublbl { right: 60px; top: 434px; }
-.sim73 .s73-rub { position: absolute; left: 40px; top: 474px; width: 720px; display: flex; flex-direction: column; gap: 10px; }
-.sim73 .s73-tagrow { display: flex; direction: rtl; justify-content: center; gap: 12px; }
-.sim73 .s73-tag { font: 600 30px/1 "Rubik"; color: #ece9f7; padding: 8px 16px 7px; border-radius: 999px; background: rgba(36, 31, 72, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.5); white-space: nowrap; opacity: 0; }
-.sim73 .s73-rulecard { position: absolute; left: 40px; top: 590px; width: 720px; height: 104px; border-radius: 20px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.34);
-  display: flex; direction: rtl; align-items: center; gap: 20px; padding: 0 28px; opacity: 0; }
-.sim73 .s73-stop { width: 46px; height: 46px; display: block; flex: none; overflow: visible; }
-.sim73 .s73-stop path { fill: none; stroke: #ff453a; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.8)); }
-.sim73 .s73-rtx p { font: 600 31px/1.35 "Rubik"; color: var(--ink); white-space: nowrap; }
-.sim73 .s73-rtx p + p { color: #dcd9e6; font-weight: 500; }
-/* a light sweep without skew (nothing shows at rest) */
-.sim73 .s73-swp { position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
-.sim73 .s73-swp b { position: absolute; top: 0; bottom: 0; left: 100%; width: 80%; display: block;
-  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 15%, var(--sw, rgba(255, 255, 255, 0.24)) 50%, rgba(255, 255, 255, 0) 85%); }
+/* B1: regular footage, no green screen */
+.sim33 .s33-tag { position: absolute; left: 34px; top: 60px; height: 50px; padding: 0 18px; border-radius: 999px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.55);
+  display: flex; align-items: center; gap: 10px; direction: rtl; font: 600 30px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
+.sim33 .s33-tag svg { width: 30px; height: 22px; display: block; overflow: visible; }
+.sim33 .s33-tag rect, .sim33 .s33-tag path { fill: none; stroke: #c9c2ff; stroke-width: 2.2; stroke-linejoin: round; }
+.sim33 .s33-gs { position: absolute; left: 290px; top: 494px; width: 220px; height: 196px; opacity: 0; }
+.sim33 .s33-gsv { position: absolute; left: 0; top: 0; width: 220px; height: 150px; overflow: visible; }
+.sim33 .s33-gsv .st { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; }
+.sim33 .s33-gsv .bd { fill: #3c9a69; stroke: #8fe0b4; stroke-width: 2; }
+.sim33 .s33-gsv .fl { fill: none; stroke: rgba(10, 40, 24, 0.35); stroke-width: 3; }
+.sim33 .s33-gsv .x { fill: none; stroke: #ff453a; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.85)); }
+.sim33 .s33-gs b { position: absolute; left: 0; right: 0; top: 156px; text-align: center; font: 600 31px/1 "Rubik"; color: #f5f2ea; }
+
+/* B2: every frame, cut out (a strip of frames on a checkerboard) */
+.sim33 .s33-strip { position: absolute; left: 44px; top: 510px; width: 712px; height: 72px; display: flex; gap: 18px; direction: rtl; }
+.sim33 .s33-mf { position: relative; width: 128px; height: 72px; border-radius: 10px; overflow: hidden; border: 1.5px solid rgba(201, 194, 255, 0.3); opacity: 0; flex: none; }
+.sim33 .s33-mf .chk { position: absolute; inset: 0; display: block; background: repeating-conic-gradient(#2d2954 0% 25%, #1b1837 0% 50%) 0 0 / 14px 14px; }
+.sim33 .s33-mf svg { position: absolute; left: 0; top: 0; width: 128px; height: 72px; display: block; }
+.sim33 .s33-mf svg path, .sim33 .s33-mf svg ellipse { fill: #3b3274; }
+.sim33 .s33-mf .ol path, .sim33 .s33-mf .ol ellipse { fill: none; stroke: #ffffff; stroke-width: 2.2; filter: drop-shadow(0 0 3px rgba(201, 194, 255, 0.9)); }
+.sim33 .s33-msel { position: absolute; right: -5px; top: -5px; width: 138px; height: 82px; border-radius: 13px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); display: block; opacity: 0; }
+
+/* payoff: the three layers, bottom to top, each named with a dot and a line */
+.sim33 .s33-leads { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
+.sim33 .s33-leads path { fill: none; stroke: rgba(201, 194, 255, 0.8); stroke-width: 2; }
+.sim33 .s33-lab { position: absolute; display: flex; align-items: center; gap: 12px; direction: rtl; font: 600 32px/1 "Rubik"; color: #f5f2ea; white-space: nowrap; opacity: 0; }
+.sim33 .s33-lab i { width: 14px; height: 14px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.95); display: block; flex: none; }
 
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="32.060" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="34.470" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t73" class="clip scene" data-start="0.000" data-duration="32.060" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 7 · חיסכון ברינדורים</span><span class="hdr-num" dir="ltr">7.3</span></div>
+<div id="sc-t33" class="clip scene" data-start="0.000" data-duration="34.470" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.3</span></div>
 <div class="scam">
-<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">מבקר</span> <span class="w" dir="rtl" data-t="0.430">עצמאי,</span> <span class="w" dir="rtl" data-t="0.560">עד</span> <span class="w" dir="rtl" data-t="0.690">שהציון</span> <span class="w" dir="rtl" data-t="0.820">עובר</span> <span class="w" dir="rtl" data-t="0.950">90</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.780">מי</span> <span class="w" dir="rtl" data-t="1.840">שבנה</span> <span class="w" dir="rtl" data-t="1.900">את</span> <span class="w" dir="rtl" data-t="1.960">הסרטון</span> <span class="w" dir="rtl" data-t="2.020">הכי</span> <span class="w" dir="rtl" data-t="2.080">פחות</span> <span class="w" dir="rtl" data-t="2.140">מתאים</span> <span class="w" dir="rtl" data-t="2.200">לבקר</span> <span class="w" dir="rtl" data-t="2.260">אותו,</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.480">וזה</span> <span class="w" dir="rtl" data-t="4.540">נכון</span> <span class="w" dir="rtl" data-t="4.600">גם</span> <span class="w" dir="rtl" data-t="4.660">לקלוד.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.080">מבקר</span> <span class="w" dir="rtl" data-t="6.140">עצמאי</span> <span class="w" dir="rtl" data-t="6.200">הוא</span> <span class="w" dir="rtl" data-t="6.260">עותק</span> <span class="w" dir="rtl" data-t="6.320">נפרד</span> <span class="w" dir="rtl" data-t="6.380">של</span> <span class="w" dir="rtl" data-t="6.440">קלוד</span> <span class="w" dir="rtl" data-t="6.500">שלא</span> <span class="w" dir="rtl" data-t="6.560">בנה</span> <span class="w" dir="rtl" data-t="6.620">כלום.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.030">הוא</span> <span class="w" dir="rtl" data-t="9.090">מקבל</span> <span class="w" dir="rtl" data-t="9.150">את</span> <span class="w" dir="rtl" data-t="9.210">הבקשה</span> <span class="w" dir="rtl" data-t="9.270">ופריימים</span> <span class="w" dir="rtl" data-t="9.330">מכל</span> <span class="w" dir="rtl" data-t="9.390">סצנה,</span> <span class="w" dir="rtl" data-t="9.450">בלי</span> <span class="w" dir="rtl" data-t="9.510">ההסברים,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="11.730">ונותן</span> <span class="accgrp" data-t="11.790"><span class="w s-str" dir="rtl" data-t="11.790">ציון</span> <span class="w s-str" dir="rtl" data-t="11.850">מתוך</span> <span class="w s-str" dir="rtl" data-t="11.910">100</span><i class="ul" data-t="11.970"></i></span> <span class="w" dir="rtl" data-t="11.970">עם</span> <span class="w" dir="rtl" data-t="12.030">תיקון</span> <span class="w" dir="rtl" data-t="12.090">במספרים</span> <span class="w" dir="rtl" data-t="12.150">לכל</span> <span class="w" dir="rtl" data-t="12.210">פגם.</span></span></p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim73">
-<div class="s73-builder">
-<div class="s73-fr s73-vid"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class="s73-cut"></i></div>
-<svg class="s73-flaw" viewBox="0 0 92 64" aria-hidden="true"><rect x="3" y="3" width="86" height="58" rx="18"/></svg>
-<div class="s73-bub"><i></i><i></i><i></i><span class="s73-expl" dir="rtl">ההסברים</span><div class="s73-no"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M9.5 9.5l11 11"/><path d="M20.5 9.5l-11 11"/></svg></div></div>
-<div class="s73-list"><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div></div>
-<svg class="s73-person" viewBox="0 0 312 380" aria-hidden="true">
-<defs>
-<linearGradient id="pf73" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
-<linearGradient id="pr73" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
-</defs>
-<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380 Z" fill="url(#pf73)"/>
-<rect x="128" y="196" width="56" height="70" rx="22" fill="url(#pf73)"/>
-<ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pf73)"/>
-<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#pr73)" stroke-width="3"/>
-<ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#pr73)" stroke-width="3"/>
-</svg>
-<div class="s73-card s73-me"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div>
-<div class="s73-name s73-mename" dir="rtl">קלוד</div>
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">טקסט</span> <span class="w" dir="rtl" data-t="0.430">על</span> <span class="w" dir="rtl" data-t="0.560">הקיר</span> <span class="w" dir="rtl" data-t="0.690">מאחוריכם</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.520">כותרת</span> <span class="w" dir="rtl" data-t="1.580">שקופצת</span> <span class="w" dir="rtl" data-t="1.640">מעל</span> <span class="w" dir="rtl" data-t="1.700">הפנים</span> <span class="w" dir="rtl" data-t="1.760">מסתירה</span> <span class="w" dir="rtl" data-t="1.820">אתכם.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.470">על</span> <span class="w" dir="rtl" data-t="3.530">צילום</span> <span class="w" dir="rtl" data-t="3.590">רגיל,</span> <span class="glu"><span class="accgrp" data-t="3.650"><span class="w s-str" dir="rtl" data-t="3.650">בלי</span> <span class="w s-str" dir="rtl" data-t="3.710">מסך</span> <span class="w s-str" dir="rtl" data-t="3.770">ירוק</span><i class="ul" data-t="3.830"></i></span><span class="w" dir="rtl" data-t="3.770">,</span></span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="5.670">קלוד</span> <span class="w" dir="rtl" data-t="5.730">מפריד</span> <span class="w" dir="rtl" data-t="5.790">אתכם</span> <span class="w" dir="rtl" data-t="5.850">מהרקע</span> <span class="w" dir="rtl" data-t="5.910">בכל</span> <span class="w" dir="rtl" data-t="5.970">פריים</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="7.620">ומכניס</span> <span class="w" dir="rtl" data-t="7.680">את</span> <span class="w" dir="rtl" data-t="7.740">הטקסט</span> <span class="w" dir="rtl" data-t="7.800">בין</span> <span class="w" dir="rtl" data-t="7.860">הקיר</span> <span class="w" dir="rtl" data-t="7.920">לבינכם,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="9.570">וכל</span> <span class="w" dir="rtl" data-t="9.630">תנועה</span> <span class="w" dir="rtl" data-t="9.690">של</span> <span class="w" dir="rtl" data-t="9.750">היד</span> <span class="w" dir="rtl" data-t="9.810">מסתירה</span> <span class="w" dir="rtl" data-t="9.870">את</span> <span class="w" dir="rtl" data-t="9.930">החלק</span> <span class="w" dir="rtl" data-t="9.990">של</span> <span class="w" dir="rtl" data-t="10.050">הטקסט</span> <span class="w" dir="rtl" data-t="10.110">שמאחוריה.</span></span></p></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim33">
+<div class="s33-persp">
+<div class="s33-stack">
+<div class="s33-ly s33-la"><svg class="s33-room" viewBox="0 0 640 360" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="s33wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2456"/><stop offset="1" stop-color="#16132e"/></linearGradient><radialGradient id="s33lamp" cx="0.12" cy="0.05" r="0.7"><stop offset="0" stop-color="#a993ff" stop-opacity="0.28"/><stop offset="1" stop-color="#a993ff" stop-opacity="0"/></radialGradient></defs><rect width="640" height="360" fill="url(#s33wall)"/><rect width="640" height="360" fill="url(#s33lamp)"/><rect x="548" y="34" width="70" height="104" rx="5" fill="none" stroke="rgba(201,194,255,0.18)" stroke-width="2"/><path d="M583 34 V138" stroke="rgba(201,194,255,0.18)" stroke-width="2"/><path d="M40 262 H232" stroke="rgba(201,194,255,0.26)" stroke-width="3" stroke-linecap="round"/><rect x="64" y="226" width="16" height="36" rx="2" fill="rgba(201,194,255,0.16)"/><rect x="84" y="232" width="14" height="30" rx="2" fill="rgba(201,194,255,0.12)"/><path d="M178 262 C 172 240, 178 228, 190 224 C 196 236, 200 248, 196 262 Z" fill="rgba(201,194,255,0.16)"/><path d="M190 226 C 184 210, 192 200, 202 196 M190 226 C 200 214, 212 212, 220 214" fill="none" stroke="rgba(201,194,255,0.22)" stroke-width="2"/></svg><i class="s33-chk"></i>
+<svg class="s33-pp" viewBox="0 0 640 360" aria-hidden="true"><defs><linearGradient id="pf33a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient><linearGradient id="pr33a" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient></defs><path d="M316 360 C 324 300, 376 262, 442 256 L 486 256 C 552 262, 604 300, 612 360 Z" fill="url(#pf33a)"/><rect x="436" y="200" width="56" height="66" rx="22" fill="url(#pf33a)"/><ellipse cx="464" cy="150" rx="56" ry="66" fill="url(#pf33a)"/><path d="M316 360 C 324 300, 376 262, 442 256 L 486 256 C 552 262, 604 300, 612 360" fill="none" stroke="url(#pr33a)" stroke-width="3"/><ellipse cx="464" cy="150" rx="56" ry="66" fill="none" stroke="url(#pr33a)" stroke-width="3"/><g class="s33-arm s33-arma" transform="translate(0 230)"><g transform="translate(338 236) scale(0.78)"><path d="M-24 0 L-40 190 L30 190 L26 0 Z" fill="url(#pf33a)"/><path d="M-27 4 C-29 -14 -31 -26 -32 -36 C-40 -44 -50 -56 -58 -70 C-61 -77 -53 -83 -47 -77 C-42 -69 -36 -61 -31 -57 L-31 -104 C-31 -114 -18 -114 -18 -104 L-18 -86 L-16 -86 L-16 -112 C-16 -122 -2 -122 -2 -112 L-2 -86 L0 -86 L0 -106 C0 -116 13 -116 13 -106 L13 -84 L15 -82 L16 -94 C16 -103 28 -103 28 -94 L27 -66 C30 -44 30 -20 26 4 Z" fill="url(#pf33a)"/><path d="M-27 4 C-29 -14 -31 -26 -32 -36 C-40 -44 -50 -56 -58 -70 C-61 -77 -53 -83 -47 -77 C-42 -69 -36 -61 -31 -57 L-31 -104 C-31 -114 -18 -114 -18 -104 L-18 -86 L-16 -86 L-16 -112 C-16 -122 -2 -122 -2 -112 L-2 -86 L0 -86 L0 -106 C0 -116 13 -116 13 -106 L13 -84 L15 -82 L16 -94 C16 -103 28 -103 28 -94 L27 -66 C30 -44 30 -20 26 4 Z" fill="none" stroke="url(#pr33a)" stroke-width="3"/></g></g></svg>
+<i class="s33-edge"></i><i class="s33-mk"></i></div>
+<div class="s33-ly s33-lb"><div class="s33-text" dir="rtl"><div><span class="s33-w">נתחיל</span> <span class="s33-w">מהקל</span></div><div><span class="s33-w">לכבד</span></div></div><i class="s33-edge"></i><i class="s33-mk"></i></div>
+<div class="s33-ly s33-lc"><svg class="s33-pp" viewBox="0 0 640 360" aria-hidden="true"><defs><linearGradient id="pf33c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient><linearGradient id="pr33c" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient></defs><path d="M316 360 C 324 300, 376 262, 442 256 L 486 256 C 552 262, 604 300, 612 360 Z" fill="url(#pf33c)"/><rect x="436" y="200" width="56" height="66" rx="22" fill="url(#pf33c)"/><ellipse cx="464" cy="150" rx="56" ry="66" fill="url(#pf33c)"/><path d="M316 360 C 324 300, 376 262, 442 256 L 486 256 C 552 262, 604 300, 612 360" fill="none" stroke="url(#pr33c)" stroke-width="3"/><ellipse cx="464" cy="150" rx="56" ry="66" fill="none" stroke="url(#pr33c)" stroke-width="3"/><path class="s33-cut" d="M316 360 C 324 300, 376 262, 436 258 L 436 232 C 420 222, 408 196, 408 160 C 404 112, 428 84, 464 84 C 500 84, 524 112, 520 160 C 520 196, 508 222, 492 232 L 492 258 C 552 262, 604 300, 612 360"/><g class="s33-arm s33-armc" transform="translate(0 230)"><g transform="translate(338 236) scale(0.78)"><path d="M-24 0 L-40 190 L30 190 L26 0 Z" fill="url(#pf33c)"/><path d="M-27 4 C-29 -14 -31 -26 -32 -36 C-40 -44 -50 -56 -58 -70 C-61 -77 -53 -83 -47 -77 C-42 -69 -36 -61 -31 -57 L-31 -104 C-31 -114 -18 -114 -18 -104 L-18 -86 L-16 -86 L-16 -112 C-16 -122 -2 -122 -2 -112 L-2 -86 L0 -86 L0 -106 C0 -116 13 -116 13 -106 L13 -84 L15 -82 L16 -94 C16 -103 28 -103 28 -94 L27 -66 C30 -44 30 -20 26 4 Z" fill="url(#pf33c)"/><path d="M-27 4 C-29 -14 -31 -26 -32 -36 C-40 -44 -50 -56 -58 -70 C-61 -77 -53 -83 -47 -77 C-42 -69 -36 -61 -31 -57 L-31 -104 C-31 -114 -18 -114 -18 -104 L-18 -86 L-16 -86 L-16 -112 C-16 -122 -2 -122 -2 -112 L-2 -86 L0 -86 L0 -106 C0 -116 13 -116 13 -106 L13 -84 L15 -82 L16 -94 C16 -103 28 -103 28 -94 L27 -66 C30 -44 30 -20 26 4 Z" fill="none" stroke="url(#pr33c)" stroke-width="3"/></g></g></svg>
+<i class="s33-edge"></i><i class="s33-mk"></i></div>
 </div>
-<svg class="s73-div" viewBox="0 0 4 360" aria-hidden="true"><path d="M2 2 V358"/></svg>
-<div class="s73-tray"></div>
-<div class="s73-doc"><i></i><i></i><i></i><span dir="rtl">הבקשה</span></div>
-<div class="s73-fr s73-th s73-in s73-in0"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div><div class="s73-fr s73-th s73-in s73-in1"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div><div class="s73-fr s73-th s73-in s73-in2"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div>
-<div class="s73-card s73-ghost s73-gh2"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div><div class="s73-card s73-ghost s73-gh1"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div><div class="s73-card s73-cr"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div>
-<div class="s73-name s73-crname" dir="rtl">מבקר עצמאי</div>
-<div class="s73-gauge" data-focus="4"><svg class="s73-gsvg" viewBox="0 0 340 200" aria-hidden="true">
-<defs><linearGradient id="s73gr" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#9d92f0"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs>
-<path class="s73-track" d="M320 170 A150 150 0 0 0 20 170"/><path class="s73-fill" d="M320 170 A150 150 0 0 0 20 170"/><path class="s73-tk s73-tk70" d="M88.9 58.4 L74.8 38.9"/><path class="s73-tk s73-tk90" d="M38.8 127.4 L15.9 119.9"/></svg><span class="s73-tl s73-tl70" dir="ltr" style="left:28.3px;top:-0.7px">70</span><span class="s73-tl s73-tl90" dir="ltr" style="left:-40.7px;top:94.3px">90</span>
-<div class="s73-score" dir="ltr"><span class="s73-nn"><span class="s73-n s73-n1">68</span><span class="s73-n s73-n2">96</span></span><span class="s73-of">/100</span></div>
-<div class="s73-pass"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></div></div>
-<div class="s73-rows"><div class="s73-row s73-row0"><div class="s73-fr s73-th s73-dth0"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class=s73-dm></i></div><svg class="s73-arr" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="s73-sl"><i class="s73-rule"></i><i class="s73-knob"></i></div></div><div class="s73-row s73-row1"><div class="s73-fr s73-th s73-dth1"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class=s73-dm></i></div><svg class="s73-arr" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="s73-sl"><i class="s73-rule"></i><i class="s73-knob"></i></div></div></div>
-<div class="s73-steps"><i class="s73-line"></i><i class="s73-linef"></i><i class="s73-nd s73-ndx" style="left:300px"></i><i class="s73-nd" style="left:250px"></i><i class="s73-nd" style="left:200px"></i><i class="s73-nd" style="left:150px"></i><i class="s73-nd" style="left:100px"></i><i class="s73-nd" style="left:50px"></i><i class="s73-nd s73-ndx" style="left:0px"></i>
-<span class="s73-sv s73-sv1" dir="ltr">68</span><span class="s73-sv s73-sv7" dir="ltr">96</span>
-<span class="s73-slbl" dir="rtl">סבבים</span></div>
-<div class="s73-lbl s73-rublbl" dir="rtl"><i></i><span>מחוון</span></div>
-<div class="s73-rub" dir="rtl"><div class="s73-tagrow"><span class=s73-tag>ביצוע</span><span class=s73-tag>גימור</span><span class=s73-tag>תנועה</span></div><div class="s73-tagrow"><span class=s73-tag>טקסט ועברית</span><span class=s73-tag>התאמה לסגנון</span><span class=s73-tag>היגיון פיזי</span></div></div>
-<div class="s73-rulecard" dir="rtl"><svg class="s73-stop" viewBox="0 0 40 40" aria-hidden="true"><path d="M13.4 3h13.2L37 13.4v13.2L26.6 37H13.4L3 26.6V13.4z"/><path d="M13 20h14"/></svg><div class="s73-rtx"><p>אחרי שני סבבים עדיין מתחת ל-70?</p><p>עוצרים ומביאים את הפער.</p></div></div>
+<div class="s33-frame"><svg viewBox="0 0 780 439" aria-hidden="true"><path d="M16 56 V16 H56"/><path d="M724 16 H764 V56"/><path d="M764 383 V423 H724"/><path d="M56 423 H16 V383"/></svg></div>
+<i class="s33-scan"></i>
+<div class="s33-title" dir="rtl"><span>נתחיל מהקל לכבד</span><i class="s33-tring"></i></div>
+<div class="s33-tag" dir="rtl"><svg viewBox="0 0 30 22" aria-hidden="true"><rect x="1.5" y="4" width="19" height="15" rx="3"/><path d="M20.5 9.5 L28 5.5 V17.5 L20.5 13.5"/></svg><span>צילום רגיל</span></div>
+</div>
+<div class="s33-gs" data-focus="1"><svg class="s33-gsv" viewBox="0 0 220 150" aria-hidden="true">
+<path class="st" d="M38 140 L58 22 M182 140 L162 22 M30 140 H70 M150 140 H190"/>
+<rect class="bd" x="44" y="16" width="132" height="92" rx="4"/><path class="fl" d="M80 16 V108 M140 16 V108"/>
+<path class="x" d="M28 6 L192 132"/><path class="x" d="M192 6 L28 132"/></svg><b dir="rtl">מסך ירוק</b></div>
+<div class="s33-strip"><div class="s33-mf"><i class="chk"></i><svg viewBox="0 0 160 90" aria-hidden="true"><path d="M48 90 C 52 72, 66 64, 82 63 L 94 63 C 110 64, 124 72, 128 90 Z"/><ellipse cx="86" cy="40" rx="15" ry="18"/></svg><svg class="ol" viewBox="0 0 160 90" aria-hidden="true"><path d="M48 90 C 52 72, 66 64, 82 63 L 94 63 C 110 64, 124 72, 128 90"/><ellipse cx="86" cy="40" rx="15" ry="18"/></svg></div><div class="s33-mf"><i class="chk"></i><svg viewBox="0 0 160 90" aria-hidden="true"><path d="M48 90 C 52 72, 66 64, 82 63 L 94 63 C 110 64, 124 72, 128 90 Z"/><ellipse cx="88" cy="40" rx="15" ry="18"/></svg><svg class="ol" viewBox="0 0 160 90" aria-hidden="true"><path d="M48 90 C 52 72, 66 64, 82 63 L 94 63 C 110 64, 124 72, 128 90"/><ellipse cx="88" cy="40" rx="15" ry="18"/></svg></div><div class="s33-mf"><i class="chk"></i><svg viewBox="0 0 160 90" aria-hidden="true"><path d="M48 90 C 52 72, 66 64, 82 63 L 94 63 C 110 64, 124 72, 128 90 Z"/><ellipse cx="90" cy="40" rx="15" ry="18"/></svg><svg class="ol" viewBox="0 0 160 90" aria-hidden="true"><path d="M48 90 C 52 72, 66 64, 82 63 L 94 63 C 110 64, 124 72, 128 90"/><ellipse cx="90" cy="40" rx="15" ry="18"/></svg></div><div class="s33-mf"><i class="chk"></i><svg viewBox="0 0 160 90" aria-hidden="true"><path d="M48 90 C 52 72, 66 64, 82 63 L 94 63 C 110 64, 124 72, 128 90 Z"/><ellipse cx="86" cy="40" rx="15" ry="18"/></svg><svg class="ol" viewBox="0 0 160 90" aria-hidden="true"><path d="M48 90 C 52 72, 66 64, 82 63 L 94 63 C 110 64, 124 72, 128 90"/><ellipse cx="86" cy="40" rx="15" ry="18"/></svg></div><div class="s33-mf"><i class="chk"></i><svg viewBox="0 0 160 90" aria-hidden="true"><path d="M48 90 C 52 72, 66 64, 82 63 L 94 63 C 110 64, 124 72, 128 90 Z"/><ellipse cx="88" cy="40" rx="15" ry="18"/></svg><svg class="ol" viewBox="0 0 160 90" aria-hidden="true"><path d="M48 90 C 52 72, 66 64, 82 63 L 94 63 C 110 64, 124 72, 128 90"/><ellipse cx="88" cy="40" rx="15" ry="18"/></svg></div><i class="s33-msel"></i></div>
+<svg class="s33-leads" viewBox="0 0 800 700" aria-hidden="true"><path/><path/><path/></svg>
+<div class="s33-lab s33-lab0" dir="rtl"><span>הקטע המקורי</span><i></i></div><div class="s33-lab s33-lab1" dir="rtl"><span>הטקסט</span><i></i></div><div class="s33-lab s33-lab2" dir="rtl"><span>אתם בלי הרקע</span><i></i></div>
 </div></div></div></div>
-<div class="factbox"><span class="pill">מ-68 ל-96</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="21.880">ריל</span> <span class="w" dir="rtl" data-t="22.000">אנימציה</span> <span class="w" dir="rtl" data-t="22.120">של</span> <span class="w" dir="rtl" data-t="22.240">47</span> <span class="w" dir="rtl" data-t="22.360">שניות,</span> <span class="w" dir="rtl" data-t="22.480">בשבעה</span> <span class="w" dir="rtl" data-t="22.600">סבבים</span> <span class="w" dir="rtl" data-t="22.720">של</span> <span class="w" dir="rtl" data-t="22.840">אותו</span> <span class="w" dir="rtl" data-t="22.960">מבקר.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="23.280">גם</span> <span class="w" dir="rtl" data-t="23.310">הסצנות</span> <span class="w" dir="rtl" data-t="23.340">בסרטון</span> <span class="w" dir="rtl" data-t="23.370">הזה</span> <span class="w" dir="rtl" data-t="23.400">עברו</span> <span class="w" dir="rtl" data-t="23.430">מבקר</span> <span class="w" dir="rtl" data-t="23.460">עצמאי.</span></p></div>
-<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>21</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">תפעיל סוכן נפרד שלא בנה את הסרטון, בתור מבקר קשוח של סטודיו לאנימציה.</div>
-<div class="pl" dir="rtl">תן לו את הבריף, פריים מכל סצנה ורצועת פריימים מכל מעבר, בלי ההסברים שלך.</div>
-<div class="pl" dir="rtl">הוא נותן ציון מתוך 100 לפי מחוון קבוע: ביצוע של כל מה שביקשתי, גימור, תנועה, טקסט ועברית, התאמה לסגנון, והיגיון פיזי.</div>
-<div class="pl" dir="rtl">לכל סצנה הוא מחזיר רשימת פגמים, ולכל פגם זמן, מה לא בסדר ותיקון עם מספרים.</div>
-<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>אתה מתקן, ואותו מבקר בודק שוב, עד שהציון עובר 90.</div>
-<div class="pl" dir="rtl">אם אחרי שני סבבים הציון עדיין רחוק <span class="nb">מ-90</span> <span class="nb">ב-20</span> נקודות או יותר, תעצור ותביא לי את הפער ואת האפשרויות במקום לפתוח עוד סבבים.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>אתה מתקן, ואותו מבקר בודק שוב, עד שהציון עובר 90.</div></div>
-
+<div class="factbox"><span class="pill">6 שניות, 4 דקות</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="17.470">ההפרדה</span> <span class="w" dir="rtl" data-t="17.590">מהרקע</span> <span class="w" dir="rtl" data-t="17.710">איטית,</span> <span class="w" dir="rtl" data-t="17.830">ולכן</span> <span class="w" dir="rtl" data-t="17.950">מפרידים</span> <span class="w" dir="rtl" data-t="18.070">רק</span> <span class="w" dir="rtl" data-t="18.190">את</span> <span class="w" dir="rtl" data-t="18.310">הקטע</span> <span class="w" dir="rtl" data-t="18.430">שבו</span> <span class="w" dir="rtl" data-t="18.550">הטקסט</span> <span class="w" dir="rtl" data-t="18.670">על</span> <span class="w" dir="rtl" data-t="18.790">המסך.</span></p></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>9</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">ההוראות כאן מחליפות את ראיון הפתיחה של HyperFrames, אז אל תריץ אותו.</div>
+<div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על ארבעה דברים:</div>
+<div class="pl" dir="rtl">- איזה סרטון לערוך, אם יש בתיקייה יותר מאחד.</div>
+<div class="pl" dir="rtl">- הטקסט, מילה במילה, והמילה שעליה הוא מתחיל להופיע.</div>
+<div class="pl" dir="rtl">- מתי הטקסט יוצא, על מילה מסוימת או בסוף הקטע.</div>
+<div class="pl" dir="rtl">- צבע ופונט (ברירת המחדל לבן, Rubik במשקל 900).</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/קלט&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="כיוון">&lt;כיוון&gt;</div>
+<div class="pl" dir="rtl">הטקסט גדול ויושב על הקיר מאחוריי, והגוף שלי מסתיר רק חלק קטן ממנו, כך שהוא נשאר קריא.</div>
+<div class="pl" dir="rtl">את המקום של הטקסט תבחר לפי איפה שהגוף נמצא לאורך כל הקטע: על הקיר הפנוי בצד של הראש, לא מאחורי הפנים, ונמוך מספיק כדי שהיד תעבור על השורה התחתונה.</div>
+<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>כל מילה נכנסת שלמה ברגע שהיא נאמרת: עולה בערך 30 פיקסלים בתנועת קפיץ בלי קפיצה מעבר ליעד, מתבהרת מטשטוש של 8 פיקסלים בתוך 0.3 שנייה, והשקיפות עולה בתוך 0.26 שנייה.</div>
+<div class="pl" dir="rtl"><span class="nb">ל-GSAP</span> אין קפיץ כזה מובנה, אז תשתמש בפונקציית <span class="nb">ה-ease</span> הזאת: <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">p</span> <span class="tk">=&gt;</span> <span class="tk">(1-(1+7*p)*Math.exp(-7*p))</span> <span class="tk">/</span> <span class="tk">(1-8*Math.exp(-7))</span><span class="bt">`</span>.</span></div>
+<div class="pl" dir="rtl">לבן עם צל כהה ורך, כדי שיחזיק על הקיר.</div>
+<div class="pl" dir="rtl">החדר נשאר כמו שהוא, בלי להכהות אותו ובלי כתם כהה מאחורי הטקסט.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/כיוון&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="בנייה">&lt;בנייה&gt;</div>
+<div class="pl" dir="rtl">1. תחתוך לקובץ נפרד רק את הקטע שבו הטקסט על המסך, ותפריד בו אותי מהרקע עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">remove-background</span> <span class="tk">&lt;הקטע&gt;</span> <span class="tk">-o cutout.webm</span> <span class="tk">--quality best</span><span class="bt">`</span>,</span>כי ההפרדה לוקחת עד שנייה וחצי לכל פריים.</div>
+<div class="pl" dir="rtl">2. תנקה את ההילה החלשה סביב הגוף עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">ffmpeg</span> <span class="tk">-c:v libvpx-vp9</span> <span class="tk">-i cutout.webm</span> <span class="tk">-vf &quot;format=yuva420p,lut=a=&#x27;st(0\,clip((val-64)/116\,0\,1));255*ld(0)*ld(0)*(3-2*ld(0))&#x27;&quot;</span> <span class="tk">-c:v libvpx-vp9</span> <span class="tk">-pix_fmt yuva420p</span> <span class="tk">-crf 15</span> <span class="tk">-b:v 0</span> <span class="tk">-auto-alt-ref 0</span> <span class="tk">-an cutout-clean.webm</span><span class="bt">`</span>.</span></div>
+<div class="pl" dir="rtl">3. בלי <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">-c:v libvpx-vp9</span><span class="bt">`</span></span> לפני <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">-i</span><span class="bt">`</span></span> השקיפות נעלמת בשקט, ולכן אחרי הניקוי תניח את הקובץ מעל צבע מלא ותבדוק פריים עם שיער, אצבעות ואמות.</div>
+<div class="pl" dir="rtl">4. סדר השכבות בקומפוזיציה של HyperFrames, מלמטה למעלה, הוא הקטע המקורי, אחריו הטקסט, ומעל שניהם אני בלי הרקע.</div>
+<div class="pl" dir="rtl">5. שני הסרטונים מתחילים ב-<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">data-start=&quot;0&quot;</span><span class="bt">`</span></span>, כדי שיהיו מסונכרנים באותו פריים, והשקיפות של שכבת הגוף נקבעת על div שעוטף אותה ולא על הווידאו עצמו.</div>
+<div class="pl" dir="rtl">6. הסרטון המקורי מקבל <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">data-has-audio=&quot;true&quot;</span><span class="bt">`</span></span> ובלי <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">muted</span><span class="bt">`</span></span>, אחרת הקול נעלם.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/בנייה&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="מלכודות">&lt;מלכודות&gt;</div>
+<div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>לא לשים <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">dir=&quot;rtl&quot;</span><span class="bt">`</span></span> על תגית <span class="nb">ה-html,</span> כי הרינדור יוצא שחור, ולכן הכיוון נקבע על אלמנט הטקסט.</div>
+<div class="pl" dir="rtl">הפונט יושב כקובץ בתיקיית assets של הפרויקט ונטען עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">@font-face</span><span class="bt">`</span></span>, ואם אין לי אותו תוריד אותו <span class="nb">מ-Google</span> Fonts.</div>
+<div class="pl" dir="rtl">לפני המדידה תטען אותו עם טקסט עברי, <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">document.fonts.load(&#x27;900</span> <span class="tk">100px</span> <span class="tk">Rubik&#x27;,</span> <span class="tk">&#x27;אבג&#x27;)</span><span class="bt">`</span>,</span>אחרת המילים נמדדות בפונט אחר.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/מלכודות&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="התחלה">&lt;התחלה&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על הקלט, תריץ את ההפרדה, ותראה לי שלושה פריימים: כשהטקסט נכנס, כשיד עוברת מעליו, וכשהוא מלא על המסך.</div>
+<div class="pl" dir="rtl">אל תרנדר את כל הסרטון לפני שאישרתי.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>כל מילה נכנסת שלמה ברגע שהיא נאמרת: עולה בערך 30 פיקסלים בתנועת קפיץ בלי קפיצה מעבר ליעד, מתבהרת מטשטוש של 8 פיקסלים בתוך 0.3 שנייה, והשקיפות עולה בתוך 0.26 שנייה.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>לא לשים <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">dir=&quot;rtl&quot;</span><span class="bt">`</span></span> על תגית <span class="nb">ה-html,</span> כי הרינדור יוצא שחור, ולכן הכיוון נקבע על אלמנט הטקסט.</div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="30.420">טקסט</span> <span class="w" dir="rtl" data-t="30.580">כזה</span> <span class="w" dir="rtl" data-t="30.740">לאורך</span> <span class="w" dir="rtl" data-t="30.900">ריל</span> <span class="w" dir="rtl" data-t="31.060">שלם</span> <span class="w" dir="rtl" data-t="31.220">של</span> <span class="w" dir="rtl" data-t="31.380">דקה</span> <span class="w" dir="rtl" data-t="31.540">ייקח</span> <span class="w" dir="rtl" data-t="31.700">רבע</span> <span class="w" dir="rtl" data-t="31.860">שעה</span> <span class="w" dir="rtl" data-t="32.020">עד</span> <span class="w" dir="rtl" data-t="32.180">40</span> <span class="w" dir="rtl" data-t="32.340">דקות</span> <span class="w" dir="rtl" data-t="32.500">רק</span> <span class="w" dir="rtl" data-t="32.660">להפרדה.</span></p></div></div>
 </div></div>
 </div>
 </div>
@@ -1030,172 +982,101 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   window.SIMS = window.SIMS || {};
 })();
 
-/* 7.3 an independent critic, iterated until the score passes 90: one visual beat per explanation phrase, then the rounds.
-   Every tween is a fromTo with explicit values (immediateRender:false via E.A); times are scene-local via T(). */
 window.SIMS = window.SIMS || {};
-window.SIMS.sim73 = function (tl, ctx, cfg, S) {
-  const E = window.ENG, A = E.A, sc = ctx.scene, c = cfg.sim73, P = cfg.phr, pe = cfg.phrEnd;
+window.SIMS.sim33 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, P = cfg.phr, pe = cfg.phrEnd;
   const T = (x) => S + x;                    // scene-local -> master time
-  const q = (s) => E.q(s, sc), qa = (s) => E.qa(s, sc);
-  const tw = (el, from, to, t) => tl.fromTo(el, from, A(to), T(t));
-  const pop = (el, t, s0) => tw(el, { opacity: 0, scale: s0 || 0.7 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, t);
-  const ts = cfg.tStage, b0 = P[0], b1 = P[1], b2 = P[2], b3 = P[3], b4 = P[4];
-  const wrap = q(".sim73");
-  const sweep = (el, t, d, color) => {       // light sweep, right to left (no skew, so nothing shows at rest)
-    const fx = document.createElement("i"), b = document.createElement("b");
-    fx.className = "s73-swp";
-    if (color) fx.style.setProperty("--sw", color);
-    fx.appendChild(b);
-    el.appendChild(fx);
-    tw(b, { x: 0 }, { x: -(el.clientWidth * 1.8 + 10), duration: d, ease: "power2.inOut" }, t);
-  };
+  const q = (s) => E.q(".sim33 " + s, sc), qa = (s) => E.qa(".sim33 " + s, sc);
+  const persp = q(".s33-persp"), root = persp.parentNode, stack = q(".s33-stack"), lys = qa(".s33-ly");
+  const R = { x: -110, rz: -28, rx: 56, s: 0.6 }, Z0 = [0, 0.6, 1.2], Z = [-150, 0, 150];
 
-  const vid = q(".s73-vid"), person = q(".s73-person"), bub = q(".s73-bub"), list = q(".s73-list"), flaw = q(".s73-flaw");
-  const me = q(".s73-me"), mename = q(".s73-mename"), cr = q(".s73-cr"), crname = q(".s73-crname");
-
-  // establishing shot: the video that was built, and its builder (centred until the critic needs room)
-  const builder = q(".s73-builder"), SHIFT = -160;
-  tw(vid, { scale: 0.94 }, { scale: 1, duration: 0.7, ease: E.SPRING }, ts + 0.1);
-
-  // B0 "whoever built the video is the least suited to critique it": the builder's explanations,
-  // its own checklist ticked one by one, while the caption is cut at the frame's edge
-  tw(bub, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, b0 + 0.05);
-  qa(".s73-bub > i").forEach((l, i) => tw(l, { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out" }, b0 + 0.3 + i * 0.12));
-  E.fadeIn(tl, list, T(b0 + 0.7), 0.45, 14);
-  qa(".s73-li path").forEach((p, i) => E.draw(tl, p, T(b0 + 0.95 + i * 0.25), 0.25));
-  E.draw(tl, q(".s73-flaw rect"), T(b0 + 1.85), 0.45);
-  tw(flaw, { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out" }, b0 + 2.3);
-  tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b0 + 2.55);
-  tw(person, { y: 0 }, { y: 5, duration: 0.18, ease: "power2.out" }, b0 + 2.1);
-  tw(person, { y: 5 }, { y: 0, duration: 0.3, ease: "back.out(2)" }, b0 + 2.28);
-
-  // B1 "and this is true for Claude too": the builder glitches into Claude (an agent card), same ticked checklist
-  E.glitch(tl, person, T(b1 + 0.02), 8);
-  tw(person, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b1 + 0.22);
-  pop(me, b1 + 0.25, 0.75);
-  E.fadeIn(tl, mename, T(b1 + 0.4), 0.45, 10);
-  sweep(me, b1 + 0.65, 0.7, "rgba(255, 255, 255, 0.22)");
-  tw(list, { borderColor: "rgba(201, 194, 255, 0.28)" }, { borderColor: "rgba(255, 255, 255, 0.85)", duration: 0.15 }, b1 + 0.7);
-  tw(list, { borderColor: "rgba(255, 255, 255, 0.85)" }, { borderColor: "rgba(201, 194, 255, 0.28)", duration: 0.4 }, b1 + 0.85);
-  tw(flaw, { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out" }, b1 + 0.95);
-  tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b1 + 1.2);
-
-  // B2 "an independent critic is a separate copy of Claude that built nothing": a copy slides out (with a depth trail),
-  // a divider goes up between them, the critic's tray is empty
-  E.fadeOut(tl, list, T(b2), 0.3, 10);
-  tw(flaw, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b2);
-  tw(builder, { x: SHIFT }, { x: 0, duration: 0.75, ease: E.SPRING }, b2 + 0.1);
-  const DX = me.offsetLeft - cr.offsetLeft + SHIFT;
-  const slide = (el, t, peak) => {
-    tw(el, { x: DX, rotationY: -38, scale: 0.92, transformPerspective: 900, opacity: 0 }, { x: 0, rotationY: 0, scale: 1, transformPerspective: 900, opacity: peak, duration: 0.95, ease: E.SPRING }, t);
-  };
-  slide(q(".s73-gh2"), b2 + 0.27, 0.18);
-  slide(q(".s73-gh1"), b2 + 0.21, 0.36);
-  slide(cr, b2 + 0.15, 1);
-  qa(".s73-ghost").forEach((g, i) => tw(g, { opacity: i ? 0.36 : 0.18 }, { opacity: 0, duration: 0.3 }, b2 + 1.25 + i * 0.05));
-  E.draw(tl, q(".s73-div path"), T(b2 + 1.05), 0.5);
-  E.fadeIn(tl, crname, T(b2 + 1.2), 0.45, 10);
-  E.fadeIn(tl, q(".s73-tray"), T(b2 + 1.5), 0.45, 10);
-  sweep(cr, b2 + 1.7, 0.7, "rgba(255, 255, 255, 0.22)");
-
-  // B3 "it gets the request and frames from every scene, without the explanations": into the tray they go;
-  // the explanations hit the divider and are refused
-  const doc = q(".s73-doc");
-  tw(doc, { x: 536, y: -5, scale: 0.8, rotation: -8, opacity: 0 }, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, duration: 0.85, ease: E.SPRING }, b3 + 0.1);
-  const vc = E.center(vid, wrap);
-  qa(".s73-in").forEach((th, i) => {
-    const o = E.center(th, wrap);
-    tw(th, { x: vc.x - o.x, y: vc.y - o.y, scale: 2.4, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.8, ease: E.SPRING }, b3 + 0.45 + i * 0.15);
+  // static layout: measure where each layer's right edge lands in the payoff's side view, then place the names
+  stack.style.transform = "translate(" + R.x + "px, 0px) rotate(" + R.rz + "deg) rotateX(" + R.rx + "deg) scale(" + R.s + ")";
+  lys.forEach((l, i) => { l.style.transform = "translateZ(" + Z[i] + "px)"; });
+  const rr = root.getBoundingClientRect(), k = rr.width / root.offsetWidth || 1;
+  const pts = lys.map((l) => {
+    const r = E.q(".s33-mk", l).getBoundingClientRect();
+    return { x: (r.left + r.width / 2 - rr.left) / k, y: (r.top + r.height / 2 - rr.top) / k };
   });
-  const expl = q(".s73-expl"), no = q(".s73-no"), dv = q(".s73-div path");
-  pop(expl, b3 + 1.1, 0.8);
-  tw(bub, { x: 0 }, { x: -88, duration: 0.3, ease: "power2.in" }, b3 + 1.35);
-  E.glitch(tl, q(".s73-div"), T(b3 + 1.65), 6);
-  tw(dv, { stroke: "#c9c2ff" }, { stroke: "#ff6b61", duration: 0.1 }, b3 + 1.65);
-  tw(dv, { stroke: "#ff6b61" }, { stroke: "#c9c2ff", duration: 0.5 }, b3 + 1.9);
-  pop(no, b3 + 1.68, 0.5);
-  qa(".s73-no path").forEach((p, i) => E.draw(tl, p, T(b3 + 1.72 + i * 0.12), 0.22));
-  tw(bub, { x: -88 }, { x: -36, duration: 0.4, ease: "power2.out" }, b3 + 1.65);
-  tw(bub, { opacity: 1 }, { opacity: 0, duration: 0.35 }, b3 + 2.15);
-
-  // B4 "and gives a score out of 100 with a numeric fix for every defect": the gauge lands on 68 (the first round);
-  // two defects, each with its fix dialled in (the punch-in lands on the gauge)
-  E.fadeOut(tl, q(".s73-builder"), T(b4), 0.2, 0);
-  tw(q(".s73-div"), { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4);
-  [q(".s73-tray"), doc].concat(qa(".s73-in")).forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4));
-  // the fill shows v% of the arc at offset L - v * len; hidden, its dash ends 12 px before the arc starts,
-  // so its round cap never leaves a dot there (same as E.draw)
-  const fill = q(".s73-fill"), len = fill.getTotalLength(), L = Math.ceil(len) + 2, pad = 12;
-  fill.style.strokeDasharray = L + " " + (L + 2 * pad);
-  fill.style.strokeDashoffset = L + pad;
-  const off = (v) => +(L - (len * v) / 100).toFixed(1);
-  E.draw(tl, q(".s73-track"), T(b4 + 0.2), 0.5);
-  tw(fill, { strokeDashoffset: L + pad }, { strokeDashoffset: off(c.scoreFrom), duration: 0.8, ease: "power2.out" }, b4 + 0.4);
-  qa(".s73-tk").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.5));
-  qa(".s73-tl").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.55));
-  const n1 = q(".s73-n1"), n2 = q(".s73-n2");
-  pop(n1, b4 + 0.6, 0.6);
-  tw(q(".s73-of"), { opacity: 0 }, { opacity: 1, duration: 0.35 }, b4 + 0.75);
-  qa(".s73-row").forEach((row, i) => {
-    const t = b4 + 1.0 + i * 0.3;
-    tw(row, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }, t);
-    tw(E.q(".s73-dm", row), { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, t + 0.25);
-    tw(E.q(".s73-arr", row), { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, t + 0.35);
-    const kn = E.q(".s73-knob", row), to = i ? -31.2 * 1.5 : 31.2 * 4;
-    tw(kn, { x: 0 }, { x: to, duration: 0.55, ease: "power3.inOut" }, t + 0.5);
-    tw(kn, { scale: 1 }, { scale: 1.25, duration: 0.15, ease: "power2.out" }, t + 1.05);
-    tw(kn, { scale: 1.25 }, { scale: 1, duration: 0.25, ease: "power2.in" }, t + 1.2);
+  stack.style.transform = "";
+  lys.forEach((l) => { l.style.transform = ""; });
+  const labs = qa(".s33-lab"), leads = qa(".s33-leads path");
+  pts.forEach((p, i) => {
+    const lx = Math.round(p.x + 44), ly = Math.round(p.y);
+    labs[i].style.left = lx + "px";
+    labs[i].style.top = ly - 16 + "px";
+    leads[i].setAttribute("d", "M" + (p.x + 2).toFixed(1) + " " + p.y.toFixed(1) + " H" + (lx + 2));
   });
 
-  // payoff: the same critic, round after round; the middle rounds are dots (no numbers in the guide);
-  // the gauge passes 90 and lands on 96; then the stopping rule
-  qa(".s73-row").forEach((row) => E.fadeOut(tl, row, T(pe), 0.3, 10));
-  const line = q(".s73-line"), linef = q(".s73-linef"), nds = qa(".s73-nd");
-  tw(line, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, pe + 0.1);
-  nds.forEach((n, k) => pop(n, pe + 0.15 + k * 0.05, 0.4));
-  E.fadeIn(tl, q(".s73-slbl"), T(pe + 0.3), 0.4, 6);
-  const lit = (n, t) => tw(n, { boxShadow: "0 0 0 2px rgba(201, 194, 255, 0.7), 0 0 0px rgba(201, 194, 255, 0)", backgroundColor: "#2a2450" },
-    { boxShadow: "0 0 0 2px rgba(255, 255, 255, 1), 0 0 14px rgba(201, 194, 255, 0.9)", backgroundColor: "#c9c2ff", duration: 0.25 }, t);
-  lit(nds[0], pe + 0.45);
-  E.fadeIn(tl, q(".s73-sv1"), T(pe + 0.5), 0.4, 8);
-  E.fadeIn(tl, q(".s73-rublbl"), T(pe + 0.65), 0.4, 10);
-  qa(".s73-tag").forEach((g, i) => pop(g, pe + 0.75 + i * 0.08, 0.7));
-  // rounds 2..7
-  const r0 = pe + 1.55, step = 0.33, rEnd = r0 + 5 * step + 0.2;
-  for (let k = 1; k <= 6; k++) {
-    const t = r0 + (k - 1) * step;
-    tw(linef, { scaleX: (k - 1) / 6 }, { scaleX: k / 6, duration: 0.22, ease: "power2.out" }, t);
-    if (k < 6) {
-      tw(nds[k], { scale: 1 }, { scale: 1.7, duration: 0.15, ease: "power2.out" }, t + 0.12);
-      tw(nds[k], { scale: 1.7 }, { scale: 1, duration: 0.2, ease: "power2.in" }, t + 0.27);
-    } else {
-      lit(nds[6], t + 0.12);
-    }
-    tw(cr, { scale: 1 }, { scale: 1.06, duration: 0.12, ease: "power2.out" }, t + 0.05);
-    tw(cr, { scale: 1.06 }, { scale: 1, duration: 0.18, ease: "power2.in" }, t + 0.17);
-  }
-  tw(n1, { opacity: 1 }, { opacity: 0, duration: 0.25 }, r0);
-  tw(fill, { strokeDashoffset: off(c.scoreFrom) }, { strokeDashoffset: off(c.scoreTo), duration: rEnd - r0, ease: "power1.inOut" }, r0);
-  // the gauge passes the target: its tick and label light up, a check mark
-  const tPass = r0 + (rEnd - r0) * 0.72;
-  tw(q(".s73-tk" + c.target), { stroke: "rgba(236, 233, 255, 0.85)" }, { stroke: "#ffffff", duration: 0.2 }, tPass);
-  tw(q(".s73-tl" + c.target), { color: "#b8b4cc", scale: 1 }, { color: "#ffffff", scale: 1.2, duration: 0.3, ease: "back.out(2)" }, tPass);
-  const pass = q(".s73-pass");
-  pop(pass, tPass + 0.05, 0.5);
-  E.draw(tl, q(".s73-pass path"), T(tPass + 0.1), 0.25);
-  pop(n2, rEnd - 0.05, 0.6);
-  E.fadeIn(tl, q(".s73-sv7"), T(rEnd), 0.4, 8);
-  E.burst(tl, q(".s73-gauge"), 21, 151, T(rEnd), { n: 14, seed: 73, r0: 26, r1: 70, color: "#c9c2ff" });
-  // the stopping rule
-  const rule = q(".s73-rulecard");
-  tw(rule, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }, pe + 4.1);
-  qa(".s73-stop path").forEach((p, i) => E.draw(tl, p, T(pe + 4.25 + i * 0.2), 0.35));
-  sweep(rule, pe + 4.6, 0.9, "rgba(201, 194, 255, 0.2)");
+  // establishing: the frame's viewfinder corners draw on
+  qa(".s33-frame path").forEach((p, i) => E.draw(tl, p, T(cfg.tStage + 0.1 + i * 0.06), 0.45));
+
+  // B0 "כותרת שקופצת מעל הפנים מסתירה אתכם": a title pops over the face and hides it
+  const b0 = P[0], title = q(".s33-title"), tring = q(".s33-tring");
+  tl.fromTo(title, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.7)" }), T(b0 + 0.15));
+  tl.fromTo(tring, { opacity: 0, scale: 1.1 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: E.SPRING }), T(b0 + 0.9));
+  E.glitch(tl, title, T(b0 + 0.95), 9);
+
+  // B1 "על צילום רגיל, בלי מסך ירוק": regular footage; a green screen, struck out (punch-in here)
+  const b1 = P[1], tag = q(".s33-tag"), gs = q(".s33-gs");
+  tl.fromTo(title, { opacity: 1, y: 0 }, A({ opacity: 0, y: -30, duration: 0.35, ease: "power2.in" }), T(b1));
+  tl.fromTo(tag, { opacity: 0, x: -12 }, A({ opacity: 1, x: 0, duration: 0.45, ease: E.SPRING }), T(b1 + 0.1));
+  tl.fromTo(gs, { opacity: 0, y: 20 }, A({ opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }), T(b1 + 0.15));
+  qa(".s33-gsv .x").forEach((p, i) => E.draw(tl, p, T(b1 + 0.55 + i * 0.12), 0.25, "power2.in"));
+  E.glitch(tl, q(".s33-gsv"), T(b1 + 0.75), 7);
+
+  // B2 "קלוד מפריד אתכם מהרקע בכל פריים": a scanner passes; the room gives way to a checkerboard (the presenter is
+  // cut out); the outline glows; a strip of frames, each one cut out
+  const b2 = P[2], scan = q(".s33-scan"), chk = q(".s33-chk"), cut = q(".s33-cut"), strip = q(".s33-strip");
+  tl.fromTo(gs, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b2));
+  tl.fromTo(tag, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b2));
+  tl.fromTo(scan, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(b2 + 0.1));
+  tl.fromTo(scan, { x: 0 }, A({ x: -880, duration: 0.95, ease: "power1.inOut" }), T(b2 + 0.1));
+  tl.fromTo(scan, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), T(b2 + 0.95));
+  tl.fromTo(chk, { clipPath: "inset(0px 0px 0px 100%)" }, A({ clipPath: "inset(0px 0px 0px 0%)", duration: 0.95, ease: "power1.inOut" }), T(b2 + 0.12));
+  E.draw(tl, cut, T(b2 + 0.3), 0.85, "power1.inOut");
+  const mfs = qa(".s33-mf"), msel = q(".s33-msel");
+  mfs.forEach((m, i) => tl.fromTo(m, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.4, ease: E.SPRING }), T(b2 + 0.2 + i * 0.06)));
+  mfs.forEach((m, i) => E.qa(".ol path, .ol ellipse", m).forEach((p) => E.draw(tl, p, T(b2 + 0.55 + i * 0.22), 0.3)));
+  tl.fromTo(msel, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(b2 + 0.5));
+  for (let i = 1; i < 5; i++) tl.fromTo(msel, { x: -(i - 1) * 146 }, A({ x: -i * 146, duration: 0.18, ease: "power2.inOut" }), T(b2 + 0.55 + i * 0.22));
+
+  // B3 "ומכניס את הטקסט בין הקיר לבינכם": the room returns; the text enters on the wall, behind the presenter;
+  // every word whole: it rises ~30 px on the spring and unblurs from 8 px in 0.3 s
+  const b3 = P[3];
+  tl.fromTo(chk, { opacity: 1 }, A({ opacity: 0, duration: 0.35 }), T(b3));
+  tl.fromTo(strip, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b3));
+  tl.fromTo(cut, { opacity: 1 }, A({ opacity: 0, duration: 0.35 }), T(b3));
+  qa(".s33-w").forEach((w, i) => {
+    const t = T(b3 + 0.2 + i * 0.32);
+    tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.26, ease: "power2.out" }), t);
+    tl.fromTo(w, { y: 30 }, A({ y: 0, duration: 0.7, ease: E.SPRING }), t);
+    tl.fromTo(w, { filter: "blur(8px)" }, A({ filter: "blur(0px)", duration: 0.3, ease: "power2.out" }), t);
+    tl.set(w, { filter: "none" }, t + 0.31);
+  });
+  E.sweep(tl, q(".s33-text"), T(b3 + 1.35), 0.6, { color: "rgba(255, 255, 255, 0.35)" });
+
+  // B4 "וכל תנועה של היד מסתירה את החלק של הטקסט שמאחוריה": the hand rises and passes over "לכבד";
+  // it hides only what is behind it (the same arm in the original layer and in the cut-out layer)
+  const b4 = P[4], arms = qa(".s33-arm");
+  arms.forEach((a) => {
+    tl.fromTo(a, { y: 230, rotation: 12, svgOrigin: "338 420" }, A({ y: 0, rotation: 0, duration: 0.85, ease: E.SPRING }), T(b4 + 0.1));
+    tl.fromTo(a, { x: 0 }, A({ x: -34, duration: 0.6, ease: "sine.inOut" }), T(b4 + 1.1));
+    tl.fromTo(a, { x: -34 }, A({ x: 16, duration: 0.7, ease: "sine.inOut" }), T(b4 + 1.85));
+  });
+
+  // payoff: a side view of the three layers, bottom to top: the original clip · the text · you without the background
+  tl.fromTo(q(".s33-frame"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe));
+  tl.fromTo(stack, { x: 0, rotation: 0, rotationX: 0, scale: 1 }, A({ x: R.x, rotation: R.rz, rotationX: R.rx, scale: R.s, duration: 1.2, ease: E.SPRING }), T(pe + 0.2));
+  lys.forEach((l, i) => tl.fromTo(l, { z: Z0[i] }, A({ z: Z[i], duration: 1.2, ease: E.SPRING }), T(pe + 0.25 + i * 0.05)));
+  qa(".s33-edge").forEach((e, i) => tl.fromTo(e, { opacity: 0 }, A({ opacity: 1, duration: 0.4 }), T(pe + 0.55 + i * 0.08)));
+  leads.forEach((p, i) => E.draw(tl, p, T(pe + 1.3 + i * 0.16), 0.3));
+  labs.forEach((l, i) => tl.fromTo(l, { opacity: 0, x: -10 }, A({ opacity: 1, x: 0, duration: 0.4, ease: E.SPRING }), T(pe + 1.4 + i * 0.16)));
 };
 
 
 (function () {
-  const CFGS = [{"id": "t73", "sim": "sim73", "D": 32.06, "tStage": 1.18, "tExp": 1.78, "phr": [1.78, 4.48, 6.08, 9.03, 11.73], "phrEnd": 14.43, "tSimEnd": 21.43, "tFact": 21.43, "tPrompt": 26.11, "tPromptEnd": 31.61, "tTip": null, "expZoom": 0.1, "simDur": 20.25, "hls": [{"id": "hl1", "hold": 2.2, "zoom": 0.1}], "sim73": {"builderName": "קלוד", "criticLabel": "מבקר עצמאי", "reqLabel": "הבקשה", "explLabel": "ההסברים", "scoreFrom": 68, "scoreTo": 96, "target": 90, "stopAt": 70, "rounds": 7, "roundsLabel": "סבבים", "rubricLabel": "מחוון", "rubric": ["ביצוע", "גימור", "תנועה", "טקסט ועברית", "התאמה לסגנון", "היגיון פיזי"], "rule": ["אחרי שני סבבים עדיין מתחת ל-70?", "עוצרים ומביאים את הפער."]}, "S": 0.0}];
+  const CFGS = [{"id": "t33", "sim": "sim33", "D": 34.47, "tStage": 0.92, "tExp": 1.52, "phr": [1.52, 3.47, 5.67, 7.62, 9.57], "phrEnd": 12.52, "tSimEnd": 17.02, "tFact": 17.02, "tPrompt": 21.31, "tPromptEnd": 30.02, "tTip": 30.02, "expZoom": 0.1, "simDur": 16.1, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim33": {"text": ["נתחיל מהקל", "לכבד"], "regular": "צילום רגיל", "green": "מסך ירוק", "layers": ["הקטע המקורי", "הטקסט", "אתם בלי הרקע"]}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1209,7 +1090,7 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 32.060;
+    const TOT = 34.470;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

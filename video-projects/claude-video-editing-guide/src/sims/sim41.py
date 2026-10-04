@@ -101,6 +101,6 @@ def html(cfg):
 
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
+    # one per beat (two card pops in B0): pop, pop, the layers split, the MP4 fill, the MOV is rejected, the green label
     return [("pop", P[0] + 1.2), ("pop", P[0] + 2.2), ("whoosh_soft", P[1] + 0.04),
-            ("swipe", P[2] + 0.2), ("glitch_soft", P[3] + 0.66), ("tick", P[3] + 1.48),
-            ("shimmer", pe + 2.4)]
+            ("swipe", P[2] + 0.3), ("glitch_soft", P[3] + 0.66), ("shimmer", pe + 2.4)]
