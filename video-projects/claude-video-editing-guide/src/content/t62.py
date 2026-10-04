@@ -14,4 +14,17 @@ CFG = {'id': 't62',
         'אומרים לקלוד במפורש לא להוסיף זום קפיצי משלו: | שני זומים אחד על השני {מסחררים} את מי שצופה.',
  'fact': None,
  'hls': [],
- 'tip': None}
+ 'tip': None,
+ 'sim62': {
+     # B0 recorder pill: the app's name as plain text (guide: "Screen Studio היא תוכנה למק שמקליטה את המסך")
+     'recName': 'Screen Studio',
+     # B0-B1, B3 legend: approved visual "הקלטת מסך מאוירת עם זום אוטומטי" (guide: "מוסיפה זומים אוטומטיים")
+     'autoLabel': 'זום אוטומטי',
+     # B3 legend: the explanation "לא להוסיף זום קפיצי משלו"
+     'bouncyLabel': 'זום קפיצי',
+     # B2 + payoff chat bubble, verbatim from the approved script:
+     # 'מה להגיד לקלוד: בועת צ'אט: "ההקלטה מ-Screen Studio, אז בלי זום קפיצי משלך."'
+     'askLabel': 'מה להגיד לקלוד',
+     'askL1': ('ההקלטה מ-', 'Screen Studio', ','),
+     'askL2': 'אז בלי זום קפיצי משלך.',
+ }}

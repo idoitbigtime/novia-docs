@@ -49,7 +49,8 @@ def html(cfg):
 <div class="s41-room"><div class="s41-lamp"></div><div class="s41-win"><i></i></div>
 {person_svg("s41-person", "41")}
 <div class="s41-prog"><i></i></div></div>
-<div class="s41-green"><span class="s41-hex" dir="ltr">{esc(c["greenHex"])}</span><i class="s41-gscan"></i></div>
+<div class="s41-green"><span class="s41-hex" dir="ltr">{esc(c["greenHex"])}</span></div>
+<i class="s41-gscan"></i>
 </div>
 <div class="s41-ovl" data-focus="1"><div class="s41-chk"></div>
 <svg class="s41-ovlo" viewBox="0 0 324 576" preserveAspectRatio="none" aria-hidden="true"><rect x="2" y="2" width="320" height="572" rx="25"/></svg>
@@ -99,6 +100,6 @@ def html(cfg):
 
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
-    return [("pop", P[0] + 1.22), ("pop", P[0] + 2.22), ("whoosh_soft", P[1] + 0.04),
-            ("swipe", P[2] + 0.2), ("glitch_soft", P[3] + 0.62), ("tick", P[3] + 1.3),
-            ("shimmer", pe + 1.95)]
+    return [("pop", P[0] + 1.2), ("pop", P[0] + 2.2), ("whoosh_soft", P[1] + 0.04),
+            ("swipe", P[2] + 0.2), ("glitch_soft", P[3] + 0.6), ("tick", P[3] + 1.5),
+            ("shimmer", pe + 1.9)]

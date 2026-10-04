@@ -16,4 +16,22 @@ CFG = {'id': 't21',
           'line': 'בכל חיבור נשארה עשירית שנייה של שקט, כדי ששום עיצור לא ייחתך.'},
  'hls': [('בכל חיבור נשאר שקט של 0.1 שנייה בסך הכל', 1.9, 0.1), ('אל תחתוך לפני שאישרתי.', 1.9, 0.1)],
  'tip': 'לא מתמללים את הקובץ החתוך מחדש: תמלול חוזר כתב "על פיות" במקום "אלפיות", ולכן הזמנים מחושבים '
-        'מהתמלול המקורי.'}
+        'מהתמלול המקורי.',
+ # the payoff (approve, the cuts close, the joins) needs a little more than the default 4.5 s
+ 'payoff': 6.0,
+ # sim-only labels (every one quotes the guide, the explanation or the approved visual description)
+ 'sim21': {
+     # B0 marks. Description: 'מסומנים שקט, "אמ" ומשפט שנעזב באמצע'; guide prompt 1: 'מוחקים כל שתיקה, כל "אה" ו"אמ"'
+     'silLabel': 'שקט', 'umWord': 'אמ',
+     # B1. Explanation phrase 2: 'משפט שהתחלתם ועזבתם באמצע נמחק כולו'
+     'abandLabel': 'נמחק כולו',
+     # B2. Explanation phrase 3: 'וכשאמרתם משהו פעמיים נשאר רק הניסיון האחרון והשלם'
+     'twiceLabel': 'פעמיים', 'lastLabel': 'האחרון והשלם',
+     # table. Description: 'טבלת חיתוכים בעמודות "זמן · מה נמחק · סיבה"'
+     'cols': ['זמן', 'מה נמחק', 'סיבה'],
+     # reasons: the guide's heading 'חותך שתיקות, גמגומים וטייקים כפולים' and the description's 'משפט שנעזב באמצע'
+     'reasons': ['שקט', 'גמגום', 'נעזב באמצע', 'טייק כפול'],
+     # payoff. Description: 'כפתור "מחכה לאישור" הופך ל"אושר"' and 'בכל חיבור מופיע הסימון "0.1 שנייה של שקט"'
+     # (guide prompt 1: 'בכל חיבור נשאר שקט של 0.1 שנייה בסך הכל')
+     'wait': 'מחכה לאישור', 'ok': 'אושר', 'joinNum': '0.1', 'joinLabel': 'שנייה של שקט',
+ }}

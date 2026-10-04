@@ -75,7 +75,7 @@ def html(cfg):
 <div class="s51-ln"><span class="s51-btn s51-pbtn s51-c2a">{PLUS}</span>{a}<span class="s51-btn s51-c2b" dir="ltr">{esc(st["add_custom"])}</span></div></div>
 <div class="s51-row s51-r3" dir="rtl"><i class="s51-bd"><b>3</b>{OK.format(cls="s51-ok")}</i>
 <div class="s51-ln s51-f1"><span class="s51-fl" dir="rtl">{esc(st["name_lbl"])}</span><span class="s51-field s51-fname" dir="ltr"><span class="s51-typed">{esc(st["name"])}</span><i class="s51-caret"></i></span></div>
-<div class="s51-ln s51-f2"><span class="s51-fl" dir="rtl">{esc(st["url_lbl"])}</span><span class="s51-field s51-furl" dir="ltr"><span class="s51-typed">{esc(st["url"])}</span><i class="s51-caret"></i></span></div></div>
+<div class="s51-ln s51-f2"><span class="s51-fl" dir="rtl">{esc(st["url_lbl"])}</span><span class="s51-field s51-furl" dir="ltr"><i class="s51-sel"></i><span class="s51-typed">{esc(st["url"])}</span><i class="s51-caret"></i></span></div></div>
 <div class="s51-row s51-r4" dir="rtl"><i class="s51-bd"><b>4</b>{OK.format(cls="s51-ok")}</i>
 <div class="s51-ln"><span class="s51-btn s51-c4a" dir="ltr">{esc(st["add"])}</span>{a}<span class="s51-btn s51-c4b" dir="ltr">{esc(st["connect"])}</span></div>
 <div class="s51-sub" dir="rtl">{esc(st["account"])}</div>
@@ -103,7 +103,7 @@ def html(cfg):
 <div class="s51-fit" style="left:{GX + hx + TILE / 2}px"><i class="s51-lead"></i><span class="s51-fitl" dir="rtl"><i></i>{esc(c["fitLabel"])}</span></div>
 <div class="s51-name" dir="ltr">{esc(c["model"])}</div>
 <svg class="s51-conn" viewBox="0 0 4 100" preserveAspectRatio="none" aria-hidden="true"><line x1="2" y1="0" x2="2" y2="100"/></svg>
-<div class="s51-gc" dir="ltr">{esc(c["getCost"])}</div>
+<div class="s51-gc"><span dir="ltr">{esc(c["getCost"])}</span></div>
 <div class="s51-tag" data-focus="2"><svg class="s51-tago" viewBox="0 0 380 150" aria-hidden="true"><path d="M60 2 H356 Q378 2 378 24 V126 Q378 148 356 148 H60 L4 75 Z"/><circle cx="44" cy="75" r="9"/></svg>
 <div class="s51-price" dir="rtl">{price}<span class="s51-pw" dir="rtl">{esc(c["priceLabel"])}</span></div></div>
 {steps}

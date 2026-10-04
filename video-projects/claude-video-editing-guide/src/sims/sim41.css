@@ -1,0 +1,117 @@
+/* 4.1 animation on a transparent background (canvas 800 x 700): the reel at the right, its layers in a CSS 3D
+   stack (base = video / green, top = the transparent clip); one panel per beat at the left */
+.sim41 .s41-persp { position: absolute; left: 438px; top: 62px; width: 324px; height: 576px; perspective: 1500px; perspective-origin: 50% 50%; }
+.sim41 .s41-stack { position: absolute; inset: 0; transform-style: preserve-3d; }
+.sim41 .s41-base { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; background: #0b0a16;
+  box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.55), 0 0 30px rgba(201, 194, 255, 0.22); }
+.sim41 .s41-room { position: absolute; inset: 0; background: linear-gradient(180deg, #241f4c 0%, #171433 55%, #0e0c1f 100%); }
+.sim41 .s41-lamp { position: absolute; left: -90px; top: -70px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(169, 147, 255, 0.24), rgba(169, 147, 255, 0) 70%); }
+.sim41 .s41-win { position: absolute; right: 22px; top: 40px; width: 78px; height: 118px; border: 2px solid rgba(201, 194, 255, 0.2); border-radius: 6px; }
+.sim41 .s41-win i { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(201, 194, 255, 0.2); display: block; }
+.sim41 .s41-person { position: absolute; left: 30px; top: 72px; width: 420px; height: 511px; }
+.sim41 .s41-prog { position: absolute; left: 22px; right: 22px; bottom: 22px; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.16); }
+.sim41 .s41-prog i { position: absolute; inset: 0; border-radius: 3px; background: #d9d4ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.7); transform-origin: 100% 50%; transform: scaleX(0.06); display: block; }
+/* the payoff's full green under the clip (prompt 14: color=c=0x1E7A46), revealed right to left */
+.sim41 .s41-green { position: absolute; inset: 0; background: #1e7a46; clip-path: inset(0px 0px 0px 100%); }
+.sim41 .s41-hex { position: absolute; left: 22px; bottom: 20px; font: 500 24px/1 "IBM Plex Mono", monospace; color: rgba(255, 255, 255, 0.82); opacity: 0; }
+.sim41 .s41-gscan { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #ffffff; box-shadow: 0 0 16px #b8ffd6, 0 0 4px #ffffff; display: block; opacity: 0; transform: translateX(322px); }
+
+/* the transparent clip (top layer) */
+.sim41 .s41-ovl { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; transform: translateZ(1px); }
+.sim41 .s41-chk { position: absolute; inset: 0; opacity: 0; background-color: #23203a;
+  background-image: repeating-conic-gradient(#3b3858 0% 25%, #23203a 0% 50%); background-size: 36px 36px; }
+.sim41 .s41-ovlo { position: absolute; left: 0; top: 0; width: 324px; height: 576px; overflow: visible; }
+.sim41 .s41-ovlo rect { fill: none; stroke: #c9c2ff; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.85)); }
+.sim41 .s41-card { position: absolute; left: 14px; width: 138px; height: 118px; border-radius: 20px; background: rgba(108, 76, 255, 0.88);
+  border: 1.5px solid rgba(255, 255, 255, 0.24); box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35), 0 0 22px rgba(124, 92, 255, 0.35);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; opacity: 0; }
+.sim41 .s41-c1 { top: 92px; }
+.sim41 .s41-c2 { top: 226px; }
+.sim41 .s41-card span { font: 700 32px/1 "Rubik"; color: #ffffff; white-space: nowrap; }
+.sim41 .s41-ico { width: 46px; height: 46px; display: block; overflow: visible; }
+.sim41 .s41-ico path { fill: none; stroke: #ffffff; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* file tags under the two frames */
+.sim41 .s41-tag { position: absolute; top: 652px; width: 324px; display: flex; justify-content: center; align-items: center; gap: 12px;
+  font: 600 30px/1 "IBM Plex Mono", monospace; color: #ece9f7; opacity: 0; white-space: nowrap; }
+.sim41 .s41-tmov { left: 438px; }
+.sim41 .s41-sw { width: 26px; height: 26px; border-radius: 6px; display: block; flex: none; box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.55); }
+.sim41 .s41-swchk { background-color: #23203a; background-image: repeating-conic-gradient(#56527a 0% 25%, #23203a 0% 50%); background-size: 13px 13px; }
+.sim41 .s41-swbrand { background: #4a36b8; }
+
+/* B0: the sentence (waveform + playhead) with the two marked moments */
+.sim41 .s41-p0 { position: absolute; left: 20px; top: 236px; width: 400px; height: 200px; }
+.sim41 .s41-lbl { position: absolute; right: 0; top: 0; display: flex; direction: rtl; align-items: center; gap: 12px; font: 600 32px/1 "Rubik"; color: var(--ink); opacity: 0; }
+.sim41 .s41-lbl i { width: 13px; height: 13px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; flex: none; }
+.sim41 .s41-wavebox { position: absolute; left: 0; top: 62px; width: 400px; height: 90px; opacity: 0; }
+.sim41 .s41-wave { position: absolute; left: 0; top: 0; width: 400px; height: 90px; display: block; }
+.sim41 .s41-wdim rect { fill: rgba(201, 194, 255, 0.26); }
+.sim41 .s41-wlit rect { fill: #d9d4ff; }
+.sim41 .s41-wclip { position: absolute; inset: 0; clip-path: inset(0px 0px 0px 100%); filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.7)); }
+.sim41 .s41-head { position: absolute; top: -12px; bottom: -12px; left: 400px; width: 3px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
+.sim41 .s41-mk { position: absolute; top: 166px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: #2a2450; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.6); display: block; opacity: 0; }
+.sim41 .s41-mk b { position: absolute; inset: -2px; border-radius: 50%; border: 2px solid #c9c2ff; display: block; opacity: 0; }
+.sim41 .s41-mk1 { left: 277px; }
+.sim41 .s41-mk2 { left: 123px; }
+.sim41 .s41-spark { position: absolute; top: 410px; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 14px #c9c2ff, 0 0 4px #ffffff; display: block; opacity: 0; }
+.sim41 .s41-sp1 { left: 297px; }
+.sim41 .s41-sp2 { left: 143px; }
+
+/* B1: the transparent file, with a leader to the lifted layer */
+.sim41 .s41-p1 { position: absolute; left: 60px; top: 228px; width: 380px; height: 240px; }
+.sim41 .s41-file { position: absolute; left: 112px; top: 0; width: 96px; height: 118px; opacity: 0; }
+.sim41 .s41-fileo { position: absolute; inset: 0; width: 96px; height: 118px; overflow: visible; }
+.sim41 .s41-fileo path { fill: rgba(26, 23, 52, 0.9); stroke: #c9c2ff; stroke-width: 3; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
+.sim41 .s41-filechk { position: absolute; left: 20px; top: 44px; width: 56px; height: 56px; border-radius: 6px; opacity: 0;
+  background-color: #23203a; background-image: repeating-conic-gradient(#56527a 0% 25%, #23203a 0% 50%); background-size: 18px 18px; }
+.sim41 .s41-fname { position: absolute; left: 0; top: 140px; width: 320px; text-align: center; font: 600 36px/1 "IBM Plex Mono", monospace; color: #ffffff; opacity: 0; }
+.sim41 .s41-ffmt { position: absolute; left: 0; top: 192px; width: 320px; text-align: center; font: 500 30px/1 "IBM Plex Mono", monospace; color: #bdb7e3; opacity: 0; }
+.sim41 .s41-lead { position: absolute; left: 218px; top: 49px; width: 170px; height: 20px; overflow: visible; }
+.sim41 .s41-lead path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.8)); }
+.sim41 .s41-lead circle { fill: #ffffff; stroke: none; filter: drop-shadow(0 0 6px #c9c2ff); opacity: 0; }
+
+/* B2: the same clip on the brand colour (a darker shade, prompt 14 step 6) */
+.sim41 .s41-p2 { position: absolute; left: 0; top: 0; width: 430px; height: 700px; }
+.sim41 .s41-mini { position: absolute; left: 38px; top: 62px; width: 324px; height: 576px; }
+.sim41 .s41-mbg { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; clip-path: inset(0px 0px 0px 100%);
+  background: linear-gradient(165deg, #3b2b92 0%, #2a1f6e 60%, #21185a 100%); box-shadow: inset 0 0 0 2px rgba(201, 194, 255, 0.4); }
+.sim41 .s41-tmp4 { left: 38px; }
+
+/* B3: a generic editor (not a real product): the MOV is not read, the MP4 goes in */
+.sim41 .s41-p3 { position: absolute; left: 16px; top: 168px; width: 404px; height: 290px; border-radius: 22px; background: rgba(26, 23, 52, 0.88);
+  border: 1.5px solid rgba(201, 194, 255, 0.24); box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4); opacity: 0; }
+.sim41 .s41-edhead { position: absolute; left: 0; right: 0; top: 0; height: 60px; display: flex; direction: rtl; justify-content: space-between; align-items: center;
+  padding: 0 22px; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
+.sim41 .s41-edname { font: 600 30px/1 "Rubik"; color: var(--ink); }
+.sim41 .s41-dots { display: flex; gap: 8px; direction: ltr; }
+.sim41 .s41-dots i { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.32); display: block; }
+.sim41 .s41-ruler { position: absolute; left: 18px; right: 18px; top: 74px; height: 14px;
+  background: repeating-linear-gradient(90deg, rgba(201, 194, 255, 0.34) 0 2px, rgba(0, 0, 0, 0) 2px 24px); }
+.sim41 .s41-lane { position: absolute; left: 18px; right: 18px; height: 76px; border-radius: 14px; }
+.sim41 .s41-lane2 { top: 100px; border: 1.5px dashed rgba(201, 194, 255, 0.3); }
+.sim41 .s41-lane1 { top: 192px; background: rgba(201, 194, 255, 0.06); }
+.sim41 .s41-vblk { position: absolute; inset: 7px; border-radius: 10px; background: rgba(201, 194, 255, 0.16); border: 1.5px solid rgba(201, 194, 255, 0.3);
+  display: flex; justify-content: space-around; align-items: flex-end; overflow: hidden; transform-origin: 100% 50%; }
+.sim41 .s41-vblk i { width: 40px; height: 52px; display: block; margin-bottom: -6px;
+  background: radial-gradient(circle at 50% 32%, rgba(201, 194, 255, 0.55) 0 9px, rgba(0, 0, 0, 0) 10px),
+              radial-gradient(ellipse 20px 14px at 50% 100%, rgba(201, 194, 255, 0.55) 0 99%, rgba(0, 0, 0, 0) 100%); }
+.sim41 .s41-ph { position: absolute; left: 318px; top: 66px; width: 3px; height: 212px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
+.sim41 .s41-blk { position: absolute; left: 30px; top: 110px; height: 56px; border-radius: 12px; display: flex; align-items: center; gap: 12px; padding: 0 16px;
+  font: 600 30px/1 "IBM Plex Mono", monospace; color: #ffffff; white-space: nowrap; opacity: 0; }
+.sim41 .s41-bmov { background: rgba(32, 28, 64, 0.97); border: 1.5px solid rgba(201, 194, 255, 0.55); }
+.sim41 .s41-bmp4 { background: rgba(74, 54, 184, 0.97); border: 1.5px solid rgba(201, 194, 255, 0.7); }
+.sim41 .s41-ok, .sim41 .s41-no { position: absolute; right: -15px; top: -17px; width: 38px; height: 38px; border-radius: 50%; overflow: visible; opacity: 0; }
+.sim41 .s41-ok { background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.6); }
+.sim41 .s41-no { background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); }
+.sim41 .s41-ok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim41 .s41-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
+
+/* payoff: the green test */
+.sim41 .s41-p4 { position: absolute; left: 30px; top: 232px; width: 380px; height: 230px; }
+.sim41 .s41-gbadge { position: absolute; left: 156px; top: 0; width: 68px; height: 68px; border-radius: 50%; background: #1e7a46;
+  box-shadow: 0 0 0 2.5px #7fe0a8, 0 0 22px rgba(80, 210, 140, 0.55); opacity: 0; }
+.sim41 .s41-gchk { position: absolute; inset: 12px; width: 44px; height: 44px; overflow: visible; }
+.sim41 .s41-gchk path { fill: none; stroke: #ffffff; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; }
+.sim41 .s41-gl { position: absolute; left: 0; width: 380px; text-align: center; color: var(--ink); opacity: 0; white-space: nowrap; }
+.sim41 .s41-gl1 { top: 96px; font: 600 36px/1.2 "Rubik"; }
+.sim41 .s41-gl2 { top: 150px; font: 800 44px/1.2 "Rubik"; color: #ffffff; }
