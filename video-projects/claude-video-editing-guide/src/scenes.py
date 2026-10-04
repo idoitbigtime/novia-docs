@@ -177,7 +177,10 @@ def chapter_scene(cfg):
     c.setdefault("tTitle", 0.45)
     title, tend, _ = kinetic_html(c["title"], t0=c["tTitle"], step=0.16, pause=0.2)
     # the subtitle arrives in phrases, then stays whole long enough to read
-    sub, send, _ = kinetic_html(c["sub"], t0=tend + 0.35, groups=dict(gstep=0.45))
+    if c.get("sub"):
+        sub, send, _ = kinetic_html(c["sub"], t0=tend + 0.35, groups=dict(gstep=0.45))
+    else:
+        sub, send = "", tend
     end = send
     tag = ""
     if c.get("tag"):
@@ -198,4 +201,11 @@ def chapter_scene(cfg):
 </div>"""
     js = {"id": c["id"], "type": "chapter", "D": c["D"]}
     cues = [("whoosh_soft", 0.0), ("shimmer", 0.35)]
+    return inner, js, cues, c
+
+def custom_scene(cfg):
+    """A scene built entirely by its own module (sims/<sim>.py: scene(cfg) -> (inner, js_cfg, cues, cfg))."""
+    mod = importlib.import_module("sims." + cfg["sim"])
+    inner, js, cues, c = mod.scene(dict(cfg))
+    js.update({"id": cfg["id"], "type": "custom", "sim": cfg["sim"], "D": c["D"]})
     return inner, js, cues, c

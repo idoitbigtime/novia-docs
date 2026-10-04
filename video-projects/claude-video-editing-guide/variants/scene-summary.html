@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="he">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>עריכת וידאו עם Claude</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+/* IBM Plex Mono 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 300 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-300.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-300.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-300.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 400 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-400.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 500 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-500.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 600 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-600.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 700 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-700.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Rubik 300 900 normal — hebrew */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-hebrew-300-900.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* Rubik 300 900 normal — latin-ext */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-ext-300-900.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Rubik 300 900 normal — latin */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-300-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Design tokens. Safe area for text: x 140..940, y 300..1570 (1080x1920). */
+:root {
+  --bg: #06060b;
+  --ink: #f5f2ea;
+  --ink2: #dcd9e6;
+  --muted: #9c99ae;
+  --acc: #ff453a;
+  --acc-soft: #ff8a80;
+  --line: #c9c2ff;
+  --line-glow: rgba(201, 194, 255, 0.55);
+  --panel: rgba(18, 17, 34, 0.96);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: "Rubik", sans-serif; }
+.stagewrap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; overflow: hidden; }
+
+/* ---------- background ---------- */
+#bg { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #08080f 0%, #0b0a17 55%, #07070d 100%); }
+#bg .glow { position: absolute; border-radius: 50%; }
+#bg .g1 { width: 1500px; height: 1500px; left: -420px; top: -380px; background: radial-gradient(circle, rgba(124, 92, 255, 0.20) 0%, rgba(124, 92, 255, 0.07) 38%, rgba(124, 92, 255, 0) 66%); }
+#bg .g2 { width: 1400px; height: 1400px; left: 260px; top: 980px; background: radial-gradient(circle, rgba(255, 69, 58, 0.15) 0%, rgba(255, 69, 58, 0.05) 40%, rgba(255, 69, 58, 0) 66%); }
+#bg .grain { position: absolute; inset: 0; background-image: url("assets/grain.png"); background-size: 256px 256px; opacity: 0.07; mix-blend-mode: screen; }
+#bg .vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
+
+#cam { position: absolute; inset: 0; transform-origin: 540px 960px; }
+.scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.scam { position: absolute; inset: 0; }
+
+/* ---------- header (chapter indicator) ---------- */
+.hdr { position: absolute; top: 300px; left: 140px; width: 800px; height: 46px; display: flex; justify-content: space-between; align-items: center; direction: rtl; opacity: 0; }
+.hdr-ch { font: 500 30px/1 "Rubik"; color: #b3b0c4; }
+.hdr-num { font: 600 28px/1 "IBM Plex Mono"; color: var(--acc); border: 1.5px solid rgba(255, 69, 58, 0.55); border-radius: 10px; padding: 7px 12px 6px; }
+
+/* ---------- kinetic text ---------- */
+.kin { direction: rtl; text-align: right; }
+.w { display: inline-block; white-space: pre; opacity: 0; }
+.isl { unicode-bidi: isolate; }
+.accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
+.accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
+.strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+
+/* ---------- topic layout ---------- */
+.main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
+.ttl { font: 800 60px/1.14 "Rubik"; color: var(--ink); letter-spacing: -0.005em; text-wrap: balance; }
+.exp { font: 400 36px/1.42 "Rubik"; color: var(--ink2); }
+.exp .accgrp { font-weight: 800; }
+.exp .ph { transition: none; }
+/* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
+.stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
+.stcam { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; }
+.stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
+.simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
+.simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
+/* the illustration canvas: 800 x 700 (frame x 140..940) */
+.simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
+
+/* fact overlay inside the stage */
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; direction: rtl; }
+.pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
+.factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
+.metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
+.metaline .w, .factline .w { opacity: 0; }
+
+/* ---------- prompt card ---------- */
+.pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
+.pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
+.pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
+.pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
+.pc-num b { color: var(--ink); font-weight: 600; }
+.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
+.tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
+.tab .tul { display: none; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
+.pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
+  }
+.pct { position: absolute; top: 0; left: 48px; right: 48px; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
+.pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
+.pl-empty { height: 44px; }
+.ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; color: #d8d4ea; white-space: nowrap; }
+.codeblock { display: block; direction: ltr; text-align: left; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.tk { white-space: nowrap; }
+.nb, .neg { white-space: nowrap; }
+.code .bt, .codeblock .bt { color: #6f6b86; }
+.hlbg { position: absolute; z-index: -1; top: 0; bottom: 0; left: -14px; right: -14px; background: #2e1626; border-right: 4px solid #e5484d; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); opacity: 0; display: block; }
+.pbody { position: relative; }
+/* lifted key lines: a layer over the card (same box, not clipped by it) */
+.plift { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; pointer-events: none; }
+.pl-lift { position: absolute; z-index: 3; opacity: 0; box-sizing: border-box; padding: 0 12px; font: 400 30px/44px "Rubik"; color: #f5f2ea; direction: rtl; white-space: pre-wrap; transform-origin: 50% 50%; }
+/* the lifted backing is as wide as the line, so at x1.10 it stays clear of the card border */
+.pl-lift .hlbg { opacity: 1; left: 0; right: 0; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55); }
+
+/* ---------- tip ---------- */
+.tipwrap { position: absolute; left: 140px; width: 800px; top: 0; height: 1920px; display: flex; align-items: center; justify-content: center; }
+.tipcard { width: 800px; padding: 44px 48px 50px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(18, 17, 34, 0.88); box-shadow: 0 0 40px rgba(140, 120, 255, 0.15); direction: rtl; text-align: right; opacity: 0; }
+.tip-label { display: flex; align-items: center; gap: 12px; font: 600 30px/1 "Rubik"; color: #f2eef8; margin-bottom: 26px; }
+.tip-ico { width: 46px; height: 46px; display: block; overflow: visible; filter: drop-shadow(0 0 8px rgba(255, 69, 58, 0.55)); }
+.tip-ico path { fill: none; stroke: var(--acc); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.tip-text { font: 600 46px/1.38 "Rubik"; color: var(--ink); }
+.tip-text .w { opacity: 0; }
+
+/* ---------- chapter card ---------- */
+.chap { position: absolute; inset: 0; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(255, 69, 58, 0.7); box-shadow: 0 0 30px rgba(255, 69, 58, 0.35), inset 0 0 30px rgba(255, 69, 58, 0.2); display: block; opacity: 0; }
+.ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); }
+.ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
+.ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 30px/1.45 "Rubik"; color: var(--muted); }
+/* centred blocks wrap into even lines; paragraphs never end on a lone word */
+.ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
+.exp, .tip-text { text-wrap: pretty; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0; }
+.ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
+.ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+
+/* ---------- effects ---------- */
+/* light sweep across an element (the element clips it) */
+.fx-sweep { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.fx-sweep b { position: absolute; top: -40%; bottom: -40%; left: 100%; width: 34%; display: block; transform: skewX(-16deg);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--sweep, rgba(255, 255, 255, 0.22)), rgba(255, 255, 255, 0)); }
+/* light band across the whole frame at a scene change */
+.fx-band { position: absolute; top: -400px; left: 1080px; width: 560px; height: 2720px; display: block; pointer-events: none; z-index: 40;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.10) 35%, rgba(255, 255, 255, 0.16) 50%, rgba(201, 194, 255, 0.10) 65%, rgba(201, 194, 255, 0));
+  transform: rotate(14deg); mix-blend-mode: screen; opacity: 0; }
+/* particle burst */
+.fx-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; display: block; pointer-events: none; opacity: 0; z-index: 7; }
+/* drifting dust in the background */
+.dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
+
+/* Chapter 8: recap, where to continue, end card (frame coordinates) */
+.summary { position: absolute; inset: 0; }
+.summary .sm-kick { font: 700 34px/1.2 "Rubik"; color: #cfcbe0; display: flex; align-items: center; gap: 12px; direction: rtl; }
+.summary .sm-kick i { width: 12px; height: 12px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; }
+.summary .sm-recap { position: absolute; left: 140px; width: 800px; top: 372px; }
+.summary .sm-recap .sm-kick, .summary .sm-next .sm-kick { opacity: 0; }
+.summary .sm-blocks { margin-top: 26px; display: flex; flex-direction: column; gap: 20px; }
+.summary .sm-blk { opacity: 0; }
+.summary .sm-blk h3 { font: 700 32px/1.1 "Rubik"; color: #ffffff; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.summary .sm-chips { display: flex; flex-wrap: wrap; gap: 10px 10px; }
+.summary .sm-chip { display: flex; align-items: center; gap: 9px; padding: 9px 12px 9px 16px; border-radius: 999px; border: 1.5px solid rgba(201, 194, 255, 0.22); background: rgba(26, 23, 52, 0.85); font: 600 27px/1 "Rubik"; color: #e4e1f0; white-space: nowrap; }
+.summary .sm-ck { width: 30px; height: 30px; border-radius: 50%; background: rgba(201, 194, 255, 0.1); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.35); overflow: visible; flex: none; }
+.summary .sm-ck path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+
+.summary .sm-next { position: absolute; left: 140px; width: 800px; top: 372px; }
+.summary .sm-nl { margin-top: 18px; font: 500 40px/1.35 "Rubik"; color: var(--ink2); text-wrap: balance; }
+.summary .sm-cards { margin-top: 34px; display: flex; flex-direction: column; gap: 18px; }
+.summary .sm-card { display: flex; align-items: center; gap: 26px; padding: 24px 28px; border-radius: 24px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.25); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35); position: relative; overflow: hidden; opacity: 0; }
+.summary .sm-ico { width: 64px; height: 64px; flex: none; overflow: visible; }
+.summary .sm-ico path, .summary .sm-ico rect, .summary .sm-ico circle { fill: none; stroke: #c9c2ff; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
+.summary .sm-card h4 { font: 800 38px/1.1 "Rubik"; color: #ffffff; margin-bottom: 8px; text-align: right; }
+.summary .sm-card p { font: 400 29px/1.36 "Rubik"; color: #cfcbe0; }
+.summary .sm-docs { margin-top: 26px; font: 500 30px/1.4 "Rubik"; color: #9c99ae; opacity: 0; }
+.summary .sm-url { font-family: "IBM Plex Mono"; font-weight: 600; color: #d8d4ea; unicode-bidi: isolate; }
+
+.summary .sm-end { position: absolute; left: 140px; width: 800px; top: 640px; height: 600px; }
+.summary .sm-ring { left: 400px; top: 220px; }
+.summary .sm-tt { position: absolute; left: 0; width: 800px; top: 120px; text-align: center; font: 800 96px/1.1 "Rubik"; color: var(--ink); text-shadow: 0 0 40px rgba(201, 194, 255, 0.35); text-wrap: balance; }
+.summary .sm-el { position: absolute; left: 20px; width: 760px; top: 400px; text-align: center; font: 500 38px/1.4 "Rubik"; color: var(--ink2); text-wrap: balance; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="32.600" data-fps="30" data-width="1080" data-height="1920">
+<div class="stagewrap" style="transform: scale(1.0);">
+<div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
+<div id="cam">
+<div id="sc-summary" class="clip scene" data-start="0.000" data-duration="32.600" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 8 · מה למדנו, ולאן ממשיכים</span></div>
+<div class="scam"><div class="summary">
+<div class="sm-recap"><p class="sm-kick" dir="rtl"><i></i>מה למדנו</p><div class="sm-blocks"><div class="sm-blk"><h3 dir="rtl">עריכה בסיסית</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><b dir="rtl">חיתוך לפי משמעות</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">כתוביות בשני סגנונות</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">9:16 עם מעקב פנים</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">צבע מותג ועור טבעי</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">מינוס 14 LUFS</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">החלפת משפט</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div></div><div class="sm-blk"><h3 dir="rtl">תלת ממד</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><b dir="rtl">הוראות בקול</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">לוגו על כף היד</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">טקסט על הקיר</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">פירוק לשכבות</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">עיגול ומוצר מתפרק</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">סרטונים במסלול</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">זום קפיצי</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div></div><div class="sm-blk"><h3 dir="rtl">בירולים</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><b dir="rtl">אנימציה שקופה</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">קליפ AI עם הפנים</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">איפה לשים בירולים</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div></div><div class="sm-blk"><h3 dir="rtl">חיבורים</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><b dir="ltr">Higgsfield</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="ltr">fal</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div></div><div class="sm-blk"><h3 dir="rtl">הקלטות מסך</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><b dir="rtl">טשטוש פרטים</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">Screen Studio בלי זום</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div></div><div class="sm-blk"><h3 dir="rtl">רינדורים</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><b dir="rtl">טיוטה של 15 שניות</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">בדיקת פריימים</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">מבקר עצמאי</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div></div></div></div>
+<div class="sm-next"><p class="sm-kick" dir="rtl"><i></i>לאן ממשיכים</p><p class="sm-nl kin" dir="rtl"><span class="w" dir="rtl" data-t="14.350">כל</span> <span class="w" dir="rtl" data-t="14.440">טיפ</span> <span class="w" dir="rtl" data-t="14.530">כאן</span> <span class="w" dir="rtl" data-t="14.620">נשען</span> <span class="w" dir="rtl" data-t="14.710">על</span> <span class="w" dir="rtl" data-t="14.800">כלי</span> <span class="w" dir="rtl" data-t="14.890">שיש</span> <span class="w" dir="rtl" data-t="14.980">עליו</span> <span class="w" dir="rtl" data-t="15.070">מדריך</span> <span class="w" dir="rtl" data-t="15.160">מלא</span> <span class="w" dir="rtl" data-t="15.250">משלו.</span></p><div class="sm-cards"><div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="9" width="38" height="30" rx="5"/><path d="M5 17h38M5 31h38M14 9v8M24 9v8M34 9v8M14 31v8M24 31v8M34 31v8"/></svg><div><h4 dir="ltr">HyperFrames</h4><p>התקנה צעד אחרי צעד, והנגן שבו כל שינוי מופיע מיד.</p></div></div><div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4l4.5 13.5L42 22l-13.5 4.5L24 40l-4.5-13.5L6 22l13.5-4.5z"/><path d="M38 34l1.8 4.2L44 40l-4.2 1.8L38 46l-1.8-4.2L32 40l4.2-1.8z"/></svg><div><h4 dir="rtl">מושן גרפיקס</h4><p>9 פרומפטים לאנימציות ברמה של סטודיו, עם סקיל חינמי שאורז את כולם.</p></div></div><div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M17 12L5 24l12 12M31 12l12 12-12 12M27 8l-6 32"/></svg><div><h4 dir="ltr">Remotion</h4><p>הכלי השני לעריכת סרטונים ואנימציות בקוד עם Claude Code.</p></div></div><div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M3 24C9 13 16 8 24 8s15 5 21 16c-6 11-13 16-21 16S9 35 3 24z"/><circle cx="24" cy="24" r="7"/></svg><div><h4 dir="rtl">ניתוח וידאו</h4><p>שני סקילים חינמיים שנותנים לקלוד &quot;עיניים&quot;: אחד מפרק סרטון לפריימים ולכתוביות, והשני מוריד סרטונים מיוטיוב, טיקטוק ואינסטגרם.</p></div></div></div><p class="sm-docs" dir="rtl">ובתיעוד הרשמי: <span dir="ltr" class="sm-url">hyperframes.heygen.com</span>, וההסברים של Higgsfield ו-fal על החיבור לקלוד.</p></div>
+<div class="sm-end"><i class="ch-ring sm-ring"></i><i class="ch-ring ch-ring2 sm-ring"></i><h1 class="sm-tt kin" dir="rtl"><span class="w" dir="rtl" data-t="28.650">עריכת</span> <span class="w" dir="rtl" data-t="28.770">וידאו</span> <span class="w" dir="rtl" data-t="28.890">עם</span> <span class="w" dir="rtl" data-t="29.010">Claude</span></h1><p class="sm-el kin" dir="rtl"><span class="w" dir="rtl" data-t="29.400">הסרטון</span> <span class="w" dir="rtl" data-t="29.470">הזה</span> <span class="w" dir="rtl" data-t="29.540">נבנה</span> <span class="w" dir="rtl" data-t="29.610">ב-Claude</span> <span class="w" dir="rtl" data-t="29.680">Code</span> <span class="w" dir="rtl" data-t="29.750">עם</span> <span class="w" dir="rtl" data-t="29.820">HyperFrames,</span> <span class="w" dir="rtl" data-t="29.890">לפי</span> <span class="w" dir="rtl" data-t="29.960">השיטות</span> <span class="w" dir="rtl" data-t="30.030">שבו.</span></p></div>
+</div></div></div>
+</div>
+</div>
+</div>
+<script>
+/* Runtime helpers that add tweens to one paused GSAP master timeline.
+   Every tween is a fromTo with explicit values and immediateRender:false (CSS holds the
+   initial state), so any frame can be rendered by seeking to it in any order.
+   Each scene has its own camera (.scam); the chapter header sits outside it and never zooms. */
+(function () {
+  const E = (window.ENG = {});
+  // The guide's no-overshoot spring (prompts 9 and 13).
+  const SPRING = (p) => (1 - (1 + 7 * p) * Math.exp(-7 * p)) / (1 - 8 * Math.exp(-7));
+  E.SPRING = SPRING;
+  E.debug = (window.__ENG_DEBUG = { scenes: {} });
+  E.q = (s, r) => (r || document).querySelector(s);
+  E.qa = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const NI = { immediateRender: false };
+  E.NI = NI;
+  const A = (o) => Object.assign(o, NI);
+  E.A = A;
+  /* Deterministic PRNG (mulberry32): never use Math.random in scenes. */
+  E.rand = function (seed) {
+    let a = seed >>> 0;
+    return function () { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  };
+  /* Offsets ignore transforms: measure layout before any tween moves things. */
+  E.off = function (el, top) {
+    let x = 0, y = 0, e = el;
+    while (e && e !== top) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+    return { x, y };
+  };
+  E.center = function (el, top) {
+    const o = E.off(el, top);
+    return { x: o.x + el.offsetWidth / 2, y: o.y + el.offsetHeight / 2 };
+  };
+
+  E.fadeIn = function (tl, el, t, d, dy) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: 0, y: dy || 0 }, A({ opacity: 1, y: 0, duration: d || 0.5, ease: SPRING }), t);
+  };
+  E.fadeOut = function (tl, el, t, d, dy, from) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from, y: 0 }, A({ opacity: 0, y: dy || 0, duration: d || 0.3, ease: "power2.in" }), t);
+  };
+  E.dim = function (tl, el, t, to, from, d) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from }, A({ opacity: to, duration: d || 0.35, ease: "power2.out" }), t);
+  };
+
+  /* Kinetic words: each word enters on its time with a spring (slightly above final size,
+     then settles) and unblurs. Blur is animated separately from the spring and ends on
+     0px then "none", so it never goes negative (prompt 2's pitfall). */
+  E.kin = function (tl, root, S, o) {
+    if (!root) return;
+    o = o || {};
+    const dy = o.dy == null ? 18 : o.dy;
+    E.qa(".w", root).forEach((w) => {
+      const t = S + parseFloat(w.dataset.t || "0");
+      tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.22, ease: "power2.out" }), t);
+      tl.fromTo(w, { y: dy, scale: 0.82 }, A({ y: 0, scale: 1, duration: 0.62, ease: "back.out(2.1)" }), t);
+      tl.fromTo(w, { filter: "blur(9px)" }, A({ filter: "blur(0px)", duration: 0.3, ease: "power2.out" }), t);
+      tl.set(w, { filter: "none" }, t + 0.31);
+    });
+    E.qa(".ul", root).forEach((u) => {
+      const t = S + parseFloat(u.dataset.t || "0");
+      tl.fromTo(u, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.5, ease: "power3.inOut" }), t);
+    });
+  };
+
+  /* White pill caption: switches in one frame, no animation (prompt 2). */
+  E.pill = function (tl, el, tin, tout) {
+    tl.set(el, { opacity: 1 }, tin);
+    if (tout != null) tl.set(el, { opacity: 0 }, tout);
+  };
+
+  /* Bouncy zoom on the scene camera with the guide's spring. The focal x is clamped so a
+     content column [colL, colR] scaled by (1+amt) stays inside the safe area x 140..940. */
+  E.zoom = function (tl, ctx, cx, cy, t, amt, tBack, backDur, col) {
+    const s = 1 + amt;
+    const L = col ? col[0] : 220, R = col ? col[1] : 940;
+    const lo = (s * R - 940) / (s - 1), hi = (s * L - 140) / (s - 1);
+    if (lo <= hi) cx = Math.min(hi, Math.max(lo, cx));
+    else cx = (L + R) / 2;
+    tl.set(ctx.cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(ctx.cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) {
+      if (backDur) tl.fromTo(ctx.cam, { scale: s }, A({ scale: 1, duration: backDur, ease: "power2.inOut" }), tBack);
+      else tl.set(ctx.cam, { scale: 1 }, tBack);
+    }
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  E.zoomOn = function (tl, ctx, el, t, amt, tBack, backDur, col) {
+    const c = E.center(el, ctx.scene);
+    E.zoom(tl, ctx, c.x, c.y, t, amt, tBack, backDur, col);
+  };
+
+  /* ---------- effects (all pure transforms/opacity, created once before the first seek) ---------- */
+  /* Light sweep across an element, right to left (the reading direction). The element must be
+     positioned; it clips the band to its own shape. o.color tints the band. */
+  E.sweep = function (tl, el, t, d, o) {
+    if (!el) return;
+    o = o || {};
+    const fx = document.createElement("i"), b = document.createElement("b");
+    fx.className = "fx-sweep";
+    if (o.color) fx.style.setProperty("--sweep", o.color);
+    fx.appendChild(b);
+    el.appendChild(fx);
+    const w = el.offsetWidth;
+    tl.fromTo(b, { x: 0 }, A({ x: -(w * 1.34 + 60), duration: d || 0.8, ease: "power2.inOut" }), t);
+  };
+  /* A soft light band crosses the whole frame (scene change). */
+  E.band = function (tl, scene, t) {
+    const b = document.createElement("i");
+    b.className = "fx-band";
+    scene.appendChild(b);
+    tl.fromTo(b, { x: 0 }, A({ x: -1900, duration: 0.85, ease: "power2.inOut" }), t);
+    tl.fromTo(b, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power1.out" }), t);
+    tl.fromTo(b, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), t + 0.55);
+  };
+  /* Particle burst from (x, y) inside parent: n dots fly out and fade (deterministic). */
+  E.burst = function (tl, parent, x, y, t, o) {
+    if (!parent) return;
+    o = o || {};
+    const n = o.n || 14, rnd = E.rand(o.seed || 7), col = o.color || "#ff6b61", r0 = o.r0 || 30, r1 = o.r1 || 120;
+    for (let i = 0; i < n; i++) {
+      const d = document.createElement("i");
+      d.className = "fx-dot";
+      const sz = 5 + rnd() * 7;
+      d.style.cssText = "left:" + x + "px;top:" + y + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:" + col + ";box-shadow:0 0 10px " + col;
+      parent.appendChild(d);
+      const ang = (i / n) * Math.PI * 2 + rnd() * 0.5, dist = r0 + rnd() * (r1 - r0), dur = 0.55 + rnd() * 0.35;
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * dist, y: Math.sin(ang) * dist, scale: 0.35, duration: dur, ease: "power3.out" }), t);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), t);
+    }
+  };
+  /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
+  E.draw = function (tl, el, t, d, ease) {
+    if (!el) return;
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2;
+    el.style.strokeDasharray = L + " " + L;
+    el.style.strokeDashoffset = L;
+    tl.fromTo(el, { strokeDashoffset: L }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+  };
+  /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
+  E.glitch = function (tl, el, t, amp) {
+    if (!el) return;
+    const a = amp || 8;
+    const seq = [[0, 0], [a, -7], [-a * 0.7, 5], [a * 0.45, -3], [-a * 0.2, 1.5], [0, 0]];
+    for (let i = 1; i < seq.length; i++) {
+      tl.fromTo(el, { x: seq[i - 1][0], skewX: seq[i - 1][1] }, A({ x: seq[i][0], skewX: seq[i][1], duration: 0.05, ease: "none" }), t + (i - 1) * 0.05);
+    }
+  };
+  /* Bouncy zoom inside the illustration (the guide's spring): the stage camera punches in on a
+     focal element and comes back at tBack. The camera box clips, so text above is never touched. */
+  E.zoomStage = function (tl, ctx, el, t, amt, tBack) {
+    const cam = ctx.stcam, fit = ctx.fit || 1, sf = ctx.stfit;
+    let cx = cam.offsetWidth / 2, cy = cam.offsetHeight / 2;
+    if (el) {
+      const c = E.center(el, sf);
+      const hw = sf.offsetWidth / 2, hh = sf.offsetHeight / 2;
+      cx = sf.offsetLeft + hw + (c.x - hw) * fit;
+      cy = sf.offsetTop + hh + (c.y - hh) * fit;
+    }
+    const s = 1 + amt;
+    tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  /* Slow drifting dust over the whole video (depth; deterministic). */
+  E.dust = function (tl, bg, total) {
+    const rnd = E.rand(11);
+    for (let i = 0; i < 28; i++) {
+      const d = document.createElement("i"), sz = 2 + rnd() * 3.5;
+      d.className = "dust";
+      d.style.cssText = "left:" + (rnd() * 1080).toFixed(0) + "px;top:" + (200 + rnd() * 1700).toFixed(0) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;opacity:" + (0.15 + rnd() * 0.35).toFixed(2);
+      bg.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0 }, A({ x: (rnd() - 0.5) * 160, y: -(140 + rnd() * 320), duration: total, ease: "none" }), 0);
+    }
+  };
+
+  /* Prompt card: the full verbatim text, paged (static pages and short slides, so any
+     paused frame is readable). On a key line the page text dims and a copy of the line
+     lifts above the card (bouncy zoom on the line; it sits in its own layer, so its backing
+     is never clipped). One underline slides between the section tabs. Exits at t1. */
+  E.prompt = function (tl, ctx, card, t0, t1, hls) {
+    const vp = E.q(".pvp", card), ct = E.q(".pct", card), body = E.q(".pbody", card);
+    const ROW = 44, ROWS = 23;                     // the viewport is exactly 23 rows: no line is ever cut
+    const totalRows = Math.round(body.offsetHeight / ROW);
+    const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
+    const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
+    const H = (hls || []).map((h) => {
+      const ln = E.q('[data-hl="' + h.id + '"]', card);
+      const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
+      return { id: h.id, ln, lift, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, want: h.hold || 2.4 };
+    }).sort((a, b) => a.top - b.top);
+    // pages advance by 22 rows (one row of overlap); a page is pulled up so a key line never straddles an edge
+    const pages = [0];
+    while (pages[pages.length - 1] < lastTop) {
+      const cur = pages[pages.length - 1];
+      let nxt = Math.min(lastTop, cur + (ROWS - 1) * ROW);
+      for (const h of H) if (h.top > cur && h.top < cur + ROWS * ROW && h.bot > cur + ROWS * ROW) nxt = Math.min(nxt, h.top - 2 * ROW);
+      if (nxt <= cur) nxt = Math.min(lastTop, cur + ROW);
+      pages.push(nxt);
+    }
+    // a key line is held on the page where it sits furthest from the edges (the lift needs room)
+    H.forEach((h) => {
+      let bestM = -1e9;
+      h.page = 0;
+      pages.forEach((p, i) => {
+        const m = Math.min(h.top - p, p + ROWS * ROW - h.bot);
+        if (m >= 0 && m > bestM + 0.5) { bestM = m; h.page = i; }
+      });
+    });
+    // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
+    // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
+    const n = pages.length;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.35, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LIFT = 1.1, DIM = 0.38;
+    const mineOf = (i) => H.filter((h) => h.page === i);
+    const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
+    // a plain last page stays settled a little longer before the exit
+    let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
+    for (let i = 0; i < n; i++) {
+      const mine = mineOf(i);
+      if (!mine.length) nPlain++;
+      else fixed += liftDelay(i) + (mine.length - 1) * UNLIFT + (isHold(i + 1) ? UNLIFT : UNDIM);
+      if (i < n - 1) fixed += isHold(i) && isHold(i + 1) ? DSLIDE : SLIDE;
+    }
+    fixed += tail;
+    const want = H.reduce((a, h) => a + h.want, 0);
+    let dwell = 0.27;
+    let room = t1 - t0 - fixed - nPlain * dwell;
+    if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
+      dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
+      room = t1 - t0 - fixed - nPlain * dwell;
+    }
+    if (H.length) {
+      let k = room / want;
+      if (k > 1.35) {
+        const extra = room - want * 1.35;
+        k = 1.35;
+        dwell += extra / (nPlain + 1);
+        tail += extra / (nPlain + 1);
+      }
+      H.forEach((h) => { h.hold = h.want * k; });
+      // keep a 2 s floor on every hold where the budget allows it
+      for (let it = 0; it < 3; it++) {
+        const low = H.filter((h) => h.hold < MINH), high = H.filter((h) => h.hold >= MINH);
+        if (!low.length || !high.length) break;
+        const need = low.reduce((a, h) => a + MINH - h.hold, 0);
+        const spare = high.reduce((a, h) => a + h.hold - MINH, 0);
+        const take = Math.min(need, spare);
+        low.forEach((h) => { h.hold += (MINH - h.hold) * (take / need); });
+        high.forEach((h) => { h.hold -= (h.hold - MINH) * (take / spare); });
+      }
+    } else {
+      dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
+    }
+    // the lifted copies sit over their line on the page where it is held (static layout)
+    H.forEach((h) => {
+      h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
+      h.lift.style.top = (bw + vp.offsetTop + h.top - pages[h.page]) + "px";
+      h.lift.style.width = h.ln.offsetWidth + "px";
+    });
+    tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
+    tl.fromTo(card, { rotationX: 16, y: 90, scale: 0.94, transformPerspective: 1600 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SPRING }), t0);
+    E.sweep(tl, card, t0 + 0.4, 1.0, { color: "rgba(201, 194, 255, 0.16)" });
+    const arrivals = [], slides = [], holdTimes = [];
+    let t = t0 + LEAD, dimmed = false, tFinal = null;
+    for (let i = 0; i < n; i++) {
+      arrivals.push(t);
+      const mine = mineOf(i);
+      if (!mine.length) t += dwell;
+      else {
+        t += liftDelay(i);
+        mine.forEach((h, j) => {
+          if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
+          dimmed = true;
+          tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          holdTimes.push(+t.toFixed(3));
+          t += h.hold;
+          const keepDim = j < mine.length - 1 || isHold(i + 1);
+          const d = keepDim ? UNLIFT : UNDIM;
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d, ease: "power2.inOut" }), t);
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d, ease: "power2.in" }), t);
+          if (!keepDim) {
+            tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
+            dimmed = false;
+            if (i === n - 1) tFinal = t;
+          }
+          t += d;
+        });
+      }
+      if (i < n - 1) {
+        const sd = dimmed ? DSLIDE : SLIDE;
+        tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: sd, ease: "power2.inOut" }), t);
+        slides.push([t, sd]);
+        t += sd;
+      }
+    }
+    // tabs: one underline slides with the page to the section that fills most of the visible rows
+    const tabs = E.qa(".tab", card), ul = E.q(".tabul", card);
+    if (tabs.length && ul) {
+      const tags = tabs.map((tab) => E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card));
+      const starts = tags.map((g) => (g ? g.offsetTop : 1e9));
+      const secAt = (p) => {
+        let best = 0, bestRows = -1;
+        starts.forEach((st, j) => {
+          const en = j + 1 < starts.length ? starts[j + 1] : 1e9;
+          const vis = Math.max(0, Math.min(en, p + ROWS * ROW) - Math.max(st, p));
+          if (vis > bestRows) { bestRows = vis; best = j; }
+        });
+        return best;
+      };
+      const MUTED = "#9c99ae", INK = "#f5f2ea";
+      const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
+      let cur = secAt(pages[0]);
+      ul.style.left = pos(cur).left + "px";
+      ul.style.width = pos(cur).width + "px";
+      tl.fromTo(ul, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power2.out" }), t0 + 0.1);
+      tl.fromTo(tabs[cur], { color: MUTED }, A({ color: INK, duration: 0.2 }), t0 + 0.1);
+      const move = (k, ta, d) => {
+        const a = pos(cur), b = pos(k);
+        tl.fromTo(ul, { left: a.left, width: a.width }, A({ left: b.left, width: b.width, duration: d, ease: "power3.inOut" }), ta);
+        tl.fromTo(tabs[cur], { color: INK }, A({ color: MUTED, duration: 0.2 }), ta + d / 2 - 0.1);
+        tl.fromTo(tabs[k], { color: MUTED }, A({ color: INK, duration: 0.2 }), ta + d / 2 - 0.1);
+        cur = k;
+      };
+      // the section that holds the last visible row (the end of the prompt on the last page)
+      const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      for (let i = 1; i < n; i++) {
+        const k = i === n - 1 && !isHold(i) ? lastVisible(pages[i]) : secAt(pages[i]);
+        if (k !== cur) move(k, slides[i - 1][0], Math.max(0.3, slides[i - 1][1]));
+      }
+      // a last page with key lines: its last section takes over when the page undims
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) > cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
+    }
+    tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
+    return {
+      pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
+      holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, liftH: h.lift.offsetHeight })),
+    };
+  };
+
+  /* Standard topic scene. Layout is measured once (static):
+     the title and the explanation sit at the top; the illustration fills the safe area below.
+     title -> illustration enters -> explanation phrase by phrase (current phrase bright, the
+     illustration shows each phrase, bouncy zoom inside it on the key phrase) -> payoff ->
+     fact over the dimmed illustration -> prompt card -> tip. */
+  E.topic = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const hdr = E.q(".hdr", sc), main = E.q(".main", sc), exp = E.q(".exp", sc), ttl = E.q(".ttl", sc);
+    const stage = E.q(".stage", sc), simtag = E.q(".simtag", sc), fact = E.q(".factbox", sc);
+    const stcam = E.q(".stcam", sc), stfit = E.q(".stfit", sc);
+    // static layout
+    const TOP = 376, BOTTOM = 1566;
+    const h = main.offsetHeight;
+    const stTop = Math.round(TOP + h + 30);
+    stage.style.top = stTop + "px";
+    stage.style.height = BOTTOM - stTop + "px";
+    const camH = BOTTOM - stTop - 50;
+    const simH = (E.q(".simwrap", sc) || { offsetHeight: 700 }).offsetHeight || 700;
+    stfit.style.height = simH + "px";
+    stfit.style.marginTop = -simH / 2 + "px";
+    const fit = Math.min(1, camH / simH);
+    if (fit < 1) stfit.style.transform = "scale(" + fit.toFixed(3) + ")";
+    if (fact) { fact.style.top = stTop + 50 + "px"; fact.style.height = camH + "px"; }
+    Object.assign(ctx, { stcam, stfit, fit, stTop });
+    // scene change: a light band crosses the frame while the camera settles
+    E.band(tl, sc, S);
+    tl.fromTo(ctx.cam, { scale: 1.035 }, A({ scale: 1, duration: 1.0, ease: SPRING }), S);
+    E.fadeIn(tl, hdr, S + 0.05, 0.5, 0);
+    E.kin(tl, ttl, S);
+    // the illustration enters with the explanation
+    E.fadeIn(tl, simtag, S + cfg.tStage, 0.4, 0);
+    tl.fromTo(stage, { opacity: 0, y: 46 }, A({ opacity: 1, y: 0, duration: 0.8, ease: SPRING }), S + cfg.tStage);
+    // explanation: phrase by phrase; the phrase being read is bright, the ones before step back
+    E.kin(tl, exp, S, { dy: 14 });
+    const phs = E.qa(".ph", exp);
+    phs.forEach((ph, i) => {
+      const tEnd = i + 1 < phs.length ? cfg.phr[i + 1] : cfg.phrEnd + 0.8;
+      tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0.5, duration: 0.45, ease: "power2.out" }), S + tEnd);
+      E.qa(".accgrp", ph).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#dcd9e6", duration: 0.45 }), S + tEnd));
+      E.qa(".ul", ph).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + tEnd));
+    });
+    if (window.SIMS[cfg.sim]) window.SIMS[cfg.sim](tl, ctx, cfg, S);
+    // bouncy zoom inside the illustration on the key phrase (focus: [data-focus="<phrase>"])
+    const acc = E.q(".exp .accgrp", sc);
+    if (acc && cfg.expZoom) {
+      const p = +(acc.closest(".ph") || { dataset: { p: 0 } }).dataset.p;
+      const tb = p + 1 < cfg.phr.length ? cfg.phr[p + 1] : cfg.phrEnd + 0.6;
+      const focus = E.q('[data-focus="' + p + '"]', stage) || E.q("[data-focus]", stage);
+      E.zoomStage(tl, ctx, focus, S + parseFloat(acc.dataset.t) + 0.1, cfg.expZoom, S + tb);
+    }
+    const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
+    if (cfg.tFact != null) {
+      // the fact takes over the illustration's area; the illustration steps far back
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.14, 1, 0.4);
+      E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const pill = E.q(".factbox .pill", sc);
+      if (pill) {
+        tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
+        tl.fromTo(pill, { scale: 0.92, y: 20 }, A({ scale: 1, y: 0, duration: 0.45, ease: SPRING }), S + cfg.tFact - 0.1);
+        E.sweep(tl, pill, S + cfg.tFact + 0.25, 0.7, { color: "rgba(120, 100, 255, 0.28)" });
+        E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
+      }
+      E.kin(tl, fact, S, { dy: 12 });
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.14, 0.25);
+    } else {
+      E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
+      E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
+    }
+    E.dim(tl, simtag, S + (cfg.tFact != null ? cfg.tFact - 0.45 : tNext - 0.35), 0, 1, 0.3);
+    // first cut: the title (and the fact) leave before the card or the tip arrives
+    tl.fromTo(main, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), S + tNext - 0.3);
+    if (fact) E.fadeOut(tl, fact, S + tNext - 0.3, 0.25, -20);
+    let info = null;
+    if (cfg.tPrompt != null) {
+      const pend = cfg.tTip != null ? cfg.tTip : cfg.tPromptEnd;
+      info = E.prompt(tl, ctx, E.q(".pcard", sc), S + cfg.tPrompt, S + pend, cfg.hls);
+    }
+    if (cfg.tTip != null) {
+      const tip = E.q(".tipcard", sc);
+      tl.fromTo(tip, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + cfg.tTip);
+      tl.fromTo(tip, { scale: 0.96, y: 30, rotationX: 10, transformPerspective: 1400 }, A({ scale: 1, y: 0, rotationX: 0, duration: 0.7, ease: SPRING }), S + cfg.tTip);
+      E.qa(".tip-ico .dr", sc).forEach((pth, i) => E.draw(tl, pth, S + cfg.tTip + 0.15 + i * 0.18, 0.55));
+      E.kin(tl, E.q(".tip-text", sc), S);
+      E.fadeOut(tl, tip, S + cfg.D - 0.4, 0.3, -20);
+    }
+    E.fadeOut(tl, hdr, S + cfg.D - 0.4, 0.3, 0);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { stTop, h, fit: +fit.toFixed(3) }, prompt: info };
+  };
+
+  /* Chapter title card. */
+  E.chapter = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
+    E.band(tl, sc, S);
+    tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
+    E.qa(".ch-ring", sc).forEach((r, i) => {
+      tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
+    });
+    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ff8a80" });
+    tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
+    tl.set(n, { filter: "none" }, S + 0.58);
+    E.fadeIn(tl, k, S + 0.25, 0.5, 14);
+    E.kin(tl, E.q(".ch-title", sc), S);
+    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.7, ease: "power3.inOut" }), S + 0.75);
+    E.kin(tl, E.q(".ch-sub", sc), S, { dy: 12 });
+    E.kin(tl, E.q(".ch-tag", sc), S, { dy: 10 });
+    E.fadeIn(tl, dots, S + 0.6, 0.6, 10);
+    tl.fromTo(E.q(".chap", sc), { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.04, duration: 0.38, ease: "power2.in" }), S + cfg.D - 0.4);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "chapter" };
+  };
+
+  window.SIMS = window.SIMS || {};
+})();
+
+window.SIMS = window.SIMS || {};
+/* Chapter 8: every topic gets its check (bouncy zoom on the last one), where to continue, end card. */
+window.SIMS.summary = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, T = cfg.T, SP = E.SPRING;
+  const q = (s) => E.q(s, sc), qa = (s) => E.qa(s, sc);
+  const t = (x) => S + x;
+  E.band(tl, sc, t(0));
+  E.fadeIn(tl, q(".hdr"), t(0.05), 0.5, 0);
+  // what we learned
+  E.fadeIn(tl, q(".sm-recap .sm-kick"), t(T.recap), 0.5, 10);
+  qa(".sm-blk").forEach((b, i) => E.fadeIn(tl, b, t(T.recap + 0.15 + i * 0.1), 0.55, 22));
+  const chips = qa(".sm-chip");
+  chips.forEach((c, i) => {
+    const a = T.chk0 + i * T.step;
+    E.draw(tl, E.q(".sm-ck path", c), t(a), 0.25);
+    // purple checks; only the last one is red (at most two red things on screen)
+    const on = i === chips.length - 1 ? "rgba(255, 69, 58, 0.95)" : "rgba(111, 99, 201, 0.95)";
+    tl.fromTo(E.q(".sm-ck", c), { backgroundColor: "rgba(201, 194, 255, 0.1)" }, A({ backgroundColor: on, duration: 0.2 }), t(a));
+    tl.fromTo(c, { borderColor: "rgba(201, 194, 255, 0.22)" }, A({ borderColor: "rgba(201, 194, 255, 0.75)", duration: 0.2 }), t(a));
+  });
+  // bouncy zoom on the last check
+  const last = chips[chips.length - 1], tl0 = T.chk0 + (chips.length - 1) * T.step;
+  E.burst(tl, last, 30, 25, t(tl0 + 0.15), { n: 12, seed: 4, r0: 30, r1: 90, color: "#ff8a80" });
+  // (SVG elements have no offsets: measure the chip, its check sits at the chip's left end)
+  const o = E.off(last, sc);
+  E.zoom(tl, ctx, o.x + 28, o.y + last.offsetHeight / 2, t(tl0 + 0.1), 0.08, t(tl0 + 2.2), 0.45, [140, 940]);
+  // the header (outside the camera) steps out while the camera is pushed in
+  tl.fromTo(q(".hdr"), { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), t(tl0 + 0.05));
+  tl.fromTo(q(".hdr"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), t(tl0 + 2.4));
+  E.fadeOut(tl, q(".sm-recap"), t(T.next - 0.3), 0.28, -20);
+  // where to continue
+  E.fadeIn(tl, q(".sm-next .sm-kick"), t(T.next + 0.1), 0.5, 10);
+  E.kin(tl, q(".sm-nl"), S, { dy: 12 });
+  qa(".sm-card").forEach((cd, i) => {
+    const a = T.next + 1.3 + i * 0.55;
+    tl.fromTo(cd, { opacity: 0, x: -40, rotationY: -12, transformPerspective: 1400 }, A({ opacity: 1, x: 0, rotationY: 0, duration: 0.7, ease: SP }), t(a));
+    E.qa(".sm-ico > *", cd).forEach((p) => E.draw(tl, p, t(a + 0.15), 0.6));
+    E.sweep(tl, cd, t(a + 0.45), 0.8, { color: "rgba(201, 194, 255, 0.14)" });
+  });
+  E.fadeIn(tl, q(".sm-docs"), t(T.next + 4.2), 0.5, 10);
+  E.fadeOut(tl, q(".sm-next"), t(T.end - 0.3), 0.28, -20);
+  // end card
+  E.band(tl, sc, t(T.end - 0.05));
+  E.kin(tl, q(".sm-tt"), S, { dy: 26 });
+  E.kin(tl, q(".sm-el"), S, { dy: 12 });
+  qa(".sm-ring").forEach((r, i) => tl.fromTo(r, { scale: 0.5, opacity: 0.9 }, A({ scale: 1.8 + i * 0.3, opacity: 0, duration: 1.3 + i * 0.2, ease: "power2.out" }), t(T.end + 0.2 + i * 0.12)));
+  E.burst(tl, q(".sm-end"), 400, 220, t(T.end + 0.25), { n: 22, seed: 12, r0: 170, r1: 380, color: "#c9c2ff" });
+  E.fadeOut(tl, q(".sm-end"), t(cfg.D - 0.45), 0.4, 0);
+  E.fadeOut(tl, q(".hdr"), t(T.end - 0.3), 0.28, 0);
+  E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "custom" };
+};
+
+
+(function () {
+  const CFGS = [{"T": {"recap": 0.2, "chk0": 1.0, "step": 0.3, "next": 14.0, "end": 28.4}, "n": 23, "id": "summary", "type": "custom", "sim": "summary", "D": 32.6, "S": 0.0}];
+  const WINDOW = null;
+  const fontsReady = Promise.all([
+    document.fonts.load('400 38px Rubik', 'אבג abc 123'),
+    document.fonts.load('800 62px Rubik', 'אבג abc'),
+    document.fonts.load('900 40px Rubik', 'אבג'),
+    document.fonts.load('600 27px "IBM Plex Mono"', 'abc 123'),
+    document.fonts.load('400 27px "IBM Plex Sans Hebrew"', 'אבג'),
+  ]).then(() => document.fonts.ready);
+  fontsReady.then(() => {
+    const stage = document.querySelector('.stagewrap');
+    const cam = document.getElementById('cam');
+    const master = gsap.timeline({ paused: true });
+    // slow background drift for the whole video (the "camera that never stops")
+    const TOT = 32.600;
+    master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    window.ENG.dust(master, document.getElementById('bg'), TOT);
+    for (const cfg of CFGS) {
+      const scene = document.getElementById('sc-' + cfg.id);
+      const scam = scene.querySelector('.scam') || cam;
+      const hdr = scene.querySelector('.hdr');
+      if (cfg.type === 'chapter') window.ENG.chapter(master, { stage, cam: scam, scene, hdr }, cfg);
+      else if (cfg.type === 'custom') window.SIMS[cfg.sim](master, { stage, cam: scam, scene, hdr }, cfg, cfg.S);
+      else window.ENG.topic(master, { stage, cam: scam, scene, hdr }, cfg);
+    }
+    let root = master;
+    if (WINDOW) {
+      root = gsap.timeline({ paused: true });
+      root.add(master.tweenFromTo(WINDOW[0], WINDOW[1], { duration: WINDOW[1] - WINDOW[0], ease: 'none' }), 0);
+    }
+    window.__ENG_DEBUG.ready = true;
+    window.__timelines['main'] = root;
+  });
+})();
+
+</script>
+</body>
+</html>

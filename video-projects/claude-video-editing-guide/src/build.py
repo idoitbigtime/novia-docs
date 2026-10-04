@@ -20,15 +20,15 @@ SRC = ROOT / "src"
 # that is not built yet (no sim module) still reserves its time and later scenes keep their place.
 import importlib
 
-ORDER = ["hook", "ch1",
+ORDER = ["hook", "c1", "ch1",
          "c2", "t21", "t22", "t23", "t24", "t25", "t26",
          "c3", "t31", "t32", "t33", "t34", "t35", "t36", "t37",
          "c4", "t41", "t42", "t43",
          "c5", "t51", "t52",
          "c6", "t61", "t62",
          "c7", "t71", "t72", "t73",
-         "summary"]
-PLACEHOLDER_D = {"hook": 10.0, "ch1": 42.0, "summary": 34.0}
+         "c8", "summary"]
+PLACEHOLDER_D = {"hook": 12.0, "ch1": 44.0, "summary": 32.0}
 
 
 def load_cfg(name):
@@ -40,13 +40,13 @@ def load_cfg(name):
 
 def scene_builder(c):
     t = c.get("type", "topic")
-    return {"chapter": SC.chapter_scene, "topic": SC.topic_scene}.get(t) or getattr(SC, t + "_scene")
+    return {"chapter": SC.chapter_scene, "topic": SC.topic_scene, "custom": SC.custom_scene}.get(t) or getattr(SC, t + "_scene")
 
 
 def is_buildable(c):
     if c is None:
         return False
-    if c.get("type", "topic") == "topic":
+    if c.get("type", "topic") in ("topic", "custom"):
         return (SRC / "sims" / (c["sim"] + ".py")).exists()
     return True
 
@@ -148,6 +148,7 @@ def build(window=None, name="index", only=None, scale_override=None):
       const scam = scene.querySelector('.scam') || cam;
       const hdr = scene.querySelector('.hdr');
       if (cfg.type === 'chapter') window.ENG.chapter(master, {{ stage, cam: scam, scene, hdr }}, cfg);
+      else if (cfg.type === 'custom') window.SIMS[cfg.sim](master, {{ stage, cam: scam, scene, hdr }}, cfg, cfg.S);
       else window.ENG.topic(master, {{ stage, cam: scam, scene, hdr }}, cfg);
     }}
     let root = master;
