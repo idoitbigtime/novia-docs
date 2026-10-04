@@ -533,6 +533,7 @@
     const mo = E.q(".ch-mo", sc), mq = (s) => E.q(s, mo), mqa = (s) => E.qa(s, mo);
     if (mo) {
       E.qa(".dr", mo).forEach((p, i) => E.draw(tl, p, S + 0.06 + i * 0.035, 0.7));
+      E.qa(".mo-solid", mo).forEach((p) => tl.fromTo(p, { fillOpacity: 0 }, A({ fillOpacity: 1, duration: 0.3 }), S + 0.3));
       E.qa(".fl", mo).forEach((p, i) => tl.fromTo(p, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.25 + i * 0.06));
       const hold0 = Math.max(1.0, (T.lw || 1) - 0.4), N = cfg.n;
       if (N === 1) {
@@ -557,7 +558,7 @@
         }
       } else if (N === 5) {
         // the plug goes into the socket and the connection glows
-        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -24, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
+        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -18, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
         const rg = mq(".mo-ring");
         tl.fromTo(rg, { opacity: 0.9, scale: 0.6, transformOrigin: "50% 50%" }, A({ opacity: 0, scale: 1.7, duration: 0.8, ease: "power2.out" }), S + hold0 + 0.4);
       } else if (N === 6) {

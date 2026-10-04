@@ -196,7 +196,7 @@ def _ch_motif(n):
                 '<g class="mo-plug"><path class="dr" d="M76 66v18M104 66v18"/><rect class="dr" x="56" y="84" width="68" height="44" rx="12"/>'
                 '<path class="dr" d="M90 128v12c0 14-18 18-18 34"/></g><circle class="mo-ring" cx="90" cy="48" r="26"/>')
     elif n == 6:    # a browser window: one line gets blurred
-        body = ('<defs><filter id="chmo6b" x="-10%" y="-300%" width="120%" height="700%"><feGaussianBlur stdDeviation="3"/></filter></defs>'
+        body = ('<defs><filter id="chmo6b" filterUnits="userSpaceOnUse" x="16" y="96" width="150" height="34"><feGaussianBlur stdDeviation="3"/></filter></defs>'
                 '<rect class="dr" x="8" y="20" width="164" height="140" rx="12"/><path class="dr" d="M8 44h164"/>' + dots3(32)
                 + '<path class="dr" d="M152 68h-110M152 90h-76M152 136h-94"/>'
                 '<path class="dr mo-sharp" d="M152 113h-118"/><path class="mo-blur" d="M152 113h-118" filter="url(#chmo6b)"/>'
