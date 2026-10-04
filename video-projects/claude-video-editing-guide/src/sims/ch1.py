@@ -38,8 +38,8 @@ DOC = ('<svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3
        '<path d="M12 24h18M12 31h18M12 38h12"/></svg>')
 FILM = ('<svg class="c1-film" viewBox="0 0 60 44" aria-hidden="true"><rect x="3" y="3" width="54" height="38" rx="6"/>'
         '<path d="M3 13h54M3 31h54M15 3v10M27 3v10M39 3v10M15 31v10M27 31v10M39 31v10"/><path class="c1-play" d="M25 17l9 5-9 5z"/></svg>')
-MIC = ('<svg class="c1-mic" viewBox="0 0 30 40" aria-hidden="true"><rect x="9" y="3" width="12" height="22" rx="6"/>'
-       '<path d="M4 19c0 6 5 11 11 11s11-5 11-11M15 30v7M9 37h12"/></svg>')
+# Claude Code is typed to: a text caret (no microphone)
+CARET = '<b class="c1-caret"></b>'
 COPY = ('<svg class="c1-copy" viewBox="0 0 40 40" aria-hidden="true"><rect x="13" y="13" width="22" height="24" rx="4"/>'
         '<path d="M27 13V7a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v18a4 4 0 0 0 4 4h4"/></svg>')
 SHIELD = ('<svg class="c1-shield" viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3 6 10v16c0 13 8 22 18 27 10-5 18-14 18-27V10z"/>'
@@ -69,20 +69,20 @@ def scene(cfg):
     clips = "".join(f'<div class="c1-clip c1-clip{i}"><i></i></div>' for i in range(3))
     bubbles = "".join(f'<div class="c1-q c1-q{i}" dir="rtl"><b>?</b><i></i><i></i></div>' for i in range(3))
     note2 = esc(NOTE2).replace("/model", '<span class="c1-m" dir="ltr">/model</span>')
-    close, _, _ = kinetic_html(CLOSE, t0=40.15, step=0.1, pause=0.2)
-    inner = f"""<div class="hdr" dir="rtl"><span class="hdr-ch">פרק 1 · ככה זה עובד</span></div>
+    close, _, _ = kinetic_html(CLOSE, t0=39.9, step=0.1, pause=0.2)
+    inner = f"""<div class="hdr c1-hdr" dir="rtl"><span class="hdr-ch">פרק 1 · ככה זה עובד</span></div>
 <div class="ch1">
 {"".join(secs)}
-<div class="c1-vis">
+<div class="c1-zc"><div class="c1-cam"><div class="c1-vis">
   <div class="c1-files">{files}</div>
   <div class="c1-note" dir="rtl"><p>{esc(NOTE1)}</p><p>{note2}</p></div>
   <div class="c1-badge" dir="rtl">{esc(BADGE)}</div>
   <div class="c1-skills">{skills}</div>
   <div class="c1-mp4" dir="ltr">{FILM}<span>final.mp4</span><i class="c1-prog"><b></b></i></div>
   <div class="c1-foldwrap"><div class="c1-clips">{clips}<div class="c1-logo"></div></div>{FOLDER}<div class="c1-lidw">{LID}</div></div>
-  <svg class="c1-arcs" viewBox="0 0 800 800" aria-hidden="true"><path class="c1-arc1" d="M600 95 C 520 95 470 150 462 232"/><path class="c1-arc2" d="M146 470 C 96 500 94 560 112 594"/></svg>
+  <svg class="c1-arcs" viewBox="0 0 800 800" aria-hidden="true"><path class="c1-arc1" d="M600 95 C 520 95 470 150 462 241"/><path class="c1-arc2" d="M149 470 C 112 505 140 560 162 594"/></svg>
   <i class="c1-dot c1-dot1"></i><i class="c1-dot c1-dot2"></i>
-  <div class="c1-say" dir="rtl">{MIC}<i></i><i></i><span>עברית</span></div>
+  <div class="c1-say" dir="rtl">{CARET}<i></i><i></i><span>עברית</span></div>
   <div class="c1-term">
     <div class="c1-tbar"><i></i><i></i><i></i><span dir="ltr">Claude Code</span></div>
     <div class="c1-tbody" dir="ltr">
@@ -91,6 +91,7 @@ def scene(cfg):
       <div class="c1-run"><i></i></div>
       <div class="c1-tl"><i></i><i></i><i></i></div>
     </div>
+    <div class="c1-tools" dir="ltr"><span class="c1-opus">Opus 5.5{CHECK}</span><span class="c1-skc">{DOC}SKILL.md</span></div>
     <div class="c1-glow"></div>
   </div>
   <div class="c1-free"><span class="pill">{esc(FREE)}</span></div>
@@ -99,16 +100,16 @@ def scene(cfg):
   <div class="c1-mini"><div class="c1-tbar"><i></i><i></i><i></i><span dir="ltr">Claude Code</span></div><div class="c1-mbody"></div></div>
   <div class="c1-qs">{bubbles}</div>
   <div class="c1-cmd"><span class="c1-cmdt" dir="ltr">{_code_tokens(_cmd())}</span><span class="c1-fc" dir="rtl">{esc(FORCLAUDE)}</span></div>
-</div>
+</div></div></div>
 <div class="c1-close"><div class="c1-cbox">{SHIELD}<p class="c1-ct kin" dir="rtl">{close}</p></div>
-<div class="c1-cpic"><div class="c1-cmini"><i></i><i></i><i></i><i></i></div>
+<div class="c1-cpic"><div class="c1-cpz"><div class="c1-cmini"><i></i><i></i><i></i><i></i></div>
 <svg class="c1-carrow" viewBox="0 0 150 46" aria-hidden="true"><path d="M146 23H8M24 8 8 23l16 15"/></svg>
 <div class="c1-cterm"><div class="c1-tbar"><i></i><i></i><i></i><span dir="ltr">Claude Code</span></div><span class="c1-clabel" dir="rtl">{esc(COPY_LABEL)}</span>
-<div class="c1-cok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></div></div></div></div>
+<div class="c1-cok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></div></div></div></div></div>
 </div>"""
     c = dict(cfg)
     c["D"] = D
     js = {"secs": phr_all}
     cues = [("swipe", 0.4), ("pop", 5.0), ("tick", 7.4), ("whoosh_soft", 10.3), ("tick", 14.9), ("pop", 16.5),
-            ("whoosh_soft", 20.8), ("tick", 22.9), ("whoosh_soft", 30.3), ("tick", 32.6), ("pop", 34.3), ("shimmer", 40.1)]
+            ("whoosh_soft", 20.8), ("tick", 22.9), ("whoosh_soft", 30.15), ("tick", 32.95), ("pop", 33.8), ("shimmer", 39.85)]
     return inner, js, cues, c

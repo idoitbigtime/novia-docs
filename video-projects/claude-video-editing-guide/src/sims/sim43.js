@@ -90,7 +90,10 @@ window.SIMS.sim43 = function (tl, ctx, cfg, S) {
   badge(q(".s43-bno"), T(t4 + 0.45));
   qa(".s43-no path").forEach((p, i) => E.draw(tl, p, T(t4 + 0.5 + i * 0.1), 0.2));
   tl.fromTo(sim, { opacity: 1, y: 0 }, A({ opacity: 0, y: 22, duration: 0.3, ease: "power2.in" }), T(t4 + 0.75));
-  E.fadeIn(tl, q(".s43-hlbl"), T(t4 + 0.9), 0.45, 10);
+  E.fadeIn(tl, q(".s43-hlbl"), T(t4 + 1.02), 0.45, 10);
+  // the hole turns red as it is marked "חסר" (after the accent and after the rejected clip's red cross has gone)
+  tl.fromTo(hole, { borderColor: "#F5B544", backgroundColor: "rgba(245, 181, 68, 0.12)", boxShadow: "0 0 14px rgba(245, 181, 68, 0.35)" },
+    A({ borderColor: "#ff6b61", backgroundColor: "rgba(255, 69, 58, 0.1)", boxShadow: "0 0 14px rgba(255, 69, 58, 0.35)", duration: 0.3 }), T(t4 + 1.06));
   tl.fromTo(q(".s43-src0"), { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(t4 + 0.9));
   E.fadeIn(tl, q(".s43-miss"), T(t4 + 1.05), 0.45, 10);
 
@@ -104,7 +107,12 @@ window.SIMS.sim43 = function (tl, ctx, cfg, S) {
   // 1. a zoom on the face does not count as a b-roll: it is tried in the hole and struck out
   const az = q(".s43-az"), ad = q(".s43-ad");
   rule(q(".s43-u1"), pe + 0.35);
-  tl.fromTo(az, { opacity: 0, y: -26 }, A({ opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.6)" }), T(pe + 0.55));
+  // while a candidate is tried in the hole, the hole's "חסר" steps aside (it returns once the second has gone)
+  const hlbl = q(".s43-hlbl");
+  tl.fromTo(hlbl, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), T(pe + 0.42));
+  tl.fromTo(hlbl, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(pe + 2.5));
+  tl.fromTo(az, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(pe + 0.55));
+  tl.fromTo(az, { y: -26 }, A({ y: 0, duration: 0.35, ease: "back.out(1.6)" }), T(pe + 0.55));
   tl.fromTo(E.q(".s43-strike", az), { scaleX: 0.001 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), T(pe + 0.95));
   tl.fromTo(az, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe + 1.45));
   // 2. the same clip never appears twice: a copy of the first b-roll is tried in the hole and struck out

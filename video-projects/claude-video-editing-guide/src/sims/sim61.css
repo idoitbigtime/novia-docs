@@ -5,13 +5,13 @@
 .sim61 .s61-win { position: absolute; left: 20px; top: 12px; width: 760px; height: 424px; border-radius: 20px; overflow: hidden; background: rgba(16, 14, 34, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.3); opacity: 0; }
 .sim61 .s61-bar { position: absolute; left: 0; top: 0; right: 0; height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; border-bottom: 1px solid rgba(201, 194, 255, 0.14); direction: rtl; }
 .sim61 .s61-title { display: flex; align-items: center; gap: 12px; }
-.sim61 .s61-title b { font: 600 28px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim61 .s61-title b { font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
 .sim61 .s61-env { width: 34px; height: 26px; display: block; overflow: visible; }
 .sim61 .s61-env rect, .sim61 .s61-env path { fill: none; stroke: #c9c2ff; stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
 .sim61 .s61-dots { display: flex; gap: 8px; direction: ltr; }
 .sim61 .s61-dots u { width: 11px; height: 11px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
-.sim61 .s61-stat { position: absolute; left: 96px; top: 8px; height: 34px; display: flex; align-items: center; gap: 9px; padding: 0 16px; border-radius: 999px; background: rgba(201, 194, 255, 0.12); border: 1.5px solid rgba(201, 194, 255, 0.4);
-  font: 500 26px/1 "Rubik"; color: #ece9f7; white-space: nowrap; direction: rtl; opacity: 0; }
+.sim61 .s61-stat { position: absolute; left: 96px; top: 5px; height: 40px; display: flex; align-items: center; gap: 9px; padding: 0 16px; border-radius: 999px; background: rgba(201, 194, 255, 0.12); border: 1.5px solid rgba(201, 194, 255, 0.4);
+  font: 500 30px/1 "Rubik"; color: #ece9f7; white-space: nowrap; direction: rtl; opacity: 0; }
 .sim61 .s61-stat i { width: 10px; height: 10px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.9); display: block; }
 .sim61 .s61-side { position: absolute; right: 0; top: 50px; bottom: 0; width: 152px; padding: 24px 20px; display: flex; flex-direction: column; gap: 24px; border-left: 1px solid rgba(201, 194, 255, 0.12); background: rgba(201, 194, 255, 0.03); }
 .sim61 .s61-fold { display: flex; align-items: center; gap: 10px; direction: rtl; }
@@ -53,7 +53,8 @@
 .sim61 .s61-rok svg { width: 84px; height: 84px; display: block; overflow: visible; }
 .sim61 .s61-rok circle { fill: rgba(201, 194, 255, 0.14); stroke: #c9c2ff; stroke-width: 3; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.8)); }
 .sim61 .s61-rok path { stroke-width: 6.5; }
-.sim61 .s61-link { position: absolute; left: 396px; top: 262px; width: 4px; height: 220px; overflow: visible; }
+/* from the popup down to the 0:12-0:12.6 blur segment: centred on it (x 20 + 30 + 12.3 * 29 = 406.7), reaching its top (y 654) */
+.sim61 .s61-link { position: absolute; left: 404.7px; top: 262px; width: 4px; height: 392px; overflow: visible; }
 .sim61 .s61-link line { stroke: #e2deff; stroke-width: 2.5; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
 
 /* the timeline: 0..20 s, findings and blur lanes, the playhead */
@@ -66,9 +67,9 @@
 .sim61 .s61-lane { position: absolute; left: 0; width: 760px; }
 .sim61 .s61-lmk { top: 108px; height: 38px; }
 .sim61 .s61-lsg { top: 156px; height: 70px; }
-.sim61 .s61-ll { position: absolute; right: 24px; font: 500 28px/1 "Rubik"; color: #d6d2e6; white-space: nowrap; }
-.sim61 .s61-lmk .s61-ll { top: 5px; }
-.sim61 .s61-lsg .s61-ll { top: 22px; }
+.sim61 .s61-ll { position: absolute; right: 24px; font: 500 30px/1 "Rubik"; color: #d6d2e6; white-space: nowrap; }
+.sim61 .s61-lmk .s61-ll { top: 4px; }
+.sim61 .s61-lsg .s61-ll { top: 21px; }
 .sim61 .s61-lt { position: absolute; left: 30px; top: 18px; width: 580px; height: 2px; background: rgba(201, 194, 255, 0.16); display: block; }
 .sim61 .s61-mk { position: absolute; top: 10px; width: 18px; height: 18px; margin-left: -9px; border-radius: 3px; background: #d9d4ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.85); display: block; opacity: 0; }
 .sim61 .s61-seg { position: absolute; height: 14px; border-radius: 7px; background: linear-gradient(90deg, rgba(201, 194, 255, 0.9), rgba(201, 194, 255, 0.6)); box-shadow: 0 0 10px rgba(201, 194, 255, 0.5); transform-origin: 0% 50%; display: block; opacity: 0; }
@@ -77,3 +78,6 @@
 .sim61 .s61-head u { position: absolute; left: -7px; top: -8px; width: 17px; height: 17px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; }
 /* the time tag of an address sits to its left (over the skeleton subject), clear of the row above */
 .sim61 .s61-em .s61-tag { left: auto; right: calc(100% + 18px); top: 1px; }
+/* payoff: the findings lane ends with a check (the re-scan found nothing) */
+.sim61 .s61-lok { position: absolute; left: 595px; top: 4px; width: 30px; height: 30px; border-radius: 50%; background: #2b2560; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.7); overflow: visible; display: block; opacity: 0; }
+.sim61 .s61-lok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }

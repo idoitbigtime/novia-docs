@@ -6,7 +6,7 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
   const t = (x) => S + x;
   const secs = cfg.secs;
   E.band(tl, sc, t(0));
-  E.fadeIn(tl, q(".hdr"), t(0.05), 0.5, 0);
+  // the header and the terminal are on screen from the first frame (CSS); no fade at the end either
 
   // section texts: kicker, kinetic text phrase by phrase (the phrase being read stays bright), exit
   qa(".c1-sec").forEach((sec, i) => {
@@ -19,15 +19,14 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
       const te = k + 1 < phs.length ? s.phr[k + 1] : s.end + 0.8;
       tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0.5, duration: 0.45, ease: "power2.out" }), t(te));
     });
-    const tOut = i + 1 < secs.length ? secs[i + 1].t0 - 0.25 : 39.8;
-    tl.fromTo(sec, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), t(tOut));
+    const tOut = i + 1 < secs.length ? secs[i + 1].t0 - 0.1 : 39.8;
+    tl.fromTo(sec, { opacity: 1 }, A({ opacity: 0, duration: 0.2, ease: "power2.in" }), t(tOut));
   });
 
   // ---- S1 Claude Code
   const P1 = secs[0].phr, term = q(".c1-term");
-  tl.fromTo(term, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), t(0.35));
-  tl.fromTo(term, { rotationX: 18, y: 60, transformPerspective: 1400 }, A({ rotationX: 0, y: 0, duration: 0.9, ease: SP }), t(0.35));
-  E.sweep(tl, term, t(0.85), 0.9, { color: "rgba(201, 194, 255, 0.16)" });
+  tl.fromTo(term, { rotationX: 18, y: 60, transformPerspective: 1400 }, A({ rotationX: 0, y: 0, duration: 0.9, ease: SP }), t(0));
+  E.sweep(tl, term, t(0.6), 0.9, { color: "rgba(201, 194, 255, 0.16)" });
   const l1 = q(".c1-l1"), ty1 = q(".c1-ty1");
   tl.fromTo(l1, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t(0.9));
   tl.fromTo(ty1, { clipPath: "inset(0px 100% 0px 0px)" }, A({ clipPath: "inset(0px 0% 0px 0px)", duration: 0.5, ease: "steps(6)" }), t(1.0));
@@ -74,7 +73,7 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
     const a = 10.9 + i * 0.25;
     tl.fromTo(k, { opacity: 0, y: 24 }, A({ opacity: 1, y: 0, duration: 0.45, ease: SP }), t(a));
     // into the terminal (its centre is at 400, 400 of the picture)
-    const fy = 400 - (6 + i * 76 + 30), fx = 400 - (606 + 95);
+    const fy = 400 - (6 + i * 76 + 30), fx = 400 - (566 + 105);
     tl.fromTo(k, { x: 0, y: 0, scale: 1 }, A({ x: fx, y: fy, scale: 0.3, duration: 0.5, ease: "power2.in" }), t(a + 0.75));
     tl.fromTo(k, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(a + 1.1));
   });
@@ -113,24 +112,34 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
     tl.fromTo(dot, { y: ymid }, A({ y: y1, duration: 0.45, ease: "sine.in" }), t(a + 0.45));
     tl.fromTo(dot, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(a + 0.85));
   };
-  travel(d1, P3[1] + 0.6, 600, 462, 120, 95, 232);
-  travel(d1, P3[1] + 1.55, 600, 462, 120, 95, 232);
+  travel(d1, P3[1] + 0.6, 600, 462, 120, 95, 241);
+  travel(d1, P3[1] + 1.55, 600, 462, 120, 95, 241);
   tl.fromTo(glow, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t(P3[1] + 1.45));
   tl.fromTo(glow, { opacity: 1 }, A({ opacity: 0, duration: 0.5 }), t(P3[1] + 1.65));
   // talk to it in Hebrew; the whole picture: folder -> Claude Code -> MP4
   const say = q(".c1-say");
   tl.fromTo(say, { opacity: 0, scale: 0.8, y: 16 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.5, ease: SP }), t(P3[2] + 0.15));
   E.draw(tl, arc2, t(P3[2] + 0.6), 0.6);
-  travel(d2, P3[2] + 1.1, 146, 112, 520, 470, 594);
-  travel(d2, P3[2] + 2.05, 146, 112, 520, 470, 594);
+  travel(d2, P3[2] + 1.1, 149, 162, 520, 470, 594);
+  travel(d2, P3[2] + 2.05, 149, 162, 520, 470, 594);
+  // typed, not spoken: the caret blinks in the Hebrew bubble
+  const caret = q(".c1-caret");
+  for (let k = 0, a = P3[2] + 0.7; a < 29.9; k++, a += 0.45) tl.set(caret, { opacity: k % 2 ? 1 : 0 }, t(a));
+  // the full picture: Claude Code runs Opus 5.5 with the HyperFrames skills
+  qa(".c1-tools > span").forEach((el, i) => {
+    tl.fromTo(el, { opacity: 0, y: 26, scale: 0.85 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.55, ease: SP }), t(26.5 + i * 0.25));
+    E.sweep(tl, el, t(26.95 + i * 0.25), 0.7, { color: "rgba(255, 255, 255, 0.3)" });
+  });
+  E.draw(tl, q(".c1-opus .c1-ck path"), t(26.85), 0.35);
   E.sweep(tl, term, t(P3[2] + 2.6), 0.9, { color: "rgba(201, 194, 255, 0.14)" });
   tl.fromTo(mp4, { boxShadow: "0 0 22px rgba(255, 69, 58, 0.4)" }, A({ boxShadow: "0 0 44px rgba(255, 69, 58, 0.9)", duration: 0.25 }), t(P3[2] + 2.0));
-  [term, mp4, fw, say, q(".c1-arcs")].forEach((el) => E.dim(tl, el, t(30.1), 0, 1, 0.3));
+  [term, mp4, fw, say, q(".c1-arcs")].forEach((el) => E.dim(tl, el, t(30.0), 0, 1, 0.3));
 
   // ---- S4 how to use the prompts
   const P4 = secs[3].phr, card = q(".c1-pcard");
-  tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), t(30.5));
-  tl.fromTo(card, { rotationX: 16, y: 70, scale: 0.94, transformPerspective: 1500 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SP }), t(30.5));
+  // the card comes in while the diagram is still going out (no empty frame between the beats)
+  tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), t(30.15));
+  tl.fromTo(card, { rotationX: 16, y: 70, scale: 0.94, transformPerspective: 1500 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SP }), t(30.15));
   E.sweep(tl, card, t(30.9), 0.9, { color: "rgba(201, 194, 255, 0.16)" });
   const tabs = qa(".c1-tab"), tul = q(".c1-tul");
   const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
@@ -144,14 +153,16 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
   });
   E.fadeIn(tl, q(".c1-most"), t(31.4), 0.5, 10);
   // copy it into Claude Code
-  E.dim(tl, q(".c1-most"), t(P4[1]), 0, 1, 0.25);
-  tl.fromTo(q(".c1-copy"), { scale: 1 }, A({ scale: 1.35, duration: 0.15, ease: "power2.out" }), t(P4[1] + 0.05));
-  tl.fromTo(q(".c1-copy"), { scale: 1.35 }, A({ scale: 1, duration: 0.25, ease: "power2.in" }), t(P4[1] + 0.2));
+  // "ככה בנויים..." stays readable until 33.2, then the card flies into Claude Code
+  const tFly = 33.3;
+  E.dim(tl, q(".c1-most"), t(tFly - 0.1), 0, 1, 0.2);
+  tl.fromTo(q(".c1-copy"), { scale: 1 }, A({ scale: 1.35, duration: 0.15, ease: "power2.out" }), t(tFly - 0.4));
+  tl.fromTo(q(".c1-copy"), { scale: 1.35 }, A({ scale: 1, duration: 0.25, ease: "power2.in" }), t(tFly - 0.25));
   const mini = q(".c1-mini");
-  tl.fromTo(mini, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(P4[1] + 0.2));
-  tl.fromTo(card, { scale: 1, y: 0 }, A({ scale: 0.22, y: 435, duration: 0.6, ease: "power2.in" }), t(P4[1] + 0.5));
-  tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(P4[1] + 1.0));
-  E.burst(tl, mini, 180, 110, t(P4[1] + 1.05), { n: 10, seed: 17, r0: 30, r1: 90, color: "#c9c2ff" });
+  tl.fromTo(mini, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(tFly - 0.35));
+  tl.fromTo(card, { scale: 1, y: 0 }, A({ scale: 0.22, y: 435, duration: 0.55, ease: "power2.in" }), t(tFly));
+  tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: 0.12 }), t(tFly + 0.45));
+  E.burst(tl, mini, 180, 110, t(tFly + 0.5), { n: 10, seed: 17, r0: 30, r1: 90, color: "#c9c2ff" });
   // it asks a few questions before touching anything
   qa(".c1-q").forEach((b, i) => {
     tl.fromTo(b, { opacity: 0, y: 40, scale: 0.85 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.5, ease: SP }), t(P4[2] + 0.2 + i * 0.4));
@@ -162,25 +173,43 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
   tl.fromTo(cmd, { opacity: 0, y: 24 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(P4[3] + 0.15));
   const fc = q(".c1-fc");
   tl.fromTo(fc, { scale: 0.7 }, A({ scale: 1, duration: 0.45, ease: "back.out(2)" }), t(P4[3] + 0.75));
-  E.dim(tl, q(".c1-vis"), t(39.8), 0, 1, 0.3);
-  // every prompt was checked by a separate copy of Claude
+  E.dim(tl, q(".c1-vis"), t(39.85), 0, 1, 0.3);
+  // every prompt was checked by a separate copy of Claude (the box comes in under the outgoing beat)
   const box = q(".c1-cbox");
-  tl.fromTo(box, { opacity: 0, scale: 0.94, y: 30 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.6, ease: SP }), t(40.0));
-  qa(".c1-shield path").forEach((p, i) => E.draw(tl, p, t(40.15 + i * 0.35), 0.5));
+  tl.fromTo(box, { opacity: 0, scale: 0.94, y: 30 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.6, ease: SP }), t(39.8));
+  qa(".c1-shield path").forEach((p, i) => E.draw(tl, p, t(39.95 + i * 0.35), 0.5));
   E.kin(tl, q(".c1-ct"), S, { dy: 14 });
   // the picture: the prompt goes to a separate copy of Claude, and a check comes back
   const cm = q(".c1-cmini"), ct = q(".c1-cterm"), ok = q(".c1-cok");
-  tl.fromTo(cm, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(40.35));
-  tl.fromTo(ct, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(40.5));
-  E.draw(tl, q(".c1-carrow path"), t(41.0), 0.5);
-  tl.fromTo(cm, { x: 0, scale: 1 }, A({ x: -475, scale: 0.4, duration: 0.55, ease: "power2.in" }), t(41.55));
-  tl.fromTo(cm, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(41.95));
-  tl.fromTo(ok, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }), t(42.2));
-  E.draw(tl, q(".c1-cok path"), t(42.35), 0.35);
-  E.burst(tl, ct, 170, 180, t(42.3), { n: 14, seed: 23, r0: 60, r1: 160, color: "#c9c2ff" });
-  E.sweep(tl, box, t(42.6), 0.9, { color: "rgba(201, 194, 255, 0.14)" });
-  E.fadeOut(tl, box, t(cfg.D - 0.4), 0.3, -16);
-  E.fadeOut(tl, q(".c1-cpic"), t(cfg.D - 0.4), 0.3, -16);
-  E.fadeOut(tl, q(".hdr"), t(cfg.D - 0.4), 0.3, 0);
+  tl.fromTo(cm, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(40.1));
+  tl.fromTo(ct, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(40.25));
+  E.draw(tl, q(".c1-carrow path"), t(40.75), 0.5);
+  tl.fromTo(cm, { x: 0, scale: 1 }, A({ x: -475, scale: 0.4, duration: 0.55, ease: "power2.in" }), t(41.3));
+  tl.fromTo(cm, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(41.7));
+  tl.fromTo(ok, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }), t(41.95));
+  E.draw(tl, q(".c1-cok path"), t(42.1), 0.35);
+  E.burst(tl, ct, 170, 180, t(42.05), { n: 14, seed: 23, r0: 60, r1: 160, color: "#c9c2ff" });
+  E.sweep(tl, box, t(42.35), 0.9, { color: "rgba(201, 194, 255, 0.14)" });
+  // camera: a spring punch-in (1.12, back.out) on each key moment, reset at the next beat; the illustration
+  // sits in a clip box at the safe area and each focus is clamped so the texts in view stay whole
+  const ZS = 1.12;
+  const punch = (el, a, b, fx, fy, L, R) => {
+    const lo = (ZS * R - 800) / (ZS - 1), hi = (ZS * L) / (ZS - 1);
+    const cx = lo <= hi ? Math.min(hi, Math.max(lo, fx)) : (L + R) / 2;
+    tl.set(el, { transformOrigin: cx.toFixed(1) + "px " + fy + "px" }, t(a));
+    tl.fromTo(el, { scale: 1 }, A({ scale: ZS, duration: 0.5, ease: "back.out(1.6)" }), t(a));
+    if (b != null) tl.fromTo(el, { scale: ZS }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), t(b));
+  };
+  const zc = q(".c1-cam");
+  punch(zc, 5.3, 6.3, 400, 80, 50, 750);        // the model: Claude Opus 5.5
+  punch(zc, 16.9, 20.3, 510, 760, 60, 651);     // "כלי חינמי"
+  punch(zc, 25.0, 26.35, 600, 700, 60, 740);    // talking to it like an editor next to you
+  punch(q(".c1-cpz"), 41.35, null, 190, 300, 20, 530);   // "עותק נפרד"
+  // and a slow 1.00 -> 1.02 drift within each beat
+  const vis = q(".c1-vis");
+  [[0.3, 5.0], [5.1, 10.2], [10.4, 16.8], [17.0, 20.4], [20.8, 24.9], [25.1, 29.95], [30.3, 33.1], [33.4, 39.6]].forEach(([a, b]) => {
+    tl.fromTo(vis, { scale: 1 }, A({ scale: 1.02, duration: b - a - 0.35, ease: "none" }), t(a));
+    tl.fromTo(vis, { scale: 1.02 }, A({ scale: 1, duration: 0.35, ease: "power2.inOut" }), t(b - 0.35));
+  });
   E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "custom" };
 };

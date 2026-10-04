@@ -97,6 +97,8 @@ window.SIMS.sim51 = function (tl, ctx, cfg, S) {
     tl.fromTo(row, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power1.out" }), t);
     tl.fromTo(row, { rotationX: -55, y: -18, transformPerspective: 900 }, A({ rotationX: 0, y: 0, transformPerspective: 900, duration: 0.6, ease: E.SPRING }), t);
     tl.fromTo(bd, { scale: 0.5 }, A({ scale: 1, duration: 0.5, ease: "back.out(2)" }), t + 0.1);
+    // the step's number gives way to the check inside the same ring
+    tl.fromTo(E.q("b", bd), { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 0.6, duration: 0.18, ease: "power2.in" }), t + 0.7);
     tl.fromTo(ok, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), t + 0.78);
     E.draw(tl, E.q(".s51-ok path", row), t + 0.82, 0.28);
     tl.fromTo(bd, { borderColor: "rgba(201, 194, 255, 0.6)" }, A({ borderColor: "rgba(255, 255, 255, 0.95)", duration: 0.3 }), t + 0.78);

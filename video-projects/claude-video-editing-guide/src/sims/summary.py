@@ -22,7 +22,21 @@ END_TITLE = "עריכת וידאו עם Claude"
 END_LINE = "הסרטון הזה נבנה ב-Claude Code עם HyperFrames, לפי השיטות שמוצגות בו."
 END_BADGE = "21 פרומפטים מוכנים"
 
-T_RECAP, T_CHK0, CHK_STEP, T_NEXT, T_END, D = 0.2, 1.0, 0.3, 10.8, 24.8, 29.6
+# the recap is on screen from the first frame and gets its checks a little faster than before, which pays for
+# a longer hold on the closing line; each section starts under the outgoing one (no empty frame)
+T_RECAP, T_CHK0, CHK_STEP = 0.0, 0.6, 0.27
+T_NEXT = 9.65
+T_END = T_NEXT + 13.9
+D = round(T_END + 5.75, 2)
+# 40 px line-art marks before the recap headings (lavender, no text)
+MOTIFS = [
+    '<path d="M4 20v0M10 13v14M16 7v26M22 15v10M28 4v32M34 11v18"/>',                       # waveform
+    '<path d="M6 13l12-7 16 4v18l-12 7-16-4z"/><path d="M6 13l16 4 12-7M22 17v18"/>',          # cube
+    '<rect x="3" y="7" width="34" height="26" rx="4"/><path d="M3 13h34M3 27h34M17 16l8 4-8 4z"/>',   # film frame
+    '<path d="M14 4v8M26 4v8"/><rect x="9" y="12" width="22" height="14" rx="4"/><path d="M20 26v5c0 4-5 5-5 9"/>',  # plug
+    '<rect x="3" y="6" width="34" height="28" rx="4"/><path d="M3 13h34M29 20h-20M29 27h-14"/>',      # browser window
+    '<rect x="3" y="9" width="34" height="8" rx="4"/><rect x="3" y="23" width="34" height="8" rx="4"/><path d="M7 13h22M7 27h10"/>',  # render bars
+]
 
 ICONS = {
     "film": '<rect x="5" y="9" width="38" height="30" rx="5"/><path d="M5 17h38M5 31h38M14 9v8M24 9v8M34 9v8M14 31v8M24 31v8M34 31v8"/>',
@@ -39,15 +53,16 @@ def _chip(label):
 
 
 def scene(cfg):
-    blocks = "".join(f'<div class="sm-blk"><h3 dir="rtl">{esc(ch)}</h3><div class="sm-chips" dir="rtl">{"".join(_chip(x) for x in items)}</div></div>'
-                     for ch, items in RECAP)
-    nl, _, _ = kinetic_html(NEXT_LINE, t0=T_NEXT + 0.35, step=0.09, pause=0.0)
+    blocks = "".join(f'<div class="sm-blk"><h3 dir="rtl"><svg class="sm-mo" viewBox="0 0 40 40" aria-hidden="true">{MOTIFS[k]}</svg>{esc(ch)}</h3>'
+                     f'<div class="sm-chips" dir="rtl">{"".join(_chip(x) for x in items)}</div></div>'
+                     for k, (ch, items) in enumerate(RECAP))
+    nl, _, _ = kinetic_html(NEXT_LINE, t0=T_NEXT + 0.2, step=0.09, pause=0.0)
     cards = "".join(f'<div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true">{ICONS[ic]}</svg>'
                     f'<div><h4 dir="{"ltr" if t.isascii() else "rtl"}">{esc(t)}</h4><p>{esc(d)}</p></div></div>' for t, d, ic in CARDS)
     docs = esc(DOCS).replace("hyperframes.heygen.com", '<span dir="ltr" class="sm-url">hyperframes.heygen.com</span>')
-    et, _, _ = kinetic_html(END_TITLE, t0=T_END + 0.25, step=0.12, pause=0.0)
-    el, _, _ = kinetic_html(END_LINE, t0=T_END + 1.6, step=0.07, pause=0.0)
-    inner = f"""<div class="hdr" dir="rtl"><span class="hdr-ch">פרק 8 · מה למדנו, ולאן ממשיכים</span></div>
+    et, _, _ = kinetic_html(END_TITLE, t0=T_END + 0.05, step=0.12, pause=0.0)
+    el, _, _ = kinetic_html(END_LINE, t0=T_END + 1.4, step=0.07, pause=0.0)
+    inner = f"""<div class="hdr sm-hdr" dir="rtl"><span class="hdr-ch">פרק 8 · מה למדנו, ולאן ממשיכים</span></div>
 <div class="scam"><div class="summary">
 <div class="sm-recap"><p class="sm-kick" dir="rtl"><i></i>מה למדנו</p><div class="sm-blocks">{blocks}</div></div>
 <div class="sm-next"><p class="sm-kick" dir="rtl"><i></i>לאן ממשיכים</p><p class="sm-nl kin" dir="rtl">{nl}</p><div class="sm-cards">{cards}</div><p class="sm-docs" dir="rtl">{docs}</p></div>
@@ -58,5 +73,5 @@ def scene(cfg):
     n = sum(len(x) for _, x in RECAP)
     js = {"T": {"recap": T_RECAP, "chk0": T_CHK0, "step": CHK_STEP, "next": T_NEXT, "end": T_END}, "n": n}
     cues = [("whoosh_soft", 0.0)] + [("tick", T_CHK0 + i * CHK_STEP + 0.1) for i in range(0, n, 3)]
-    cues += [("pop", T_CHK0 + (n - 1) * CHK_STEP + 0.1), ("whoosh_soft", T_NEXT), ("shimmer", T_END + 0.2)]
+    cues += [("pop", T_CHK0 + (n - 1) * CHK_STEP + 0.1), ("whoosh_soft", T_NEXT - 0.1), ("shimmer", T_END)]
     return inner, js, cues, c

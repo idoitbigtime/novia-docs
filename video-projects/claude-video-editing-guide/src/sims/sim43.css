@@ -33,7 +33,8 @@
 .sim43 .s43-cw .s43-ico { opacity: 0; }
 .sim43 .s43-what0 { width: 44px; height: 34px; border-radius: 8px; border: 2px dashed rgba(201, 194, 255, 0.4); display: block; opacity: 0; }
 .sim43 .s43-src { font: 500 30px/1 "Rubik"; color: #ece9f7; white-space: nowrap; opacity: 0; }
-.sim43 .s43-miss { color: #ff6b61; font-weight: 700; }
+/* the table's "חסר": ink on a dashed lavender cell (the timeline's hole is the one red mark) */
+.sim43 .s43-miss { color: #f5f2ea; font-weight: 700; padding: 6px 14px 8px; border-radius: 10px; border: 2px dashed rgba(201, 194, 255, 0.7); background: rgba(201, 194, 255, 0.1); }
 .sim43 .s43-src0 { position: absolute; right: 14px; top: 23px; width: 170px; height: 12px; border-radius: 6px; border: 1.5px dashed rgba(201, 194, 255, 0.35); display: block; opacity: 0; }
 .sim43 .s43-colhl { position: absolute; left: 420px; top: 48px; width: 200px; height: 48px; display: block; opacity: 0;
   background: linear-gradient(180deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.3) 50%, rgba(201, 194, 255, 0)); }
@@ -55,8 +56,10 @@
 .sim43 .s43-gap { position: absolute; top: 448px; height: 58px; border-radius: 10px; border: 2px dashed rgba(201, 194, 255, 0.8); display: grid; place-items: center; opacity: 0; }
 .sim43 .s43-gok { width: 26px; height: 26px; overflow: visible; }
 .sim43 .s43-gok path, .sim43 .s43-ok path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
-.sim43 .s43-hole { position: absolute; top: 448px; height: 58px; border-radius: 10px; border: 2.5px dashed #ff6b61; background: rgba(255, 69, 58, 0.1);
-  box-shadow: 0 0 14px rgba(255, 69, 58, 0.35); display: grid; place-items: center; opacity: 0; }
+/* the hole starts amber (it is found while the red accent "מ-3 שניות" is read) and turns red only when it is
+   marked "חסר" (see the js) */
+.sim43 .s43-hole { position: absolute; top: 448px; height: 58px; border-radius: 10px; border: 2.5px dashed #F5B544; background: rgba(245, 181, 68, 0.12);
+  box-shadow: 0 0 14px rgba(245, 181, 68, 0.35); display: grid; place-items: center; opacity: 0; }
 .sim43 .s43-hlbl { font: 700 30px/1 "Rubik"; color: #ffffff; opacity: 0; }
 .sim43 .s43-blk, .sim43 .s43-sim, .sim43 .s43-acc { position: absolute; top: 452px; height: 50px; border-radius: 10px; display: grid; place-items: center; opacity: 0; }
 .sim43 .s43-blk { background: rgba(74, 54, 184, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.75); }

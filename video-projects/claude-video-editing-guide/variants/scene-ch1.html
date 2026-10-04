@@ -358,22 +358,52 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .tip-text .w { opacity: 0; }
 
 /* ---------- chapter card ---------- */
-.chap { position: absolute; inset: 0; }
-.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
-.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
+.chap { position: absolute; inset: 0; transform-origin: 540px 900px; }
+/* the card's camera: a slow push through the hold */
+.ch-cam { position: absolute; inset: 0; transform-origin: 540px 900px; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0.35; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); }
 .ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
 .ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
 .ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
 .ch-tin { display: inline-block; white-space: nowrap; }
 .ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
-.ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-sub { position: absolute; top: 1040px; left: 160px; width: 760px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
 .ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
 /* centred blocks wrap into even lines; paragraphs never end on a lone word */
 .ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
 .exp, .tip-text { text-wrap: pretty; }
-.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0.4; }
 .ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
 .ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+/* the chapter motif: 180 px line art beside the number (lavender, 35%) */
+/* frame 0 of a card (a seek to 0 may not render the timeline): the number and its rings are already there */
+.chap .ch-n { transform: perspective(1200px) rotateY(-16deg) scale(0.9); }
+.chap .ch-ring { opacity: 0.85; transform: scale(0.66); }
+.chap .ch-ring2 { opacity: 0.65; transform: scale(0.8); }
+.chap .ch-k, .chap .ch-dots { transform: translateY(8px); }
+.ch-mo { position: absolute; left: 740px; top: 580px; width: 180px; height: 180px; opacity: 0.35; overflow: visible; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
+.ch-mo .dr, .ch-mo .mo-ph, .ch-mo .mo-scan, .ch-mo .mo-ck, .ch-mo .mo-ring, .ch-mo .mo-blur { fill: none; stroke: #c9c2ff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.ch-mo .fl, .ch-mo .mo-f { fill: #c9c2ff; }
+.ch-mo .fl { opacity: 0; }
+.ch-mo .mo-solid { fill: #0b0a16; fill-opacity: 0; }
+.ch-mo .mo-bar { stroke-width: 6; }
+.ch-mo .mo-ph { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-scan { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-blur { stroke-width: 11; opacity: 0; }
+.ch-mo .mo-ring { stroke-width: 2.5; opacity: 0; }
+.ch-mo .mo-f { opacity: 0; }
+.ch-mo .mo-ck { stroke-width: 4.5; }
+.ch-mo3 .mo-in { position: absolute; inset: 0; perspective: 640px; opacity: 0; }
+.ch-mo3 .mo-tilt { position: absolute; left: 40px; top: 40px; width: 100px; height: 100px; transform-style: preserve-3d; transform: rotateX(-24deg); }
+.ch-mo3 .mo-cube { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(-10deg); }
+.ch-mo3 .mo-cube i { position: absolute; inset: 0; border: 3.5px solid #c9c2ff; border-radius: 5px; display: block; }
+.ch-mo3 .mo-face0 { transform: translateZ(50px); }
+.ch-mo3 .mo-face1 { transform: rotateY(180deg) translateZ(50px); }
+.ch-mo3 .mo-face2 { transform: rotateY(90deg) translateZ(50px); }
+.ch-mo3 .mo-face3 { transform: rotateY(-90deg) translateZ(50px); }
+.ch-mo3 .mo-face4 { transform: rotateX(90deg) translateZ(50px); }
+.ch-mo3 .mo-face5 { transform: rotateX(-90deg) translateZ(50px); }
 
 /* ---------- effects ---------- */
 /* light sweep across an element (the element clips it) */
@@ -395,13 +425,18 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .ch1 .c1-kick { font: 600 32px/1.2 "Rubik"; color: #cfcbe0; display: flex; align-items: center; gap: 12px; }
 .ch1 .c1-kick > i { width: 12px; height: 12px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; opacity: 0; }
 .ch1 .c1-txt { margin-top: 14px; font: 400 40px/1.42 "Rubik"; color: var(--ink2); text-wrap: pretty; }
-.ch1 .c1-vis { position: absolute; left: 140px; top: 680px; width: 800px; height: 880px; }
+/* the illustration's camera: a clip box at the safe area (x 140..940, y 600..1570) so a punch-in never draws outside it */
+.ch1 .c1-zc { position: absolute; left: 140px; top: 600px; width: 800px; height: 970px; overflow: hidden; }
+.ch1 .c1-cam { position: absolute; inset: 0; }
+.ch1 .c1-vis { position: absolute; left: 0; top: 80px; width: 800px; height: 880px; transform-origin: 400px 440px; }
+/* the header and the terminal are on screen from the first frame */
+.hdr.c1-hdr { opacity: 1; }
 
 /* terminal */
-.ch1 .c1-term { position: absolute; left: 70px; top: 70px; width: 660px; height: 420px; border-radius: 26px; background: rgba(16, 14, 32, 0.96); border: 2px solid rgba(201, 194, 255, 0.55); box-shadow: 0 0 34px rgba(201, 194, 255, 0.25), 0 30px 60px rgba(0, 0, 0, 0.5); opacity: 0; transform-origin: 50% 50%; }
+.ch1 .c1-term { position: absolute; left: 70px; top: 70px; width: 660px; height: 420px; border-radius: 26px; background: rgba(16, 14, 32, 0.96); border: 2px solid rgba(201, 194, 255, 0.55); box-shadow: 0 0 34px rgba(201, 194, 255, 0.25), 0 30px 60px rgba(0, 0, 0, 0.5); transform-origin: 50% 50%; transform: perspective(1400px) translateY(60px) rotateX(18deg); }
 .ch1 .c1-tbar { height: 58px; border-bottom: 1.5px solid rgba(201, 194, 255, 0.18); display: flex; align-items: center; gap: 10px; padding: 0 22px; direction: ltr; }
 .ch1 .c1-tbar i { width: 14px; height: 14px; border-radius: 50%; background: rgba(201, 194, 255, 0.4); display: block; }
-.ch1 .c1-tbar span { margin-left: 14px; font: 600 26px/1 "IBM Plex Mono"; color: #cfcbe0; }
+.ch1 .c1-tbar span { margin-left: 14px; font: 600 32px/1 "IBM Plex Mono"; color: #cfcbe0; }
 .ch1 .c1-tbody { position: relative; padding: 34px 36px; height: 358px; }
 .ch1 .c1-line { font: 600 36px/1 "IBM Plex Mono"; color: #ece9f7; height: 64px; display: flex; align-items: center; gap: 14px; opacity: 0; }
 .ch1 .c1-line b { color: #c9c2ff; font-weight: 600; }
@@ -424,16 +459,16 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .ch1 .c1-doc { width: 32px; height: 40px; flex: none; overflow: visible; }
 .ch1 .c1-doc path { fill: none; stroke: #c9c2ff; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
 .ch1 .c1-badge { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: -24px; padding: 16px 28px; border-radius: 999px; border: 2.5px solid #ff453a; background: rgba(40, 14, 20, 0.7); box-shadow: 0 0 24px rgba(255, 69, 58, 0.45); font: 700 36px/1 "Rubik"; color: #ffffff; white-space: nowrap; opacity: 0; overflow: hidden; }
-.ch1 .c1-note { position: absolute; left: 30px; width: 740px; top: 535px; padding: 26px 34px; border-radius: 24px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); font: 500 34px/1.45 "Rubik"; color: var(--ink); text-align: right; opacity: 0; }
+.ch1 .c1-note { position: absolute; left: 50px; width: 700px; top: 535px; padding: 24px 28px; border-radius: 24px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); font: 500 32px/1.45 "Rubik"; color: var(--ink); text-align: right; opacity: 0; }
 .ch1 .c1-m { font-family: "IBM Plex Mono"; font-weight: 600; color: #d9d4ff; unicode-bidi: isolate; }
 
 /* S2 skills in, a video file out */
-.ch1 .c1-skills { position: absolute; left: 606px; top: 6px; width: 190px; height: 230px; }
+.ch1 .c1-skills { position: absolute; left: 566px; top: 6px; width: 190px; height: 230px; }
 .ch1 .c1-skill { position: absolute; left: 0; display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 16px; background: rgba(28, 24, 58, 0.95); border: 2px solid #c9c2ff; box-shadow: 0 0 18px rgba(201, 194, 255, 0.4); font: 600 26px/1 "IBM Plex Mono"; color: #ffffff; opacity: 0; }
 .ch1 .c1-skill:nth-child(1) { top: 0; }
 .ch1 .c1-skill:nth-child(2) { top: 76px; }
 .ch1 .c1-skill:nth-child(3) { top: 152px; }
-.ch1 .c1-mp4 { position: absolute; left: 10px; top: 596px; width: 200px; padding: 18px 16px; border-radius: 20px; background: rgba(28, 24, 58, 0.95); border: 2.5px solid #ff6b61; box-shadow: 0 0 22px rgba(255, 69, 58, 0.4); display: flex; flex-direction: column; align-items: center; gap: 12px; font: 600 28px/1 "IBM Plex Mono"; color: #ffffff; opacity: 0; }
+.ch1 .c1-mp4 { position: absolute; left: 60px; top: 596px; width: 200px; padding: 18px 16px; border-radius: 20px; background: rgba(28, 24, 58, 0.95); border: 2.5px solid #ff6b61; box-shadow: 0 0 22px rgba(255, 69, 58, 0.4); display: flex; flex-direction: column; align-items: center; gap: 12px; font: 600 28px/1 "IBM Plex Mono"; color: #ffffff; opacity: 0; }
 .ch1 .c1-film { width: 84px; height: 62px; overflow: visible; }
 .ch1 .c1-film rect, .ch1 .c1-film path { fill: none; stroke: #ff8a80; stroke-width: 2.6; stroke-linejoin: round; }
 .ch1 .c1-film .c1-play { fill: #ffffff; stroke: none; }
@@ -459,11 +494,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .ch1 .c1-arcs { position: absolute; left: 0; top: 0; width: 800px; height: 800px; overflow: visible; }
 .ch1 .c1-arcs path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 0; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.7)); }
 .ch1 .c1-dot { position: absolute; left: 0; top: 0; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 14px #c9c2ff; display: block; opacity: 0; }
-.ch1 .c1-say { position: absolute; right: 20px; width: max-content; top: 650px; height: 84px; padding: 0 22px; border-radius: 28px 28px 6px 28px; border: 2px solid #c9c2ff; background: rgba(28, 24, 58, 0.95); box-shadow: 0 0 20px rgba(201, 194, 255, 0.35); display: flex; align-items: center; gap: 12px; opacity: 0; }
+.ch1 .c1-say { position: absolute; right: 60px; width: max-content; top: 650px; height: 84px; padding: 0 22px; border-radius: 28px 28px 6px 28px; border: 2px solid #c9c2ff; background: rgba(28, 24, 58, 0.95); box-shadow: 0 0 20px rgba(201, 194, 255, 0.35); display: flex; align-items: center; gap: 12px; opacity: 0; }
 .ch1 .c1-say i { width: 60px; height: 16px; border-radius: 8px; background: rgba(217, 212, 255, 0.7); display: block; }
 .ch1 .c1-say span { font: 700 32px/1 "Rubik"; color: #ffffff; }
-.ch1 .c1-mic { width: 30px; height: 40px; flex: none; overflow: visible; }
-.ch1 .c1-mic rect, .ch1 .c1-mic path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; }
+.ch1 .c1-caret { width: 4px; height: 40px; border-radius: 2px; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; flex: none; }
 
 /* S4 the prompt card, copy, questions, commands */
 .ch1 .c1-pcard { position: absolute; left: 70px; top: 40px; width: 660px; height: 400px; border-radius: 26px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.3); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); opacity: 0; transform-origin: 50% 50%; }
@@ -476,7 +510,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .ch1 .c1-copy rect, .ch1 .c1-copy path { fill: none; stroke: #c9c2ff; stroke-width: 2.6; stroke-linejoin: round; }
 .ch1 .c1-most { position: absolute; left: 0; width: 800px; top: 476px; text-align: center; font: 500 32px/1.2 "Rubik"; color: #b8b4cc; opacity: 0; }
 .ch1 .c1-mini { position: absolute; left: 220px; top: 570px; width: 360px; height: 210px; border-radius: 22px; background: rgba(16, 14, 32, 0.96); border: 2px solid rgba(201, 194, 255, 0.55); box-shadow: 0 0 28px rgba(201, 194, 255, 0.28); opacity: 0; }
-.ch1 .c1-mini .c1-tbar span { font-size: 22px; }
+.ch1 .c1-mini .c1-tbar span { font-size: 26px; }
 .ch1 .c1-qs { position: absolute; left: 0; width: 800px; top: 60px; height: 460px; }
 .ch1 .c1-q { position: absolute; right: 60px; width: 420px; height: 100px; border-radius: 28px 28px 28px 6px; border: 2px solid #c9c2ff; background: rgba(28, 24, 58, 0.95); box-shadow: 0 0 20px rgba(201, 194, 255, 0.3); display: flex; align-items: center; gap: 16px; padding: 0 26px; opacity: 0; }
 .ch1 .c1-q b { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: #6f63c9; color: #ffffff; font: 800 36px/1 "Rubik"; flex: none; }
@@ -487,7 +521,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .ch1 .c1-q1 { top: 140px; right: 140px; }
 .ch1 .c1-q2 { top: 270px; right: 30px; }
 .ch1 .c1-cmd { position: absolute; left: 30px; width: 740px; top: 150px; padding: 26px 28px; border-radius: 22px; background: rgba(16, 14, 32, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.3); display: flex; flex-direction: column; align-items: flex-end; gap: 20px; opacity: 0; }
-.ch1 .c1-cmdt { align-self: stretch; text-align: left; font: 500 27px/1.55 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #8f8aa8; }
+.ch1 .c1-cmdt { align-self: stretch; text-align: left; font: 500 30px/1.5 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #8f8aa8; }
 .ch1 .c1-cmdt .tk { white-space: nowrap; }
 .ch1 .c1-fc { font: 700 32px/1 "Rubik"; color: #ffffff; padding: 12px 22px; border-radius: 999px; border: 2px solid #c9c2ff; background: rgba(40, 34, 80, 0.8); }
 
@@ -499,19 +533,28 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .ch1 .c1-ct { flex: 1; font: 700 44px/1.35 "Rubik"; color: var(--ink); text-wrap: balance; }
 
 /* closing picture: the prompt goes to a separate copy of Claude, a check comes back */
-.ch1 .c1-cpic { position: absolute; left: 0; top: 760px; width: 800px; height: 520px; }
+.ch1 .c1-cpic { position: absolute; left: 0; top: 760px; width: 800px; height: 520px; overflow: hidden; }
+.ch1 .c1-cpz { position: absolute; inset: 0; }
 .ch1 .c1-cmini { position: absolute; left: 550px; top: 150px; width: 230px; height: 190px; border-radius: 18px; background: rgba(24, 22, 44, 0.97); border: 1.5px solid rgba(201, 194, 255, 0.35); opacity: 0; padding: 18px 20px; display: flex; flex-direction: column; align-items: flex-end; gap: 16px; }
 .ch1 .c1-cmini i { height: 12px; border-radius: 6px; background: rgba(201, 194, 255, 0.35); display: block; }
 .ch1 .c1-cmini i:nth-child(1) { width: 80%; } .ch1 .c1-cmini i:nth-child(2) { width: 60%; } .ch1 .c1-cmini i:nth-child(3) { width: 90%; } .ch1 .c1-cmini i:nth-child(4) { width: 50%; }
 .ch1 .c1-carrow { position: absolute; left: 380px; top: 222px; width: 150px; height: 46px; overflow: visible; }
 .ch1 .c1-carrow path { fill: none; stroke: #c9c2ff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.7)); }
 .ch1 .c1-cterm { position: absolute; left: 20px; top: 90px; width: 340px; height: 300px; border-radius: 24px; background: rgba(16, 14, 32, 0.96); border: 2px solid rgba(201, 194, 255, 0.45); box-shadow: 0 0 30px rgba(201, 194, 255, 0.2); opacity: 0; }
-.ch1 .c1-cterm .c1-tbar span { font-size: 22px; }
+.ch1 .c1-cterm .c1-tbar span { font-size: 26px; }
 .ch1 .c1-clabel { position: absolute; left: 0; right: 0; bottom: -64px; margin: 0 auto; width: max-content; font: 700 32px/1 "Rubik"; color: #ffffff; padding: 10px 20px; border-radius: 999px; border: 2px solid #c9c2ff; background: rgba(40, 34, 80, 0.85); }
 .ch1 .c1-cok { position: absolute; left: 50%; top: 60%; width: 110px; height: 110px; margin: -55px 0 0 -55px; border-radius: 50%; background: rgba(111, 99, 201, 0.95); box-shadow: 0 0 30px rgba(201, 194, 255, 0.7); display: grid; place-items: center; opacity: 0; }
 .ch1 .c1-cok svg { width: 70px; height: 70px; overflow: visible; }
 .ch1 .c1-cok path { fill: none; stroke: #ffffff; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; }
 .ch1 .c1-cur { display: inline-block; width: 16px; height: 34px; margin-left: 6px; background: #c9c2ff; vertical-align: middle; opacity: 0; }
+
+/* the full picture: the model and the skills inside Claude Code (the terminal is at 0.76 here: 37 px -> 28 px, 35 px -> 26.6 px) */
+.ch1 .c1-tools { position: absolute; left: 0; right: 0; top: 150px; display: flex; justify-content: center; align-items: center; gap: 26px; }
+.ch1 .c1-opus, .ch1 .c1-skc { display: flex; align-items: center; gap: 12px; padding: 14px 22px; border-radius: 20px; border: 2.5px solid #c9c2ff; background: rgba(40, 34, 80, 0.92); box-shadow: 0 0 20px rgba(201, 194, 255, 0.4); color: #ffffff; white-space: nowrap; opacity: 0; position: relative; overflow: hidden; }
+.ch1 .c1-opus { font: 600 37px/1 "IBM Plex Mono"; }
+.ch1 .c1-skc { font: 600 35px/1 "IBM Plex Mono"; }
+.ch1 .c1-opus .c1-ck { width: 40px; height: 40px; }
+.ch1 .c1-skc .c1-doc { width: 34px; height: 42px; }
 
 </style>
 </head>
@@ -520,19 +563,19 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-ch1" class="clip scene" data-start="0.000" data-duration="44.600" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 1 · ככה זה עובד</span></div>
+<div id="sc-ch1" class="clip scene" data-start="0.000" data-duration="44.600" data-track-index="1"><div class="hdr c1-hdr" dir="rtl"><span class="hdr-ch">פרק 1 · ככה זה עובד</span></div>
 <div class="ch1">
 <div class="c1-sec c1-sec0"><p class="c1-kick kin" dir="rtl"><i></i><span class="w" dir="rtl" data-t="0.150">הכלי</span> <span class="w" dir="rtl" data-t="0.200">הראשון</span> <span class="w" dir="rtl" data-t="0.250">·</span> <span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="0.300">Claude</span> <span class="w" dir="ltr" data-t="0.350">Code</span></span></p><p class="c1-txt kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="0.450">הגרסה</span> <span class="w" dir="rtl" data-t="0.510">של</span> <span class="w" dir="rtl" data-t="0.570">קלוד</span> <span class="w" dir="rtl" data-t="0.630">שעובדת</span> <span class="w" dir="rtl" data-t="0.690">על</span> <span class="w" dir="rtl" data-t="0.750">הקבצים</span> <span class="w" dir="rtl" data-t="0.810">במחשב</span> <span class="w" dir="rtl" data-t="0.870">שלכם</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="2.900">ומריצה</span> <span class="w" dir="rtl" data-t="2.960">בו</span> <span class="w" dir="rtl" data-t="3.020">תוכנות.</span></span></p></div><div class="c1-sec c1-sec1"><p class="c1-kick kin" dir="rtl"><i></i><span class="w" dir="rtl" data-t="10.450">הכלי</span> <span class="w" dir="rtl" data-t="10.500">השני</span> <span class="w" dir="rtl" data-t="10.550">·</span> <span class="w" dir="rtl" data-t="10.600">הסקילים</span> <span class="w" dir="rtl" data-t="10.650">של</span> <span class="w" dir="rtl" data-t="10.700">HyperFrames</span></p><p class="c1-txt kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="10.750">סקיל</span> <span class="w" dir="rtl" data-t="10.810">הוא</span> <span class="w" dir="rtl" data-t="10.870">קובץ</span> <span class="w" dir="rtl" data-t="10.930">הוראות</span> <span class="w" dir="rtl" data-t="10.990">שקלוד</span> <span class="w" dir="rtl" data-t="11.050">קורא</span> <span class="w" dir="rtl" data-t="11.110">כשצריך.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="12.950">הסקילים</span> <span class="w" dir="rtl" data-t="13.010">של</span> <span class="w" dir="rtl" data-t="13.070">HyperFrames</span> <span class="w" dir="rtl" data-t="13.130">מלמדים</span> <span class="w" dir="rtl" data-t="13.190">אותו</span> <span class="w" dir="rtl" data-t="13.250">לבנות</span> <span class="w" dir="rtl" data-t="13.310">סרטון</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="15.150">ולהוציא</span> <span class="w" dir="rtl" data-t="15.210">אותו</span> <span class="w" dir="rtl" data-t="15.270">כקובץ</span> <span class="w" dir="rtl" data-t="15.330">וידאו.</span></span></p></div><div class="c1-sec c1-sec2"><p class="c1-kick kin" dir="rtl"><i></i><span class="w" dir="rtl" data-t="20.950">ותיקייה</span> <span class="w" dir="rtl" data-t="21.000">אחת</span> <span class="w" dir="rtl" data-t="21.050">לכל</span> <span class="w" dir="rtl" data-t="21.100">סרטון</span></p><p class="c1-txt kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="21.250">שמים</span> <span class="w" dir="rtl" data-t="21.310">בה</span> <span class="w" dir="rtl" data-t="21.370">את</span> <span class="w" dir="rtl" data-t="21.430">כל</span> <span class="w" dir="rtl" data-t="21.490">הצילומים,</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="22.950">פותחים</span> <span class="w" dir="rtl" data-t="23.010">בה</span> <span class="w" dir="rtl" data-t="23.070">את</span> <span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="23.130">Claude</span> <span class="w" dir="ltr" data-t="23.190">Code</span></span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="24.650">ומדברים</span> <span class="w" dir="rtl" data-t="24.710">איתו</span> <span class="w" dir="rtl" data-t="24.770">בעברית,</span> <span class="w" dir="rtl" data-t="24.830">כמו</span> <span class="w" dir="rtl" data-t="24.890">עם</span> <span class="w" dir="rtl" data-t="24.950">עורך</span> <span class="w" dir="rtl" data-t="25.010">שיושב</span> <span class="w" dir="rtl" data-t="25.070">לידכם.</span></span></p></div><div class="c1-sec c1-sec3"><p class="c1-kick kin" dir="rtl"><i></i><span class="w" dir="rtl" data-t="30.450">איך</span> <span class="w" dir="rtl" data-t="30.500">משתמשים</span> <span class="w" dir="rtl" data-t="30.550">בפרומפטים</span></p><p class="c1-txt kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="30.750">בכל</span> <span class="w" dir="rtl" data-t="30.810">טיפ</span> <span class="w" dir="rtl" data-t="30.870">יש</span> <span class="w" dir="rtl" data-t="30.930">פרומפט</span> <span class="w" dir="rtl" data-t="30.990">מוכן.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="32.450">מעתיקים</span> <span class="w" dir="rtl" data-t="32.510">אותו</span> <span class="glu"><span class="w" dir="rtl" data-t="32.570">ל-</span><span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="32.570">Claude</span> <span class="w" dir="ltr" data-t="32.690">Code</span></span><span class="w" dir="rtl" data-t="32.690">,</span></span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="34.150">והוא</span> <span class="w" dir="rtl" data-t="34.210">שואל</span> <span class="w" dir="rtl" data-t="34.270">כמה</span> <span class="w" dir="rtl" data-t="34.330">שאלות</span> <span class="w" dir="rtl" data-t="34.390">על</span> <span class="w" dir="rtl" data-t="34.450">הסרטון</span> <span class="w" dir="rtl" data-t="34.510">לפני</span> <span class="w" dir="rtl" data-t="34.570">שהוא</span> <span class="w" dir="rtl" data-t="34.630">נוגע</span> <span class="w" dir="rtl" data-t="34.690">במשהו.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="37.100">את</span> <span class="w" dir="rtl" data-t="37.160">הפקודות</span> <span class="w" dir="rtl" data-t="37.220">שבתוכו</span> <span class="w" dir="rtl" data-t="37.280">לא</span> <span class="w" dir="rtl" data-t="37.340">צריך</span> <span class="w" dir="rtl" data-t="37.400">להבין,</span> <span class="w" dir="rtl" data-t="37.460">הן</span> <span class="w" dir="rtl" data-t="37.520">בשביל</span> <span class="w" dir="rtl" data-t="37.580">קלוד.</span></span></p></div>
-<div class="c1-vis">
+<div class="c1-zc"><div class="c1-cam"><div class="c1-vis">
   <div class="c1-files"><div class="c1-file" dir="ltr"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg><span>take1.mp4</span></div><div class="c1-file" dir="ltr"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg><span>logo.png</span></div><div class="c1-file" dir="ltr"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg><span>music.wav</span></div></div>
   <div class="c1-note" dir="rtl"><p>ברירת המחדל בכל מנוי בתשלום לקלוד.</p><p>נבחר מודל אחר? כותבים <span class="c1-m" dir="ltr">/model</span> ובוחרים בו.</p></div>
   <div class="c1-badge" dir="rtl">המודל: Claude Opus 5.5</div>
   <div class="c1-skills"><div class="c1-skill" dir="ltr"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg><span>SKILL.md</span></div><div class="c1-skill" dir="ltr"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg><span>SKILL.md</span></div><div class="c1-skill" dir="ltr"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg><span>SKILL.md</span></div></div>
   <div class="c1-mp4" dir="ltr"><svg class="c1-film" viewBox="0 0 60 44" aria-hidden="true"><rect x="3" y="3" width="54" height="38" rx="6"/><path d="M3 13h54M3 31h54M15 3v10M27 3v10M39 3v10M15 31v10M27 31v10M39 31v10"/><path class="c1-play" d="M25 17l9 5-9 5z"/></svg><span>final.mp4</span><i class="c1-prog"><b></b></i></div>
   <div class="c1-foldwrap"><div class="c1-clips"><div class="c1-clip c1-clip0"><i></i></div><div class="c1-clip c1-clip1"><i></i></div><div class="c1-clip c1-clip2"><i></i></div><div class="c1-logo"></div></div><svg class="c1-fold" viewBox="0 0 180 140" aria-hidden="true"><path class="c1-fback" d="M8 22h58l14 16h92v94H8z"/></svg><div class="c1-lidw"><svg class="c1-lid" viewBox="0 0 180 110" aria-hidden="true"><path d="M8 6h164v98H8z"/></svg></div></div>
-  <svg class="c1-arcs" viewBox="0 0 800 800" aria-hidden="true"><path class="c1-arc1" d="M600 95 C 520 95 470 150 462 232"/><path class="c1-arc2" d="M146 470 C 96 500 94 560 112 594"/></svg>
+  <svg class="c1-arcs" viewBox="0 0 800 800" aria-hidden="true"><path class="c1-arc1" d="M600 95 C 520 95 470 150 462 241"/><path class="c1-arc2" d="M149 470 C 112 505 140 560 162 594"/></svg>
   <i class="c1-dot c1-dot1"></i><i class="c1-dot c1-dot2"></i>
-  <div class="c1-say" dir="rtl"><svg class="c1-mic" viewBox="0 0 30 40" aria-hidden="true"><rect x="9" y="3" width="12" height="22" rx="6"/><path d="M4 19c0 6 5 11 11 11s11-5 11-11M15 30v7M9 37h12"/></svg><i></i><i></i><span>עברית</span></div>
+  <div class="c1-say" dir="rtl"><b class="c1-caret"></b><i></i><i></i><span>עברית</span></div>
   <div class="c1-term">
     <div class="c1-tbar"><i></i><i></i><i></i><span dir="ltr">Claude Code</span></div>
     <div class="c1-tbody" dir="ltr">
@@ -541,6 +584,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
       <div class="c1-run"><i></i></div>
       <div class="c1-tl"><i></i><i></i><i></i></div>
     </div>
+    <div class="c1-tools" dir="ltr"><span class="c1-opus">Opus 5.5<svg class="c1-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="c1-skc"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg>SKILL.md</span></div>
     <div class="c1-glow"></div>
   </div>
   <div class="c1-free"><span class="pill">כלי חינמי</span></div>
@@ -548,13 +592,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   <p class="c1-most" dir="rtl">ככה בנויים רוב הפרומפטים בסרטון</p>
   <div class="c1-mini"><div class="c1-tbar"><i></i><i></i><i></i><span dir="ltr">Claude Code</span></div><div class="c1-mbody"></div></div>
   <div class="c1-qs"><div class="c1-q c1-q0" dir="rtl"><b>?</b><i></i><i></i></div><div class="c1-q c1-q1" dir="rtl"><b>?</b><i></i><i></i></div><div class="c1-q c1-q2" dir="rtl"><b>?</b><i></i><i></i></div></div>
-  <div class="c1-cmd"><span class="c1-cmdt" dir="ltr"><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk">&lt;הקובץ&gt;</span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span></span><span class="c1-fc" dir="rtl">בשביל קלוד</span></div>
-</div>
-<div class="c1-close"><div class="c1-cbox"><svg class="c1-shield" viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3 6 10v16c0 13 8 22 18 27 10-5 18-14 18-27V10z"/><path d="M15 28l6 6 12-13"/></svg><p class="c1-ct kin" dir="rtl"><span class="w" dir="rtl" data-t="40.150">כל</span> <span class="w" dir="rtl" data-t="40.250">פרומפט</span> <span class="w" dir="rtl" data-t="40.350">נבדק</span> <span class="nbgrp"><span class="w" dir="rtl" data-t="40.450">על</span> <span class="w" dir="rtl" data-t="40.550">ידי</span></span> <span class="w" dir="rtl" data-t="40.650">עותק</span> <span class="w" dir="rtl" data-t="40.750">נפרד</span> <span class="w" dir="rtl" data-t="40.850">של</span> <span class="w" dir="rtl" data-t="40.950">קלוד</span> <span class="w" dir="rtl" data-t="41.050">שקיבל</span> <span class="w" dir="rtl" data-t="41.150">רק</span> <span class="w" dir="rtl" data-t="41.250">אותו.</span></p></div>
-<div class="c1-cpic"><div class="c1-cmini"><i></i><i></i><i></i><i></i></div>
+  <div class="c1-cmd"><span class="c1-cmdt" dir="ltr"><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk"><bdi dir="ltr">&lt;הקובץ&gt;</bdi></span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span></span><span class="c1-fc" dir="rtl">בשביל קלוד</span></div>
+</div></div></div>
+<div class="c1-close"><div class="c1-cbox"><svg class="c1-shield" viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3 6 10v16c0 13 8 22 18 27 10-5 18-14 18-27V10z"/><path d="M15 28l6 6 12-13"/></svg><p class="c1-ct kin" dir="rtl"><span class="w" dir="rtl" data-t="39.900">כל</span> <span class="w" dir="rtl" data-t="40.000">פרומפט</span> <span class="w" dir="rtl" data-t="40.100">נבדק</span> <span class="nbgrp"><span class="w" dir="rtl" data-t="40.200">על</span> <span class="w" dir="rtl" data-t="40.300">ידי</span></span> <span class="w" dir="rtl" data-t="40.400">עותק</span> <span class="w" dir="rtl" data-t="40.500">נפרד</span> <span class="w" dir="rtl" data-t="40.600">של</span> <span class="w" dir="rtl" data-t="40.700">קלוד</span> <span class="w" dir="rtl" data-t="40.800">שקיבל</span> <span class="w" dir="rtl" data-t="40.900">רק</span> <span class="w" dir="rtl" data-t="41.000">אותו.</span></p></div>
+<div class="c1-cpic"><div class="c1-cpz"><div class="c1-cmini"><i></i><i></i><i></i><i></i></div>
 <svg class="c1-carrow" viewBox="0 0 150 46" aria-hidden="true"><path d="M146 23H8M24 8 8 23l16 15"/></svg>
 <div class="c1-cterm"><div class="c1-tbar"><i></i><i></i><i></i><span dir="ltr">Claude Code</span></div><span class="c1-clabel" dir="rtl">עותק נפרד</span>
-<div class="c1-cok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></div></div></div></div>
+<div class="c1-cok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></div></div></div></div></div>
 </div></div>
 </div>
 </div>
@@ -765,6 +809,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const totalRows = Math.round(body.offsetHeight / ROW);
     const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
     const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
+    // a short text (an excerpt) gets a card sized to it, centred where the full card would be
+    if (totalRows < ROWS) {
+      const cut = vp.offsetTop + totalRows * ROW + 28, top = card.offsetTop + (card.offsetHeight - cut) / 2;
+      [card, E.q(".plift", ctx.scene)].forEach((el) => { if (el) { el.style.height = cut + "px"; el.style.top = top + "px"; } });
+      vp.style.height = totalRows * ROW + "px";
+    }
     const H = (hls || []).map((h) => {
       const ln = E.q('[data-hl="' + h.id + '"]', card);
       const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
@@ -791,11 +841,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
     // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
     const n = pages.length;
-    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.35, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.25, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
     const LIFT = 1.1, DIM = 0.38;
     const mineOf = (i) => H.filter((h) => h.page === i);
     const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
-    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.05 : 0.2);
     // a plain last page stays settled a little longer before the exit
     let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
     for (let i = 0; i < n; i++) {
@@ -806,7 +856,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     }
     fixed += tail;
     const want = H.reduce((a, h) => a + h.want, 0);
-    let dwell = 0.27;
+    let dwell = 0.45;
     let room = t1 - t0 - fixed - nPlain * dwell;
     if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
       dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
@@ -834,18 +884,26 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     } else {
       dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
     }
-    // the lines around a lifted key line make room for it: the ones next to it move PUSH px,
-    // the shift tapers to 0 at the page edge, so no line is pushed out of the viewport
-    const PUSH = 10, plines = E.qa(".pl", body);
+    // the lines around a lifted key line make room for it: the ones next to it move up to PUSH px,
+    // each gap between two lines shrinks by at most COMP px, and the line at the page edge moves
+    // only EDGE px (inside its own leading, so no glyph is ever cut by the viewport)
+    const PUSH = 10, COMP = 4, EDGE = 2, plines = E.qa(".pl", body);
     H.forEach((h) => {
+      // a tall key line zooms less, and grows toward the side of the page that has more lines to push
+      const lh = h.bot - h.top;
+      h.s = 1 + Math.min(LIFT - 1, 10 / lh);
       const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
       const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
       const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
       const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      const f = above.length + below.length ? Math.min(0.85, Math.max(0.15, above.length / (above.length + below.length))) : 0.5;
+      h.lift.style.transformOrigin = "50% " + (f * 100).toFixed(1) + "%";
+      // each side is pushed by what the panel grows on that side, plus a gap
+      const grow = [f * lh * (h.s - 1), (1 - f) * lh * (h.s - 1)];
       h.push = [];
-      [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
-        const m = ls.length;
-        ls.forEach((l, j) => { const s = m > 1 ? (PUSH * (m - 1 - j)) / (m - 1) : 0; if (s > 0.5) h.push.push([l, sgn * s]); });
+      [[above, -1, grow[0]], [below, 1, grow[1]]].forEach(([ls, sgn, g]) => {
+        const m = ls.length, want = Math.max(PUSH, Math.round(g + 8));
+        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(want, EDGE + COMP * (m - 1 - j))]));
       });
     });
     // the lifted copies sit over their line on the page where it is held (static layout)
@@ -869,14 +927,15 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
           dimmed = true;
           tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
-          tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: h.s, duration: 0.6, ease: SPRING }), t);
           h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
+          h.t0 = t;
           t += h.hold;
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
           // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
-          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: h.s }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
           h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
           tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
           if (!keepDim) {
@@ -924,18 +983,24 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
       };
       // the section that holds the last visible row (the end of the prompt on the last page)
       const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      // while a key line is lifted, the underline sits on that line's own section
+      const secOf = (y) => { let k = 0; starts.forEach((st, j) => { if (st <= y) k = j; }); return k; };
+      const ev = [];
       for (let i = 1; i < n; i++) {
-        const k = i === n - 1 && !isHold(i) ? lastVisible(pages[i]) : secAt(pages[i]);
-        if (k !== cur) move(k, slides[i - 1][0], Math.max(0.3, slides[i - 1][1]));
+        const mine = mineOf(i);
+        const k = mine.length ? secOf(mine[0].top) : i === n - 1 ? lastVisible(pages[i]) : secAt(pages[i]);
+        ev.push([slides[i - 1][0], k, Math.max(0.3, slides[i - 1][1])]);
       }
+      H.forEach((h) => ev.push([h.t0, secOf(h.top), 0.3]));
+      ev.sort((a, b) => a[0] - b[0]).forEach(([ta, k, d]) => { if (k !== cur) move(k, ta, d); });
       // a last page with key lines: its last section takes over when the page undims
-      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) > cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) !== cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
     }
     tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
     return {
       pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
       holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
-      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, liftH: h.lift.offsetHeight })),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, s: +h.s.toFixed(3), origin: h.lift.style.transformOrigin, push: h.push.map((x) => Math.round(x[1])).join(" ") })),
     };
   };
 
@@ -1030,9 +1095,14 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { stTop, h, fit: +fit.toFixed(3) }, prompt: info };
   };
 
-  /* Chapter title card. */
+  /* Chapter title card. Frame 0 already shows the number (springing from 0.9), its rings, the kicker and
+     the dots, so a cut never lands on an empty frame; the title follows, the subtitle (and tag) only after
+     it, and the chapter's line-art motif draws itself beside the number. The hold stays alive: a slow
+     1.00 -> 1.03 push of the whole card, a glow that breathes on the number, a small motion in the motif.
+     The exit is a 0.22 s push-through. */
   E.chapter = function (tl, ctx, cfg) {
-    const S = cfg.S, sc = ctx.scene;
+    const S = cfg.S, sc = ctx.scene, T = cfg.T || {}, D = cfg.D;
+    const chap = E.q(".chap", sc), cam = E.q(".ch-cam", sc);
     const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
     // static layout: the title is one line no wider than 760 px; the divider and texts flow under it
     const tt = E.q(".ch-title", sc), tin = E.q(".ch-tin", sc);
@@ -1042,23 +1112,90 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const sub = E.q(".ch-sub", sc), tag = E.q(".ch-tag", sc);
     if (sub) sub.style.top = tBot + 66 + "px";
     if (tag && sub) tag.style.top = tBot + 66 + sub.offsetHeight + 34 + "px";
-    // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
+    // scene change: light band; the number is there from the first frame, rings and sparks go out from it
     E.band(tl, sc, S);
-    tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
+    tl.fromTo(n, { scale: 0.9, rotationY: -16, transformPerspective: 1200 }, A({ scale: 1, rotationY: 0, duration: 0.9, ease: SPRING }), S);
     E.qa(".ch-ring", sc).forEach((r, i) => {
-      tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
+      tl.fromTo(r, { scale: 0.66 + i * 0.14, opacity: 0.85 - i * 0.2 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S);
     });
-    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ffffff" });
-    tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
-    tl.set(n, { filter: "none" }, S + 0.58);
-    E.fadeIn(tl, k, S + 0.25, 0.5, 14);
-    E.kin(tl, E.q(".ch-title", sc), S);
-    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.7, ease: "power3.inOut" }), S + 0.75);
-    E.kin(tl, E.q(".ch-sub", sc), S, { dy: 12 });
-    E.kin(tl, E.q(".ch-tag", sc), S, { dy: 10 });
-    E.fadeIn(tl, dots, S + 0.6, 0.6, 10);
-    tl.fromTo(E.q(".chap", sc), { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.04, duration: 0.38, ease: "power2.in" }), S + cfg.D - 0.4);
-    E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "chapter" };
+    // sparks leave from the ring's edge (never a stack of dots over the number)
+    const rnd = E.rand(5);
+    for (let i = 0; i < 18; i++) {
+      const d = document.createElement("i"), sz = 5 + rnd() * 6, ang = (i / 18) * Math.PI * 2 + rnd() * 0.3;
+      const r0 = 128, r1 = 210 + rnd() * 150, dur = 0.6 + rnd() * 0.35;
+      d.className = "fx-dot";
+      d.style.cssText = "left:" + (540 + Math.cos(ang) * r0).toFixed(1) + "px;top:" + (670 + Math.sin(ang) * r0).toFixed(1) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:#ffffff;box-shadow:0 0 10px #ffffff";
+      sc.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * (r1 - r0), y: Math.sin(ang) * (r1 - r0), scale: 0.35, duration: dur, ease: "power3.out" }), S + 0.03);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), S + 0.03);
+    }
+    tl.fromTo(k, { opacity: 0.35, y: 8 }, A({ opacity: 1, y: 0, duration: 0.4, ease: SPRING }), S);
+    tl.fromTo(dots, { opacity: 0.4, y: 8 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SPRING }), S);
+    E.kin(tl, tt, S);
+    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.6, ease: "power3.inOut" }), S + (T.line || 0.5));
+    E.kin(tl, sub, S, { dy: 12 });
+    E.kin(tl, tag, S, { dy: 10 });
+    // the chapter motif draws itself, then keeps a small motion through the hold
+    const mo = E.q(".ch-mo", sc), mq = (s) => E.q(s, mo), mqa = (s) => E.qa(s, mo);
+    if (mo) {
+      E.qa(".dr", mo).forEach((p, i) => E.draw(tl, p, S + 0.06 + i * 0.035, 0.7));
+      E.qa(".mo-solid", mo).forEach((p) => tl.fromTo(p, { fillOpacity: 0 }, A({ fillOpacity: 1, duration: 0.3 }), S + 0.3));
+      E.qa(".fl", mo).forEach((p, i) => tl.fromTo(p, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.25 + i * 0.06));
+      const hold0 = Math.max(1.0, (T.lw || 1) - 0.4), N = cfg.n;
+      if (N === 1) {
+        // the cursor blinks
+        const cur = mq(".mo-cur");
+        for (let a = hold0, on = false; a < D - 0.3; a += 0.5, on = !on) tl.set(cur, { opacity: on ? 1 : 0 }, S + a);
+      } else if (N === 2) {
+        // a playhead runs over the waveform
+        const ph = mq(".mo-ph");
+        tl.fromTo(ph, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.8);
+        tl.fromTo(ph, { x: 0 }, A({ x: 164, duration: D - 1.1, ease: "none" }), S + 0.8);
+      } else if (N === 3) {
+        // the cube settles in and turns slowly
+        const mi = mq(".mo-in");
+        tl.fromTo(mi, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.8, ease: SPRING }), S + 0.05);
+        tl.fromTo(mq(".mo-cube"), { rotationY: -10 }, A({ rotationY: 62, duration: D, ease: "power1.out" }), S);
+      } else if (N === 4) {
+        // the play mark pulses
+        const pl = mq(".mo-play");
+        for (let a = hold0, j = 0; a + 0.6 < D - 0.25; a += 0.6, j++) {
+          tl.fromTo(pl, { scale: j % 2 ? 1.16 : 1, transformOrigin: "50% 50%" }, A({ scale: j % 2 ? 1 : 1.16, duration: 0.6, ease: "sine.inOut" }), S + a);
+        }
+      } else if (N === 5) {
+        // the plug goes into the socket and the connection glows
+        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -18, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
+        const rg = mq(".mo-ring");
+        tl.fromTo(rg, { opacity: 0.9, scale: 0.6, transformOrigin: "50% 50%" }, A({ opacity: 0, scale: 1.7, duration: 0.8, ease: "power2.out" }), S + hold0 + 0.4);
+      } else if (N === 6) {
+        // a scan line runs down the window; the sensitive line blurs as it passes
+        const scn = mq(".mo-scan"), tB = hold0 + 0.75;
+        tl.fromTo(scn, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + hold0);
+        tl.fromTo(scn, { y: 0 }, A({ y: 108, duration: 1.2, ease: "none" }), S + hold0);
+        tl.fromTo(scn, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), S + hold0 + 1.0);
+        tl.fromTo(mq(".mo-sharp"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), S + tB);
+        tl.fromTo(mq(".mo-blur"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + tB);
+      } else if (N === 7) {
+        // the draft bar fills fast and gets its check; the full render crawls
+        const f1 = mq(".mo-f1"), f2 = mq(".mo-f2");
+        [f1, f2].forEach((f) => tl.fromTo(f, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), S + 0.75));
+        tl.fromTo(f2, { scaleX: 0.04, transformOrigin: "0% 50%" }, A({ scaleX: 1, duration: 1.0, ease: "power1.inOut" }), S + 0.75);
+        tl.fromTo(f1, { scaleX: 0.04, transformOrigin: "0% 50%" }, A({ scaleX: 0.3, duration: D - 1.0, ease: "none" }), S + 0.75);
+        E.draw(tl, mq(".mo-ck"), S + 1.8, 0.35);
+      } else {
+        // the list gets checked, one row after another
+        mqa(".mo-ck").forEach((p, i) => E.draw(tl, p, S + hold0 + i * 0.35, 0.3));
+      }
+    }
+    // the hold: a slow push of the whole card and a soft glow that breathes on the number
+    tl.fromTo(cam, { scale: 1 }, A({ scale: 1.03, duration: D, ease: "none" }), S);
+    const G0 = "0 0 40px rgba(255, 69, 58, 0.35)", G1 = "0 0 70px rgba(255, 69, 58, 0.8)";
+    for (let a = 0.9, up = true; a + 1.0 <= D - 0.2; a += 1.0, up = !up) {
+      tl.fromTo(n, { textShadow: up ? G0 : G1 }, A({ textShadow: up ? G1 : G0, duration: 1.0, ease: "sine.inOut" }), S + a);
+    }
+    // exit: a short push-through into the next scene
+    tl.fromTo(chap, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.025, duration: 0.22, ease: "power2.in" }), S + D - 0.22);
+    E.debug.scenes[cfg.id] = { S, D, type: "chapter" };
   };
 
   window.SIMS = window.SIMS || {};
@@ -1072,7 +1209,7 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
   const t = (x) => S + x;
   const secs = cfg.secs;
   E.band(tl, sc, t(0));
-  E.fadeIn(tl, q(".hdr"), t(0.05), 0.5, 0);
+  // the header and the terminal are on screen from the first frame (CSS); no fade at the end either
 
   // section texts: kicker, kinetic text phrase by phrase (the phrase being read stays bright), exit
   qa(".c1-sec").forEach((sec, i) => {
@@ -1085,15 +1222,14 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
       const te = k + 1 < phs.length ? s.phr[k + 1] : s.end + 0.8;
       tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0.5, duration: 0.45, ease: "power2.out" }), t(te));
     });
-    const tOut = i + 1 < secs.length ? secs[i + 1].t0 - 0.25 : 39.8;
-    tl.fromTo(sec, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), t(tOut));
+    const tOut = i + 1 < secs.length ? secs[i + 1].t0 - 0.1 : 39.8;
+    tl.fromTo(sec, { opacity: 1 }, A({ opacity: 0, duration: 0.2, ease: "power2.in" }), t(tOut));
   });
 
   // ---- S1 Claude Code
   const P1 = secs[0].phr, term = q(".c1-term");
-  tl.fromTo(term, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), t(0.35));
-  tl.fromTo(term, { rotationX: 18, y: 60, transformPerspective: 1400 }, A({ rotationX: 0, y: 0, duration: 0.9, ease: SP }), t(0.35));
-  E.sweep(tl, term, t(0.85), 0.9, { color: "rgba(201, 194, 255, 0.16)" });
+  tl.fromTo(term, { rotationX: 18, y: 60, transformPerspective: 1400 }, A({ rotationX: 0, y: 0, duration: 0.9, ease: SP }), t(0));
+  E.sweep(tl, term, t(0.6), 0.9, { color: "rgba(201, 194, 255, 0.16)" });
   const l1 = q(".c1-l1"), ty1 = q(".c1-ty1");
   tl.fromTo(l1, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t(0.9));
   tl.fromTo(ty1, { clipPath: "inset(0px 100% 0px 0px)" }, A({ clipPath: "inset(0px 0% 0px 0px)", duration: 0.5, ease: "steps(6)" }), t(1.0));
@@ -1140,7 +1276,7 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
     const a = 10.9 + i * 0.25;
     tl.fromTo(k, { opacity: 0, y: 24 }, A({ opacity: 1, y: 0, duration: 0.45, ease: SP }), t(a));
     // into the terminal (its centre is at 400, 400 of the picture)
-    const fy = 400 - (6 + i * 76 + 30), fx = 400 - (606 + 95);
+    const fy = 400 - (6 + i * 76 + 30), fx = 400 - (566 + 105);
     tl.fromTo(k, { x: 0, y: 0, scale: 1 }, A({ x: fx, y: fy, scale: 0.3, duration: 0.5, ease: "power2.in" }), t(a + 0.75));
     tl.fromTo(k, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(a + 1.1));
   });
@@ -1179,24 +1315,34 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
     tl.fromTo(dot, { y: ymid }, A({ y: y1, duration: 0.45, ease: "sine.in" }), t(a + 0.45));
     tl.fromTo(dot, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(a + 0.85));
   };
-  travel(d1, P3[1] + 0.6, 600, 462, 120, 95, 232);
-  travel(d1, P3[1] + 1.55, 600, 462, 120, 95, 232);
+  travel(d1, P3[1] + 0.6, 600, 462, 120, 95, 241);
+  travel(d1, P3[1] + 1.55, 600, 462, 120, 95, 241);
   tl.fromTo(glow, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t(P3[1] + 1.45));
   tl.fromTo(glow, { opacity: 1 }, A({ opacity: 0, duration: 0.5 }), t(P3[1] + 1.65));
   // talk to it in Hebrew; the whole picture: folder -> Claude Code -> MP4
   const say = q(".c1-say");
   tl.fromTo(say, { opacity: 0, scale: 0.8, y: 16 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.5, ease: SP }), t(P3[2] + 0.15));
   E.draw(tl, arc2, t(P3[2] + 0.6), 0.6);
-  travel(d2, P3[2] + 1.1, 146, 112, 520, 470, 594);
-  travel(d2, P3[2] + 2.05, 146, 112, 520, 470, 594);
+  travel(d2, P3[2] + 1.1, 149, 162, 520, 470, 594);
+  travel(d2, P3[2] + 2.05, 149, 162, 520, 470, 594);
+  // typed, not spoken: the caret blinks in the Hebrew bubble
+  const caret = q(".c1-caret");
+  for (let k = 0, a = P3[2] + 0.7; a < 29.9; k++, a += 0.45) tl.set(caret, { opacity: k % 2 ? 1 : 0 }, t(a));
+  // the full picture: Claude Code runs Opus 5.5 with the HyperFrames skills
+  qa(".c1-tools > span").forEach((el, i) => {
+    tl.fromTo(el, { opacity: 0, y: 26, scale: 0.85 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.55, ease: SP }), t(26.5 + i * 0.25));
+    E.sweep(tl, el, t(26.95 + i * 0.25), 0.7, { color: "rgba(255, 255, 255, 0.3)" });
+  });
+  E.draw(tl, q(".c1-opus .c1-ck path"), t(26.85), 0.35);
   E.sweep(tl, term, t(P3[2] + 2.6), 0.9, { color: "rgba(201, 194, 255, 0.14)" });
   tl.fromTo(mp4, { boxShadow: "0 0 22px rgba(255, 69, 58, 0.4)" }, A({ boxShadow: "0 0 44px rgba(255, 69, 58, 0.9)", duration: 0.25 }), t(P3[2] + 2.0));
-  [term, mp4, fw, say, q(".c1-arcs")].forEach((el) => E.dim(tl, el, t(30.1), 0, 1, 0.3));
+  [term, mp4, fw, say, q(".c1-arcs")].forEach((el) => E.dim(tl, el, t(30.0), 0, 1, 0.3));
 
   // ---- S4 how to use the prompts
   const P4 = secs[3].phr, card = q(".c1-pcard");
-  tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), t(30.5));
-  tl.fromTo(card, { rotationX: 16, y: 70, scale: 0.94, transformPerspective: 1500 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SP }), t(30.5));
+  // the card comes in while the diagram is still going out (no empty frame between the beats)
+  tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), t(30.15));
+  tl.fromTo(card, { rotationX: 16, y: 70, scale: 0.94, transformPerspective: 1500 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SP }), t(30.15));
   E.sweep(tl, card, t(30.9), 0.9, { color: "rgba(201, 194, 255, 0.16)" });
   const tabs = qa(".c1-tab"), tul = q(".c1-tul");
   const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
@@ -1210,14 +1356,16 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
   });
   E.fadeIn(tl, q(".c1-most"), t(31.4), 0.5, 10);
   // copy it into Claude Code
-  E.dim(tl, q(".c1-most"), t(P4[1]), 0, 1, 0.25);
-  tl.fromTo(q(".c1-copy"), { scale: 1 }, A({ scale: 1.35, duration: 0.15, ease: "power2.out" }), t(P4[1] + 0.05));
-  tl.fromTo(q(".c1-copy"), { scale: 1.35 }, A({ scale: 1, duration: 0.25, ease: "power2.in" }), t(P4[1] + 0.2));
+  // "ככה בנויים..." stays readable until 33.2, then the card flies into Claude Code
+  const tFly = 33.3;
+  E.dim(tl, q(".c1-most"), t(tFly - 0.1), 0, 1, 0.2);
+  tl.fromTo(q(".c1-copy"), { scale: 1 }, A({ scale: 1.35, duration: 0.15, ease: "power2.out" }), t(tFly - 0.4));
+  tl.fromTo(q(".c1-copy"), { scale: 1.35 }, A({ scale: 1, duration: 0.25, ease: "power2.in" }), t(tFly - 0.25));
   const mini = q(".c1-mini");
-  tl.fromTo(mini, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(P4[1] + 0.2));
-  tl.fromTo(card, { scale: 1, y: 0 }, A({ scale: 0.22, y: 435, duration: 0.6, ease: "power2.in" }), t(P4[1] + 0.5));
-  tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(P4[1] + 1.0));
-  E.burst(tl, mini, 180, 110, t(P4[1] + 1.05), { n: 10, seed: 17, r0: 30, r1: 90, color: "#c9c2ff" });
+  tl.fromTo(mini, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(tFly - 0.35));
+  tl.fromTo(card, { scale: 1, y: 0 }, A({ scale: 0.22, y: 435, duration: 0.55, ease: "power2.in" }), t(tFly));
+  tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: 0.12 }), t(tFly + 0.45));
+  E.burst(tl, mini, 180, 110, t(tFly + 0.5), { n: 10, seed: 17, r0: 30, r1: 90, color: "#c9c2ff" });
   // it asks a few questions before touching anything
   qa(".c1-q").forEach((b, i) => {
     tl.fromTo(b, { opacity: 0, y: 40, scale: 0.85 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.5, ease: SP }), t(P4[2] + 0.2 + i * 0.4));
@@ -1228,26 +1376,44 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
   tl.fromTo(cmd, { opacity: 0, y: 24 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(P4[3] + 0.15));
   const fc = q(".c1-fc");
   tl.fromTo(fc, { scale: 0.7 }, A({ scale: 1, duration: 0.45, ease: "back.out(2)" }), t(P4[3] + 0.75));
-  E.dim(tl, q(".c1-vis"), t(39.8), 0, 1, 0.3);
-  // every prompt was checked by a separate copy of Claude
+  E.dim(tl, q(".c1-vis"), t(39.85), 0, 1, 0.3);
+  // every prompt was checked by a separate copy of Claude (the box comes in under the outgoing beat)
   const box = q(".c1-cbox");
-  tl.fromTo(box, { opacity: 0, scale: 0.94, y: 30 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.6, ease: SP }), t(40.0));
-  qa(".c1-shield path").forEach((p, i) => E.draw(tl, p, t(40.15 + i * 0.35), 0.5));
+  tl.fromTo(box, { opacity: 0, scale: 0.94, y: 30 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.6, ease: SP }), t(39.8));
+  qa(".c1-shield path").forEach((p, i) => E.draw(tl, p, t(39.95 + i * 0.35), 0.5));
   E.kin(tl, q(".c1-ct"), S, { dy: 14 });
   // the picture: the prompt goes to a separate copy of Claude, and a check comes back
   const cm = q(".c1-cmini"), ct = q(".c1-cterm"), ok = q(".c1-cok");
-  tl.fromTo(cm, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(40.35));
-  tl.fromTo(ct, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(40.5));
-  E.draw(tl, q(".c1-carrow path"), t(41.0), 0.5);
-  tl.fromTo(cm, { x: 0, scale: 1 }, A({ x: -475, scale: 0.4, duration: 0.55, ease: "power2.in" }), t(41.55));
-  tl.fromTo(cm, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(41.95));
-  tl.fromTo(ok, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }), t(42.2));
-  E.draw(tl, q(".c1-cok path"), t(42.35), 0.35);
-  E.burst(tl, ct, 170, 180, t(42.3), { n: 14, seed: 23, r0: 60, r1: 160, color: "#c9c2ff" });
-  E.sweep(tl, box, t(42.6), 0.9, { color: "rgba(201, 194, 255, 0.14)" });
-  E.fadeOut(tl, box, t(cfg.D - 0.4), 0.3, -16);
-  E.fadeOut(tl, q(".c1-cpic"), t(cfg.D - 0.4), 0.3, -16);
-  E.fadeOut(tl, q(".hdr"), t(cfg.D - 0.4), 0.3, 0);
+  tl.fromTo(cm, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(40.1));
+  tl.fromTo(ct, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(40.25));
+  E.draw(tl, q(".c1-carrow path"), t(40.75), 0.5);
+  tl.fromTo(cm, { x: 0, scale: 1 }, A({ x: -475, scale: 0.4, duration: 0.55, ease: "power2.in" }), t(41.3));
+  tl.fromTo(cm, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(41.7));
+  tl.fromTo(ok, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }), t(41.95));
+  E.draw(tl, q(".c1-cok path"), t(42.1), 0.35);
+  E.burst(tl, ct, 170, 180, t(42.05), { n: 14, seed: 23, r0: 60, r1: 160, color: "#c9c2ff" });
+  E.sweep(tl, box, t(42.35), 0.9, { color: "rgba(201, 194, 255, 0.14)" });
+  // camera: a spring punch-in (1.12, back.out) on each key moment, reset at the next beat; the illustration
+  // sits in a clip box at the safe area and each focus is clamped so the texts in view stay whole
+  const ZS = 1.12;
+  const punch = (el, a, b, fx, fy, L, R) => {
+    const lo = (ZS * R - 800) / (ZS - 1), hi = (ZS * L) / (ZS - 1);
+    const cx = lo <= hi ? Math.min(hi, Math.max(lo, fx)) : (L + R) / 2;
+    tl.set(el, { transformOrigin: cx.toFixed(1) + "px " + fy + "px" }, t(a));
+    tl.fromTo(el, { scale: 1 }, A({ scale: ZS, duration: 0.5, ease: "back.out(1.6)" }), t(a));
+    if (b != null) tl.fromTo(el, { scale: ZS }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), t(b));
+  };
+  const zc = q(".c1-cam");
+  punch(zc, 5.3, 6.3, 400, 80, 50, 750);        // the model: Claude Opus 5.5
+  punch(zc, 16.9, 20.3, 510, 760, 60, 651);     // "כלי חינמי"
+  punch(zc, 25.0, 26.35, 600, 700, 60, 740);    // talking to it like an editor next to you
+  punch(q(".c1-cpz"), 41.35, null, 190, 300, 20, 530);   // "עותק נפרד"
+  // and a slow 1.00 -> 1.02 drift within each beat
+  const vis = q(".c1-vis");
+  [[0.3, 5.0], [5.1, 10.2], [10.4, 16.8], [17.0, 20.4], [20.8, 24.9], [25.1, 29.95], [30.3, 33.1], [33.4, 39.6]].forEach(([a, b]) => {
+    tl.fromTo(vis, { scale: 1 }, A({ scale: 1.02, duration: b - a - 0.35, ease: "none" }), t(a));
+    tl.fromTo(vis, { scale: 1.02 }, A({ scale: 1, duration: 0.35, ease: "power2.inOut" }), t(b - 0.35));
+  });
   E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "custom" };
 };
 

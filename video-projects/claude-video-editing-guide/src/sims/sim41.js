@@ -94,7 +94,8 @@ window.SIMS.sim41 = function (tl, ctx, cfg, S) {
   tl.fromTo(mbg, { clipPath: "inset(0px 0px 0px 100%)" }, A({ clipPath: "inset(0px 0px 0px 0%)", duration: 0.55, ease: "power2.inOut" }), T(b2 + 0.3));
   qa(".s41-mini .s41-card").forEach((card, i) => {
     const a = E.center(cards[i], root), b = E.center(card, root), t = T(b2 + 0.32 + i * 0.12);
-    tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), t);
+    // the copy only shows once it has left the original by about a card width (no doubled text)
+    tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t + 0.14);
     tl.fromTo(card, { x: a.x - b.x, y: a.y - b.y }, A({ x: 0, y: 0, duration: 0.75, ease: E.SPRING }), t);
   });
   E.fadeIn(tl, q(".s41-tmp4"), T(b2 + 0.7), 0.5, 14);
@@ -114,11 +115,13 @@ window.SIMS.sim41 = function (tl, ctx, cfg, S) {
   tl.fromTo(ph, { x: 0 }, A({ x: -44, duration: pe + 0.4 - (e3 + 0.12), ease: "none" }), T(e3 + 0.12));
   tl.fromTo(bmov, { opacity: 0, y: -46 }, A({ opacity: 1, y: 0, duration: 0.36, ease: "back.out(1.6)" }), T(e3 + 0.08));
   E.glitch(tl, bmov, T(e3 + 0.44), 9);
-  tl.fromTo(bmov, { borderColor: "rgba(201, 194, 255, 0.55)" }, A({ borderColor: "rgba(255, 69, 58, 0.9)", duration: 0.2 }), T(e3 + 0.44));
+  // only the cross badge is red (red rule); the rejected chip's border just dims
+  tl.fromTo(bmov, { borderColor: "rgba(201, 194, 255, 0.55)" }, A({ borderColor: "rgba(201, 194, 255, 0.35)", duration: 0.2 }), T(e3 + 0.44));
   const no = q(".s41-no");
   tl.fromTo(no, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }), T(e3 + 0.5));
   qa(".s41-no path").forEach((p, i) => E.draw(tl, p, T(e3 + 0.54 + i * 0.12), 0.22));
-  tl.fromTo(bmov, { y: 0 }, A({ y: -182, duration: 0.45, ease: E.SPRING }), T(e3 + 0.8));
+  // rejected: it drops out through the bottom of the editor (its path never crosses the title)
+  tl.fromTo(bmov, { y: 0, rotation: 0 }, A({ y: 206, rotation: -4, duration: 0.5, ease: E.SPRING }), T(e3 + 0.8));
   tl.fromTo(bmp4, { opacity: 0, y: -46 }, A({ opacity: 1, y: 0, duration: 0.36, ease: "back.out(1.6)" }), T(e3 + 0.9));
   const ok = q(".s41-ok");
   tl.fromTo(ok, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }), T(e3 + 1.26));

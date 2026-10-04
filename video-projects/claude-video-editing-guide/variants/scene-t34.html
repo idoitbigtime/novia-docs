@@ -358,22 +358,52 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .tip-text .w { opacity: 0; }
 
 /* ---------- chapter card ---------- */
-.chap { position: absolute; inset: 0; }
-.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
-.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
+.chap { position: absolute; inset: 0; transform-origin: 540px 900px; }
+/* the card's camera: a slow push through the hold */
+.ch-cam { position: absolute; inset: 0; transform-origin: 540px 900px; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0.35; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); }
 .ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
 .ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
 .ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
 .ch-tin { display: inline-block; white-space: nowrap; }
 .ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
-.ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-sub { position: absolute; top: 1040px; left: 160px; width: 760px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
 .ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
 /* centred blocks wrap into even lines; paragraphs never end on a lone word */
 .ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
 .exp, .tip-text { text-wrap: pretty; }
-.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0.4; }
 .ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
 .ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+/* the chapter motif: 180 px line art beside the number (lavender, 35%) */
+/* frame 0 of a card (a seek to 0 may not render the timeline): the number and its rings are already there */
+.chap .ch-n { transform: perspective(1200px) rotateY(-16deg) scale(0.9); }
+.chap .ch-ring { opacity: 0.85; transform: scale(0.66); }
+.chap .ch-ring2 { opacity: 0.65; transform: scale(0.8); }
+.chap .ch-k, .chap .ch-dots { transform: translateY(8px); }
+.ch-mo { position: absolute; left: 740px; top: 580px; width: 180px; height: 180px; opacity: 0.35; overflow: visible; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
+.ch-mo .dr, .ch-mo .mo-ph, .ch-mo .mo-scan, .ch-mo .mo-ck, .ch-mo .mo-ring, .ch-mo .mo-blur { fill: none; stroke: #c9c2ff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.ch-mo .fl, .ch-mo .mo-f { fill: #c9c2ff; }
+.ch-mo .fl { opacity: 0; }
+.ch-mo .mo-solid { fill: #0b0a16; fill-opacity: 0; }
+.ch-mo .mo-bar { stroke-width: 6; }
+.ch-mo .mo-ph { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-scan { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-blur { stroke-width: 11; opacity: 0; }
+.ch-mo .mo-ring { stroke-width: 2.5; opacity: 0; }
+.ch-mo .mo-f { opacity: 0; }
+.ch-mo .mo-ck { stroke-width: 4.5; }
+.ch-mo3 .mo-in { position: absolute; inset: 0; perspective: 640px; opacity: 0; }
+.ch-mo3 .mo-tilt { position: absolute; left: 40px; top: 40px; width: 100px; height: 100px; transform-style: preserve-3d; transform: rotateX(-24deg); }
+.ch-mo3 .mo-cube { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(-10deg); }
+.ch-mo3 .mo-cube i { position: absolute; inset: 0; border: 3.5px solid #c9c2ff; border-radius: 5px; display: block; }
+.ch-mo3 .mo-face0 { transform: translateZ(50px); }
+.ch-mo3 .mo-face1 { transform: rotateY(180deg) translateZ(50px); }
+.ch-mo3 .mo-face2 { transform: rotateY(90deg) translateZ(50px); }
+.ch-mo3 .mo-face3 { transform: rotateY(-90deg) translateZ(50px); }
+.ch-mo3 .mo-face4 { transform: rotateX(90deg) translateZ(50px); }
+.ch-mo3 .mo-face5 { transform: rotateX(-90deg) translateZ(50px); }
 
 /* ---------- effects ---------- */
 /* light sweep across an element (the element clips it) */
@@ -502,11 +532,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="37.810" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="37.710" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t34" class="clip scene" data-start="0.000" data-duration="37.810" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.4</span></div>
+<div id="sc-t34" class="clip scene" data-start="0.000" data-duration="37.710" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.4</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">הפריים</span> <span class="w" dir="rtl" data-t="0.430">מתפרק</span> <span class="w" dir="rtl" data-t="0.560">לשכבות</span> <span class="w" dir="rtl" data-t="0.690">בתלת</span> <span class="w" dir="rtl" data-t="0.820">ממד</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.650">על</span> <span class="w" dir="rtl" data-t="1.710">המילה</span> <span class="w" dir="rtl" data-t="1.770">שבחרתם</span> <span class="w" dir="rtl" data-t="1.830">הפריים</span> <span class="w" dir="rtl" data-t="1.890">נפרד</span> <span class="w" dir="rtl" data-t="1.950">לשכבות</span> <span class="w" dir="rtl" data-t="2.010">בעומק:</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.850">החדר</span> <span class="w" dir="rtl" data-t="3.910">הריק,</span> <span class="w" dir="rtl" data-t="3.970">הטקסט</span> <span class="w" dir="rtl" data-t="4.030">שעל</span> <span class="w" dir="rtl" data-t="4.090">הקיר,</span> <span class="w" dir="rtl" data-t="4.150">אתם</span> <span class="w" dir="rtl" data-t="4.210">בלי</span> <span class="w" dir="rtl" data-t="4.270">הרקע</span> <span class="w" dir="rtl" data-t="4.330">והאפקטים</span> <span class="w" dir="rtl" data-t="4.390">שלפניכם.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.800">המצלמה</span> <span class="w" dir="rtl" data-t="6.860">מסתובבת,</span> <span class="w" dir="rtl" data-t="6.920">כל</span> <span class="w" dir="rtl" data-t="6.980">שכבה</span> <span class="w" dir="rtl" data-t="7.040">מקבלת</span> <span class="w" dir="rtl" data-t="7.100">שם</span> <span class="w" dir="rtl" data-t="7.160">בעברית,</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.000">ועל</span> <span class="w" dir="rtl" data-t="9.060">מילת</span> <span class="w" dir="rtl" data-t="9.120">האיחוד</span> <span class="w" dir="rtl" data-t="9.180">הכל</span> <span class="w" dir="rtl" data-t="9.240">נוחת</span> <span class="w" dir="rtl" data-t="9.300">בחזרה</span> <span class="accgrp" data-t="9.360"><span class="w s-str" dir="rtl" data-t="9.360">בדיוק</span><i class="ul" data-t="9.540"></i></span> <span class="w" dir="rtl" data-t="9.420">בתמונה</span> <span class="w" dir="rtl" data-t="9.480">המקורית.</span></span></p></div>
 <div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim34">
@@ -564,7 +594,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl pl-empty"></div>
 <div class="pl ptag" dir="rtl" data-sec="בנייה">&lt;בנייה&gt;</div>
 <div class="pl" dir="rtl">1. אם אין צילום של החדר הריק, תראה לי מודל לעריכת תמונה ואת המחיר שלו, ואחרי האישור תיצור איתו את החדר מפריים אחד ותדביק את התוצאה רק באזור של הגוף, שהוא האיחוד של הגוף מכל הפריימים בסצנה ועוד כמה פיקסלים סביבו, כך ששאר החדר נשאר אמיתי.</div>
-<div class="pl" dir="rtl">2. את הגוף שלי בלי הרקע תוציא עם <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">remove-background</span> <span class="tk">&lt;הסרטון&gt;</span> <span class="tk">-o cutout.webm</span> <span class="tk">--quality best</span><span class="bt">`</span></span>,</span>ותבדוק אותו על רקע ירוק לפני הבנייה, כי נשארים בו לפעמים חלקים מהכיסא או מהמסך.</div>
+<div class="pl" dir="rtl">2. את הגוף שלי בלי הרקע תוציא עם <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">remove-background</span> <span class="tk"><bdi dir="ltr">&lt;הסרטון&gt;</bdi></span> <span class="tk">-o cutout.webm</span> <span class="tk">--quality best</span><span class="bt">`</span></span>,</span>ותבדוק אותו על רקע ירוק לפני הבנייה, כי נשארים בו לפעמים חלקים מהכיסא או מהמסך.</div>
 <div class="pl" dir="rtl">3. את הסצנה תבנה בקומפוזיציה של HyperFrames עם three.js: כל שכבה היא משטח בגודל הפריים, וכשהמצלמה במקום שלה הם מכסים אותו בדיוק.</div>
 <div class="pl" dir="rtl">4. העומק בזמן הפירוק, ביחס לרוחב הפריים: בערך 0.83 מהרוחב אחורה לחדר, 0.42 לקיר, 0 לי <span class="nb">ו-0.1</span> קדימה לאפקטים.</div>
 <div class="pl" dir="rtl">5. כל שכבה נפרדת על קפיץ משלה, עם הפרש קטן ביניהן (עד 0.12 שנייה), והמצלמה מסתובבת לזווית של בערך 40 מעלות לצד <span class="nb">ו-9</span> מעלות מלמעלה ומתרחקת בערך פי 1.4, כדי שכל השכבות והשמות יישארו בתוך הפריים.</div>
@@ -794,6 +824,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const totalRows = Math.round(body.offsetHeight / ROW);
     const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
     const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
+    // a short text (an excerpt) gets a card sized to it, centred where the full card would be
+    if (totalRows < ROWS) {
+      const cut = vp.offsetTop + totalRows * ROW + 28, top = card.offsetTop + (card.offsetHeight - cut) / 2;
+      [card, E.q(".plift", ctx.scene)].forEach((el) => { if (el) { el.style.height = cut + "px"; el.style.top = top + "px"; } });
+      vp.style.height = totalRows * ROW + "px";
+    }
     const H = (hls || []).map((h) => {
       const ln = E.q('[data-hl="' + h.id + '"]', card);
       const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
@@ -835,7 +871,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     }
     fixed += tail;
     const want = H.reduce((a, h) => a + h.want, 0);
-    let dwell = 0.27;
+    let dwell = 0.45;
     let room = t1 - t0 - fixed - nPlain * dwell;
     if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
       dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
@@ -868,14 +904,21 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     // only EDGE px (inside its own leading, so no glyph is ever cut by the viewport)
     const PUSH = 10, COMP = 4, EDGE = 2, plines = E.qa(".pl", body);
     H.forEach((h) => {
+      // a tall key line zooms less, and grows toward the side of the page that has more lines to push
+      const lh = h.bot - h.top;
+      h.s = 1 + Math.min(LIFT - 1, 10 / lh);
       const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
       const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
       const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
       const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      const f = above.length + below.length ? Math.min(0.85, Math.max(0.15, above.length / (above.length + below.length))) : 0.5;
+      h.lift.style.transformOrigin = "50% " + (f * 100).toFixed(1) + "%";
+      // each side is pushed by what the panel grows on that side, plus a gap
+      const grow = [f * lh * (h.s - 1), (1 - f) * lh * (h.s - 1)];
       h.push = [];
-      [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
-        const m = ls.length;
-        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(PUSH, EDGE + COMP * (m - 1 - j))]));
+      [[above, -1, grow[0]], [below, 1, grow[1]]].forEach(([ls, sgn, g]) => {
+        const m = ls.length, want = Math.max(PUSH, Math.round(g + 8));
+        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(want, EDGE + COMP * (m - 1 - j))]));
       });
     });
     // the lifted copies sit over their line on the page where it is held (static layout)
@@ -899,7 +942,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
           dimmed = true;
           tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
-          tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: h.s, duration: 0.6, ease: SPRING }), t);
           h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
           h.t0 = t;
@@ -907,7 +950,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
           // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
-          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: h.s }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
           h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
           tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
           if (!keepDim) {
@@ -972,7 +1015,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     return {
       pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
       holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
-      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, liftH: h.lift.offsetHeight })),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, s: +h.s.toFixed(3), origin: h.lift.style.transformOrigin, push: h.push.map((x) => Math.round(x[1])).join(" ") })),
     };
   };
 
@@ -1067,9 +1110,14 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { stTop, h, fit: +fit.toFixed(3) }, prompt: info };
   };
 
-  /* Chapter title card. */
+  /* Chapter title card. Frame 0 already shows the number (springing from 0.9), its rings, the kicker and
+     the dots, so a cut never lands on an empty frame; the title follows, the subtitle (and tag) only after
+     it, and the chapter's line-art motif draws itself beside the number. The hold stays alive: a slow
+     1.00 -> 1.03 push of the whole card, a glow that breathes on the number, a small motion in the motif.
+     The exit is a 0.22 s push-through. */
   E.chapter = function (tl, ctx, cfg) {
-    const S = cfg.S, sc = ctx.scene;
+    const S = cfg.S, sc = ctx.scene, T = cfg.T || {}, D = cfg.D;
+    const chap = E.q(".chap", sc), cam = E.q(".ch-cam", sc);
     const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
     // static layout: the title is one line no wider than 760 px; the divider and texts flow under it
     const tt = E.q(".ch-title", sc), tin = E.q(".ch-tin", sc);
@@ -1079,23 +1127,90 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const sub = E.q(".ch-sub", sc), tag = E.q(".ch-tag", sc);
     if (sub) sub.style.top = tBot + 66 + "px";
     if (tag && sub) tag.style.top = tBot + 66 + sub.offsetHeight + 34 + "px";
-    // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
+    // scene change: light band; the number is there from the first frame, rings and sparks go out from it
     E.band(tl, sc, S);
-    tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
+    tl.fromTo(n, { scale: 0.9, rotationY: -16, transformPerspective: 1200 }, A({ scale: 1, rotationY: 0, duration: 0.9, ease: SPRING }), S);
     E.qa(".ch-ring", sc).forEach((r, i) => {
-      tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
+      tl.fromTo(r, { scale: 0.66 + i * 0.14, opacity: 0.85 - i * 0.2 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S);
     });
-    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ffffff" });
-    tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
-    tl.set(n, { filter: "none" }, S + 0.58);
-    E.fadeIn(tl, k, S + 0.25, 0.5, 14);
-    E.kin(tl, E.q(".ch-title", sc), S);
-    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.7, ease: "power3.inOut" }), S + 0.75);
-    E.kin(tl, E.q(".ch-sub", sc), S, { dy: 12 });
-    E.kin(tl, E.q(".ch-tag", sc), S, { dy: 10 });
-    E.fadeIn(tl, dots, S + 0.6, 0.6, 10);
-    tl.fromTo(E.q(".chap", sc), { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.04, duration: 0.38, ease: "power2.in" }), S + cfg.D - 0.4);
-    E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "chapter" };
+    // sparks leave from the ring's edge (never a stack of dots over the number)
+    const rnd = E.rand(5);
+    for (let i = 0; i < 18; i++) {
+      const d = document.createElement("i"), sz = 5 + rnd() * 6, ang = (i / 18) * Math.PI * 2 + rnd() * 0.3;
+      const r0 = 128, r1 = 210 + rnd() * 150, dur = 0.6 + rnd() * 0.35;
+      d.className = "fx-dot";
+      d.style.cssText = "left:" + (540 + Math.cos(ang) * r0).toFixed(1) + "px;top:" + (670 + Math.sin(ang) * r0).toFixed(1) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:#ffffff;box-shadow:0 0 10px #ffffff";
+      sc.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * (r1 - r0), y: Math.sin(ang) * (r1 - r0), scale: 0.35, duration: dur, ease: "power3.out" }), S + 0.03);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), S + 0.03);
+    }
+    tl.fromTo(k, { opacity: 0.35, y: 8 }, A({ opacity: 1, y: 0, duration: 0.4, ease: SPRING }), S);
+    tl.fromTo(dots, { opacity: 0.4, y: 8 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SPRING }), S);
+    E.kin(tl, tt, S);
+    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.6, ease: "power3.inOut" }), S + (T.line || 0.5));
+    E.kin(tl, sub, S, { dy: 12 });
+    E.kin(tl, tag, S, { dy: 10 });
+    // the chapter motif draws itself, then keeps a small motion through the hold
+    const mo = E.q(".ch-mo", sc), mq = (s) => E.q(s, mo), mqa = (s) => E.qa(s, mo);
+    if (mo) {
+      E.qa(".dr", mo).forEach((p, i) => E.draw(tl, p, S + 0.06 + i * 0.035, 0.7));
+      E.qa(".mo-solid", mo).forEach((p) => tl.fromTo(p, { fillOpacity: 0 }, A({ fillOpacity: 1, duration: 0.3 }), S + 0.3));
+      E.qa(".fl", mo).forEach((p, i) => tl.fromTo(p, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.25 + i * 0.06));
+      const hold0 = Math.max(1.0, (T.lw || 1) - 0.4), N = cfg.n;
+      if (N === 1) {
+        // the cursor blinks
+        const cur = mq(".mo-cur");
+        for (let a = hold0, on = false; a < D - 0.3; a += 0.5, on = !on) tl.set(cur, { opacity: on ? 1 : 0 }, S + a);
+      } else if (N === 2) {
+        // a playhead runs over the waveform
+        const ph = mq(".mo-ph");
+        tl.fromTo(ph, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.8);
+        tl.fromTo(ph, { x: 0 }, A({ x: 164, duration: D - 1.1, ease: "none" }), S + 0.8);
+      } else if (N === 3) {
+        // the cube settles in and turns slowly
+        const mi = mq(".mo-in");
+        tl.fromTo(mi, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.8, ease: SPRING }), S + 0.05);
+        tl.fromTo(mq(".mo-cube"), { rotationY: -10 }, A({ rotationY: 62, duration: D, ease: "power1.out" }), S);
+      } else if (N === 4) {
+        // the play mark pulses
+        const pl = mq(".mo-play");
+        for (let a = hold0, j = 0; a + 0.6 < D - 0.25; a += 0.6, j++) {
+          tl.fromTo(pl, { scale: j % 2 ? 1.16 : 1, transformOrigin: "50% 50%" }, A({ scale: j % 2 ? 1 : 1.16, duration: 0.6, ease: "sine.inOut" }), S + a);
+        }
+      } else if (N === 5) {
+        // the plug goes into the socket and the connection glows
+        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -18, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
+        const rg = mq(".mo-ring");
+        tl.fromTo(rg, { opacity: 0.9, scale: 0.6, transformOrigin: "50% 50%" }, A({ opacity: 0, scale: 1.7, duration: 0.8, ease: "power2.out" }), S + hold0 + 0.4);
+      } else if (N === 6) {
+        // a scan line runs down the window; the sensitive line blurs as it passes
+        const scn = mq(".mo-scan"), tB = hold0 + 0.75;
+        tl.fromTo(scn, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + hold0);
+        tl.fromTo(scn, { y: 0 }, A({ y: 108, duration: 1.2, ease: "none" }), S + hold0);
+        tl.fromTo(scn, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), S + hold0 + 1.0);
+        tl.fromTo(mq(".mo-sharp"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), S + tB);
+        tl.fromTo(mq(".mo-blur"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + tB);
+      } else if (N === 7) {
+        // the draft bar fills fast and gets its check; the full render crawls
+        const f1 = mq(".mo-f1"), f2 = mq(".mo-f2");
+        [f1, f2].forEach((f) => tl.fromTo(f, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), S + 0.75));
+        tl.fromTo(f2, { scaleX: 0.04, transformOrigin: "0% 50%" }, A({ scaleX: 1, duration: 1.0, ease: "power1.inOut" }), S + 0.75);
+        tl.fromTo(f1, { scaleX: 0.04, transformOrigin: "0% 50%" }, A({ scaleX: 0.3, duration: D - 1.0, ease: "none" }), S + 0.75);
+        E.draw(tl, mq(".mo-ck"), S + 1.8, 0.35);
+      } else {
+        // the list gets checked, one row after another
+        mqa(".mo-ck").forEach((p, i) => E.draw(tl, p, S + hold0 + i * 0.35, 0.3));
+      }
+    }
+    // the hold: a slow push of the whole card and a soft glow that breathes on the number
+    tl.fromTo(cam, { scale: 1 }, A({ scale: 1.03, duration: D, ease: "none" }), S);
+    const G0 = "0 0 40px rgba(255, 69, 58, 0.35)", G1 = "0 0 70px rgba(255, 69, 58, 0.8)";
+    for (let a = 0.9, up = true; a + 1.0 <= D - 0.2; a += 1.0, up = !up) {
+      tl.fromTo(n, { textShadow: up ? G0 : G1 }, A({ textShadow: up ? G1 : G0, duration: 1.0, ease: "sine.inOut" }), S + a);
+    }
+    // exit: a short push-through into the next scene
+    tl.fromTo(chap, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.025, duration: 0.22, ease: "power2.in" }), S + D - 0.22);
+    E.debug.scenes[cfg.id] = { S, D, type: "chapter" };
   };
 
   window.SIMS = window.SIMS || {};
@@ -1241,7 +1356,7 @@ window.SIMS.sim34 = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"id": "t34", "sim": "sim34", "D": 37.81, "tStage": 1.05, "tExp": 1.65, "phr": [1.65, 3.85, 6.8, 9.0], "phrEnd": 11.7, "tSimEnd": 16.2, "tFact": 16.2, "tPrompt": 21.25, "tPromptEnd": 30.45, "tTip": 30.45, "expZoom": 0.07, "simDur": 15.15, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim34": {"names": ["החדר הריק", "הטקסט על הקיר", "אתם בלי הרקע", "האפקטים"], "depth": [-0.83, -0.42, 0.0, 0.1], "yaw": 40, "pitch": 9, "pullBack": 1.4, "splitWord": "תתפרק", "mergeWord": "תאחד", "wallText": ["נתחיל מהקל", "לכבד"], "doneLabel": "בלי שום הבדל"}, "S": 0.0}];
+  const CFGS = [{"id": "t34", "sim": "sim34", "D": 37.71, "tStage": 1.05, "tExp": 1.65, "phr": [1.65, 3.85, 6.8, 9.0], "phrEnd": 11.7, "tSimEnd": 16.2, "tFact": 16.2, "tPrompt": 21.25, "tPromptEnd": 30.45, "tTip": 30.45, "expZoom": 0.07, "simDur": 15.15, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim34": {"names": ["החדר הריק", "הטקסט על הקיר", "אתם בלי הרקע", "האפקטים"], "depth": [-0.83, -0.42, 0.0, 0.1], "yaw": 40, "pitch": 9, "pullBack": 1.4, "splitWord": "תתפרק", "mergeWord": "תאחד", "wallText": ["נתחיל מהקל", "לכבד"], "doneLabel": "בלי שום הבדל"}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1255,7 +1370,7 @@ window.SIMS.sim34 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 37.810;
+    const TOT = 37.710;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

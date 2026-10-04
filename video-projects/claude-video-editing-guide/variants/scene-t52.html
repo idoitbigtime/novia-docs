@@ -358,22 +358,52 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .tip-text .w { opacity: 0; }
 
 /* ---------- chapter card ---------- */
-.chap { position: absolute; inset: 0; }
-.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
-.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
+.chap { position: absolute; inset: 0; transform-origin: 540px 900px; }
+/* the card's camera: a slow push through the hold */
+.ch-cam { position: absolute; inset: 0; transform-origin: 540px 900px; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0.35; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); }
 .ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
 .ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
 .ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
 .ch-tin { display: inline-block; white-space: nowrap; }
 .ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
-.ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-sub { position: absolute; top: 1040px; left: 160px; width: 760px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
 .ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
 /* centred blocks wrap into even lines; paragraphs never end on a lone word */
 .ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
 .exp, .tip-text { text-wrap: pretty; }
-.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0.4; }
 .ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
 .ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+/* the chapter motif: 180 px line art beside the number (lavender, 35%) */
+/* frame 0 of a card (a seek to 0 may not render the timeline): the number and its rings are already there */
+.chap .ch-n { transform: perspective(1200px) rotateY(-16deg) scale(0.9); }
+.chap .ch-ring { opacity: 0.85; transform: scale(0.66); }
+.chap .ch-ring2 { opacity: 0.65; transform: scale(0.8); }
+.chap .ch-k, .chap .ch-dots { transform: translateY(8px); }
+.ch-mo { position: absolute; left: 740px; top: 580px; width: 180px; height: 180px; opacity: 0.35; overflow: visible; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
+.ch-mo .dr, .ch-mo .mo-ph, .ch-mo .mo-scan, .ch-mo .mo-ck, .ch-mo .mo-ring, .ch-mo .mo-blur { fill: none; stroke: #c9c2ff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.ch-mo .fl, .ch-mo .mo-f { fill: #c9c2ff; }
+.ch-mo .fl { opacity: 0; }
+.ch-mo .mo-solid { fill: #0b0a16; fill-opacity: 0; }
+.ch-mo .mo-bar { stroke-width: 6; }
+.ch-mo .mo-ph { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-scan { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-blur { stroke-width: 11; opacity: 0; }
+.ch-mo .mo-ring { stroke-width: 2.5; opacity: 0; }
+.ch-mo .mo-f { opacity: 0; }
+.ch-mo .mo-ck { stroke-width: 4.5; }
+.ch-mo3 .mo-in { position: absolute; inset: 0; perspective: 640px; opacity: 0; }
+.ch-mo3 .mo-tilt { position: absolute; left: 40px; top: 40px; width: 100px; height: 100px; transform-style: preserve-3d; transform: rotateX(-24deg); }
+.ch-mo3 .mo-cube { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(-10deg); }
+.ch-mo3 .mo-cube i { position: absolute; inset: 0; border: 3.5px solid #c9c2ff; border-radius: 5px; display: block; }
+.ch-mo3 .mo-face0 { transform: translateZ(50px); }
+.ch-mo3 .mo-face1 { transform: rotateY(180deg) translateZ(50px); }
+.ch-mo3 .mo-face2 { transform: rotateY(90deg) translateZ(50px); }
+.ch-mo3 .mo-face3 { transform: rotateY(-90deg) translateZ(50px); }
+.ch-mo3 .mo-face4 { transform: rotateX(90deg) translateZ(50px); }
+.ch-mo3 .mo-face5 { transform: rotateX(-90deg) translateZ(50px); }
 
 /* ---------- effects ---------- */
 /* light sweep across an element (the element clips it) */
@@ -428,7 +458,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim52 .s52-cg circle { fill: rgba(201, 194, 255, 0.2); stroke: #d9d4ff; stroke-width: 2; }
 .sim52 .s52-cg circle + circle { fill: none; stroke: rgba(217, 212, 255, 0.6); }
 .sim52 .s52-strike { position: absolute; left: 0; top: 0; width: 410px; height: 300px; overflow: visible; }
-.sim52 .s52-strike path { fill: none; stroke: #ff453a; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(255, 69, 58, 0.7)); }
+/* the strike is ink (red rule: the cross badge is the one red mark of this beat) */
+.sim52 .s52-strike path { fill: none; stroke: #f5f2ea; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.7)); }
 .sim52 .s52-x { position: absolute; left: -8px; top: -14px; width: 44px; height: 44px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: block; opacity: 0; }
 .sim52 .s52-x svg { width: 44px; height: 44px; display: block; }
 .sim52 .s52-x path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
@@ -437,7 +468,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim52 .s52-dash { position: absolute; left: 30px; top: 150px; width: 410px; height: 400px; border-radius: 22px; background: rgba(22, 20, 44, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.28); opacity: 0; }
 .sim52 .s52-dbar, .sim52 .s52-tbar { height: 58px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; border-bottom: 1px solid rgba(201, 194, 255, 0.14); direction: rtl; }
 .sim52 .s52-dt, .sim52 .s52-tt { display: flex; align-items: center; gap: 10px; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
-.sim52 .s52-tt { flex-direction: row-reverse; font-size: 28px; }
+.sim52 .s52-tt { flex-direction: row-reverse; font-size: 30px; }
 .sim52 .s52-dt i { width: 11px; height: 11px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; }
 .sim52 .s52-dots { display: flex; gap: 8px; direction: ltr; }
 .sim52 .s52-dots u { width: 11px; height: 11px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
@@ -474,14 +505,16 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim52 .s52-led { fill: #c9c2ff; }
 .sim52 .s52-hg path { fill: none; stroke: #c9c2ff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .sim52 .s52-hg .s52-sand { fill: rgba(201, 194, 255, 0.6); stroke: none; }
-.sim52 .s52-warn { position: absolute; right: 74px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 12px rgba(255, 69, 58, 0.7); display: block; opacity: 0; }
+/* the server's "!" is lavender: it shows while the red accent "לא משלמים" is read */
+.sim52 .s52-warn { position: absolute; right: 74px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.7); display: block; opacity: 0; }
 .sim52 .s52-warn svg { width: 34px; height: 34px; display: block; }
-.sim52 .s52-warn path { fill: none; stroke: #ff6b61; stroke-width: 3.6; stroke-linecap: round; }
+.sim52 .s52-warn path { fill: none; stroke: #ffffff; stroke-width: 3.6; stroke-linecap: round; }
 .sim52 .s52-q { position: absolute; left: 24px; top: 64px; width: 76px; height: 22px; overflow: hidden; display: flex; gap: 8px; direction: ltr; }
 .sim52 .s52-q i { width: 20px; height: 20px; border-radius: 6px; background: rgba(201, 194, 255, 0.4); display: block; flex: none; }
-.sim52 .s52-stamp { position: absolute; left: 96px; top: 494px; width: 300px; height: 96px; border-radius: 16px; border: 4px solid #ff5a4f; background: rgba(34, 12, 20, 0.6);
-  box-shadow: 0 0 22px rgba(255, 69, 58, 0.45), inset 0 0 0 5px rgba(12, 10, 22, 0.9), inset 0 0 0 7px rgba(255, 90, 79, 0.65); display: flex; align-items: center; justify-content: center; opacity: 0; }
-.sim52 .s52-stamp span { font: 800 46px/1 "Rubik"; color: #ff6b61; text-shadow: 0 0 14px rgba(255, 69, 58, 0.55); white-space: nowrap; }
+.sim52 .s52-stamp { position: absolute; left: 96px; top: 494px; width: 300px; height: 96px; border-radius: 16px; border: 4px solid #c9c2ff; background: rgba(26, 23, 52, 0.7);
+  box-shadow: 0 0 22px rgba(201, 194, 255, 0.45), inset 0 0 0 5px rgba(12, 10, 22, 0.9), inset 0 0 0 7px rgba(201, 194, 255, 0.6); display: flex; align-items: center; justify-content: center; opacity: 0; }
+/* the stamp lands while the red accent is read, so it is lavender and ink (red rule) */
+.sim52 .s52-stamp span { font: 800 46px/1 "Rubik"; color: #ffffff; text-shadow: 0 0 14px rgba(201, 194, 255, 0.6); white-space: nowrap; }
 
 /* B5: valid for a year */
 .sim52 .s52-cal { position: absolute; left: 30px; top: 140px; width: 420px; height: 430px; border-radius: 22px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.26); transform-origin: 50% 0%; opacity: 0; }
@@ -502,7 +535,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim52 .s52-term { top: 14px; height: 316px; }
 .sim52 .s52-hint { top: 346px; height: 122px; background: rgba(26, 23, 52, 0.94); }
 .sim52 .s52-web { top: 484px; height: 202px; }
-.sim52 .s52-addr { font: 500 26px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #d8d4ea; padding: 8px 16px; border-radius: 999px; background: rgba(201, 194, 255, 0.1); border: 1px solid rgba(201, 194, 255, 0.22); }
+.sim52 .s52-addr { font: 500 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #d8d4ea; padding: 8px 16px; border-radius: 999px; background: rgba(201, 194, 255, 0.1); border: 1px solid rgba(201, 194, 255, 0.22); }
 .sim52 .s52-st { position: absolute; left: 24px; right: 22px; display: flex; align-items: center; gap: 14px; direction: rtl; opacity: 0; }
 .sim52 .s52-st1 { top: 72px; }
 .sim52 .s52-st2 { top: 196px; }
@@ -542,11 +575,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="34.620" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="34.520" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t52" class="clip scene" data-start="0.000" data-duration="34.620" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 5 · חיבורים</span><span class="hdr-num" dir="ltr">5.2</span></div>
+<div id="sc-t52" class="clip scene" data-start="0.000" data-duration="34.520" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 5 · חיבורים</span><span class="hdr-num" dir="ltr">5.2</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">מחברים</span> <span class="w" dir="rtl" data-t="0.430">את</span> <span class="w" dir="rtl" data-t="0.560">fal.ai:</span> <span class="w" dir="rtl" data-t="0.890">ארנק</span> <span class="w" dir="rtl" data-t="1.020">מראש,</span> <span class="w" dir="rtl" data-t="1.150">ומשלמים</span> <span class="w" dir="rtl" data-t="1.280">רק</span> <span class="w" dir="rtl" data-t="1.410">על</span> <span class="w" dir="rtl" data-t="1.540">מה</span> <span class="w" dir="rtl" data-t="1.670">שיצא</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="glu"><span class="w" dir="rtl" data-t="2.500">ב-</span><span class="w" dir="rtl" data-t="2.500">fal</span></span> <span class="w" dir="rtl" data-t="2.620">אין</span> <span class="w" dir="rtl" data-t="2.680">מנוי</span> <span class="w" dir="rtl" data-t="2.740">חובה.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.200">קונים</span> <span class="w" dir="rtl" data-t="4.260">קרדיטים</span> <span class="w" dir="rtl" data-t="4.320">מראש</span> <span class="w" dir="rtl" data-t="4.380">בדשבורד</span> <span class="w" dir="rtl" data-t="4.440">החיובים,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="5.900">וכל</span> <span class="w" dir="rtl" data-t="5.960">תוצאה</span> <span class="w" dir="rtl" data-t="6.020">שיצאה</span> <span class="w" dir="rtl" data-t="6.080">בהצלחה</span> <span class="w" dir="rtl" data-t="6.140">יורדת</span> <span class="w" dir="rtl" data-t="6.200">מהיתרה.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="7.850">על</span> <span class="w" dir="rtl" data-t="7.910">שגיאה</span> <span class="w" dir="rtl" data-t="7.970">של</span> <span class="w" dir="rtl" data-t="8.030">השרת</span> <span class="w" dir="rtl" data-t="8.090">או</span> <span class="w" dir="rtl" data-t="8.150">על</span> <span class="w" dir="rtl" data-t="8.210">המתנה</span> <span class="w" dir="rtl" data-t="8.270">בתור</span> <span class="glu"><span class="accgrp" data-t="8.330"><span class="w s-str" dir="rtl" data-t="8.330">לא</span> <span class="w s-str" dir="rtl" data-t="8.390">משלמים</span><i class="ul" data-t="8.510"></i></span><span class="w" dir="rtl" data-t="8.390">,</span></span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="10.950">והקרדיטים</span> <span class="w" dir="rtl" data-t="11.010">תקפים</span> <span class="w" dir="rtl" data-t="11.070">לשנה.</span></span></p></div>
 <div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim52">
@@ -598,7 +631,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="s52-chips" dir="rtl"><span class="s52-chip s52-ch1" dir="ltr"><svg class="s52-plug" viewBox="0 0 32 32" aria-hidden="true"><path d="M11 4v7M21 4v7M7 11h18v5a9 9 0 0 1-18 0z"/><path d="M16 25v4"/></svg>Higgsfield<svg class="s52-cok" viewBox="0 0 30 30" aria-hidden="true"><path d="M8 15.5l5 5 9-10"/></svg></span>
 <span class="s52-chip s52-ch2" dir="ltr"><svg class="s52-plug" viewBox="0 0 32 32" aria-hidden="true"><path d="M11 4v7M21 4v7M7 11h18v5a9 9 0 0 1-18 0z"/><path d="M16 25v4"/></svg>fal<svg class="s52-cok" viewBox="0 0 30 30" aria-hidden="true"><path d="M8 15.5l5 5 9-10"/></svg></span></div></div>
 </div></div></div></div></div>
-<div class="factbox"><div class="factin"><i class="fscrim"></i><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="20.000">מחירים</span> <span class="w" dir="rtl" data-t="20.120">מהמדריך:</span> <span class="w" dir="rtl" data-t="20.440">קליפ</span> <span class="w" dir="rtl" data-t="20.560">AI</span> <span class="w" dir="rtl" data-t="20.680">של</span> <span class="w" dir="rtl" data-t="20.800">5</span> <span class="w" dir="rtl" data-t="20.920">שניות</span> <span class="w" dir="rtl" data-t="21.040">עם</span> <span class="w" dir="rtl" data-t="21.160">הפנים,</span> <span class="w" dir="rtl" data-t="21.280">בערך</span> <span class="w" dir="rtl" data-t="21.400">דולר.</span> <span class="w" dir="rtl" data-t="21.720">מילוי</span> <span class="w" dir="rtl" data-t="21.840">חדר</span> <span class="w" dir="rtl" data-t="21.960">ריק,</span> <span class="w" dir="rtl" data-t="22.080">15</span> <span class="w" dir="rtl" data-t="22.200">סנט</span> <span class="w" dir="rtl" data-t="22.320">לתמונה.</span></p></div></div>
+<div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">בערך דולר לקליפ</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="20.000">מחירים</span> <span class="w" dir="rtl" data-t="20.120">מהמדריך:</span> <span class="w" dir="rtl" data-t="20.440">קליפ</span> <span class="w" dir="rtl" data-t="20.560">AI</span> <span class="w" dir="rtl" data-t="20.680">של</span> <span class="w" dir="rtl" data-t="20.800">5</span> <span class="w" dir="rtl" data-t="20.920">שניות</span> <span class="w" dir="rtl" data-t="21.040">עם</span> <span class="w" dir="rtl" data-t="21.160">הפנים,</span> <span class="w" dir="rtl" data-t="21.280">בערך</span> <span class="w" dir="rtl" data-t="21.400">דולר.</span> <span class="w" dir="rtl" data-t="21.720">מילוי</span> <span class="w" dir="rtl" data-t="21.840">החדר</span> <span class="w" dir="rtl" data-t="21.960">שמאחוריכם,</span> <span class="w" dir="rtl" data-t="22.080">15</span> <span class="w" dir="rtl" data-t="22.200">סנט</span> <span class="w" dir="rtl" data-t="22.320">לתמונה.</span></p></div></div>
 <div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>מתוך הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>15</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>1. תבדוק <span class="nb">ש-fal</span> מחובר אליך, ואם לא, תריץ בעצמך <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">claude</span> <span class="tk">mcp</span> <span class="tk">add</span> <span class="tk">--transport http</span> <span class="tk">--scope user</span> <span class="tk">fal</span> <span class="tk">https://mcp.fal.ai/mcp-relay</span><span class="bt">`</span></span>,</span>ואז תגיד לי לכתוב <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">/mcp</span><span class="bt">`</span></span>, לבחור fal ולהתחבר עם החשבון שלי, ושהתשלום יורד מארנק שטוענים מראש <span class="nb">ב-fal.</span> אם fal לא מופיע שם, תגיד לי לסגור ולפתוח את קלוד קוד.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>1. תבדוק <span class="nb">ש-fal</span> מחובר אליך, ואם לא, תריץ בעצמך <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">claude</span> <span class="tk">mcp</span> <span class="tk">add</span> <span class="tk">--transport http</span> <span class="tk">--scope user</span> <span class="tk">fal</span> <span class="tk">https://mcp.fal.ai/mcp-relay</span><span class="bt">`</span></span>,</span>ואז תגיד לי לכתוב <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">/mcp</span><span class="bt">`</span></span>, לבחור fal ולהתחבר עם החשבון שלי, ושהתשלום יורד מארנק שטוענים מראש <span class="nb">ב-fal.</span> אם fal לא מופיע שם, תגיד לי לסגור ולפתוח את קלוד קוד.</div></div>
 <div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="31.040">חלק</span> <span class="w" dir="rtl" data-t="31.200">מהמודלים</span> <span class="w" dir="rtl" data-t="31.360">חוסמים</span> <span class="w" dir="rtl" data-t="31.520">פנים</span> <span class="w" dir="rtl" data-t="31.680">אמיתיות,</span> <span class="w" dir="rtl" data-t="31.840">ולכן</span> <span class="w" dir="rtl" data-t="32.000">קלוד</span> <span class="w" dir="rtl" data-t="32.160">בוחר</span> <span class="glu"><span class="w" dir="rtl" data-t="32.320">ב-</span><span class="w" dir="rtl" data-t="32.320">fal</span></span> <span class="w" dir="rtl" data-t="32.640">מודל</span> <span class="w" dir="rtl" data-t="32.800">שמקבל</span> <span class="w" dir="rtl" data-t="32.960">אותן.</span></p></div></div>
 </div></div>
@@ -891,15 +924,21 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     // only EDGE px (inside its own leading, so no glyph is ever cut by the viewport)
     const PUSH = 10, COMP = 4, EDGE = 2, plines = E.qa(".pl", body);
     H.forEach((h) => {
-      const PUSH_H = Math.max(PUSH, Math.round((h.bot - h.top) * (LIFT - 1) / 2 + 6));
+      // a tall key line zooms less, and grows toward the side of the page that has more lines to push
+      const lh = h.bot - h.top;
+      h.s = 1 + Math.min(LIFT - 1, 10 / lh);
       const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
       const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
       const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
       const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      const f = above.length + below.length ? Math.min(0.85, Math.max(0.15, above.length / (above.length + below.length))) : 0.5;
+      h.lift.style.transformOrigin = "50% " + (f * 100).toFixed(1) + "%";
+      // each side is pushed by what the panel grows on that side, plus a gap
+      const grow = [f * lh * (h.s - 1), (1 - f) * lh * (h.s - 1)];
       h.push = [];
-      [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
-        const m = ls.length;
-        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(PUSH_H, EDGE + COMP * (m - 1 - j))]));
+      [[above, -1, grow[0]], [below, 1, grow[1]]].forEach(([ls, sgn, g]) => {
+        const m = ls.length, want = Math.max(PUSH, Math.round(g + 8));
+        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(want, EDGE + COMP * (m - 1 - j))]));
       });
     });
     // the lifted copies sit over their line on the page where it is held (static layout)
@@ -923,7 +962,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
           dimmed = true;
           tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
-          tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: h.s, duration: 0.6, ease: SPRING }), t);
           h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
           h.t0 = t;
@@ -931,7 +970,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
           // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
-          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: h.s }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
           h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
           tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
           if (!keepDim) {
@@ -996,7 +1035,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     return {
       pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
       holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
-      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, liftH: h.lift.offsetHeight })),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, s: +h.s.toFixed(3), origin: h.lift.style.transformOrigin, push: h.push.map((x) => Math.round(x[1])).join(" ") })),
     };
   };
 
@@ -1114,7 +1153,17 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     E.qa(".ch-ring", sc).forEach((r, i) => {
       tl.fromTo(r, { scale: 0.66 + i * 0.14, opacity: 0.85 - i * 0.2 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S);
     });
-    E.burst(tl, sc, 540, 670, S + 0.05, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ffffff" });
+    // sparks leave from the ring's edge (never a stack of dots over the number)
+    const rnd = E.rand(5);
+    for (let i = 0; i < 18; i++) {
+      const d = document.createElement("i"), sz = 5 + rnd() * 6, ang = (i / 18) * Math.PI * 2 + rnd() * 0.3;
+      const r0 = 128, r1 = 210 + rnd() * 150, dur = 0.6 + rnd() * 0.35;
+      d.className = "fx-dot";
+      d.style.cssText = "left:" + (540 + Math.cos(ang) * r0).toFixed(1) + "px;top:" + (670 + Math.sin(ang) * r0).toFixed(1) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:#ffffff;box-shadow:0 0 10px #ffffff";
+      sc.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * (r1 - r0), y: Math.sin(ang) * (r1 - r0), scale: 0.35, duration: dur, ease: "power3.out" }), S + 0.03);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), S + 0.03);
+    }
     tl.fromTo(k, { opacity: 0.35, y: 8 }, A({ opacity: 1, y: 0, duration: 0.4, ease: SPRING }), S);
     tl.fromTo(dots, { opacity: 0.4, y: 8 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SPRING }), S);
     E.kin(tl, tt, S);
@@ -1125,6 +1174,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const mo = E.q(".ch-mo", sc), mq = (s) => E.q(s, mo), mqa = (s) => E.qa(s, mo);
     if (mo) {
       E.qa(".dr", mo).forEach((p, i) => E.draw(tl, p, S + 0.06 + i * 0.035, 0.7));
+      E.qa(".mo-solid", mo).forEach((p) => tl.fromTo(p, { fillOpacity: 0 }, A({ fillOpacity: 1, duration: 0.3 }), S + 0.3));
       E.qa(".fl", mo).forEach((p, i) => tl.fromTo(p, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.25 + i * 0.06));
       const hold0 = Math.max(1.0, (T.lw || 1) - 0.4), N = cfg.n;
       if (N === 1) {
@@ -1145,11 +1195,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         // the play mark pulses
         const pl = mq(".mo-play");
         for (let a = hold0, j = 0; a + 0.6 < D - 0.25; a += 0.6, j++) {
-          tl.fromTo(pl, { scale: j % 2 ? 1.16 : 1 }, A({ scale: j % 2 ? 1 : 1.16, transformOrigin: "50% 50%", duration: 0.6, ease: "sine.inOut" }), S + a);
+          tl.fromTo(pl, { scale: j % 2 ? 1.16 : 1, transformOrigin: "50% 50%" }, A({ scale: j % 2 ? 1 : 1.16, duration: 0.6, ease: "sine.inOut" }), S + a);
         }
       } else if (N === 5) {
         // the plug goes into the socket and the connection glows
-        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -24, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
+        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -18, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
         const rg = mq(".mo-ring");
         tl.fromTo(rg, { opacity: 0.9, scale: 0.6, transformOrigin: "50% 50%" }, A({ opacity: 0, scale: 1.7, duration: 0.8, ease: "power2.out" }), S + hold0 + 0.4);
       } else if (N === 6) {
@@ -1304,17 +1354,23 @@ window.SIMS.sim52 = function (tl, ctx, cfg, S) {
   tl.fromTo(st, { scale: 1.4, rotation: -14 }, A({ scale: 1, rotation: -6, duration: 0.5, ease: "back.out(1.6)" }), T(b4 + 0.58));
   const stc = center(st);
   E.burst(tl, root, stc.x, stc.y, T(b4 + 0.86), { n: 14, seed: 63, r0: 130, r1: 150, color: "#c9c2ff" });
-  // each failed call: a coin heads out of the wallet to the card, bumps, and goes back in
+  // each failed call: a coin heads for the card, bounces off its edge and drops straight back into the wallet
+  // (it never settles at the card: nothing is charged)
   [ca, cb].forEach((card, i) => {
     const co = E.off(card, root), tx = co.x + card.offsetWidth + 6, ty = co.y + card.offsetHeight / 2;
-    const el = coin(mouth.x, mouth.y), t = T(b4 + 1.0 + i * 0.42);
+    const el = coin(mouth.x, mouth.y), t = T(b4 + 1.0 + i * 0.42), go = 0.36;
     const dx = Math.round(tx - mouth.x), dy = Math.round(ty - mouth.y), lift = Math.min(0, dy) - 40;
     tl.fromTo(el, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 0.85, duration: 0.15 }), t);
-    fly(el, dx, dy, lift, t, 0.44);
-    const sh = [dx, dx + 14, dx - 4, dx + 6];
-    for (let k = 1; k < sh.length; k++) tl.fromTo(el, { x: sh[k - 1] }, A({ x: sh[k], duration: 0.07, ease: "power1.out" }), t + 0.44 + (k - 1) * 0.07);
-    tl.fromTo(el, { x: dx + 6, y: dy }, A({ x: 0, y: 0, duration: 0.5, ease: "power2.inOut" }), t + 0.68);
-    tl.fromTo(el, { opacity: 1, scale: 0.85 }, A({ opacity: 0, scale: 0.5, duration: 0.15 }), t + 1.08);
+    fly(el, dx, dy, lift, t, go);
+    // the card edge pushes back (a small jolt) as the coin hits it
+    tl.fromTo(card, { x: 0 }, A({ x: -6, duration: 0.06, ease: "power1.out" }), t + go);
+    tl.fromTo(card, { x: -6 }, A({ x: 0, duration: 0.3, ease: E.SPRING }), t + go + 0.06);
+    // rebound: out from the edge, then a short arc back into the wallet
+    tl.fromTo(el, { x: dx }, A({ x: dx + 30, duration: 0.12, ease: "power2.out" }), t + go);
+    tl.fromTo(el, { x: dx + 30 }, A({ x: 0, duration: 0.42, ease: "power2.inOut" }), t + go + 0.12);
+    tl.fromTo(el, { y: dy }, A({ y: Math.min(dy, 0) - 34, duration: 0.24, ease: "power2.out" }), t + go);
+    tl.fromTo(el, { y: Math.min(dy, 0) - 34 }, A({ y: 0, duration: 0.3, ease: "power2.in" }), t + go + 0.24);
+    tl.fromTo(el, { opacity: 1, scale: 0.85 }, A({ opacity: 0, scale: 0.5, duration: 0.12 }), t + go + 0.46);
   });
   // the balance did not move
   E.sweep(tl, q(".s52-meter"), T(b4 + 2.3), 0.7, { color: "rgba(255, 255, 255, 0.35)" });
@@ -1389,11 +1445,13 @@ window.SIMS.sim52 = function (tl, ctx, cfg, S) {
   okIn(E.q(".s52-cok", ch2), tW + 0.8);
   // all set: one calm light pass
   [term, hint, web].forEach((el, k) => E.sweep(tl, el, T(tW + 1.2 + k * 0.1), 0.75, { color: "rgba(201, 194, 255, 0.14)" }));
+  // as the stage dims for the fact, the step windows leave entirely (no faint labels around the fact's backing)
+  [term, hint, web].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), T(cfg.tSimEnd - 0.45)));
 };
 
 
 (function () {
-  const CFGS = [{"id": "t52", "sim": "sim52", "D": 34.62, "tStage": 1.9, "tExp": 2.5, "phr": [2.5, 4.2, 5.9, 7.85, 10.95], "phrEnd": 12.55, "tSimEnd": 19.55, "tFact": 19.55, "tPrompt": 24.64, "tPromptEnd": 30.64, "tTip": 30.64, "expZoom": 0.07, "simDur": 17.65, "hls": [{"id": "hl1", "hold": 2.2, "zoom": 0.1}], "sim52": {"wallet": "fal", "balance": "יתרה", "sub": "מנוי חובה", "dash": "דשבורד החיובים", "buy": "קונים קרדיטים", "ok": "יצאה בהצלחה", "err": "שגיאה של השרת", "queue": "המתנה בתור", "free": "לא משלמים", "year": "תקף לשנה", "tTerm": 0.35, "tHint": 2.9, "tWeb": 4.2, "steps": {"cc": "Claude Code", "s1": "מבקשים מקלוד להוסיף את השרת", "url": "https://mcp.fal.ai/mcp-relay", "s2": "כותבים /mcp ומתחברים בלי מפתח API", "cmd": "/mcp", "srv": "fal", "s3a": "אם fal לא מופיע,", "s3b": "סוגרים ופותחים את Claude Code באותה תיקייה", "web": "claude.ai", "s4": "מוסיפים אותו כ-connector, בדיוק כמו Higgsfield", "chips": ["Higgsfield", "fal"]}}, "S": 0.0}];
+  const CFGS = [{"id": "t52", "sim": "sim52", "D": 34.52, "tStage": 1.9, "tExp": 2.5, "phr": [2.5, 4.2, 5.9, 7.85, 10.95], "phrEnd": 12.55, "tSimEnd": 19.55, "tFact": 19.55, "tPrompt": 24.64, "tPromptEnd": 30.64, "tTip": 30.64, "expZoom": 0.07, "simDur": 17.65, "hls": [{"id": "hl1", "hold": 2.2, "zoom": 0.1}], "sim52": {"wallet": "fal", "balance": "יתרה", "sub": "מנוי חובה", "dash": "דשבורד החיובים", "buy": "קונים קרדיטים", "ok": "יצאה בהצלחה", "err": "שגיאה של השרת", "queue": "המתנה בתור", "free": "לא משלמים", "year": "תקף לשנה", "tTerm": 0.35, "tHint": 2.9, "tWeb": 4.2, "steps": {"cc": "Claude Code", "s1": "מבקשים מקלוד להוסיף את השרת", "url": "https://mcp.fal.ai/mcp-relay", "s2": "כותבים /mcp ומתחברים בלי מפתח API", "cmd": "/mcp", "srv": "fal", "s3a": "אם fal לא מופיע,", "s3b": "סוגרים ופותחים את Claude Code באותה תיקייה", "web": "claude.ai", "s4": "מוסיפים אותו כ-connector, בדיוק כמו Higgsfield", "chips": ["Higgsfield", "fal"]}}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1407,7 +1465,7 @@ window.SIMS.sim52 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 34.620;
+    const TOT = 34.520;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

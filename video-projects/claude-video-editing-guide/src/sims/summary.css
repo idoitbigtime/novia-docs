@@ -2,20 +2,25 @@
 .summary { position: absolute; inset: 0; }
 .summary .sm-kick { font: 700 34px/1.2 "Rubik"; color: #cfcbe0; display: flex; align-items: center; gap: 12px; direction: rtl; }
 .summary .sm-kick i { width: 12px; height: 12px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; }
-.summary .sm-recap { position: absolute; left: 140px; width: 800px; top: 372px; }
-.summary .sm-recap .sm-kick, .summary .sm-next .sm-kick { opacity: 0; }
+.summary .sm-recap { position: absolute; left: 150px; width: 780px; top: 372px; transform-origin: 50% 40%; }
+/* frame 0: the header, the kicker and the blocks are already there (they settle with a small rise) */
+.hdr.sm-hdr { opacity: 1; }
+.summary .sm-recap .sm-kick { transform: translateY(10px); }
+.summary .sm-next .sm-kick { opacity: 0; }
 .summary .sm-blocks { margin-top: 24px; display: flex; flex-direction: column; gap: 18px; }
-.summary .sm-blk { opacity: 0; }
+.summary .sm-blk { transform: translateY(16px); }
+.summary .sm-mo { width: 40px; height: 40px; flex: none; overflow: visible; }
+.summary .sm-mo path, .summary .sm-mo rect { fill: none; stroke: #c9c2ff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.6)); }
 .summary .sm-blk h3 { font: 700 34px/1.1 "Rubik"; color: #ffffff; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
 .summary .sm-chips { display: flex; flex-wrap: wrap; gap: 10px 10px; }
 .summary .sm-chip { position: relative; display: flex; align-items: center; gap: 10px; padding: 9px 16px 9px 12px; border-radius: 999px; border: 1.5px solid rgba(201, 194, 255, 0.22); background: rgba(26, 23, 52, 0.85); font: 600 30px/1 "Rubik"; color: #e4e1f0; white-space: nowrap; }
 .summary .sm-ck { width: 32px; height: 32px; border-radius: 50%; background: rgba(201, 194, 255, 0.1); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.35); overflow: visible; flex: none; }
 .summary .sm-ck path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
 
-.summary .sm-next { position: absolute; left: 140px; width: 800px; top: 372px; }
+.summary .sm-next { position: absolute; left: 150px; width: 780px; top: 372px; transform-origin: 50% 40%; }
 .summary .sm-nl { margin-top: 18px; font: 500 40px/1.35 "Rubik"; color: var(--ink2); text-wrap: balance; }
 .summary .sm-cards { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
-.summary .sm-card { display: flex; align-items: center; gap: 26px; padding: 24px 28px; border-radius: 24px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.25); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35); position: relative; overflow: hidden; opacity: 0; }
+.summary .sm-card { margin: 0 20px; display: flex; align-items: center; gap: 26px; padding: 24px 28px; border-radius: 24px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.25); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35); position: relative; overflow: hidden; opacity: 0; }
 .summary .sm-ico { width: 64px; height: 64px; flex: none; overflow: visible; }
 .summary .sm-ico path, .summary .sm-ico rect, .summary .sm-ico circle { fill: none; stroke: #c9c2ff; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
 .summary .sm-card h4 { font: 800 38px/1.1 "Rubik"; color: #ffffff; margin-bottom: 8px; text-align: right; }
@@ -23,7 +28,7 @@
 .summary .sm-docs { margin-top: 24px; font: 500 30px/1.4 "Rubik"; color: #c9c3e6; opacity: 0; }
 .summary .sm-url { font-family: "IBM Plex Mono"; font-weight: 600; color: #d8d4ea; unicode-bidi: isolate; }
 
-.summary .sm-end { position: absolute; left: 140px; width: 800px; top: 640px; height: 600px; }
+.summary .sm-end { position: absolute; left: 140px; width: 800px; top: 640px; height: 600px; transform-origin: 50% 50%; }
 .summary .sm-ring { left: 400px; top: 220px; }
 .summary .sm-tt { position: absolute; left: 0; width: 800px; top: 120px; text-align: center; font: 800 96px/1.1 "Rubik"; color: var(--ink); text-shadow: 0 0 40px rgba(201, 194, 255, 0.35); text-wrap: balance; }
 .summary .sm-el { position: absolute; left: 20px; width: 760px; top: 470px; text-align: center; font: 500 38px/1.4 "Rubik"; color: var(--ink2); text-wrap: balance; }

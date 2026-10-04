@@ -385,7 +385,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .ch-mo { position: absolute; left: 740px; top: 580px; width: 180px; height: 180px; opacity: 0.35; overflow: visible; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
 .ch-mo .dr, .ch-mo .mo-ph, .ch-mo .mo-scan, .ch-mo .mo-ck, .ch-mo .mo-ring, .ch-mo .mo-blur { fill: none; stroke: #c9c2ff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
 .ch-mo .fl, .ch-mo .mo-f { fill: #c9c2ff; }
-.ch-mo .mo-solid { fill: #0b0a16; }
+.ch-mo .fl { opacity: 0; }
+.ch-mo .mo-solid { fill: #0b0a16; fill-opacity: 0; }
 .ch-mo .mo-bar { stroke-width: 6; }
 .ch-mo .mo-ph { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
 .ch-mo .mo-scan { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
@@ -600,7 +601,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 </div>
 
 <div class="s41-p3">
-<div class="s41-edhead"><span class="s41-dots"><i></i><i></i><i></i></span><span class="s41-edname" dir="rtl">תוכנת העריכה</span></div>
+<div class="s41-edhead"><span class="s41-edname" dir="rtl">תוכנת העריכה</span><span class="s41-dots"><i></i><i></i><i></i></span></div>
 <div class="s41-ruler"></div>
 <div class="s41-lane s41-lane2"></div>
 <div class="s41-lane s41-lane1"><div class="s41-vblk"><i></i><i></i><i></i><i></i><i></i></div></div>
@@ -1197,6 +1198,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const mo = E.q(".ch-mo", sc), mq = (s) => E.q(s, mo), mqa = (s) => E.qa(s, mo);
     if (mo) {
       E.qa(".dr", mo).forEach((p, i) => E.draw(tl, p, S + 0.06 + i * 0.035, 0.7));
+      E.qa(".mo-solid", mo).forEach((p) => tl.fromTo(p, { fillOpacity: 0 }, A({ fillOpacity: 1, duration: 0.3 }), S + 0.3));
       E.qa(".fl", mo).forEach((p, i) => tl.fromTo(p, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.25 + i * 0.06));
       const hold0 = Math.max(1.0, (T.lw || 1) - 0.4), N = cfg.n;
       if (N === 1) {
@@ -1221,7 +1223,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         }
       } else if (N === 5) {
         // the plug goes into the socket and the connection glows
-        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -24, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
+        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -18, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
         const rg = mq(".mo-ring");
         tl.fromTo(rg, { opacity: 0.9, scale: 0.6, transformOrigin: "50% 50%" }, A({ opacity: 0, scale: 1.7, duration: 0.8, ease: "power2.out" }), S + hold0 + 0.4);
       } else if (N === 6) {
@@ -1354,7 +1356,8 @@ window.SIMS.sim41 = function (tl, ctx, cfg, S) {
   tl.fromTo(mbg, { clipPath: "inset(0px 0px 0px 100%)" }, A({ clipPath: "inset(0px 0px 0px 0%)", duration: 0.55, ease: "power2.inOut" }), T(b2 + 0.3));
   qa(".s41-mini .s41-card").forEach((card, i) => {
     const a = E.center(cards[i], root), b = E.center(card, root), t = T(b2 + 0.32 + i * 0.12);
-    tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), t);
+    // the copy only shows once it has left the original by about a card width (no doubled text)
+    tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t + 0.14);
     tl.fromTo(card, { x: a.x - b.x, y: a.y - b.y }, A({ x: 0, y: 0, duration: 0.75, ease: E.SPRING }), t);
   });
   E.fadeIn(tl, q(".s41-tmp4"), T(b2 + 0.7), 0.5, 14);
@@ -1374,11 +1377,13 @@ window.SIMS.sim41 = function (tl, ctx, cfg, S) {
   tl.fromTo(ph, { x: 0 }, A({ x: -44, duration: pe + 0.4 - (e3 + 0.12), ease: "none" }), T(e3 + 0.12));
   tl.fromTo(bmov, { opacity: 0, y: -46 }, A({ opacity: 1, y: 0, duration: 0.36, ease: "back.out(1.6)" }), T(e3 + 0.08));
   E.glitch(tl, bmov, T(e3 + 0.44), 9);
-  tl.fromTo(bmov, { borderColor: "rgba(201, 194, 255, 0.55)" }, A({ borderColor: "rgba(255, 69, 58, 0.9)", duration: 0.2 }), T(e3 + 0.44));
+  // only the cross badge is red (red rule); the rejected chip's border just dims
+  tl.fromTo(bmov, { borderColor: "rgba(201, 194, 255, 0.55)" }, A({ borderColor: "rgba(201, 194, 255, 0.35)", duration: 0.2 }), T(e3 + 0.44));
   const no = q(".s41-no");
   tl.fromTo(no, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }), T(e3 + 0.5));
   qa(".s41-no path").forEach((p, i) => E.draw(tl, p, T(e3 + 0.54 + i * 0.12), 0.22));
-  tl.fromTo(bmov, { y: 0 }, A({ y: -182, duration: 0.45, ease: E.SPRING }), T(e3 + 0.8));
+  // rejected: it drops out through the bottom of the editor (its path never crosses the title)
+  tl.fromTo(bmov, { y: 0, rotation: 0 }, A({ y: 206, rotation: -4, duration: 0.5, ease: E.SPRING }), T(e3 + 0.8));
   tl.fromTo(bmp4, { opacity: 0, y: -46 }, A({ opacity: 1, y: 0, duration: 0.36, ease: "back.out(1.6)" }), T(e3 + 0.9));
   const ok = q(".s41-ok");
   tl.fromTo(ok, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }), T(e3 + 1.26));

@@ -38,7 +38,7 @@ window.SIMS.sim36 = function (tl, ctx, cfg, S) {
   });
   // the most viewed shines
   tl.fromTo(E.q(".s36-sw b", cards[0]), { x: 0 }, A({ x: -230, duration: 0.6, ease: "power2.inOut" }), T(b1 + 2.6));
-  E.burst(tl, wrap, 400 + (n / 2 - 0.5) * ROW_DX * 1.03, 268, T(b1 + 2.65), { n: 12, seed: 36, r0: 40, r1: 100, color: "#c9c2ff" });
+  E.burst(tl, wrap, 400 + (n / 2 - 0.5) * ROW_DX * 1.03, 268, T(b1 + 2.65), { n: 12, seed: 36, r0: 30, r1: 58, color: "#c9c2ff" });   // the sparks stay inside the canvas
 
   // B2 "הם הופכים לכרטיסים קטנים שמתנגנים": the views step back, the cards get smaller and play
   const b2 = P[1], tEnd = cfg.tSimEnd;

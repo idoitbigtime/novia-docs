@@ -16,8 +16,12 @@ TITLE = "עריכת וידאו עם Claude"
 BADGE = "21 פרומפטים מוכנים"
 # approved steps, words from the guide's list of what Claude does
 STEPS = ["חיתוך", "כתוביות", "אפקטים"]
+# the typed request: words from the guide's first sentence ("...לחתוך שתיקות, לתקן כתוביות שנכתבו עקום בעברית...")
+REQUEST = "לחתוך שתיקות, לתקן כתוביות"
 
-T_Q, T_PROM, T_F0, F_STEP, T_SENT, T_TITLE, D = 0.2, 2.3, 2.62, 0.6, 6.25, 8.5, 10.6
+# the clock is on screen from the first frame and "ערב" lands at once; the first flash comes on the frame after
+# the question leaves, and the sentence starts while the last flash is still going out
+T_Q, T_PROM, T_F0, F_STEP, T_SENT, T_TITLE, D = 0.0, 2.3, 2.55, 0.6, 6.15, 8.5, 10.6
 
 CHECK = '<svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg>'
 
@@ -97,7 +101,7 @@ def scene(cfg):
 <div class="hk-fbox">{fl}</div>
 <div class="hk-pills">{pills}</div>
 <div class="hk-sentwrap"><p class="hk-sent kin" dir="rtl">{sent}</p>
-<div class="hk-bubble" dir="rtl"><svg class="hk-mic" viewBox="0 0 30 40" aria-hidden="true"><rect x="9" y="3" width="12" height="22" rx="6"/><path d="M4 19c0 6 5 11 11 11s11-5 11-11M15 30v7M9 37h12"/></svg><i></i><i></i><i></i></div>
+<div class="hk-bubble" dir="rtl"><span class="hk-req" dir="rtl">{esc(REQUEST)}</span><i class="hk-caret"></i></div>
 <div class="hk-steps" dir="rtl">{steps}</div></div>
 <div class="hk-title"><i class="ch-ring hk-ring"></i><i class="ch-ring ch-ring2 hk-ring"></i><h1 class="hk-tt kin" dir="rtl">{title}</h1><span class="hk-badge" dir="rtl">{esc(BADGE)}</span></div>
 </div>"""

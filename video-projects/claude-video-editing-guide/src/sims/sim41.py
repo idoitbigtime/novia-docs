@@ -80,7 +80,7 @@ def html(cfg):
 </div>
 
 <div class="s41-p3">
-<div class="s41-edhead"><span class="s41-dots"><i></i><i></i><i></i></span><span class="s41-edname" dir="rtl">{esc(c["editor"])}</span></div>
+<div class="s41-edhead"><span class="s41-edname" dir="rtl">{esc(c["editor"])}</span><span class="s41-dots"><i></i><i></i><i></i></span></div>
 <div class="s41-ruler"></div>
 <div class="s41-lane s41-lane2"></div>
 <div class="s41-lane s41-lane1"><div class="s41-vblk"><i></i><i></i><i></i><i></i><i></i></div></div>

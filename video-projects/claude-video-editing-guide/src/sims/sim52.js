@@ -116,17 +116,23 @@ window.SIMS.sim52 = function (tl, ctx, cfg, S) {
   tl.fromTo(st, { scale: 1.4, rotation: -14 }, A({ scale: 1, rotation: -6, duration: 0.5, ease: "back.out(1.6)" }), T(b4 + 0.58));
   const stc = center(st);
   E.burst(tl, root, stc.x, stc.y, T(b4 + 0.86), { n: 14, seed: 63, r0: 130, r1: 150, color: "#c9c2ff" });
-  // each failed call: a coin heads out of the wallet to the card, bumps, and goes back in
+  // each failed call: a coin heads for the card, bounces off its edge and drops straight back into the wallet
+  // (it never settles at the card: nothing is charged)
   [ca, cb].forEach((card, i) => {
     const co = E.off(card, root), tx = co.x + card.offsetWidth + 6, ty = co.y + card.offsetHeight / 2;
-    const el = coin(mouth.x, mouth.y), t = T(b4 + 1.0 + i * 0.42);
+    const el = coin(mouth.x, mouth.y), t = T(b4 + 1.0 + i * 0.42), go = 0.36;
     const dx = Math.round(tx - mouth.x), dy = Math.round(ty - mouth.y), lift = Math.min(0, dy) - 40;
     tl.fromTo(el, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 0.85, duration: 0.15 }), t);
-    fly(el, dx, dy, lift, t, 0.44);
-    const sh = [dx, dx + 14, dx - 4, dx + 6];
-    for (let k = 1; k < sh.length; k++) tl.fromTo(el, { x: sh[k - 1] }, A({ x: sh[k], duration: 0.07, ease: "power1.out" }), t + 0.44 + (k - 1) * 0.07);
-    tl.fromTo(el, { x: dx + 6, y: dy }, A({ x: 0, y: 0, duration: 0.5, ease: "power2.inOut" }), t + 0.68);
-    tl.fromTo(el, { opacity: 1, scale: 0.85 }, A({ opacity: 0, scale: 0.5, duration: 0.15 }), t + 1.08);
+    fly(el, dx, dy, lift, t, go);
+    // the card edge pushes back (a small jolt) as the coin hits it
+    tl.fromTo(card, { x: 0 }, A({ x: -6, duration: 0.06, ease: "power1.out" }), t + go);
+    tl.fromTo(card, { x: -6 }, A({ x: 0, duration: 0.3, ease: E.SPRING }), t + go + 0.06);
+    // rebound: out from the edge, then a short arc back into the wallet
+    tl.fromTo(el, { x: dx }, A({ x: dx + 30, duration: 0.12, ease: "power2.out" }), t + go);
+    tl.fromTo(el, { x: dx + 30 }, A({ x: 0, duration: 0.42, ease: "power2.inOut" }), t + go + 0.12);
+    tl.fromTo(el, { y: dy }, A({ y: Math.min(dy, 0) - 34, duration: 0.24, ease: "power2.out" }), t + go);
+    tl.fromTo(el, { y: Math.min(dy, 0) - 34 }, A({ y: 0, duration: 0.3, ease: "power2.in" }), t + go + 0.24);
+    tl.fromTo(el, { opacity: 1, scale: 0.85 }, A({ opacity: 0, scale: 0.5, duration: 0.12 }), t + go + 0.46);
   });
   // the balance did not move
   E.sweep(tl, q(".s52-meter"), T(b4 + 2.3), 0.7, { color: "rgba(255, 255, 255, 0.35)" });
@@ -201,4 +207,6 @@ window.SIMS.sim52 = function (tl, ctx, cfg, S) {
   okIn(E.q(".s52-cok", ch2), tW + 0.8);
   // all set: one calm light pass
   [term, hint, web].forEach((el, k) => E.sweep(tl, el, T(tW + 1.2 + k * 0.1), 0.75, { color: "rgba(201, 194, 255, 0.14)" }));
+  // as the stage dims for the fact, the step windows leave entirely (no faint labels around the fact's backing)
+  [term, hint, web].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), T(cfg.tSimEnd - 0.45)));
 };

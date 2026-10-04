@@ -127,9 +127,10 @@ window.SIMS.sim42 = function (tl, ctx, cfg, S) {
   tl.fromTo(pbar, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(pe + 0.1));
   const sf = qa(".s42-sf"), f1 = q(".s42-sf2");
   const X1 = f1.offsetLeft + 116 + 52 - (frA.offsetLeft + frA.offsetWidth / 2), Y1 = f1.offsetTop - frA.offsetTop;
-  tl.fromTo(frA, { x: AX, y: 34, scale: 0.9 }, A({ x: X1, y: Y1, scale: f1.offsetWidth / frA.offsetWidth, duration: 0.75, ease: E.SPRING }), T(pe + 0.3));
-  tl.fromTo(q(".s42-band"), { opacity: 0, scaleX: 0.92 }, A({ opacity: 1, scaleX: 1, duration: 0.5, ease: E.SPRING }), T(pe + 0.45));
-  sf.forEach((f, i) => tl.fromTo(f, { opacity: 0, x: 26 }, A({ opacity: 1, x: 0, duration: 0.45, ease: E.SPRING }), T(pe + 0.7 + i * 0.08)));
+  tl.fromTo(frA, { x: AX, y: 34, scale: 0.9 }, A({ x: X1, y: Y1, scale: f1.offsetWidth / frA.offsetWidth, duration: 0.75, ease: E.SPRING }), T(pe + 0.24));
+  // the film-strip outline comes in while beat 4 is still leaving, so the stage never stands empty
+  tl.fromTo(q(".s42-band"), { opacity: 0, scaleX: 0.92 }, A({ opacity: 1, scaleX: 1, duration: 0.5, ease: E.SPRING }), T(pe + 0.2));
+  sf.forEach((f, i) => tl.fromTo(f, { opacity: 0, x: 26 }, A({ opacity: 1, x: 0, duration: 0.45, ease: E.SPRING }), T(pe + 0.6 + i * 0.08)));
   const scan = q(".s42-scan"), t0s = pe + 1.25, RUN = 1.35, x0 = scan.offsetLeft + scan.offsetWidth / 2, span = x0 - (q(".s42-sf6").offsetLeft);
   tl.fromTo(scan, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(t0s));
   tl.fromTo(scan, { x: 0 }, A({ x: -span, duration: RUN, ease: "none" }), T(t0s));

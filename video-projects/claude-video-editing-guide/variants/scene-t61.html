@@ -358,22 +358,52 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .tip-text .w { opacity: 0; }
 
 /* ---------- chapter card ---------- */
-.chap { position: absolute; inset: 0; }
-.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
-.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
+.chap { position: absolute; inset: 0; transform-origin: 540px 900px; }
+/* the card's camera: a slow push through the hold */
+.ch-cam { position: absolute; inset: 0; transform-origin: 540px 900px; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0.35; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); }
 .ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
 .ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
 .ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
 .ch-tin { display: inline-block; white-space: nowrap; }
 .ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
-.ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-sub { position: absolute; top: 1040px; left: 160px; width: 760px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
 .ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
 /* centred blocks wrap into even lines; paragraphs never end on a lone word */
 .ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
 .exp, .tip-text { text-wrap: pretty; }
-.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0.4; }
 .ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
 .ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+/* the chapter motif: 180 px line art beside the number (lavender, 35%) */
+/* frame 0 of a card (a seek to 0 may not render the timeline): the number and its rings are already there */
+.chap .ch-n { transform: perspective(1200px) rotateY(-16deg) scale(0.9); }
+.chap .ch-ring { opacity: 0.85; transform: scale(0.66); }
+.chap .ch-ring2 { opacity: 0.65; transform: scale(0.8); }
+.chap .ch-k, .chap .ch-dots { transform: translateY(8px); }
+.ch-mo { position: absolute; left: 740px; top: 580px; width: 180px; height: 180px; opacity: 0.35; overflow: visible; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
+.ch-mo .dr, .ch-mo .mo-ph, .ch-mo .mo-scan, .ch-mo .mo-ck, .ch-mo .mo-ring, .ch-mo .mo-blur { fill: none; stroke: #c9c2ff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.ch-mo .fl, .ch-mo .mo-f { fill: #c9c2ff; }
+.ch-mo .fl { opacity: 0; }
+.ch-mo .mo-solid { fill: #0b0a16; fill-opacity: 0; }
+.ch-mo .mo-bar { stroke-width: 6; }
+.ch-mo .mo-ph { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-scan { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-blur { stroke-width: 11; opacity: 0; }
+.ch-mo .mo-ring { stroke-width: 2.5; opacity: 0; }
+.ch-mo .mo-f { opacity: 0; }
+.ch-mo .mo-ck { stroke-width: 4.5; }
+.ch-mo3 .mo-in { position: absolute; inset: 0; perspective: 640px; opacity: 0; }
+.ch-mo3 .mo-tilt { position: absolute; left: 40px; top: 40px; width: 100px; height: 100px; transform-style: preserve-3d; transform: rotateX(-24deg); }
+.ch-mo3 .mo-cube { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(-10deg); }
+.ch-mo3 .mo-cube i { position: absolute; inset: 0; border: 3.5px solid #c9c2ff; border-radius: 5px; display: block; }
+.ch-mo3 .mo-face0 { transform: translateZ(50px); }
+.ch-mo3 .mo-face1 { transform: rotateY(180deg) translateZ(50px); }
+.ch-mo3 .mo-face2 { transform: rotateY(90deg) translateZ(50px); }
+.ch-mo3 .mo-face3 { transform: rotateY(-90deg) translateZ(50px); }
+.ch-mo3 .mo-face4 { transform: rotateX(90deg) translateZ(50px); }
+.ch-mo3 .mo-face5 { transform: rotateX(-90deg) translateZ(50px); }
 
 /* ---------- effects ---------- */
 /* light sweep across an element (the element clips it) */
@@ -396,13 +426,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim61 .s61-win { position: absolute; left: 20px; top: 12px; width: 760px; height: 424px; border-radius: 20px; overflow: hidden; background: rgba(16, 14, 34, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.3); opacity: 0; }
 .sim61 .s61-bar { position: absolute; left: 0; top: 0; right: 0; height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; border-bottom: 1px solid rgba(201, 194, 255, 0.14); direction: rtl; }
 .sim61 .s61-title { display: flex; align-items: center; gap: 12px; }
-.sim61 .s61-title b { font: 600 28px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim61 .s61-title b { font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
 .sim61 .s61-env { width: 34px; height: 26px; display: block; overflow: visible; }
 .sim61 .s61-env rect, .sim61 .s61-env path { fill: none; stroke: #c9c2ff; stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
 .sim61 .s61-dots { display: flex; gap: 8px; direction: ltr; }
 .sim61 .s61-dots u { width: 11px; height: 11px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
-.sim61 .s61-stat { position: absolute; left: 96px; top: 8px; height: 34px; display: flex; align-items: center; gap: 9px; padding: 0 16px; border-radius: 999px; background: rgba(201, 194, 255, 0.12); border: 1.5px solid rgba(201, 194, 255, 0.4);
-  font: 500 26px/1 "Rubik"; color: #ece9f7; white-space: nowrap; direction: rtl; opacity: 0; }
+.sim61 .s61-stat { position: absolute; left: 96px; top: 5px; height: 40px; display: flex; align-items: center; gap: 9px; padding: 0 16px; border-radius: 999px; background: rgba(201, 194, 255, 0.12); border: 1.5px solid rgba(201, 194, 255, 0.4);
+  font: 500 30px/1 "Rubik"; color: #ece9f7; white-space: nowrap; direction: rtl; opacity: 0; }
 .sim61 .s61-stat i { width: 10px; height: 10px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.9); display: block; }
 .sim61 .s61-side { position: absolute; right: 0; top: 50px; bottom: 0; width: 152px; padding: 24px 20px; display: flex; flex-direction: column; gap: 24px; border-left: 1px solid rgba(201, 194, 255, 0.12); background: rgba(201, 194, 255, 0.03); }
 .sim61 .s61-fold { display: flex; align-items: center; gap: 10px; direction: rtl; }
@@ -444,7 +474,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim61 .s61-rok svg { width: 84px; height: 84px; display: block; overflow: visible; }
 .sim61 .s61-rok circle { fill: rgba(201, 194, 255, 0.14); stroke: #c9c2ff; stroke-width: 3; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.8)); }
 .sim61 .s61-rok path { stroke-width: 6.5; }
-.sim61 .s61-link { position: absolute; left: 396px; top: 262px; width: 4px; height: 220px; overflow: visible; }
+/* from the popup down to the 0:12-0:12.6 blur segment: centred on it (x 20 + 30 + 12.3 * 29 = 406.7), reaching its top (y 654) */
+.sim61 .s61-link { position: absolute; left: 404.7px; top: 262px; width: 4px; height: 392px; overflow: visible; }
 .sim61 .s61-link line { stroke: #e2deff; stroke-width: 2.5; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
 
 /* the timeline: 0..20 s, findings and blur lanes, the playhead */
@@ -457,9 +488,9 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim61 .s61-lane { position: absolute; left: 0; width: 760px; }
 .sim61 .s61-lmk { top: 108px; height: 38px; }
 .sim61 .s61-lsg { top: 156px; height: 70px; }
-.sim61 .s61-ll { position: absolute; right: 24px; font: 500 28px/1 "Rubik"; color: #d6d2e6; white-space: nowrap; }
-.sim61 .s61-lmk .s61-ll { top: 5px; }
-.sim61 .s61-lsg .s61-ll { top: 22px; }
+.sim61 .s61-ll { position: absolute; right: 24px; font: 500 30px/1 "Rubik"; color: #d6d2e6; white-space: nowrap; }
+.sim61 .s61-lmk .s61-ll { top: 4px; }
+.sim61 .s61-lsg .s61-ll { top: 21px; }
 .sim61 .s61-lt { position: absolute; left: 30px; top: 18px; width: 580px; height: 2px; background: rgba(201, 194, 255, 0.16); display: block; }
 .sim61 .s61-mk { position: absolute; top: 10px; width: 18px; height: 18px; margin-left: -9px; border-radius: 3px; background: #d9d4ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.85); display: block; opacity: 0; }
 .sim61 .s61-seg { position: absolute; height: 14px; border-radius: 7px; background: linear-gradient(90deg, rgba(201, 194, 255, 0.9), rgba(201, 194, 255, 0.6)); box-shadow: 0 0 10px rgba(201, 194, 255, 0.5); transform-origin: 0% 50%; display: block; opacity: 0; }
@@ -468,15 +499,18 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim61 .s61-head u { position: absolute; left: -7px; top: -8px; width: 17px; height: 17px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; }
 /* the time tag of an address sits to its left (over the skeleton subject), clear of the row above */
 .sim61 .s61-em .s61-tag { left: auto; right: calc(100% + 18px); top: 1px; }
+/* payoff: the findings lane ends with a check (the re-scan found nothing) */
+.sim61 .s61-lok { position: absolute; left: 595px; top: 4px; width: 30px; height: 30px; border-radius: 50%; background: #2b2560; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.7); overflow: visible; display: block; opacity: 0; }
+.sim61 .s61-lok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
 
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="35.390" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="35.610" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t61" class="clip scene" data-start="0.000" data-duration="35.390" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 6 · הקלטות מסך</span><span class="hdr-num" dir="ltr">6.1</span></div>
+<div id="sc-t61" class="clip scene" data-start="0.000" data-duration="35.610" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 6 · הקלטות מסך</span><span class="hdr-num" dir="ltr">6.1</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">מוצאים</span> <span class="w" dir="rtl" data-t="0.430">ומטשטשים</span> <span class="w" dir="rtl" data-t="0.560">מיילים</span> <span class="w" dir="rtl" data-t="0.690">ופרטים</span> <span class="w" dir="rtl" data-t="0.820">אישיים</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.650">קלוד</span> <span class="w" dir="rtl" data-t="1.710">קורא</span> <span class="w" dir="rtl" data-t="1.770">את</span> <span class="w" dir="rtl" data-t="1.830">הטקסט</span> <span class="w" dir="rtl" data-t="1.890">שעל</span> <span class="w" dir="rtl" data-t="1.950">המסך</span> <span class="w" dir="rtl" data-t="2.010">בכל</span> <span class="w" dir="rtl" data-t="2.070">שנייה</span> <span class="w" dir="rtl" data-t="2.130">של</span> <span class="w" dir="rtl" data-t="2.190">ההקלטה,</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.600">מוצא</span> <span class="w" dir="rtl" data-t="4.660">מיילים,</span> <span class="w" dir="rtl" data-t="4.720">טלפונים</span> <span class="w" dir="rtl" data-t="4.780">וכל</span> <span class="w" dir="rtl" data-t="4.840">פרט</span> <span class="w" dir="rtl" data-t="4.900">שביקשתם</span> <span class="w" dir="rtl" data-t="4.960">להסתיר,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.800">ומטשטש</span> <span class="w" dir="rtl" data-t="6.860">אותו</span> <span class="accgrp" data-t="6.920"><span class="w s-str" dir="rtl" data-t="6.920">בדיוק</span> <span class="w s-str" dir="rtl" data-t="6.980">בזמן</span><i class="ul" data-t="7.100"></i></span> <span class="w" dir="rtl" data-t="7.040">שהוא</span> <span class="w" dir="rtl" data-t="7.100">על</span> <span class="w" dir="rtl" data-t="7.160">המסך.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.000">בסוף</span> <span class="w" dir="rtl" data-t="9.060">הוא</span> <span class="w" dir="rtl" data-t="9.120">סורק</span> <span class="w" dir="rtl" data-t="9.180">שוב,</span> <span class="w" dir="rtl" data-t="9.240">כדי</span> <span class="w" dir="rtl" data-t="9.300">לוודא</span> <span class="w" dir="rtl" data-t="9.360">שלא</span> <span class="w" dir="rtl" data-t="9.420">נשאר</span> <span class="w" dir="rtl" data-t="9.480">אף</span> <span class="w" dir="rtl" data-t="9.540">אחד.</span></span></p></div>
 <div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim61">
@@ -489,9 +523,9 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <i class="s61-scan"></i>
 <div class="s61-res" dir="rtl"><span class="s61-rt" dir="rtl">0 ממצאים</span><span class="s61-rok"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34"/><path d="M24 41l11 11 21-23"/></svg></span></div>
 </div>
-<svg class="s61-link" viewBox="0 0 4 220" preserveAspectRatio="none" aria-hidden="true"><line x1="2" y1="0" x2="2" y2="220"/></svg>
+<svg class="s61-link" viewBox="0 0 4 392" preserveAspectRatio="none" aria-hidden="true"><line x1="2" y1="0" x2="2" y2="392"/></svg>
 <div class="s61-tlp"><div class="s61-ruler"><i class="s61-rl"></i><i class="s61-tk s61-tk5" style="left:30px"></i><i class="s61-tk" style="left:59px"></i><i class="s61-tk" style="left:88px"></i><i class="s61-tk" style="left:117px"></i><i class="s61-tk" style="left:146px"></i><i class="s61-tk s61-tk5" style="left:175px"></i><i class="s61-tk" style="left:204px"></i><i class="s61-tk" style="left:233px"></i><i class="s61-tk" style="left:262px"></i><i class="s61-tk" style="left:291px"></i><i class="s61-tk s61-tk5" style="left:320px"></i><i class="s61-tk" style="left:349px"></i><i class="s61-tk" style="left:378px"></i><i class="s61-tk" style="left:407px"></i><i class="s61-tk" style="left:436px"></i><i class="s61-tk s61-tk5" style="left:465px"></i><i class="s61-tk" style="left:494px"></i><i class="s61-tk" style="left:523px"></i><i class="s61-tk" style="left:552px"></i><i class="s61-tk" style="left:581px"></i><i class="s61-tk s61-tk5" style="left:610px"></i><span class="s61-tl" dir="ltr" style="left:30px">0:00</span><span class="s61-tl" dir="ltr" style="left:320px">0:10</span><span class="s61-tl" dir="ltr" style="left:610px">0:20</span></div>
-<div class="s61-lane s61-lmk"><span class="s61-ll" dir="rtl">ממצאים</span><i class="s61-lt"></i><i class="s61-mk" style="left:30px"></i><i class="s61-mk" style="left:320px"></i><i class="s61-mk" style="left:378px"></i></div>
+<div class="s61-lane s61-lmk"><span class="s61-ll" dir="rtl">ממצאים</span><i class="s61-lt"></i><i class="s61-mk" style="left:30px"></i><i class="s61-mk" style="left:320px"></i><i class="s61-mk" style="left:378px"></i><svg class="s61-lok" viewBox="0 0 30 30" aria-hidden="true"><path d="M8 15.5l5 5 9-10"/></svg></div>
 <div class="s61-lane s61-lsg"><span class="s61-ll" dir="rtl">טשטוש</span><i class="s61-seg s61-seg0" style="left:30.0px;width:580.0px;top:8px"></i><i class="s61-seg s61-seg1" style="left:320.0px;width:290.0px;top:28px"></i><i class="s61-seg s61-seg2" style="left:378.0px;width:17.4px;top:48px"></i></div>
 <i class="s61-head"><u></u></i></div>
 </div></div></div></div></div>
@@ -532,7 +566,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl" dir="rtl">תשאל אותי על הקלט, ולפני הרינדור תראה לי תמונה אחת לכל אזור, עם מסגרת אדומה סביבו והזמן שבו הוא דולק.</div>
 <div class="pl" dir="rtl">אחרי הרינדור תראה לי את התוצאה של הסריקה החוזרת.</div>
 <div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>12. תריץ את זיהוי הטקסט מחדש על הקובץ החדש: פריים לשנייה על הכל, 5 פריימים לשנייה בחלונות, וכל פריים בשנייה שסביב תחילת וסוף כל אזור, כדי לתפוס טקסט שמחליק פנימה או החוצה בין הדגימות.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>אל תבנה שכבה נפרדת של חיתוך וטשטוש לכל אזור, כי זה רץ פי 60 לאט יותר <span class="nb">מ-delogo.</span></div></div>
-<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="30.920">זיהוי</span> <span class="w" dir="rtl" data-t="31.080">הטקסט</span> <span class="w" dir="rtl" data-t="31.240">של</span> <span class="w" dir="rtl" data-t="31.400">המק</span> <span class="w" dir="rtl" data-t="31.560">לא</span> <span class="w" dir="rtl" data-t="31.720">קורא</span> <span class="w" dir="rtl" data-t="31.880">עברית.</span> <span class="w" dir="rtl" data-t="32.290">שם</span> <span class="w" dir="rtl" data-t="32.450">בעברית</span> <span class="w" dir="rtl" data-t="32.610">מסמנים</span> <span class="w" dir="rtl" data-t="32.770">לקלוד</span> <span class="w" dir="rtl" data-t="32.930">ידנית,</span> <span class="w" dir="rtl" data-t="33.090">ומבקשים</span> <span class="w" dir="rtl" data-t="33.250">טשטוש</span> <span class="w" dir="rtl" data-t="33.410">קבוע</span> <span class="w" dir="rtl" data-t="33.570">באזור</span> <span class="w" dir="rtl" data-t="33.730">הזה.</span></p></div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="30.920">זיהוי</span> <span class="w" dir="rtl" data-t="31.080">הטקסט</span> <span class="w" dir="rtl" data-t="31.240">של</span> <span class="w" dir="rtl" data-t="31.400">המק,</span> <span class="w" dir="rtl" data-t="31.560">בגרסה</span> <span class="w" dir="rtl" data-t="31.720">שנבדקה,</span> <span class="w" dir="rtl" data-t="31.880">לא</span> <span class="w" dir="rtl" data-t="32.040">קורא</span> <span class="w" dir="rtl" data-t="32.200">עברית.</span> <span class="w" dir="rtl" data-t="32.610">שם</span> <span class="w" dir="rtl" data-t="32.770">בעברית</span> <span class="w" dir="rtl" data-t="32.930">מסמנים</span> <span class="w" dir="rtl" data-t="33.090">לקלוד</span> <span class="w" dir="rtl" data-t="33.250">ידנית,</span> <span class="w" dir="rtl" data-t="33.410">ומבקשים</span> <span class="w" dir="rtl" data-t="33.570">טשטוש</span> <span class="w" dir="rtl" data-t="33.730">קבוע</span> <span class="w" dir="rtl" data-t="33.890">באזור</span> <span class="w" dir="rtl" data-t="34.050">הזה.</span></p></div></div>
 </div></div>
 </div>
 </div>
@@ -823,15 +857,21 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     // only EDGE px (inside its own leading, so no glyph is ever cut by the viewport)
     const PUSH = 10, COMP = 4, EDGE = 2, plines = E.qa(".pl", body);
     H.forEach((h) => {
-      const PUSH_H = Math.max(PUSH, Math.round((h.bot - h.top) * (LIFT - 1) / 2 + 6));
+      // a tall key line zooms less, and grows toward the side of the page that has more lines to push
+      const lh = h.bot - h.top;
+      h.s = 1 + Math.min(LIFT - 1, 10 / lh);
       const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
       const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
       const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
       const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      const f = above.length + below.length ? Math.min(0.85, Math.max(0.15, above.length / (above.length + below.length))) : 0.5;
+      h.lift.style.transformOrigin = "50% " + (f * 100).toFixed(1) + "%";
+      // each side is pushed by what the panel grows on that side, plus a gap
+      const grow = [f * lh * (h.s - 1), (1 - f) * lh * (h.s - 1)];
       h.push = [];
-      [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
-        const m = ls.length;
-        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(PUSH_H, EDGE + COMP * (m - 1 - j))]));
+      [[above, -1, grow[0]], [below, 1, grow[1]]].forEach(([ls, sgn, g]) => {
+        const m = ls.length, want = Math.max(PUSH, Math.round(g + 8));
+        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(want, EDGE + COMP * (m - 1 - j))]));
       });
     });
     // the lifted copies sit over their line on the page where it is held (static layout)
@@ -855,7 +895,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
           dimmed = true;
           tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
-          tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: h.s, duration: 0.6, ease: SPRING }), t);
           h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
           h.t0 = t;
@@ -863,7 +903,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
           // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
-          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: h.s }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
           h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
           tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
           if (!keepDim) {
@@ -928,7 +968,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     return {
       pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
       holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
-      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, liftH: h.lift.offsetHeight })),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, s: +h.s.toFixed(3), origin: h.lift.style.transformOrigin, push: h.push.map((x) => Math.round(x[1])).join(" ") })),
     };
   };
 
@@ -1046,7 +1086,17 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     E.qa(".ch-ring", sc).forEach((r, i) => {
       tl.fromTo(r, { scale: 0.66 + i * 0.14, opacity: 0.85 - i * 0.2 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S);
     });
-    E.burst(tl, sc, 540, 670, S + 0.05, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ffffff" });
+    // sparks leave from the ring's edge (never a stack of dots over the number)
+    const rnd = E.rand(5);
+    for (let i = 0; i < 18; i++) {
+      const d = document.createElement("i"), sz = 5 + rnd() * 6, ang = (i / 18) * Math.PI * 2 + rnd() * 0.3;
+      const r0 = 128, r1 = 210 + rnd() * 150, dur = 0.6 + rnd() * 0.35;
+      d.className = "fx-dot";
+      d.style.cssText = "left:" + (540 + Math.cos(ang) * r0).toFixed(1) + "px;top:" + (670 + Math.sin(ang) * r0).toFixed(1) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:#ffffff;box-shadow:0 0 10px #ffffff";
+      sc.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * (r1 - r0), y: Math.sin(ang) * (r1 - r0), scale: 0.35, duration: dur, ease: "power3.out" }), S + 0.03);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), S + 0.03);
+    }
     tl.fromTo(k, { opacity: 0.35, y: 8 }, A({ opacity: 1, y: 0, duration: 0.4, ease: SPRING }), S);
     tl.fromTo(dots, { opacity: 0.4, y: 8 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SPRING }), S);
     E.kin(tl, tt, S);
@@ -1057,6 +1107,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const mo = E.q(".ch-mo", sc), mq = (s) => E.q(s, mo), mqa = (s) => E.qa(s, mo);
     if (mo) {
       E.qa(".dr", mo).forEach((p, i) => E.draw(tl, p, S + 0.06 + i * 0.035, 0.7));
+      E.qa(".mo-solid", mo).forEach((p) => tl.fromTo(p, { fillOpacity: 0 }, A({ fillOpacity: 1, duration: 0.3 }), S + 0.3));
       E.qa(".fl", mo).forEach((p, i) => tl.fromTo(p, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.25 + i * 0.06));
       const hold0 = Math.max(1.0, (T.lw || 1) - 0.4), N = cfg.n;
       if (N === 1) {
@@ -1077,11 +1128,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         // the play mark pulses
         const pl = mq(".mo-play");
         for (let a = hold0, j = 0; a + 0.6 < D - 0.25; a += 0.6, j++) {
-          tl.fromTo(pl, { scale: j % 2 ? 1.16 : 1 }, A({ scale: j % 2 ? 1 : 1.16, transformOrigin: "50% 50%", duration: 0.6, ease: "sine.inOut" }), S + a);
+          tl.fromTo(pl, { scale: j % 2 ? 1.16 : 1, transformOrigin: "50% 50%" }, A({ scale: j % 2 ? 1 : 1.16, duration: 0.6, ease: "sine.inOut" }), S + a);
         }
       } else if (N === 5) {
         // the plug goes into the socket and the connection glows
-        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -24, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
+        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -18, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
         const rg = mq(".mo-ring");
         tl.fromTo(rg, { opacity: 0.9, scale: 0.6, transformOrigin: "50% 50%" }, A({ opacity: 0, scale: 1.7, duration: 0.8, ease: "power2.out" }), S + hold0 + 0.4);
       } else if (N === 6) {
@@ -1162,13 +1213,14 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
   // the popup: in from the top, out to the top
   const popIn = (t, d) => tl.fromTo(pop, { opacity: 0, y: -24 }, A({ opacity: 1, y: 0, duration: d || 0.25, ease: "power2.out" }), T(t));
   const popOut = (t, d) => tl.fromTo(pop, { opacity: 1, y: 0 }, A({ opacity: 0, y: -24, duration: d || 0.22, ease: "power2.in" }), T(t));
-  // a finding: red frame with its time, then it settles (lilac) once logged
-  const flag = (sens, t, hold) => {
+  // a finding: a frame with its time tag. Addresses are caught with a white flash that settles lilac; only the
+  // popup's catch is red (red rule). The tags stay until the replay (beat 3).
+  const flag = (sens, t, red) => {
     const fr = E.q(".s61-fr", sens), tg = E.q(".s61-tag", sens);
+    const c0 = "#ffffff", g0 = "0 0 14px rgba(255, 255, 255, 0.6)";   // (the CSS frame is red)
     tl.fromTo(fr, { opacity: 0, scale: 1.18 }, A({ opacity: 1, scale: 1, duration: 0.3, ease: E.SPRING }), T(t));
     tl.fromTo(tg, { opacity: 0, y: 6 }, A({ opacity: 1, y: 0, duration: 0.25, ease: E.SPRING }), T(t + 0.03));
-    tl.fromTo(fr, { borderColor: RED, boxShadow: "0 0 12px rgba(255, 69, 58, 0.5)" }, A({ borderColor: LIL, boxShadow: "0 0 10px rgba(201, 194, 255, 0.45)", duration: 0.15 }), T(t + hold));
-    tl.fromTo(tg, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(t + hold + 0.05));
+    if (!red) tl.fromTo(fr, { borderColor: c0, boxShadow: g0 }, A({ borderColor: LIL, boxShadow: "0 0 10px rgba(201, 194, 255, 0.45)", duration: 0.45, ease: "power1.out" }), T(t));
   };
   // redact: the sharp text gives way to its blurred twin
   const blurOn = (sens, t, d) => {
@@ -1211,35 +1263,37 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
   const b2 = P[1];
   olds.forEach((r) => tl.fromTo(E.q(".s61-subj .s61-ocr", r), { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(b2 + 0.02)));
   emails.forEach((s, k) => {
-    tl.fromTo(E.q(".s61-ocr", s), { opacity: 1 }, A({ opacity: 0, duration: 0.12 }), T(b2 + 0.06 + k * 0.16));
-    flag(s, b2 + 0.06 + k * 0.16, 0.13);
+    tl.fromTo(E.q(".s61-ocr", s), { opacity: 1 }, A({ opacity: 0, duration: 0.12 }), T(b2 + 0.06 + k * 0.1));
+    flag(s, b2 + 0.06 + k * 0.1, false);
   });
   mark(0, b2 + 0.1);
-  headTo(9, b2 + 0.55, 0.14);
-  tickOn(9, b2 + 0.55);
-  scanAt(b2 + 0.55);
-  headTo(10, b2 + 0.78, 0.14);
-  tickOn(10, b2 + 0.78);
-  arrive(b2 + 0.78);
-  scanAt(b2 + 0.88);
-  flag(sNew, b2 + 0.95, 0.35);
-  mark(1, b2 + 0.98);
-  headTo(11, b2 + 1.0, 0.14);
-  tickOn(11, b2 + 1.0);
-  headTo(12, b2 + 1.2, 0.14);
-  tickOn(12, b2 + 1.2);
-  popIn(b2 + 1.2);
-  scanAt(b2 + 1.25);
-  flag(sPop, b2 + 1.38, 0.5);
-  mark(2, b2 + 1.4);
-  headTo(13, b2 + 1.5, 0.14);
-  tickOn(13, b2 + 1.5);
-  popOut(b2 + 1.95);
+  headTo(9, b2 + 0.42, 0.14);
+  tickOn(9, b2 + 0.42);
+  scanAt(b2 + 0.42);
+  headTo(10, b2 + 0.6, 0.14);
+  tickOn(10, b2 + 0.6);
+  arrive(b2 + 0.6);
+  scanAt(b2 + 0.68);
+  flag(sNew, b2 + 0.75, false);
+  mark(1, b2 + 0.78);
+  headTo(11, b2 + 0.82, 0.14);
+  tickOn(11, b2 + 0.82);
+  // 0:12: the popup is caught (the one red mark, held ~0.7 s; the playhead waits on it)
+  headTo(12, b2 + 1.0, 0.14);
+  tickOn(12, b2 + 1.0);
+  popIn(b2 + 1.0);
+  scanAt(b2 + 1.05);
+  flag(sPop, b2 + 1.15, true);
+  mark(2, b2 + 1.18);
+  popOut(b2 + 1.92);
+  headTo(13, b2 + 1.92, 0.14);
+  tickOn(13, b2 + 1.92);
 
   // B3 "ומטשטש אותו בדיוק בזמן שהוא על המסך": the recording is replayed with the blur lanes; each blur is on
   // exactly while its item is on screen (the popup's 0.6 s; the camera punches in on the popup)
   const b3 = P[2];
   [...emails, sNew].forEach((s) => tl.fromTo(E.q(".s61-fr", s), { opacity: 1 }, A({ opacity: 0, duration: 0.22 }), T(b3)));
+  [...emails, sNew, sPop].forEach((s) => tl.fromTo(E.q(".s61-tag", s), { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b3)));
   tl.fromTo(E.q(".s61-fr", sPop), { opacity: 1 }, A({ opacity: 0, duration: 0.1 }), T(b3));
   headTo(8, b3 + 0.05, 0.35, "power2.inOut");
   rewindList(b3 + 0.05);
@@ -1261,6 +1315,9 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
   const link = q(".s61-link line");
   E.draw(tl, link, T(b3 + 0.88), 0.2, "power2.out");
   tl.fromTo(q(".s61-link"), { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b3 + 1.42));
+  // the playhead steps back while the link shows, so the two never read as twin lines
+  tl.fromTo(head, { opacity: 1 }, A({ opacity: 0.3, duration: 0.15 }), T(b3 + 0.8));
+  tl.fromTo(head, { opacity: 0.3 }, A({ opacity: 1, duration: 0.2 }), T(b3 + 1.45));
   popOut(b3 + 1.45, 0.16);
   headTo(16, b3 + 1.45, 0.35, "power1.out");
 
@@ -1295,11 +1352,16 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
   E.burst(tl, root, rc.x + res.offsetWidth / 2, rc.y + res.offsetHeight / 2, T(pe + 0.62), { n: 16, seed: 61, r0: 150, r1: 230, color: "#c9c2ff" });
   E.sweep(tl, res, T(pe + 0.85), 0.8, { color: "rgba(201, 194, 255, 0.22)" });
   E.sweep(tl, tlp, T(pe + 1.0), 0.9, { color: "rgba(201, 194, 255, 0.12)" });
+  // "0 ממצאים": the findings lane agrees: its marks dim and the lane ends with a check
+  mk.forEach((m) => tl.fromTo(m, { opacity: 1 }, A({ opacity: 0.25, duration: 0.35 }), T(pe + 0.3)));
+  const lok = q(".s61-lok");
+  tl.fromTo(lok, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(pe + 0.55));
+  E.draw(tl, E.q("path", lok), T(pe + 0.6), 0.28);
 };
 
 
 (function () {
-  const CFGS = [{"id": "t61", "sim": "sim61", "D": 35.39, "tStage": 1.05, "tExp": 1.65, "phr": [1.65, 4.6, 6.8, 9.0], "phrEnd": 11.95, "tSimEnd": 15.95, "tFact": 15.95, "tPrompt": 21.52, "tPromptEnd": 30.52, "tTip": 30.52, "expZoom": 0.07, "simDur": 14.9, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim61": {"app": "תיבת דואר", "mails": [["dana@example.com", "0:00", 118], ["client@example.com", "0:00", 96], ["team@example.com", "0:00", 112], ["info@example.com", "0:00", 104], ["office@example.com", "0:10", 100]], "phone": "050-0000000", "phoneTag": "0:12", "perSec": "פריים לכל שנייה", "rescan": "סריקה חוזרת", "result": "0 ממצאים", "laneFind": "ממצאים", "laneBlur": "טשטוש", "marks": [0, 10, 12], "segs": [[0, 20], [10, 20], [12, 12.6]]}, "S": 0.0}];
+  const CFGS = [{"id": "t61", "sim": "sim61", "D": 35.61, "tStage": 1.05, "tExp": 1.65, "phr": [1.65, 4.6, 6.8, 9.0], "phrEnd": 11.95, "tSimEnd": 15.95, "tFact": 15.95, "tPrompt": 21.52, "tPromptEnd": 30.52, "tTip": 30.52, "expZoom": 0.07, "simDur": 14.9, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim61": {"app": "תיבת דואר", "mails": [["dana@example.com", "0:00", 118], ["client@example.com", "0:00", 96], ["team@example.com", "0:00", 112], ["info@example.com", "0:00", 104], ["office@example.com", "0:10", 100]], "phone": "050-0000000", "phoneTag": "0:12", "perSec": "פריים לכל שנייה", "rescan": "סריקה חוזרת", "result": "0 ממצאים", "laneFind": "ממצאים", "laneBlur": "טשטוש", "marks": [0, 10, 12], "segs": [[0, 20], [10, 20], [12, 12.6]]}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1313,7 +1375,7 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 35.390;
+    const TOT = 35.610;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

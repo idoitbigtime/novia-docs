@@ -51,9 +51,9 @@ def html(cfg):
 <i class="s61-scan"></i>
 <div class="s61-res" dir="rtl"><span class="s61-rt" dir="rtl">{esc(c["result"])}</span><span class="s61-rok"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34"/><path d="M24 41l11 11 21-23"/></svg></span></div>
 </div>
-<svg class="s61-link" viewBox="0 0 4 220" preserveAspectRatio="none" aria-hidden="true"><line x1="2" y1="0" x2="2" y2="220"/></svg>
+<svg class="s61-link" viewBox="0 0 4 392" preserveAspectRatio="none" aria-hidden="true"><line x1="2" y1="0" x2="2" y2="392"/></svg>
 <div class="s61-tlp"><div class="s61-ruler"><i class="s61-rl"></i>{ticks}{labels}</div>
-<div class="s61-lane s61-lmk"><span class="s61-ll" dir="rtl">{esc(c["laneFind"])}</span><i class="s61-lt"></i>{marks}</div>
+<div class="s61-lane s61-lmk"><span class="s61-ll" dir="rtl">{esc(c["laneFind"])}</span><i class="s61-lt"></i>{marks}{OK.format(cls="s61-lok")}</div>
 <div class="s61-lane s61-lsg"><span class="s61-ll" dir="rtl">{esc(c["laneBlur"])}</span>{segs}</div>
 <i class="s61-head"><u></u></i></div>
 </div>"""

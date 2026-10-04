@@ -358,22 +358,52 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .tip-text .w { opacity: 0; }
 
 /* ---------- chapter card ---------- */
-.chap { position: absolute; inset: 0; }
-.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
-.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
+.chap { position: absolute; inset: 0; transform-origin: 540px 900px; }
+/* the card's camera: a slow push through the hold */
+.ch-cam { position: absolute; inset: 0; transform-origin: 540px 900px; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0.35; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); }
 .ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
 .ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
 .ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
 .ch-tin { display: inline-block; white-space: nowrap; }
 .ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
-.ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-sub { position: absolute; top: 1040px; left: 160px; width: 760px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
 .ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
 /* centred blocks wrap into even lines; paragraphs never end on a lone word */
 .ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
 .exp, .tip-text { text-wrap: pretty; }
-.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0.4; }
 .ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
 .ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+/* the chapter motif: 180 px line art beside the number (lavender, 35%) */
+/* frame 0 of a card (a seek to 0 may not render the timeline): the number and its rings are already there */
+.chap .ch-n { transform: perspective(1200px) rotateY(-16deg) scale(0.9); }
+.chap .ch-ring { opacity: 0.85; transform: scale(0.66); }
+.chap .ch-ring2 { opacity: 0.65; transform: scale(0.8); }
+.chap .ch-k, .chap .ch-dots { transform: translateY(8px); }
+.ch-mo { position: absolute; left: 740px; top: 580px; width: 180px; height: 180px; opacity: 0.35; overflow: visible; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
+.ch-mo .dr, .ch-mo .mo-ph, .ch-mo .mo-scan, .ch-mo .mo-ck, .ch-mo .mo-ring, .ch-mo .mo-blur { fill: none; stroke: #c9c2ff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.ch-mo .fl, .ch-mo .mo-f { fill: #c9c2ff; }
+.ch-mo .fl { opacity: 0; }
+.ch-mo .mo-solid { fill: #0b0a16; fill-opacity: 0; }
+.ch-mo .mo-bar { stroke-width: 6; }
+.ch-mo .mo-ph { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-scan { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-blur { stroke-width: 11; opacity: 0; }
+.ch-mo .mo-ring { stroke-width: 2.5; opacity: 0; }
+.ch-mo .mo-f { opacity: 0; }
+.ch-mo .mo-ck { stroke-width: 4.5; }
+.ch-mo3 .mo-in { position: absolute; inset: 0; perspective: 640px; opacity: 0; }
+.ch-mo3 .mo-tilt { position: absolute; left: 40px; top: 40px; width: 100px; height: 100px; transform-style: preserve-3d; transform: rotateX(-24deg); }
+.ch-mo3 .mo-cube { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(-10deg); }
+.ch-mo3 .mo-cube i { position: absolute; inset: 0; border: 3.5px solid #c9c2ff; border-radius: 5px; display: block; }
+.ch-mo3 .mo-face0 { transform: translateZ(50px); }
+.ch-mo3 .mo-face1 { transform: rotateY(180deg) translateZ(50px); }
+.ch-mo3 .mo-face2 { transform: rotateY(90deg) translateZ(50px); }
+.ch-mo3 .mo-face3 { transform: rotateY(-90deg) translateZ(50px); }
+.ch-mo3 .mo-face4 { transform: rotateX(90deg) translateZ(50px); }
+.ch-mo3 .mo-face5 { transform: rotateX(-90deg) translateZ(50px); }
 
 /* ---------- effects ---------- */
 /* light sweep across an element (the element clips it) */
@@ -392,7 +422,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 /* Chapter 0: hook (frame coordinates, 1080 x 1920; text inside x 140..940, y 300..1570) */
 .hook { position: absolute; inset: 0; }
 .hook .hk-qwrap { position: absolute; left: 140px; width: 800px; top: 470px; height: 1000px; }
-.hook .hk-clock { position: absolute; left: 230px; top: 0; width: 340px; height: 340px; opacity: 0; overflow: visible; }
+.hook .hk-clock { position: absolute; left: 230px; top: 0; width: 340px; height: 340px; overflow: visible; transform: scale(0.92); }
 .hook .hk-clock .hk-trail { fill: none; stroke: rgba(255, 107, 97, 0.5); stroke-width: 10; stroke-linecap: round; opacity: 0; }
 .hook .hk-clock line, .hook .hk-clock circle { fill: none; stroke: #c9c2ff; stroke-width: 4; stroke-linecap: round; }
 .hook .hk-clock .hk-rim { stroke-width: 3; filter: drop-shadow(0 0 10px rgba(201, 194, 255, 0.7)); }
@@ -403,7 +433,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .hook .hk-tline { position: absolute; left: 20px; width: 760px; top: 640px; height: 170px; border-radius: 18px; background: rgba(20, 18, 40, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.22); opacity: 0; overflow: hidden; }
 .hook .hk-tc { position: absolute; height: 34px; border-radius: 8px; background: rgba(201, 194, 255, 0.35); border: 1.5px solid rgba(201, 194, 255, 0.55); display: block; }
 .hook .hk-cb { position: absolute; top: 116px; height: 22px; border-radius: 7px; background: rgba(255, 255, 255, 0.82); display: block; }
-.hook .hk-cm { position: absolute; top: 8px; width: 3px; height: 98px; background: #ff453a; box-shadow: 0 0 8px rgba(255, 69, 58, 0.8); display: block; }
+.hook .hk-cm { position: absolute; top: 8px; width: 3px; height: 98px; background: #c9c2ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.8); display: block; transform: scaleY(0); }
 .hook .hk-ph { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: #ffffff; box-shadow: 0 0 10px #c9c2ff; display: block; }
 .hook .hk-prom { position: absolute; left: 140px; width: 800px; top: 330px; text-align: center; font: 600 46px/1.3 "Rubik"; color: var(--ink2); }
 
@@ -475,12 +505,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .hook .hk-sentwrap { position: absolute; left: 140px; width: 800px; top: 540px; height: 900px; }
 .hook .hk-sent { position: absolute; left: 0; width: 800px; top: 0; text-align: center; font: 700 56px/1.3 "Rubik"; color: var(--ink); text-wrap: balance; }
 .hook .hk-bubble { position: absolute; left: 110px; top: 250px; width: 580px; height: 176px; border-radius: 34px 34px 8px 34px; border: 2.5px solid #c9c2ff; background: rgba(28, 24, 58, 0.9); box-shadow: 0 0 26px rgba(201, 194, 255, 0.3); display: flex; align-items: center; gap: 16px; padding: 0 36px; opacity: 0; }
-.hook .hk-bubble i { height: 22px; border-radius: 11px; background: rgba(217, 212, 255, 0.75); display: block; flex: none; transform-origin: 100% 50%; }
-.hook .hk-bubble i:nth-of-type(1) { width: 140px; }
-.hook .hk-bubble i:nth-of-type(2) { width: 96px; }
-.hook .hk-bubble i:nth-of-type(3) { width: 128px; }
-.hook .hk-mic { width: 40px; height: 54px; flex: none; overflow: visible; }
-.hook .hk-mic rect, .hook .hk-mic path { fill: none; stroke: #ff6b61; stroke-width: 3; stroke-linecap: round; }
+.hook .hk-req { font: 600 38px/1 "Rubik"; color: #f5f2ea; white-space: nowrap; clip-path: inset(0px 0px 0px 100%); }
+.hook .hk-caret { width: 4px; height: 50px; border-radius: 2px; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; flex: none; margin-right: 6px; }
 .hook .hk-steps { position: absolute; left: 0; width: 800px; top: 500px; display: flex; justify-content: center; gap: 18px; }
 .hook .hk-step { display: flex; align-items: center; gap: 12px; padding: 20px 24px 20px 18px; border-radius: 24px; border: 2px solid rgba(201, 194, 255, 0.3); background: rgba(26, 23, 52, 0.9); font: 700 40px/1 "Rubik"; color: var(--ink); opacity: 0; }
 .hook .hk-step .hk-ck { width: 46px; height: 46px; border-radius: 50%; background: rgba(201, 194, 255, 0.12); box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.4); }
@@ -499,7 +525,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
 <div id="sc-hook" class="clip scene" data-start="0.000" data-duration="10.600" data-track-index="1"><div class="hook">
-<div class="hk-qwrap"><svg class="hk-clock" viewBox="0 0 240 240" aria-hidden="true"><circle class="hk-rim" cx="120" cy="120" r="104"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(0 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(30 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(60 120 120)"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(90 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(120 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(150 120 120)"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(180 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(210 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(240 120 120)"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(270 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(300 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(330 120 120)"/><path class="hk-trail" d="M120 30 A 90 90 0 0 1 210 120"/><line class="hk-hh" x1="120" y1="120" x2="120" y2="70"/><line class="hk-mh" x1="120" y1="120" x2="120" y2="44"/><circle cx="120" cy="120" r="7" class="hk-pin"/></svg><p class="hk-q kin" dir="rtl"><span class="w" dir="rtl" data-t="0.200">ערב</span> <span class="w" dir="rtl" data-t="0.300">שלם</span> <span class="w" dir="rtl" data-t="0.400">על</span> <span class="w" dir="rtl" data-t="0.500">סרטון</span> <span class="w" dir="rtl" data-t="0.600">של</span> <span class="w" dir="rtl" data-t="0.700">דקה?</span></p><div class="hk-tline"><i class="hk-tc" style="left:10px;width:150px;top:18px"></i><i class="hk-tc" style="left:168px;width:96px;top:18px"></i><i class="hk-tc" style="left:272px;width:190px;top:18px"></i><i class="hk-tc" style="left:470px;width:120px;top:18px"></i><i class="hk-tc" style="left:598px;width:152px;top:18px"></i><i class="hk-tc" style="left:40px;width:120px;top:62px"></i><i class="hk-tc" style="left:176px;width:160px;top:62px"></i><i class="hk-tc" style="left:350px;width:90px;top:62px"></i><i class="hk-tc" style="left:452px;width:210px;top:62px"></i><i class="hk-tc" style="left:670px;width:80px;top:62px"></i><i class="hk-cb" style="left:30px;width:130px;transform:rotate(-4deg)"></i><i class="hk-cb" style="left:190px;width:110px;transform:rotate(3deg)"></i><i class="hk-cb" style="left:330px;width:150px;transform:rotate(-2deg)"></i><i class="hk-cb" style="left:520px;width:120px;transform:rotate(5deg)"></i><i class="hk-cb" style="left:660px;width:90px;transform:rotate(-3deg)"></i><i class="hk-cm" style="left:164px"></i><i class="hk-cm" style="left:268px"></i><i class="hk-cm" style="left:466px"></i><i class="hk-cm" style="left:594px"></i><i class="hk-ph"></i></div></div>
+<div class="hk-qwrap"><svg class="hk-clock" viewBox="0 0 240 240" aria-hidden="true"><circle class="hk-rim" cx="120" cy="120" r="104"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(0 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(30 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(60 120 120)"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(90 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(120 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(150 120 120)"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(180 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(210 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(240 120 120)"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(270 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(300 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(330 120 120)"/><path class="hk-trail" d="M120 30 A 90 90 0 0 1 210 120"/><line class="hk-hh" x1="120" y1="120" x2="120" y2="70"/><line class="hk-mh" x1="120" y1="120" x2="120" y2="44"/><circle cx="120" cy="120" r="7" class="hk-pin"/></svg><p class="hk-q kin" dir="rtl"><span class="w" dir="rtl" data-t="0.000">ערב</span> <span class="w" dir="rtl" data-t="0.100">שלם</span> <span class="w" dir="rtl" data-t="0.200">על</span> <span class="w" dir="rtl" data-t="0.300">סרטון</span> <span class="w" dir="rtl" data-t="0.400">של</span> <span class="w" dir="rtl" data-t="0.500">דקה?</span></p><div class="hk-tline"><i class="hk-tc" style="left:10px;width:150px;top:18px"></i><i class="hk-tc" style="left:168px;width:96px;top:18px"></i><i class="hk-tc" style="left:272px;width:190px;top:18px"></i><i class="hk-tc" style="left:470px;width:120px;top:18px"></i><i class="hk-tc" style="left:598px;width:152px;top:18px"></i><i class="hk-tc" style="left:40px;width:120px;top:62px"></i><i class="hk-tc" style="left:176px;width:160px;top:62px"></i><i class="hk-tc" style="left:350px;width:90px;top:62px"></i><i class="hk-tc" style="left:452px;width:210px;top:62px"></i><i class="hk-tc" style="left:670px;width:80px;top:62px"></i><i class="hk-cb" style="left:30px;width:130px;transform:rotate(-4deg)"></i><i class="hk-cb" style="left:190px;width:110px;transform:rotate(3deg)"></i><i class="hk-cb" style="left:330px;width:150px;transform:rotate(-2deg)"></i><i class="hk-cb" style="left:520px;width:120px;transform:rotate(5deg)"></i><i class="hk-cb" style="left:660px;width:90px;transform:rotate(-3deg)"></i><i class="hk-cm" style="left:164px"></i><i class="hk-cm" style="left:268px"></i><i class="hk-cm" style="left:466px"></i><i class="hk-cm" style="left:594px"></i><i class="hk-ph"></i></div></div>
 <p class="hk-prom kin" dir="rtl"><span class="w" dir="rtl" data-t="2.300">בסוף</span> <span class="w" dir="rtl" data-t="2.380">הסרטון</span> <span class="w" dir="rtl" data-t="2.460">תדעו</span> <span class="w" dir="rtl" data-t="2.540">לתת</span> <span class="w" dir="rtl" data-t="2.620">לקלוד</span> <span class="w" dir="rtl" data-t="2.700">לערוך:</span></p>
 <div class="hk-fbox"><div class="hk-f hk-f0"><div class="hk-fin"><div class="hk-wave"><svg class="hk-seg hk-seg0" style="left:30px" viewBox="0 0 190 120" aria-hidden="true"><rect x="0" y="51.0" width="10" height="18" rx="5"/><rect x="17" y="43.0" width="10" height="34" rx="5"/><rect x="34" y="34.0" width="10" height="52" rx="5"/><rect x="51" y="45.0" width="10" height="30" rx="5"/><rect x="68" y="28.0" width="10" height="64" rx="5"/><rect x="85" y="38.0" width="10" height="44" rx="5"/><rect x="102" y="47.0" width="10" height="26" rx="5"/><rect x="119" y="40.0" width="10" height="40" rx="5"/><rect x="136" y="31.0" width="10" height="58" rx="5"/><rect x="153" y="42.0" width="10" height="36" rx="5"/><rect x="170" y="49.0" width="10" height="22" rx="5"/></svg><svg class="hk-seg hk-seg1" style="left:290px" viewBox="0 0 190 120" aria-hidden="true"><rect x="0" y="51.0" width="10" height="18" rx="5"/><rect x="17" y="43.0" width="10" height="34" rx="5"/><rect x="34" y="34.0" width="10" height="52" rx="5"/><rect x="51" y="45.0" width="10" height="30" rx="5"/><rect x="68" y="28.0" width="10" height="64" rx="5"/><rect x="85" y="38.0" width="10" height="44" rx="5"/><rect x="102" y="47.0" width="10" height="26" rx="5"/><rect x="119" y="40.0" width="10" height="40" rx="5"/><rect x="136" y="31.0" width="10" height="58" rx="5"/><rect x="153" y="42.0" width="10" height="36" rx="5"/><rect x="170" y="49.0" width="10" height="22" rx="5"/></svg><svg class="hk-seg hk-seg2" style="left:550px" viewBox="0 0 190 120" aria-hidden="true"><rect x="0" y="51.0" width="10" height="18" rx="5"/><rect x="17" y="43.0" width="10" height="34" rx="5"/><rect x="34" y="34.0" width="10" height="52" rx="5"/><rect x="51" y="45.0" width="10" height="30" rx="5"/><rect x="68" y="28.0" width="10" height="64" rx="5"/><rect x="85" y="38.0" width="10" height="44" rx="5"/><rect x="102" y="47.0" width="10" height="26" rx="5"/><rect x="119" y="40.0" width="10" height="40" rx="5"/><rect x="136" y="31.0" width="10" height="58" rx="5"/><rect x="153" y="42.0" width="10" height="36" rx="5"/><rect x="170" y="49.0" width="10" height="22" rx="5"/></svg><i class="hk-gap" style="left:220px"></i><i class="hk-gap" style="left:480px"></i><i class="hk-cut" style="left:218px"></i><i class="hk-cut" style="left:408px"></i><i class="hk-base"></i></div></div></div><div class="hk-f hk-f1"><div class="hk-fin"><div class="hk-phone"><div class="hk-scr"><svg class="hk-person2" viewBox="0 0 312 380" aria-hidden="true">
 <defs>
@@ -523,8 +549,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#prhk1)" stroke-width="3"/>
 </svg></div><div class="hk-clip"><svg class="hk-land" viewBox="0 0 400 225" aria-hidden="true"><circle cx="300" cy="62" r="26"/><path d="M0 200 L 110 92 L 180 160 L 250 104 L 400 210"/></svg><i class="hk-bar"><b></b></i></div></div></div></div><div class="hk-f hk-f4"><div class="hk-fin"><div class="hk-win"><div class="hk-wbar"><i></i><i></i><i></i></div><div class="hk-ln" style="width:420px"></div><div class="hk-ln" style="width:300px"></div><div class="hk-mail" dir="ltr">dana@example.com<i class="hk-mbox"></i></div><div class="hk-ln" style="width:360px"></div><div class="hk-ln" style="width:240px"></div></div></div></div><div class="hk-f hk-f5"><div class="hk-fin"><div class="hk-rend"><div class="hk-big"><span dir="ltr">1080×1920</span></div><div class="hk-small"><span dir="ltr">540×960</span><b dir="rtl">15 שניות</b><svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></div></div></div></div></div>
 <div class="hk-pills"><span class="pill hk-pill" id="hk-p0">חיתוך שתיקות</span><span class="pill hk-pill" id="hk-p1">כתוביות בעברית</span><span class="pill hk-pill" id="hk-p2">אפקטים בתלת ממד</span><span class="pill hk-pill" id="hk-p3">בירולים</span><span class="pill hk-pill" id="hk-p4">הקלטות מסך</span><span class="pill hk-pill" id="hk-p5">חיסכון ברינדורים</span></div>
-<div class="hk-sentwrap"><p class="hk-sent kin" dir="rtl"><span class="w" dir="rtl" data-t="6.250">אומרים</span> <span class="w" dir="rtl" data-t="6.360">לו</span> <span class="w" dir="rtl" data-t="6.470">בעברית</span> <span class="w" dir="rtl" data-t="6.580">מה</span> <span class="w" dir="rtl" data-t="6.690">רוצים,</span> <span class="w" dir="rtl" data-t="6.800">ורק</span> <span class="w" dir="rtl" data-t="6.910">מאשרים</span> <span class="w" dir="rtl" data-t="7.020">כל</span> <span class="w" dir="rtl" data-t="7.130">שלב</span> <span class="w" dir="rtl" data-t="7.240">בדרך.</span></p>
-<div class="hk-bubble" dir="rtl"><svg class="hk-mic" viewBox="0 0 30 40" aria-hidden="true"><rect x="9" y="3" width="12" height="22" rx="6"/><path d="M4 19c0 6 5 11 11 11s11-5 11-11M15 30v7M9 37h12"/></svg><i></i><i></i><i></i></div>
+<div class="hk-sentwrap"><p class="hk-sent kin" dir="rtl"><span class="w" dir="rtl" data-t="6.150">אומרים</span> <span class="w" dir="rtl" data-t="6.260">לו</span> <span class="w" dir="rtl" data-t="6.370">בעברית</span> <span class="w" dir="rtl" data-t="6.480">מה</span> <span class="w" dir="rtl" data-t="6.590">רוצים,</span> <span class="w" dir="rtl" data-t="6.700">ורק</span> <span class="w" dir="rtl" data-t="6.810">מאשרים</span> <span class="w" dir="rtl" data-t="6.920">כל</span> <span class="w" dir="rtl" data-t="7.030">שלב</span> <span class="w" dir="rtl" data-t="7.140">בדרך.</span></p>
+<div class="hk-bubble" dir="rtl"><span class="hk-req" dir="rtl">לחתוך שתיקות, לתקן כתוביות</span><i class="hk-caret"></i></div>
 <div class="hk-steps" dir="rtl"><div class="hk-step"><svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><span>חיתוך</span></div><div class="hk-step"><svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><span>כתוביות</span></div><div class="hk-step"><svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><span>אפקטים</span></div></div></div>
 <div class="hk-title"><i class="ch-ring hk-ring"></i><i class="ch-ring ch-ring2 hk-ring"></i><h1 class="hk-tt kin" dir="rtl"><span class="w" dir="rtl" data-t="8.650">עריכת</span> <span class="w" dir="rtl" data-t="8.770">וידאו</span> <span class="w" dir="rtl" data-t="8.890">עם</span> <span class="w" dir="rtl" data-t="9.010">Claude</span></h1><span class="hk-badge" dir="rtl">21 פרומפטים מוכנים</span></div>
 </div></div>
@@ -737,6 +763,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const totalRows = Math.round(body.offsetHeight / ROW);
     const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
     const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
+    // a short text (an excerpt) gets a card sized to it, centred where the full card would be
+    if (totalRows < ROWS) {
+      const cut = vp.offsetTop + totalRows * ROW + 28, top = card.offsetTop + (card.offsetHeight - cut) / 2;
+      [card, E.q(".plift", ctx.scene)].forEach((el) => { if (el) { el.style.height = cut + "px"; el.style.top = top + "px"; } });
+      vp.style.height = totalRows * ROW + "px";
+    }
     const H = (hls || []).map((h) => {
       const ln = E.q('[data-hl="' + h.id + '"]', card);
       const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
@@ -763,11 +795,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
     // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
     const n = pages.length;
-    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.35, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.25, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
     const LIFT = 1.1, DIM = 0.38;
     const mineOf = (i) => H.filter((h) => h.page === i);
     const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
-    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.05 : 0.2);
     // a plain last page stays settled a little longer before the exit
     let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
     for (let i = 0; i < n; i++) {
@@ -778,7 +810,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     }
     fixed += tail;
     const want = H.reduce((a, h) => a + h.want, 0);
-    let dwell = 0.27;
+    let dwell = 0.45;
     let room = t1 - t0 - fixed - nPlain * dwell;
     if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
       dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
@@ -806,18 +838,26 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     } else {
       dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
     }
-    // the lines around a lifted key line make room for it: the ones next to it move PUSH px,
-    // the shift tapers to 0 at the page edge, so no line is pushed out of the viewport
-    const PUSH = 10, plines = E.qa(".pl", body);
+    // the lines around a lifted key line make room for it: the ones next to it move up to PUSH px,
+    // each gap between two lines shrinks by at most COMP px, and the line at the page edge moves
+    // only EDGE px (inside its own leading, so no glyph is ever cut by the viewport)
+    const PUSH = 10, COMP = 4, EDGE = 2, plines = E.qa(".pl", body);
     H.forEach((h) => {
+      // a tall key line zooms less, and grows toward the side of the page that has more lines to push
+      const lh = h.bot - h.top;
+      h.s = 1 + Math.min(LIFT - 1, 10 / lh);
       const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
       const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
       const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
       const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      const f = above.length + below.length ? Math.min(0.85, Math.max(0.15, above.length / (above.length + below.length))) : 0.5;
+      h.lift.style.transformOrigin = "50% " + (f * 100).toFixed(1) + "%";
+      // each side is pushed by what the panel grows on that side, plus a gap
+      const grow = [f * lh * (h.s - 1), (1 - f) * lh * (h.s - 1)];
       h.push = [];
-      [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
-        const m = ls.length;
-        ls.forEach((l, j) => { const s = m > 1 ? (PUSH * (m - 1 - j)) / (m - 1) : 0; if (s > 0.5) h.push.push([l, sgn * s]); });
+      [[above, -1, grow[0]], [below, 1, grow[1]]].forEach(([ls, sgn, g]) => {
+        const m = ls.length, want = Math.max(PUSH, Math.round(g + 8));
+        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(want, EDGE + COMP * (m - 1 - j))]));
       });
     });
     // the lifted copies sit over their line on the page where it is held (static layout)
@@ -841,14 +881,15 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
           dimmed = true;
           tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
-          tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: h.s, duration: 0.6, ease: SPRING }), t);
           h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
+          h.t0 = t;
           t += h.hold;
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
           // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
-          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: h.s }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
           h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
           tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
           if (!keepDim) {
@@ -896,18 +937,24 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
       };
       // the section that holds the last visible row (the end of the prompt on the last page)
       const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      // while a key line is lifted, the underline sits on that line's own section
+      const secOf = (y) => { let k = 0; starts.forEach((st, j) => { if (st <= y) k = j; }); return k; };
+      const ev = [];
       for (let i = 1; i < n; i++) {
-        const k = i === n - 1 && !isHold(i) ? lastVisible(pages[i]) : secAt(pages[i]);
-        if (k !== cur) move(k, slides[i - 1][0], Math.max(0.3, slides[i - 1][1]));
+        const mine = mineOf(i);
+        const k = mine.length ? secOf(mine[0].top) : i === n - 1 ? lastVisible(pages[i]) : secAt(pages[i]);
+        ev.push([slides[i - 1][0], k, Math.max(0.3, slides[i - 1][1])]);
       }
+      H.forEach((h) => ev.push([h.t0, secOf(h.top), 0.3]));
+      ev.sort((a, b) => a[0] - b[0]).forEach(([ta, k, d]) => { if (k !== cur) move(k, ta, d); });
       // a last page with key lines: its last section takes over when the page undims
-      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) > cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) !== cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
     }
     tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
     return {
       pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
       holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
-      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, liftH: h.lift.offsetHeight })),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, s: +h.s.toFixed(3), origin: h.lift.style.transformOrigin, push: h.push.map((x) => Math.round(x[1])).join(" ") })),
     };
   };
 
@@ -1002,9 +1049,14 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { stTop, h, fit: +fit.toFixed(3) }, prompt: info };
   };
 
-  /* Chapter title card. */
+  /* Chapter title card. Frame 0 already shows the number (springing from 0.9), its rings, the kicker and
+     the dots, so a cut never lands on an empty frame; the title follows, the subtitle (and tag) only after
+     it, and the chapter's line-art motif draws itself beside the number. The hold stays alive: a slow
+     1.00 -> 1.03 push of the whole card, a glow that breathes on the number, a small motion in the motif.
+     The exit is a 0.22 s push-through. */
   E.chapter = function (tl, ctx, cfg) {
-    const S = cfg.S, sc = ctx.scene;
+    const S = cfg.S, sc = ctx.scene, T = cfg.T || {}, D = cfg.D;
+    const chap = E.q(".chap", sc), cam = E.q(".ch-cam", sc);
     const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
     // static layout: the title is one line no wider than 760 px; the divider and texts flow under it
     const tt = E.q(".ch-title", sc), tin = E.q(".ch-tin", sc);
@@ -1014,23 +1066,90 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const sub = E.q(".ch-sub", sc), tag = E.q(".ch-tag", sc);
     if (sub) sub.style.top = tBot + 66 + "px";
     if (tag && sub) tag.style.top = tBot + 66 + sub.offsetHeight + 34 + "px";
-    // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
+    // scene change: light band; the number is there from the first frame, rings and sparks go out from it
     E.band(tl, sc, S);
-    tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
+    tl.fromTo(n, { scale: 0.9, rotationY: -16, transformPerspective: 1200 }, A({ scale: 1, rotationY: 0, duration: 0.9, ease: SPRING }), S);
     E.qa(".ch-ring", sc).forEach((r, i) => {
-      tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
+      tl.fromTo(r, { scale: 0.66 + i * 0.14, opacity: 0.85 - i * 0.2 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S);
     });
-    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ffffff" });
-    tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
-    tl.set(n, { filter: "none" }, S + 0.58);
-    E.fadeIn(tl, k, S + 0.25, 0.5, 14);
-    E.kin(tl, E.q(".ch-title", sc), S);
-    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.7, ease: "power3.inOut" }), S + 0.75);
-    E.kin(tl, E.q(".ch-sub", sc), S, { dy: 12 });
-    E.kin(tl, E.q(".ch-tag", sc), S, { dy: 10 });
-    E.fadeIn(tl, dots, S + 0.6, 0.6, 10);
-    tl.fromTo(E.q(".chap", sc), { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.04, duration: 0.38, ease: "power2.in" }), S + cfg.D - 0.4);
-    E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "chapter" };
+    // sparks leave from the ring's edge (never a stack of dots over the number)
+    const rnd = E.rand(5);
+    for (let i = 0; i < 18; i++) {
+      const d = document.createElement("i"), sz = 5 + rnd() * 6, ang = (i / 18) * Math.PI * 2 + rnd() * 0.3;
+      const r0 = 128, r1 = 210 + rnd() * 150, dur = 0.6 + rnd() * 0.35;
+      d.className = "fx-dot";
+      d.style.cssText = "left:" + (540 + Math.cos(ang) * r0).toFixed(1) + "px;top:" + (670 + Math.sin(ang) * r0).toFixed(1) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:#ffffff;box-shadow:0 0 10px #ffffff";
+      sc.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * (r1 - r0), y: Math.sin(ang) * (r1 - r0), scale: 0.35, duration: dur, ease: "power3.out" }), S + 0.03);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), S + 0.03);
+    }
+    tl.fromTo(k, { opacity: 0.35, y: 8 }, A({ opacity: 1, y: 0, duration: 0.4, ease: SPRING }), S);
+    tl.fromTo(dots, { opacity: 0.4, y: 8 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SPRING }), S);
+    E.kin(tl, tt, S);
+    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.6, ease: "power3.inOut" }), S + (T.line || 0.5));
+    E.kin(tl, sub, S, { dy: 12 });
+    E.kin(tl, tag, S, { dy: 10 });
+    // the chapter motif draws itself, then keeps a small motion through the hold
+    const mo = E.q(".ch-mo", sc), mq = (s) => E.q(s, mo), mqa = (s) => E.qa(s, mo);
+    if (mo) {
+      E.qa(".dr", mo).forEach((p, i) => E.draw(tl, p, S + 0.06 + i * 0.035, 0.7));
+      E.qa(".mo-solid", mo).forEach((p) => tl.fromTo(p, { fillOpacity: 0 }, A({ fillOpacity: 1, duration: 0.3 }), S + 0.3));
+      E.qa(".fl", mo).forEach((p, i) => tl.fromTo(p, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.25 + i * 0.06));
+      const hold0 = Math.max(1.0, (T.lw || 1) - 0.4), N = cfg.n;
+      if (N === 1) {
+        // the cursor blinks
+        const cur = mq(".mo-cur");
+        for (let a = hold0, on = false; a < D - 0.3; a += 0.5, on = !on) tl.set(cur, { opacity: on ? 1 : 0 }, S + a);
+      } else if (N === 2) {
+        // a playhead runs over the waveform
+        const ph = mq(".mo-ph");
+        tl.fromTo(ph, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.8);
+        tl.fromTo(ph, { x: 0 }, A({ x: 164, duration: D - 1.1, ease: "none" }), S + 0.8);
+      } else if (N === 3) {
+        // the cube settles in and turns slowly
+        const mi = mq(".mo-in");
+        tl.fromTo(mi, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.8, ease: SPRING }), S + 0.05);
+        tl.fromTo(mq(".mo-cube"), { rotationY: -10 }, A({ rotationY: 62, duration: D, ease: "power1.out" }), S);
+      } else if (N === 4) {
+        // the play mark pulses
+        const pl = mq(".mo-play");
+        for (let a = hold0, j = 0; a + 0.6 < D - 0.25; a += 0.6, j++) {
+          tl.fromTo(pl, { scale: j % 2 ? 1.16 : 1, transformOrigin: "50% 50%" }, A({ scale: j % 2 ? 1 : 1.16, duration: 0.6, ease: "sine.inOut" }), S + a);
+        }
+      } else if (N === 5) {
+        // the plug goes into the socket and the connection glows
+        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -18, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
+        const rg = mq(".mo-ring");
+        tl.fromTo(rg, { opacity: 0.9, scale: 0.6, transformOrigin: "50% 50%" }, A({ opacity: 0, scale: 1.7, duration: 0.8, ease: "power2.out" }), S + hold0 + 0.4);
+      } else if (N === 6) {
+        // a scan line runs down the window; the sensitive line blurs as it passes
+        const scn = mq(".mo-scan"), tB = hold0 + 0.75;
+        tl.fromTo(scn, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + hold0);
+        tl.fromTo(scn, { y: 0 }, A({ y: 108, duration: 1.2, ease: "none" }), S + hold0);
+        tl.fromTo(scn, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), S + hold0 + 1.0);
+        tl.fromTo(mq(".mo-sharp"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), S + tB);
+        tl.fromTo(mq(".mo-blur"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + tB);
+      } else if (N === 7) {
+        // the draft bar fills fast and gets its check; the full render crawls
+        const f1 = mq(".mo-f1"), f2 = mq(".mo-f2");
+        [f1, f2].forEach((f) => tl.fromTo(f, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), S + 0.75));
+        tl.fromTo(f2, { scaleX: 0.04, transformOrigin: "0% 50%" }, A({ scaleX: 1, duration: 1.0, ease: "power1.inOut" }), S + 0.75);
+        tl.fromTo(f1, { scaleX: 0.04, transformOrigin: "0% 50%" }, A({ scaleX: 0.3, duration: D - 1.0, ease: "none" }), S + 0.75);
+        E.draw(tl, mq(".mo-ck"), S + 1.8, 0.35);
+      } else {
+        // the list gets checked, one row after another
+        mqa(".mo-ck").forEach((p, i) => E.draw(tl, p, S + hold0 + i * 0.35, 0.3));
+      }
+    }
+    // the hold: a slow push of the whole card and a soft glow that breathes on the number
+    tl.fromTo(cam, { scale: 1 }, A({ scale: 1.03, duration: D, ease: "none" }), S);
+    const G0 = "0 0 40px rgba(255, 69, 58, 0.35)", G1 = "0 0 70px rgba(255, 69, 58, 0.8)";
+    for (let a = 0.9, up = true; a + 1.0 <= D - 0.2; a += 1.0, up = !up) {
+      tl.fromTo(n, { textShadow: up ? G0 : G1 }, A({ textShadow: up ? G1 : G0, duration: 1.0, ease: "sine.inOut" }), S + a);
+    }
+    // exit: a short push-through into the next scene
+    tl.fromTo(chap, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.025, duration: 0.22, ease: "power2.in" }), S + D - 0.22);
+    E.debug.scenes[cfg.id] = { S, D, type: "chapter" };
   };
 
   window.SIMS = window.SIMS || {};
@@ -1045,24 +1164,27 @@ window.SIMS.hook = function (tl, ctx, cfg, S) {
   E.band(tl, sc, t(0));
   // 1. the question, and a clock racing through an evening
   const clock = q(".hk-clock");
-  tl.fromTo(clock, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.6, ease: E.SPRING }), t(0.05));
-  tl.fromTo(q(".hk-mh"), { rotation: 0, svgOrigin: "120 120" }, A({ rotation: 360 * 3, svgOrigin: "120 120", duration: 1.5, ease: "power1.inOut" }), t(0.15));
-  tl.fromTo(q(".hk-trail"), { opacity: 0, rotation: 0, svgOrigin: "120 120" }, A({ opacity: 1, rotation: 360 * 3, svgOrigin: "120 120", duration: 1.5, ease: "power1.inOut" }), t(0.15));
+  // the clock is drawn from the first frame (CSS) and settles with the guide's spring
+  tl.fromTo(clock, { scale: 0.92 }, A({ scale: 1, duration: 0.6, ease: E.SPRING }), t(0));
+  tl.fromTo(q(".hk-mh"), { rotation: 0, svgOrigin: "120 120" }, A({ rotation: 360 * 3, svgOrigin: "120 120", duration: 1.6, ease: "power1.inOut" }), t(0.05));
+  tl.fromTo(q(".hk-trail"), { opacity: 0, rotation: 0, svgOrigin: "120 120" }, A({ opacity: 1, rotation: 360 * 3, svgOrigin: "120 120", duration: 1.6, ease: "power1.inOut" }), t(0.05));
   tl.fromTo(q(".hk-trail"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), t(1.6));
-  tl.fromTo(q(".hk-hh"), { rotation: 0, svgOrigin: "120 120" }, A({ rotation: 120, svgOrigin: "120 120", duration: 1.5, ease: "power1.inOut" }), t(0.15));
+  tl.fromTo(q(".hk-hh"), { rotation: 0, svgOrigin: "120 120" }, A({ rotation: 120, svgOrigin: "120 120", duration: 1.6, ease: "power1.inOut" }), t(0.05));
   E.kin(tl, q(".hk-q"), S, { dy: 22 });
   // the evening of manual work: the timeline fills with cuts and crooked captions, the playhead scrubs back and forth
   const tln = q(".hk-tline");
-  tl.fromTo(tln, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }), t(0.45));
-  qa(".hk-tc").forEach((c, i) => tl.fromTo(c, { scaleX: 0 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), t(0.55 + i * 0.05)));
-  qa(".hk-cb").forEach((c, i) => tl.fromTo(c, { opacity: 0, y: 10 }, A({ opacity: 1, y: 0, duration: 0.25 }), t(0.9 + i * 0.08)));
-  qa(".hk-cm").forEach((c, i) => tl.fromTo(c, { scaleY: 0 }, A({ scaleY: 1, duration: 0.2 }), t(1.1 + i * 0.07)));
+  tl.fromTo(tln, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }), t(0.15));
+  qa(".hk-tc").forEach((c, i) => tl.fromTo(c, { scaleX: 0 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), t(0.25 + i * 0.05)));
+  qa(".hk-cb").forEach((c, i) => tl.fromTo(c, { opacity: 0, y: 10 }, A({ opacity: 1, y: 0, duration: 0.25 }), t(0.6 + i * 0.08)));
+  // cut marks (lavender: the only red here is the clock's racing hand)
+  qa(".hk-cm").forEach((c, i) => tl.fromTo(c, { scaleY: 0 }, A({ scaleY: 1, duration: 0.2 }), t(0.8 + i * 0.07)));
   const ph = q(".hk-ph");
-  tl.fromTo(ph, { x: 0 }, A({ x: 700, duration: 0.7, ease: "power1.inOut" }), t(0.6));
-  tl.fromTo(ph, { x: 700 }, A({ x: 180, duration: 0.5, ease: "power1.inOut" }), t(1.3));
-  tl.fromTo(ph, { x: 180 }, A({ x: 520, duration: 0.5, ease: "power1.inOut" }), t(1.8));
+  tl.fromTo(ph, { x: 0 }, A({ x: 700, duration: 0.7, ease: "power1.inOut" }), t(0.3));
+  tl.fromTo(ph, { x: 700 }, A({ x: 180, duration: 0.5, ease: "power1.inOut" }), t(1.0));
+  tl.fromTo(ph, { x: 180 }, A({ x: 520, duration: 0.6, ease: "power1.inOut" }), t(1.5));
+  tl.fromTo(ph, { x: 520 }, A({ x: 300, duration: 0.4, ease: "power1.inOut" }), t(2.1));
   const qw = q(".hk-qwrap");
-  tl.fromTo(qw, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.06, duration: 0.25, ease: "power2.in" }), t(T.f0 - 0.27));
+  tl.fromTo(qw, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.06, duration: 0.25, ease: "power2.in" }), t(T.f0 - 0.25));
   // 2. the promise and six flashes
   E.kin(tl, q(".hk-prom"), S, { dy: 14 });
   const fl = qa(".hk-f");
@@ -1070,7 +1192,7 @@ window.SIMS.hook = function (tl, ctx, cfg, S) {
     const a = T.f0 + i * T.fstep, b = a + T.fstep;
     tl.set(f, { opacity: 1 }, t(a));
     if (i < fl.length - 1) tl.set(f, { opacity: 0 }, t(b));
-    tl.fromTo(E.q(".hk-fin", f), { scale: 1 }, A({ scale: 1.09, duration: T.fstep, ease: E.SPRING }), t(a));
+    tl.fromTo(E.q(".hk-fin", f), { scale: 1 }, A({ scale: 1.12, duration: 0.45, ease: "back.out(1.7)" }), t(a));
     E.pill(tl, q("#hk-p" + i), t(a), i < fl.length - 1 ? t(b) : null);
   });
   const f = (i) => T.f0 + i * T.fstep;
@@ -1091,14 +1213,19 @@ window.SIMS.hook = function (tl, ctx, cfg, S) {
   E.draw(tl, q(".hk-small .hk-ck path"), t(f(5) + 0.15), 0.3);
   // flashes and pills end with the promise
   const tEnd = T.f0 + 6 * T.fstep;
-  tl.set(fl[fl.length - 1], { opacity: 0 }, t(tEnd));
-  tl.set(q("#hk-p" + (fl.length - 1)), { opacity: 0 }, t(tEnd));
-  E.fadeOut(tl, q(".hk-prom"), t(tEnd - 0.2), 0.2, -10);
+  // the last flash goes out under the incoming sentence (about 0.15 s of overlap, no empty frame)
+  tl.fromTo(fl[fl.length - 1], { opacity: 1 }, A({ opacity: 0, duration: 0.15, ease: "power2.out" }), t(tEnd - 0.03));
+  tl.set(q("#hk-p" + (fl.length - 1)), { opacity: 0 }, t(tEnd + 0.08));
+  E.fadeOut(tl, q(".hk-prom"), t(tEnd - 0.15), 0.2, -10);
   // 3. ask in Hebrew, approve every step
   E.kin(tl, q(".hk-sent"), S, { dy: 18 });
   const bub = q(".hk-bubble");
   tl.fromTo(bub, { opacity: 0, y: 30, scale: 0.9 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.55, ease: E.SPRING }), t(T.sent + 0.02));
-  qa(".hk-bubble i").forEach((l, i) => tl.fromTo(l, { scaleX: 0 }, A({ scaleX: 1, duration: 0.35, ease: "power2.out" }), t(T.sent + 0.45 + i * 0.12)));
+  // the request is typed (right to left) and the caret follows the text, then blinks
+  const req = q(".hk-req"), car = q(".hk-caret"), rw = req.offsetWidth, nch = 26, tType = T.sent + 0.4, dType = 0.85;
+  tl.fromTo(req, { clipPath: "inset(0px 0px 0px 100%)" }, A({ clipPath: "inset(0px 0px 0px 0%)", duration: dType, ease: "steps(" + nch + ")" }), t(tType));
+  tl.fromTo(car, { x: rw }, A({ x: 0, duration: dType, ease: "steps(" + nch + ")" }), t(tType));
+  for (let k = 0, a = tType + dType + 0.25; a < T.title - 0.15; k++, a += 0.4) tl.set(car, { opacity: k % 2 ? 1 : 0 }, t(a));
   qa(".hk-step").forEach((st, i) => {
     const a = T.sent + 0.95 + i * 0.3;
     tl.fromTo(st, { opacity: 0, y: 24 }, A({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }), t(a));
@@ -1114,13 +1241,14 @@ window.SIMS.hook = function (tl, ctx, cfg, S) {
   const badge = q(".hk-badge");
   tl.fromTo(badge, { opacity: 0, scale: 0.8, y: 20 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.6, ease: E.SPRING }), t(T.title + 0.9));
   E.sweep(tl, badge, t(T.title + 1.25), 0.7, { color: "rgba(255, 255, 255, 0.35)" });
-  E.fadeOut(tl, q(".hk-title"), t(cfg.D - 0.32), 0.3, -10);
+  // the title holds to the last frame (the next card starts with content), with a slow push
+  tl.fromTo(q(".hk-title"), { scale: 1 }, A({ scale: 1.03, duration: cfg.D - T.title, ease: "none" }), t(T.title));
   E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "custom" };
 };
 
 
 (function () {
-  const CFGS = [{"T": {"q": 0.2, "prom": 2.3, "f0": 2.62, "fstep": 0.6, "sent": 6.25, "title": 8.5}, "n": 6, "id": "hook", "type": "custom", "sim": "hook", "D": 10.6, "S": 0.0}];
+  const CFGS = [{"T": {"q": 0.0, "prom": 2.3, "f0": 2.55, "fstep": 0.6, "sent": 6.15, "title": 8.5}, "n": 6, "id": "hook", "type": "custom", "sim": "hook", "D": 10.6, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),

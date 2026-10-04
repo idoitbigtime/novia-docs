@@ -7,7 +7,7 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
   const PX = 29;                             // timeline: pixels per second of the recording
   const rows = qa(".s61-row"), olds = rows.filter((r) => !r.classList.contains("s61-new")), nw = q(".s61-new");
   const pop = q(".s61-pop"), ticks = qa(".s61-tk"), head = q(".s61-head");
-  const RED = "#ff453a", LIL = "#c9c2ff";
+  const LIL = "#c9c2ff";
 
   // the playhead: chained moves, in seconds of the recording
   let hs = 0;
@@ -42,13 +42,14 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
   // the popup: in from the top, out to the top
   const popIn = (t, d) => tl.fromTo(pop, { opacity: 0, y: -24 }, A({ opacity: 1, y: 0, duration: d || 0.25, ease: "power2.out" }), T(t));
   const popOut = (t, d) => tl.fromTo(pop, { opacity: 1, y: 0 }, A({ opacity: 0, y: -24, duration: d || 0.22, ease: "power2.in" }), T(t));
-  // a finding: red frame with its time, then it settles (lilac) once logged
-  const flag = (sens, t, hold) => {
+  // a finding: a frame with its time tag. Addresses are caught with a white flash that settles lilac; only the
+  // popup's catch is red (red rule). The tags stay until the replay (beat 3).
+  const flag = (sens, t, red) => {
     const fr = E.q(".s61-fr", sens), tg = E.q(".s61-tag", sens);
+    const c0 = "#ffffff", g0 = "0 0 14px rgba(255, 255, 255, 0.6)";   // (the CSS frame is red)
     tl.fromTo(fr, { opacity: 0, scale: 1.18 }, A({ opacity: 1, scale: 1, duration: 0.3, ease: E.SPRING }), T(t));
     tl.fromTo(tg, { opacity: 0, y: 6 }, A({ opacity: 1, y: 0, duration: 0.25, ease: E.SPRING }), T(t + 0.03));
-    tl.fromTo(fr, { borderColor: RED, boxShadow: "0 0 12px rgba(255, 69, 58, 0.5)" }, A({ borderColor: LIL, boxShadow: "0 0 10px rgba(201, 194, 255, 0.45)", duration: 0.15 }), T(t + hold));
-    tl.fromTo(tg, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(t + hold + 0.05));
+    if (!red) tl.fromTo(fr, { borderColor: c0, boxShadow: g0 }, A({ borderColor: LIL, boxShadow: "0 0 10px rgba(201, 194, 255, 0.45)", duration: 0.45, ease: "power1.out" }), T(t));
   };
   // redact: the sharp text gives way to its blurred twin
   const blurOn = (sens, t, d) => {
@@ -91,35 +92,37 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
   const b2 = P[1];
   olds.forEach((r) => tl.fromTo(E.q(".s61-subj .s61-ocr", r), { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(b2 + 0.02)));
   emails.forEach((s, k) => {
-    tl.fromTo(E.q(".s61-ocr", s), { opacity: 1 }, A({ opacity: 0, duration: 0.12 }), T(b2 + 0.06 + k * 0.16));
-    flag(s, b2 + 0.06 + k * 0.16, 0.13);
+    tl.fromTo(E.q(".s61-ocr", s), { opacity: 1 }, A({ opacity: 0, duration: 0.12 }), T(b2 + 0.06 + k * 0.1));
+    flag(s, b2 + 0.06 + k * 0.1, false);
   });
   mark(0, b2 + 0.1);
-  headTo(9, b2 + 0.55, 0.14);
-  tickOn(9, b2 + 0.55);
-  scanAt(b2 + 0.55);
-  headTo(10, b2 + 0.78, 0.14);
-  tickOn(10, b2 + 0.78);
-  arrive(b2 + 0.78);
-  scanAt(b2 + 0.88);
-  flag(sNew, b2 + 0.95, 0.35);
-  mark(1, b2 + 0.98);
-  headTo(11, b2 + 1.0, 0.14);
-  tickOn(11, b2 + 1.0);
-  headTo(12, b2 + 1.2, 0.14);
-  tickOn(12, b2 + 1.2);
-  popIn(b2 + 1.2);
-  scanAt(b2 + 1.25);
-  flag(sPop, b2 + 1.38, 0.5);
-  mark(2, b2 + 1.4);
-  headTo(13, b2 + 1.5, 0.14);
-  tickOn(13, b2 + 1.5);
-  popOut(b2 + 1.95);
+  headTo(9, b2 + 0.42, 0.14);
+  tickOn(9, b2 + 0.42);
+  scanAt(b2 + 0.42);
+  headTo(10, b2 + 0.6, 0.14);
+  tickOn(10, b2 + 0.6);
+  arrive(b2 + 0.6);
+  scanAt(b2 + 0.68);
+  flag(sNew, b2 + 0.75, false);
+  mark(1, b2 + 0.78);
+  headTo(11, b2 + 0.82, 0.14);
+  tickOn(11, b2 + 0.82);
+  // 0:12: the popup is caught (the one red mark, held ~0.7 s; the playhead waits on it)
+  headTo(12, b2 + 1.0, 0.14);
+  tickOn(12, b2 + 1.0);
+  popIn(b2 + 1.0);
+  scanAt(b2 + 1.05);
+  flag(sPop, b2 + 1.15, true);
+  mark(2, b2 + 1.18);
+  popOut(b2 + 1.92);
+  headTo(13, b2 + 1.92, 0.14);
+  tickOn(13, b2 + 1.92);
 
   // B3 "ומטשטש אותו בדיוק בזמן שהוא על המסך": the recording is replayed with the blur lanes; each blur is on
   // exactly while its item is on screen (the popup's 0.6 s; the camera punches in on the popup)
   const b3 = P[2];
   [...emails, sNew].forEach((s) => tl.fromTo(E.q(".s61-fr", s), { opacity: 1 }, A({ opacity: 0, duration: 0.22 }), T(b3)));
+  [...emails, sNew, sPop].forEach((s) => tl.fromTo(E.q(".s61-tag", s), { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b3)));
   tl.fromTo(E.q(".s61-fr", sPop), { opacity: 1 }, A({ opacity: 0, duration: 0.1 }), T(b3));
   headTo(8, b3 + 0.05, 0.35, "power2.inOut");
   rewindList(b3 + 0.05);
@@ -141,6 +144,9 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
   const link = q(".s61-link line");
   E.draw(tl, link, T(b3 + 0.88), 0.2, "power2.out");
   tl.fromTo(q(".s61-link"), { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b3 + 1.42));
+  // the playhead steps back while the link shows, so the two never read as twin lines
+  tl.fromTo(head, { opacity: 1 }, A({ opacity: 0.3, duration: 0.15 }), T(b3 + 0.8));
+  tl.fromTo(head, { opacity: 0.3 }, A({ opacity: 1, duration: 0.2 }), T(b3 + 1.45));
   popOut(b3 + 1.45, 0.16);
   headTo(16, b3 + 1.45, 0.35, "power1.out");
 
@@ -175,4 +181,9 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
   E.burst(tl, root, rc.x + res.offsetWidth / 2, rc.y + res.offsetHeight / 2, T(pe + 0.62), { n: 16, seed: 61, r0: 150, r1: 230, color: "#c9c2ff" });
   E.sweep(tl, res, T(pe + 0.85), 0.8, { color: "rgba(201, 194, 255, 0.22)" });
   E.sweep(tl, tlp, T(pe + 1.0), 0.9, { color: "rgba(201, 194, 255, 0.12)" });
+  // "0 ממצאים": the findings lane agrees: its marks dim and the lane ends with a check
+  mk.forEach((m) => tl.fromTo(m, { opacity: 1 }, A({ opacity: 0.25, duration: 0.35 }), T(pe + 0.3)));
+  const lok = q(".s61-lok");
+  tl.fromTo(lok, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(pe + 0.55));
+  E.draw(tl, E.q("path", lok), T(pe + 0.6), 0.28);
 };
