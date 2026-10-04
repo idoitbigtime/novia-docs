@@ -55,10 +55,11 @@
 
 /* verdict badges at the screen's corner */
 .sim62 .s62-no, .sim62 .s62-ok { position: absolute; left: 15px; top: 15px; width: 52px; height: 52px; border-radius: 50%; opacity: 0; display: grid; place-items: center; }
-.sim62 .s62-no { background: #2a1016; box-shadow: 0 0 0 2.5px #ff453a, 0 0 18px rgba(255, 69, 58, 0.75); }
+/* the X is light on a dark disc with an amber ring: the accent phrase is still red while it shows */
+.sim62 .s62-no { background: #1a1428; box-shadow: 0 0 0 2.5px #F5B544, 0 0 18px rgba(245, 181, 68, 0.55); }
 .sim62 .s62-ok { background: #1f1a3f; box-shadow: 0 0 0 2.5px #c9c2ff, 0 0 18px rgba(201, 194, 255, 0.7); }
 .sim62 .s62-no svg, .sim62 .s62-ok svg { width: 34px; height: 34px; overflow: visible; display: block; }
-.sim62 .s62-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
+.sim62 .s62-no path { fill: none; stroke: #F4F1FF; stroke-width: 3.4; stroke-linecap: round; }
 .sim62 .s62-ok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* the recording's track: playhead, recorded fill, zoom segments; the bouncy layer sits on top of it */

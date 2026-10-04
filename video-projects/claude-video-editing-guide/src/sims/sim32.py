@@ -63,27 +63,40 @@ def _hexpath(cx, cy, r, k=0.24):
 STAR = "M50 28 C 52 44, 56 48, 72 50 C 56 52, 52 56, 50 72 C 48 56, 44 52, 28 50 C 44 48, 48 44, 50 28Z"
 
 
-def logo3d(n=13, depth=34):
-    """Generic extruded badge (rounded hexagon): n layers at different depths; glossy front with a spark."""
+def logo3d(n=34, depth=34):
+    """Generic extruded badge (rounded hexagon): n layers about 1 px apart (edge-on, the side reads as one solid band);
+    glossy front with a spark. Orange: the guide describes Claude's logo as orange ("לוגו כתום של קלוד"), which also
+    keeps red for the explanation's accent."""
     hexd = _hexpath(50, 50, 45)
     out = []
     for i in range(n):
         z = -depth / 2 + depth * i / (n - 1)
         if i == n - 1:
-            inner = ('<defs><linearGradient id="s32lg" x1="0" y1="0" x2="0.45" y2="1"><stop offset="0" stop-color="#ffa07e"/>'
-                     '<stop offset="0.55" stop-color="#ff5a4c"/><stop offset="1" stop-color="#e8413a"/></linearGradient>'
+            inner = ('<defs><linearGradient id="s32lg" x1="0" y1="0" x2="0.45" y2="1"><stop offset="0" stop-color="#ffc27a"/>'
+                     '<stop offset="0.55" stop-color="#ff9f43"/><stop offset="1" stop-color="#f08a24"/></linearGradient>'
                      '<linearGradient id="s32ls" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>'
                      '<stop offset="0.45" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs>'
                      f'<path d="{hexd}" fill="url(#s32lg)"/><path d="{hexd}" fill="url(#s32ls)"/>'
                      f'<path d="{_hexpath(50, 50, 34)}" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>'
                      f'<path d="{STAR}" fill="#ffffff"/>')
         elif i == 0:
-            inner = f'<path d="{hexd}" fill="#c4443b"/><path d="{_hexpath(50, 50, 34)}" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>'
+            inner = f'<path d="{hexd}" fill="#b5631a"/><path d="{_hexpath(50, 50, 34)}" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>'
         else:
-            c = (0xa8 + i * 3, 0x33 + i * 2, 0x2e + i * 2)
-            inner = f'<path d="{hexd}" fill="#{c[0]:02x}{c[1]:02x}{c[2]:02x}"/>'
+            inner = f'<path class="sd" d="{hexd}"/>'
         out.append(f'<svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ({z:.2f}px)" aria-hidden="true">{inner}</svg>')
     return "".join(out)
+
+
+def _ghost():
+    """B1: the logo's place, as a wireframe of the badge: front and back outlines 34 px apart, joined by 6 depth edges
+    at the rounded corners (a corner's apex sits at 0.94 of the radius)."""
+    hexd = _hexpath(50, 50, 45)
+    face = lambda z: f'<svg class="s32-gf" viewBox="0 0 100 100" style="transform:translateZ({z}px)" aria-hidden="true"><path d="{hexd}"/></svg>'
+    k, r = LOGO / 100, 45 * 0.94
+    edges = "".join(
+        f'<i class="s32-ge" style="left:{(50 + r * math.cos(math.radians(a))) * k - 17:.1f}px;top:{(50 + r * math.sin(math.radians(a))) * k - 1.1:.1f}px"></i>'
+        for a in range(-90, 270, 60))
+    return f'<div class="s32-gw">{face(-17)}{edges}{face(17)}</div>'
 
 
 def _pt(p):
@@ -96,7 +109,7 @@ def _plane():
     spokes = " ".join(f"M{_pt(LM[i])} L{_pt(PC)}" for i in PALM)
     return f"""<svg class="s32-psv" viewBox="0 0 300 400" aria-hidden="true">
 <defs><clipPath id="s32clip"><path transform="translate({OX} {OY})" d="{OUTLINE} Z"/></clipPath>
-<radialGradient id="s32pl"><stop offset="0" stop-color="#ff7a5f" stop-opacity="0.85"/><stop offset="0.45" stop-color="#ff5a4c" stop-opacity="0.38"/><stop offset="1" stop-color="#ff5a4c" stop-opacity="0"/></radialGradient></defs>
+<radialGradient id="s32pl"><stop offset="0" stop-color="#ffb066" stop-opacity="0.85"/><stop offset="0.45" stop-color="#ff9f43" stop-opacity="0.38"/><stop offset="1" stop-color="#ff9f43" stop-opacity="0"/></radialGradient></defs>
 <g clip-path="url(#s32clip)"><ellipse class="s32-light" cx="{PC[0] + OX - 6:.1f}" cy="{PC[1] + OY - 40:.1f}" rx="150" ry="190" fill="url(#s32pl)"/></g>
 <path class="s32-fill" transform="translate({OX} {OY})" d="{OUTLINE} Z"/>
 <path class="s32-ol" transform="translate({OX} {OY})" d="{OUTLINE}"/>
@@ -126,6 +139,8 @@ def _graph(c):
         pts = []
         for i in range(0, 61):
             x = 250 - i * 3.8 - shift
+            if x < 10:                      # both paths end inside the panel
+                break
             y = 70 - 34 * math.sin(i / 60 * math.pi * 1.6)
             pts.append(f"{x:.1f} {y:.1f}")
         return "M" + " L".join(pts)
@@ -162,7 +177,7 @@ def html(cfg):
 <div class="s32-gh s32-gh1" style="left:{lg_left:.1f}px;top:{lg_top:.1f}px"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="{_hexpath(50, 50, 45)}"/></svg></div>
 <div class="s32-fol">
 <div class="s32-beam" style="left:{hov_x - 130:.1f}px;top:{hov_y - 8:.1f}px"></div>
-<div class="s32-ghost" style="left:{lg_left:.1f}px;top:{lg_top:.1f}px"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="{_hexpath(50, 50, 45)}"/></svg></div>
+<div class="s32-ghost" style="left:{lg_left:.1f}px;top:{lg_top:.1f}px">{_ghost()}</div>
 <div class="s32-lglow" style="left:{hov_x - 160:.1f}px;top:{lg_top - 55:.1f}px"></div>
 <div class="s32-lgw" data-focus="4" style="left:{lg_left:.1f}px;top:{lg_top:.1f}px"><div class="s32-lg3">{logo3d()}</div></div>
 <i class="s32-lp" style="left:{hov_x - 9:.1f}px;top:{hov_y - 9:.1f}px"></i>

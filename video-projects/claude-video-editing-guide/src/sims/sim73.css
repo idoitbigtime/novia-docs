@@ -47,15 +47,16 @@
 .sim73 .s73-crname { left: 44px; width: 230px; }
 
 /* the critic's side: the divider and the tray of inputs */
-.sim73 .s73-div { position: absolute; left: 328px; top: 150px; width: 4px; height: 360px; overflow: visible; }
+/* the divider stands mid-gap between the critic's tray and the builder's card, so the X on it reads as stopping the card */
+.sim73 .s73-div { position: absolute; left: 352px; top: 150px; width: 4px; height: 360px; overflow: visible; }
 .sim73 .s73-div path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.8)); }
 /* B3: where the explanations are stopped, on the divider (light, not red: one red thing at a time) */
-.sim73 .s73-blk { position: absolute; left: 310px; top: 452px; width: 40px; height: 40px; border-radius: 50%; background: #1b1733;
+.sim73 .s73-blk { position: absolute; left: 334px; top: 452px; width: 40px; height: 40px; border-radius: 50%; background: #1b1733;
   box-shadow: 0 0 0 2px rgba(244, 241, 255, 0.55), 0 0 16px rgba(201, 194, 255, 0.55); display: grid; place-items: center; opacity: 0; }
 .sim73 .s73-blk svg { width: 24px; height: 24px; overflow: visible; display: block; }
 .sim73 .s73-blk path { fill: none; stroke: #f4f1ff; stroke-width: 3.2; stroke-linecap: round; }
-.sim73 .s73-tray { position: absolute; left: 56px; top: 380px; width: 264px; height: 130px; border-radius: 20px; border: 2px dashed rgba(201, 194, 255, 0.4); opacity: 0; }
-.sim73 .s73-doc { position: absolute; left: 64px; top: 385px; width: 108px; height: 120px; border-radius: 12px; background: #f4f2fb; box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4); opacity: 0; }
+.sim73 .s73-tray { position: absolute; left: 48px; top: 380px; width: 264px; height: 130px; border-radius: 20px; border: 2px dashed rgba(201, 194, 255, 0.4); opacity: 0; }
+.sim73 .s73-doc { position: absolute; left: 54px; top: 385px; width: 108px; height: 120px; border-radius: 12px; background: #f4f2fb; box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4); opacity: 0; }
 .sim73 .s73-doc > i { position: absolute; left: 14px; height: 7px; border-radius: 4px; background: rgba(40, 34, 80, 0.35); display: block; }
 .sim73 .s73-doc > i:nth-child(1) { top: 16px; width: 68px; }
 .sim73 .s73-doc > i:nth-child(2) { top: 30px; width: 54px; }
@@ -63,9 +64,9 @@
 .sim73 .s73-doc span { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font: 700 30px/1 "Rubik"; color: #1a1636; }
 .sim73 .s73-th { width: 44px; height: 78px; border-radius: 7px; }
 .sim73 .s73-in { top: 410px; opacity: 0; }
-.sim73 .s73-in0 { left: 179px; }
-.sim73 .s73-in1 { left: 225px; }
-.sim73 .s73-in2 { left: 271px; }
+.sim73 .s73-in0 { left: 168px; }
+.sim73 .s73-in1 { left: 214px; }
+.sim73 .s73-in2 { left: 260px; }
 
 /* B4: the gauge (0 at the right end, 100 at the left end) and the numeric fixes */
 .sim73 .s73-gauge { position: absolute; left: 330px; top: 130px; width: 340px; height: 200px; }

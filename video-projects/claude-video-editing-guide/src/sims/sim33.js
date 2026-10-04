@@ -4,7 +4,8 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
   const T = (x) => S + x;                    // scene-local -> master time
   const q = (s) => E.q(".sim33 " + s, sc), qa = (s) => E.qa(".sim33 " + s, sc);
   const persp = q(".s33-persp"), root = persp.parentNode, stack = q(".s33-stack"), lys = qa(".s33-ly");
-  const R = { x: -112, y: 54, rz: -20, rx: 48, s: 0.58 }, Z0 = [0, 0.6, 1.2], Z = [-150, 0, 150];
+  // the cut-out layer floats higher than the others, so in the side view its silhouette never covers the text below it
+  const R = { x: -104, y: 54, rz: -20, rx: 48, s: 0.54 }, Z0 = [0, 0.6, 1.2], Z = [-165, 0, 195];
 
   // static layout: measure where each layer's right edge lands in the payoff's side view, then place the names
   stack.style.transform = "translate(" + R.x + "px, " + R.y + "px) rotate(" + R.rz + "deg) rotateX(" + R.rx + "deg) scale(" + R.s + ")";
@@ -18,7 +19,7 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
   lys.forEach((l) => { l.style.transform = ""; });
   const labs = qa(".s33-lab"), leads = qa(".s33-leads path");
   pts.forEach((p, i) => {
-    const lx = Math.round(p.x + 36), ly = Math.round(p.y);
+    const lx = Math.round(p.x + 30), ly = Math.round(p.y);
     labs[i].style.left = lx + "px";
     labs[i].style.top = ly - 16 + "px";
     leads[i].setAttribute("d", "M" + (p.x + 2).toFixed(1) + " " + p.y.toFixed(1) + " H" + (lx + 2));
@@ -35,6 +36,8 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
 
   // B1 "על צילום רגיל, בלי מסך ירוק": regular footage; a green screen, struck out (punch-in here)
   const b1 = P[1], tag = q(".s33-tag"), gs = q(".s33-gs");
+  // the red ring leaves just before the red accent phrase arrives (never two reds besides the badge)
+  tl.fromTo(tring, { opacity: 1 }, A({ opacity: 0, duration: 0.2, ease: "power1.in" }), T(b1 - 0.12));
   tl.fromTo(title, { opacity: 1, y: 0 }, A({ opacity: 0, y: -30, duration: 0.35, ease: "power2.in" }), T(b1));
   tl.fromTo(tag, { opacity: 0, x: -12 }, A({ opacity: 1, x: 0, duration: 0.45, ease: E.SPRING }), T(b1 + 0.1));
   tl.fromTo(gs, { opacity: 0, y: 20 }, A({ opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }), T(b1 + 0.15));
@@ -95,7 +98,9 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
     tl.fromTo(a, { x: -34 }, A({ x: 16, duration: 0.7, ease: "sine.inOut" }), T(b4 + 1.85));
   });
 
-  // payoff: a side view of the three layers, bottom to top: the original clip · the text · you without the background
+  // payoff: a side view of the three layers, bottom to top: the original clip · the text · you without the background.
+  // The hand goes down first, so in the side view the raised arm never covers the text
+  arms.forEach((a) => tl.fromTo(a, { y: 0, rotation: 0, svgOrigin: "338 420" }, A({ y: 230, rotation: 12, duration: 0.42, ease: "power2.inOut" }), T(pe)));
   tl.fromTo(q(".s33-frame"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe));
   tl.fromTo(q(".s33-wt"), { opacity: 0.4 }, A({ opacity: 0, duration: 0.3 }), T(pe));
   tl.fromTo(stack, { x: 0, y: 0, rotation: 0, rotationX: 0, scale: 1 }, A({ x: R.x, y: R.y, rotation: R.rz, rotationX: R.rx, scale: R.s, duration: 1.2, ease: E.SPRING }), T(pe + 0.2));

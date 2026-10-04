@@ -110,7 +110,9 @@ def html(cfg):
     # punch-in on the source never pushes them into the frame's soft edge
     tags = (f'<span class="s23-tag s23-tag-o" dir="ltr" style="right:{800 - ox - ow}px;top:{oy - 46}px">{esc(c["tagOut"])}</span>'
             f'<span class="s23-tag s23-tag-s" dir="ltr" style="right:{800 - TAG_SRC_R}px;top:{sy - 46}px">{esc(c["tagSrc"])}</span>')
-    fixlab = (f'<div class="s23-fixl" style="left:{sx + CROP0 + CROP_W / 2:.1f}px;top:{sy - 48}px">'
+    # under the source, on a short leader from the dashed crop (the same place the dead-zone label takes in B2)
+    fixlab = (f'<i class="s23-fixlead" style="left:{sx + CROP0 + CROP_W / 2 - 1:.1f}px;top:{sy + sh + 2}px"></i>'
+              f'<div class="s23-fixl" style="left:{sx + CROP0 + CROP_W / 2:.1f}px;top:{sy + sh + 20}px">'
               f'<span dir="rtl"><i></i>{esc(c["fixLabel"])}</span></div>')
     safe = (f'<i class="s23-edge s23-edge-l" style="width:{edge_w:.1f}px"></i><i class="s23-edge s23-edge-r" style="width:{edge_w:.1f}px"></i>'
             + "".join(f'<i class="s23-sl" style="left:{x - 1:.1f}px"></i>' for x in safe_x))

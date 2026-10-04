@@ -81,14 +81,14 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
   // the card's left edge stops 24 px short of the divider (just clear of the X that appears there); it bounces back and stays
   // (the divider is an SVG: its place comes from its CSS left; its line runs at x + 2)
   const divX = parseFloat(getComputedStyle(q(".s73-div")).left) + 2;
-  const reach = Math.round(bub.offsetLeft - divX - 24), hit = b3 + 1.42;
-  tw(bub, { x: 0 }, { x: -reach, duration: 0.25, ease: "power2.in" }, b3 + 1.17);
+  const reach = Math.round(bub.offsetLeft - divX - 24), hit = b3 + 1.29;
+  tw(bub, { x: 0 }, { x: -reach, duration: 0.22, ease: "power2.in" }, hit - 0.22);
   tw(bub, { x: -reach }, { x: 0, duration: 0.35, ease: "back.out(1.4)" }, hit);
   E.glitch(tl, q(".s73-div"), T(hit), 6);
   tw(dv, { stroke: "#c9c2ff" }, { stroke: "#ffffff", duration: 0.08 }, hit);
   tw(dv, { stroke: "#ffffff" }, { stroke: "#c9c2ff", duration: 0.5 }, hit + 0.25);
   pop(blk, hit, 0.5);
-  qa(".s73-blk path").forEach((p, i) => E.draw(tl, p, T(hit + 0.04 + i * 0.1), 0.2));
+  qa(".s73-blk path").forEach((p) => E.draw(tl, p, T(hit + 0.03), 0.2));    // complete by hit + 0.23
 
   // B4 "and gives a score out of 100 with a numeric fix for every defect": the gauge lands on 68 (the first round);
   // two defects, each with its fix dialled in (the punch-in lands on the gauge)
@@ -164,4 +164,8 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
   tw(rule, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }, pe + 4.1);
   qa(".s73-stop path").forEach((p, i) => E.draw(tl, p, T(pe + 4.25 + i * 0.2), 0.35));
   sweep(rule, pe + 4.6, 0.9, "rgba(201, 194, 255, 0.2)");
+  // the fact takes over: the labels that sit outside its dark backing leave completely as the stage dims
+  // (rule card, rubric, gauge tick labels), so nothing peeks out next to the fact text
+  const tOut = cfg.tSimEnd - 0.45;
+  [rule, q(".s73-rub"), q(".s73-rublbl")].concat(qa(".s73-tl")).forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.35, ease: "power2.in" }, tOut));
 };

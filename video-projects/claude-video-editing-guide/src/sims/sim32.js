@@ -45,7 +45,7 @@ window.SIMS.sim32 = function (tl, ctx, cfg, S) {
   tl.fromTo(hov, { opacity: 0, scale: 0.4 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(b1 + 1.45));
   tl.fromTo(hlab, { opacity: 0, x: 12 }, A({ opacity: 1, x: 0, duration: 0.45, ease: E.SPRING }), T(b1 + 1.5));
   tl.fromTo(ghost, { opacity: 0, scale: 0.6 }, A({ opacity: 0.9, scale: 1, duration: 0.45, ease: E.SPRING }), T(b1 + 1.5));
-  tl.fromTo(ghost, { rotationY: -50, transformPerspective: 600 }, A({ rotationY: 50, duration: 1.75, ease: "sine.inOut" }), T(b1 + 1.5));
+  tl.fromTo(q(".s32-gw"), { rotationY: -50 }, A({ rotationY: 50, duration: 1.75, ease: "sine.inOut" }), T(b1 + 1.5));
 
   // B2 "שנכנס על המילה שבחרתם ומאיר את כף היד בצבע של הלוגו": a playhead reaches the chosen word; a point of light
   // ignites at the hover point and the logo grows from it with one turn; its light falls on the palm and the fingers
@@ -74,7 +74,7 @@ window.SIMS.sim32 = function (tl, ctx, cfg, S) {
   tl.fromTo(q(".s32-beam"), { opacity: 0 }, A({ opacity: 1, duration: 0.6 }), T(tg + 0.5));
   tl.fromTo(q(".s32-lglow"), { opacity: 0 }, A({ opacity: 1, duration: 0.5 }), T(tg + 0.4));
   tl.fromTo(q(".s32-wlink"), { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), T(tg + 0.9));
-  E.burst(tl, root, E.center(lp, root).x, E.center(lp, root).y, T(tg + 0.05), { n: 10, seed: 32, r0: 16, r1: 60, color: "#ffb3a3" });
+  E.burst(tl, root, E.center(lp, root).x, E.center(lp, root).y, T(tg + 0.05), { n: 10, seed: 32, r0: 16, r1: 60, color: "#ffc68f" });
   // from here on it turns slowly (its edge shows the depth), until it leaves
   const tx = pe + 2.6;
   let ta = tg + 1.02, a0 = 0;
@@ -113,7 +113,8 @@ window.SIMS.sim32 = function (tl, ctx, cfg, S) {
 
   // B4 "כמו משהו שמרחף מעליה": it floats: a slow bob; its glow breathes on the palm (punch-in on the logo)
   const b4 = P[4], glow = q(".s32-lglow");
-  tl.fromTo(gr, { opacity: 1 }, A({ opacity: 0.35, duration: 0.35 }), T(b4));
+  // the graph has said its part: it leaves, with its "0.1 שנייה" label, as the floating beat starts
+  tl.fromTo(gr, { opacity: 1 }, A({ opacity: 0, duration: 0.35 }), T(b4));
   tl.fromTo(lgw, { y: 0 }, A({ y: -12, duration: 0.75, ease: "sine.inOut" }), T(b4 + 0.12));
   tl.fromTo(lgw, { y: -12 }, A({ y: 0, duration: 0.72, ease: "sine.inOut" }), T(b4 + 0.88));
   tl.fromTo(glow, { scale: 1 }, A({ scale: 1.14, duration: 0.75, ease: "sine.inOut" }), T(b4 + 0.12));
@@ -122,7 +123,6 @@ window.SIMS.sim32 = function (tl, ctx, cfg, S) {
   tl.fromTo(light, { opacity: 0.78 }, A({ opacity: 1, duration: 0.72, ease: "sine.inOut" }), T(b4 + 0.88));
 
   // payoff: a big move (the lag, the trail, the light following), then the exit: back into a point of light
-  tl.fromTo(gr, { opacity: 0.35 }, A({ opacity: 0, duration: 0.3 }), T(pe));
   trail(pe + 0.1 + LAG, pe + 2.35 + LAG);
   dim(pe + 0.1, null);
   move(0, 0, -170, -20, pe + 0.1, 0.8);
@@ -135,5 +135,5 @@ window.SIMS.sim32 = function (tl, ctx, cfg, S) {
   tl.fromTo(q(".s32-beam"), { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), T(tx + 0.1));
   tl.fromTo(light, { opacity: 0.5 }, A({ opacity: 0.22, duration: 0.5 }), T(tx + 0.2));
   tl.fromTo(glow, { opacity: 1 }, A({ opacity: 0.45, duration: 0.5 }), T(tx + 0.2));
-  E.burst(tl, root, E.center(lp, root).x, E.center(lp, root).y, T(tx + 0.35), { n: 12, seed: 23, r0: 20, r1: 70, color: "#ffb3a3" });
+  E.burst(tl, root, E.center(lp, root).x, E.center(lp, root).y, T(tx + 0.35), { n: 12, seed: 23, r0: 20, r1: 70, color: "#ffc68f" });
 };

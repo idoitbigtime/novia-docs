@@ -30,7 +30,9 @@ window.SIMS.sim25 = function (tl, ctx, cfg, S) {
   const b0 = P[0], burn = q(".s25-burn");
   level(-4, T(b0 + 0.1), 0.45, "power2.out");
   popIn(burn, T(b0 + 0.45), 8);
-  E.qa(".s25-ca .s25-wr", root).forEach((p) => {
+  // the peaks hit the ceiling: one red line appears there (the "נשרף" tag lands on it) and flickers
+  E.qa(".s25-ca .s25-wcap", root).forEach((p) => {
+    tl.fromTo(p, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(b0 + 0.3));
     tl.fromTo(p, { opacity: 1 }, A({ opacity: 0.45, duration: 0.12 }), T(b0 + 0.55));
     tl.fromTo(p, { opacity: 0.45 }, A({ opacity: 1, duration: 0.12 }), T(b0 + 0.67));
   });
@@ -63,7 +65,8 @@ window.SIMS.sim25 = function (tl, ctx, cfg, S) {
 
   // B2 "היחידה שמודדת כמה חזק משהו נשמע לאוזן": the readout steps up, sound reaches an ear, the unit glows
   const b2 = P[2], earw = q(".s25-earw");
-  tl.fromTo(ro, { y: 0, scale: 1 }, A({ y: -150, scale: 0.55, duration: 0.65, ease: E.SPRING }), T(b2));
+  // the readout steps up (to 70%: "LUFS" stays readable) and the ear comes in under it
+  tl.fromTo(ro, { y: 0, scale: 1 }, A({ y: -170, scale: 0.7, duration: 0.65, ease: E.SPRING }), T(b2));
   tl.fromTo(earw, { opacity: 0, x: 24 }, A({ opacity: 1, x: 0, duration: 0.55, ease: E.SPRING }), T(b2 + 0.2));
   E.qa(".s25-ear path", earw).forEach((p, i) => E.draw(tl, p, T(b2 + 0.25 + i * 0.12), 0.6));
   const arcs = qa(".s25-arc");
@@ -83,6 +86,10 @@ window.SIMS.sim25 = function (tl, ctx, cfg, S) {
   tl.fromTo(gp, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b3 + 0.05));
   popIn(p1, T(b3 + 0.12), 8, 0.45);
   qa(".s25-gl").forEach((l, i) => tl.fromTo(l, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.45, ease: "power2.out" }), T(b3 + 0.15 + i * 0.05)));
+  // pass 1 finds the spikes over the ceiling: the ceiling is the beat's one red line, with the "נשרף" tag on it
+  const gcr = q(".s25-gcr"), gbw = q(".s25-gbw");
+  tl.fromTo(gcr, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.45, ease: "power2.out" }), T(b3 + 0.2));
+  popIn(gbw, T(b3 + 0.5), 8, 0.45);
   const cline = q(".s25-cline"), ctag = q(".s25-ctag");
   tl.fromTo(cline, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.45, ease: "power2.out" }), T(b3 + 0.2));
   popIn(ctag, T(b3 + 0.3), 6, 0.45);
@@ -97,9 +104,10 @@ window.SIMS.sim25 = function (tl, ctx, cfg, S) {
   qa(".s25-gb").forEach((bar) => {
     const b = +bar.dataset.b, a = +bar.dataset.a;
     tl.fromTo(bar, { scaleY: 1 }, A({ scaleY: a / b, duration: 0.6, ease: E.SPRING }), T(b3 + 0.9));
-    const red = E.q("b", bar);
-    if (red) tl.fromTo(red, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(b3 + 0.9));
   });
+  // nothing crosses the ceiling any more: the red line and its tag step back to the dashed ceiling
+  fade(gcr, T(b3 + 1.15), 0.3);
+  fade(gbw, T(b3 + 1.1), 0.25);
   level(-14, T(b3 + 0.95), 0.55);
   // measure again
   tl.fromTo(scan2, { opacity: 0 }, A({ opacity: 1, duration: 0.06 }), T(b3 + 1.4));

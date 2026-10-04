@@ -50,7 +50,7 @@
 .sim32 .s32-gsv .gl { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 9 6; opacity: 0; }
 .sim32 .s32-gsv .br { fill: none; stroke: #ffffff; stroke-width: 2.2; }
 .sim32 .s32-lag { position: absolute; left: 0; right: 0; top: 16px; text-align: center; font: 600 31px/1 "Rubik"; color: #ffffff; opacity: 0; }
-.sim32 .s32-leg { position: absolute; left: 0; right: 0; bottom: 18px; display: flex; justify-content: center; gap: 26px; direction: rtl; font: 500 27px/1 "Rubik"; color: #dcd9e6; }
+.sim32 .s32-leg { position: absolute; left: 0; right: 0; bottom: 18px; display: flex; justify-content: center; gap: 26px; direction: rtl; font: 500 30px/1 "Rubik"; color: #dcd9e6; }
 .sim32 .s32-leg span { display: flex; align-items: center; gap: 8px; }
 .sim32 .s32-leg i { width: 22px; height: 4px; border-radius: 2px; display: block; }
 .sim32 .s32-leg .h i { background: #c9c2ff; }
@@ -59,13 +59,20 @@
 /* the logo layer: it follows the hand a little late */
 .sim32 .s32-fol { position: absolute; left: 0; top: 0; width: 800px; height: 700px; pointer-events: none; }
 .sim32 .s32-beam { position: absolute; width: 260px; height: 150px; opacity: 0;
-  background: linear-gradient(180deg, rgba(255, 120, 96, 0.4), rgba(255, 120, 96, 0)); clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%); }
-.sim32 .s32-lglow { position: absolute; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 110, 90, 0.36), rgba(255, 110, 90, 0) 66%); opacity: 0; }
+  background: linear-gradient(180deg, rgba(255, 159, 67, 0.38), rgba(255, 159, 67, 0)); clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%); }
+.sim32 .s32-lglow { position: absolute; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 159, 67, 0.34), rgba(255, 159, 67, 0) 66%); opacity: 0; }
 .sim32 .s32-gh, .sim32 .s32-ghost { position: absolute; width: 210px; height: 210px; opacity: 0; }
 .sim32 .s32-gh svg, .sim32 .s32-ghost svg { width: 210px; height: 210px; display: block; overflow: visible; }
-.sim32 .s32-gh path { fill: none; stroke: #ffb3a3; stroke-width: 2.2; }
+.sim32 .s32-gh path { fill: none; stroke: #ffc68f; stroke-width: 2.2; }
 .sim32 .s32-ghost path { fill: none; stroke: #ffffff; stroke-width: 2.2; stroke-dasharray: 7 6; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+/* the ghost is a wireframe of the badge: two outlines 34 px apart, joined by 6 depth edges */
+.sim32 .s32-ghost { perspective: 600px; }
+.sim32 .s32-gw { position: absolute; left: 0; top: 0; width: 210px; height: 210px; transform-style: preserve-3d; }
+.sim32 .s32-gw .s32-gf { position: absolute; left: 0; top: 0; }
+.sim32 .s32-ge { position: absolute; width: 34px; height: 2.2px; transform: rotateY(90deg); display: block;
+  background: repeating-linear-gradient(90deg, #ffffff 0px, #ffffff 6px, rgba(255, 255, 255, 0) 6px, rgba(255, 255, 255, 0) 10px); filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
 .sim32 .s32-lgw { position: absolute; width: 210px; height: 210px; perspective: 800px; opacity: 0; }
 .sim32 .s32-lg3 { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: 50% 100%; transform: scale(0.05); }
 .sim32 .s32-ly { position: absolute; left: 0; top: 0; width: 210px; height: 210px; display: block; }
-.sim32 .s32-lp { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #ffd8cc, 0 0 30px rgba(255, 110, 90, 0.95), 0 0 60px rgba(255, 110, 90, 0.5); display: block; opacity: 0; }
+.sim32 .s32-ly .sd { fill: #c9701c; }
+.sim32 .s32-lp { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #ffe2c0, 0 0 30px rgba(255, 159, 67, 0.95), 0 0 60px rgba(255, 159, 67, 0.5); display: block; opacity: 0; }

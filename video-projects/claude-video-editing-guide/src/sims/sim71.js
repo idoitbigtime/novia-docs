@@ -162,4 +162,6 @@ window.SIMS.sim71 = function (tl, ctx, cfg, S) {
   tw(snap, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, pe + 2.0);
   tw(snap, { y: 6, scale: 0.95 }, { y: 0, scale: 1, duration: 0.5, ease: E.SPRING }, pe + 2.0);
   E.sweep(tl, snap, T(pe + 2.6), 0.9, { color: "rgba(201, 194, 255, 0.2)" });
+  // the fact takes over: the texts outside its dark backing leave completely as the stage dims
+  [q(".s71-rl1"), q(".s71-rl2"), snap, t1080].forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.35, ease: "power2.in" }, tEnd));
 };

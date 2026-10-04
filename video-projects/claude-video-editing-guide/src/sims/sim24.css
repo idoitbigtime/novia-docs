@@ -11,7 +11,8 @@
 .sim24 .s24-wedge { opacity: 0; }
 .sim24 .s24-wsoft { fill: rgba(255, 236, 222, 0.16); stroke: rgba(255, 240, 230, 0.45); stroke-width: 1.5; stroke-dasharray: 5 5; }
 .sim24 .s24-wsolid { fill: rgba(255, 236, 222, 0.34); stroke: #ffffff; stroke-width: 2.2; }
-.sim24 .s24-cap { fill: none; stroke: #ff453a; stroke-width: 4; stroke-linecap: round; opacity: 0; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.8)); }
+/* the skin's cap: lavender (it plays while the explanation's key phrase is red) */
+.sim24 .s24-cap { fill: none; stroke: #b9a8ff; stroke-width: 4.5; stroke-linecap: round; opacity: 0; filter: drop-shadow(0 0 5px rgba(185, 168, 255, 0.9)); }
 .sim24 .s24-g1 { fill: #85839a; }
 .sim24 .s24-g2 { fill: rgba(133, 131, 154, 0.45); }
 .sim24 .s24-gring { fill: none; stroke: rgba(255, 255, 255, 0.85); stroke-width: 2; stroke-dasharray: 4 4; opacity: 0.0; }
@@ -33,7 +34,7 @@
 .sim24 .s24-blead { height: 36px; transform-origin: 50% 0; }
 .sim24 .s24-glead { transform-origin: 50% 100%; }
 .sim24 .s24-wt { position: absolute; width: 0; height: 0; display: flex; justify-content: center; align-items: center; opacity: 0; }
-.sim24 .s24-wt b { flex: none; font: 600 25px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #fff3ea; padding: 4px 8px 3px; border-radius: 8px;
+.sim24 .s24-wt b { flex: none; font: 600 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #fff3ea; padding: 5px 9px 4px; border-radius: 8px;
   background: rgba(20, 18, 40, 0.92); border: 1.5px solid rgba(255, 236, 222, 0.55); }
 
 /* the frame */
@@ -44,6 +45,7 @@
 .sim24 .s24-lap { fill: none; stroke: rgba(255, 255, 255, 0.16); stroke-width: 2; }
 .sim24 .s24-fl { position: absolute; width: 0; height: 0; display: flex; justify-content: center; align-items: center; opacity: 0; }
 .sim24 .s24-fl .s24-lck { width: 24px; height: 24px; flex: none; }
+.sim24 .s24-fl .s24-flu { position: absolute; left: -1px; width: 2px; border-radius: 1px; background: rgba(231, 227, 255, 0.9); box-shadow: 0 0 6px rgba(201, 194, 255, 0.8); display: block; }
 .sim24 .s24-fring { position: absolute; overflow: visible; opacity: 0; }
 .sim24 .s24-fring ellipse { fill: none; stroke: #ffffff; stroke-width: 3; stroke-dasharray: 9 7; filter: drop-shadow(0 0 6px rgba(255, 236, 222, 0.9)); }
 .sim24 .s24-focus { position: absolute; display: block; }
@@ -54,19 +56,19 @@
 .sim24 .s24-mb1 { background: linear-gradient(180deg, #8f5fe8, #5a36b8); box-shadow: 0 0 16px rgba(143, 95, 232, 0.5); }
 .sim24 .s24-mb2 { background: linear-gradient(180deg, #e2b394, #b98263); box-shadow: 0 0 14px rgba(226, 179, 148, 0.45); }
 .sim24 .s24-mg { position: absolute; width: 50px; border-radius: 8px 8px 3px 3px; border: 2px dashed rgba(255, 236, 222, 0.5); display: block; opacity: 0; }
-.sim24 .s24-mcap { position: absolute; width: 78px; height: 4px; border-radius: 2px; background: #ff453a; box-shadow: 0 0 10px rgba(255, 69, 58, 0.8); display: block; opacity: 0; transform-origin: 50% 50%; }
+.sim24 .s24-mcap { position: absolute; width: 78px; height: 4px; border-radius: 2px; background: #b9a8ff; box-shadow: 0 0 10px rgba(185, 168, 255, 0.9); display: block; opacity: 0; transform-origin: 50% 50%; }
 .sim24 .s24-mct, .sim24 .s24-ml { position: absolute; width: 0; height: 38px; display: flex; justify-content: center; align-items: center; opacity: 0; }
-.sim24 .s24-mct span { flex: none; font: 600 26px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
-.sim24 .s24-ml span { flex: none; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim24 .s24-mct span { flex: none; font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim24 .s24-ml span { flex: none; font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
 .sim24 .s24-mbase { position: absolute; width: 294px; height: 2px; background: rgba(201, 194, 255, 0.45); display: block; opacity: 0; transform-origin: 100% 50%; }
 
 /* payoff: three strengths */
 .sim24 .s24-pay { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
-.sim24 .s24-mini { position: absolute; top: 74px; width: 236px; height: 252px; opacity: 0; }
+.sim24 .s24-mini { position: absolute; top: 74px; width: 224px; height: 252px; opacity: 0; }
 .sim24 .s24-mframe { position: absolute; inset: 0; border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.4), 0 16px 40px rgba(0, 0, 0, 0.45); }
 .sim24 .s24-pl { position: absolute; top: 340px; height: 42px; display: flex; justify-content: center; align-items: center; opacity: 0; }
 .sim24 .s24-pl span { font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; direction: rtl; }
-.sim24 .s24-pl b { font: 600 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #d9d4ff; }
+.sim24 .s24-pl b { font: 600 32px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #d9d4ff; }
 .sim24 .s24-sw { position: absolute; top: 398px; width: 62px; height: 62px; opacity: 0; }
 .sim24 .s24-sw i { position: absolute; inset: 0; border-radius: 50%; display: block; box-shadow: 0 0 0 2.5px #ffffff, 0 0 18px rgba(255, 236, 222, 0.35); }
 .sim24 .s24-eq { position: absolute; left: 0; top: 466px; width: 800px; height: 120px; overflow: visible; }

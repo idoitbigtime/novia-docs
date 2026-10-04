@@ -52,6 +52,7 @@
 .sim23 .s23-fixl { position: absolute; width: 0; height: 40px; display: flex; justify-content: center; opacity: 0; }
 .sim23 .s23-fixl span { flex: none; display: flex; align-items: center; gap: 10px; font: 600 30px/1 "Rubik"; color: #dcd9e6; white-space: nowrap; direction: rtl; }
 .sim23 .s23-fixl i { width: 12px; height: 12px; border-radius: 50%; background: #b9b5c9; display: block; flex: none; }
+.sim23 .s23-fixlead { position: absolute; width: 2px; height: 18px; background: #b9b5c9; display: block; opacity: 0; transform-origin: 50% 0; }
 
 /* B1: every frame gets a face */
 .sim23 .s23-film { position: absolute; left: 0; top: 454px; width: 800px; height: 46px; }

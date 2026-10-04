@@ -59,23 +59,27 @@ def _rng(seed):
 
 
 def wave_svg(cls, w, h, amps, clip=None, bar=5.0):
-    """Symmetric waveform; amps are 0..1 of h/2. Parts above `clip` (0..1) are drawn red."""
+    """Symmetric waveform; amps are 0..1 of h/2. With `clip` (0..1) the louder bars are cut flat at the clip level
+    and ONE red line marks the ceiling they hit (the red rule: one red thing, with the "נשרף" tag on it)."""
     n = len(amps)
     pitch = w / n
     c = h / 2
-    lil, red = [], []
+    lil, flat = [], []
     for i, a in enumerate(amps):
         x = w - (i + 0.5) * pitch               # time runs right to left
         hh = max(1.5, a * c)
         if clip is not None and a > clip:
             k = clip * c
-            lil.append(f"M{x:.1f} {c - k:.1f}V{c + k:.1f}")
-            red.append(f"M{x:.1f} {c - hh:.1f}V{c - k:.1f}M{x:.1f} {c + k:.1f}V{c + hh:.1f}")
+            flat.append(f"M{x:.1f} {c - k:.1f}V{c + k:.1f}")
         else:
             lil.append(f"M{x:.1f} {c - hh:.1f}V{c + hh:.1f}")
-    rp = f'<path class="s25-wr" d="{"".join(red)}" style="stroke-width:{bar}"/>' if red else ""
+    fp = f'<path class="s25-wl s25-wf" d="{"".join(flat)}" style="stroke-width:{bar}"/>' if flat else ""
+    cap = ""
+    if flat:
+        y = c - clip * c
+        cap = f'<path class="s25-wcap" d="M2 {y:.1f}H{w - 2}"/>'
     return (f'<svg class="{cls}" viewBox="0 0 {w} {h}" aria-hidden="true"><path class="s25-wl" d="{"".join(lil)}" '
-            f'style="stroke-width:{bar}"/>{rp}</svg>')
+            f'style="stroke-width:{bar}"/>{fp}{cap}</svg>')
 
 
 def speaker(n):
@@ -134,11 +138,8 @@ def graph():
     bars = []
     for i in range(n):
         x = 560 - (i + 1) * pitch + (pitch - bw)
-        red = ""
-        if before[i] > ceil:
-            red = f'<b style="height:{before[i] - ceil:.1f}px"></b>'
         bars.append(f'<i class="s25-gb" data-b="{before[i]}" data-a="{after[i]}" style="left:{x}px;top:{base - before[i]:.1f}px;'
-                    f'height:{before[i]:.1f}px">{red}</i>')
+                    f'height:{before[i]:.1f}px"></i>')
     return "".join(bars), base
 
 
@@ -205,10 +206,14 @@ def html(cfg):
     ear = f'<div class="s25-earw">{ARCS}{EAR}</div>'
     # B3 graph
     gbars, base = graph()
+    # pass 1: the spikes cross the ceiling, which is red (one red line with the "נשרף" tag on it, between two spikes);
+    # after pass 2 it steps back to the dashed ceiling
     gpanel = (f'<div class="s25-gp"><i class="s25-gbg"></i><div class="s25-pills"><span class="s25-pill s25-p1" dir="rtl">{esc(c["pass1"])}</span>'
               f'<span class="s25-pill s25-p2" dir="rtl">{esc(c["pass2"])}</span></div>'
               f'<i class="s25-gbase" style="top:{base}px"></i>{gbars}'
               f'<i class="s25-gl s25-gt" style="top:{ty - 1.5:.1f}px"></i><i class="s25-gl s25-gc" style="top:{cy - 1:.1f}px"></i>'
+              f'<i class="s25-gcr" style="top:{cy - 1.5:.1f}px"></i>'
+              f'<div class="s25-gbw" style="left:275px;top:{cy - 20:.1f}px"><span class="s25-gburn" dir="rtl">{esc(c["burnTag"])}</span></div>'
               + "".join(f'<i class="s25-gscan s25-gs{k}" style="left:566px;top:{my(CEIL) - 34:.1f}px;height:{base - my(CEIL) + 38:.1f}px"></i>' for k in (1, 2))
               + '</div>')
     # B4 spectrum
@@ -216,7 +221,7 @@ def html(cfg):
     spanel = (f'<div class="s25-sp"><i class="s25-sbg"></i><div class="s25-sh" dir="rtl"><i></i>{esc(c["sfxTitle"])}</div>{sbars}{curve}'
               f'<i class="s25-cut" style="left:{cut - 1:.1f}px"></i>'
               f'<span class="s25-hpt" dir="ltr" style="left:{cut - 1:.0f}px">{esc(c["hp"])}</span>'
-              f'<span class="s25-nb" dir="rtl" style="left:22px">{esc(c["noBass"])}</span></div>')
+              f'<span class="s25-nb" dir="rtl" style="left:36px">{esc(c["noBass"])}</span></div>')
     return f"""<div class="simwrap sim25">
 {meter}
 <div class="s25-main">{phone(c)}{readout}{ear}{gpanel}{spanel}<div class="s25-lanes">{lanes(c)}<i class="s25-ph"></i></div></div>

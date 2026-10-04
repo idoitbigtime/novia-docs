@@ -29,7 +29,7 @@ BASE = {
 SKIN = ("skin", "neck", "ear")
 GREY = ("black", "hair")
 WHEEL = dict(cx=195, cy=330, r=140)
-FRAME = dict(x=405, y=118, w=395, h=445)
+FRAME = dict(x=400, y=112, w=380, h=428)   # 20 px inside the canvas's right edge
 DOT_ITEMS = ("wall", "tee", "plant", "skin", "black")
 
 
@@ -170,51 +170,69 @@ def html(cfg):
     # wheel labels
     def tag(cls, x, y, txt):
         return f'<div class="s24-wt {cls}" style="left:{x:.0f}px;top:{y:.0f}px"><b dir="ltr">{txt}</b></div>'
-    t12 = _pt(skin_a + 12, R + 26, W["cx"], W["cy"])
-    t30 = _pt(skin_a + 30, R + 28, W["cx"], W["cy"])
+    t12 = _pt(skin_a + 12, R + 30, W["cx"], W["cy"])
+    t30 = _pt(skin_a + 32, R + 36, W["cx"], W["cy"])
     wl = (f'<div class="s24-bl" style="left:{W["cx"]}px;top:{W["cy"] - R - 96}px"><span dir="rtl"><i></i>{esc(c["brandLabel"])}</span></div>'
           f'<i class="s24-blead" style="left:{W["cx"] - 1}px;top:{W["cy"] - R - 50}px"></i>'
           + tag("s24-t12", t12[0], t12[1], "12°") + tag("s24-t30", t30[0], t30[1], "30°")
           + f'<div class="s24-gl" style="left:{W["cx"]}px;top:{W["cy"] + R + 34}px"><span dir="rtl"><i></i>{esc(c["greyLabel"])}</span></div>'
           f'<i class="s24-glead" style="left:{W["cx"] - 1}px;top:{W["cy"] + 34}px;height:{R}px"></i>')
-    # B2 meter: the colours' boost vs the skin's quarter, capped at x1.2 (vertical bars)
-    base_y, unit = 650, 118          # px per +1.0 of boost
+    # B2 meter: the colours' boost vs the skin's quarter, capped at x1.2 (vertical bars); it sits high enough that
+    # its labels stay clear of the frame's soft edge during the punch-in
+    base_y, unit = 606, 118          # px per +1.0 of boost
     full = (MAIN_K - 1) * unit
     skin_q = min((MAIN_K - 1) / 4, SKIN_CAP - 1) * unit
     cap_y = base_y - (SKIN_CAP - 1) * unit
-    xs, xc = 58, 280                 # skin bar, colours bar (left edges, bar width 50)
+    xs, xc = 74, 322                 # skin bar, colours bar (left edges, bar width 50)
     meter = (f'<div class="s24-meter">'
              f'<i class="s24-mb s24-mb1" style="left:{xc}px;top:{base_y - full:.1f}px;height:{full:.1f}px"></i>'
              f'<i class="s24-mg" style="left:{xs}px;top:{base_y - full:.1f}px;height:{full:.1f}px"></i>'
              f'<i class="s24-mb s24-mb2" style="left:{xs}px;top:{base_y - skin_q:.1f}px;height:{skin_q:.1f}px"></i>'
              f'<i class="s24-mcap" style="left:{xs - 14}px;top:{cap_y - 2:.1f}px"></i>'
-             f'<div class="s24-mct" style="left:192px;top:{cap_y - 48:.1f}px"><span dir="rtl">{esc(c["capLabel"])}</span></div>'
+             f'<div class="s24-mct" style="left:{(xs + 64 + xc) / 2:.0f}px;top:{cap_y - 50:.1f}px"><span dir="rtl">{esc(c["capLabel"])}</span></div>'
              f'<i class="s24-mbase" style="left:{xs - 22}px;top:{base_y}px;width:{xc + 50 + 22 - xs + 22}px"></i>'
              f'<div class="s24-ml" style="left:{xc + 25}px;top:{base_y + 8}px"><span dir="rtl">{esc(c["colorsLabel"])}</span></div>'
              f'<div class="s24-ml" style="left:{xs + 25}px;top:{base_y + 8}px"><span dir="rtl">{esc(c["skinLabel"])}</span></div></div>')
-    # the frame and its labels (frame px = viewBox px * fs)
+    # the frame and its labels (frame px = viewBox px * fs). The wall label sits on the wall; the skin label on the
+    # wall above the head with a short leader down to the face; the two shirt labels hang under the frame with a
+    # thin leader up to the garment, so no label covers what it names
     fs = F["w"] / 400
-    def flab(cls, x, y, txt, dot="s24-ld"):
-        return (f'<div class="s24-fl {cls}" style="left:{F["x"] + x * fs:.0f}px;top:{F["y"] + y * fs:.0f}px">'
-                f'<span dir="rtl"><i class="{dot}"></i>{esc(txt)}</span></div>')
-    flabels = (flab("s24-fl-wall", 312, 172, c["wallLabel"]) + flab("s24-fl-tee", 200, 404, c["teeLabel"]) +
-               flab("s24-fl-skin", 322, 226, c["skinWord"]) + flab("s24-fl-black", 96, 404, c["blackLabel"]))
+    fb = F["y"] + F["h"]                       # the frame's bottom edge
+    def flab(cls, x, y, txt, up=0, down=0):
+        lead = ""
+        if up:
+            lead = f'<i class="s24-flu" style="height:{up:.0f}px;top:{-22 - up:.0f}px"></i>'
+        if down:
+            lead = f'<i class="s24-flu" style="height:{down:.0f}px;top:22px"></i>'
+        return (f'<div class="s24-fl {cls}" style="left:{x:.0f}px;top:{y:.0f}px">{lead}'
+                f'<span dir="rtl"><i class="s24-ld"></i>{esc(txt)}</span></div>')
+    def vb(x, y):
+        return F["x"] + x * fs, F["y"] + y * fs
+    wx, wy = vb(312, 172)
+    tx, ty = vb(200, 424)                      # the tee, low on the chest
+    kx, ky = vb(200, 124)                      # the top of the face ring
+    bx, by = vb(84, 430)                       # the black shirt's left side
+    lab_y = fb + 44                            # shirt labels: centred 44 px under the frame
+    flabels = (flab("s24-fl-wall", wx, wy, c["wallLabel"]) +
+               flab("s24-fl-tee", tx, lab_y, c["teeLabel"], up=lab_y - 22 - ty) +
+               flab("s24-fl-skin", kx, ky - 44, c["skinWord"], down=22 - 4) +
+               flab("s24-fl-black", bx, lab_y, c["blackLabel"], up=lab_y - 22 - by))
     ring = (f'<svg class="s24-fring" style="left:{F["x"] + 132 * fs:.0f}px;top:{F["y"] + 124 * fs:.0f}px;width:{136 * fs:.0f}px;height:{164 * fs:.0f}px" '
             f'viewBox="0 0 136 164" aria-hidden="true"><ellipse cx="68" cy="82" rx="64" ry="78"/></svg>')
     frame = (f'<div class="s24-frame" style="left:{F["x"]}px;top:{F["y"]}px;width:{F["w"]}px;height:{F["h"]}px">'
              f'{scene(c0, "m", "s24-scene")}</div>{ring}{flabels}')
     focus = f'<i class="s24-focus" data-focus="2" style="left:{W["cx"] + 60}px;top:{F["y"] + 70}px;width:{F["x"] + 250 - W["cx"] - 60}px;height:260px"></i>'
-    # payoff: three strengths
-    pw, ph, gap = 236, 252, 46
+    # payoff: three strengths (x 24..776)
+    pw, ph, gap, mx = 224, 252, 40, 24
     minis, plabs, sw = "", "", ""
     for i, k in enumerate(STRENGTHS):
-        x = 800 - (i + 1) * pw - i * gap                  # right to left: gentle first
+        x = 800 - mx - (i + 1) * pw - i * gap             # right to left: gentle first
         minis += (f'<div class="s24-mini" style="left:{x}px"><div class="s24-mframe">{scene(c0, f"k{i}", "s24-scene")}</div></div>')
         plabs += (f'<div class="s24-pl" style="left:{x}px;width:{pw}px"><span dir="rtl">{esc(c["strengths"][i])} '
                   f'<b dir="ltr">{k}</b></span></div>')
         sw += (f'<div class="s24-sw" style="left:{x + pw / 2 - 31:.0f}px"><i style="background:{c0["skin"]}"></i></div>')
-    x_med = 800 - 2 * pw - gap + pw / 2
-    x_str = 800 - 3 * pw - 2 * gap + pw / 2
+    x_med = 800 - mx - 2 * pw - gap + pw / 2
+    x_str = 800 - mx - 3 * pw - 2 * gap + pw / 2
     eq = (f'<svg class="s24-eq" viewBox="0 0 800 120" aria-hidden="true"><path d="M{x_str:.0f} 6 V22 H{x_med:.0f} V6"/></svg>'
           f'<span class="s24-eqs" style="left:{(x_med + x_str) / 2 - 20:.0f}px">=</span>')
     kin, _, _ = kinetic_html(c["payoffLabel"], t0=cfg["phrEnd"] + c["capT"], step=0.1, pause=0.15)

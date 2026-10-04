@@ -135,4 +135,6 @@ window.SIMS.sim72 = function (tl, ctx, cfg, S) {
   E.burst(tl, big, 93, 269, T(pe + 1.9), { n: 12, seed: 72, r0: 30, r1: 80, color: "#c9c2ff" });
   E.fadeIn(tl, q(".s72-ct1"), T(pe + 1.95), 0.45, 12);
   E.fadeIn(tl, q(".s72-ct2"), T(pe + 2.25), 0.45, 12);
+  // the fact takes over: the texts outside its dark backing leave completely as the stage dims
+  [q(".s72-catch"), q(".s72-autorow")].forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.35, ease: "power2.in" }, cfg.tSimEnd - 0.45));
 };

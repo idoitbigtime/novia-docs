@@ -107,7 +107,8 @@ window.SIMS.sim31 = function (tl, ctx, cfg, S) {
   qa(".s31-aw").forEach((a) => tl.fromTo(a, { opacity: 0.4 }, A({ opacity: 0, duration: 0.3 }), T(b4)));
   qa(".s31-iw .tk").forEach((tk) => tl.fromTo(tk, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b4)));
   tl.fromTo(cam, { scale: 1, opacity: 1 }, A({ scale: 0.7, opacity: 0.5, duration: 0.6, ease: E.SPRING }), T(b4));
-  tl.fromTo(tbl, { opacity: 0, y: 40 }, A({ opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }), T(b4 + 0.12));
+  // the table rises once the waveform and the ruler have faded (never through them)
+  tl.fromTo(tbl, { opacity: 0, y: 40 }, A({ opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }), T(b4 + 0.32));
   const tws = qa(".s31-tins .tw");
   ins.forEach((ch, i) => {
     const a = E.center(ch, root), b = E.center(tws[i], root), t = T(b4 + 0.25 + i * 0.035);
@@ -155,5 +156,5 @@ window.SIMS.sim31 = function (tl, ctx, cfg, S) {
   tl.fromTo(csc, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(pe + 3.12));
   tl.fromTo(csc, { x: 0 }, A({ x: -920, duration: 0.9, ease: "power1.inOut" }), T(pe + 3.12));
   tl.fromTo(csc, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), T(pe + 3.9));
-  E.burst(tl, root, 400, 562, T(pe + 3.45), { n: 14, seed: 31, r0: 70, r1: 190, color: "#c9c2ff" });
+  E.burst(tl, root, 400, 562, T(pe + 3.45), { n: 14, seed: 31, r0: 60, r1: 120, color: "#c9c2ff" });
 };

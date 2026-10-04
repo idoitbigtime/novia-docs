@@ -40,14 +40,16 @@ def logo3d(prefix, n=9, depth=20):
     for i in range(n):
         z = -depth / 2 + depth * i / (n - 1)
         if i == n - 1:
-            inner = (f'<defs><linearGradient id="{prefix}g" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#ff9a76"/>'
-                     f'<stop offset="1" stop-color="#ff4a42"/></linearGradient></defs>'
-                     f'<path d="{hexd}" fill="url(#{prefix}g)"/><path d="{_hexpath(50, 50, 33)}" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>'
+            # the guide describes Claude's logo as orange ("לוגו כתום של קלוד"); orange also keeps red for the accent
+            inner = (f'<defs><linearGradient id="{prefix}g" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#ffc27a"/>'
+                     f'<stop offset="0.5" stop-color="#ff9f43"/><stop offset="1" stop-color="#f08a24"/></linearGradient></defs>'
+                     f'<path d="{hexd}" fill="url(#{prefix}g)"/><path d="{_hexpath(50, 50, 33)}" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>'
                      f'<path d="{STAR}" fill="#ffffff"/>')
         elif i == 0:
-            inner = f'<path d="{hexd}" fill="#c3463d"/>'
+            inner = f'<path d="{hexd}" fill="#a95416"/>'
         else:
-            inner = f'<path d="{hexd}" fill="#{0x9c + i * 3:02x}{0x30 + i:02x}{0x2c + i:02x}"/>'
+            # the extruded side: darker orange at the back, lighter toward the front face
+            inner = f'<path d="{hexd}" fill="#{0xb0 + i * 4:02x}{0x5a + i * 3:02x}{0x16 + i:02x}"/>'
         layers.append(f'<svg class="{prefix}-ly" viewBox="0 0 100 100" style="transform:translateZ({z:.2f}px)" aria-hidden="true">{inner}</svg>')
     return "".join(layers)
 
@@ -150,10 +152,10 @@ def html(cfg):
     head = "".join(f'<div class="s31-th" dir="rtl">{esc(t)}</div>' for t in cols)
     bars = lambda a, b: f'<div class="s31-tb"><i style="width:{a}px"></i><i style="width:{b}px"></i></div>'
     rows = (f'<div class="s31-td s31-c1 s31-r1"><div class="s31-tins" dir="rtl">{tw}</div></div>'
-            f'<div class="s31-td s31-r1">{_picto("time")}</div><div class="s31-td s31-r1">{_picto("logo")}</div><div class="s31-td s31-r1">{_picto("end")}</div>'
-            f'<div class="s31-td s31-c1 s31-r2">{bars(220, 150)}</div><div class="s31-td s31-r2">{_picto("time")}</div>'
+            f'<div class="s31-td s31-c2 s31-r1">{_picto("time")}</div><div class="s31-td s31-r1">{_picto("logo")}</div><div class="s31-td s31-r1">{_picto("end")}</div>'
+            f'<div class="s31-td s31-c1 s31-r2">{bars(200, 140)}</div><div class="s31-td s31-c2 s31-r2">{_picto("time")}</div>'
             f'<div class="s31-td s31-r2">{_picto("wall")}</div><div class="s31-td s31-r2">{_picto("fade")}</div>'
-            f'<div class="s31-td s31-c1 s31-r3">{bars(190, 210)}</div><div class="s31-td s31-r3">{_picto("time")}</div>'
+            f'<div class="s31-td s31-c1 s31-r3">{bars(176, 196)}</div><div class="s31-td s31-c2 s31-r3">{_picto("time")}</div>'
             f'<div class="s31-td s31-r3">{_picto("layers")}</div><div class="s31-td s31-r3">{_picto("fade")}</div>')
     scenes = "".join(
         f'<div class="s31-scn s31-s{i + 1}"><svg class="s31-file" viewBox="0 0 180 170" preserveAspectRatio="none" aria-hidden="true">'
@@ -184,14 +186,14 @@ def html(cfg):
 <div class="s31-crow" dir="rtl">{crow}</div>
 {_ruler()}
 <svg class="s31-brk" viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true"><path d="M99 0 V10 H1 V0"/></svg>
-<i class="s31-ph"></i><i class="s31-scan"></i>
+<i class="s31-ph"></i><div class="s31-scanbox"><i class="s31-scan"></i></div>
 </div>
 <div class="s31-ok" dir="rtl"><span class="s31-okr"><i class="okf"></i><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><b>{esc(c["approve"])}</b></div>
 <div class="s31-brief"><svg class="s31-bf" viewBox="0 0 64 76" aria-hidden="true"><path d="M8 4 H42 L58 20 V68 a4 4 0 0 1 -4 4 H8 a4 4 0 0 1 -4 -4 V8 a4 4 0 0 1 4 -4 Z"/><path class="fold" d="M42 4 V20 H58"/>
 <path class="ln" d="M14 34 H46 M14 44 H40 M14 54 H44"/></svg><b dir="ltr">{esc(c["brief"])}</b></div>
 <svg class="s31-links" viewBox="0 0 800 700" aria-hidden="true"><path d="M400 152 C 400 196, 160 196, 160 238"/><path d="M400 152 V238"/><path d="M400 152 C 400 196, 640 196, 640 238"/></svg>
 <div class="s31-scns">{scenes}</div>
-<i class="s31-cscan"></i>
+<div class="s31-cscanbox"><i class="s31-cscan"></i></div>
 <div class="s31-aglab" dir="rtl"><i></i><span>{esc(c["agents"])}</span></div>
 <div class="s31-crit" dir="rtl"><span class="s31-eye"><svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="25"/><path d="M12 28 C 18 18, 38 18, 44 28 C 38 38, 18 38, 12 28 Z"/><circle class="pu" cx="28" cy="28" r="6"/></svg></span>
 <b>{esc(c["critic"])}</b></div>

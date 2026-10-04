@@ -27,8 +27,8 @@ def esc(s):
 
 
 def plain(text):
-    """Display text: markup ({} * |) removed."""
-    t = re.sub(r"[{}*]", "", text.replace("|", " "))
+    """Display text: markup ({} * [] |) removed."""
+    t = re.sub(r"[{}*\[\]]", "", text.replace("|", " "))
     return re.sub(r"\s+", " ", t).strip()
 
 
@@ -50,7 +50,7 @@ def main():
             toc.append((c["n"], CHAPTERS.get(c["n"], c["title"]), st))
             sub = f'<p class="sub">{esc(plain(c["sub"]))}</p>' if c.get("sub") else ""
             tag = f'<p class="note">{esc(plain(c["tag"]))}</p>' if c.get("tag") else ""
-            rows.append(f'<h2 id="ch{c["n"]}"><span class="tc">{mmss(st)}</span>פרק {c["n"]} · {esc(c["title"])}</h2>{sub}{tag}')
+            rows.append(f'<h2 id="ch{c["n"]}"><span class="tc">{mmss(st)}</span>פרק {c["n"]} · {esc(plain(c["title"]))}</h2>{sub}{tag}')
         elif typ == "custom":
             mod = importlib.import_module("sims." + c["sim"])
             rows.append(custom_block(sid, mod, st, d))
@@ -62,7 +62,7 @@ def main():
             if p is not None:
                 prompt_at.setdefault(str(p), []).append((c["num"], st + a["tPrompt"]))
             rows.append(topic_block(c, a, st))
-            check.append((c["num"], c["title"], st, p, PROMPT_NOTE.get(sid, "")))
+            check.append((c["num"], plain(c["title"]), st, p, PROMPT_NOTE.get(sid, "")))
     toc_html = "".join(f'<tr><td>{"פרק " + str(n) if n else "פרק 0"}</td><td>{esc(name)}</td><td class="t">{mmss(t)}</td></tr>' for n, name, t in toc)
     check_html = "".join(
         f'<tr><td>{esc(num)}</td><td>{esc(title)}</td><td class="t">{mmss(t)}</td><td>{p if p is not None else "–"}</td>'

@@ -45,7 +45,9 @@ window.SIMS.sim23 = function (tl, ctx, cfg, S) {
   tl.fromTo(cfix, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(b0 + 0.05));
   tl.fromTo(cfix, { clipPath: "inset(0px 0px 100% 0px)" }, A({ clipPath: "inset(0px 0px 0% 0px)", duration: 0.55, ease: "power2.inOut" }), T(b0 + 0.05));
   dims.forEach((dm) => tl.fromTo(dm, { opacity: 0 }, A({ opacity: 1, duration: 0.45, ease: "power2.out" }), T(b0 + 0.3)));
-  tl.fromTo(fixl, { opacity: 0, y: 10 }, A({ opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }), T(b0 + 0.3));
+  const fixlead = q(".s23-fixlead");
+  tl.fromTo(fixlead, { opacity: 1, scaleY: 0 }, A({ opacity: 1, scaleY: 1, duration: 0.3, ease: "power2.out" }), T(b0 + 0.3));
+  tl.fromTo(fixl, { opacity: 0, y: -8 }, A({ opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }), T(b0 + 0.38));
   move(T(b0 + 0.85), 0, dx1, 0.9);
   // the output loses half the head: X and a jolt
   const xs = q(".s23-x");
@@ -54,6 +56,7 @@ window.SIMS.sim23 = function (tl, ctx, cfg, S) {
   // a sideways jolt without skew (a skew would swing the tall frame's corners past the canvas edge)
   [[0, 5], [5, -3.5], [-3.5, 2.2], [2.2, -1], [-1, 0]].forEach(([a, b], i) => tl.fromTo(out, { x: a }, A({ x: b, duration: 0.05, ease: "none" }), T(b0 + 1.75 + i * 0.05)));
   tl.fromTo(fixl, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(P[1] - 0.2));
+  tl.fromTo(fixlead, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(P[1] - 0.2));
 
   // B1 "קלוד מוצא את הפנים בכל פריים": scanner, face box, a filmstrip where every frame gets one
   const b1 = P[1], fbox = q(".s23-fbox");

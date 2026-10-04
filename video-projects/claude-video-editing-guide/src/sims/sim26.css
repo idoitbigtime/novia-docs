@@ -1,15 +1,18 @@
 /* 2.6 replacing only the wrong sentence (canvas 800 x 700; time runs right to left) */
-.sim26 .s26-tlab { position: absolute; right: 20px; top: 0; bottom: 0; width: 132px; display: flex; align-items: center; justify-content: flex-start; gap: 10px; direction: rtl; font: 500 28px/1.15 "Rubik"; color: #dcd9e6; }
+.sim26 .s26-tlab { position: absolute; right: 18px; top: 0; bottom: 0; width: 134px; display: flex; align-items: center; justify-content: flex-start; gap: 10px; direction: rtl; font: 500 32px/1.15 "Rubik"; color: #dcd9e6; }
 .sim26 .s26-tlab span { white-space: nowrap; }
 .sim26 .s26-tlab i { width: 11px; height: 11px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; flex: none; }
 
 /* callouts: the sentence as said, over its place on the waveform */
-.sim26 .s26-call { position: absolute; top: 46px; width: 460px; margin-left: -230px; height: 80px; display: flex; flex-direction: column; align-items: center; opacity: 0; }
+/* the callouts sit above the track; their leaders are drawn over the track's panel, down to the sentence's box */
+.sim26 .s26-call { position: absolute; z-index: 3; top: 54px; width: 460px; margin-left: -230px; height: 88px; display: flex; flex-direction: column; align-items: center; opacity: 0; }
 .sim26 .s26-call span { height: 56px; display: flex; align-items: center; padding: 0 22px; border-radius: 16px; font: 700 34px/1 "Rubik"; white-space: nowrap; direction: rtl; }
-.sim26 .s26-call .s26-lead { width: 2px; height: 24px; display: block; }
+.sim26 .s26-call .s26-lead { width: 2px; height: 32px; display: block; }
+.sim26 .s26-cnew .s26-lead { height: 26px; }
 .sim26 .s26-cold { left: 366px; }
 .sim26 .s26-cold span { color: #ff6b61; background: rgba(42, 14, 20, 0.92); border: 1.5px solid rgba(255, 107, 97, 0.6); box-shadow: 0 0 18px rgba(255, 69, 58, 0.25); }
-.sim26 .s26-cold .s26-lead { background: linear-gradient(180deg, rgba(255, 107, 97, 0.9), rgba(255, 107, 97, 0.2)); }
+/* one red thing: the callout, its leader and the sentence's box are connected */
+.sim26 .s26-cold .s26-lead { width: 3px; background: #ff6b61; box-shadow: 0 0 8px rgba(255, 69, 58, 0.7); }
 .sim26 .s26-cnew { left: 326px; }
 .sim26 .s26-cnew span { color: #ffffff; background: rgba(28, 24, 58, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.75); box-shadow: 0 0 18px rgba(201, 194, 255, 0.3); }
 .sim26 .s26-cnew .s26-lead { background: linear-gradient(180deg, rgba(201, 194, 255, 0.95), rgba(201, 194, 255, 0.2)); }
@@ -48,7 +51,9 @@
 .sim26 .s26-gfill { fill: rgba(201, 194, 255, 0.16); opacity: 0; }
 .sim26 .s26-gline { fill: none; stroke: #ffffff; stroke-width: 2.4; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
 .sim26 .s26-gwl path { stroke: rgba(255, 255, 255, 0.5); stroke-width: 1.6; opacity: 0; }
-.sim26 .s26-gr .s26-tlab span { white-space: normal; width: 100px; }
+/* the graph's label is longer: a wider label column (the graph's plot ends at x 584) keeps it on one line */
+.sim26 .s26-gr .s26-gca { width: 574px; }
+.sim26 .s26-gr .s26-tlab { width: 192px; }
 
 /* cut points: whisper's time (dashed) -> the nearest dip (solid); they cross the track and the graph */
 .sim26 .s26-cut { position: absolute; top: 112px; width: 0; height: 348px; opacity: 0; }
@@ -60,7 +65,7 @@
 .sim26 .s26-cut::before { content: ""; position: absolute; left: -9px; top: -8px; width: 18px; height: 18px; border-radius: 50%; background: #1f1a3f; border: 2.5px solid #ffffff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); box-sizing: border-box; }
 .sim26 .s26-sil { position: absolute; top: 458px; width: 120px; margin-left: -60px; display: flex; flex-direction: column; align-items: center; gap: 0; opacity: 0; }
 .sim26 .s26-sil i { width: 2px; height: 12px; background: rgba(201, 194, 255, 0.7); display: block; }
-.sim26 .s26-sil span { font: 600 30px/1 "Rubik"; color: #ece9f7; padding: 8px 18px 7px; border-radius: 999px; border: 1.5px solid rgba(201, 194, 255, 0.5); background: rgba(28, 24, 58, 0.92); }
+.sim26 .s26-sil span { font: 600 32px/1 "Rubik"; color: #ece9f7; padding: 8px 18px 7px; border-radius: 999px; border: 1.5px solid rgba(201, 194, 255, 0.5); background: rgba(28, 24, 58, 0.92); }
 
 /* the joins: a 40 ms fade on each side (the click is shown in the close-up) */
 .sim26 .s26-seam { position: absolute; top: 10px; width: 0; height: 150px; }
@@ -83,7 +88,7 @@
 .sim26 .s26-m2g { transform-origin: 127px 98px; }
 .sim26 .s26-mt { fill: none; stroke: rgba(201, 194, 255, 0.9); stroke-width: 2; stroke-dasharray: 7 5; }
 .sim26 .s26-mcl { position: absolute; left: 0; right: 0; bottom: 20px; display: flex; justify-content: center; align-items: center; gap: 10px; direction: rtl; }
-.sim26 .s26-mcl b { font: 600 31px/1 "Rubik"; color: #f5f2ea; white-space: nowrap; }
+.sim26 .s26-mcl b { font: 600 34px/1 "Rubik"; color: #f5f2ea; white-space: nowrap; }
 .sim26 .s26-ck { width: 32px; height: 32px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 10px rgba(201, 194, 255, 0.6); overflow: visible; flex: none; }
 .sim26 .s26-ck path, .sim26 .s26-ok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
 
@@ -94,10 +99,11 @@
 .sim26 .s26-dsv { position: absolute; left: 0; top: 0; width: 360px; height: 250px; display: block; overflow: visible; }
 .sim26 .s26-dbar, .sim26 .s26-dn { fill: none; stroke: #b9b0f5; stroke-width: 10; stroke-linecap: round; }
 .sim26 .s26-dn { transform-box: fill-box; transform-origin: 50% 50%; }
-.sim26 .s26-dclk { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linejoin: round; filter: drop-shadow(0 0 7px rgba(255, 69, 58, 0.95)); opacity: 0; transform-box: fill-box; transform-origin: 50% 50%; }
+/* the click at the join: white (it plays while the explanation's key phrase is red) */
+.sim26 .s26-dclk { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linejoin: round; filter: drop-shadow(0 0 7px rgba(201, 194, 255, 0.95)); opacity: 0; transform-box: fill-box; transform-origin: 50% 50%; }
 .sim26 .s26-dfo, .sim26 .s26-dfi { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.95)); }
 .sim26 .s26-dbr { fill: none; stroke: rgba(201, 194, 255, 0.85); stroke-width: 2; }
-.sim26 .s26-dlabel { position: absolute; left: 0; right: 0; top: 206px; display: flex; justify-content: center; gap: 8px; direction: rtl; font: 600 30px/1 "Rubik"; color: #ffffff; opacity: 0; }
+.sim26 .s26-dlabel { position: absolute; left: 0; right: 0; top: 205px; display: flex; justify-content: center; gap: 9px; direction: rtl; font: 600 32px/1 "Rubik"; color: #ffffff; opacity: 0; }
 .sim26 .s26-dlabel span[dir="ltr"] { unicode-bidi: isolate; }
 .sim26 .s26-dhead { position: absolute; left: 330px; top: 14px; width: 3px; height: 178px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 14px #c9c2ff; display: block; opacity: 0; }
 
@@ -115,7 +121,7 @@
 .sim26 .s26-card { position: absolute; top: 360px; width: 220px; height: 214px; border-radius: 20px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); opacity: 0; }
 .sim26 .s26-c1 { left: 540px; }
 .sim26 .s26-c2 { left: 40px; }
-.sim26 .s26-card b { position: absolute; left: 0; right: 0; bottom: 20px; text-align: center; font: 600 31px/1 "Rubik"; color: #f5f2ea; }
+.sim26 .s26-card b { position: absolute; left: 0; right: 0; bottom: 19px; text-align: center; font: 600 32px/1 "Rubik"; color: #f5f2ea; }
 .sim26 .s26-th { position: absolute; left: 12px; top: 12px; width: 196px; height: 130px; border-radius: 12px; overflow: hidden; }
 .sim26 .s26-th svg { position: absolute; left: 0; top: 0; width: 196px; height: 130px; display: block; }
 .sim26 .s26-th2 { background: linear-gradient(180deg, #221d47, #120f27); }
@@ -144,7 +150,7 @@
 .sim26 .s26-bbn { opacity: 0; border-color: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.55); }
 .sim26 .s26-dband { position: absolute; left: 186px; top: 118px; width: 80px; height: 418px; border-radius: 8px; display: block; opacity: 0;
   background: rgba(201, 194, 255, 0.1); border-left: 2px dashed rgba(201, 194, 255, 0.7); border-right: 2px dashed rgba(201, 194, 255, 0.7); }
-.sim26 .s26-dlab { position: absolute; left: 126px; top: 550px; width: 200px; display: flex; justify-content: center; align-items: center; gap: 10px; direction: rtl; font: 600 31px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
+.sim26 .s26-dlab { position: absolute; left: 126px; top: 550px; width: 200px; display: flex; justify-content: center; align-items: center; gap: 10px; direction: rtl; font: 600 32px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
 .sim26 .s26-dlab i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.9); display: block; }
 .sim26 .s26-head2 { position: absolute; left: 630px; top: 116px; width: 3px; height: 422px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 14px #c9c2ff, 0 0 3px #ffffff; display: block; opacity: 0; }
 .sim26 .s26-head2::before { content: ""; position: absolute; left: -7px; top: -4px; border-left: 8.5px solid transparent; border-right: 8.5px solid transparent; border-top: 11px solid #ffffff; }
