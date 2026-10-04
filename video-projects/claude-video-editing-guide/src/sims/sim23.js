@@ -32,9 +32,10 @@ window.SIMS.sim23 = function (tl, ctx, cfg, S) {
   // establishing shot: the 16:9 source swings in at the right, the 9:16 output at the left
   const t0 = cfg.tStage;
   tl.fromTo(src, { opacity: 0 }, A({ opacity: 1, duration: 0.35 }), T(t0 + 0.05));
-  tl.fromTo(src, { rotationY: -24, x: 30, transformPerspective: 1300 }, A({ rotationY: 0, x: 0, transformPerspective: 1300, duration: 0.9, ease: E.SPRING }), T(t0 + 0.05));
+  // they swing in place (a slight turn and a scale from 94%), so no edge ever leaves the canvas
+  tl.fromTo(src, { rotationY: -12, scale: 0.94, transformPerspective: 1300 }, A({ rotationY: 0, scale: 1, transformPerspective: 1300, duration: 0.9, ease: E.SPRING }), T(t0 + 0.05));
   tl.fromTo(out, { opacity: 0 }, A({ opacity: 1, duration: 0.35 }), T(t0 + 0.15));
-  tl.fromTo(out, { rotationY: 24, x: -24, transformPerspective: 1300 }, A({ rotationY: 0, x: 0, transformPerspective: 1300, duration: 0.9, ease: E.SPRING }), T(t0 + 0.15));
+  tl.fromTo(out, { rotationY: 12, scale: 0.94, transformPerspective: 1300 }, A({ rotationY: 0, scale: 1, transformPerspective: 1300, duration: 0.9, ease: E.SPRING }), T(t0 + 0.15));
   qa(".s23-tag").forEach((tg, i) => E.fadeIn(tl, tg, T(t0 + 0.35 + i * 0.08), 0.45, 8));
   const arr = q(".s23-arr");
   tl.fromTo(arr, { opacity: 0, x: 14 }, A({ opacity: 1, x: 0, duration: 0.5, ease: E.SPRING }), T(t0 + 0.45));
@@ -50,7 +51,8 @@ window.SIMS.sim23 = function (tl, ctx, cfg, S) {
   const xs = q(".s23-x");
   tl.fromTo(xs, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(b0 + 1.75));
   E.qa("path", xs).forEach((p, i) => E.draw(tl, p, T(b0 + 1.78 + i * 0.16), 0.22));
-  E.glitch(tl, out, T(b0 + 1.75), 9);
+  // a sideways jolt without skew (a skew would swing the tall frame's corners past the canvas edge)
+  [[0, 5], [5, -3.5], [-3.5, 2.2], [2.2, -1], [-1, 0]].forEach(([a, b], i) => tl.fromTo(out, { x: a }, A({ x: b, duration: 0.05, ease: "none" }), T(b0 + 1.75 + i * 0.05)));
   tl.fromTo(fixl, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(P[1] - 0.2));
 
   // B1 "קלוד מוצא את הפנים בכל פריים": scanner, face box, a filmstrip where every frame gets one
