@@ -62,7 +62,7 @@ def html(cfg):
 <div class="s22-wavebox">{_wave("s22-wave s22-wdim")}<div class="s22-wclip">{_wave("s22-wave s22-wlit")}</div><i class="s22-head"></i></div>
 <div class="s22-flow"><i></i><i></i><i></i></div>
 <div class="s22-chips">
-<div class="s22-chip s22-big"><svg class="s22-chipo" viewBox="0 0 196 128" aria-hidden="true"><rect x="1.25" y="1.25" width="193.5" height="125.5" rx="23"/></svg>
+<div class="s22-chip s22-big"><svg class="s22-chipo" viewBox="0 0 180 128" aria-hidden="true"><rect x="1.25" y="1.25" width="177.5" height="125.5" rx="23"/></svg>
 <span class="s22-chipk" dir="rtl">{esc(c["bigLabel"])}</span><span class="s22-chipn" dir="ltr">large-v3</span>
 <svg class="s22-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></div>
 <div class="s22-chip s22-def"><span class="s22-chipk" dir="rtl">{esc(c["defLabel"])}</span><span class="s22-chipt" dir="rtl">{esc(c["defTag"])}</span>

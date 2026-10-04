@@ -11,8 +11,9 @@ Geometry is static (computed here); scene-local times live in sim23.js."""
 from textlayout import esc
 from art import person_svg, ARROW_LEFT
 
-OUT = (0, 94, 252, 448)            # 9:16 output (x, y, w, h)
-SRC = (292, 148, 508, 286)         # 16:9 source
+OUT = (6, 94, 248, 441)            # 9:16 output (x, y, w, h); both frames sit a few px inside the canvas
+SRC = (288, 148, 508, 286)         # 16:9 source (x 288..796)
+TAG_SRC_R = 752                    # the 16:9 tag's right edge: >= 30 px inside the frame even under the punch-in
 SCALE = OUT[3] / SRC[3]            # output px per source px
 CROP_W = SRC[3] * 9 / 16           # the crop uses the full source height
 CROP0 = (SRC[2] - CROP_W) / 2      # fixed crop, centred
@@ -105,15 +106,18 @@ def html(cfg):
     lead_x = sx + CROP0 + CROP_W / 2
     data = " ".join(f'data-{k}="{v}"' for k, v in m.items())
     x_svg = ('<svg class="s23-x" viewBox="0 0 120 120" aria-hidden="true"><path d="M30 30 L90 90"/><path d="M90 30 L30 90"/></svg>')
-    tags = (f'<span class="s23-tag s23-tag-o" dir="ltr" style="left:{ox}px;top:{oy - 42}px">{esc(c["tagOut"])}</span>'
-            f'<span class="s23-tag s23-tag-s" dir="ltr" style="right:0px;top:{sy - 42}px">{esc(c["tagSrc"])}</span>')
+    # the format tags sit toward the middle of the canvas (the 9:16 one on its frame's right corner), so the
+    # punch-in on the source never pushes them into the frame's soft edge
+    tags = (f'<span class="s23-tag s23-tag-o" dir="ltr" style="right:{800 - ox - ow}px;top:{oy - 46}px">{esc(c["tagOut"])}</span>'
+            f'<span class="s23-tag s23-tag-s" dir="ltr" style="right:{800 - TAG_SRC_R}px;top:{sy - 46}px">{esc(c["tagSrc"])}</span>')
     fixlab = (f'<div class="s23-fixl" style="left:{sx + CROP0 + CROP_W / 2:.1f}px;top:{sy - 48}px">'
               f'<span dir="rtl"><i></i>{esc(c["fixLabel"])}</span></div>')
     safe = (f'<i class="s23-edge s23-edge-l" style="width:{edge_w:.1f}px"></i><i class="s23-edge s23-edge-r" style="width:{edge_w:.1f}px"></i>'
             + "".join(f'<i class="s23-sl" style="left:{x - 1:.1f}px"></i>' for x in safe_x))
-    stags = "".join(f'<span class="s23-stag" dir="ltr" style="left:{ox + x:.1f}px;top:{oy + oh + 10}px"><b>{v}</b></span>'
-                    for x, v in zip(safe_x, SAFE))
-    bracket = (f'<div class="s23-br" style="left:{ox + safe_x[0]:.1f}px;width:{safe_x[1] - safe_x[0]:.1f}px;top:{oy + oh + 52}px">'
+    # 140 and 940 hang from the feet of their lines, inward (140 to the right of its line, 940 to the left)
+    stags = "".join(f'<span class="s23-stag s23-stag{i}" dir="ltr" style="left:{ox + x:.1f}px;top:{oy + oh + 10}px"><i></i><b>{v}</b></span>'
+                    for i, (x, v) in enumerate(zip(safe_x, SAFE)))
+    bracket = (f'<div class="s23-br" style="left:{ox + safe_x[0]:.1f}px;width:{safe_x[1] - safe_x[0]:.1f}px;top:{oy + oh + 60}px">'
                f'<i class="s23-brl"></i><span dir="rtl">{esc(c["safeLabel"])}</span></div>')
     pill = f'<div class="s23-pill" dir="rtl">{esc(c["textPill"])}</div>'
     zone_lab = (f'<div class="s23-zl" style="left:{sx}px;width:{sw}px;top:{sy + sh + 22}px"><span dir="rtl"><i></i>'
@@ -123,7 +127,7 @@ def html(cfg):
            f'<div class="s23-el" style="left:{sx + 8}px;top:{sy - 52}px"><span dir="rtl">{esc(c["eyeLabel"])}<i></i></span></div>'
            f'<svg class="s23-elead" viewBox="0 0 800 700" aria-hidden="true"><path d="M{sx + 6} {sy - 32} H{ox + ow + 20} V{EYE_Y - 8:.1f}"/></svg>')
     focus = f'<i class="s23-focus" data-focus="2" style="left:{sx + 90}px;top:{sy + 40}px;width:{sw - 180}px;height:{sh - 80}px"></i>'
-    arrow = f'<div class="s23-arr" style="left:{ox + ow + 4}px;top:{sy + sh - 66}px">{ARROW_LEFT.format(cls="s23-arrow")}</div>'
+    arrow = f'<div class="s23-arr" style="left:{(ox + ow + sx) / 2 - 15:.1f}px;top:{sy + sh - 66}px">{ARROW_LEFT.format(cls="s23-arrow")}</div>'
     return f"""<div class="simwrap sim23" {data} data-scale="{SCALE:.5f}" data-crop0="{CROP0:.3f}" data-facex="{FACE0:.2f}" data-facey="{HEAD_Y:.2f}">
 {tags}
 <div class="s23-out" style="left:{ox}px;top:{oy}px;width:{ow}px;height:{oh}px">

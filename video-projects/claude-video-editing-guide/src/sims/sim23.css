@@ -1,6 +1,6 @@
 /* 2.3 from 16:9 to 9:16, the crop follows the face (canvas 800 x 700). Source at the right, output at the left. */
-.sim23 .s23-tag { position: absolute; height: 34px; padding: 0 12px; border-radius: 9px; border: 1.5px solid rgba(201, 194, 255, 0.35); background: rgba(26, 23, 52, 0.9);
-  font: 600 26px/31px "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #d6d2ea; display: flex; align-items: center; opacity: 0; }
+.sim23 .s23-tag { position: absolute; height: 40px; padding: 0 12px; border-radius: 10px; border: 1.5px solid rgba(201, 194, 255, 0.4); background: rgba(26, 23, 52, 0.9);
+  font: 600 30px/37px "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #e4e0f4; display: flex; align-items: center; opacity: 0; }
 
 /* the 9:16 output: a true crop of the same room */
 .sim23 .s23-out { position: absolute; border-radius: 20px; overflow: hidden; background: #0e0c1f; opacity: 0;
@@ -42,12 +42,13 @@
 .sim23 .s23-cfix rect { fill: none; stroke: #c3bfd2; stroke-width: 3; stroke-dasharray: 11 8; }
 .sim23 .s23-cred { opacity: 0; }
 .sim23 .s23-ghost { position: absolute; top: 0; height: 286px; overflow: visible; opacity: 0; }
-.sim23 .s23-ghost rect { fill: none; stroke: #ff6b61; stroke-width: 3; }
-.sim23 .s23-cred rect { fill: none; stroke: #ff453a; stroke-width: 4; filter: drop-shadow(0 0 7px rgba(255, 69, 58, 0.75)); }
+/* the following crop is bright white-lavender: it moves while the explanation's key phrase is red (one red at a time) */
+.sim23 .s23-ghost rect { fill: none; stroke: #e2ddff; stroke-width: 3; }
+.sim23 .s23-cred rect { fill: none; stroke: #f6f4ff; stroke-width: 4; filter: drop-shadow(0 0 7px rgba(201, 194, 255, 0.95)); }
 .sim23 .s23-x { position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px 0 0 -60px; overflow: visible; opacity: 0; }
 .sim23 .s23-x path { fill: none; stroke: #ff453a; stroke-width: 9; stroke-linecap: round; filter: drop-shadow(0 0 10px rgba(255, 69, 58, 0.8)); }
-.sim23 .s23-arr { position: absolute; width: 36px; height: 19px; opacity: 0; }
-.sim23 .s23-arrow { width: 36px; height: 19px; display: block; }
+.sim23 .s23-arr { position: absolute; width: 30px; height: 16px; opacity: 0; }
+.sim23 .s23-arrow { width: 30px; height: 16px; display: block; }
 .sim23 .s23-fixl { position: absolute; width: 0; height: 40px; display: flex; justify-content: center; opacity: 0; }
 .sim23 .s23-fixl span { flex: none; display: flex; align-items: center; gap: 10px; font: 600 30px/1 "Rubik"; color: #dcd9e6; white-space: nowrap; direction: rtl; }
 .sim23 .s23-fixl i { width: 12px; height: 12px; border-radius: 50%; background: #b9b5c9; display: block; flex: none; }
@@ -75,9 +76,15 @@
 .sim23 .s23-edge-r { right: 0; }
 .sim23 .s23-sl { position: absolute; top: 0; bottom: 0; width: 2px; display: block; opacity: 0; transform-origin: 50% 0;
   background: repeating-linear-gradient(180deg, #d9d4ff 0 9px, rgba(0, 0, 0, 0) 9px 15px); filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
-.sim23 .s23-stag { position: absolute; width: 0; display: flex; justify-content: center; opacity: 0; }
-.sim23 .s23-stag b { flex: none; font: 600 26px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ece9f7; padding: 5px 9px 4px; border-radius: 8px;
-  background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.45); }
+.sim23 .s23-stag { position: absolute; width: 0; height: 42px; display: flex; opacity: 0; }
+.sim23 .s23-stag0 { justify-content: flex-start; }
+.sim23 .s23-stag1 { justify-content: flex-end; }
+.sim23 .s23-stag b { flex: none; font: 600 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #f2f0fa; padding: 5px 10px 4px; border-radius: 8px;
+  background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.5); }
+.sim23 .s23-stag0 b { margin-left: 6px; }
+.sim23 .s23-stag1 b { margin-right: 6px; }
+/* the flag pole: the safe line continues from the frame's foot down to its number */
+.sim23 .s23-stag i { position: absolute; left: -1px; top: -10px; width: 2px; height: 40px; border-radius: 1px; background: #d9d4ff; box-shadow: 0 0 6px rgba(201, 194, 255, 0.8); display: block; }
 .sim23 .s23-br { position: absolute; height: 58px; display: flex; justify-content: center; opacity: 0; }
 .sim23 .s23-brl { position: absolute; left: 0; right: 0; top: 0; height: 12px; border: 2px solid rgba(201, 194, 255, 0.65); border-top: none; border-radius: 0 0 6px 6px; display: block; }
 .sim23 .s23-br span { flex: none; margin-top: 22px; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }

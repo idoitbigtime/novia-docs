@@ -1233,9 +1233,10 @@ window.SIMS.sim71 = function (tl, ctx, cfg, S) {
   E.draw(tl, q(".s71-rok path"), T(r0 + dDraft + 0.05), 0.3);
   E.burst(tl, q(".s71-race"), rok.offsetLeft + 22, rok.offsetTop + 22, T(r0 + dDraft + 0.03), { n: 10, seed: 17, r0: 24, r1: 46, color: "#c9c2ff" });
   const snap = q(".s71-snap");
-  // the tag lands in 0.5 s (settled within 0.4 s) and then stays still
+  // the tag lands in 0.5 s (settled within 0.4 s) and then stays still; it grows into place, so its bottom
+  // (6 px above the canvas edge) never crosses the canvas
   tw(snap, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, pe + 2.0);
-  tw(snap, { y: 24 }, { y: 0, duration: 0.5, ease: E.SPRING }, pe + 2.0);
+  tw(snap, { y: 6, scale: 0.95 }, { y: 0, scale: 1, duration: 0.5, ease: E.SPRING }, pe + 2.0);
   E.sweep(tl, snap, T(pe + 2.6), 0.9, { color: "rgba(201, 194, 255, 0.2)" });
 };
 

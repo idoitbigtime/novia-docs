@@ -17,23 +17,23 @@
 .sim22 .s22-flow { position: absolute; left: 207px; top: 146px; width: 7px; height: 78px; }
 .sim22 .s22-flow i { position: absolute; left: 0; top: 0; width: 8px; height: 8px; border-radius: 50%; background: #d9d4ff; box-shadow: 0 0 10px #c9c2ff; display: block; opacity: 0; }
 .sim22 .s22-chips { position: absolute; left: 0; top: 230px; width: 420px; height: 128px; }
-/* B1 the big model alone (centred); B2 it steps left and the default model stands 22 px to its right */
+/* B1 the big model alone (centred); B2 it steps left (x 24..204) and the default model stands 16 px to its right (220..418) */
 .sim22 .s22-chip { position: absolute; top: 0; height: 128px; border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; direction: rtl; opacity: 0; }
-.sim22 .s22-big { left: 112px; width: 196px; background: rgba(28, 24, 58, 0.94); }
-.sim22 .s22-chipo { position: absolute; left: 0; top: 0; width: 196px; height: 128px; overflow: visible; }
+.sim22 .s22-big { left: 120px; width: 180px; background: rgba(28, 24, 58, 0.94); }
+.sim22 .s22-chipo { position: absolute; left: 0; top: 0; width: 180px; height: 128px; overflow: visible; }
 .sim22 .s22-chipo rect { fill: none; stroke: #c9c2ff; stroke-width: 2.5; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.8)); }
 .sim22 .s22-chipk { font: 500 30px/1 "Rubik"; color: #c4bfdc; white-space: nowrap; }
-.sim22 .s22-chipn { font: 600 34px/1 "IBM Plex Mono"; color: #ffffff; }
+.sim22 .s22-chipn { font: 600 32px/1 "IBM Plex Mono"; color: #ffffff; }
 /* the check and the cross sit on the cards' top-right corners, above the text */
-.sim22 .s22-ok, .sim22 .s22-no { position: absolute; right: -12px; top: -16px; width: 34px; height: 34px; border-radius: 50%; overflow: visible; opacity: 0; }
+.sim22 .s22-ok, .sim22 .s22-no { position: absolute; right: -8px; top: -16px; width: 34px; height: 34px; border-radius: 50%; overflow: visible; opacity: 0; }
 .sim22 .s22-ok { background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.6); }
 .sim22 .s22-no { background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); }
 .sim22 .s22-ok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
 .sim22 .s22-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
-.sim22 .s22-def { left: 232px; width: 184px; background: rgba(20, 18, 36, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.28); }
+.sim22 .s22-def { left: 220px; width: 198px; background: rgba(20, 18, 36, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.28); }
 .sim22 .s22-def .s22-chipk { font-size: 30px; color: #e4e1f0; }
 .sim22 .s22-chipt { font: 600 30px/1 "Rubik"; color: #ff8a80; border: 1.5px solid rgba(255, 107, 97, 0.6); border-radius: 999px; padding: 6px 13px 5px; white-space: nowrap; }
-.sim22 .s22-tok { position: absolute; left: 299px; top: -122px; width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; font: 700 32px/1 "Rubik"; color: #ffffff; background: #2a2450; box-shadow: 0 0 0 2px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.6); opacity: 0; }
+.sim22 .s22-tok { position: absolute; left: 294px; top: -122px; width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; font: 700 32px/1 "Rubik"; color: #ffffff; background: #2a2450; box-shadow: 0 0 0 2px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.6); opacity: 0; }
 .sim22 .s22-blocks { position: absolute; left: 0; top: 392px; width: 420px; display: flex; direction: rtl; gap: 10px; }
 .sim22 .s22-blk { position: relative; height: 32px; border-radius: 9px; background: rgba(217, 212, 255, 0.85); display: block; opacity: 0; transform-origin: 100% 50%; }
 /* each word's time mark (lavender: the default model's red card is the beat's one red thing) */

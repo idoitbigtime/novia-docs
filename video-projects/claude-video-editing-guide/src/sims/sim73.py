@@ -3,8 +3,10 @@ B0 the builder (a silhouette) beside the video it made: its own explanations, it
    while the caption is cut at the frame's edge (red ring)
 B1 the builder turns out to be Claude: the same self-check
 B2 a separate copy slides out: the independent critic, behind a divider, with an empty tray (built nothing)
-B3 the request and frames from each scene fly into the critic's tray; the explanations hit the divider and are refused
-B4 the critic answers with a score out of 100 (68, the first round) and a numeric fix for each defect (punch-in)
+B3 the request and frames from each scene fly into the critic's tray; the explanations slide toward the critic, are
+   stopped at the divider (a light X there) and bounce back to the builder's side
+B4 the critic answers with a score out of 100 (68, the first round) and a numeric fix for each defect (amber
+   defect marks: the accent phrase is the red thing in this beat; punch-in on the gauge)
 payoff: the fixed rubric's tags; seven rounds of the same critic (middle rounds are dots, no numbers);
 the gauge passes 90 and lands on 96; then the stopping rule.
 Beat times come from cfg["phr"] (scene-local)."""
@@ -14,7 +16,8 @@ from textlayout import esc
 from art import person_svg, ARROW_LEFT
 
 CHECK = '<svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg>'
-CROSS = '<svg viewBox="0 0 30 30" aria-hidden="true"><path d="M9.5 9.5l11 11"/><path d="M20.5 9.5l-11 11"/></svg>'
+# the X where the explanations are stopped (on the divider)
+BLOCK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4.5l15 15"/><path d="M19.5 4.5l-15 15"/></svg>'
 STOP = ('<svg class="s73-stop" viewBox="0 0 40 40" aria-hidden="true"><path d="M13.4 3h13.2L37 13.4v13.2L26.6 37H13.4L3 26.6V13.4z"/>'
         '<path d="M13 20h14"/></svg>')
 # gauge: a half circle (centre 170,170 r 150 inside its box), 0 at the right end, 100 at the left end
@@ -61,13 +64,15 @@ def html(cfg):
 <div class="s73-builder">
 {_frame("s73-vid", '<i class="s73-cut"></i>')}
 <svg class="s73-flaw" viewBox="0 0 92 64" aria-hidden="true"><rect x="3" y="3" width="86" height="58" rx="18"/></svg>
-<div class="s73-bub"><i></i><i></i><i></i><span class="s73-expl" dir="rtl">{esc(c["explLabel"])}</span><div class="s73-no">{CROSS}</div></div>
+<svg class="s73-flaw s73-note" viewBox="0 0 92 64" aria-hidden="true"><rect x="3" y="3" width="86" height="58" rx="18"/></svg>
+<div class="s73-bub"><i></i><i></i><i></i><span class="s73-expl" dir="rtl">{esc(c["explLabel"])}</span></div>
 <div class="s73-list"><div class="s73-li">{CHECK}<i></i></div><div class="s73-li">{CHECK}<i></i></div><div class="s73-li">{CHECK}<i></i></div></div>
 {person_svg("s73-person", "73")}
 {_card("s73-me")}
 <div class="s73-name s73-mename" dir="rtl">{esc(c["builderName"])}</div>
 </div>
 <svg class="s73-div" viewBox="0 0 4 360" aria-hidden="true"><path d="M2 2 V358"/></svg>
+<div class="s73-blk">{BLOCK}</div>
 <div class="s73-tray"></div>
 <div class="s73-doc"><i></i><i></i><i></i><span dir="rtl">{esc(c["reqLabel"])}</span></div>
 {thumbs}
@@ -91,4 +96,4 @@ def html(cfg):
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
     return [("tick", P[0] + 0.9), ("glitch_soft", P[1] + 0.08), ("whoosh_soft", P[2] + 0.22),
-            ("glitch_soft", P[3] + 1.65), ("pop", P[4] + 0.6), ("shimmer", pe + 3.35), ("swipe", pe + 4.1)]
+            ("glitch_soft", P[3] + 1.42), ("pop", P[4] + 0.6), ("shimmer", pe + 3.35), ("swipe", pe + 4.1)]

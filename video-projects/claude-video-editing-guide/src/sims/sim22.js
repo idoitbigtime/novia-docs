@@ -35,8 +35,8 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
 
   // B2 "כי ברירת המחדל של HyperFrames מבינה רק אנגלית": a Hebrew letter bounces off the default model
   const b2 = P[1], def = q(".s22-def"), tok = q(".s22-tok");
-  // the big model steps left; the default model stands 22 px to its right (sim22.css: x 14..210 and 232..416)
-  tl.fromTo(big, { x: 0 }, A({ x: -98, duration: 0.6, ease: E.SPRING }), T(b2 + 0.05));
+  // the big model steps left; the default model stands 16 px to its right (sim22.css: x 24..204 and 220..418)
+  tl.fromTo(big, { x: 0 }, A({ x: -96, duration: 0.6, ease: E.SPRING }), T(b2 + 0.05));
   tl.fromTo(def, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b2 + 0.25));
   tl.fromTo(def, { x: 30, scale: 0.92 }, A({ x: 0, scale: 1, duration: 0.6, ease: E.SPRING }), T(b2 + 0.25));
   tl.fromTo(tok, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), T(b2 + 0.7));

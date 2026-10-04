@@ -390,8 +390,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
 
 /* 2.3 from 16:9 to 9:16, the crop follows the face (canvas 800 x 700). Source at the right, output at the left. */
-.sim23 .s23-tag { position: absolute; height: 34px; padding: 0 12px; border-radius: 9px; border: 1.5px solid rgba(201, 194, 255, 0.35); background: rgba(26, 23, 52, 0.9);
-  font: 600 26px/31px "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #d6d2ea; display: flex; align-items: center; opacity: 0; }
+.sim23 .s23-tag { position: absolute; height: 40px; padding: 0 12px; border-radius: 10px; border: 1.5px solid rgba(201, 194, 255, 0.4); background: rgba(26, 23, 52, 0.9);
+  font: 600 30px/37px "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #e4e0f4; display: flex; align-items: center; opacity: 0; }
 
 /* the 9:16 output: a true crop of the same room */
 .sim23 .s23-out { position: absolute; border-radius: 20px; overflow: hidden; background: #0e0c1f; opacity: 0;
@@ -433,12 +433,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim23 .s23-cfix rect { fill: none; stroke: #c3bfd2; stroke-width: 3; stroke-dasharray: 11 8; }
 .sim23 .s23-cred { opacity: 0; }
 .sim23 .s23-ghost { position: absolute; top: 0; height: 286px; overflow: visible; opacity: 0; }
-.sim23 .s23-ghost rect { fill: none; stroke: #ff6b61; stroke-width: 3; }
-.sim23 .s23-cred rect { fill: none; stroke: #ff453a; stroke-width: 4; filter: drop-shadow(0 0 7px rgba(255, 69, 58, 0.75)); }
+/* the following crop is bright white-lavender: it moves while the explanation's key phrase is red (one red at a time) */
+.sim23 .s23-ghost rect { fill: none; stroke: #e2ddff; stroke-width: 3; }
+.sim23 .s23-cred rect { fill: none; stroke: #f6f4ff; stroke-width: 4; filter: drop-shadow(0 0 7px rgba(201, 194, 255, 0.95)); }
 .sim23 .s23-x { position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px 0 0 -60px; overflow: visible; opacity: 0; }
 .sim23 .s23-x path { fill: none; stroke: #ff453a; stroke-width: 9; stroke-linecap: round; filter: drop-shadow(0 0 10px rgba(255, 69, 58, 0.8)); }
-.sim23 .s23-arr { position: absolute; width: 36px; height: 19px; opacity: 0; }
-.sim23 .s23-arrow { width: 36px; height: 19px; display: block; }
+.sim23 .s23-arr { position: absolute; width: 30px; height: 16px; opacity: 0; }
+.sim23 .s23-arrow { width: 30px; height: 16px; display: block; }
 .sim23 .s23-fixl { position: absolute; width: 0; height: 40px; display: flex; justify-content: center; opacity: 0; }
 .sim23 .s23-fixl span { flex: none; display: flex; align-items: center; gap: 10px; font: 600 30px/1 "Rubik"; color: #dcd9e6; white-space: nowrap; direction: rtl; }
 .sim23 .s23-fixl i { width: 12px; height: 12px; border-radius: 50%; background: #b9b5c9; display: block; flex: none; }
@@ -466,9 +467,15 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim23 .s23-edge-r { right: 0; }
 .sim23 .s23-sl { position: absolute; top: 0; bottom: 0; width: 2px; display: block; opacity: 0; transform-origin: 50% 0;
   background: repeating-linear-gradient(180deg, #d9d4ff 0 9px, rgba(0, 0, 0, 0) 9px 15px); filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
-.sim23 .s23-stag { position: absolute; width: 0; display: flex; justify-content: center; opacity: 0; }
-.sim23 .s23-stag b { flex: none; font: 600 26px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ece9f7; padding: 5px 9px 4px; border-radius: 8px;
-  background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.45); }
+.sim23 .s23-stag { position: absolute; width: 0; height: 42px; display: flex; opacity: 0; }
+.sim23 .s23-stag0 { justify-content: flex-start; }
+.sim23 .s23-stag1 { justify-content: flex-end; }
+.sim23 .s23-stag b { flex: none; font: 600 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #f2f0fa; padding: 5px 10px 4px; border-radius: 8px;
+  background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.5); }
+.sim23 .s23-stag0 b { margin-left: 6px; }
+.sim23 .s23-stag1 b { margin-right: 6px; }
+/* the flag pole: the safe line continues from the frame's foot down to its number */
+.sim23 .s23-stag i { position: absolute; left: -1px; top: -10px; width: 2px; height: 40px; border-radius: 1px; background: #d9d4ff; box-shadow: 0 0 6px rgba(201, 194, 255, 0.8); display: block; }
 .sim23 .s23-br { position: absolute; height: 58px; display: flex; justify-content: center; opacity: 0; }
 .sim23 .s23-brl { position: absolute; left: 0; right: 0; top: 0; height: 12px; border: 2px solid rgba(201, 194, 255, 0.65); border-top: none; border-radius: 0 0 6px 6px; display: block; }
 .sim23 .s23-br span { flex: none; margin-top: 22px; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
@@ -493,10 +500,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div id="sc-t23" class="clip scene" data-start="0.000" data-duration="34.160" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 2 · עריכה בסיסית</span><span class="hdr-num" dir="ltr">2.3</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl"><span class="glu"><span class="w" dir="rtl" data-t="0.300">מ-</span><span class="w" dir="rtl" data-t="0.300">16:9</span></span> <span class="glu"><span class="w" dir="rtl" data-t="0.560">ל-</span><span class="w" dir="rtl" data-t="0.560">9:16,</span></span> <span class="w" dir="rtl" data-t="0.820">והחיתוך</span> <span class="w" dir="rtl" data-t="0.950">זז</span> <span class="w" dir="rtl" data-t="1.080">עם</span> <span class="w" dir="rtl" data-t="1.210">הפנים</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="2.040">חיתוך</span> <span class="w" dir="rtl" data-t="2.100">קבוע</span> <span class="w" dir="rtl" data-t="2.160">באמצע</span> <span class="w" dir="rtl" data-t="2.220">יעיף</span> <span class="w" dir="rtl" data-t="2.280">לכם</span> <span class="w" dir="rtl" data-t="2.340">חצי</span> <span class="w" dir="rtl" data-t="2.400">ראש</span> <span class="w" dir="rtl" data-t="2.460">ברגע</span> <span class="w" dir="rtl" data-t="2.520">שזזתם.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.740">קלוד</span> <span class="w" dir="rtl" data-t="4.800">מוצא</span> <span class="w" dir="rtl" data-t="4.860">את</span> <span class="w" dir="rtl" data-t="4.920">הפנים</span> <span class="w" dir="rtl" data-t="4.980">בכל</span> <span class="w" dir="rtl" data-t="5.040">פריים,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.690">מזיז</span> <span class="w" dir="rtl" data-t="6.750">את</span> <span class="w" dir="rtl" data-t="6.810">החיתוך</span> <span class="w" dir="rtl" data-t="6.870">אחריהן</span> <span class="glu"><span class="accgrp" data-t="6.930"><span class="w s-str" dir="rtl" data-t="6.930">בתנועה</span> <span class="w s-str" dir="rtl" data-t="6.990">רכה</span><i class="ul" data-t="7.110"></i></span><span class="w" dir="rtl" data-t="6.990">,</span></span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="8.890">ומשאיר</span> <span class="w" dir="rtl" data-t="8.950">כל</span> <span class="w" dir="rtl" data-t="9.010">טקסט</span> <span class="w" dir="rtl" data-t="9.070">באזור</span> <span class="w" dir="rtl" data-t="9.130">שהטלפון</span> <span class="w" dir="rtl" data-t="9.190">לא</span> <span class="w" dir="rtl" data-t="9.250">חותך.</span></span></p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim23" data-dx1="80.0" data-crop1="233.24" data-sway1="62.0" data-dx2="150.0" data-crop2="303.24" data-sway2="132.0" data-scale="1.56643" data-crop0="173.562" data-facex="254.00" data-facey="100.57">
-<span class="s23-tag s23-tag-o" dir="ltr" style="left:0px;top:52px">9:16</span><span class="s23-tag s23-tag-s" dir="ltr" style="right:0px;top:106px">16:9</span>
-<div class="s23-out" style="left:0px;top:94px;width:252px;height:448px">
-<div class="s23-ocam" style="transform:scale(1.56643)"><div class="s23-oin" style="width:508px;height:286px;left:-173.562px"><div class="s23-room">
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim23" data-dx1="80.0" data-crop1="233.24" data-sway1="62.0" data-dx2="150.0" data-crop2="303.24" data-sway2="132.0" data-scale="1.54196" data-crop0="173.562" data-facex="254.00" data-facey="100.57">
+<span class="s23-tag s23-tag-o" dir="ltr" style="right:546px;top:48px">9:16</span><span class="s23-tag s23-tag-s" dir="ltr" style="right:48px;top:102px">16:9</span>
+<div class="s23-out" style="left:6px;top:94px;width:248px;height:441px">
+<div class="s23-ocam" style="transform:scale(1.54196)"><div class="s23-oin" style="width:508px;height:286px;left:-173.562px"><div class="s23-room">
 <i class="s23-lamp"></i>
 <div class="s23-win"><i></i><b></b></div>
 <i class="s23-pic"></i>
@@ -516,10 +523,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#pr23o)" stroke-width="3"/>
 <ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#pr23o)" stroke-width="3"/>
 </svg></div></div></div>
-<div class="s23-ovl"><i class="s23-edge s23-edge-l" style="width:23.3px"></i><i class="s23-edge s23-edge-r" style="width:23.3px"></i><i class="s23-sl" style="left:31.7px"></i><i class="s23-sl" style="left:218.3px"></i><div class="s23-pill" dir="rtl">טקסט</div></div>
+<div class="s23-ovl"><i class="s23-edge s23-edge-l" style="width:23.0px"></i><i class="s23-edge s23-edge-r" style="width:23.0px"></i><i class="s23-sl" style="left:31.1px"></i><i class="s23-sl" style="left:214.9px"></i><div class="s23-pill" dir="rtl">טקסט</div></div>
 <svg class="s23-x" viewBox="0 0 120 120" aria-hidden="true"><path d="M30 30 L90 90"/><path d="M90 30 L30 90"/></svg>
 </div>
-<div class="s23-src" style="left:292px;top:148px;width:508px;height:286px">
+<div class="s23-src" style="left:288px;top:148px;width:508px;height:286px">
 <div class="s23-room">
 <i class="s23-lamp"></i>
 <div class="s23-win"><i></i><b></b></div>
@@ -548,11 +555,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <svg class="s23-cred" viewBox="0 0 160.88 286" preserveAspectRatio="none" aria-hidden="true"><rect x="2" y="2" width="156.88" height="282" rx="6"/></svg>
 </div>
 </div>
-<div class="s23-fixl" style="left:546.0px;top:100px"><span dir="rtl"><i></i>חיתוך קבוע</span></div><div class="s23-arr" style="left:256px;top:368px"><svg class="s23-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-<div class="s23-film"><div class="s23-fr" style="left:714.0px"><svg viewBox="0 0 74 42" aria-hidden="true"><path class="s23-fsh" d="M9.0 42 C11.0 32 20.0 28 29.0 28 C38.0 28 47.0 32 49.0 42Z"/><ellipse class="s23-fsh" cx="29.0" cy="17.5" rx="7.5" ry="8.8"/><rect class="s23-fbx" x="17.0" y="6" width="24" height="24" rx="3"/></svg></div><div class="s23-fr" style="left:632.0px"><svg viewBox="0 0 74 42" aria-hidden="true"><path class="s23-fsh" d="M19.0 42 C21.0 32 30.0 28 39.0 28 C48.0 28 57.0 32 59.0 42Z"/><ellipse class="s23-fsh" cx="39.0" cy="17.5" rx="7.5" ry="8.8"/><rect class="s23-fbx" x="27.0" y="6" width="24" height="24" rx="3"/></svg></div><div class="s23-fr" style="left:550.0px"><svg viewBox="0 0 74 42" aria-hidden="true"><path class="s23-fsh" d="M27.0 42 C29.0 32 38.0 28 47.0 28 C56.0 28 65.0 32 67.0 42Z"/><ellipse class="s23-fsh" cx="47.0" cy="17.5" rx="7.5" ry="8.8"/><rect class="s23-fbx" x="35.0" y="6" width="24" height="24" rx="3"/></svg></div><div class="s23-fr" style="left:468.0px"><svg viewBox="0 0 74 42" aria-hidden="true"><path class="s23-fsh" d="M23.0 42 C25.0 32 34.0 28 43.0 28 C52.0 28 61.0 32 63.0 42Z"/><ellipse class="s23-fsh" cx="43.0" cy="17.5" rx="7.5" ry="8.8"/><rect class="s23-fbx" x="31.0" y="6" width="24" height="24" rx="3"/></svg></div><div class="s23-fr" style="left:386.0px"><svg viewBox="0 0 74 42" aria-hidden="true"><path class="s23-fsh" d="M15.0 42 C17.0 32 26.0 28 35.0 28 C44.0 28 53.0 32 55.0 42Z"/><ellipse class="s23-fsh" cx="35.0" cy="17.5" rx="7.5" ry="8.8"/><rect class="s23-fbx" x="23.0" y="6" width="24" height="24" rx="3"/></svg></div><div class="s23-fr" style="left:304.0px"><svg viewBox="0 0 74 42" aria-hidden="true"><path class="s23-fsh" d="M7.0 42 C9.0 32 18.0 28 27.0 28 C36.0 28 45.0 32 47.0 42Z"/><ellipse class="s23-fsh" cx="27.0" cy="17.5" rx="7.5" ry="8.8"/><rect class="s23-fbx" x="15.0" y="6" width="24" height="24" rx="3"/></svg></div><i class="s23-fscan" style="left:770px"></i></div>
-<i class="s23-zlead" style="left:545.0px;top:436px"></i><div class="s23-zl" style="left:292px;width:508px;top:456px"><span dir="rtl"><i></i>אזור מת: כ-8 אחוז מהרוחב</span></div>
-<span class="s23-stag" dir="ltr" style="left:32.7px;top:552px"><b>140</b></span><span class="s23-stag" dir="ltr" style="left:219.3px;top:552px"><b>940</b></span><div class="s23-br" style="left:32.7px;width:186.7px;top:594px"><i class="s23-brl"></i><span dir="rtl">אזור בטוח</span></div>
-<i class="s23-eye" style="top:242.3px"></i><div class="s23-el" style="left:300px;top:96px"><span dir="rtl">העיניים בשליש העליון<i></i></span></div><svg class="s23-elead" viewBox="0 0 800 700" aria-hidden="true"><path d="M298 116 H272 V235.3"/></svg><i class="s23-focus" data-focus="2" style="left:382px;top:188px;width:328px;height:206px"></i>
+<div class="s23-fixl" style="left:542.0px;top:100px"><span dir="rtl"><i></i>חיתוך קבוע</span></div><div class="s23-arr" style="left:256.0px;top:368px"><svg class="s23-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<div class="s23-film"><div class="s23-fr" style="left:710.0px"><svg viewBox="0 0 74 42" aria-hidden="true"><path class="s23-fsh" d="M9.0 42 C11.0 32 20.0 28 29.0 28 C38.0 28 47.0 32 49.0 42Z"/><ellipse class="s23-fsh" cx="29.0" cy="17.5" rx="7.5" ry="8.8"/><rect class="s23-fbx" x="17.0" y="6" width="24" height="24" rx="3"/></svg></div><div class="s23-fr" style="left:628.0px"><svg viewBox="0 0 74 42" aria-hidden="true"><path class="s23-fsh" d="M19.0 42 C21.0 32 30.0 28 39.0 28 C48.0 28 57.0 32 59.0 42Z"/><ellipse class="s23-fsh" cx="39.0" cy="17.5" rx="7.5" ry="8.8"/><rect class="s23-fbx" x="27.0" y="6" width="24" height="24" rx="3"/></svg></div><div class="s23-fr" style="left:546.0px"><svg viewBox="0 0 74 42" aria-hidden="true"><path class="s23-fsh" d="M27.0 42 C29.0 32 38.0 28 47.0 28 C56.0 28 65.0 32 67.0 42Z"/><ellipse class="s23-fsh" cx="47.0" cy="17.5" rx="7.5" ry="8.8"/><rect class="s23-fbx" x="35.0" y="6" width="24" height="24" rx="3"/></svg></div><div class="s23-fr" style="left:464.0px"><svg viewBox="0 0 74 42" aria-hidden="true"><path class="s23-fsh" d="M23.0 42 C25.0 32 34.0 28 43.0 28 C52.0 28 61.0 32 63.0 42Z"/><ellipse class="s23-fsh" cx="43.0" cy="17.5" rx="7.5" ry="8.8"/><rect class="s23-fbx" x="31.0" y="6" width="24" height="24" rx="3"/></svg></div><div class="s23-fr" style="left:382.0px"><svg viewBox="0 0 74 42" aria-hidden="true"><path class="s23-fsh" d="M15.0 42 C17.0 32 26.0 28 35.0 28 C44.0 28 53.0 32 55.0 42Z"/><ellipse class="s23-fsh" cx="35.0" cy="17.5" rx="7.5" ry="8.8"/><rect class="s23-fbx" x="23.0" y="6" width="24" height="24" rx="3"/></svg></div><div class="s23-fr" style="left:300.0px"><svg viewBox="0 0 74 42" aria-hidden="true"><path class="s23-fsh" d="M7.0 42 C9.0 32 18.0 28 27.0 28 C36.0 28 45.0 32 47.0 42Z"/><ellipse class="s23-fsh" cx="27.0" cy="17.5" rx="7.5" ry="8.8"/><rect class="s23-fbx" x="15.0" y="6" width="24" height="24" rx="3"/></svg></div><i class="s23-fscan" style="left:766px"></i></div>
+<i class="s23-zlead" style="left:541.0px;top:436px"></i><div class="s23-zl" style="left:288px;width:508px;top:456px"><span dir="rtl"><i></i>אזור מת: כ-8 אחוז מהרוחב</span></div>
+<span class="s23-stag s23-stag0" dir="ltr" style="left:38.1px;top:545px"><i></i><b>140</b></span><span class="s23-stag s23-stag1" dir="ltr" style="left:221.9px;top:545px"><i></i><b>940</b></span><div class="s23-br" style="left:38.1px;width:183.7px;top:595px"><i class="s23-brl"></i><span dir="rtl">אזור בטוח</span></div>
+<i class="s23-eye" style="top:242.3px"></i><div class="s23-el" style="left:296px;top:96px"><span dir="rtl">העיניים בשליש העליון<i></i></span></div><svg class="s23-elead" viewBox="0 0 800 700" aria-hidden="true"><path d="M294 116 H274 V235.3"/></svg><i class="s23-focus" data-focus="2" style="left:378px;top:188px;width:328px;height:206px"></i>
 </div></div></div></div></div>
 <div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">777 מתוך 777 פריימים</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="16.540">הפנים</span> <span class="w" dir="rtl" data-t="16.660">נמצאו</span> <span class="w" dir="rtl" data-t="16.780">בכל</span> <span class="w" dir="rtl" data-t="16.900">הפריימים,</span> <span class="w" dir="rtl" data-t="17.020">וזזו</span> <span class="w" dir="rtl" data-t="17.140">כל</span> <span class="w" dir="rtl" data-t="17.260">כך</span> <span class="w" dir="rtl" data-t="17.380">מעט</span> <span class="w" dir="rtl" data-t="17.500">שהחיתוך</span> <span class="w" dir="rtl" data-t="17.620">נשאר</span> <span class="w" dir="rtl" data-t="17.740">במקום.</span></p></div></div>
 <div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>3</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
@@ -828,11 +835,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
     // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
     const n = pages.length;
-    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.35, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.25, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
     const LIFT = 1.1, DIM = 0.38;
     const mineOf = (i) => H.filter((h) => h.page === i);
     const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
-    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.05 : 0.2);
     // a plain last page stays settled a little longer before the exit
     let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
     for (let i = 0; i < n; i++) {
@@ -871,9 +878,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     } else {
       dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
     }
-    // the lines around a lifted key line make room for it: the ones next to it move PUSH px,
-    // the shift tapers to 0 at the page edge, so no line is pushed out of the viewport
-    const PUSH = 10, plines = E.qa(".pl", body);
+    // the lines around a lifted key line make room for it: the ones next to it move up to PUSH px,
+    // each gap between two lines shrinks by at most COMP px, and the line at the page edge moves
+    // only EDGE px (inside its own leading, so no glyph is ever cut by the viewport)
+    const PUSH = 10, COMP = 4, EDGE = 2, plines = E.qa(".pl", body);
     H.forEach((h) => {
       const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
       const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
@@ -882,7 +890,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
       h.push = [];
       [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
         const m = ls.length;
-        ls.forEach((l, j) => { const s = m > 1 ? (PUSH * (m - 1 - j)) / (m - 1) : 0; if (s > 0.5) h.push.push([l, sgn * s]); });
+        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(PUSH, EDGE + COMP * (m - 1 - j))]));
       });
     });
     // the lifted copies sit over their line on the page where it is held (static layout)
@@ -909,6 +917,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
           h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
+          h.t0 = t;
           t += h.hold;
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
@@ -961,12 +970,18 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
       };
       // the section that holds the last visible row (the end of the prompt on the last page)
       const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      // while a key line is lifted, the underline sits on that line's own section
+      const secOf = (y) => { let k = 0; starts.forEach((st, j) => { if (st <= y) k = j; }); return k; };
+      const ev = [];
       for (let i = 1; i < n; i++) {
-        const k = i === n - 1 && !isHold(i) ? lastVisible(pages[i]) : secAt(pages[i]);
-        if (k !== cur) move(k, slides[i - 1][0], Math.max(0.3, slides[i - 1][1]));
+        const mine = mineOf(i);
+        const k = mine.length ? secOf(mine[0].top) : i === n - 1 ? lastVisible(pages[i]) : secAt(pages[i]);
+        ev.push([slides[i - 1][0], k, Math.max(0.3, slides[i - 1][1])]);
       }
+      H.forEach((h) => ev.push([h.t0, secOf(h.top), 0.3]));
+      ev.sort((a, b) => a[0] - b[0]).forEach(([ta, k, d]) => { if (k !== cur) move(k, ta, d); });
       // a last page with key lines: its last section takes over when the page undims
-      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) > cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) !== cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
     }
     tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
     return {

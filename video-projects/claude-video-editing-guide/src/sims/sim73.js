@@ -49,9 +49,10 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
   tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b1 + 1.2);
 
   // B2 "an independent critic is a separate copy of Claude that built nothing": a copy slides out (with a depth trail),
-  // a divider goes up between them, the critic's tray is empty
+  // a divider goes up between them, the critic's tray is empty. The cut caption keeps a dashed amber note.
   E.fadeOut(tl, list, T(b2), 0.3, 10);
   tw(flaw, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b2);
+  tw(q(".s73-note"), { opacity: 0 }, { opacity: 0.9, duration: 0.35 }, b2 + 0.05);
   tw(builder, { x: SHIFT }, { x: 0, duration: 0.75, ease: E.SPRING }, b2 + 0.1);
   const DX = me.offsetLeft - cr.offsetLeft + SHIFT;
   const slide = (el, t, peak) => {
@@ -67,7 +68,7 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
   sweep(cr, b2 + 1.7, 0.7, "rgba(255, 255, 255, 0.22)");
 
   // B3 "it gets the request and frames from every scene, without the explanations": into the tray they go;
-  // the explanations hit the divider and are refused
+  // the explanations slide toward the critic, are stopped at the divider (an X there) and bounce back
   const doc = q(".s73-doc");
   tw(doc, { x: 536, y: -5, scale: 0.8, rotation: -8, opacity: 0 }, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, duration: 0.85, ease: E.SPRING }, b3 + 0.1);
   const vc = E.center(vid, wrap);
@@ -75,21 +76,25 @@ window.SIMS.sim73 = function (tl, ctx, cfg, S) {
     const o = E.center(th, wrap);
     tw(th, { x: vc.x - o.x, y: vc.y - o.y, scale: 2.4, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.8, ease: E.SPRING }, b3 + 0.45 + i * 0.15);
   });
-  const expl = q(".s73-expl"), no = q(".s73-no"), dv = q(".s73-div path");
-  pop(expl, b3 + 1.1, 0.8);
-  tw(bub, { x: 0 }, { x: -88, duration: 0.3, ease: "power2.in" }, b3 + 1.35);
-  E.glitch(tl, q(".s73-div"), T(b3 + 1.65), 6);
-  tw(dv, { stroke: "#c9c2ff" }, { stroke: "#ff6b61", duration: 0.1 }, b3 + 1.65);
-  tw(dv, { stroke: "#ff6b61" }, { stroke: "#c9c2ff", duration: 0.5 }, b3 + 1.9);
-  pop(no, b3 + 1.68, 0.5);
-  qa(".s73-no path").forEach((p, i) => E.draw(tl, p, T(b3 + 1.72 + i * 0.12), 0.22));
-  tw(bub, { x: -88 }, { x: -36, duration: 0.4, ease: "power2.out" }, b3 + 1.65);
-  tw(bub, { opacity: 1 }, { opacity: 0, duration: 0.35 }, b3 + 2.15);
+  const expl = q(".s73-expl"), dv = q(".s73-div path"), blk = q(".s73-blk");
+  pop(expl, b3 + 0.8, 0.8);
+  // the card's left edge stops 18 px short of the divider, where the X appears; it bounces back and stays
+  // (the divider is an SVG: its place comes from its CSS left; its line runs at x + 2)
+  const divX = parseFloat(getComputedStyle(q(".s73-div")).left) + 2;
+  const reach = Math.round(bub.offsetLeft - divX - 18), hit = b3 + 1.42;
+  tw(bub, { x: 0 }, { x: -reach, duration: 0.25, ease: "power2.in" }, b3 + 1.17);
+  tw(bub, { x: -reach }, { x: 0, duration: 0.35, ease: "back.out(1.4)" }, hit);
+  E.glitch(tl, q(".s73-div"), T(hit), 6);
+  tw(dv, { stroke: "#c9c2ff" }, { stroke: "#ffffff", duration: 0.08 }, hit);
+  tw(dv, { stroke: "#ffffff" }, { stroke: "#c9c2ff", duration: 0.5 }, hit + 0.25);
+  pop(blk, hit, 0.5);
+  qa(".s73-blk path").forEach((p, i) => E.draw(tl, p, T(hit + 0.04 + i * 0.1), 0.2));
 
   // B4 "and gives a score out of 100 with a numeric fix for every defect": the gauge lands on 68 (the first round);
   // two defects, each with its fix dialled in (the punch-in lands on the gauge)
   E.fadeOut(tl, q(".s73-builder"), T(b4), 0.2, 0);
   tw(q(".s73-div"), { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4);
+  tw(blk, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4);
   [q(".s73-tray"), doc].concat(qa(".s73-in")).forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4));
   // the fill shows v% of the arc at offset L - v * len; hidden, its dash ends 12 px before the arc starts,
   // so its round cap never leaves a dot there (same as E.draw)
