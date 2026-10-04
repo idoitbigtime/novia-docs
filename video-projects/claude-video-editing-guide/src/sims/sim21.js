@@ -182,11 +182,11 @@ window.SIMS.sim21 = function (tl, ctx, cfg, S) {
     const jx = E.off(j, root).x + 8, tj = tP + ((phx0 - jx) / span) * dP;
     tl.fromTo(E.q("em", j), { opacity: 0.95, scale: 0.4 }, A({ opacity: 0, scale: 1.5, duration: 0.5, ease: "power2.out" }), tj);
   });
-  E.qa(".s21-lead path", root).forEach((p, i) => E.draw(tl, p, tP + dP - 0.1 + i * 0.06, 0.45));
+  E.qa(".s21-lead path", root).forEach((p, i) => E.draw(tl, p, tP + dP - 0.4 + i * 0.06, 0.45));
   const jl = q(".s21-jl");
-  tl.fromTo(jl, { opacity: 0, scale: 0.9, y: 10 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.55, ease: E.SPRING }), tP + dP + 0.1);
-  E.sweep(tl, jl, tP + dP + 0.4, 0.7, { color: "rgba(201, 194, 255, 0.25)" });
+  tl.fromTo(jl, { opacity: 0, scale: 0.9, y: 10 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.55, ease: E.SPRING }), tP + dP - 0.2);
+  E.sweep(tl, jl, tP + dP + 0.1, 0.7, { color: "rgba(201, 194, 255, 0.25)" });
   // the result, approved and tight: the panel glows once
   tl.fromTo(q(".s21-pbg"), { boxShadow: "0 24px 60px rgba(0, 0, 0, 0.35), 0 0 0px rgba(201, 194, 255, 0)" },
-    A({ boxShadow: "0 24px 60px rgba(0, 0, 0, 0.35), 0 0 28px rgba(201, 194, 255, 0.35)", duration: 0.6, ease: "power2.out" }), tP + dP + 0.1);
+    A({ boxShadow: "0 24px 60px rgba(0, 0, 0, 0.35), 0 0 28px rgba(201, 194, 255, 0.35)", duration: 0.6, ease: "power2.out" }), tP + dP - 0.2);
 };

@@ -3,7 +3,8 @@ B0 the video's play button is struck out; stills fan out of it and a magnifier (
 B1 after the render: a film strip; markers drop on every text entry, effect and cut; the magnifier visits each frame
 B2 around the cut: a callout opens a strip of a frame every 0.1 second (the punch-in lands here)
 B3 the magnifier scans the dense strip: two identical frames (freeze) and a title that jumps
-payoff: the frame without a caption is marked red, lifts and grows, with the label
+payoff: the automatic check passes (chip with a check), but the magnifier finds the frame without a caption:
+it is marked red, lifts and grows (an empty caption slot), with the label
 "פריים בלי כתובית: הבדיקה האוטומטית פספסה, הפריים תפס."
 Beat times come from cfg["phr"] (scene-local)."""
 from textlayout import esc

@@ -1024,7 +1024,7 @@ window.SIMS.sim32 = function (tl, ctx, cfg, S) {
   const mover = q(".s32-mover"), root = mover.parentNode, plane = q(".s32-plane"), fol = q(".s32-fol");
   const lgw = q(".s32-lgw"), lg3 = q(".s32-lg3"), lp = q(".s32-lp"), light = q(".s32-light");
   const ghs = [q(".s32-gh1"), q(".s32-gh2")];
-  const LAG = 0.2;                            // drawn a little longer than 0.1 s so the lag reads on screen
+  const LAG = 0.1;                            // the guide: the logo follows the hand a tenth of a second late
   const C50 = { transformOrigin: "50% 50%" };
 
   // establishing: the hand, drawn in thin glowing lines
