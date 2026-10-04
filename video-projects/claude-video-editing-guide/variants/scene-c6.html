@@ -389,172 +389,22 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 /* drifting dust in the background */
 .dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
 
-/* Chapter 1 "how it works" (frame coordinates; the visual zone .c1-vis is 800 x 860 at frame x 140, y 700) */
-.ch1 { position: absolute; inset: 0; }
-.ch1 .c1-sec { position: absolute; left: 140px; width: 800px; top: 372px; direction: rtl; }
-.ch1 .c1-kick { font: 600 32px/1.2 "Rubik"; color: #cfcbe0; display: flex; align-items: center; gap: 12px; }
-.ch1 .c1-kick > i { width: 12px; height: 12px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; opacity: 0; }
-.ch1 .c1-txt { margin-top: 14px; font: 400 40px/1.42 "Rubik"; color: var(--ink2); text-wrap: pretty; }
-.ch1 .c1-vis { position: absolute; left: 140px; top: 680px; width: 800px; height: 880px; }
-
-/* terminal */
-.ch1 .c1-term { position: absolute; left: 70px; top: 70px; width: 660px; height: 420px; border-radius: 26px; background: rgba(16, 14, 32, 0.96); border: 2px solid rgba(201, 194, 255, 0.55); box-shadow: 0 0 34px rgba(201, 194, 255, 0.25), 0 30px 60px rgba(0, 0, 0, 0.5); opacity: 0; transform-origin: 50% 50%; }
-.ch1 .c1-tbar { height: 58px; border-bottom: 1.5px solid rgba(201, 194, 255, 0.18); display: flex; align-items: center; gap: 10px; padding: 0 22px; direction: ltr; }
-.ch1 .c1-tbar i { width: 14px; height: 14px; border-radius: 50%; background: rgba(201, 194, 255, 0.4); display: block; }
-.ch1 .c1-tbar span { margin-left: 14px; font: 600 26px/1 "IBM Plex Mono"; color: #cfcbe0; }
-.ch1 .c1-tbody { position: relative; padding: 34px 36px; height: 358px; }
-.ch1 .c1-line { font: 600 36px/1 "IBM Plex Mono"; color: #ece9f7; height: 64px; display: flex; align-items: center; gap: 14px; opacity: 0; }
-.ch1 .c1-line b { color: #c9c2ff; font-weight: 600; }
-.ch1 .c1-ty { clip-path: inset(0px 100% 0px 0px); white-space: nowrap; }
-.ch1 .c1-menu { display: flex; align-items: center; gap: 10px; margin-left: 18px; padding: 8px 14px; border-radius: 12px; border: 2px solid #c9c2ff; background: rgba(40, 34, 80, 0.9); font: 600 28px/1 "IBM Plex Mono"; color: #ffffff; box-shadow: 0 0 16px rgba(201, 194, 255, 0.45); opacity: 0; }
-.ch1 .c1-ck { width: 30px; height: 30px; overflow: visible; }
-.ch1 .c1-ck path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
-.ch1 .c1-run { position: absolute; left: 34px; right: 34px; bottom: 40px; height: 10px; border-radius: 5px; background: rgba(201, 194, 255, 0.15); overflow: hidden; opacity: 0; }
-.ch1 .c1-run i { position: absolute; top: 0; bottom: 0; left: 0; width: 160px; border-radius: 5px; background: linear-gradient(90deg, rgba(201, 194, 255, 0), #e4dfff, rgba(201, 194, 255, 0)); display: block; }
-.ch1 .c1-tl { position: absolute; left: 34px; right: 34px; top: 40px; height: 240px; }
-.ch1 .c1-tl i { position: absolute; left: 0; height: 46px; border-radius: 12px; display: block; opacity: 0; transform-origin: 0 50%; }
-.ch1 .c1-tl i:nth-child(1) { top: 0; width: 70%; background: rgba(201, 194, 255, 0.75); }
-.ch1 .c1-tl i:nth-child(2) { top: 70px; width: 52%; left: 18%; background: rgba(160, 150, 240, 0.85); }
-.ch1 .c1-tl i:nth-child(3) { top: 140px; width: 86%; background: rgba(140, 200, 255, 0.7); }
-.ch1 .c1-glow { position: absolute; inset: -12px; border-radius: 34px; border: 3px solid #c9c2ff; box-shadow: 0 0 40px rgba(201, 194, 255, 0.7); opacity: 0; }
-
-/* S1 files, model badge, note */
-.ch1 .c1-files { position: absolute; left: 0; width: 800px; top: 545px; display: flex; justify-content: center; gap: 22px; }
-.ch1 .c1-file { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-radius: 18px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.3); font: 600 28px/1 "IBM Plex Mono"; color: #e9e6f5; opacity: 0; }
-.ch1 .c1-doc { width: 32px; height: 40px; flex: none; overflow: visible; }
-.ch1 .c1-doc path { fill: none; stroke: #c9c2ff; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
-.ch1 .c1-badge { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: -24px; padding: 16px 28px; border-radius: 999px; border: 2.5px solid #ff453a; background: rgba(40, 14, 20, 0.7); box-shadow: 0 0 24px rgba(255, 69, 58, 0.45); font: 700 36px/1 "Rubik"; color: #ffffff; white-space: nowrap; opacity: 0; overflow: hidden; }
-.ch1 .c1-note { position: absolute; left: 30px; width: 740px; top: 535px; padding: 26px 34px; border-radius: 24px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); font: 500 34px/1.45 "Rubik"; color: var(--ink); text-align: right; opacity: 0; }
-.ch1 .c1-m { font-family: "IBM Plex Mono"; font-weight: 600; color: #d9d4ff; unicode-bidi: isolate; }
-
-/* S2 skills in, a video file out */
-.ch1 .c1-skills { position: absolute; left: 606px; top: 6px; width: 190px; height: 230px; }
-.ch1 .c1-skill { position: absolute; left: 0; display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 16px; background: rgba(28, 24, 58, 0.95); border: 2px solid #c9c2ff; box-shadow: 0 0 18px rgba(201, 194, 255, 0.4); font: 600 26px/1 "IBM Plex Mono"; color: #ffffff; opacity: 0; }
-.ch1 .c1-skill:nth-child(1) { top: 0; }
-.ch1 .c1-skill:nth-child(2) { top: 76px; }
-.ch1 .c1-skill:nth-child(3) { top: 152px; }
-.ch1 .c1-mp4 { position: absolute; left: 10px; top: 596px; width: 200px; padding: 18px 16px; border-radius: 20px; background: rgba(28, 24, 58, 0.95); border: 2.5px solid #ff6b61; box-shadow: 0 0 22px rgba(255, 69, 58, 0.4); display: flex; flex-direction: column; align-items: center; gap: 12px; font: 600 28px/1 "IBM Plex Mono"; color: #ffffff; opacity: 0; }
-.ch1 .c1-film { width: 84px; height: 62px; overflow: visible; }
-.ch1 .c1-film rect, .ch1 .c1-film path { fill: none; stroke: #ff8a80; stroke-width: 2.6; stroke-linejoin: round; }
-.ch1 .c1-film .c1-play { fill: #ffffff; stroke: none; }
-.ch1 .c1-prog { width: 150px; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.2); overflow: hidden; display: block; }
-.ch1 .c1-prog b { display: block; width: 100%; height: 100%; background: #ff6b61; transform-origin: 0 50%; transform: scaleX(0); }
-.ch1 .c1-free { position: absolute; left: 230px; width: 560px; top: 640px; display: grid; place-items: center; }
-.ch1 .c1-free .pill { font-size: 44px; }
-
-/* S3 the folder and the full picture */
-.ch1 .c1-foldwrap { position: absolute; left: 606px; top: 18px; width: 180px; height: 150px; perspective: 700px; opacity: 0; }
-.ch1 .c1-fold { position: absolute; left: 0; top: 0; width: 180px; height: 140px; overflow: visible; }
-.ch1 .c1-fold path { fill: rgba(60, 50, 120, 0.9); stroke: #c9c2ff; stroke-width: 3; stroke-linejoin: round; }
-.ch1 .c1-lidw { position: absolute; left: 0; top: 34px; width: 180px; height: 110px; transform-origin: 50% 100%; transform-style: preserve-3d; }
-.ch1 .c1-lid { width: 180px; height: 110px; overflow: visible; display: block; }
-.ch1 .c1-lid path { fill: rgba(90, 76, 170, 0.95); stroke: #d9d4ff; stroke-width: 3; stroke-linejoin: round; }
-.ch1 .c1-clips { position: absolute; left: 0; top: 0; width: 180px; height: 140px; }
-.ch1 .c1-clip { position: absolute; top: 40px; width: 58px; height: 42px; border-radius: 8px; border: 2px solid #c9c2ff; background: #241f4c; opacity: 0; }
-.ch1 .c1-clip i { position: absolute; left: 50%; top: 10px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: #8f86d9; display: block; }
-.ch1 .c1-clip0 { left: 14px; }
-.ch1 .c1-clip1 { left: 62px; }
-.ch1 .c1-clip2 { left: 110px; }
-.ch1 .c1-logo { position: absolute; left: 70px; top: 6px; width: 40px; height: 40px; background: #b7aef5; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); opacity: 0; }
-.ch1 .c1-arcs { position: absolute; left: 0; top: 0; width: 800px; height: 800px; overflow: visible; }
-.ch1 .c1-arcs path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 0; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.7)); }
-.ch1 .c1-dot { position: absolute; left: 0; top: 0; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 14px #c9c2ff; display: block; opacity: 0; }
-.ch1 .c1-say { position: absolute; right: 20px; width: max-content; top: 650px; height: 84px; padding: 0 22px; border-radius: 28px 28px 6px 28px; border: 2px solid #c9c2ff; background: rgba(28, 24, 58, 0.95); box-shadow: 0 0 20px rgba(201, 194, 255, 0.35); display: flex; align-items: center; gap: 12px; opacity: 0; }
-.ch1 .c1-say i { width: 60px; height: 16px; border-radius: 8px; background: rgba(217, 212, 255, 0.7); display: block; }
-.ch1 .c1-say span { font: 700 32px/1 "Rubik"; color: #ffffff; }
-.ch1 .c1-mic { width: 30px; height: 40px; flex: none; overflow: visible; }
-.ch1 .c1-mic rect, .ch1 .c1-mic path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; }
-
-/* S4 the prompt card, copy, questions, commands */
-.ch1 .c1-pcard { position: absolute; left: 70px; top: 40px; width: 660px; height: 400px; border-radius: 26px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.3); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); opacity: 0; transform-origin: 50% 50%; }
-.ch1 .c1-ptabs { position: relative; height: 76px; border-bottom: 1px solid rgba(201, 194, 255, 0.12); display: flex; direction: rtl; align-items: center; gap: 26px; padding: 0 30px; }
-.ch1 .c1-tab { font: 600 30px/1 "Rubik"; color: #6f6b86; }
-.ch1 .c1-tul { position: absolute; bottom: 12px; left: 0; height: 4px; border-radius: 2px; background: var(--acc); box-shadow: 0 0 10px rgba(255, 69, 58, 0.7); display: block; opacity: 0; }
-.ch1 .c1-plines { padding: 30px 34px; display: flex; flex-direction: column; align-items: flex-end; gap: 22px; }
-.ch1 .c1-pl { height: 16px; border-radius: 8px; background: rgba(201, 194, 255, 0.28); display: block; }
-.ch1 .c1-copy { position: absolute; left: 22px; top: 16px; width: 44px; height: 44px; overflow: visible; }
-.ch1 .c1-copy rect, .ch1 .c1-copy path { fill: none; stroke: #c9c2ff; stroke-width: 2.6; stroke-linejoin: round; }
-.ch1 .c1-most { position: absolute; left: 0; width: 800px; top: 476px; text-align: center; font: 500 32px/1.2 "Rubik"; color: #b8b4cc; opacity: 0; }
-.ch1 .c1-mini { position: absolute; left: 220px; top: 570px; width: 360px; height: 210px; border-radius: 22px; background: rgba(16, 14, 32, 0.96); border: 2px solid rgba(201, 194, 255, 0.55); box-shadow: 0 0 28px rgba(201, 194, 255, 0.28); opacity: 0; }
-.ch1 .c1-mini .c1-tbar span { font-size: 22px; }
-.ch1 .c1-qs { position: absolute; left: 0; width: 800px; top: 60px; height: 460px; }
-.ch1 .c1-q { position: absolute; right: 60px; width: 420px; height: 100px; border-radius: 28px 28px 28px 6px; border: 2px solid #c9c2ff; background: rgba(28, 24, 58, 0.95); box-shadow: 0 0 20px rgba(201, 194, 255, 0.3); display: flex; align-items: center; gap: 16px; padding: 0 26px; opacity: 0; }
-.ch1 .c1-q b { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: #6f63c9; color: #ffffff; font: 800 36px/1 "Rubik"; flex: none; }
-.ch1 .c1-q i { height: 16px; border-radius: 8px; background: rgba(217, 212, 255, 0.7); display: block; }
-.ch1 .c1-q i:nth-of-type(1) { width: 160px; }
-.ch1 .c1-q i:nth-of-type(2) { width: 100px; }
-.ch1 .c1-q0 { top: 10px; }
-.ch1 .c1-q1 { top: 140px; right: 140px; }
-.ch1 .c1-q2 { top: 270px; right: 30px; }
-.ch1 .c1-cmd { position: absolute; left: 30px; width: 740px; top: 150px; padding: 26px 28px; border-radius: 22px; background: rgba(16, 14, 32, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.3); display: flex; flex-direction: column; align-items: flex-end; gap: 20px; opacity: 0; }
-.ch1 .c1-cmdt { align-self: stretch; text-align: left; font: 500 27px/1.55 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #8f8aa8; }
-.ch1 .c1-cmdt .tk { white-space: nowrap; }
-.ch1 .c1-fc { font: 700 32px/1 "Rubik"; color: #ffffff; padding: 12px 22px; border-radius: 999px; border: 2px solid #c9c2ff; background: rgba(40, 34, 80, 0.8); }
-
-/* closing line */
-.ch1 .c1-close { position: absolute; left: 140px; width: 800px; top: 0; height: 1920px; pointer-events: none; }
-.ch1 .c1-cbox { position: absolute; left: 0; top: 440px; width: 800px; padding: 40px 44px; border-radius: 28px; background: rgba(18, 17, 34, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.3); box-shadow: 0 0 44px rgba(140, 120, 255, 0.2); display: flex; align-items: center; gap: 30px; direction: rtl; opacity: 0; }
-.ch1 .c1-shield { width: 80px; height: 94px; flex: none; overflow: visible; }
-.ch1 .c1-shield path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.7)); }
-.ch1 .c1-ct { flex: 1; font: 700 44px/1.35 "Rubik"; color: var(--ink); text-wrap: balance; }
-
-/* closing picture: the prompt goes to a separate copy of Claude, a check comes back */
-.ch1 .c1-cpic { position: absolute; left: 0; top: 760px; width: 800px; height: 520px; }
-.ch1 .c1-cmini { position: absolute; left: 550px; top: 150px; width: 230px; height: 190px; border-radius: 18px; background: rgba(24, 22, 44, 0.97); border: 1.5px solid rgba(201, 194, 255, 0.35); opacity: 0; padding: 18px 20px; display: flex; flex-direction: column; align-items: flex-end; gap: 16px; }
-.ch1 .c1-cmini i { height: 12px; border-radius: 6px; background: rgba(201, 194, 255, 0.35); display: block; }
-.ch1 .c1-cmini i:nth-child(1) { width: 80%; } .ch1 .c1-cmini i:nth-child(2) { width: 60%; } .ch1 .c1-cmini i:nth-child(3) { width: 90%; } .ch1 .c1-cmini i:nth-child(4) { width: 50%; }
-.ch1 .c1-carrow { position: absolute; left: 380px; top: 222px; width: 150px; height: 46px; overflow: visible; }
-.ch1 .c1-carrow path { fill: none; stroke: #c9c2ff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.7)); }
-.ch1 .c1-cterm { position: absolute; left: 20px; top: 90px; width: 340px; height: 300px; border-radius: 24px; background: rgba(16, 14, 32, 0.96); border: 2px solid rgba(201, 194, 255, 0.45); box-shadow: 0 0 30px rgba(201, 194, 255, 0.2); opacity: 0; }
-.ch1 .c1-cterm .c1-tbar span { font-size: 22px; }
-.ch1 .c1-clabel { position: absolute; left: 0; right: 0; bottom: -64px; margin: 0 auto; width: max-content; font: 700 32px/1 "Rubik"; color: #ffffff; padding: 10px 20px; border-radius: 999px; border: 2px solid #c9c2ff; background: rgba(40, 34, 80, 0.85); }
-.ch1 .c1-cok { position: absolute; left: 50%; top: 60%; width: 110px; height: 110px; margin: -55px 0 0 -55px; border-radius: 50%; background: rgba(111, 99, 201, 0.95); box-shadow: 0 0 30px rgba(201, 194, 255, 0.7); display: grid; place-items: center; opacity: 0; }
-.ch1 .c1-cok svg { width: 70px; height: 70px; overflow: visible; }
-.ch1 .c1-cok path { fill: none; stroke: #ffffff; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; }
-.ch1 .c1-cur { display: inline-block; width: 16px; height: 34px; margin-left: 6px; background: #c9c2ff; vertical-align: middle; opacity: 0; }
-
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="44.600" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="4.620" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-ch1" class="clip scene" data-start="0.000" data-duration="44.600" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 1 · ככה זה עובד</span></div>
-<div class="ch1">
-<div class="c1-sec c1-sec0"><p class="c1-kick kin" dir="rtl"><i></i><span class="w" dir="rtl" data-t="0.150">הכלי</span> <span class="w" dir="rtl" data-t="0.200">הראשון</span> <span class="w" dir="rtl" data-t="0.250">·</span> <span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="0.300">Claude</span> <span class="w" dir="ltr" data-t="0.350">Code</span></span></p><p class="c1-txt kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="0.450">הגרסה</span> <span class="w" dir="rtl" data-t="0.510">של</span> <span class="w" dir="rtl" data-t="0.570">קלוד</span> <span class="w" dir="rtl" data-t="0.630">שעובדת</span> <span class="w" dir="rtl" data-t="0.690">על</span> <span class="w" dir="rtl" data-t="0.750">הקבצים</span> <span class="w" dir="rtl" data-t="0.810">במחשב</span> <span class="w" dir="rtl" data-t="0.870">שלכם</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="2.900">ומריצה</span> <span class="w" dir="rtl" data-t="2.960">בו</span> <span class="w" dir="rtl" data-t="3.020">תוכנות.</span></span></p></div><div class="c1-sec c1-sec1"><p class="c1-kick kin" dir="rtl"><i></i><span class="w" dir="rtl" data-t="10.450">הכלי</span> <span class="w" dir="rtl" data-t="10.500">השני</span> <span class="w" dir="rtl" data-t="10.550">·</span> <span class="w" dir="rtl" data-t="10.600">הסקילים</span> <span class="w" dir="rtl" data-t="10.650">של</span> <span class="w" dir="rtl" data-t="10.700">HyperFrames</span></p><p class="c1-txt kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="10.750">סקיל</span> <span class="w" dir="rtl" data-t="10.810">הוא</span> <span class="w" dir="rtl" data-t="10.870">קובץ</span> <span class="w" dir="rtl" data-t="10.930">הוראות</span> <span class="w" dir="rtl" data-t="10.990">שקלוד</span> <span class="w" dir="rtl" data-t="11.050">קורא</span> <span class="w" dir="rtl" data-t="11.110">כשצריך.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="12.950">הסקילים</span> <span class="w" dir="rtl" data-t="13.010">של</span> <span class="w" dir="rtl" data-t="13.070">HyperFrames</span> <span class="w" dir="rtl" data-t="13.130">מלמדים</span> <span class="w" dir="rtl" data-t="13.190">אותו</span> <span class="w" dir="rtl" data-t="13.250">לבנות</span> <span class="w" dir="rtl" data-t="13.310">סרטון</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="15.150">ולהוציא</span> <span class="w" dir="rtl" data-t="15.210">אותו</span> <span class="w" dir="rtl" data-t="15.270">כקובץ</span> <span class="w" dir="rtl" data-t="15.330">וידאו.</span></span></p></div><div class="c1-sec c1-sec2"><p class="c1-kick kin" dir="rtl"><i></i><span class="w" dir="rtl" data-t="20.950">ותיקייה</span> <span class="w" dir="rtl" data-t="21.000">אחת</span> <span class="w" dir="rtl" data-t="21.050">לכל</span> <span class="w" dir="rtl" data-t="21.100">סרטון</span></p><p class="c1-txt kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="21.250">שמים</span> <span class="w" dir="rtl" data-t="21.310">בה</span> <span class="w" dir="rtl" data-t="21.370">את</span> <span class="w" dir="rtl" data-t="21.430">כל</span> <span class="w" dir="rtl" data-t="21.490">הצילומים,</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="22.950">פותחים</span> <span class="w" dir="rtl" data-t="23.010">בה</span> <span class="w" dir="rtl" data-t="23.070">את</span> <span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="23.130">Claude</span> <span class="w" dir="ltr" data-t="23.190">Code</span></span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="24.650">ומדברים</span> <span class="w" dir="rtl" data-t="24.710">איתו</span> <span class="w" dir="rtl" data-t="24.770">בעברית,</span> <span class="w" dir="rtl" data-t="24.830">כמו</span> <span class="w" dir="rtl" data-t="24.890">עם</span> <span class="w" dir="rtl" data-t="24.950">עורך</span> <span class="w" dir="rtl" data-t="25.010">שיושב</span> <span class="w" dir="rtl" data-t="25.070">לידכם.</span></span></p></div><div class="c1-sec c1-sec3"><p class="c1-kick kin" dir="rtl"><i></i><span class="w" dir="rtl" data-t="30.450">איך</span> <span class="w" dir="rtl" data-t="30.500">משתמשים</span> <span class="w" dir="rtl" data-t="30.550">בפרומפטים</span></p><p class="c1-txt kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="30.750">בכל</span> <span class="w" dir="rtl" data-t="30.810">טיפ</span> <span class="w" dir="rtl" data-t="30.870">יש</span> <span class="w" dir="rtl" data-t="30.930">פרומפט</span> <span class="w" dir="rtl" data-t="30.990">מוכן.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="32.450">מעתיקים</span> <span class="w" dir="rtl" data-t="32.510">אותו</span> <span class="glu"><span class="w" dir="rtl" data-t="32.570">ל-</span><span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="32.570">Claude</span> <span class="w" dir="ltr" data-t="32.690">Code</span></span><span class="w" dir="rtl" data-t="32.690">,</span></span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="34.150">והוא</span> <span class="w" dir="rtl" data-t="34.210">שואל</span> <span class="w" dir="rtl" data-t="34.270">כמה</span> <span class="w" dir="rtl" data-t="34.330">שאלות</span> <span class="w" dir="rtl" data-t="34.390">על</span> <span class="w" dir="rtl" data-t="34.450">הסרטון</span> <span class="w" dir="rtl" data-t="34.510">לפני</span> <span class="w" dir="rtl" data-t="34.570">שהוא</span> <span class="w" dir="rtl" data-t="34.630">נוגע</span> <span class="w" dir="rtl" data-t="34.690">במשהו.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="37.100">את</span> <span class="w" dir="rtl" data-t="37.160">הפקודות</span> <span class="w" dir="rtl" data-t="37.220">שבתוכו</span> <span class="w" dir="rtl" data-t="37.280">לא</span> <span class="w" dir="rtl" data-t="37.340">צריך</span> <span class="w" dir="rtl" data-t="37.400">להבין,</span> <span class="w" dir="rtl" data-t="37.460">הן</span> <span class="w" dir="rtl" data-t="37.520">בשביל</span> <span class="w" dir="rtl" data-t="37.580">קלוד.</span></span></p></div>
-<div class="c1-vis">
-  <div class="c1-files"><div class="c1-file" dir="ltr"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg><span>take1.mp4</span></div><div class="c1-file" dir="ltr"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg><span>logo.png</span></div><div class="c1-file" dir="ltr"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg><span>music.wav</span></div></div>
-  <div class="c1-note" dir="rtl"><p>ברירת המחדל בכל מנוי בתשלום לקלוד.</p><p>נבחר מודל אחר? כותבים <span class="c1-m" dir="ltr">/model</span> ובוחרים בו.</p></div>
-  <div class="c1-badge" dir="rtl">המודל: Claude Opus 5.5</div>
-  <div class="c1-skills"><div class="c1-skill" dir="ltr"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg><span>SKILL.md</span></div><div class="c1-skill" dir="ltr"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg><span>SKILL.md</span></div><div class="c1-skill" dir="ltr"><svg class="c1-doc" viewBox="0 0 40 50" aria-hidden="true"><path d="M6 3h20l10 10v34H6z"/><path d="M26 3v10h10"/><path d="M12 24h18M12 31h18M12 38h12"/></svg><span>SKILL.md</span></div></div>
-  <div class="c1-mp4" dir="ltr"><svg class="c1-film" viewBox="0 0 60 44" aria-hidden="true"><rect x="3" y="3" width="54" height="38" rx="6"/><path d="M3 13h54M3 31h54M15 3v10M27 3v10M39 3v10M15 31v10M27 31v10M39 31v10"/><path class="c1-play" d="M25 17l9 5-9 5z"/></svg><span>final.mp4</span><i class="c1-prog"><b></b></i></div>
-  <div class="c1-foldwrap"><div class="c1-clips"><div class="c1-clip c1-clip0"><i></i></div><div class="c1-clip c1-clip1"><i></i></div><div class="c1-clip c1-clip2"><i></i></div><div class="c1-logo"></div></div><svg class="c1-fold" viewBox="0 0 180 140" aria-hidden="true"><path class="c1-fback" d="M8 22h58l14 16h92v94H8z"/></svg><div class="c1-lidw"><svg class="c1-lid" viewBox="0 0 180 110" aria-hidden="true"><path d="M8 6h164v98H8z"/></svg></div></div>
-  <svg class="c1-arcs" viewBox="0 0 800 800" aria-hidden="true"><path class="c1-arc1" d="M600 95 C 520 95 470 150 462 232"/><path class="c1-arc2" d="M146 470 C 96 500 94 560 112 594"/></svg>
-  <i class="c1-dot c1-dot1"></i><i class="c1-dot c1-dot2"></i>
-  <div class="c1-say" dir="rtl"><svg class="c1-mic" viewBox="0 0 30 40" aria-hidden="true"><rect x="9" y="3" width="12" height="22" rx="6"/><path d="M4 19c0 6 5 11 11 11s11-5 11-11M15 30v7M9 37h12"/></svg><i></i><i></i><span>עברית</span></div>
-  <div class="c1-term">
-    <div class="c1-tbar"><i></i><i></i><i></i><span dir="ltr">Claude Code</span></div>
-    <div class="c1-tbody" dir="ltr">
-      <div class="c1-line c1-l1"><b>&gt;</b> <span class="c1-ty c1-ty1">claude</span><i class="c1-cur c1-cur1"></i></div>
-      <div class="c1-line c1-l2"><b>&gt;</b> <span class="c1-ty c1-ty2">/model</span><span class="c1-menu">Opus 5.5<svg class="c1-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div>
-      <div class="c1-run"><i></i></div>
-      <div class="c1-tl"><i></i><i></i><i></i></div>
-    </div>
-    <div class="c1-glow"></div>
-  </div>
-  <div class="c1-free"><span class="pill">כלי חינמי</span></div>
-  <div class="c1-pcard"><div class="c1-ptabs"><span class="c1-tab" dir="rtl">קלט</span><span class="c1-tab" dir="rtl">כיוון</span><span class="c1-tab" dir="rtl">בנייה</span><span class="c1-tab" dir="rtl">מלכודות</span><span class="c1-tab" dir="rtl">התחלה</span><i class="c1-tul"></i></div><div class="c1-plines"><i class="c1-pl" style="width:520px"></i><i class="c1-pl" style="width:440px"></i><i class="c1-pl" style="width:500px"></i><i class="c1-pl" style="width:300px"></i><i class="c1-pl" style="width:470px"></i><i class="c1-pl" style="width:380px"></i></div><svg class="c1-copy" viewBox="0 0 40 40" aria-hidden="true"><rect x="13" y="13" width="22" height="24" rx="4"/><path d="M27 13V7a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v18a4 4 0 0 0 4 4h4"/></svg></div>
-  <p class="c1-most" dir="rtl">ככה בנויים רוב הפרומפטים בסרטון</p>
-  <div class="c1-mini"><div class="c1-tbar"><i></i><i></i><i></i><span dir="ltr">Claude Code</span></div><div class="c1-mbody"></div></div>
-  <div class="c1-qs"><div class="c1-q c1-q0" dir="rtl"><b>?</b><i></i><i></i></div><div class="c1-q c1-q1" dir="rtl"><b>?</b><i></i><i></i></div><div class="c1-q c1-q2" dir="rtl"><b>?</b><i></i><i></i></div></div>
-  <div class="c1-cmd"><span class="c1-cmdt" dir="ltr"><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk">&lt;הקובץ&gt;</span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span></span><span class="c1-fc" dir="rtl">בשביל קלוד</span></div>
-</div>
-<div class="c1-close"><div class="c1-cbox"><svg class="c1-shield" viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3 6 10v16c0 13 8 22 18 27 10-5 18-14 18-27V10z"/><path d="M15 28l6 6 12-13"/></svg><p class="c1-ct kin" dir="rtl"><span class="w" dir="rtl" data-t="40.150">כל</span> <span class="w" dir="rtl" data-t="40.250">פרומפט</span> <span class="w" dir="rtl" data-t="40.350">נבדק</span> <span class="nbgrp"><span class="w" dir="rtl" data-t="40.450">על</span> <span class="w" dir="rtl" data-t="40.550">ידי</span></span> <span class="w" dir="rtl" data-t="40.650">עותק</span> <span class="w" dir="rtl" data-t="40.750">נפרד</span> <span class="w" dir="rtl" data-t="40.850">של</span> <span class="w" dir="rtl" data-t="40.950">קלוד</span> <span class="w" dir="rtl" data-t="41.050">שקיבל</span> <span class="w" dir="rtl" data-t="41.150">רק</span> <span class="w" dir="rtl" data-t="41.250">אותו.</span></p></div>
-<div class="c1-cpic"><div class="c1-cmini"><i></i><i></i><i></i><i></i></div>
-<svg class="c1-carrow" viewBox="0 0 150 46" aria-hidden="true"><path d="M146 23H8M24 8 8 23l16 15"/></svg>
-<div class="c1-cterm"><div class="c1-tbar"><i></i><i></i><i></i><span dir="ltr">Claude Code</span></div><span class="c1-clabel" dir="rtl">עותק נפרד</span>
-<div class="c1-cok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></div></div></div></div>
+<div id="sc-c6" class="clip scene" data-start="0.000" data-duration="4.620" data-track-index="1"><div class="chap">
+<div class="ch-k" dir="rtl">פרק</div>
+<i class="ch-ring"></i><i class="ch-ring ch-ring2"></i>
+<div class="ch-n" dir="ltr">6</div>
+<h2 class="ch-title kin" dir="rtl"><span class="ch-tin"><span class="w" dir="rtl" data-t="0.450">הקלטות</span> <span class="w" dir="rtl" data-t="0.610">מסך</span></span></h2>
+<i class="ch-line"></i>
+<p class="ch-sub kin" dir="rtl"><span class="w" dir="rtl" data-t="0.000">שם</span> <span class="w" dir="rtl" data-t="0.050">בדיוק</span> <span class="w" dir="rtl" data-t="0.100">מסתתרים</span> <span class="w" dir="rtl" data-t="0.150">הדברים</span> <span class="w" dir="rtl" data-t="0.200">שהכי</span> <span class="w" dir="rtl" data-t="0.250">מביך</span> <span class="w" dir="rtl" data-t="0.300">לפרסם</span> <span class="w" dir="rtl" data-t="0.450">בטעות,</span> <span class="w" dir="rtl" data-t="0.900">כמו</span> <span class="w" dir="rtl" data-t="0.950">מייל</span> <span class="w" dir="rtl" data-t="1.000">של</span> <span class="w" dir="rtl" data-t="1.050">לקוח</span> <span class="w" dir="rtl" data-t="1.100">או</span> <span class="w" dir="rtl" data-t="1.150">מספר</span> <span class="w" dir="rtl" data-t="1.200">טלפון.</span></p>
+
+<div class="ch-dots" dir="rtl"><i class="ch-dot"></i><i class="ch-dot"></i><i class="ch-dot"></i><i class="ch-dot"></i><i class="ch-dot"></i><i class="ch-dot on"></i><i class="ch-dot"></i><i class="ch-dot"></i></div>
 </div></div>
 </div>
 </div>
@@ -1064,196 +914,9 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   window.SIMS = window.SIMS || {};
 })();
 
-window.SIMS = window.SIMS || {};
-/* Chapter 1: how it works. The pictures follow the text phrase by phrase. */
-window.SIMS.ch1 = function (tl, ctx, cfg, S) {
-  const E = window.ENG, A = E.A, sc = ctx.scene, SP = E.SPRING;
-  const q = (s) => E.q(s, sc), qa = (s) => E.qa(s, sc);
-  const t = (x) => S + x;
-  const secs = cfg.secs;
-  E.band(tl, sc, t(0));
-  E.fadeIn(tl, q(".hdr"), t(0.05), 0.5, 0);
-
-  // section texts: kicker, kinetic text phrase by phrase (the phrase being read stays bright), exit
-  qa(".c1-sec").forEach((sec, i) => {
-    const s = secs[i];
-    tl.fromTo(E.q(".c1-kick > i", sec), { opacity: 0, scale: 0.4 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), t(s.t0 + 0.1));
-    E.kin(tl, E.q(".c1-kick", sec), S, { dy: 10 });
-    E.kin(tl, E.q(".c1-txt", sec), S, { dy: 14 });
-    const phs = E.qa(".ph", sec);
-    phs.forEach((ph, k) => {
-      const te = k + 1 < phs.length ? s.phr[k + 1] : s.end + 0.8;
-      tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0.5, duration: 0.45, ease: "power2.out" }), t(te));
-    });
-    const tOut = i + 1 < secs.length ? secs[i + 1].t0 - 0.25 : 39.8;
-    tl.fromTo(sec, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), t(tOut));
-  });
-
-  // ---- S1 Claude Code
-  const P1 = secs[0].phr, term = q(".c1-term");
-  tl.fromTo(term, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), t(0.35));
-  tl.fromTo(term, { rotationX: 18, y: 60, transformPerspective: 1400 }, A({ rotationX: 0, y: 0, duration: 0.9, ease: SP }), t(0.35));
-  E.sweep(tl, term, t(0.85), 0.9, { color: "rgba(201, 194, 255, 0.16)" });
-  const l1 = q(".c1-l1"), ty1 = q(".c1-ty1");
-  tl.fromTo(l1, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t(0.9));
-  tl.fromTo(ty1, { clipPath: "inset(0px 100% 0px 0px)" }, A({ clipPath: "inset(0px 0% 0px 0px)", duration: 0.5, ease: "steps(6)" }), t(1.0));
-  const files = qa(".c1-file");
-  files.forEach((f, i) => {
-    const r = files.length - 1 - i;     // right to left
-    tl.fromTo(f, { opacity: 0, y: 26 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(1.5 + r * 0.12));
-    // Claude works on each file
-    tl.fromTo(f, { borderColor: "rgba(201, 194, 255, 0.3)" }, A({ borderColor: "rgba(201, 194, 255, 1)", duration: 0.2 }), t(2.2 + r * 0.3));
-    tl.fromTo(f, { boxShadow: "0 0 0px rgba(201, 194, 255, 0)" }, A({ boxShadow: "0 0 22px rgba(201, 194, 255, 0.7)", duration: 0.2 }), t(2.2 + r * 0.3));
-  });
-  // a blinking cursor while the terminal waits
-  const cur = q(".c1-cur1");
-  for (let k = 0; k < 16; k++) tl.set(cur, { opacity: k % 2 ? 0 : 1 }, t(1.55 + k * 0.5));
-  tl.set(cur, { opacity: 0 }, t(9.6));
-  // ...and runs programs
-  const run = q(".c1-run");
-  tl.fromTo(run, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), t(P1[1]));
-  tl.fromTo(E.q("i", run), { x: -160 }, A({ x: 572, duration: 0.85, ease: "power1.inOut" }), t(P1[1] + 0.1));
-  tl.fromTo(E.q("i", run), { x: -160 }, A({ x: 572, duration: 0.85, ease: "power1.inOut" }), t(P1[1] + 1.0));
-  E.dim(tl, q(".c1-files"), t(4.6), 0, 1, 0.3);
-  // the model and how to pick it
-  const badge = q(".c1-badge");
-  tl.fromTo(badge, { opacity: 0, scale: 0.8, y: 16 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.55, ease: SP }), t(5.0));
-  E.sweep(tl, badge, t(5.35), 0.7, { color: "rgba(255, 255, 255, 0.35)" });
-  E.fadeIn(tl, q(".c1-note"), t(5.4), 0.55, 24);
-  const l2 = q(".c1-l2");
-  tl.fromTo(l2, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t(6.4));
-  tl.fromTo(q(".c1-ty2"), { clipPath: "inset(0px 100% 0px 0px)" }, A({ clipPath: "inset(0px 0% 0px 0px)", duration: 0.45, ease: "steps(6)" }), t(6.5));
-  const menu = q(".c1-menu");
-  tl.fromTo(menu, { opacity: 0, x: -14 }, A({ opacity: 1, x: 0, duration: 0.4, ease: SP }), t(7.3));
-  E.draw(tl, q(".c1-menu .c1-ck path"), t(7.5), 0.3);
-  E.dim(tl, q(".c1-note"), t(10.0), 0, 1, 0.3);
-  E.dim(tl, badge, t(10.0), 0, 1, 0.3);
-  E.dim(tl, l1, t(10.1), 0, 1, 0.25);
-  E.dim(tl, l2, t(10.1), 0, 1, 0.25);
-  E.dim(tl, run, t(10.1), 0, 1, 0.25);
-
-  // ---- S2 the HyperFrames skills
-  const P2 = secs[1].phr;
-  tl.fromTo(term, { scale: 1, y: 0 }, A({ scale: 0.76, y: 120, duration: 0.8, ease: SP }), t(10.3));
-  const glow = q(".c1-glow");
-  qa(".c1-skill").forEach((k, i) => {
-    const a = 10.9 + i * 0.25;
-    tl.fromTo(k, { opacity: 0, y: 24 }, A({ opacity: 1, y: 0, duration: 0.45, ease: SP }), t(a));
-    // into the terminal (its centre is at 400, 400 of the picture)
-    const fy = 400 - (6 + i * 76 + 30), fx = 400 - (606 + 95);
-    tl.fromTo(k, { x: 0, y: 0, scale: 1 }, A({ x: fx, y: fy, scale: 0.3, duration: 0.5, ease: "power2.in" }), t(a + 0.75));
-    tl.fromTo(k, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(a + 1.1));
-  });
-  tl.fromTo(glow, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t(11.95));
-  tl.fromTo(glow, { opacity: 1 }, A({ opacity: 0, duration: 0.5 }), t(12.15));
-  // ...they teach it to build a video
-  qa(".c1-tl i").forEach((b, i) => {
-    tl.fromTo(b, { opacity: 0, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.45, ease: SP }), t(P2[1] + 0.15 + i * 0.2));
-  });
-  // ...and export it as a video file
-  const mp4 = q(".c1-mp4");
-  tl.fromTo(mp4, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), t(P2[2] + 0.1));
-  tl.fromTo(mp4, { x: 290, y: -270, scale: 0.5 }, A({ x: 0, y: 0, scale: 1, duration: 0.7, ease: SP }), t(P2[2] + 0.1));
-  tl.fromTo(q(".c1-prog b"), { scaleX: 0 }, A({ scaleX: 1, duration: 0.8, ease: "power1.inOut" }), t(P2[2] + 0.55));
-  E.burst(tl, mp4, 100, 40, t(P2[2] + 1.35), { n: 10, seed: 31, r0: 40, r1: 110, color: "#ff8a80" });
-  const free = q(".c1-free .pill");
-  E.pill(tl, free, t(secs[1].end + 0.15), t(20.5));
-  E.dim(tl, q(".c1-tl"), t(20.6), 0, 1, 0.3);
-
-  // ---- S3 one folder per video
-  const P3 = secs[2].phr, fw = q(".c1-foldwrap"), lid = q(".c1-lidw");
-  tl.fromTo(fw, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.55, ease: SP }), t(20.9));
-  tl.fromTo(lid, { rotationX: 0 }, A({ rotationX: 64, duration: 0.45, ease: "power2.out" }), t(21.2));
-  qa(".c1-clip").forEach((c, i) => {
-    tl.fromTo(c, { opacity: 0, y: -170 }, A({ opacity: 1, y: 0, duration: 0.55, ease: SP }), t(21.45 + i * 0.22));
-  });
-  tl.fromTo(q(".c1-logo"), { opacity: 0, y: -190, rotation: -40 }, A({ opacity: 1, y: 0, rotation: 0, duration: 0.6, ease: SP }), t(22.1));
-  tl.fromTo(lid, { rotationX: 64 }, A({ rotationX: 0, duration: 0.35, ease: "power2.in" }), t(22.55));
-  // open Claude Code in it: folder -> Claude Code
-  const arc1 = q(".c1-arc1"), arc2 = q(".c1-arc2"), d1 = q(".c1-dot1"), d2 = q(".c1-dot2");
-  E.draw(tl, arc1, t(P3[1] + 0.1), 0.6);
-  const travel = (dot, a, x0, x1, ymid, y0, y1) => {
-    tl.fromTo(dot, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), t(a));
-    tl.fromTo(dot, { x: x0 }, A({ x: x1, duration: 0.9, ease: "none" }), t(a));
-    tl.fromTo(dot, { y: y0 }, A({ y: ymid, duration: 0.45, ease: "sine.out" }), t(a));
-    tl.fromTo(dot, { y: ymid }, A({ y: y1, duration: 0.45, ease: "sine.in" }), t(a + 0.45));
-    tl.fromTo(dot, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(a + 0.85));
-  };
-  travel(d1, P3[1] + 0.6, 600, 462, 120, 95, 232);
-  travel(d1, P3[1] + 1.55, 600, 462, 120, 95, 232);
-  tl.fromTo(glow, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t(P3[1] + 1.45));
-  tl.fromTo(glow, { opacity: 1 }, A({ opacity: 0, duration: 0.5 }), t(P3[1] + 1.65));
-  // talk to it in Hebrew; the whole picture: folder -> Claude Code -> MP4
-  const say = q(".c1-say");
-  tl.fromTo(say, { opacity: 0, scale: 0.8, y: 16 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.5, ease: SP }), t(P3[2] + 0.15));
-  E.draw(tl, arc2, t(P3[2] + 0.6), 0.6);
-  travel(d2, P3[2] + 1.1, 146, 112, 520, 470, 594);
-  travel(d2, P3[2] + 2.05, 146, 112, 520, 470, 594);
-  E.sweep(tl, term, t(P3[2] + 2.6), 0.9, { color: "rgba(201, 194, 255, 0.14)" });
-  tl.fromTo(mp4, { boxShadow: "0 0 22px rgba(255, 69, 58, 0.4)" }, A({ boxShadow: "0 0 44px rgba(255, 69, 58, 0.9)", duration: 0.25 }), t(P3[2] + 2.0));
-  [term, mp4, fw, say, q(".c1-arcs")].forEach((el) => E.dim(tl, el, t(30.1), 0, 1, 0.3));
-
-  // ---- S4 how to use the prompts
-  const P4 = secs[3].phr, card = q(".c1-pcard");
-  tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), t(30.5));
-  tl.fromTo(card, { rotationX: 16, y: 70, scale: 0.94, transformPerspective: 1500 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SP }), t(30.5));
-  E.sweep(tl, card, t(30.9), 0.9, { color: "rgba(201, 194, 255, 0.16)" });
-  const tabs = qa(".c1-tab"), tul = q(".c1-tul");
-  const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
-  tul.style.left = pos(0).left + "px";
-  tul.style.width = pos(0).width + "px";
-  tabs.forEach((tb, k) => {
-    const a = 30.95 + k * 0.36;
-    tl.fromTo(tb, { color: "#6f6b86" }, A({ color: "#ffffff", duration: 0.2 }), t(a));
-    if (k === 0) tl.fromTo(tul, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), t(a));
-    else tl.fromTo(tul, { left: pos(k - 1).left, width: pos(k - 1).width }, A({ left: pos(k).left, width: pos(k).width, duration: 0.3, ease: "power3.inOut" }), t(a - 0.1));
-  });
-  E.fadeIn(tl, q(".c1-most"), t(31.4), 0.5, 10);
-  // copy it into Claude Code
-  E.dim(tl, q(".c1-most"), t(P4[1]), 0, 1, 0.25);
-  tl.fromTo(q(".c1-copy"), { scale: 1 }, A({ scale: 1.35, duration: 0.15, ease: "power2.out" }), t(P4[1] + 0.05));
-  tl.fromTo(q(".c1-copy"), { scale: 1.35 }, A({ scale: 1, duration: 0.25, ease: "power2.in" }), t(P4[1] + 0.2));
-  const mini = q(".c1-mini");
-  tl.fromTo(mini, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(P4[1] + 0.2));
-  tl.fromTo(card, { scale: 1, y: 0 }, A({ scale: 0.22, y: 435, duration: 0.6, ease: "power2.in" }), t(P4[1] + 0.5));
-  tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(P4[1] + 1.0));
-  E.burst(tl, mini, 180, 110, t(P4[1] + 1.05), { n: 10, seed: 17, r0: 30, r1: 90, color: "#c9c2ff" });
-  // it asks a few questions before touching anything
-  qa(".c1-q").forEach((b, i) => {
-    tl.fromTo(b, { opacity: 0, y: 40, scale: 0.85 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.5, ease: SP }), t(P4[2] + 0.2 + i * 0.4));
-    E.dim(tl, b, t(P4[3] - 0.15), 0, 1, 0.25);
-  });
-  // the commands inside are for Claude
-  const cmd = q(".c1-cmd");
-  tl.fromTo(cmd, { opacity: 0, y: 24 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(P4[3] + 0.15));
-  const fc = q(".c1-fc");
-  tl.fromTo(fc, { scale: 0.7 }, A({ scale: 1, duration: 0.45, ease: "back.out(2)" }), t(P4[3] + 0.75));
-  E.dim(tl, q(".c1-vis"), t(39.8), 0, 1, 0.3);
-  // every prompt was checked by a separate copy of Claude
-  const box = q(".c1-cbox");
-  tl.fromTo(box, { opacity: 0, scale: 0.94, y: 30 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.6, ease: SP }), t(40.0));
-  qa(".c1-shield path").forEach((p, i) => E.draw(tl, p, t(40.15 + i * 0.35), 0.5));
-  E.kin(tl, q(".c1-ct"), S, { dy: 14 });
-  // the picture: the prompt goes to a separate copy of Claude, and a check comes back
-  const cm = q(".c1-cmini"), ct = q(".c1-cterm"), ok = q(".c1-cok");
-  tl.fromTo(cm, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(40.35));
-  tl.fromTo(ct, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(40.5));
-  E.draw(tl, q(".c1-carrow path"), t(41.0), 0.5);
-  tl.fromTo(cm, { x: 0, scale: 1 }, A({ x: -475, scale: 0.4, duration: 0.55, ease: "power2.in" }), t(41.55));
-  tl.fromTo(cm, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(41.95));
-  tl.fromTo(ok, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }), t(42.2));
-  E.draw(tl, q(".c1-cok path"), t(42.35), 0.35);
-  E.burst(tl, ct, 170, 180, t(42.3), { n: 14, seed: 23, r0: 60, r1: 160, color: "#c9c2ff" });
-  E.sweep(tl, box, t(42.6), 0.9, { color: "rgba(201, 194, 255, 0.14)" });
-  E.fadeOut(tl, box, t(cfg.D - 0.4), 0.3, -16);
-  E.fadeOut(tl, q(".c1-cpic"), t(cfg.D - 0.4), 0.3, -16);
-  E.fadeOut(tl, q(".hdr"), t(cfg.D - 0.4), 0.3, 0);
-  E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "custom" };
-};
-
 
 (function () {
-  const CFGS = [{"secs": [{"t0": 0.0, "phr": [0.45, 2.9], "end": 4.5}, {"t0": 10.3, "phr": [10.75, 12.95, 15.15], "end": 16.75}, {"t0": 20.8, "phr": [21.25, 22.95, 24.65], "end": 27.1}, {"t0": 30.3, "phr": [30.75, 32.45, 34.15, 37.1], "end": 39.8}], "id": "ch1", "type": "custom", "sim": "ch1", "D": 44.6, "S": 0.0}];
+  const CFGS = [{"id": "c6", "type": "chapter", "D": 4.62, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1267,7 +930,7 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 44.600;
+    const TOT = 4.620;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);
