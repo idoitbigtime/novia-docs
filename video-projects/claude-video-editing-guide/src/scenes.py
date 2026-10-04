@@ -53,7 +53,7 @@ def auto_times(cfg):
     c.setdefault("tExp", round(c["tStage"] + 0.6, 2))
     _, _, _, starts, pend = phrase_times(c["exp"], c["tExp"])
     c["phr"], c["phrEnd"] = starts, pend
-    c.setdefault("tSimEnd", round(pend + c.get("payoff", 5.0), 2))
+    c.setdefault("tSimEnd", round(pend + c.get("payoff", 4.5), 2))
     c["simDur"] = round(c["tSimEnd"] - c["tStage"], 2)
     t = c["tSimEnd"]
     f = c.get("fact")

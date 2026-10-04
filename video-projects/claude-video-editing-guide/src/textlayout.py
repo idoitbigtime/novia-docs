@@ -66,6 +66,7 @@ def _word_span(tok, t, style, ltr=False):
 
 
 PHRASE_END = re.compile(r"[.,:;!?]$")
+PUNCT_ONLY = re.compile(r"^[.,:;!?]+$")
 
 
 def group_times(tokens, gstep=0.8, wstep=0.05, max_words=7):
@@ -88,23 +89,26 @@ def phrase_index(text):
     or after 9 words, never inside an accent/strong group.
     Returns (clean_text, per-token phrase index)."""
     if "|" in text:
+        parts = [p.strip() for p in text.split("|") if p.strip()]
+        clean = " ".join(parts)
         idx = []
-        for i, part in enumerate(p for p in text.split("|") if p.strip()):
+        for i, part in enumerate(parts):
             idx += [i] * len(parse_marked(part))
-        return " ".join(p.strip() for p in text.split("|") if p.strip()), idx
+        assert len(idx) == len(parse_marked(clean)), "phrase markers split a token"
+        return clean, idx
     toks = parse_marked(text)
     idx, p, n = [], 0, 0
     for k, (tok, style, gid) in enumerate(toks):
         idx.append(p)
         n += 1
-        inside = gid and k + 1 < len(toks) and toks[k + 1][2] == gid
+        inside = (gid and k + 1 < len(toks) and toks[k + 1][2] == gid) or (k + 1 < len(toks) and PUNCT_ONLY.match(toks[k + 1][0]))
         if not inside and k < len(toks) - 1 and ((PHRASE_END.search(tok) and n >= 3) or n >= 9):
             p += 1
             n = 0
     return text, idx
 
 
-def phrase_times(text, t0, per_word=0.27, base=0.45, lo=1.6, hi=3.2, wstep=0.06):
+def phrase_times(text, t0, per_word=0.25, base=0.45, lo=1.6, hi=3.1, wstep=0.06):
     """Reading-pace phrase timing: each phrase gets clamp(base + per_word * words) seconds,
     its words spring in wstep apart. Returns (clean_text, times, phrase_idx, starts, end)."""
     clean, idx = phrase_index(text)
@@ -127,13 +131,18 @@ def kinetic_html(text, t0=0.0, step=0.2, pause=0.32, groups=False, times=None, e
     times/end: explicit absolute per-token times (then t0/step/groups are ignored).
     phrases: per-token phrase index; each phrase is wrapped in <span class="ph" data-p>."""
     tokens = parse_marked(text)
+    glue = [bool(PUNCT_ONLY.match(t)) and i > 0 for i, (t, _, _) in enumerate(tokens)]
     if times is None:
         if groups:
             times, end = group_times(tokens, **(groups if isinstance(groups, dict) else {}))
         else:
             times, end = word_times(tokens, step, pause)
-        times = [t0 + t for t in times]
+            times = [t0 + t for t in times]
         end = t0 + end
+    times = list(times)
+    for i, g in enumerate(glue):
+        if g:
+            times[i] = times[i - 1]
 
     # 1) split into runs: islands of consecutive non-Hebrew tokens
     items = []  # each: ('w', idx) or ('isl', [idx...])
@@ -187,7 +196,7 @@ def kinetic_html(text, t0=0.0, step=0.2, pause=0.32, groups=False, times=None, e
         parts.append((first_idx, _emit(items[k], tokens, times)))
         k += 1
     if phrases is None:
-        return " ".join(h for _, h in parts), end, accent_times
+        return "".join(("" if (k == 0 or glue[i0]) else " ") + h for k, (i0, h) in enumerate(parts)), end, accent_times
     out, cur = [], None
     for i0, h in parts:
         ph = phrases[i0]
@@ -196,7 +205,7 @@ def kinetic_html(text, t0=0.0, step=0.2, pause=0.32, groups=False, times=None, e
                 out.append("</span> ")
             out.append(f'<span class="ph" data-p="{ph}">')
             cur = ph
-        else:
+        elif not glue[i0]:
             out.append(" ")
         out.append(h)
     if cur is not None:

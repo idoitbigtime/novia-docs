@@ -71,9 +71,19 @@ def read(p):
     return (SRC / p).read_text(encoding="utf-8")
 
 
+def sim_files(ext, only=None):
+    """Sim stylesheets/scripts to inline. A variant of a few scenes takes only their own sims, so
+    a half-written sim elsewhere in the project never breaks it."""
+    files = sorted((SRC / "sims").glob("*." + ext))
+    if only:
+        used = {(load_cfg(sid) or {}).get("sim") for sid in only}
+        files = [f for f in files if f.stem in used]
+    return [f.read_text(encoding="utf-8") for f in files]
+
+
 def build(window=None, name="index", only=None, scale_override=None):
-    css = [read("fonts.css"), read("style.css")] + [p.read_text(encoding="utf-8") for p in sorted((SRC / "sims").glob("*.css"))]
-    js = [read("engine.js")] + [p.read_text(encoding="utf-8") for p in sorted((SRC / "sims").glob("*.js"))]
+    css = [read("fonts.css"), read("style.css")] + sim_files("css", only)
+    js = [read("engine.js")] + sim_files("js", only)
 
     clips, cfgs, cues = [], [], []
     total = 0.0
