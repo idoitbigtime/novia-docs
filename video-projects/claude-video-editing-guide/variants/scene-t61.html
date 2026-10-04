@@ -485,6 +485,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim61 .s61-tk { position: absolute; top: 43px; width: 2px; height: 16px; margin-left: -1px; border-radius: 1px; background: rgba(201, 194, 255, 0.4); display: block; opacity: 0; }
 .sim61 .s61-tk5 { top: 37px; height: 28px; background: rgba(201, 194, 255, 0.65); }
 .sim61 .s61-tl { position: absolute; top: 74px; width: 80px; margin-left: -40px; text-align: center; font: 500 24px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #b8b4cc; opacity: 0; }
+.sim61 .s61-tl0 { margin-left: -12px; text-align: left; }
 .sim61 .s61-lane { position: absolute; left: 0; width: 760px; }
 .sim61 .s61-lmk { top: 108px; height: 38px; }
 .sim61 .s61-lsg { top: 156px; height: 70px; }
@@ -524,7 +525,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="s61-res" dir="rtl"><span class="s61-rt" dir="rtl">0 ממצאים</span><span class="s61-rok"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34"/><path d="M24 41l11 11 21-23"/></svg></span></div>
 </div>
 <svg class="s61-link" viewBox="0 0 4 392" preserveAspectRatio="none" aria-hidden="true"><line x1="2" y1="0" x2="2" y2="392"/></svg>
-<div class="s61-tlp"><div class="s61-ruler"><i class="s61-rl"></i><i class="s61-tk s61-tk5" style="left:30px"></i><i class="s61-tk" style="left:59px"></i><i class="s61-tk" style="left:88px"></i><i class="s61-tk" style="left:117px"></i><i class="s61-tk" style="left:146px"></i><i class="s61-tk s61-tk5" style="left:175px"></i><i class="s61-tk" style="left:204px"></i><i class="s61-tk" style="left:233px"></i><i class="s61-tk" style="left:262px"></i><i class="s61-tk" style="left:291px"></i><i class="s61-tk s61-tk5" style="left:320px"></i><i class="s61-tk" style="left:349px"></i><i class="s61-tk" style="left:378px"></i><i class="s61-tk" style="left:407px"></i><i class="s61-tk" style="left:436px"></i><i class="s61-tk s61-tk5" style="left:465px"></i><i class="s61-tk" style="left:494px"></i><i class="s61-tk" style="left:523px"></i><i class="s61-tk" style="left:552px"></i><i class="s61-tk" style="left:581px"></i><i class="s61-tk s61-tk5" style="left:610px"></i><span class="s61-tl" dir="ltr" style="left:30px">0:00</span><span class="s61-tl" dir="ltr" style="left:320px">0:10</span><span class="s61-tl" dir="ltr" style="left:610px">0:20</span></div>
+<div class="s61-tlp"><div class="s61-ruler"><i class="s61-rl"></i><i class="s61-tk s61-tk5" style="left:30px"></i><i class="s61-tk" style="left:59px"></i><i class="s61-tk" style="left:88px"></i><i class="s61-tk" style="left:117px"></i><i class="s61-tk" style="left:146px"></i><i class="s61-tk s61-tk5" style="left:175px"></i><i class="s61-tk" style="left:204px"></i><i class="s61-tk" style="left:233px"></i><i class="s61-tk" style="left:262px"></i><i class="s61-tk" style="left:291px"></i><i class="s61-tk s61-tk5" style="left:320px"></i><i class="s61-tk" style="left:349px"></i><i class="s61-tk" style="left:378px"></i><i class="s61-tk" style="left:407px"></i><i class="s61-tk" style="left:436px"></i><i class="s61-tk s61-tk5" style="left:465px"></i><i class="s61-tk" style="left:494px"></i><i class="s61-tk" style="left:523px"></i><i class="s61-tk" style="left:552px"></i><i class="s61-tk" style="left:581px"></i><i class="s61-tk s61-tk5" style="left:610px"></i><span class="s61-tl s61-tl0" dir="ltr" style="left:30px">0:00</span><span class="s61-tl" dir="ltr" style="left:320px">0:10</span><span class="s61-tl" dir="ltr" style="left:610px">0:20</span></div>
 <div class="s61-lane s61-lmk"><span class="s61-ll" dir="rtl">ממצאים</span><i class="s61-lt"></i><i class="s61-mk" style="left:30px"></i><i class="s61-mk" style="left:320px"></i><i class="s61-mk" style="left:378px"></i><svg class="s61-lok" viewBox="0 0 30 30" aria-hidden="true"><path d="M8 15.5l5 5 9-10"/></svg></div>
 <div class="s61-lane s61-lsg"><span class="s61-ll" dir="rtl">טשטוש</span><i class="s61-seg s61-seg0" style="left:30.0px;width:580.0px;top:8px"></i><i class="s61-seg s61-seg1" style="left:320.0px;width:290.0px;top:28px"></i><i class="s61-seg s61-seg2" style="left:378.0px;width:17.4px;top:48px"></i></div>
 <i class="s61-head"><u></u></i></div>
@@ -1178,7 +1179,7 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
   const PX = 29;                             // timeline: pixels per second of the recording
   const rows = qa(".s61-row"), olds = rows.filter((r) => !r.classList.contains("s61-new")), nw = q(".s61-new");
   const pop = q(".s61-pop"), ticks = qa(".s61-tk"), head = q(".s61-head");
-  const RED = "#ff453a", LIL = "#c9c2ff";
+  const LIL = "#c9c2ff";
 
   // the playhead: chained moves, in seconds of the recording
   let hs = 0;
@@ -1357,6 +1358,8 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
   const lok = q(".s61-lok");
   tl.fromTo(lok, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(pe + 0.55));
   E.draw(tl, E.q("path", lok), T(pe + 0.6), 0.28);
+  // as the stage dims for the fact, the panels leave entirely (no faint lane labels around the fact's backing)
+  [win, tlp].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), T(cfg.tSimEnd - 0.45)));
 };
 
 

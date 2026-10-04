@@ -186,4 +186,6 @@ window.SIMS.sim61 = function (tl, ctx, cfg, S) {
   const lok = q(".s61-lok");
   tl.fromTo(lok, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(pe + 0.55));
   E.draw(tl, E.q("path", lok), T(pe + 0.6), 0.28);
+  // as the stage dims for the fact, the panels leave entirely (no faint lane labels around the fact's backing)
+  [win, tlp].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), T(cfg.tSimEnd - 0.45)));
 };

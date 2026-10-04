@@ -64,6 +64,7 @@
 .sim61 .s61-tk { position: absolute; top: 43px; width: 2px; height: 16px; margin-left: -1px; border-radius: 1px; background: rgba(201, 194, 255, 0.4); display: block; opacity: 0; }
 .sim61 .s61-tk5 { top: 37px; height: 28px; background: rgba(201, 194, 255, 0.65); }
 .sim61 .s61-tl { position: absolute; top: 74px; width: 80px; margin-left: -40px; text-align: center; font: 500 24px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #b8b4cc; opacity: 0; }
+.sim61 .s61-tl0 { margin-left: -12px; text-align: left; }
 .sim61 .s61-lane { position: absolute; left: 0; width: 760px; }
 .sim61 .s61-lmk { top: 108px; height: 38px; }
 .sim61 .s61-lsg { top: 156px; height: 70px; }

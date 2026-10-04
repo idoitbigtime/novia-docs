@@ -37,7 +37,8 @@ def html(cfg):
                     f'<span class="s61-subj" style="width:{sw}px"><i class="s61-ocr"></i></span><i class="s61-tm"></i></div>')
     side = "".join('<div class="s61-fold"><i></i><u style="width:{}px"></u></div>'.format(w) for w in (74, 58, 66, 50, 62))
     ticks = "".join(f'<i class="s61-tk{" s61-tk5" if s % 5 == 0 else ""}" style="left:{X0 + s * PX_PER_S}px"></i>' for s in range(21))
-    labels = "".join(f'<span class="s61-tl" dir="ltr" style="left:{X0 + s * PX_PER_S}px">0:{s:02d}</span>' for s in (0, 10, 20))
+    # "0:00" starts just left of its tick instead of centring on it, so it stays clear of the canvas edge (and of the punch-in's clip)
+    labels = "".join(f'<span class="s61-tl{" s61-tl0" if s == 0 else ""}" dir="ltr" style="left:{X0 + s * PX_PER_S}px">0:{s:02d}</span>' for s in (0, 10, 20))
     marks = "".join(f'<i class="s61-mk" style="left:{X0 + s * PX_PER_S}px"></i>' for s in c["marks"])
     segs = "".join(f'<i class="s61-seg s61-seg{k}" style="left:{X0 + a * PX_PER_S:.1f}px;width:{(b - a) * PX_PER_S:.1f}px;top:{8 + k * 20}px"></i>'
                    for k, (a, b) in enumerate(c["segs"]))
