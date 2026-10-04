@@ -100,10 +100,16 @@
     fx.className = "fx-sweep";
     if (o.color) fx.style.setProperty("--sweep", o.color);
     fx.appendChild(b);
+    // the sweep clips to the element's own box, so a static element becomes the containing block
+    // (only when none of its absolutely placed children depends on an outer one)
+    if (getComputedStyle(el).position === "static") {
+      const outer = Array.from(el.querySelectorAll("*")).some((c) => /absolute|fixed/.test(getComputedStyle(c).position) && c.offsetParent !== el && el.contains(c.offsetParent) === false);
+      if (!outer) el.style.position = "relative";
+    }
     el.appendChild(fx);
-    // the band is 180% of the element's height and skewed 16 degrees, so its ends lean by ~0.26 of the
-    // element's height: it starts and ends that far outside, never as a wedge inside a tall element
-    const w = el.offsetWidth, h = el.offsetHeight;
+    // the band is 180% of the swept box's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // height: it starts and ends that far outside, never as a wedge inside a tall box
+    const w = fx.offsetWidth || el.offsetWidth, h = fx.offsetHeight || el.offsetHeight;
     const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
     b.style.width = bw + "px";
     b.style.left = w + slant + "px";
