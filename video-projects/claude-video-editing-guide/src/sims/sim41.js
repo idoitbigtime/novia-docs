@@ -154,4 +154,6 @@ window.SIMS.sim41 = function (tl, ctx, cfg, S) {
   E.burst(tl, q(".s41-p4"), gb.offsetLeft + gb.offsetWidth / 2, gb.offsetTop + gb.offsetHeight / 2, T(tlab + 0.12),
     { n: 12, seed: 14, r0: 50, r1: 120, color: "#9df0c0" });
   sweep(q(".s41-base"), T(tlab + 0.7), 0.9, "rgba(255, 255, 255, 0.18)");
+  // as the stage dims for the fact, the reel, its tag and the green label leave entirely (nothing faint around the fact)
+  [persp, q(".s41-tmov"), q(".s41-p4")].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), T(cfg.tSimEnd - 0.45)));
 };

@@ -190,4 +190,6 @@ window.SIMS.sim51 = function (tl, ctx, cfg, S) {
   tl.fromTo(dot, { scale: 1.7 }, A({ scale: 1, duration: 0.35, ease: "power2.inOut" }), T(s5 + 0.9));
   // all five done: one calm light pass over the steps
   rows.forEach((row, k) => E.sweep(tl, row, T(s5 + 1.0 + k * 0.08), 0.7, { color: "rgba(201, 194, 255, 0.16)" }));
+  // as the stage dims for the fact, the steps leave entirely (no faint rows around the fact's backing)
+  tl.fromTo(q(".s51-steps"), { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), T(cfg.tSimEnd - 0.45));
 };

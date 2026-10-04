@@ -131,4 +131,6 @@ window.SIMS.sim43 = function (tl, ctx, cfg, S) {
   tl.fromTo(pin, { scaleY: 0.05 }, A({ scaleY: 1, duration: 0.45, ease: E.SPRING }), T(pe + 2.15));
   E.draw(tl, q(".s43-entry path"), T(pe + 2.3), 0.4);
   tl.fromTo(blocks[1], { boxShadow: "0 0 0px rgba(201, 194, 255, 0)" }, A({ boxShadow: "0 0 22px rgba(201, 194, 255, 0.8)", duration: 0.35 }), T(pe + 2.3));
+  // as the stage dims for the fact, the track and the rule tags leave entirely (no faint labels around the fact's backing)
+  [q(".s43-tl"), ...qa(".s43-rule")].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), T(cfg.tSimEnd - 0.45)));
 };

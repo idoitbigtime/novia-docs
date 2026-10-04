@@ -1043,7 +1043,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     // scene change: a light band crosses the frame while the camera settles
     E.band(tl, sc, S);
     tl.fromTo(ctx.cam, { scale: 1.035 }, A({ scale: 1, duration: 1.0, ease: SPRING }), S);
-    E.fadeIn(tl, hdr, S + 0.05, 0.5, 0);
+    E.fadeIn(tl, hdr, S, 0.3, 0);
     E.kin(tl, ttl, S);
     // the illustration enters with the explanation
     E.fadeIn(tl, simtag, S + cfg.tStage, 0.4, 0);
@@ -1405,6 +1405,8 @@ window.SIMS.sim51 = function (tl, ctx, cfg, S) {
   tl.fromTo(dot, { scale: 1.7 }, A({ scale: 1, duration: 0.35, ease: "power2.inOut" }), T(s5 + 0.9));
   // all five done: one calm light pass over the steps
   rows.forEach((row, k) => E.sweep(tl, row, T(s5 + 1.0 + k * 0.08), 0.7, { color: "rgba(201, 194, 255, 0.16)" }));
+  // as the stage dims for the fact, the steps leave entirely (no faint rows around the fact's backing)
+  tl.fromTo(q(".s51-steps"), { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), T(cfg.tSimEnd - 0.45));
 };
 
 
