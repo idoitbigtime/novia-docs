@@ -588,7 +588,8 @@
       tl.fromTo(n, { textShadow: up ? G0 : G1 }, A({ textShadow: up ? G1 : G0, duration: 1.0, ease: "sine.inOut" }), S + a);
     }
     // exit: a short push-through into the next scene
-    tl.fromTo(chap, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.025, duration: 0.22, ease: "power2.in" }), S + D - 0.22);
+    // the push-through ends at 25% so the card's last frame is never empty
+    tl.fromTo(chap, { opacity: 1, scale: 1 }, A({ opacity: 0.25, scale: 1.025, duration: 0.22, ease: "power2.in" }), S + D - 0.22);
     E.debug.scenes[cfg.id] = { S, D, type: "chapter" };
   };
 

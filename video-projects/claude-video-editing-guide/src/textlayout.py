@@ -173,7 +173,9 @@ def kinetic_html(text, t0=0.0, step=0.2, pause=0.32, groups=False, times=None, e
             while j < n and is_latinish(tokens[j][0]) and tokens[j][2] == tokens[i][2]:
                 j += 1
             run = list(range(i, j))
-            if len(run) >= 2 or NEG_NUM_TOKEN.match(tokens[i][0]):
+            # a lone token that starts with "/" or "-" ("/mcp.") also needs its own LTR island,
+            # or the slash lands on the wrong side of the word
+            if len(run) >= 2 or NEG_NUM_TOKEN.match(tokens[i][0]) or tokens[i][0][:1] in "/-":
                 items.append(("isl", run))
             else:
                 items.append(("w", i))

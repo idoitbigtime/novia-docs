@@ -26,7 +26,7 @@
 .sim51 .s51-count { position: absolute; left: 0; top: 482px; width: 800px; display: flex; justify-content: center; align-items: flex-end; gap: 14px; direction: rtl; opacity: 0; }
 .sim51 .s51-cw { font: 600 42px/1 "Rubik"; color: var(--ink); white-space: nowrap; margin-bottom: 14px; }
 /* "מ-" hugs the number (reads "מ-30", not "מ- 30") */
-.sim51 .s51-count .s51-cw:first-child { margin-left: -11px; }
+.sim51 .s51-count .s51-cw:first-child { margin-left: -23px; }
 .sim51 .s51-num { display: flex; direction: ltr; }
 .sim51 .s51-dw { position: relative; display: block; height: 110px; overflow: hidden;
   -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 12%, #000 88%, rgba(0, 0, 0, 0) 100%); mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 12%, #000 88%, rgba(0, 0, 0, 0) 100%); }
