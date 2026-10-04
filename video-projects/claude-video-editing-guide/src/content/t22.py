@@ -11,8 +11,9 @@ CFG = dict(
         bigLabel="המודל הגדול", defLabel="ברירת המחדל", defTag="רק אנגלית", token="א",
         # B3: the guide's example ("מחובר עליו" instead of "מחובר אליו", caught only by reading the whole sentence)
         capWords=("מחובר", "עליו", "אליו"),
-        # B4: the guide's examples with their letter pairs (א/ע, ק/כ, ס/ז from the guide's list)
-        fixStep=0.5,
+        # B4: the guide's examples with their letter pairs (א/ע, ק/כ, ס/ז from the guide's list); one row is fixed
+        # every fixStep s, starting fix0 s into the beat (after the key phrase has stepped back: one red at a time)
+        fix0=0.28, fixStep=0.55,
         fixes=[("הקאבל", "הכבל", "ק/כ"), ("בסכוכית", "בזכוכית", "ס/ז"), ("עליו", "אליו", "א/ע")],
         # payoff, relative to the end of the explanation
         label1="סגנון 1 · גלולה לבנה", label2="סגנון 2 · קינטי",

@@ -138,7 +138,8 @@ window.SIMS.sim71 = function (tl, ctx, cfg, S) {
   sweep(ghost, b3 + 2.3, 0.8, "rgba(255, 255, 255, 0.22)");
 
   // payoff: the race. The draft bar finishes; the full-render bar has crawled a tenth of the way
-  // (a quarter hour vs a minute and a half). Then the single-frame tag.
+  // (a quarter hour vs a minute and a half). Then the single-frame tag. The bars start once the red accent
+  // phrase has faded (the coral bar is then the only red mark); both labels share the lavender dot.
   E.fadeOut(tl, loop, T(pe), 0.3, -10);
   tw(q(".s71-exit"), { opacity: 1 }, { opacity: 0, duration: 0.3 }, pe);
   E.fadeOut(tl, q(".s71-one"), T(pe), 0.3, -10);
@@ -148,7 +149,7 @@ window.SIMS.sim71 = function (tl, ctx, cfg, S) {
   E.fadeIn(tl, rb1, T(pe + 0.42), 0.45, 12);
   E.fadeIn(tl, q(".s71-rl2"), T(pe + 0.5), 0.45, 12);
   E.fadeIn(tl, rb2, T(pe + 0.57), 0.45, 12);
-  const r0 = pe + 0.85, dDraft = 0.9, R = c.raceRatio || 10;
+  const r0 = pe + 1.0, dDraft = 0.9, R = c.raceRatio || 10;
   tw(E.q(".s71-rf", rb1), { scaleX: 0 }, { scaleX: 1, duration: dDraft, ease: "none" }, r0);
   tw(E.q(".s71-rf", rb2), { scaleX: 0 }, { scaleX: +((tEnd - r0) / dDraft / R).toFixed(4), duration: tEnd - r0, ease: "none" }, r0);
   const rok = q(".s71-rok");
@@ -156,6 +157,8 @@ window.SIMS.sim71 = function (tl, ctx, cfg, S) {
   E.draw(tl, q(".s71-rok path"), T(r0 + dDraft + 0.05), 0.3);
   E.burst(tl, q(".s71-race"), rok.offsetLeft + 22, rok.offsetTop + 22, T(r0 + dDraft + 0.03), { n: 10, seed: 17, r0: 24, r1: 46, color: "#c9c2ff" });
   const snap = q(".s71-snap");
-  tw(snap, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }, pe + 2.25);
-  E.sweep(tl, snap, T(pe + 2.8), 0.9, { color: "rgba(201, 194, 255, 0.2)" });
+  // the tag lands in 0.5 s (settled within 0.4 s) and then stays still
+  tw(snap, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, pe + 2.0);
+  tw(snap, { y: 24 }, { y: 0, duration: 0.5, ease: E.SPRING }, pe + 2.0);
+  E.sweep(tl, snap, T(pe + 2.6), 0.9, { color: "rgba(201, 194, 255, 0.2)" });
 };

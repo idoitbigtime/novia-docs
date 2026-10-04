@@ -85,7 +85,7 @@ window.SIMS.sim62 = function (tl, ctx, cfg, S) {
   tw(hud, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b2);
   tw(vf, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b2);
   tw(trk, { opacity: 1 }, { opacity: 0.42, duration: 0.35 }, b2 + 0.05);
-  E.fadeIn(tl, askl, T(b2 + 0.22), 0.45, 12);
+  E.fadeIn(tl, askl, T(b2 + 0.3), 0.45, 12);         // after the REC pill (its red dot) has gone
   tw(bub, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b2 + 0.3);
   tw(bub, { y: 22, scale: 0.94 }, { y: 0, scale: 1, duration: 0.6, ease: E.SPRING }, b2 + 0.3);
   const tx1 = q(".s62-tx1"), tx2 = q(".s62-tx2"), c1 = q(".s62-c1"), c2 = q(".s62-c2");
@@ -109,15 +109,15 @@ window.SIMS.sim62 = function (tl, ctx, cfg, S) {
     });
     return t;
   };
-  const k1 = b2 + 0.62;
+  const k1 = b2 + 0.52;                     // typed by ~b2 + 1.8, so the whole line holds ~1 s before B3
   tw(c1, { opacity: 0 }, { opacity: 1, duration: 0.05 }, k1 - 0.06);
-  const e1 = type(tx1, c1, k1, 0.15);
+  const e1 = type(tx1, c1, k1, 0.13);
   tw(c1, { opacity: 1 }, { opacity: 0, duration: 0.05 }, e1);
   const k2 = e1 + 0.02;
   tw(c2, { opacity: 0 }, { opacity: 1, duration: 0.05 }, k2 - 0.02);
-  const e2 = type(tx2, c2, k2, 0.14);
+  const e2 = type(tx2, c2, k2, 0.12);
   [[0.25, 0], [0.55, 1], [0.85, 0]].forEach(([dt, v]) => tw(c2, { opacity: 1 - v }, { opacity: v, duration: 0.05 }, e2 + dt));
-  E.sweep(tl, bub, T(b2 + 2.0), 0.8, { color: "rgba(201, 194, 255, 0.22)" });
+  E.sweep(tl, bub, T(e2 + 0.15), 0.8, { color: "rgba(201, 194, 255, 0.22)" });
 
   // B3 "two zooms on top of each other make the viewer dizzy": a bouncy zoom lands on every automatic zoom,
   // the picture shakes and doubles, the viewer's head spins, red X (the engine punches in on the screen)
@@ -131,7 +131,7 @@ window.SIMS.sim62 = function (tl, ctx, cfg, S) {
   E.fadeIn(tl, lgb, T(b3 + 0.32), 0.45, 12);
   E.fadeIn(tl, lga, T(b3 + 0.4), 0.45, 12);
   tw(viewer, { opacity: 0 }, { opacity: 1, duration: 0.35 }, b3 + 0.3);
-  tw(viewer, { y: 30 }, { y: 0, duration: 0.6, ease: E.SPRING }, b3 + 0.3);
+  tw(viewer, { y: 8, scale: 0.9 }, { y: 0, scale: 1, duration: 0.6, ease: E.SPRING }, b3 + 0.3);   // grows from its base: stays inside the canvas
   move(1, 2, b3 + 0.06, 0.35);
   click(2, b3 + 0.44);
   zoom(za, ZC, ZK, b3 + 0.46, 0.8);
@@ -172,7 +172,11 @@ window.SIMS.sim62 = function (tl, ctx, cfg, S) {
   bzs.forEach((b, i) => tw(b, { opacity: 1, y: 0 }, { opacity: 0, y: -16, duration: 0.35, ease: "power2.in" }, pe + 0.02 + i * 0.04));
   E.fadeOut(tl, lgb, T(pe + 0.05), 0.3, -10);
   tw(no, { opacity: 1 }, { opacity: 0, duration: 0.25 }, pe + 0.08);
-  tw(spiral, { opacity: 1 }, { opacity: 0, duration: 0.3 }, pe + 0.55);
+  // only one zoom is left: the viewer calms down (the spiral cross-fades into a calm face)
+  const calm = q(".s62-calm");
+  tw(spiral, { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.inOut" }, pe + 0.25);
+  tw(calm, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.inOut" }, pe + 0.25);
+  tw(calm, { scale: 0.85 }, { scale: 1, duration: 0.4, ease: "back.out(1.8)" }, pe + 0.25);
   // the recording's own smooth zoom: out to the whole screen, the cursor clicks, then in again
   zoom(za, ZK, Z0, pe + 0.3, 0.6);
   move(2, 3, pe + 0.45, 0.55);
@@ -185,7 +189,7 @@ window.SIMS.sim62 = function (tl, ctx, cfg, S) {
   E.draw(tl, q(".s62-ok path"), T(pe + 1.0), 0.35);
   E.burst(tl, lid, 41, 41, T(pe + 1.02), { n: 10, seed: 62, r0: 26, r1: 40, color: "#c9c2ff" });
   E.sweep(tl, trk, T(pe + 1.2), 0.8, { color: "rgba(255, 255, 255, 0.28)" });
-  E.fadeOut(tl, viewer, T(pe + 1.9), 0.3, 10);
+  E.fadeOut(tl, viewer, T(pe + 1.9), 0.3, 6);
   E.fadeOut(tl, lga, T(pe + 1.9), 0.3, 10);
   tw(ask, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }, pe + 2.2);
   E.sweep(tl, bub, T(pe + 2.8), 0.9, { color: "rgba(201, 194, 255, 0.22)" });

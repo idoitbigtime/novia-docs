@@ -407,25 +407,28 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim22 .s22-head { position: absolute; top: -10px; bottom: -10px; left: 410px; width: 3px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
 .sim22 .s22-flow { position: absolute; left: 207px; top: 146px; width: 7px; height: 78px; }
 .sim22 .s22-flow i { position: absolute; left: 0; top: 0; width: 8px; height: 8px; border-radius: 50%; background: #d9d4ff; box-shadow: 0 0 10px #c9c2ff; display: block; opacity: 0; }
-.sim22 .s22-chips { position: absolute; left: 0; top: 236px; width: 420px; height: 104px; }
-.sim22 .s22-chip { position: absolute; top: 0; height: 104px; border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; direction: rtl; opacity: 0; }
-.sim22 .s22-big { left: 103px; width: 214px; background: rgba(28, 24, 58, 0.94); }
-.sim22 .s22-chipo { position: absolute; left: 0; top: 0; width: 214px; height: 104px; overflow: visible; }
+.sim22 .s22-chips { position: absolute; left: 0; top: 230px; width: 420px; height: 128px; }
+/* B1 the big model alone (centred); B2 it steps left and the default model stands 22 px to its right */
+.sim22 .s22-chip { position: absolute; top: 0; height: 128px; border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; direction: rtl; opacity: 0; }
+.sim22 .s22-big { left: 112px; width: 196px; background: rgba(28, 24, 58, 0.94); }
+.sim22 .s22-chipo { position: absolute; left: 0; top: 0; width: 196px; height: 128px; overflow: visible; }
 .sim22 .s22-chipo rect { fill: none; stroke: #c9c2ff; stroke-width: 2.5; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.8)); }
-.sim22 .s22-chipk { font: 500 28px/1 "Rubik"; color: #c4bfdc; }
-.sim22 .s22-chipn { font: 600 36px/1 "IBM Plex Mono"; color: #ffffff; }
-.sim22 .s22-ok, .sim22 .s22-no { position: absolute; left: -14px; top: -14px; width: 38px; height: 38px; border-radius: 50%; overflow: visible; opacity: 0; }
+.sim22 .s22-chipk { font: 500 30px/1 "Rubik"; color: #c4bfdc; white-space: nowrap; }
+.sim22 .s22-chipn { font: 600 34px/1 "IBM Plex Mono"; color: #ffffff; }
+/* the check and the cross sit on the cards' top-right corners, above the text */
+.sim22 .s22-ok, .sim22 .s22-no { position: absolute; right: -12px; top: -16px; width: 34px; height: 34px; border-radius: 50%; overflow: visible; opacity: 0; }
 .sim22 .s22-ok { background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.6); }
 .sim22 .s22-no { background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); }
 .sim22 .s22-ok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
 .sim22 .s22-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
-.sim22 .s22-def { left: 230px; width: 186px; background: rgba(20, 18, 36, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.28); }
-.sim22 .s22-def .s22-chipk { font-size: 28px; color: #e4e1f0; }
-.sim22 .s22-chipt { font: 600 25px/1 "Rubik"; color: #ff8a80; border: 1.5px solid rgba(255, 107, 97, 0.6); border-radius: 999px; padding: 6px 12px 5px; }
-.sim22 .s22-tok { position: absolute; left: 300px; top: -122px; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font: 700 29px/1 "Rubik"; color: #ffffff; background: #2a2450; box-shadow: 0 0 0 2px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.6); opacity: 0; }
-.sim22 .s22-blocks { position: absolute; left: 0; top: 390px; width: 420px; display: flex; direction: rtl; gap: 11px; }
+.sim22 .s22-def { left: 232px; width: 184px; background: rgba(20, 18, 36, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.28); }
+.sim22 .s22-def .s22-chipk { font-size: 30px; color: #e4e1f0; }
+.sim22 .s22-chipt { font: 600 30px/1 "Rubik"; color: #ff8a80; border: 1.5px solid rgba(255, 107, 97, 0.6); border-radius: 999px; padding: 6px 13px 5px; white-space: nowrap; }
+.sim22 .s22-tok { position: absolute; left: 299px; top: -122px; width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; font: 700 32px/1 "Rubik"; color: #ffffff; background: #2a2450; box-shadow: 0 0 0 2px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.6); opacity: 0; }
+.sim22 .s22-blocks { position: absolute; left: 0; top: 392px; width: 420px; display: flex; direction: rtl; gap: 10px; }
 .sim22 .s22-blk { position: relative; height: 32px; border-radius: 9px; background: rgba(217, 212, 255, 0.85); display: block; opacity: 0; transform-origin: 100% 50%; }
-.sim22 .s22-blk u { position: absolute; right: 0; bottom: -17px; width: 3px; height: 12px; border-radius: 2px; background: #ff8a80; display: block; }
+/* each word's time mark (lavender: the default model's red card is the beat's one red thing) */
+.sim22 .s22-blk u { position: absolute; right: 0; bottom: -17px; width: 3px; height: 12px; border-radius: 2px; background: rgba(185, 168, 255, 0.6); display: block; }
 
 /* B3-B4: the caption on the phone, read as a whole sentence, then corrected */
 .sim22 .s22-cap3 { position: absolute; left: 14px; right: 14px; top: 462px; display: flex; justify-content: center; gap: 13px; direction: rtl; font: 800 42px/1.25 "Rubik"; color: #ffffff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); white-space: nowrap; opacity: 0; }
@@ -433,22 +436,24 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim22 .s22-cxbad, .sim22 .s22-cxgood { grid-area: 1 / 1; }
 .sim22 .s22-cxgood { opacity: 0; }
 .sim22 .s22-wavy { position: absolute; left: -4px; bottom: -13px; width: calc(100% + 8px); height: 12px; overflow: visible; }
-.sim22 .s22-wavy path { fill: none; stroke: #ff6b61; stroke-width: 3.2; stroke-linecap: round; }
+/* amber: the word is flagged while the explanation's key phrase is red */
+.sim22 .s22-wavy path { fill: none; stroke: #f5b544; stroke-width: 3.4; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(245, 181, 68, 0.55)); }
 .sim22 .s22-brk { position: absolute; left: 50%; top: -15px; width: 290px; height: 82px; margin-left: -145px; overflow: visible; }
 .sim22 .s22-brk rect { fill: none; stroke: #c9c2ff; stroke-width: 2.6; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.8)); }
 .sim22 .s22-scan { position: absolute; top: -11px; bottom: -13px; left: 50%; margin-left: 106px; width: 74px; display: block; opacity: 0;
   background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.45) 70%, #ffffff 92%, rgba(255, 255, 255, 0)); }
 
-/* B4 fix list with the letter pairs from the guide */
-.sim22 .s22-fixes { position: absolute; left: 0; top: 70px; width: 420px; }
-.sim22 .s22-fix { display: flex; align-items: center; gap: 12px; height: 84px; margin-bottom: 18px; position: relative; }
-.sim22 .s22-bad { position: relative; font: 600 33px/1 "Rubik"; color: #ff6b61; opacity: 0; white-space: nowrap; }
+/* B4 fix list: wrong word -> (letter pair from the guide, on the arrow) -> right word; red only while a row is fixed */
+.sim22 .s22-fixes { position: absolute; left: 0; top: 60px; width: 420px; }
+.sim22 .s22-fix { display: flex; align-items: center; gap: 10px; height: 96px; margin-bottom: 12px; position: relative; }
+.sim22 .s22-bad { position: relative; font: 600 32px/1 "Rubik"; color: #ece9f7; opacity: 0; white-space: nowrap; }
 .sim22 .s22-strike { position: absolute; left: -5px; right: -5px; top: 52%; height: 4px; border-radius: 2px; background: #ff6b61; display: block; opacity: 0; transform-origin: 100% 50%; }
-.sim22 .s22-arrow { width: 36px; height: 19px; opacity: 0; flex: none; }
-.sim22 .s22-good { position: relative; font: 700 35px/1 "Rubik"; color: var(--ink); opacity: 0; white-space: nowrap; }
-.sim22 .s22-pair { display: flex; align-items: center; gap: 7px; padding: 7px 12px 6px; border-radius: 999px; border: 1.5px solid rgba(201, 194, 255, 0.45); background: rgba(28, 24, 58, 0.85); opacity: 0; flex: none; }
-.sim22 .s22-pair b { font: 600 28px/1 "Rubik"; color: #ece9f7; }
-.sim22 .s22-spk { width: 25px; height: 21px; display: block; flex: none; }
+.sim22 .s22-mid { position: relative; flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; height: 96px; }
+.sim22 .s22-farw { width: 100%; min-width: 96px; height: 20px; display: block; opacity: 0; overflow: visible; }
+.sim22 .s22-good { position: relative; font: 700 34px/1 "Rubik"; color: var(--ink); opacity: 0; white-space: nowrap; }
+.sim22 .s22-pair { display: flex; align-items: center; gap: 6px; padding: 6px 11px 5px; border-radius: 999px; border: 1.5px solid rgba(201, 194, 255, 0.45); background: rgba(28, 24, 58, 0.85); opacity: 0; flex: none; }
+.sim22 .s22-pair b { font: 600 30px/1 "Rubik"; color: #ece9f7; white-space: nowrap; }
+.sim22 .s22-spk { width: 24px; height: 20px; display: block; flex: none; }
 
 /* payoff: two caption styles on the phone */
 .sim22 .s22-pillrow { position: absolute; left: 0; right: 0; top: 372px; display: grid; place-items: center; }
@@ -456,13 +461,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim22 .s22-kinrow { position: absolute; left: 16px; right: 16px; top: 466px; text-align: center; font: 800 42px/1.25 "Rubik"; color: #ffffff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); }
 .sim22 .s22-kinrow .accgrp { color: #ff5a4f; font-weight: 900; }
 .sim22 .s22-label { position: absolute; left: 0; width: 420px; display: flex; direction: rtl; align-items: center; gap: 14px; font: 600 36px/1 "Rubik"; color: var(--ink); opacity: 0; }
-.sim22 .s22-label i { width: 15px; height: 15px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; }
+.sim22 .s22-label i { width: 15px; height: 15px; border-radius: 50%; background: #b9a8ff; box-shadow: 0 0 12px rgba(185, 168, 255, 0.8); display: block; flex: none; }
 .sim22 .s22-l1 { top: 480px; }
 .sim22 .s22-l2 { top: 560px; }
 
 /* B3: the caption track, read caption by caption */
 .sim22 .s22-p3 { position: absolute; left: 0; top: 0; width: 420px; height: 700px; }
-.sim22 .s22-row { position: absolute; left: 0; width: 420px; height: 72px; border-radius: 18px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.16);
+.sim22 .s22-row { position: absolute; left: 12px; width: 396px; height: 72px; border-radius: 18px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.16);
   display: flex; direction: rtl; align-items: center; gap: 11px; padding: 0 24px; opacity: 0; }
 .sim22 .s22-row:nth-child(1) { top: 90px; }
 .sim22 .s22-row:nth-child(2) { top: 186px; }
@@ -471,16 +476,16 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim22 .s22-rb { height: 22px; border-radius: 7px; background: rgba(201, 194, 255, 0.38); display: block; flex: none; }
 .sim22 .s22-row3 { font: 700 36px/1 "Rubik"; color: #ffffff; gap: 13px; }
 .sim22 .s22-r3w { position: relative; }
-.sim22 .s22-rd { position: absolute; left: -7px; top: 83px; width: 434px; height: 86px; border-radius: 23px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 16px rgba(201, 194, 255, 0.55), inset 0 0 14px rgba(201, 194, 255, 0.18); display: block; opacity: 0; }
+.sim22 .s22-rd { position: absolute; left: 5px; top: 83px; width: 410px; height: 86px; border-radius: 23px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 16px rgba(201, 194, 255, 0.55), inset 0 0 14px rgba(201, 194, 255, 0.18); display: block; opacity: 0; }
 
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="36.400" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="36.550" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t22" class="clip scene" data-start="0.000" data-duration="36.400" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 2 · עריכה בסיסית</span><span class="hdr-num" dir="ltr">2.2</span></div>
+<div id="sc-t22" class="clip scene" data-start="0.000" data-duration="36.550" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 2 · עריכה בסיסית</span><span class="hdr-num" dir="ltr">2.2</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">כתוביות</span> <span class="w" dir="rtl" data-t="0.430">בעברית</span> <span class="w" dir="rtl" data-t="0.560">בשני</span> <span class="w" dir="rtl" data-t="0.690">סגנונות</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.520">התמלול</span> <span class="w" dir="rtl" data-t="1.580">נעשה</span> <span class="w" dir="rtl" data-t="1.640">עם</span> <span class="w" dir="rtl" data-t="1.700">המודל</span> <span class="w" dir="rtl" data-t="1.760">הגדול</span> <span class="w" dir="rtl" data-t="1.820">(large-v3),</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.470">כי</span> <span class="w" dir="rtl" data-t="3.530">ברירת</span> <span class="w" dir="rtl" data-t="3.590">המחדל</span> <span class="w" dir="rtl" data-t="3.650">של</span> <span class="w" dir="rtl" data-t="3.710">HyperFrames</span> <span class="w" dir="rtl" data-t="3.770">מבינה</span> <span class="w" dir="rtl" data-t="3.830">רק</span> <span class="w" dir="rtl" data-t="3.890">אנגלית.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="5.920">אחר</span> <span class="w" dir="rtl" data-t="5.980">כך</span> <span class="w" dir="rtl" data-t="6.040">קלוד</span> <span class="w" dir="rtl" data-t="6.100">קורא</span> <span class="w" dir="rtl" data-t="6.160">כל</span> <span class="w" dir="rtl" data-t="6.220">כתובית</span> <span class="accgrp" data-t="6.280"><span class="w s-str" dir="rtl" data-t="6.280">כמשפט</span> <span class="w s-str" dir="rtl" data-t="6.340">שלם</span><i class="ul" data-t="6.460"></i></span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="8.370">ומתקן</span> <span class="w" dir="rtl" data-t="8.430">מילים</span> <span class="w" dir="rtl" data-t="8.490">שנשמעות</span> <span class="w" dir="rtl" data-t="8.550">אותו</span> <span class="w" dir="rtl" data-t="8.610">דבר</span> <span class="w" dir="rtl" data-t="8.670">ונכתבות</span> <span class="w" dir="rtl" data-t="8.730">אחרת.</span></span></p></div>
 <div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim22">
@@ -505,21 +510,21 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="s22-wavebox"><svg class="s22-wave s22-wdim" viewBox="0 0 410 90" aria-hidden="true"><rect x="10.0" y="39.0" width="9" height="12.0" rx="4.5"/><rect x="26.6" y="34.2" width="9" height="21.6" rx="4.5"/><rect x="43.2" y="27.0" width="9" height="36.0" rx="4.5"/><rect x="59.8" y="31.8" width="9" height="26.4" rx="4.5"/><rect x="76.4" y="21.0" width="9" height="48.0" rx="4.5"/><rect x="93.0" y="13.8" width="9" height="62.4" rx="4.5"/><rect x="109.6" y="24.6" width="9" height="40.8" rx="4.5"/><rect x="126.2" y="33.0" width="9" height="24.0" rx="4.5"/><rect x="142.8" y="18.6" width="9" height="52.8" rx="4.5"/><rect x="159.4" y="9.0" width="9" height="72.0" rx="4.5"/><rect x="176.0" y="16.2" width="9" height="57.6" rx="4.5"/><rect x="192.6" y="28.2" width="9" height="33.6" rx="4.5"/><rect x="209.2" y="35.4" width="9" height="19.2" rx="4.5"/><rect x="225.8" y="23.4" width="9" height="43.2" rx="4.5"/><rect x="242.4" y="12.6" width="9" height="64.8" rx="4.5"/><rect x="259.0" y="19.8" width="9" height="50.4" rx="4.5"/><rect x="275.6" y="30.6" width="9" height="28.8" rx="4.5"/><rect x="292.2" y="37.8" width="9" height="14.4" rx="4.5"/><rect x="308.8" y="27.0" width="9" height="36.0" rx="4.5"/><rect x="325.4" y="17.4" width="9" height="55.2" rx="4.5"/><rect x="342.0" y="22.2" width="9" height="45.6" rx="4.5"/><rect x="358.6" y="31.8" width="9" height="26.4" rx="4.5"/><rect x="375.2" y="36.6" width="9" height="16.8" rx="4.5"/><rect x="391.8" y="29.4" width="9" height="31.2" rx="4.5"/></svg><div class="s22-wclip"><svg class="s22-wave s22-wlit" viewBox="0 0 410 90" aria-hidden="true"><rect x="10.0" y="39.0" width="9" height="12.0" rx="4.5"/><rect x="26.6" y="34.2" width="9" height="21.6" rx="4.5"/><rect x="43.2" y="27.0" width="9" height="36.0" rx="4.5"/><rect x="59.8" y="31.8" width="9" height="26.4" rx="4.5"/><rect x="76.4" y="21.0" width="9" height="48.0" rx="4.5"/><rect x="93.0" y="13.8" width="9" height="62.4" rx="4.5"/><rect x="109.6" y="24.6" width="9" height="40.8" rx="4.5"/><rect x="126.2" y="33.0" width="9" height="24.0" rx="4.5"/><rect x="142.8" y="18.6" width="9" height="52.8" rx="4.5"/><rect x="159.4" y="9.0" width="9" height="72.0" rx="4.5"/><rect x="176.0" y="16.2" width="9" height="57.6" rx="4.5"/><rect x="192.6" y="28.2" width="9" height="33.6" rx="4.5"/><rect x="209.2" y="35.4" width="9" height="19.2" rx="4.5"/><rect x="225.8" y="23.4" width="9" height="43.2" rx="4.5"/><rect x="242.4" y="12.6" width="9" height="64.8" rx="4.5"/><rect x="259.0" y="19.8" width="9" height="50.4" rx="4.5"/><rect x="275.6" y="30.6" width="9" height="28.8" rx="4.5"/><rect x="292.2" y="37.8" width="9" height="14.4" rx="4.5"/><rect x="308.8" y="27.0" width="9" height="36.0" rx="4.5"/><rect x="325.4" y="17.4" width="9" height="55.2" rx="4.5"/><rect x="342.0" y="22.2" width="9" height="45.6" rx="4.5"/><rect x="358.6" y="31.8" width="9" height="26.4" rx="4.5"/><rect x="375.2" y="36.6" width="9" height="16.8" rx="4.5"/><rect x="391.8" y="29.4" width="9" height="31.2" rx="4.5"/></svg></div><i class="s22-head"></i></div>
 <div class="s22-flow"><i></i><i></i><i></i></div>
 <div class="s22-chips">
-<div class="s22-chip s22-big"><svg class="s22-chipo" viewBox="0 0 220 96" preserveAspectRatio="none" aria-hidden="true"><rect x="2" y="2" width="216" height="92" rx="22"/></svg>
+<div class="s22-chip s22-big"><svg class="s22-chipo" viewBox="0 0 196 128" aria-hidden="true"><rect x="1.25" y="1.25" width="193.5" height="125.5" rx="23"/></svg>
 <span class="s22-chipk" dir="rtl">המודל הגדול</span><span class="s22-chipn" dir="ltr">large-v3</span>
 <svg class="s22-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></div>
 <div class="s22-chip s22-def"><span class="s22-chipk" dir="rtl">ברירת המחדל</span><span class="s22-chipt" dir="rtl">רק אנגלית</span>
 <svg class="s22-no" viewBox="0 0 30 30" aria-hidden="true"><path d="M9.5 9.5l11 11"/><path d="M20.5 9.5l-11 11"/></svg></div>
 <span class="s22-tok" dir="rtl">א</span>
 </div>
-<div class="s22-blocks"><i class="s22-blk" style="width:70px"><u></u></i><i class="s22-blk" style="width:44px"><u></u></i><i class="s22-blk" style="width:92px"><u></u></i><i class="s22-blk" style="width:56px"><u></u></i><i class="s22-blk" style="width:78px"><u></u></i><i class="s22-blk" style="width:46px"><u></u></i></div>
+<div class="s22-blocks"><i class="s22-blk" style="width:62px"><u></u></i><i class="s22-blk" style="width:40px"><u></u></i><i class="s22-blk" style="width:80px"><u></u></i><i class="s22-blk" style="width:50px"><u></u></i><i class="s22-blk" style="width:66px"><u></u></i><i class="s22-blk" style="width:40px"><u></u></i></div>
 </div>
 <div class="s22-p3"><div class="s22-row"><i class="s22-rb" style="width:96px"></i><i class="s22-rb" style="width:58px"></i><i class="s22-rb" style="width:120px"></i></div><div class="s22-row"><i class="s22-rb" style="width:70px"></i><i class="s22-rb" style="width:112px"></i><i class="s22-rb" style="width:64px"></i><i class="s22-rb" style="width:52px"></i></div><div class="s22-row s22-row3" data-focus="2"><span>מחובר</span><span class="s22-r3w">עליו<svg class="s22-wavy" viewBox="0 0 90 12" aria-hidden="true"><path d="M2 6 Q 9 0 16 6 T 30 6 T 44 6 T 58 6 T 72 6 T 88 6"/></svg></span></div><div class="s22-row"><i class="s22-rb" style="width:84px"></i><i class="s22-rb" style="width:66px"></i><i class="s22-rb" style="width:100px"></i></div><i class="s22-rd"></i></div>
-<div class="s22-fixes"><div class="s22-fix" dir="rtl"><span class="s22-bad">הקאבל<i class="s22-strike"></i></span><svg class="s22-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="s22-good">הכבל</span><span class="s22-pair"><svg class="s22-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><b dir="rtl">ק/כ</b></span></div><div class="s22-fix" dir="rtl"><span class="s22-bad">בסכוכית<i class="s22-strike"></i></span><svg class="s22-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="s22-good">בזכוכית</span><span class="s22-pair"><svg class="s22-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><b dir="rtl">ס/ז</b></span></div><div class="s22-fix" dir="rtl"><span class="s22-bad">עליו<i class="s22-strike"></i></span><svg class="s22-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="s22-good">אליו</span><span class="s22-pair"><svg class="s22-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><b dir="rtl">א/ע</b></span></div></div>
+<div class="s22-fixes"><div class="s22-fix" dir="rtl"><span class="s22-bad">הקאבל<i class="s22-strike"></i></span><span class="s22-mid"><span class="s22-pair"><svg class="s22-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><b dir="rtl">ק/כ</b></span><svg class="s22-farw" viewBox="0 0 112 20" aria-hidden="true"><path d="M108 10 H5 M15 2 L5 10 L15 18" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="s22-good">הכבל</span></div><div class="s22-fix" dir="rtl"><span class="s22-bad">בסכוכית<i class="s22-strike"></i></span><span class="s22-mid"><span class="s22-pair"><svg class="s22-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><b dir="rtl">ס/ז</b></span><svg class="s22-farw" viewBox="0 0 112 20" aria-hidden="true"><path d="M108 10 H5 M15 2 L5 10 L15 18" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="s22-good">בזכוכית</span></div><div class="s22-fix" dir="rtl"><span class="s22-bad">עליו<i class="s22-strike"></i></span><span class="s22-mid"><span class="s22-pair"><svg class="s22-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><b dir="rtl">א/ע</b></span><svg class="s22-farw" viewBox="0 0 112 20" aria-hidden="true"><path d="M108 10 H5 M15 2 L5 10 L15 18" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="s22-good">אליו</span></div></div>
 <div class="s22-label s22-l1"><i></i><span>סגנון 1 · גלולה לבנה</span></div>
 <div class="s22-label s22-l2"><i></i><span>סגנון 2 · קינטי</span></div>
 </div></div></div></div></div>
-<div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">9 טעויות תמלול</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="18.220">בקטע</span> <span class="w" dir="rtl" data-t="18.340">של</span> <span class="w" dir="rtl" data-t="18.460">33</span> <span class="w" dir="rtl" data-t="18.580">שניות:</span> <span class="w" dir="rtl" data-t="18.900">7</span> <span class="w" dir="rtl" data-t="19.020">נתפסו</span> <span class="w" dir="rtl" data-t="19.140">בקריאה,</span> <span class="glu"><span class="w" dir="rtl" data-t="19.260">ו-</span><span class="w" dir="rtl" data-t="19.260">2</span></span> <span class="w" dir="rtl" data-t="19.500">רק</span> <span class="w" dir="rtl" data-t="19.620">באוזן.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="19.940">הכתוביות</span> <span class="w" dir="rtl" data-t="19.970">בסרטון</span> <span class="w" dir="rtl" data-t="20.000">הזה</span> <span class="w" dir="rtl" data-t="20.030">בנויות</span> <span class="w" dir="rtl" data-t="20.060">באותה</span> <span class="w" dir="rtl" data-t="20.090">שיטה.</span></p></div></div>
+<div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">9 טעויות תמלול</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="18.220">בקטע</span> <span class="w" dir="rtl" data-t="18.340">של</span> <span class="w" dir="rtl" data-t="18.460">33</span> <span class="w" dir="rtl" data-t="18.580">שניות:</span> <span class="w" dir="rtl" data-t="18.900">7</span> <span class="w" dir="rtl" data-t="19.020">נתפסו</span> <span class="w" dir="rtl" data-t="19.140">בקריאה,</span> <span class="glu"><span class="w" dir="rtl" data-t="19.260">ו-</span><span class="w" dir="rtl" data-t="19.260">2</span></span> <span class="w" dir="rtl" data-t="19.500">רק</span> <span class="w" dir="rtl" data-t="19.620">באוזן.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="19.940">&quot;מחובר</span> <span class="w" dir="rtl" data-t="19.970">עליו&quot;</span> <span class="w" dir="rtl" data-t="20.000">במקום</span> <span class="w" dir="rtl" data-t="20.030">&quot;מחובר</span> <span class="w" dir="rtl" data-t="20.060">אליו&quot;</span> <span class="w" dir="rtl" data-t="20.090">נתפס</span> <span class="w" dir="rtl" data-t="20.120">רק</span> <span class="w" dir="rtl" data-t="20.150">בקריאה</span> <span class="w" dir="rtl" data-t="20.180">של</span> <span class="w" dir="rtl" data-t="20.210">המשפט</span> <span class="w" dir="rtl" data-t="20.240">כולו.</span></p></div></div>
 <div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>2</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
 <div class="pl" dir="rtl">תשאל אותי על שלושה דברים:</div>
 <div class="pl" dir="rtl">- איזה סרטון לערוך, אם יש בתיקייה יותר מאחד.</div>
@@ -573,7 +578,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl" dir="rtl">תשאל אותי על הקלט, תתמלל, ותראה לי את כל הכתוביות כרשימת משפטים עם זמנים, עם סימון של כל מילה שתיקנת, של המילים להדגשה ושל מילים שאתה לא בטוח בהן, כדי שאבדוק אותן באוזן.</div>
 <div class="pl" dir="rtl">אחרי שאישרתי, תרנדר תצוגה של 10 שניות (תשנה זמנית את <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">data-duration</span><span class="bt">`</span></span> <span class="nb">ל-10</span> ותרנדר עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">--quality draft</span><span class="bt">`</span></span>), ואת כל הסרטון רק אחרי שאישרתי את הסגנון.</div>
 <div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i><span class="code" dir="ltr"><span class="bt">`</span><span class="tk">dir=&quot;rtl&quot;</span><span class="bt">`</span></span> לא נכנס לתגית <span class="nb">ה-html,</span> כי אז הרינדור יוצא שחור.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>כל מילה <span class="nb">ב-span</span> משלה עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">dir=&quot;rtl&quot;</span><span class="bt">`</span></span>, אחרת פסיק או נקודה בסוף המילה עוברים לצד הלא נכון.</div></div>
-<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="33.140">לפני</span> <span class="w" dir="rtl" data-t="33.300">שמאשרים,</span> <span class="w" dir="rtl" data-t="33.460">מקשיבים</span> <span class="w" dir="rtl" data-t="33.620">לכל</span> <span class="w" dir="rtl" data-t="33.780">מילה</span> <span class="w" dir="rtl" data-t="33.940">שקלוד</span> <span class="w" dir="rtl" data-t="34.100">מסמן</span> <span class="w" dir="rtl" data-t="34.260">שהוא</span> <span class="w" dir="rtl" data-t="34.420">לא</span> <span class="w" dir="rtl" data-t="34.580">בטוח</span> <span class="w" dir="rtl" data-t="34.740">בה.</span></p></div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="33.290">לפני</span> <span class="w" dir="rtl" data-t="33.450">שמאשרים,</span> <span class="w" dir="rtl" data-t="33.610">מקשיבים</span> <span class="w" dir="rtl" data-t="33.770">לכל</span> <span class="w" dir="rtl" data-t="33.930">מילה</span> <span class="w" dir="rtl" data-t="34.090">שקלוד</span> <span class="w" dir="rtl" data-t="34.250">מסמן</span> <span class="w" dir="rtl" data-t="34.410">שהוא</span> <span class="w" dir="rtl" data-t="34.570">לא</span> <span class="w" dir="rtl" data-t="34.730">בטוח</span> <span class="w" dir="rtl" data-t="34.890">בה.</span></p></div></div>
 </div></div>
 </div>
 </div>
@@ -1120,7 +1125,8 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
 
   // B2 "כי ברירת המחדל של HyperFrames מבינה רק אנגלית": a Hebrew letter bounces off the default model
   const b2 = P[1], def = q(".s22-def"), tok = q(".s22-tok");
-  tl.fromTo(big, { x: 0 }, A({ x: -85, duration: 0.6, ease: E.SPRING }), T(b2 + 0.05));
+  // the big model steps left; the default model stands 22 px to its right (sim22.css: x 14..210 and 232..416)
+  tl.fromTo(big, { x: 0 }, A({ x: -98, duration: 0.6, ease: E.SPRING }), T(b2 + 0.05));
   tl.fromTo(def, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b2 + 0.25));
   tl.fromTo(def, { x: 30, scale: 0.92 }, A({ x: 0, scale: 1, duration: 0.6, ease: E.SPRING }), T(b2 + 0.25));
   tl.fromTo(tok, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), T(b2 + 0.7));
@@ -1138,44 +1144,49 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
   // B3 "אחר כך קלוד קורא כל כתובית כמשפט שלם": captions are read one by one, each as a whole sentence;
   // in the third one the sentence gives the wrong word away (the camera punches in on it)
   const b3 = P[2], rd = q(".s22-rd"), rows = qa(".s22-row"), cap = q(".s22-cap3"), cxbad = q(".s22-cxbad");
-  tl.fromTo(q(".s22-p1"), { opacity: 1, y: 0 }, A({ opacity: 0, y: -30, duration: 0.4, ease: "power2.in" }), T(b3));
+  // the rejected red card is gone before the key phrase turns red (one red at a time beside the badge)
+  tl.fromTo(q(".s22-p1"), { opacity: 1, y: 0 }, A({ opacity: 0, y: -30, duration: 0.36, ease: "power2.in" }), T(b3 - 0.1));
   rows.forEach((r, i) => {
     tl.fromTo(r, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b3 + 0.38 + i * 0.07));
-    tl.fromTo(r, { x: -24 }, A({ x: 0, duration: 0.5, ease: E.SPRING }), T(b3 + 0.38 + i * 0.07));
+    tl.fromTo(r, { x: 14 }, A({ x: 0, duration: 0.5, ease: E.SPRING }), T(b3 + 0.38 + i * 0.07));
   });
   tl.fromTo(rd, { opacity: 0, scale: 1.06 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: E.SPRING }), T(b3 + 0.6));
   tl.fromTo(rd, { y: 0 }, A({ y: 96, duration: 0.4, ease: E.SPRING }), T(b3 + 1.0));
   tl.fromTo(rd, { y: 96 }, A({ y: 192, duration: 0.4, ease: E.SPRING }), T(b3 + 1.4));
+  // flagged in amber: this beat plays while the explanation's key phrase is red
   const w3 = q(".s22-r3w");
-  tl.fromTo(w3, { color: "#ffffff" }, A({ color: "#ff6b61", duration: 0.25 }), T(b3 + 1.8));
+  tl.fromTo(w3, { color: "#ffffff" }, A({ color: "#f5b544", duration: 0.25 }), T(b3 + 1.8));
   E.draw(tl, q(".s22-r3w .s22-wavy path"), T(b3 + 1.8), 0.4);
-  tl.fromTo(rd, { borderColor: "#c9c2ff" }, A({ borderColor: "#ff6b61", duration: 0.25 }), T(b3 + 1.8));
-  // the same caption on the video, flagged
+  tl.fromTo(rd, { borderColor: "#c9c2ff" }, A({ borderColor: "#f5b544", duration: 0.25 }), T(b3 + 1.8));
+  // the same caption on the video (white), flagged by the squiggle only
   tl.fromTo(cap, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }), T(b3 + 1.85));
-  tl.set(cxbad, { color: "#ff6b61" }, T(b3 + 1.85));
   E.draw(tl, q(".s22-cap3 .s22-wavy path"), T(b3 + 2.0), 0.4);
 
   // B4 "ומתקן מילים שנשמעות אותו דבר ונכתבות אחרת": fixes with their letter pairs; the caption corrects
   const b4 = P[3];
   tl.fromTo(q(".s22-p3"), { opacity: 1, y: 0 }, A({ opacity: 0, y: -30, duration: 0.3, ease: "power2.in" }), T(b4 - 0.05));
+  // one row at a time: the wrong word is struck in red only while it is being fixed (t+0.2 .. t+0.65), the right
+  // word lands, and the struck word steps back to grey; the first red waits for the key phrase to step back
+  const RED = "#ff6b61", GREY = "#8c86a8";
   qa(".s22-fix").forEach((row, i) => {
-    const t = T(b4 + 0.25 + i * c.fixStep);
-    const bad = E.q(".s22-bad", row), st = E.q(".s22-strike", row), ar = E.q(".s22-arrow", row);
+    const t = T(b4 + c.fix0 + i * c.fixStep);
+    const bad = E.q(".s22-bad", row), st = E.q(".s22-strike", row), ar = E.q(".s22-farw", row);
     const good = E.q(".s22-good", row), pair = E.q(".s22-pair", row);
-    tl.fromTo(bad, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.4, ease: E.SPRING }), t);
-    tl.fromTo(st, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.3, ease: "power2.inOut" }), t + 0.25);
-    tl.fromTo(ar, { opacity: 0, x: 12 }, A({ opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }), t + 0.4);
-    tl.fromTo(good, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), t + 0.55);
-    tl.fromTo(good, { scale: 0.8 }, A({ scale: 1, duration: 0.5, ease: "back.out(2)" }), t + 0.55);
-    tl.fromTo(good, { filter: "blur(8px)" }, A({ filter: "blur(0px)", duration: 0.28, ease: "power2.out" }), t + 0.55);
-    tl.set(good, { filter: "none" }, t + 0.84);
-    tl.fromTo(bad, { color: "#ff6b61" }, A({ color: "#5e5870", duration: 0.35 }), t + 0.6);
-    tl.fromTo(st, { opacity: 1 }, A({ opacity: 0.6, duration: 0.35 }), t + 0.6);
-    tl.fromTo(pair, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.2)" }), t + 0.7);
-    E.burst(tl, row, good.offsetLeft + good.offsetWidth / 2, row.offsetHeight / 2, t + 0.6, { n: 8, seed: 40 + i, r0: 26, r1: 70, color: "#c9c2ff" });
+    tl.fromTo(bad, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.35, ease: E.SPRING }), t);
+    tl.fromTo(bad, { color: "#ece9f7" }, A({ color: RED, duration: 0.12 }), t + 0.2);
+    tl.fromTo(st, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.25, ease: "power2.inOut" }), t + 0.2);
+    tl.fromTo(ar, { opacity: 0, x: 12 }, A({ opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }), t + 0.22);
+    tl.fromTo(pair, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.2)" }), t + 0.28);
+    tl.fromTo(good, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), t + 0.45);
+    tl.fromTo(good, { scale: 0.8 }, A({ scale: 1, duration: 0.5, ease: "back.out(2)" }), t + 0.45);
+    tl.fromTo(good, { filter: "blur(8px)" }, A({ filter: "blur(0px)", duration: 0.28, ease: "power2.out" }), t + 0.45);
+    tl.set(good, { filter: "none" }, t + 0.74);
+    tl.fromTo(bad, { color: RED }, A({ color: GREY, duration: 0.15 }), t + 0.5);
+    tl.fromTo(st, { backgroundColor: RED }, A({ backgroundColor: GREY, duration: 0.15 }), t + 0.5);
+    E.burst(tl, row, good.offsetLeft + good.offsetWidth / 2, row.offsetHeight / 2, t + 0.5, { n: 8, seed: 40 + i, r0: 26, r1: 70, color: "#c9c2ff" });
   });
   // the last fix is the caption's own word: it swaps on the phone at the same moment
-  const tSwap = T(b4 + 0.25 + (c.fixes.length - 1) * c.fixStep + 0.55), cxgood = q(".s22-cxgood");
+  const tSwap = T(b4 + c.fix0 + (c.fixes.length - 1) * c.fixStep + 0.45), cxgood = q(".s22-cxgood");
   tl.fromTo(cxbad, { opacity: 1 }, A({ opacity: 0, duration: 0.12, ease: "power1.in" }), tSwap);
   tl.fromTo(cxbad, { filter: "blur(0px)" }, A({ filter: "blur(6px)", duration: 0.12 }), tSwap);
   tl.fromTo(cxgood, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), tSwap + 0.13);
@@ -1196,7 +1207,7 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"id": "t22", "sim": "sim22", "D": 36.4, "tStage": 0.92, "tExp": 1.52, "phr": [1.52, 3.47, 5.92, 8.37], "phrEnd": 10.57, "tSimEnd": 17.77, "tFact": 17.77, "tPrompt": 22.54, "tPromptEnd": 32.74, "tTip": 32.74, "expZoom": 0.07, "simDur": 16.85, "hls": [{"id": "hl1", "hold": 2.6, "zoom": 0.1}, {"id": "hl2", "hold": 3.2, "zoom": 0.1}], "sim22": {"bigLabel": "המודל הגדול", "defLabel": "ברירת המחדל", "defTag": "רק אנגלית", "token": "א", "capWords": ["מחובר", "עליו", "אליו"], "fixStep": 0.5, "fixes": [["הקאבל", "הכבל", "ק/כ"], ["בסכוכית", "בזכוכית", "ס/ז"], ["עליו", "אליו", "א/ע"]], "label1": "סגנון 1 · גלולה לבנה", "label2": "סגנון 2 · קינטי", "pills0": 0.95, "pillStep": 0.58, "pills": ["הכתוביות", "מתחלפות", "בפריים אחד", "בלי אנימציה"], "kin0": 3.5, "kinStep": 0.27, "kin": "וכאן כל מילה נכנסת {בתנועה}"}, "S": 0.0}];
+  const CFGS = [{"id": "t22", "sim": "sim22", "D": 36.55, "tStage": 0.92, "tExp": 1.52, "phr": [1.52, 3.47, 5.92, 8.37], "phrEnd": 10.57, "tSimEnd": 17.77, "tFact": 17.77, "tPrompt": 22.69, "tPromptEnd": 32.89, "tTip": 32.89, "expZoom": 0.07, "simDur": 16.85, "hls": [{"id": "hl1", "hold": 2.6, "zoom": 0.1}, {"id": "hl2", "hold": 3.2, "zoom": 0.1}], "sim22": {"bigLabel": "המודל הגדול", "defLabel": "ברירת המחדל", "defTag": "רק אנגלית", "token": "א", "capWords": ["מחובר", "עליו", "אליו"], "fix0": 0.28, "fixStep": 0.55, "fixes": [["הקאבל", "הכבל", "ק/כ"], ["בסכוכית", "בזכוכית", "ס/ז"], ["עליו", "אליו", "א/ע"]], "label1": "סגנון 1 · גלולה לבנה", "label2": "סגנון 2 · קינטי", "pills0": 0.95, "pillStep": 0.58, "pills": ["הכתוביות", "מתחלפות", "בפריים אחד", "בלי אנימציה"], "kin0": 3.5, "kinStep": 0.27, "kin": "וכאן כל מילה נכנסת {בתנועה}"}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1210,7 +1221,7 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 36.400;
+    const TOT = 36.550;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

@@ -35,7 +35,8 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
 
   // B2 "כי ברירת המחדל של HyperFrames מבינה רק אנגלית": a Hebrew letter bounces off the default model
   const b2 = P[1], def = q(".s22-def"), tok = q(".s22-tok");
-  tl.fromTo(big, { x: 0 }, A({ x: -85, duration: 0.6, ease: E.SPRING }), T(b2 + 0.05));
+  // the big model steps left; the default model stands 22 px to its right (sim22.css: x 14..210 and 232..416)
+  tl.fromTo(big, { x: 0 }, A({ x: -98, duration: 0.6, ease: E.SPRING }), T(b2 + 0.05));
   tl.fromTo(def, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b2 + 0.25));
   tl.fromTo(def, { x: 30, scale: 0.92 }, A({ x: 0, scale: 1, duration: 0.6, ease: E.SPRING }), T(b2 + 0.25));
   tl.fromTo(tok, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), T(b2 + 0.7));
@@ -53,44 +54,49 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
   // B3 "אחר כך קלוד קורא כל כתובית כמשפט שלם": captions are read one by one, each as a whole sentence;
   // in the third one the sentence gives the wrong word away (the camera punches in on it)
   const b3 = P[2], rd = q(".s22-rd"), rows = qa(".s22-row"), cap = q(".s22-cap3"), cxbad = q(".s22-cxbad");
-  tl.fromTo(q(".s22-p1"), { opacity: 1, y: 0 }, A({ opacity: 0, y: -30, duration: 0.4, ease: "power2.in" }), T(b3));
+  // the rejected red card is gone before the key phrase turns red (one red at a time beside the badge)
+  tl.fromTo(q(".s22-p1"), { opacity: 1, y: 0 }, A({ opacity: 0, y: -30, duration: 0.36, ease: "power2.in" }), T(b3 - 0.1));
   rows.forEach((r, i) => {
     tl.fromTo(r, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b3 + 0.38 + i * 0.07));
-    tl.fromTo(r, { x: -24 }, A({ x: 0, duration: 0.5, ease: E.SPRING }), T(b3 + 0.38 + i * 0.07));
+    tl.fromTo(r, { x: 14 }, A({ x: 0, duration: 0.5, ease: E.SPRING }), T(b3 + 0.38 + i * 0.07));
   });
   tl.fromTo(rd, { opacity: 0, scale: 1.06 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: E.SPRING }), T(b3 + 0.6));
   tl.fromTo(rd, { y: 0 }, A({ y: 96, duration: 0.4, ease: E.SPRING }), T(b3 + 1.0));
   tl.fromTo(rd, { y: 96 }, A({ y: 192, duration: 0.4, ease: E.SPRING }), T(b3 + 1.4));
+  // flagged in amber: this beat plays while the explanation's key phrase is red
   const w3 = q(".s22-r3w");
-  tl.fromTo(w3, { color: "#ffffff" }, A({ color: "#ff6b61", duration: 0.25 }), T(b3 + 1.8));
+  tl.fromTo(w3, { color: "#ffffff" }, A({ color: "#f5b544", duration: 0.25 }), T(b3 + 1.8));
   E.draw(tl, q(".s22-r3w .s22-wavy path"), T(b3 + 1.8), 0.4);
-  tl.fromTo(rd, { borderColor: "#c9c2ff" }, A({ borderColor: "#ff6b61", duration: 0.25 }), T(b3 + 1.8));
-  // the same caption on the video, flagged
+  tl.fromTo(rd, { borderColor: "#c9c2ff" }, A({ borderColor: "#f5b544", duration: 0.25 }), T(b3 + 1.8));
+  // the same caption on the video (white), flagged by the squiggle only
   tl.fromTo(cap, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }), T(b3 + 1.85));
-  tl.set(cxbad, { color: "#ff6b61" }, T(b3 + 1.85));
   E.draw(tl, q(".s22-cap3 .s22-wavy path"), T(b3 + 2.0), 0.4);
 
   // B4 "ומתקן מילים שנשמעות אותו דבר ונכתבות אחרת": fixes with their letter pairs; the caption corrects
   const b4 = P[3];
   tl.fromTo(q(".s22-p3"), { opacity: 1, y: 0 }, A({ opacity: 0, y: -30, duration: 0.3, ease: "power2.in" }), T(b4 - 0.05));
+  // one row at a time: the wrong word is struck in red only while it is being fixed (t+0.2 .. t+0.65), the right
+  // word lands, and the struck word steps back to grey; the first red waits for the key phrase to step back
+  const RED = "#ff6b61", GREY = "#8c86a8";
   qa(".s22-fix").forEach((row, i) => {
-    const t = T(b4 + 0.25 + i * c.fixStep);
-    const bad = E.q(".s22-bad", row), st = E.q(".s22-strike", row), ar = E.q(".s22-arrow", row);
+    const t = T(b4 + c.fix0 + i * c.fixStep);
+    const bad = E.q(".s22-bad", row), st = E.q(".s22-strike", row), ar = E.q(".s22-farw", row);
     const good = E.q(".s22-good", row), pair = E.q(".s22-pair", row);
-    tl.fromTo(bad, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.4, ease: E.SPRING }), t);
-    tl.fromTo(st, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.3, ease: "power2.inOut" }), t + 0.25);
-    tl.fromTo(ar, { opacity: 0, x: 12 }, A({ opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }), t + 0.4);
-    tl.fromTo(good, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), t + 0.55);
-    tl.fromTo(good, { scale: 0.8 }, A({ scale: 1, duration: 0.5, ease: "back.out(2)" }), t + 0.55);
-    tl.fromTo(good, { filter: "blur(8px)" }, A({ filter: "blur(0px)", duration: 0.28, ease: "power2.out" }), t + 0.55);
-    tl.set(good, { filter: "none" }, t + 0.84);
-    tl.fromTo(bad, { color: "#ff6b61" }, A({ color: "#5e5870", duration: 0.35 }), t + 0.6);
-    tl.fromTo(st, { opacity: 1 }, A({ opacity: 0.6, duration: 0.35 }), t + 0.6);
-    tl.fromTo(pair, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.2)" }), t + 0.7);
-    E.burst(tl, row, good.offsetLeft + good.offsetWidth / 2, row.offsetHeight / 2, t + 0.6, { n: 8, seed: 40 + i, r0: 26, r1: 70, color: "#c9c2ff" });
+    tl.fromTo(bad, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.35, ease: E.SPRING }), t);
+    tl.fromTo(bad, { color: "#ece9f7" }, A({ color: RED, duration: 0.12 }), t + 0.2);
+    tl.fromTo(st, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.25, ease: "power2.inOut" }), t + 0.2);
+    tl.fromTo(ar, { opacity: 0, x: 12 }, A({ opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }), t + 0.22);
+    tl.fromTo(pair, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.2)" }), t + 0.28);
+    tl.fromTo(good, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), t + 0.45);
+    tl.fromTo(good, { scale: 0.8 }, A({ scale: 1, duration: 0.5, ease: "back.out(2)" }), t + 0.45);
+    tl.fromTo(good, { filter: "blur(8px)" }, A({ filter: "blur(0px)", duration: 0.28, ease: "power2.out" }), t + 0.45);
+    tl.set(good, { filter: "none" }, t + 0.74);
+    tl.fromTo(bad, { color: RED }, A({ color: GREY, duration: 0.15 }), t + 0.5);
+    tl.fromTo(st, { backgroundColor: RED }, A({ backgroundColor: GREY, duration: 0.15 }), t + 0.5);
+    E.burst(tl, row, good.offsetLeft + good.offsetWidth / 2, row.offsetHeight / 2, t + 0.5, { n: 8, seed: 40 + i, r0: 26, r1: 70, color: "#c9c2ff" });
   });
   // the last fix is the caption's own word: it swaps on the phone at the same moment
-  const tSwap = T(b4 + 0.25 + (c.fixes.length - 1) * c.fixStep + 0.55), cxgood = q(".s22-cxgood");
+  const tSwap = T(b4 + c.fix0 + (c.fixes.length - 1) * c.fixStep + 0.45), cxgood = q(".s22-cxgood");
   tl.fromTo(cxbad, { opacity: 1 }, A({ opacity: 0, duration: 0.12, ease: "power1.in" }), tSwap);
   tl.fromTo(cxbad, { filter: "blur(0px)" }, A({ filter: "blur(6px)", duration: 0.12 }), tSwap);
   tl.fromTo(cxgood, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), tSwap + 0.13);

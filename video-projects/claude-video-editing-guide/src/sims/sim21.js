@@ -49,7 +49,7 @@ window.SIMS.sim21 = function (tl, ctx, cfg, S) {
     if (words) E.dim(tl, inSeg(id, ".s21-words"), t + 0.1, 0.42, 1, 0.4);
   };
   const strike = (id, t, d) => tl.fromTo(inSeg(id, ".s21-st"), { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: d || 0.35, ease: "power2.inOut" }), t);
-  const strikeMute = (id, t) => tl.fromTo(inSeg(id, ".s21-st"), { backgroundColor: "#ff6b61" }, A({ backgroundColor: "#77718f", duration: 0.35 }), t);
+  const strikeMute = (id, t, from) => tl.fromTo(inSeg(id, ".s21-st"), { backgroundColor: from || "#ff6b61" }, A({ backgroundColor: "#77718f", duration: 0.35 }), t);
   // a spark flies from the mark to its new row in the table
   const fly = (i, t) => {
     const f = q(".s21-fly" + i), dx = +f.dataset.dx, dy = +f.dataset.dy;
@@ -71,7 +71,8 @@ window.SIMS.sim21 = function (tl, ctx, cfg, S) {
   // the cuts table opens when the first decision is made
   const table = q(".s21-table");
   tl.fromTo(table, { opacity: 0 }, A({ opacity: 1, duration: 0.35, ease: "power1.out" }), T(b0 + 1.15));
-  tl.fromTo(table, { y: 40, rotationX: 18, transformPerspective: 1300 }, A({ y: 0, rotationX: 0, transformPerspective: 1300, duration: 0.8, ease: E.SPRING }), T(b0 + 1.15));
+  // it tilts up from its bottom edge, so no part of it ever leaves the canvas
+  tl.fromTo(table, { y: 12, rotationX: 16, transformPerspective: 1300, transformOrigin: "50% 100%" }, A({ y: 0, rotationX: 0, transformPerspective: 1300, transformOrigin: "50% 100%", duration: 0.8, ease: E.SPRING }), T(b0 + 1.15));
   tl.fromTo(q(".s21-tdiv"), { scaleX: 0 }, A({ scaleX: 1, duration: 0.6, ease: "power2.out" }), T(b0 + 1.35));
   // the silence between the sentences
   rdIn(2, T(b0 + 1.4));
@@ -87,13 +88,14 @@ window.SIMS.sim21 = function (tl, ctx, cfg, S) {
   cutMark("x2", T(b0 + 2.3), true);
   fly(2, T(b0 + 2.35));
   rowIn(2, T(b0 + 2.7));
-  strikeMute("x2", T(b0 + 2.6));
+  strikeMute("x2", T(b0 + 2.6), "#b9a8ff");
 
   // B1 "משפט שהתחלתם ועזבתם באמצע נמחק כולו": the sentence that trails off is struck out whole
   const b1 = P[1];
   rdOut(3, T(b1));
   rdIn(4, T(b1 + 0.05));
-  strike("x3", T(b1 + 0.35), 0.5);
+  // the red strike waits until the accent phrase has stepped back (red rule: one red mark at a time)
+  strike("x3", T(b1 + 0.45), 0.5);
   const lab3 = q(".s21-lab3");
   tl.fromTo(lab3, { opacity: 0, y: 12, scale: 0.9 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.5, ease: E.SPRING }), T(b1 + 0.6));
   cutMark("x3", T(b1 + 0.8), true);
@@ -129,7 +131,7 @@ window.SIMS.sim21 = function (tl, ctx, cfg, S) {
   tl.fromTo(lab5, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(pe + 0.1));
   const btn = q(".s21-btn"), ring = q(".s21-bring");
   E.fadeIn(tl, btn, T(pe + 0.1), 0.5, 14);
-  [0.35, 0.7].forEach((d) => tl.fromTo(ring, { opacity: 0.8, scale: 1 }, A({ opacity: 0, scale: 1.22, duration: 0.33, ease: "power2.out" }), T(pe + d)));
+  [0.35, 0.7].forEach((d) => tl.fromTo(ring, { opacity: 0.8, scale: 1 }, A({ opacity: 0, scale: 1.12, duration: 0.33, ease: "power2.out" }), T(pe + d)));
   tl.fromTo(q(".s21-hand"), { rotation: 0, svgOrigin: "15 15" }, A({ rotation: 360, svgOrigin: "15 15", duration: 0.9, ease: "none" }), T(pe + 0.1));
   const cur = q(".s21-cur"), tap = q(".s21-tap");
   tl.fromTo(cur, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), T(pe + 0.42));
@@ -147,7 +149,7 @@ window.SIMS.sim21 = function (tl, ctx, cfg, S) {
   E.sweep(tl, btn, tFlip + 0.2, 0.6, { color: "rgba(120, 100, 255, 0.35)" });
   tl.fromTo(cur, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(pe + 1.4));
   // the table leaves; the cuts close and the two lines become one tight strip
-  tl.fromTo(table, { opacity: 1, y: 0 }, A({ opacity: 0, y: 34, duration: 0.4, ease: "power2.in" }), T(pe + 1.6));
+  tl.fromTo(table, { opacity: 1, y: 0 }, A({ opacity: 0, y: 12, duration: 0.4, ease: "power2.in" }), T(pe + 1.6));
   tl.fromTo(keep, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(pe + 1.75));
   tl.fromTo(qa(".s21-lane")[1], { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(pe + 1.75));
   const tC = T(pe + 1.95);
@@ -165,13 +167,14 @@ window.SIMS.sim21 = function (tl, ctx, cfg, S) {
   });
   const lane0 = qa(".s21-lane")[0];
   tl.fromTo(lane0, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), tC);
-  tl.fromTo(q(".s21-doc"), { y: 0 }, A({ y: 220, duration: 0.95, ease: E.SPRING }), tC + 0.1);
-  tl.fromTo(q(".s21-pbg"), { height: 316 }, A({ height: 144, duration: 0.6, ease: "power2.inOut" }), tC + 0.6);
+  const rd = root.dataset;
+  tl.fromTo(q(".s21-doc"), { y: 0 }, A({ y: +rd.docdy, duration: 0.95, ease: E.SPRING }), tC + 0.1);
+  tl.fromTo(q(".s21-pbg"), { height: +rd.h1 }, A({ height: +rd.h2, duration: 0.6, ease: "power2.inOut" }), tC + 0.6);
   // the joins light up, a playhead runs through the result, then the label
   const joins = qa(".s21-join");
   joins.forEach((j, i) => {
     tl.fromTo(j, { opacity: 0, scaleY: 0.2 }, A({ opacity: 1, scaleY: 1, duration: 0.45, ease: "back.out(2)" }), tC + 1.2 + i * 0.1);
-    E.burst(tl, q(".s21-doc"), j.offsetLeft + 8, 72, tC + 1.22 + i * 0.1, { n: 8, seed: 70 + i, r0: 18, r1: 52, color: "#c9c2ff" });
+    E.burst(tl, q(".s21-doc"), j.offsetLeft + 8, j.offsetTop + 58, tC + 1.22 + i * 0.1, { n: 8, seed: 70 + i, r0: 18, r1: 52, color: "#c9c2ff" });
   });
   const ph = q(".s21-ph"), span = +ph.dataset.span + 8, tP = tC + 1.45, dP = 0.8;
   tl.fromTo(ph, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), tP);

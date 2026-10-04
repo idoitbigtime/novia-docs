@@ -76,7 +76,8 @@
 .sim71 .s71-ico { width: 28px; height: 28px; display: block; flex: none; overflow: visible; }
 .sim71 .s71-ico rect, .sim71 .s71-ico path { fill: none; stroke: #c9c2ff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .sim71 .s71-wr { transform-origin: 50% 50%; }
-.sim71 .s71-strike { position: absolute; left: 16px; right: 16px; top: 27px; height: 3px; border-radius: 2px; background: #ff6b61; box-shadow: 0 0 8px rgba(255, 69, 58, 0.7); display: block; opacity: 0; transform-origin: 100% 50%; }
+/* grey, not red: this beat holds the red accent phrase, so the illustration shows no red */
+.sim71 .s71-strike { position: absolute; left: 16px; right: 16px; top: 27px; height: 3px; border-radius: 2px; background: #8c86a8; box-shadow: 0 0 6px rgba(140, 134, 168, 0.6); display: block; opacity: 0; transform-origin: 100% 50%; }
 .sim71 .s71-fz { position: absolute; left: 320px; top: 52px; width: 432px; height: 516px; }
 .sim71 .s71-exit { position: absolute; left: 342px; top: 218px; width: 116px; height: 24px; overflow: visible; }
 .sim71 .s71-exit path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.85)); }
@@ -87,7 +88,6 @@
 .sim71 .s71-rl { right: 20px; }
 .sim71 .s71-rl1 { top: 140px; }
 .sim71 .s71-rl2 { top: 290px; }
-.sim71 .s71-rl2 > i { background: #ff453a; box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); }
 .sim71 .s71-rb { position: absolute; left: 60px; width: 380px; height: 38px; border-radius: 12px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.26); overflow: hidden; opacity: 0; }
 .sim71 .s71-rb1 { top: 192px; }
 .sim71 .s71-rb2 { top: 342px; }

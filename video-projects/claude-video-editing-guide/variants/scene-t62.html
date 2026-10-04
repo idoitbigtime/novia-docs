@@ -462,7 +462,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim62 .s62-mag circle, .sim62 .s62-mag path { fill: none; stroke: #1a1636; stroke-width: 2.6; stroke-linecap: round; }
 .sim62 .s62-ph { position: absolute; left: 633px; top: -9px; width: 3px; height: 55px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
 .sim62 .s62-bzrow { position: absolute; left: 80px; top: 395px; width: 640px; height: 20px; }
-.sim62 .s62-bz { position: absolute; top: 0; height: 20px; border-radius: 7px; background: rgba(255, 69, 58, 0.24); border: 2px solid #ff6b61; box-shadow: 0 0 10px rgba(255, 69, 58, 0.45); display: block; opacity: 0; }
+/* the bouncy layer is amber (a secondary mark): the red X is the one red thing in this beat */
+.sim62 .s62-bz { position: absolute; top: 0; height: 20px; border-radius: 7px; background: rgba(245, 181, 68, 0.2); border: 2px solid #f5b544; box-shadow: 0 0 10px rgba(245, 181, 68, 0.42); display: block; opacity: 0; }
 
 /* labels */
 .sim62 .s62-lbl { position: absolute; display: flex; align-items: center; gap: 14px; direction: rtl; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
@@ -486,14 +487,17 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim62 .s62-legend { position: absolute; right: 60px; top: 500px; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; direction: rtl; }
 .sim62 .s62-lg { display: flex; align-items: center; gap: 16px; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
 .sim62 .s62-lg > i { width: 46px; height: 24px; border-radius: 7px; display: grid; place-items: center; flex: none; }
-.sim62 .s62-lgb > i { height: 22px; background: rgba(255, 69, 58, 0.24); border: 2px solid #ff6b61; box-shadow: 0 0 10px rgba(255, 69, 58, 0.45); }
+.sim62 .s62-lgb > i { height: 22px; background: rgba(245, 181, 68, 0.2); border: 2px solid #f5b544; box-shadow: 0 0 10px rgba(245, 181, 68, 0.42); }
 .sim62 .s62-lga > i { background: rgba(214, 208, 255, 0.92); box-shadow: 0 0 10px rgba(201, 194, 255, 0.45); }
 .sim62 .s62-lga .s62-mag { width: 17px; height: 17px; }
-.sim62 .s62-viewer { position: absolute; left: 46px; top: 476px; width: 176px; height: 215px; opacity: 0; transform-origin: 50% 100%; }
+.sim62 .s62-viewer { position: absolute; left: 46px; top: 470px; width: 176px; height: 215px; opacity: 0; transform-origin: 50% 100%; }
 .sim62 .s62-vw { position: absolute; left: 0; top: 0; width: 176px; height: 215px; display: block;
   -webkit-mask-image: linear-gradient(180deg, #000 62%, rgba(0, 0, 0, 0) 100%); mask-image: linear-gradient(180deg, #000 62%, rgba(0, 0, 0, 0) 100%); }
 .sim62 .s62-spiral { position: absolute; left: 61px; top: 47px; width: 54px; height: 54px; overflow: visible; opacity: 0; transform-origin: 50% 50%; }
 .sim62 .s62-spiral path { fill: none; stroke: #f0eeff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+/* the calm face that replaces the spiral once only one zoom is left */
+.sim62 .s62-calm { position: absolute; left: 61px; top: 47px; width: 54px; height: 54px; overflow: visible; opacity: 0; transform-origin: 50% 50%; }
+.sim62 .s62-calm path { fill: none; stroke: #f0eeff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.85)); }
 
 </style>
 </head>
@@ -504,7 +508,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div id="cam">
 <div id="sc-t62" class="clip scene" data-start="0.000" data-duration="17.660" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 6 · הקלטות מסך</span><span class="hdr-num" dir="ltr">6.2</span></div>
 <div class="scam">
-<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">הקלטתם</span> <span class="w" dir="rtl" data-t="0.430">עם</span> <span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="0.560">Screen</span> <span class="w" dir="ltr" data-t="0.690">Studio</span></span><span class="w" dir="rtl" data-t="0.690">?</span> <span class="w" dir="rtl" data-t="1.020">בלי</span> <span class="w" dir="rtl" data-t="1.150">זום</span> <span class="w" dir="rtl" data-t="1.280">נוסף</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="2.110">Screen</span> <span class="w" dir="ltr" data-t="2.170">Studio</span></span> <span class="w" dir="rtl" data-t="2.230">היא</span> <span class="w" dir="rtl" data-t="2.290">תוכנה</span> <span class="w" dir="rtl" data-t="2.350">למק</span> <span class="w" dir="rtl" data-t="2.410">שמקליטה</span> <span class="w" dir="rtl" data-t="2.470">את</span> <span class="w" dir="rtl" data-t="2.530">המסך</span> <span class="w" dir="rtl" data-t="2.590">ומוסיפה</span> <span class="w" dir="rtl" data-t="2.650">זומים</span> <span class="w" dir="rtl" data-t="2.710">אוטומטיים.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="5.210">ההקלטה</span> <span class="w" dir="rtl" data-t="5.270">כבר</span> <span class="w" dir="rtl" data-t="5.330">מלאה</span> <span class="w" dir="rtl" data-t="5.390">בזומים,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.810">אז</span> <span class="w" dir="rtl" data-t="6.870">אומרים</span> <span class="w" dir="rtl" data-t="6.930">לקלוד</span> <span class="w" dir="rtl" data-t="6.990">במפורש</span> <span class="w" dir="rtl" data-t="7.050">לא</span> <span class="w" dir="rtl" data-t="7.110">להוסיף</span> <span class="w" dir="rtl" data-t="7.170">זום</span> <span class="w" dir="rtl" data-t="7.230">קפיצי</span> <span class="w" dir="rtl" data-t="7.290">משלו:</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.510">שני</span> <span class="w" dir="rtl" data-t="9.570">זומים</span> <span class="w" dir="rtl" data-t="9.630">אחד</span> <span class="w" dir="rtl" data-t="9.690">על</span> <span class="w" dir="rtl" data-t="9.750">השני</span> <span class="accgrp" data-t="9.810"><span class="w s-str" dir="rtl" data-t="9.810">מסחררים</span><i class="ul" data-t="9.990"></i></span> <span class="w" dir="rtl" data-t="9.870">את</span> <span class="w" dir="rtl" data-t="9.930">מי</span> <span class="w" dir="rtl" data-t="9.990">שצופה.</span></span></p></div>
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="nbgrp"><span class="w" dir="rtl" data-t="0.300">הקלטתם</span> <span class="w" dir="rtl" data-t="0.430">עם</span> <span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="0.560">Screen</span> <span class="w" dir="ltr" data-t="0.690">Studio</span></span><span class="w" dir="rtl" data-t="0.690">?</span></span> <span class="nbgrp"><span class="w" dir="rtl" data-t="1.020">בלי</span> <span class="w" dir="rtl" data-t="1.150">זום</span> <span class="w" dir="rtl" data-t="1.280">נוסף</span></span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="2.110">Screen</span> <span class="w" dir="ltr" data-t="2.170">Studio</span></span> <span class="w" dir="rtl" data-t="2.230">היא</span> <span class="w" dir="rtl" data-t="2.290">תוכנה</span> <span class="w" dir="rtl" data-t="2.350">למק</span> <span class="w" dir="rtl" data-t="2.410">שמקליטה</span> <span class="w" dir="rtl" data-t="2.470">את</span> <span class="w" dir="rtl" data-t="2.530">המסך</span> <span class="w" dir="rtl" data-t="2.590">ומוסיפה</span> <span class="w" dir="rtl" data-t="2.650">זומים</span> <span class="w" dir="rtl" data-t="2.710">אוטומטיים.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="5.210">ההקלטה</span> <span class="w" dir="rtl" data-t="5.270">כבר</span> <span class="w" dir="rtl" data-t="5.330">מלאה</span> <span class="w" dir="rtl" data-t="5.390">בזומים,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.810">אז</span> <span class="w" dir="rtl" data-t="6.870">אומרים</span> <span class="w" dir="rtl" data-t="6.930">לקלוד</span> <span class="w" dir="rtl" data-t="6.990">במפורש</span> <span class="w" dir="rtl" data-t="7.050">לא</span> <span class="w" dir="rtl" data-t="7.110">להוסיף</span> <span class="w" dir="rtl" data-t="7.170">זום</span> <span class="w" dir="rtl" data-t="7.230">קפיצי</span> <span class="w" dir="rtl" data-t="7.290">משלו:</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.510">שני</span> <span class="w" dir="rtl" data-t="9.570">זומים</span> <span class="w" dir="rtl" data-t="9.630">אחד</span> <span class="w" dir="rtl" data-t="9.690">על</span> <span class="w" dir="rtl" data-t="9.750">השני</span> <span class="accgrp" data-t="9.810"><span class="w s-str" dir="rtl" data-t="9.810">מסחררים</span><i class="ul" data-t="9.990"></i></span> <span class="w" dir="rtl" data-t="9.870">את</span> <span class="w" dir="rtl" data-t="9.930">מי</span> <span class="w" dir="rtl" data-t="9.990">שצופה.</span></span></p></div>
 <div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim62">
 <i class="s62-glow"></i>
 <div class="s62-lid"><i class="s62-cam"></i>
@@ -537,7 +541,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pf62)"/>
 <path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#pr62)" stroke-width="3"/>
 <ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#pr62)" stroke-width="3"/>
-</svg><svg class="s62-spiral" viewBox="0 0 54 54" aria-hidden="true"><path d="M28.2 27.0 L28.5 27.4 L28.7 27.9 L28.7 28.6 L28.5 29.3 L28.0 29.9 L27.3 30.5 L26.4 30.8 L25.4 30.9 L24.2 30.7 L23.1 30.2 L22.1 29.3 L21.3 28.1 L20.9 26.7 L20.8 25.1 L21.1 23.4 L21.8 21.8 L23.1 20.4 L24.7 19.3 L26.6 18.6 L28.7 18.4 L30.9 18.7 L33.1 19.6 L35.0 21.1 L36.5 23.0 L37.6 25.4 L38.0 28.1 L37.8 30.9 L36.9 33.6 L35.2 36.1 L32.9 38.1 L30.2 39.6 L27.0 40.4 L23.7 40.3 L20.3 39.5 L17.3 37.8 L14.6 35.3 L12.6 32.1 L11.4 28.5 L11.1 24.6 L11.8 20.7 L13.5 17.0 L16.1 13.7 L19.5 11.1 L23.5 9.4 L27.9 8.7 L32.4 9.1 L36.8 10.6 L40.8 13.2 L44.0 16.8 L46.4 21.1 L47.6 26.0 L47.6 31.1 L46.3 36.1 L43.8 40.8 L40.2 44.8 L35.6 47.8 L30.4 49.6 L24.7 50.2 L19.0 49.3 L13.7 47.0 L8.9 43.4 L5.1 38.7 L2.6 33.1 L1.5 27.0"/></svg></div>
+</svg><svg class="s62-spiral" viewBox="0 0 54 54" aria-hidden="true"><path d="M28.2 27.0 L28.5 27.4 L28.7 27.9 L28.7 28.6 L28.5 29.3 L28.0 29.9 L27.3 30.5 L26.4 30.8 L25.4 30.9 L24.2 30.7 L23.1 30.2 L22.1 29.3 L21.3 28.1 L20.9 26.7 L20.8 25.1 L21.1 23.4 L21.8 21.8 L23.1 20.4 L24.7 19.3 L26.6 18.6 L28.7 18.4 L30.9 18.7 L33.1 19.6 L35.0 21.1 L36.5 23.0 L37.6 25.4 L38.0 28.1 L37.8 30.9 L36.9 33.6 L35.2 36.1 L32.9 38.1 L30.2 39.6 L27.0 40.4 L23.7 40.3 L20.3 39.5 L17.3 37.8 L14.6 35.3 L12.6 32.1 L11.4 28.5 L11.1 24.6 L11.8 20.7 L13.5 17.0 L16.1 13.7 L19.5 11.1 L23.5 9.4 L27.9 8.7 L32.4 9.1 L36.8 10.6 L40.8 13.2 L44.0 16.8 L46.4 21.1 L47.6 26.0 L47.6 31.1 L46.3 36.1 L43.8 40.8 L40.2 44.8 L35.6 47.8 L30.4 49.6 L24.7 50.2 L19.0 49.3 L13.7 47.0 L8.9 43.4 L5.1 38.7 L2.6 33.1 L1.5 27.0"/></svg><svg class="s62-calm" viewBox="0 0 54 54" aria-hidden="true"><path d="M14.5 24 Q18.5 28 22.5 24"/><path d="M31.5 24 Q35.5 28 39.5 24"/><path d="M20.5 34.5 Q27 40 33.5 34.5"/></svg></div>
 </div></div></div></div></div>
 
 
@@ -1138,7 +1142,7 @@ window.SIMS.sim62 = function (tl, ctx, cfg, S) {
   tw(hud, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b2);
   tw(vf, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b2);
   tw(trk, { opacity: 1 }, { opacity: 0.42, duration: 0.35 }, b2 + 0.05);
-  E.fadeIn(tl, askl, T(b2 + 0.22), 0.45, 12);
+  E.fadeIn(tl, askl, T(b2 + 0.3), 0.45, 12);         // after the REC pill (its red dot) has gone
   tw(bub, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b2 + 0.3);
   tw(bub, { y: 22, scale: 0.94 }, { y: 0, scale: 1, duration: 0.6, ease: E.SPRING }, b2 + 0.3);
   const tx1 = q(".s62-tx1"), tx2 = q(".s62-tx2"), c1 = q(".s62-c1"), c2 = q(".s62-c2");
@@ -1162,15 +1166,15 @@ window.SIMS.sim62 = function (tl, ctx, cfg, S) {
     });
     return t;
   };
-  const k1 = b2 + 0.62;
+  const k1 = b2 + 0.52;                     // typed by ~b2 + 1.8, so the whole line holds ~1 s before B3
   tw(c1, { opacity: 0 }, { opacity: 1, duration: 0.05 }, k1 - 0.06);
-  const e1 = type(tx1, c1, k1, 0.15);
+  const e1 = type(tx1, c1, k1, 0.13);
   tw(c1, { opacity: 1 }, { opacity: 0, duration: 0.05 }, e1);
   const k2 = e1 + 0.02;
   tw(c2, { opacity: 0 }, { opacity: 1, duration: 0.05 }, k2 - 0.02);
-  const e2 = type(tx2, c2, k2, 0.14);
+  const e2 = type(tx2, c2, k2, 0.12);
   [[0.25, 0], [0.55, 1], [0.85, 0]].forEach(([dt, v]) => tw(c2, { opacity: 1 - v }, { opacity: v, duration: 0.05 }, e2 + dt));
-  E.sweep(tl, bub, T(b2 + 2.0), 0.8, { color: "rgba(201, 194, 255, 0.22)" });
+  E.sweep(tl, bub, T(e2 + 0.15), 0.8, { color: "rgba(201, 194, 255, 0.22)" });
 
   // B3 "two zooms on top of each other make the viewer dizzy": a bouncy zoom lands on every automatic zoom,
   // the picture shakes and doubles, the viewer's head spins, red X (the engine punches in on the screen)
@@ -1184,7 +1188,7 @@ window.SIMS.sim62 = function (tl, ctx, cfg, S) {
   E.fadeIn(tl, lgb, T(b3 + 0.32), 0.45, 12);
   E.fadeIn(tl, lga, T(b3 + 0.4), 0.45, 12);
   tw(viewer, { opacity: 0 }, { opacity: 1, duration: 0.35 }, b3 + 0.3);
-  tw(viewer, { y: 30 }, { y: 0, duration: 0.6, ease: E.SPRING }, b3 + 0.3);
+  tw(viewer, { y: 8, scale: 0.9 }, { y: 0, scale: 1, duration: 0.6, ease: E.SPRING }, b3 + 0.3);   // grows from its base: stays inside the canvas
   move(1, 2, b3 + 0.06, 0.35);
   click(2, b3 + 0.44);
   zoom(za, ZC, ZK, b3 + 0.46, 0.8);
@@ -1225,7 +1229,11 @@ window.SIMS.sim62 = function (tl, ctx, cfg, S) {
   bzs.forEach((b, i) => tw(b, { opacity: 1, y: 0 }, { opacity: 0, y: -16, duration: 0.35, ease: "power2.in" }, pe + 0.02 + i * 0.04));
   E.fadeOut(tl, lgb, T(pe + 0.05), 0.3, -10);
   tw(no, { opacity: 1 }, { opacity: 0, duration: 0.25 }, pe + 0.08);
-  tw(spiral, { opacity: 1 }, { opacity: 0, duration: 0.3 }, pe + 0.55);
+  // only one zoom is left: the viewer calms down (the spiral cross-fades into a calm face)
+  const calm = q(".s62-calm");
+  tw(spiral, { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.inOut" }, pe + 0.25);
+  tw(calm, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.inOut" }, pe + 0.25);
+  tw(calm, { scale: 0.85 }, { scale: 1, duration: 0.4, ease: "back.out(1.8)" }, pe + 0.25);
   // the recording's own smooth zoom: out to the whole screen, the cursor clicks, then in again
   zoom(za, ZK, Z0, pe + 0.3, 0.6);
   move(2, 3, pe + 0.45, 0.55);
@@ -1238,7 +1246,7 @@ window.SIMS.sim62 = function (tl, ctx, cfg, S) {
   E.draw(tl, q(".s62-ok path"), T(pe + 1.0), 0.35);
   E.burst(tl, lid, 41, 41, T(pe + 1.02), { n: 10, seed: 62, r0: 26, r1: 40, color: "#c9c2ff" });
   E.sweep(tl, trk, T(pe + 1.2), 0.8, { color: "rgba(255, 255, 255, 0.28)" });
-  E.fadeOut(tl, viewer, T(pe + 1.9), 0.3, 10);
+  E.fadeOut(tl, viewer, T(pe + 1.9), 0.3, 6);
   E.fadeOut(tl, lga, T(pe + 1.9), 0.3, 10);
   tw(ask, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }, pe + 2.2);
   E.sweep(tl, bub, T(pe + 2.8), 0.9, { color: "rgba(201, 194, 255, 0.22)" });

@@ -2,10 +2,10 @@
 B0 Screen Studio records the screen (REC pill, viewfinder) and adds an automatic zoom where the cursor clicks
 B1 the recording is already full of zooms: the playhead races along the track and zoom segments appear
 B2 the chat bubble: what to tell Claude ("ההקלטה מ-Screen Studio, אז בלי זום קפיצי משלך.")
-B3 a bouncy zoom lands on top of every automatic zoom: the picture shakes, doubles, the viewer gets dizzy, red X
-   (the engine's punch-in on "מסחררים" lands on the screen)
-payoff: the bouncy layer is removed, the same recording plays only with its own zoom, check mark, and the
-chat bubble comes back as the instruction to give.
+B3 a bouncy zoom (amber layer) lands on top of every automatic zoom: the picture shakes, doubles, the viewer
+   gets dizzy, red X (the beat's one red mark; the engine's punch-in on "מסחררים" lands on the screen)
+payoff: the bouncy layer is removed, the viewer's spiral turns into a calm face, the same recording plays only
+with its own zoom, check mark, and the chat bubble comes back as the instruction to give.
 Beat times come from cfg["phr"] (scene-local)."""
 import math
 
@@ -17,6 +17,10 @@ MAG = ('<svg class="s62-mag" viewBox="0 0 22 22" aria-hidden="true"><circle cx="
 
 CURSOR = ('<svg class="s62-cur" viewBox="0 0 24 34" aria-hidden="true">'
           '<path d="M2.5 2.5 L2.5 27 L8.8 21 L13.4 31.2 L17.6 29.2 L13.1 19.4 L21.5 19.4 Z"/></svg>')
+
+# the viewer's calm face (payoff): relaxed closed eyes and a small smile, in the spiral's place
+CALM = ('<svg class="s62-calm" viewBox="0 0 54 54" aria-hidden="true"><path d="M14.5 24 Q18.5 28 22.5 24"/>'
+        '<path d="M31.5 24 Q35.5 28 39.5 24"/><path d="M20.5 34.5 Q27 40 33.5 34.5"/></svg>')
 
 # chart line inside the recording (fixed pattern)
 CHART = [(12, 80), (46, 66), (80, 72), (114, 50), (148, 58), (182, 38), (216, 46), (250, 30), (284, 40), (318, 22), (348, 28)]
@@ -87,7 +91,7 @@ def html(cfg):
 <i class="s62-caret s62-c1"></i><i class="s62-caret s62-c2"></i></div></div>
 <div class="s62-legend" dir="rtl"><div class="s62-lg s62-lgb"><i></i><span>{esc(c["bouncyLabel"])}</span></div>
 <div class="s62-lg s62-lga"><i>{MAG}</i><span>{esc(c["autoLabel"])}</span></div></div>
-<div class="s62-viewer">{person_svg("s62-vw", "62")}<svg class="s62-spiral" viewBox="0 0 54 54" aria-hidden="true"><path d="{_spiral()}"/></svg></div>
+<div class="s62-viewer">{person_svg("s62-vw", "62")}<svg class="s62-spiral" viewBox="0 0 54 54" aria-hidden="true"><path d="{_spiral()}"/></svg>{CALM}</div>
 </div>"""
 
 

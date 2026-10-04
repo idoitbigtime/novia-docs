@@ -49,7 +49,7 @@ window.SIMS.sim72 = function (tl, ctx, cfg, S) {
   const strip = q(".s72-strip"), edge = q(".s72-edge"), sfs = qa(".s72-sf");
   tw(strip, { clipPath: "inset(0px 0px 0px 100%)" }, { clipPath: "inset(0px 0px 0px 0%)", duration: 0.7, ease: "power2.inOut" }, b1 + 0.15);
   tw(edge, { opacity: 0 }, { opacity: 1, duration: 0.1 }, b1 + 0.12);
-  tw(edge, { x: 0 }, { x: -757, duration: 0.7, ease: "power2.inOut" }, b1 + 0.15);
+  tw(edge, { x: 0 }, { x: -(strip.offsetWidth - 3), duration: 0.7, ease: "power2.inOut" }, b1 + 0.15);
   tw(edge, { opacity: 1 }, { opacity: 0, duration: 0.12 }, b1 + 0.8);
   const marks = [q(".s72-mt"), q(".s72-mf"), q(".s72-mc")];
   const under = [[1], [3], [5, 6]];        // strip frames under each marker (the cut sits between frames 5 and 6)
@@ -126,7 +126,10 @@ window.SIMS.sim72 = function (tl, ctx, cfg, S) {
   const fromBig = { x: +(od.x - ob.x).toFixed(1), y: +(od.y - ob.y).toFixed(1), scale: +(d4.offsetWidth / big.offsetWidth).toFixed(4) };
   tw(big, { opacity: 0 }, { opacity: 1, duration: 0.15 }, pe + 1.1);
   tw(big, fromBig, { x: 0, y: 0, scale: 1, duration: 0.75, ease: E.SPRING }, pe + 1.1);
-  tw(red, { opacity: 1 }, { opacity: 0.5, duration: 0.4 }, pe + 1.85);
+  // the red mark lifts off with the copy (which starts exactly over it); the frame's place keeps a dashed
+  // lavender outline, so only one red thing is on screen besides the badge
+  tw(red, { opacity: 1 }, { opacity: 0, duration: 0.15 }, pe + 1.1);
+  tw(q(".s72-slot"), { opacity: 0 }, { opacity: 0.6, duration: 0.35 }, pe + 1.15);
   const ph = q(".s72-ph");
   tw(ph, { opacity: 0, scale: 0.9, transformOrigin: "50% 81%" }, { opacity: 1, scale: 1, transformOrigin: "50% 81%", duration: 0.35, ease: "back.out(2)" }, pe + 1.85);
   E.burst(tl, big, 93, 269, T(pe + 1.9), { n: 12, seed: 72, r0: 30, r1: 80, color: "#c9c2ff" });

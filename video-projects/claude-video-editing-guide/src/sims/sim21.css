@@ -1,6 +1,6 @@
 /* 2.1 cutting silences, stutters and double takes by meaning (canvas 800 x 700). Time runs right to left. */
 .sim21 .s21-doc { position: absolute; left: 0; top: 0; width: 800px; height: 340px; }
-.sim21 .s21-pbg { position: absolute; left: 0; top: 0; width: 800px; height: 316px; border-radius: 24px; background: rgba(26, 23, 52, 0.88);
+.sim21 .s21-pbg { position: absolute; top: 0; border-radius: 24px; background: rgba(26, 23, 52, 0.88);
   border: 1.5px solid rgba(201, 194, 255, 0.22); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35); }
 .sim21 .s21-lane { position: absolute; height: 2px; border-radius: 1px; background: rgba(201, 194, 255, 0.13); display: block; transform-origin: 100% 50%; opacity: 0; }
 
@@ -9,9 +9,9 @@
 .sim21 .s21-words { position: absolute; left: 0; right: 0; top: 0; height: 40px; display: flex; direction: rtl; align-items: center; gap: 8px; padding: 0 4px; }
 .sim21 .s21-seg[data-kind="sil"] .s21-words, .sim21 .s21-seg[data-kind="um"] .s21-words { justify-content: center; padding: 0; }
 .sim21 .s21-w { height: 26px; border-radius: 8px; display: block; flex: none; opacity: 0; transform-origin: 100% 50%; }
-.sim21 .s21-umw { height: 36px; padding: 0 11px; border-radius: 10px; background: rgba(217, 212, 255, 0.92); color: #17142e; font: 700 30px/36px "Rubik"; white-space: nowrap; }
-.sim21 .s21-silc { flex: none; height: 36px; padding: 0 9px; border-radius: 10px; border: 1.5px solid rgba(201, 194, 255, 0.65); background: rgba(31, 26, 63, 0.95);
-  color: #ece9f7; font: 600 30px/33px "Rubik"; white-space: nowrap; opacity: 0; }
+.sim21 .s21-umw { height: 38px; padding: 0 12px; border-radius: 10px; background: rgba(217, 212, 255, 0.92); color: #17142e; font: 700 32px/38px "Rubik"; white-space: nowrap; }
+.sim21 .s21-silc { flex: none; height: 38px; padding: 0 10px; border-radius: 10px; border: 1.5px solid rgba(201, 194, 255, 0.65); background: rgba(31, 26, 63, 0.95);
+  color: #ece9f7; font: 600 32px/35px "Rubik"; white-space: nowrap; opacity: 0; }
 .sim21 .s21-dots { width: 30px; height: 26px; }
 .sim21 .s21-dots svg { width: 30px; height: 26px; display: block; }
 .sim21 .s21-dots circle { fill: rgba(217, 212, 255, 0.55); }
@@ -26,6 +26,7 @@
 /* marks: cut box (dashed), strike, the kept take's outline */
 .sim21 .s21-cut { position: absolute; left: -5px; right: -5px; top: -6px; bottom: -6px; border-radius: 14px; border: 2px dashed rgba(201, 194, 255, 0.6); display: block; opacity: 0; }
 .sim21 .s21-st { position: absolute; left: 0; right: 0; top: 18px; height: 4px; border-radius: 2px; background: #ff6b61; display: block; opacity: 0; transform-origin: 100% 50%; z-index: 2; }
+.sim21 .s21-st.s21-stl { background: #b9a8ff; }
 .sim21 .s21-keep { position: absolute; left: -5px; right: -5px; top: -6px; bottom: -6px; border-radius: 14px; border: 2.5px solid #c9c2ff;
   box-shadow: 0 0 14px rgba(201, 194, 255, 0.5), inset 0 0 12px rgba(201, 194, 255, 0.15); display: block; opacity: 0; }
 
@@ -37,11 +38,11 @@
 .sim21 .s21-focus { position: absolute; display: block; }
 
 /* labels in the lane above line 2 (zero-width boxes centred on their x) */
-.sim21 .s21-lab { position: absolute; width: 0; height: 44px; display: flex; justify-content: center; }
-.sim21 .s21-lp { flex: none; display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px; border-radius: 999px; background: rgba(20, 18, 40, 0.96);
-  border: 1.5px solid rgba(201, 194, 255, 0.38); font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; direction: rtl; opacity: 0; }
+.sim21 .s21-lab { position: absolute; width: 0; height: 46px; display: flex; justify-content: center; }
+.sim21 .s21-lp { flex: none; display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 17px; border-radius: 999px; background: rgba(20, 18, 40, 0.96);
+  border: 1.5px solid rgba(201, 194, 255, 0.38); font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; direction: rtl; opacity: 0; }
 .sim21 .s21-ldot { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; flex: none; }
-.sim21 .s21-ldot.s21-red { background: #ff453a; box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); }
+.sim21 .s21-ldot.s21-lav { background: #b9a8ff; box-shadow: 0 0 10px rgba(185, 168, 255, 0.85); }
 .sim21 .s21-lck { width: 26px; height: 26px; flex: none; overflow: visible; }
 .sim21 .s21-lck path { fill: none; stroke: #c9c2ff; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; }
 .sim21 .s21-arc { position: absolute; left: 0; top: 0; width: 800px; height: 340px; overflow: visible; }
@@ -55,21 +56,21 @@
 .sim21 .s21-join em { position: absolute; left: -9px; top: 38px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid #ffffff; display: block; opacity: 0; }
 .sim21 .s21-lead { position: absolute; left: 0; top: 0; width: 800px; height: 340px; overflow: visible; }
 .sim21 .s21-lead path { fill: none; stroke: rgba(201, 194, 255, 0.75); stroke-width: 2; }
-.sim21 .s21-jlw { position: absolute; left: 0; width: 800px; height: 54px; display: flex; justify-content: center; }
-.sim21 .s21-jl { position: relative; flex: none; display: flex; align-items: center; gap: 12px; height: 54px; padding: 0 24px; border-radius: 999px; background: rgba(28, 24, 58, 0.96);
-  border: 1.5px solid rgba(201, 194, 255, 0.55); box-shadow: 0 0 22px rgba(201, 194, 255, 0.22); font: 700 33px/1 "Rubik"; color: #ffffff; white-space: nowrap; direction: rtl; opacity: 0; }
+.sim21 .s21-jlw { position: absolute; left: 0; width: 800px; height: 60px; display: flex; justify-content: center; }
+.sim21 .s21-jl { position: relative; flex: none; display: flex; align-items: center; gap: 13px; height: 60px; padding: 0 28px; border-radius: 999px; background: rgba(28, 24, 58, 0.96);
+  border: 1.5px solid rgba(201, 194, 255, 0.55); box-shadow: 0 0 22px rgba(201, 194, 255, 0.22); font: 700 36px/1 "Rubik"; color: #ffffff; white-space: nowrap; direction: rtl; opacity: 0; }
 
 /* the cuts table: scissors · זמן · מה נמחק · סיבה */
-.sim21 .s21-table { position: absolute; left: 0; width: 800px; height: 360px; border-radius: 24px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.2); opacity: 0; }
+.sim21 .s21-table { position: absolute; border-radius: 24px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.2); opacity: 0; }
 .sim21 .s21-th, .sim21 .s21-row { position: absolute; left: 24px; right: 24px; display: flex; direction: rtl; align-items: center; gap: 12px; }
-.sim21 .s21-th { top: 14px; height: 44px; font: 500 30px/1 "Rubik"; color: #a7a3bb; }
+.sim21 .s21-th { top: 10px; height: 46px; font: 500 32px/1 "Rubik"; color: #aeaac2; }
 .sim21 .s21-c0 { width: 36px; flex: none; display: grid; place-items: center; }
 .sim21 .s21-c1 { width: 172px; flex: none; display: flex; align-items: center; }
 .sim21 .s21-c2 { width: 260px; flex: none; display: flex; direction: rtl; align-items: center; }
 .sim21 .s21-c3 { flex: 1; text-align: right; white-space: nowrap; }
-.sim21 .s21-tdiv { position: absolute; left: 24px; right: 24px; top: 62px; height: 1.5px; background: rgba(201, 194, 255, 0.22); display: block; }
+.sim21 .s21-tdiv { position: absolute; left: 24px; right: 24px; top: 59px; height: 1.5px; background: rgba(201, 194, 255, 0.22); display: block; }
 .sim21 .s21-row { height: 48px; border-radius: 12px; opacity: 0; }
-.sim21 .s21-row .s21-c3 { font: 600 30px/1 "Rubik"; color: var(--ink); }
+.sim21 .s21-row .s21-c3 { font: 600 32px/1 "Rubik"; color: var(--ink); }
 .sim21 .s21-rsc { width: 28px; height: 28px; overflow: visible; }
 .sim21 .s21-rsc circle, .sim21 .s21-rsc path { fill: none; stroke: #c9c2ff; stroke-width: 2.2; stroke-linecap: round; }
 .sim21 .s21-trk { position: relative; display: block; width: 172px; height: 22px;
@@ -80,7 +81,7 @@
 .sim21 .s21-pg { width: 132px; height: 30px; overflow: visible; }
 .sim21 .s21-pg path { fill: none; stroke-linecap: round; }
 .sim21 .s21-pg .s21-flat { stroke: rgba(217, 212, 255, 0.8); stroke-width: 4.5; stroke-dasharray: 0 9; }
-.sim21 .s21-pum { height: 36px; padding: 0 11px; border-radius: 10px; background: rgba(217, 212, 255, 0.92); color: #17142e; font: 700 30px/36px "Rubik"; white-space: nowrap; }
+.sim21 .s21-pum { height: 38px; padding: 0 12px; border-radius: 10px; background: rgba(217, 212, 255, 0.92); color: #17142e; font: 700 32px/38px "Rubik"; white-space: nowrap; }
 .sim21 .s21-pchips { position: relative; display: flex; direction: rtl; align-items: center; gap: 6px; }
 .sim21 .s21-pchips i { height: 18px; border-radius: 6px; display: block; flex: none; }
 .sim21 .s21-pchips .s21-pbrk { width: 14px; background: rgba(217, 212, 255, 0.36); }
@@ -89,16 +90,16 @@
 .sim21 .s21-pst { position: absolute; left: -5px; right: -5px; top: 50%; height: 3px; margin-top: -1.5px; border-radius: 2px; background: #8f89a8; display: block; }
 
 /* approval button */
-.sim21 .s21-btn { position: absolute; left: 24px; top: 284px; width: 250px; height: 54px; border-radius: 999px; background: rgba(31, 26, 63, 0.96);
+.sim21 .s21-btn { position: absolute; border-radius: 999px; background: rgba(31, 26, 63, 0.96);
   border: 1.5px solid rgba(201, 194, 255, 0.55); display: grid; place-items: center; opacity: 0; }
-.sim21 .s21-bw, .sim21 .s21-bo { grid-area: 1 / 1; display: flex; align-items: center; gap: 10px; font: 600 30px/1 "Rubik"; white-space: nowrap; direction: rtl; }
+.sim21 .s21-bw, .sim21 .s21-bo { grid-area: 1 / 1; display: flex; align-items: center; gap: 11px; font: 600 32px/1 "Rubik"; white-space: nowrap; direction: rtl; }
 .sim21 .s21-bw { color: #ece9f7; }
 .sim21 .s21-bo { color: #17142e; font-weight: 700; opacity: 0; }
 .sim21 .s21-clock, .sim21 .s21-bok { width: 28px; height: 28px; flex: none; overflow: visible; }
 .sim21 .s21-clock circle, .sim21 .s21-clock path { fill: none; stroke: #c9c2ff; stroke-width: 2.4; stroke-linecap: round; }
 .sim21 .s21-bok path { fill: none; stroke: #17142e; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; }
 .sim21 .s21-bring { position: absolute; left: -2px; top: -2px; right: -2px; bottom: -2px; border-radius: 999px; border: 2px solid #c9c2ff; display: block; opacity: 0; }
-.sim21 .s21-cur { position: absolute; left: 233px; top: 649px; width: 30px; height: 40px; opacity: 0; transform-origin: 3px 3px; z-index: 6; }
+.sim21 .s21-cur { position: absolute; width: 30px; height: 40px; opacity: 0; transform-origin: 3px 3px; z-index: 6; }
 .sim21 .s21-cursor { width: 30px; height: 40px; display: block; overflow: visible; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5)); }
 .sim21 .s21-cursor path { fill: #f5f2ea; stroke: #17142e; stroke-width: 2; stroke-linejoin: round; }
 .sim21 .s21-tap { position: absolute; left: -17px; top: -17px; width: 40px; height: 40px; border-radius: 50%; border: 2px solid #ffffff; display: block; opacity: 0; }

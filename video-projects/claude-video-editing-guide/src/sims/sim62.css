@@ -71,7 +71,8 @@
 .sim62 .s62-mag circle, .sim62 .s62-mag path { fill: none; stroke: #1a1636; stroke-width: 2.6; stroke-linecap: round; }
 .sim62 .s62-ph { position: absolute; left: 633px; top: -9px; width: 3px; height: 55px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
 .sim62 .s62-bzrow { position: absolute; left: 80px; top: 395px; width: 640px; height: 20px; }
-.sim62 .s62-bz { position: absolute; top: 0; height: 20px; border-radius: 7px; background: rgba(255, 69, 58, 0.24); border: 2px solid #ff6b61; box-shadow: 0 0 10px rgba(255, 69, 58, 0.45); display: block; opacity: 0; }
+/* the bouncy layer is amber (a secondary mark): the red X is the one red thing in this beat */
+.sim62 .s62-bz { position: absolute; top: 0; height: 20px; border-radius: 7px; background: rgba(245, 181, 68, 0.2); border: 2px solid #f5b544; box-shadow: 0 0 10px rgba(245, 181, 68, 0.42); display: block; opacity: 0; }
 
 /* labels */
 .sim62 .s62-lbl { position: absolute; display: flex; align-items: center; gap: 14px; direction: rtl; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
@@ -95,11 +96,14 @@
 .sim62 .s62-legend { position: absolute; right: 60px; top: 500px; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; direction: rtl; }
 .sim62 .s62-lg { display: flex; align-items: center; gap: 16px; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
 .sim62 .s62-lg > i { width: 46px; height: 24px; border-radius: 7px; display: grid; place-items: center; flex: none; }
-.sim62 .s62-lgb > i { height: 22px; background: rgba(255, 69, 58, 0.24); border: 2px solid #ff6b61; box-shadow: 0 0 10px rgba(255, 69, 58, 0.45); }
+.sim62 .s62-lgb > i { height: 22px; background: rgba(245, 181, 68, 0.2); border: 2px solid #f5b544; box-shadow: 0 0 10px rgba(245, 181, 68, 0.42); }
 .sim62 .s62-lga > i { background: rgba(214, 208, 255, 0.92); box-shadow: 0 0 10px rgba(201, 194, 255, 0.45); }
 .sim62 .s62-lga .s62-mag { width: 17px; height: 17px; }
-.sim62 .s62-viewer { position: absolute; left: 46px; top: 476px; width: 176px; height: 215px; opacity: 0; transform-origin: 50% 100%; }
+.sim62 .s62-viewer { position: absolute; left: 46px; top: 470px; width: 176px; height: 215px; opacity: 0; transform-origin: 50% 100%; }
 .sim62 .s62-vw { position: absolute; left: 0; top: 0; width: 176px; height: 215px; display: block;
   -webkit-mask-image: linear-gradient(180deg, #000 62%, rgba(0, 0, 0, 0) 100%); mask-image: linear-gradient(180deg, #000 62%, rgba(0, 0, 0, 0) 100%); }
 .sim62 .s62-spiral { position: absolute; left: 61px; top: 47px; width: 54px; height: 54px; overflow: visible; opacity: 0; transform-origin: 50% 50%; }
 .sim62 .s62-spiral path { fill: none; stroke: #f0eeff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+/* the calm face that replaces the spiral once only one zoom is left */
+.sim62 .s62-calm { position: absolute; left: 61px; top: 47px; width: 54px; height: 54px; overflow: visible; opacity: 0; transform-origin: 50% 50%; }
+.sim62 .s62-calm path { fill: none; stroke: #f0eeff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.85)); }

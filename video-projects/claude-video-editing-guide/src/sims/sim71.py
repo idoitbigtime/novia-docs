@@ -95,4 +95,4 @@ def html(cfg):
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
     return [("swipe", P[0] + 1.8), ("pop", P[1] + 1.65), ("tick", P[2] + 0.75),
-            ("whoosh_soft", P[3] + 0.65), ("shimmer", pe + 1.75), ("pop", pe + 2.25)]
+            ("whoosh_soft", P[3] + 0.65), ("shimmer", pe + 1.9)]   # the tag lands 0.1 s after the draft's check: one sound

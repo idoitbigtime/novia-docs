@@ -9,7 +9,8 @@ CFG = {'id': 't62',
  'num': '6.2',
  'chapter': 'פרק 6 · הקלטות מסך',
  'prompt': None,
- 'title': 'הקלטתם עם Screen Studio? בלי זום נוסף',
+ # [..] keeps words on one line (markup, not shown): the title breaks after "?", never inside the name
+ 'title': '[הקלטתם עם Screen Studio?] [בלי זום נוסף]',
  'exp': 'Screen Studio היא תוכנה למק שמקליטה את המסך ומוסיפה זומים אוטומטיים. | ההקלטה כבר מלאה בזומים, | אז '
         'אומרים לקלוד במפורש לא להוסיף זום קפיצי משלו: | שני זומים אחד על השני {מסחררים} את מי שצופה.',
  'fact': None,

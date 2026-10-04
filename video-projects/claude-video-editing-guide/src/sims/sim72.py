@@ -4,14 +4,17 @@ B1 after the render: a film strip; markers drop on every text entry, effect and 
 B2 around the cut: a callout opens a strip of a frame every 0.1 second (the punch-in lands here)
 B3 the magnifier scans the dense strip: two identical frames (freeze) and a title that jumps
 payoff: the automatic check passes (chip with a check), but the magnifier finds the frame without a caption:
-it is marked red, lifts and grows (an empty caption slot), with the label
+it is marked red, lifts and grows (an empty caption slot; the red goes with it, its place in the strip keeps a
+dashed lavender outline), with the label
 "פריים בלי כתובית: הבדיקה האוטומטית פספסה, הפריים תפס."
 Beat times come from cfg["phr"] (scene-local)."""
 from textlayout import esc
 
-# main strip: 8 frames, right to left (time runs in the reading direction); frames 0-5 scene A, 6-7 scene B
-STRIP = dict(x=20, y=116, w=760, h=176)
-FW, FSTEP, FRIGHT = 72, 92, 748      # frame width, step, right edge of frame 0 (inside the strip; frames are 72 x 128)
+# main strip: 8 frames, right to left (time runs in the reading direction); frames 0-5 scene A, 6-7 scene B.
+# 736 px wide and centred, so it stays inside the frame (x 140..940) when the engine punches in 7% on the dense strip
+STRIP = dict(x=32, y=116, w=736, h=176)
+FW, FSTEP, FRIGHT = 72, 92, 724.5    # frame width, step, right edge of frame 0 (inside the strip; frames are 72 x 128)
+CUT = STRIP["x"] + 1.5 + FRIGHT - FSTEP * 5 - FW - (FSTEP - FW) / 2   # the cut between frames 5 and 6 (canvas x)
 # dense strip around the cut: 9 frames every 0.1 s, d0..d3 before the cut, d4..d8 after it
 DW, DSTEP, DRIGHT = 64, 78, 704      # dense strip (at 40, 380, 720 x 214): frames 64 x 114
 DTOP = 16
@@ -47,8 +50,8 @@ def html(cfg):
         if k == 3:
             cls += " fxon"
         x = FRIGHT - FSTEP * k - FW
-        fr.append(frame(f"{cls} s72-sf", f"left:{x}px;top:24px"))
-    holes = "".join(f'<i style="left:{12 + i * 30}px"></i>' for i in range(25))
+        fr.append(frame(f"{cls} s72-sf", f"left:{x:g}px;top:24px"))
+    holes = "".join(f'<i style="left:{14 + i * 30}px"></i>' for i in range(24))
     # B1: copies of the frames under the markers, taken out of the strip to be looked at
     ex = "".join(frame(f"{cls} s72-ex s72-ex{i}", "", f'<i class="s72-ok">{CHECK}</i>') for i, cls in enumerate(("sA", "sA fxon", "sB")))
     marks = []
@@ -75,12 +78,13 @@ def html(cfg):
 <div class="s72-strip"><div class="s72-holes s72-ht">{holes}</div><div class="s72-holes s72-hb">{holes}</div>{"".join(fr)}</div><i class="s72-edge"></i>
 {"".join(marks)}
 {ex}
-<svg class="s72-call" viewBox="0 0 800 700" aria-hidden="true"><path class="s72-cf" d="M190 294 L262 294 L760 380 L40 380 Z"/><path class="s72-cl" d="M190 294 L40 380"/><path class="s72-cl" d="M262 294 L760 380"/></svg>
+<svg class="s72-call" viewBox="0 0 800 700" aria-hidden="true"><path class="s72-cf" d="M{CUT - 36:g} 294 L{CUT + 36:g} 294 L760 380 L40 380 Z"/><path class="s72-cl" d="M{CUT - 36:g} 294 L40 380"/><path class="s72-cl" d="M{CUT + 36:g} 294 L760 380"/></svg>
 <div class="s72-dense" data-focus="2">{"".join(dfr)}<div class="s72-ticks">{ticks}</div>
 <svg class="s72-dim" viewBox="0 0 82 16" aria-hidden="true"><path d="M2 2 V14 M2 8 H80 M80 2 V14"/></svg>
 <div class="s72-step" dir="rtl"><span dir="ltr">{esc(c["step"][0])}</span> {esc(c["step"][1])}</div>
 <i class="s72-eq">=</i>
 <svg class="s72-red" viewBox="0 0 72 122" aria-hidden="true"><rect x="3" y="3" width="66" height="116" rx="9"/></svg>
+<svg class="s72-slot" viewBox="0 0 72 122" aria-hidden="true"><rect x="3" y="3" width="66" height="116" rx="9"/></svg>
 <i class="s72-hl s72-hl1"></i><i class="s72-hl s72-hl2"></i><i class="s72-hl s72-hl6"></i>
 <svg class="s72-jarrow" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 26V6M8 12l7-7 7 7"/></svg>
 </div>

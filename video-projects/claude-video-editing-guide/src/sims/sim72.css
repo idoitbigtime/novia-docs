@@ -37,9 +37,9 @@
 .sim72 .s72-ok path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
 
 /* B1: the film strip after the render, with markers */
-.sim72 .s72-strip { position: absolute; left: 20px; top: 116px; width: 760px; height: 176px; border-radius: 14px; background: #0c0a18; border: 1.5px solid rgba(201, 194, 255, 0.3);
+.sim72 .s72-strip { position: absolute; left: 32px; top: 116px; width: 736px; height: 176px; border-radius: 14px; background: #0c0a18; border: 1.5px solid rgba(201, 194, 255, 0.3);
   clip-path: inset(0px 0px 0px 100%); }
-.sim72 .s72-holes { position: absolute; left: 0; width: 757px; height: 12px; }
+.sim72 .s72-holes { position: absolute; left: 0; width: 733px; height: 12px; }
 .sim72 .s72-ht { top: 6px; }
 .sim72 .s72-hb { top: 155px; }
 .sim72 .s72-holes i { position: absolute; top: 0; width: 15px; height: 11px; border-radius: 3px; background: rgba(201, 194, 255, 0.2); display: block; }
@@ -49,7 +49,7 @@
 .sim72 .s72-ex0 { left: 588px; }
 .sim72 .s72-ex1 { left: 404px; }
 .sim72 .s72-ex2 { left: 174px; }
-.sim72 .s72-edge { position: absolute; left: 777px; top: 116px; width: 3px; height: 176px; background: #ffffff; box-shadow: 0 0 14px #c9c2ff; display: block; opacity: 0; }
+.sim72 .s72-edge { position: absolute; left: 765px; top: 116px; width: 3px; height: 176px; background: #ffffff; box-shadow: 0 0 14px #c9c2ff; display: block; opacity: 0; }
 .sim72 .s72-mark { position: absolute; top: 30px; width: 180px; height: 86px; opacity: 0; }
 .sim72 .s72-chip { position: absolute; left: 0; right: 0; top: 0; margin: 0 auto; width: max-content; display: flex; align-items: center; gap: 8px; padding: 7px 14px 7px 12px; border-radius: 999px;
   background: rgba(36, 31, 72, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.55); font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
@@ -73,6 +73,9 @@
 .sim72 .s72-eq { position: absolute; left: 547px; top: 56px; width: 16px; font: 700 28px/1 "Rubik"; color: #ffffff; text-align: center; display: block; opacity: 0; }
 .sim72 .s72-red { position: absolute; left: 324px; top: 12px; width: 72px; height: 122px; overflow: visible; }
 .sim72 .s72-red rect { fill: none; stroke: #ff453a; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.85)); }
+/* the caught frame's place once its copy has lifted (the red goes with the copy) */
+.sim72 .s72-slot { position: absolute; left: 324px; top: 12px; width: 72px; height: 122px; overflow: visible; opacity: 0; }
+.sim72 .s72-slot rect { fill: none; stroke: #8e86c8; stroke-width: 2.5; stroke-dasharray: 7 6; }
 .sim72 .s72-hl { position: absolute; top: 12px; width: 72px; height: 122px; border-radius: 10px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); display: block; opacity: 0; }
 .sim72 .s72-hl1 { left: 558px; }
 .sim72 .s72-hl2 { left: 480px; }

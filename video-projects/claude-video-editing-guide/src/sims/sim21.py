@@ -11,23 +11,25 @@ import math
 
 from textlayout import esc
 
-LINE_TOP = (22, 198)        # each transcript line: words row (40) + wave (56) = 100 px
+LINE_TOP = (30, 204)        # each transcript line: words row (40) + wave (56) = 100 px
 SEG_H = 100
-R_EDGE = 758                # lines are right-aligned, like a Hebrew paragraph
+R_EDGE = 762                # lines are right-aligned, like a Hebrew paragraph
+PANEL_X, PANEL_W = 8, 784   # the transcript panel and the table sit inside the canvas with an 8 px margin
 GAP = 14                    # between segments
 JOIN = 16                   # between segments once the cuts close
 PAD = 4                     # inside a segment, each side
 WGAP = 8                    # between word chips
-DOTS_W, BROKEN_W, MARK_W = 30, 20, 76
+DOTS_W, BROKEN_W, MARK_W = 30, 20, 86
 WAVE_C = 28                 # wave row centre (row height 56)
-PANEL_H, PANEL_H2 = 316, 144
-TABLE_TOP = 340
-ROW0, ROW_P = 70, 52        # table rows (table-local)
+PANEL_H, PANEL_H2 = 320, 152  # the final strip's join dots sit on the shrunk panel's bottom edge
+TABLE_TOP, TABLE_H = 336, 350   # table 336..686 (bottom >= 14 px inside the canvas)
+BTN_TOP, BTN_W, BTN_H = 280, 284, 56   # approval button (table-local)
+ROW0, ROW_P = 66, 52        # table rows (table-local)
 # table columns, right to left: scissors, זמן, מה נמחק, סיבה (padding 24, gaps 12)
 T_PAD, C0_W, C1_W, C2_W, C_GAP = 24, 36, 172, 260, 12
-C2_R = 800 - T_PAD - C0_W - C_GAP - C1_W - C_GAP     # right edge of the 'מה נמחק' cell
+C2_R = PANEL_X + PANEL_W - T_PAD - C0_W - C_GAP - C1_W - C_GAP     # right edge of the 'מה נמחק' cell (canvas)
 # doc group shift for the payoff: the closed strip + its label end up centred in the canvas
-LABEL_TOP = 198
+LABEL_TOP = 206
 DOC_DY = 220
 
 # (id, line, kind, word-chip widths); kinds: keep / sil / um / aband / take1
@@ -147,7 +149,9 @@ def _seg_html(s, c):
     extra = ""
     if s["kind"] != "keep":
         extra += '<i class="s21-cut"></i>'
-    if s["kind"] in ("um", "aband", "take1"):
+    if s["kind"] == "um":
+        extra += '<i class="s21-st s21-stl"></i>'      # lavender: it plays while the accent phrase is red
+    elif s["kind"] in ("aband", "take1"):
         extra += '<i class="s21-st"></i>'
     if s["id"] == "k4":
         extra += '<i class="s21-keep"></i>'
@@ -208,7 +212,7 @@ def html(cfg):
     def lab(n, x, inner):
         return (f'<div class="s21-lab" style="left:{x:.0f}px;top:{lab_t}px"><div class="s21-lp s21-lab{n}" dir="rtl">'
                 f'{inner}</div></div>')
-    labs = (lab(3, x3c, f'<i class="s21-ldot s21-red"></i><span>{esc(c["abandLabel"])}</span>') +
+    labs = (lab(3, x3c, f'<i class="s21-ldot s21-lav"></i><span>{esc(c["abandLabel"])}</span>') +
             lab(4, (x4c + k4c) / 2, f'<i class="s21-ldot"></i><span>{esc(c["twiceLabel"])}</span>') +
             lab(5, k4c, f'{CHECK.format(cls="s21-lck")}<span>{esc(c["lastLabel"])}</span>'))
     ay = LINE_TOP[1] - 4
@@ -254,20 +258,24 @@ def html(cfg):
         tx, ty = C2_R - 60, TABLE_TOP + ROW0 + i * ROW_P + 24
         flies += f'<i class="s21-fly s21-fly{i + 1}" data-dx="{tx - sx:.0f}" data-dy="{ty - sy:.0f}" style="left:{sx:.0f}px;top:{sy:.0f}px"></i>'
     cols = "".join(f'<span class="s21-c{i + 1}" dir="rtl">{esc(t)}</span>' for i, t in enumerate(c["cols"]))
-    btn = (f'<div class="s21-btn"><i class="s21-bring"></i><span class="s21-bw" dir="rtl">{CLOCK}<span>{esc(c["wait"])}</span></span>'
+    btn = (f'<div class="s21-btn" style="left:{T_PAD}px;top:{BTN_TOP}px;width:{BTN_W}px;height:{BTN_H}px"><i class="s21-bring"></i><span class="s21-bw" dir="rtl">{CLOCK}<span>{esc(c["wait"])}</span></span>'
            f'<span class="s21-bo" dir="rtl">{CHECK.format(cls="s21-bok")}<span>{esc(c["ok"])}</span></span></div>')
-    table = (f'<div class="s21-table" style="top:{TABLE_TOP}px"><div class="s21-th"><span class="s21-c0"></span>{cols}</div>'
+    table = (f'<div class="s21-table" style="left:{PANEL_X}px;top:{TABLE_TOP}px;width:{PANEL_W}px;height:{TABLE_H}px">'
+             f'<div class="s21-th"><span class="s21-c0"></span>{cols}</div>'
              f'<i class="s21-tdiv"></i>{slots}{rows}{btn}</div>')
+    # the cursor's tip (3, 3 in its box) lands on the right part of the approval button
+    cur_x = PANEL_X + T_PAD + BTN_W * 0.8 - 3
+    cur_y = TABLE_TOP + BTN_TOP + BTN_H / 2 - 3
 
-    return f"""<div class="simwrap sim21">
+    return f"""<div class="simwrap sim21" data-h2="{PANEL_H2}" data-h1="{PANEL_H}" data-docdy="{DOC_DY}">
 <div class="s21-doc">
-<div class="s21-pbg"></div>{lanes}{rds}
+<div class="s21-pbg" style="left:{PANEL_X}px;width:{PANEL_W}px;height:{PANEL_H}px"></div>{lanes}{rds}
 {seg_html}
 {heads}{arc}{labs}{focus}
 {jhtml}{lead_svg}{jl}{ph}
 </div>
 {table}
-{flies}<div class="s21-cur">{CURSOR}<i class="s21-tap"></i></div>
+{flies}<div class="s21-cur" style="left:{cur_x:.0f}px;top:{cur_y:.0f}px">{CURSOR}<i class="s21-tap"></i></div>
 </div>"""
 
 

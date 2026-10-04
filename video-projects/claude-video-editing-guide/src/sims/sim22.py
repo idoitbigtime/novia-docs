@@ -6,10 +6,14 @@ B4 words that sound the same are fixed (letter pairs from the guide), the phone 
 payoff: white pill switching in one frame, then kinetic words.
 Beat times come from cfg["phr"] (scene-local); payoff times in cfg["sim22"] are relative to cfg["phrEnd"]."""
 from textlayout import esc, kinetic_html
-from art import person_svg, ARROW_LEFT
+from art import person_svg
 
 SPEAKER = ('<svg class="s22-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/>'
            '<path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg>')
+
+# a long left arrow (RTL: from the wrong word to the right one) under the letter pair
+FIX_ARROW = ('<svg class="s22-farw" viewBox="0 0 112 20" aria-hidden="true"><path d="M108 10 H5 M15 2 L5 10 L15 18" '
+             'fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 
 # waveform bar heights (fixed pattern, px)
 WAVE = [10, 18, 30, 22, 40, 52, 34, 20, 44, 60, 48, 28, 16, 36, 54, 42, 24, 12, 30, 46, 38, 22, 14, 26]
@@ -28,12 +32,13 @@ def html(cfg):
     c = cfg["sim22"]
     fixes = []
     for i, (bad, good, pair) in enumerate(c["fixes"]):
+        # the letter pair rides on the arrow between the wrong word and the right one
         fixes.append(
             f'<div class="s22-fix" dir="rtl"><span class="s22-bad">{esc(bad)}<i class="s22-strike"></i></span>'
-            f'{ARROW_LEFT.format(cls="s22-arrow")}<span class="s22-good">{esc(good)}</span>'
-            f'<span class="s22-pair">{SPEAKER}<b dir="rtl">{esc(pair)}</b></span></div>'
+            f'<span class="s22-mid"><span class="s22-pair">{SPEAKER}<b dir="rtl">{esc(pair)}</b></span>{FIX_ARROW}</span>'
+            f'<span class="s22-good">{esc(good)}</span></div>'
         )
-    blocks = "".join(f'<i class="s22-blk" style="width:{w}px"><u></u></i>' for w in (70, 44, 92, 56, 78, 46))
+    blocks = "".join(f'<i class="s22-blk" style="width:{w}px"><u></u></i>' for w in (62, 40, 80, 50, 66, 40))
     pills = "".join(f'<span class="s22-pill" id="t22-p{i + 1}">{esc(p)}</span>' for i, p in enumerate(c["pills"]))
     t_kin = cfg["phrEnd"] + c["kin0"] + 0.25
     kin, _, _ = kinetic_html(c["kin"], t0=t_kin, step=c["kinStep"], pause=0.2)
@@ -57,7 +62,7 @@ def html(cfg):
 <div class="s22-wavebox">{_wave("s22-wave s22-wdim")}<div class="s22-wclip">{_wave("s22-wave s22-wlit")}</div><i class="s22-head"></i></div>
 <div class="s22-flow"><i></i><i></i><i></i></div>
 <div class="s22-chips">
-<div class="s22-chip s22-big"><svg class="s22-chipo" viewBox="0 0 220 96" preserveAspectRatio="none" aria-hidden="true"><rect x="2" y="2" width="216" height="92" rx="22"/></svg>
+<div class="s22-chip s22-big"><svg class="s22-chipo" viewBox="0 0 196 128" aria-hidden="true"><rect x="1.25" y="1.25" width="193.5" height="125.5" rx="23"/></svg>
 <span class="s22-chipk" dir="rtl">{esc(c["bigLabel"])}</span><span class="s22-chipn" dir="ltr">large-v3</span>
 <svg class="s22-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></div>
 <div class="s22-chip s22-def"><span class="s22-chipk" dir="rtl">{esc(c["defLabel"])}</span><span class="s22-chipt" dir="rtl">{esc(c["defTag"])}</span>
@@ -88,6 +93,6 @@ def cues(cfg):
     c = cfg["sim22"]
     P = cfg["phr"]
     out = [("tick", P[0] + 1.25), ("glitch_soft", P[1] + 1.15), ("swipe", P[2] + 1.0), ("tick", P[2] + 1.8)]
-    out += [("tick", P[3] + 0.25 + i * c["fixStep"] + 0.55) for i in range(len(c["fixes"]))]
+    out += [("tick", P[3] + c["fix0"] + i * c["fixStep"] + 0.45) for i in range(len(c["fixes"]))]
     out += [("tick", a) for a, _ in pill_times(cfg)]
     return out
