@@ -1,27 +1,83 @@
-/* 2.2 Hebrew captions in two styles: transcription fixes + white pill + kinetic */
-.sim22 .s22-phone { position: absolute; left: 430px; top: 0; width: 370px; height: 600px; border-radius: 40px; border: 2px solid rgba(201, 194, 255, 0.6); box-shadow: 0 0 26px rgba(201, 194, 255, 0.22); background: #09090f; }
-.sim22 .s22-screen { position: absolute; inset: 9px; border-radius: 31px; overflow: hidden; background: linear-gradient(180deg, #221d47 0%, #171433 55%, #0e0c1f 100%); }
-.sim22 .s22-lamp { position: absolute; left: -60px; top: -40px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(169, 147, 255, 0.22), rgba(169, 147, 255, 0) 70%); }
-.sim22 .s22-win { position: absolute; right: 22px; top: 54px; width: 86px; height: 124px; border: 2px solid rgba(201, 194, 255, 0.2); border-radius: 6px; }
+/* 2.2 Hebrew captions: one visual beat per explanation phrase, then the two caption styles (canvas 800 x 700) */
+.sim22 .s22-phone { position: absolute; left: 440px; top: 0; width: 360px; height: 700px; border-radius: 44px; border: 2px solid rgba(201, 194, 255, 0.6); box-shadow: 0 0 30px rgba(201, 194, 255, 0.24); background: #09090f; }
+.sim22 .s22-screen { position: absolute; inset: 9px; border-radius: 35px; overflow: hidden; background: linear-gradient(180deg, #241f4c 0%, #171433 55%, #0e0c1f 100%); }
+.sim22 .s22-lamp { position: absolute; left: -70px; top: -50px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(169, 147, 255, 0.24), rgba(169, 147, 255, 0) 70%); }
+.sim22 .s22-win { position: absolute; right: 24px; top: 62px; width: 96px; height: 140px; border: 2px solid rgba(201, 194, 255, 0.2); border-radius: 6px; }
 .sim22 .s22-win i { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(201, 194, 255, 0.2); display: block; }
-.sim22 .s22-person { position: absolute; left: -70px; top: -13px; width: 492px; height: 600px; }
-.sim22 .s22-caps { position: absolute; left: 14px; right: 14px; top: 404px; display: grid; place-items: center; }
-.sim22 .s22-cap { grid-area: 1 / 1; display: grid; place-items: center; opacity: 0; font: 800 38px/1.2 "Rubik"; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); white-space: nowrap; }
-.sim22 .s22-capbad, .sim22 .s22-capgood { grid-area: 1 / 1; position: relative; }
-.sim22 .s22-capbad { color: #ff6b61; }
-.sim22 .s22-capgood { color: #ffffff; opacity: 0; }
-.sim22 .s22-capstrike { position: absolute; left: -4px; right: -4px; top: 54%; height: 4px; border-radius: 2px; background: #ff6b61; display: block; opacity: 0; transform-origin: 100% 50%; }
-.sim22 .s22-pillrow { position: absolute; left: 0; right: 0; top: 318px; display: grid; place-items: center; }
-.sim22 .s22-pill { grid-area: 1 / 1; background: #ffffff; color: #0b0b0b; font: 800 32px/1 "Rubik"; padding: 14px 22px 13px; border-radius: 14px; opacity: 0; white-space: nowrap; direction: rtl; }
-.sim22 .s22-kinrow { position: absolute; left: 16px; right: 16px; top: 404px; text-align: center; font: 800 38px/1.25 "Rubik"; color: #ffffff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); }
-.sim22 .s22-kinrow .accgrp { color: #ff5a4f; font-weight: 900; }
-.sim22 .s22-fixes { position: absolute; left: 0; top: 70px; width: 392px; }
-.sim22 .s22-fix { display: flex; direction: rtl; align-items: center; gap: 12px; height: 72px; margin-bottom: 14px; }
-.sim22 .s22-bad { position: relative; font: 600 32px/1 "Rubik"; color: #ff6b61; opacity: 0; white-space: nowrap; }
+.sim22 .s22-person { position: absolute; left: -116px; top: -8px; width: 575px; height: 700px; }
+
+/* B1-B2 panel: waveform -> model chips -> words with time marks */
+.sim22 .s22-p1 { position: absolute; left: 0; top: 0; width: 420px; height: 700px; }
+.sim22 .s22-wavebox { position: absolute; left: 5px; top: 44px; width: 410px; height: 90px; opacity: 0; }
+.sim22 .s22-wave { position: absolute; left: 0; top: 0; width: 410px; height: 90px; display: block; }
+.sim22 .s22-wdim rect { fill: rgba(201, 194, 255, 0.26); }
+.sim22 .s22-wlit rect { fill: #d9d4ff; }
+.sim22 .s22-wclip { position: absolute; inset: 0; clip-path: inset(0px 0px 0px 100%); filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.7)); }
+.sim22 .s22-head { position: absolute; top: -10px; bottom: -10px; left: 410px; width: 3px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
+.sim22 .s22-flow { position: absolute; left: 207px; top: 146px; width: 7px; height: 78px; }
+.sim22 .s22-flow i { position: absolute; left: 0; top: 0; width: 8px; height: 8px; border-radius: 50%; background: #d9d4ff; box-shadow: 0 0 10px #c9c2ff; display: block; opacity: 0; }
+.sim22 .s22-chips { position: absolute; left: 0; top: 236px; width: 420px; height: 104px; }
+.sim22 .s22-chip { position: absolute; top: 0; height: 104px; border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; direction: rtl; opacity: 0; }
+.sim22 .s22-big { left: 103px; width: 214px; background: rgba(28, 24, 58, 0.94); }
+.sim22 .s22-chipo { position: absolute; left: 0; top: 0; width: 214px; height: 104px; overflow: visible; }
+.sim22 .s22-chipo rect { fill: none; stroke: #c9c2ff; stroke-width: 2.5; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.8)); }
+.sim22 .s22-chipk { font: 500 28px/1 "Rubik"; color: #c4bfdc; }
+.sim22 .s22-chipn { font: 600 36px/1 "IBM Plex Mono"; color: #ffffff; }
+.sim22 .s22-ok, .sim22 .s22-no { position: absolute; left: -14px; top: -14px; width: 38px; height: 38px; border-radius: 50%; overflow: visible; opacity: 0; }
+.sim22 .s22-ok { background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.6); }
+.sim22 .s22-no { background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); }
+.sim22 .s22-ok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim22 .s22-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
+.sim22 .s22-def { left: 230px; width: 186px; background: rgba(20, 18, 36, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.28); }
+.sim22 .s22-def .s22-chipk { font-size: 28px; color: #e4e1f0; }
+.sim22 .s22-chipt { font: 600 25px/1 "Rubik"; color: #ff8a80; border: 1.5px solid rgba(255, 107, 97, 0.6); border-radius: 999px; padding: 6px 12px 5px; }
+.sim22 .s22-tok { position: absolute; left: 300px; top: -122px; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font: 700 29px/1 "Rubik"; color: #ffffff; background: #2a2450; box-shadow: 0 0 0 2px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.6); opacity: 0; }
+.sim22 .s22-blocks { position: absolute; left: 0; top: 390px; width: 420px; display: flex; direction: rtl; gap: 11px; }
+.sim22 .s22-blk { position: relative; height: 32px; border-radius: 9px; background: rgba(217, 212, 255, 0.85); display: block; opacity: 0; transform-origin: 100% 50%; }
+.sim22 .s22-blk u { position: absolute; right: 0; bottom: -17px; width: 3px; height: 12px; border-radius: 2px; background: #ff8a80; display: block; }
+
+/* B3-B4: the caption on the phone, read as a whole sentence, then corrected */
+.sim22 .s22-cap3 { position: absolute; left: 14px; right: 14px; top: 462px; display: flex; justify-content: center; gap: 13px; direction: rtl; font: 800 42px/1.25 "Rubik"; color: #ffffff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); white-space: nowrap; opacity: 0; }
+.sim22 .s22-cx { position: relative; display: grid; }
+.sim22 .s22-cxbad, .sim22 .s22-cxgood { grid-area: 1 / 1; }
+.sim22 .s22-cxgood { opacity: 0; }
+.sim22 .s22-wavy { position: absolute; left: -4px; bottom: -13px; width: calc(100% + 8px); height: 12px; overflow: visible; }
+.sim22 .s22-wavy path { fill: none; stroke: #ff6b61; stroke-width: 3.2; stroke-linecap: round; }
+.sim22 .s22-brk { position: absolute; left: 50%; top: -15px; width: 290px; height: 82px; margin-left: -145px; overflow: visible; }
+.sim22 .s22-brk rect { fill: none; stroke: #c9c2ff; stroke-width: 2.6; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.8)); }
+.sim22 .s22-scan { position: absolute; top: -11px; bottom: -13px; left: 50%; margin-left: 106px; width: 74px; display: block; opacity: 0;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.45) 70%, #ffffff 92%, rgba(255, 255, 255, 0)); }
+
+/* B4 fix list with the letter pairs from the guide */
+.sim22 .s22-fixes { position: absolute; left: 0; top: 70px; width: 420px; }
+.sim22 .s22-fix { display: flex; align-items: center; gap: 12px; height: 84px; margin-bottom: 18px; position: relative; }
+.sim22 .s22-bad { position: relative; font: 600 33px/1 "Rubik"; color: #ff6b61; opacity: 0; white-space: nowrap; }
 .sim22 .s22-strike { position: absolute; left: -5px; right: -5px; top: 52%; height: 4px; border-radius: 2px; background: #ff6b61; display: block; opacity: 0; transform-origin: 100% 50%; }
-.sim22 .s22-arrow { width: 40px; height: 20px; opacity: 0; flex: none; }
-.sim22 .s22-good { font: 700 34px/1 "Rubik"; color: var(--ink); opacity: 0; white-space: nowrap; }
-.sim22 .s22-label { position: absolute; left: 0; width: 392px; display: flex; direction: rtl; align-items: center; gap: 14px; font: 600 36px/1 "Rubik"; color: var(--ink); opacity: 0; }
-.sim22 .s22-label i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; }
-.sim22 .s22-l1 { top: 400px; }
-.sim22 .s22-l2 { top: 480px; }
+.sim22 .s22-arrow { width: 36px; height: 19px; opacity: 0; flex: none; }
+.sim22 .s22-good { position: relative; font: 700 35px/1 "Rubik"; color: var(--ink); opacity: 0; white-space: nowrap; }
+.sim22 .s22-pair { display: flex; align-items: center; gap: 7px; padding: 7px 12px 6px; border-radius: 999px; border: 1.5px solid rgba(201, 194, 255, 0.45); background: rgba(28, 24, 58, 0.85); opacity: 0; flex: none; }
+.sim22 .s22-pair b { font: 600 28px/1 "Rubik"; color: #ece9f7; }
+.sim22 .s22-spk { width: 25px; height: 21px; display: block; flex: none; }
+
+/* payoff: two caption styles on the phone */
+.sim22 .s22-pillrow { position: absolute; left: 0; right: 0; top: 372px; display: grid; place-items: center; }
+.sim22 .s22-pill { grid-area: 1 / 1; background: #ffffff; color: #0b0b0b; font: 800 36px/1 "Rubik"; padding: 15px 24px 14px; border-radius: 15px; opacity: 0; white-space: nowrap; direction: rtl; }
+.sim22 .s22-kinrow { position: absolute; left: 16px; right: 16px; top: 466px; text-align: center; font: 800 42px/1.25 "Rubik"; color: #ffffff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); }
+.sim22 .s22-kinrow .accgrp { color: #ff5a4f; font-weight: 900; }
+.sim22 .s22-label { position: absolute; left: 0; width: 420px; display: flex; direction: rtl; align-items: center; gap: 14px; font: 600 36px/1 "Rubik"; color: var(--ink); opacity: 0; }
+.sim22 .s22-label i { width: 15px; height: 15px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; }
+.sim22 .s22-l1 { top: 480px; }
+.sim22 .s22-l2 { top: 560px; }
+
+/* B3: the caption track, read caption by caption */
+.sim22 .s22-p3 { position: absolute; left: 0; top: 0; width: 420px; height: 700px; }
+.sim22 .s22-row { position: absolute; left: 0; width: 420px; height: 72px; border-radius: 18px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.16);
+  display: flex; direction: rtl; align-items: center; gap: 11px; padding: 0 24px; opacity: 0; }
+.sim22 .s22-row:nth-child(1) { top: 90px; }
+.sim22 .s22-row:nth-child(2) { top: 186px; }
+.sim22 .s22-row:nth-child(3) { top: 282px; }
+.sim22 .s22-row:nth-child(4) { top: 378px; }
+.sim22 .s22-rb { height: 22px; border-radius: 7px; background: rgba(201, 194, 255, 0.38); display: block; flex: none; }
+.sim22 .s22-row3 { font: 700 36px/1 "Rubik"; color: #ffffff; gap: 13px; }
+.sim22 .s22-r3w { position: relative; }
+.sim22 .s22-rd { position: absolute; left: -7px; top: 83px; width: 434px; height: 86px; border-radius: 23px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 16px rgba(201, 194, 255, 0.55), inset 0 0 14px rgba(201, 194, 255, 0.18); display: block; opacity: 0; }

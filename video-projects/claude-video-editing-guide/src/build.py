@@ -81,13 +81,16 @@ def build(window=None, name="index", only=None, scale_override=None):
     total = full[-1][2] + full[-1][3]
     timeline = [(sid, c, st) for sid, c, st, d, ok in full if ok]
     if only:
-        timeline = [(sid, load_cfg(sid), 0.0) for sid in only]
-        total = 0.0
+        # the listed scenes back to back from t=0
+        timeline, t = [], 0.0
+        for sid in only:
+            c = load_cfg(sid)
+            timeline.append((sid, c, round(t, 3)))
+            t += scene_builder(c)(c)[3]["D"]
+        total = round(t, 3)
     for sid, scfg, start in timeline:
         inner, js_cfg, sc_cues, scfg = scene_builder(scfg)(scfg)
         dur = scfg["D"]
-        if only:
-            total = max(total, start + dur)
         if window:
             a, b = window
             s0, s1 = max(start, a), min(start + dur, b)
@@ -129,6 +132,7 @@ def build(window=None, name="index", only=None, scale_override=None):
     const TOT = {total:.3f};
     master.fromTo('#bg .g1', {{ x: 0, y: 0 }}, {{ x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }}, 0);
     master.fromTo('#bg .g2', {{ x: 0, y: 0 }}, {{ x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }}, 0);
+    window.ENG.dust(master, document.getElementById('bg'), TOT);
     for (const cfg of CFGS) {{
       const scene = document.getElementById('sc-' + cfg.id);
       const scam = scene.querySelector('.scam') || cam;
@@ -195,6 +199,9 @@ if __name__ == "__main__":
         for sid, c, st, d, ok in plan():
             print(f"{sid:8s} start={st:7.2f}  dur={d:6.2f}  {'built' if ok else '-'}")
         p = plan(); print("TOTAL", round(p[-1][2] + p[-1][3], 2))
+    elif a[0] == "seq":
+        # python3 build.py seq c2,t22 0 15 draft  -> the listed scenes back to back, 540x960 window A..B
+        build((float(a[2]), float(a[3])), a[4] if len(a) > 4 else "draft", only=a[1].split(","))
     elif a[0] == "scene":
         # python3 build.py scene t21 [half]  -> variants/scene-t21.html, the scene alone from t=0
         build(None, "scene-" + a[1], only=[a[1]], scale_override=0.5 if "half" in a[2:] else None)

@@ -90,6 +90,91 @@
     E.zoom(tl, ctx, c.x, c.y, t, amt, tBack, backDur, col);
   };
 
+  /* ---------- effects (all pure transforms/opacity, created once before the first seek) ---------- */
+  /* Light sweep across an element, right to left (the reading direction). The element must be
+     positioned; it clips the band to its own shape. o.color tints the band. */
+  E.sweep = function (tl, el, t, d, o) {
+    if (!el) return;
+    o = o || {};
+    const fx = document.createElement("i"), b = document.createElement("b");
+    fx.className = "fx-sweep";
+    if (o.color) fx.style.setProperty("--sweep", o.color);
+    fx.appendChild(b);
+    el.appendChild(fx);
+    const w = el.offsetWidth;
+    tl.fromTo(b, { x: 0 }, A({ x: -(w * 1.34 + 60), duration: d || 0.8, ease: "power2.inOut" }), t);
+  };
+  /* A soft light band crosses the whole frame (scene change). */
+  E.band = function (tl, scene, t) {
+    const b = document.createElement("i");
+    b.className = "fx-band";
+    scene.appendChild(b);
+    tl.fromTo(b, { x: 0 }, A({ x: -1900, duration: 0.85, ease: "power2.inOut" }), t);
+    tl.fromTo(b, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power1.out" }), t);
+    tl.fromTo(b, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), t + 0.55);
+  };
+  /* Particle burst from (x, y) inside parent: n dots fly out and fade (deterministic). */
+  E.burst = function (tl, parent, x, y, t, o) {
+    if (!parent) return;
+    o = o || {};
+    const n = o.n || 14, rnd = E.rand(o.seed || 7), col = o.color || "#ff6b61", r0 = o.r0 || 30, r1 = o.r1 || 120;
+    for (let i = 0; i < n; i++) {
+      const d = document.createElement("i");
+      d.className = "fx-dot";
+      const sz = 5 + rnd() * 7;
+      d.style.cssText = "left:" + x + "px;top:" + y + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:" + col + ";box-shadow:0 0 10px " + col;
+      parent.appendChild(d);
+      const ang = (i / n) * Math.PI * 2 + rnd() * 0.5, dist = r0 + rnd() * (r1 - r0), dur = 0.55 + rnd() * 0.35;
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * dist, y: Math.sin(ang) * dist, scale: 0.35, duration: dur, ease: "power3.out" }), t);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), t);
+    }
+  };
+  /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
+  E.draw = function (tl, el, t, d, ease) {
+    if (!el) return;
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2;
+    el.style.strokeDasharray = L + " " + L;
+    el.style.strokeDashoffset = L;
+    tl.fromTo(el, { strokeDashoffset: L }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+  };
+  /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
+  E.glitch = function (tl, el, t, amp) {
+    if (!el) return;
+    const a = amp || 8;
+    const seq = [[0, 0], [a, -7], [-a * 0.7, 5], [a * 0.45, -3], [-a * 0.2, 1.5], [0, 0]];
+    for (let i = 1; i < seq.length; i++) {
+      tl.fromTo(el, { x: seq[i - 1][0], skewX: seq[i - 1][1] }, A({ x: seq[i][0], skewX: seq[i][1], duration: 0.05, ease: "none" }), t + (i - 1) * 0.05);
+    }
+  };
+  /* Bouncy zoom inside the illustration (the guide's spring): the stage camera punches in on a
+     focal element and comes back at tBack. The camera box clips, so text above is never touched. */
+  E.zoomStage = function (tl, ctx, el, t, amt, tBack) {
+    const cam = ctx.stcam, fit = ctx.fit || 1, sf = ctx.stfit;
+    let cx = cam.offsetWidth / 2, cy = cam.offsetHeight / 2;
+    if (el) {
+      const c = E.center(el, sf);
+      const hw = sf.offsetWidth / 2, hh = sf.offsetHeight / 2;
+      cx = sf.offsetLeft + hw + (c.x - hw) * fit;
+      cy = sf.offsetTop + hh + (c.y - hh) * fit;
+    }
+    const s = 1 + amt;
+    tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  /* Slow drifting dust over the whole video (depth; deterministic). */
+  E.dust = function (tl, bg, total) {
+    const rnd = E.rand(11);
+    for (let i = 0; i < 28; i++) {
+      const d = document.createElement("i"), sz = 2 + rnd() * 3.5;
+      d.className = "dust";
+      d.style.cssText = "left:" + (rnd() * 1080).toFixed(0) + "px;top:" + (200 + rnd() * 1700).toFixed(0) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;opacity:" + (0.15 + rnd() * 0.35).toFixed(2);
+      bg.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0 }, A({ x: (rnd() - 0.5) * 160, y: -(140 + rnd() * 320), duration: total, ease: "none" }), 0);
+    }
+  };
+
   /* Prompt card: the full verbatim text, paged (static pages and short slides, so any
      paused frame is readable). On a key line the page text dims and a copy of the line
      lifts above the card (bouncy zoom on the line; it sits in its own layer, so its backing
@@ -130,7 +215,7 @@
     const LIFT = 1.1, DIM = 0.38;
     const mineOf = (i) => H.filter((h) => h.page === i);
     const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
-    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.62 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
     // a plain last page stays settled a little longer before the exit
     let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
     for (let i = 0; i < n; i++) {
@@ -176,7 +261,8 @@
       h.lift.style.width = h.ln.offsetWidth + "px";
     });
     tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
-    tl.fromTo(card, { scale: 0.97, y: 40 }, A({ scale: 1, y: 0, duration: 0.6, ease: SPRING }), t0);
+    tl.fromTo(card, { rotationX: 16, y: 90, scale: 0.94, transformPerspective: 1600 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SPRING }), t0);
+    E.sweep(tl, card, t0 + 0.4, 1.0, { color: "rgba(201, 194, 255, 0.16)" });
     const arrivals = [], slides = [], holdTimes = [];
     let t = t0 + LEAD, dimmed = false, tFinal = null;
     for (let i = 0; i < n; i++) {
@@ -256,51 +342,76 @@
     };
   };
 
-  /* Standard topic scene. Layout is measured once (static), then:
-     title + explanation centred -> dock to the top (smaller, dimmed) -> simulation ->
-     fact (simulation and explanation leave, fact centred) -> prompt card -> tip. */
+  /* Standard topic scene. Layout is measured once (static):
+     the title and the explanation sit at the top; the illustration fills the safe area below.
+     title -> illustration enters -> explanation phrase by phrase (current phrase bright, the
+     illustration shows each phrase, bouncy zoom inside it on the key phrase) -> payoff ->
+     fact over the dimmed illustration -> prompt card -> tip. */
   E.topic = function (tl, ctx, cfg) {
     const S = cfg.S, sc = ctx.scene;
-    const hdr = E.q(".hdr", sc), main = E.q(".main", sc), exp = E.q(".exp", sc);
+    const hdr = E.q(".hdr", sc), main = E.q(".main", sc), exp = E.q(".exp", sc), ttl = E.q(".ttl", sc);
     const stage = E.q(".stage", sc), simtag = E.q(".simtag", sc), fact = E.q(".factbox", sc);
+    const stcam = E.q(".stcam", sc), stfit = E.q(".stfit", sc);
     // static layout
+    const TOP = 376, BOTTOM = 1566;
     const h = main.offsetHeight;
-    const top0 = Math.round(Math.max(380, 930 - h / 2));
-    main.style.top = top0 + "px";
-    const dockTop = 382, dockS = 0.86;
-    const stTop = Math.round(dockTop + h * dockS + 40);
+    const stTop = Math.round(TOP + h + 30);
     stage.style.top = stTop + "px";
-    stage.style.height = Math.max(600, 1562 - stTop) + "px";
-
+    stage.style.height = BOTTOM - stTop + "px";
+    const camH = BOTTOM - stTop - 50;
+    const simH = (E.q(".simwrap", sc) || { offsetHeight: 700 }).offsetHeight || 700;
+    stfit.style.height = simH + "px";
+    stfit.style.marginTop = -simH / 2 + "px";
+    const fit = Math.min(1, camH / simH);
+    if (fit < 1) stfit.style.transform = "scale(" + fit.toFixed(3) + ")";
+    if (fact) { fact.style.top = stTop + 50 + "px"; fact.style.height = camH + "px"; }
+    Object.assign(ctx, { stcam, stfit, fit, stTop });
+    // scene change: a light band crosses the frame while the camera settles
+    E.band(tl, sc, S);
+    tl.fromTo(ctx.cam, { scale: 1.035 }, A({ scale: 1, duration: 1.0, ease: SPRING }), S);
     E.fadeIn(tl, hdr, S + 0.05, 0.5, 0);
-    E.kin(tl, E.q(".ttl", sc), S);
-    E.kin(tl, exp, S);
-    const acc = E.q(".exp .accgrp", sc);
-    if (acc && cfg.expZoom) E.zoomOn(tl, ctx, acc, S + parseFloat(acc.dataset.t), cfg.expZoom, S + cfg.tDock - 0.05, 0.4);
-    // dock
-    tl.set(main, { transformOrigin: "100% 0%" }, S + cfg.tDock);
-    tl.fromTo(main, { y: 0, scale: 1 }, A({ y: dockTop - top0, scale: dockS, duration: 0.75, ease: SPRING }), S + cfg.tDock);
-    E.dim(tl, exp, S + cfg.tDock, 0.3, 1, 0.5);
-    E.qa(".accgrp", exp).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#dcd9e6", duration: 0.5 }), S + cfg.tDock));
-    E.qa(".ul", exp).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + cfg.tDock));
-    // simulation
-    E.fadeIn(tl, simtag, S + cfg.tStage - 0.15, 0.4, 0);
+    E.kin(tl, ttl, S);
+    // the illustration enters with the explanation
+    E.fadeIn(tl, simtag, S + cfg.tStage, 0.4, 0);
     tl.fromTo(stage, { opacity: 0, y: 46 }, A({ opacity: 1, y: 0, duration: 0.8, ease: SPRING }), S + cfg.tStage);
+    // explanation: phrase by phrase; the phrase being read is bright, the ones before step back
+    E.kin(tl, exp, S, { dy: 14 });
+    const phs = E.qa(".ph", exp);
+    phs.forEach((ph, i) => {
+      const tEnd = i + 1 < phs.length ? cfg.phr[i + 1] : cfg.phrEnd + 0.8;
+      tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0.5, duration: 0.45, ease: "power2.out" }), S + tEnd);
+      E.qa(".accgrp", ph).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#dcd9e6", duration: 0.45 }), S + tEnd));
+      E.qa(".ul", ph).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + tEnd));
+    });
     if (window.SIMS[cfg.sim]) window.SIMS[cfg.sim](tl, ctx, cfg, S);
+    // bouncy zoom inside the illustration on the key phrase (focus: [data-focus="<phrase>"])
+    const acc = E.q(".exp .accgrp", sc);
+    if (acc && cfg.expZoom) {
+      const p = +(acc.closest(".ph") || { dataset: { p: 0 } }).dataset.p;
+      const tb = p + 1 < cfg.phr.length ? cfg.phr[p + 1] : cfg.phrEnd + 0.6;
+      const focus = E.q('[data-focus="' + p + '"]', stage) || E.q("[data-focus]", stage);
+      E.zoomStage(tl, ctx, focus, S + parseFloat(acc.dataset.t) + 0.1, cfg.expZoom, S + tb);
+    }
     const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
-    const tOut1 = cfg.tFact != null ? cfg.tFact - 0.45 : tNext - 0.35;
-    E.dim(tl, stage, S + tOut1, 0, 1, 0.35);
-    E.dim(tl, simtag, S + tOut1, 0, 1, 0.3);
-    E.dim(tl, exp, S + tOut1, 0, 0.3, 0.35);
     if (cfg.tFact != null) {
+      // the fact takes over the illustration's area; the illustration steps far back
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.14, 1, 0.4);
+      E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
       const pill = E.q(".factbox .pill", sc);
       if (pill) {
         tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
         tl.fromTo(pill, { scale: 0.92, y: 20 }, A({ scale: 1, y: 0, duration: 0.45, ease: SPRING }), S + cfg.tFact - 0.1);
+        E.sweep(tl, pill, S + cfg.tFact + 0.25, 0.7, { color: "rgba(120, 100, 255, 0.28)" });
+        E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
       }
       E.kin(tl, fact, S, { dy: 12 });
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.14, 0.25);
+    } else {
+      E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
+      E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
     }
-    // first cut: the docked title (and the fact) leave before the card or the tip arrives
+    E.dim(tl, simtag, S + (cfg.tFact != null ? cfg.tFact - 0.45 : tNext - 0.35), 0, 1, 0.3);
+    // first cut: the title (and the fact) leave before the card or the tip arrives
     tl.fromTo(main, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), S + tNext - 0.3);
     if (fact) E.fadeOut(tl, fact, S + tNext - 0.3, 0.25, -20);
     let info = null;
@@ -311,19 +422,26 @@
     if (cfg.tTip != null) {
       const tip = E.q(".tipcard", sc);
       tl.fromTo(tip, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + cfg.tTip);
-      tl.fromTo(tip, { scale: 0.96, y: 30 }, A({ scale: 1, y: 0, duration: 0.6, ease: SPRING }), S + cfg.tTip);
+      tl.fromTo(tip, { scale: 0.96, y: 30, rotationX: 10, transformPerspective: 1400 }, A({ scale: 1, y: 0, rotationX: 0, duration: 0.7, ease: SPRING }), S + cfg.tTip);
+      E.qa(".tip-ico .dr", sc).forEach((pth, i) => E.draw(tl, pth, S + cfg.tTip + 0.15 + i * 0.18, 0.55));
       E.kin(tl, E.q(".tip-text", sc), S);
       E.fadeOut(tl, tip, S + cfg.D - 0.4, 0.3, -20);
     }
     E.fadeOut(tl, hdr, S + cfg.D - 0.4, 0.3, 0);
-    E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { top0, stTop, h }, prompt: info };
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { stTop, h, fit: +fit.toFixed(3) }, prompt: info };
   };
 
   /* Chapter title card. */
   E.chapter = function (tl, ctx, cfg) {
     const S = cfg.S, sc = ctx.scene;
     const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
-    tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.9, ease: SPRING }), S + 0.12);
+    // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
+    E.band(tl, sc, S);
+    tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
+    E.qa(".ch-ring", sc).forEach((r, i) => {
+      tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
+    });
+    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ff8a80" });
     tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
     tl.set(n, { filter: "none" }, S + 0.58);
     E.fadeIn(tl, k, S + 0.25, 0.5, 14);

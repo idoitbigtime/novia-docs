@@ -3,11 +3,16 @@ import importlib
 import json
 import pathlib
 
-from textlayout import esc, kinetic_html, parse_marked, prompt_html, word_times
+from textlayout import esc, kinetic_html, parse_marked, phrase_times, prompt_html, word_times
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PROMPTS = json.loads((ROOT / "data" / "prompts.json").read_text(encoding="utf-8"))
 SECTION_ORDER = ["קלט", "כיוון", "בנייה", "מלכודות", "התחלה"]
+# line-art light bulb for the tip card (its strokes are drawn on by the engine)
+TIP_ICON = ('<svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true">'
+            '<path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/>'
+            '<path class="dr" d="M18.5 39.5h11M20.5 44h7"/>'
+            '<path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>')
 
 # reading rhythm (no narration): seconds per word
 STEP_TITLE, STEP_EXP, STEP_FACT, STEP_META, STEP_TIP = 0.13, 0.2, 0.12, 0.13, 0.16
@@ -38,13 +43,19 @@ def _lift_html(body, hid):
 
 
 def auto_times(cfg):
-    """Fill in scene-local times that were not set by hand, from text lengths."""
+    """Fill in scene-local times that were not set by hand, from text lengths.
+    Flow: title -> the illustration enters -> the explanation arrives phrase by phrase while
+    the illustration shows each phrase -> payoff -> fact over the dimmed illustration ->
+    prompt card -> tip."""
     c = dict(cfg)
     c.setdefault("tTitle", 0.3)
-    c.setdefault("tExp", round(c["tTitle"] + _dur(c["title"], STEP_TITLE, 0.2) + 0.3, 2))
-    c.setdefault("tDock", round(c["tExp"] + _dur(c["exp"], STEP_EXP, 0.32) + c.get("readHold", 0.75), 2))
-    c.setdefault("tStage", round(c["tDock"] + 0.35, 2))
-    t = c["tStage"] + c.get("simDur", 6.8)
+    c.setdefault("tStage", round(c["tTitle"] + _dur(c["title"], STEP_TITLE, 0.2) + 0.1, 2))
+    c.setdefault("tExp", round(c["tStage"] + 0.6, 2))
+    _, _, _, starts, pend = phrase_times(c["exp"], c["tExp"])
+    c["phr"], c["phrEnd"] = starts, pend
+    c.setdefault("tSimEnd", round(pend + c.get("payoff", 5.0), 2))
+    c["simDur"] = round(c["tSimEnd"] - c["tStage"], 2)
+    t = c["tSimEnd"]
     f = c.get("fact")
     if f:
         f = dict(f)
@@ -83,7 +94,8 @@ def topic_scene(cfg):
     """Return (inner_html, js_cfg, cues, cfg) for a standard topic scene. Times are scene-local."""
     cfg = auto_times(cfg)
     title, _, _ = kinetic_html(cfg["title"], t0=cfg["tTitle"], step=STEP_TITLE, pause=0.2)
-    exp, _, _ = kinetic_html(cfg["exp"], t0=cfg["tExp"], groups=True)
+    clean, etimes, eidx, _, eend = phrase_times(cfg["exp"], cfg["tExp"])
+    exp, _, _ = kinetic_html(clean, times=etimes, end=eend, phrases=eidx)
     simmod = importlib.import_module("sims." + cfg["sim"])
     sim = simmod.html(cfg)
 
@@ -123,25 +135,26 @@ def topic_scene(cfg):
     tipbox = ""
     if cfg.get("tip"):
         tip, _, _ = kinetic_html(cfg["tip"], t0=cfg["tTip"] + 0.4, step=STEP_TIP, pause=0.25)
-        tipbox = (f'<div class="tipwrap"><div class="tipcard"><div class="tip-label"><i></i>{esc(cfg.get("tipLabel", "טיפ"))}</div>'
+        tipbox = (f'<div class="tipwrap"><div class="tipcard"><div class="tip-label">{TIP_ICON}{esc(cfg.get("tipLabel", "טיפ"))}</div>'
                   f'<p class="tip-text kin" dir="rtl">{tip}</p></div></div>')
 
     inner = f"""<div class="hdr" dir="rtl"><span class="hdr-ch">{esc(cfg["chapter"])}</span><span class="hdr-num" dir="ltr">{esc(cfg["num"])}</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl">{title}</h2><p class="exp kin" dir="rtl">{exp}</p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div>{sim}</div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit">{sim}</div></div></div>
 {fact}
 {card}
 {tipbox}
 </div>"""
 
     js_cfg = {
-        "id": cfg["id"], "sim": cfg["sim"], "D": cfg["D"], "tStage": cfg["tStage"], "tDock": cfg["tDock"],
+        "id": cfg["id"], "sim": cfg["sim"], "D": cfg["D"], "tStage": cfg["tStage"], "tExp": cfg["tExp"],
+        "phr": cfg["phr"], "phrEnd": cfg["phrEnd"], "tSimEnd": cfg["tSimEnd"],
         "tFact": f["t"] if f else None,
         "tPrompt": cfg.get("tPrompt") if cfg.get("prompt") is not None else None,
         "tPromptEnd": cfg.get("tPromptEnd"),
         "tTip": cfg.get("tTip") if cfg.get("tip") else None,
-        "expZoom": cfg.get("expZoom", 0.1), "simDur": cfg.get("simDur", 6.8),
+        "expZoom": cfg.get("expZoom", 0.1), "simDur": cfg["simDur"],
         "hls": [{"id": hid, "hold": h[1], "zoom": h[2]} for hid, h in zip(hl_ids, cfg.get("hls", []))],
     }
     if cfg["sim"] in cfg:
@@ -175,6 +188,7 @@ def chapter_scene(cfg):
     dots = "".join(f'<i class="ch-dot{" on" if i == c["n"] else ""}"></i>' for i in range(1, 9))
     inner = f"""<div class="chap">
 <div class="ch-k" dir="rtl">פרק</div>
+<i class="ch-ring"></i><i class="ch-ring ch-ring2"></i>
 <div class="ch-n" dir="ltr">{c["n"]}</div>
 <h2 class="ch-title kin" dir="rtl">{title}</h2>
 <i class="ch-line"></i>

@@ -82,15 +82,58 @@ def group_times(tokens, gstep=0.8, wstep=0.05, max_words=7):
     return times, round(times[-1] + 0.4 if times else 0.0, 3)
 
 
-def kinetic_html(text, t0=0.0, step=0.2, pause=0.32, groups=False):
-    """Build kinetic HTML for a text block. Returns (html, end_time, accent_times)."""
+def phrase_index(text):
+    """Explanation phrases. '|' in the text marks a phrase break (it is not shown).
+    Without markers: break after phrase-final punctuation (at least 3 words in the phrase)
+    or after 9 words, never inside an accent/strong group.
+    Returns (clean_text, per-token phrase index)."""
+    if "|" in text:
+        idx = []
+        for i, part in enumerate(p for p in text.split("|") if p.strip()):
+            idx += [i] * len(parse_marked(part))
+        return " ".join(p.strip() for p in text.split("|") if p.strip()), idx
+    toks = parse_marked(text)
+    idx, p, n = [], 0, 0
+    for k, (tok, style, gid) in enumerate(toks):
+        idx.append(p)
+        n += 1
+        inside = gid and k + 1 < len(toks) and toks[k + 1][2] == gid
+        if not inside and k < len(toks) - 1 and ((PHRASE_END.search(tok) and n >= 3) or n >= 9):
+            p += 1
+            n = 0
+    return text, idx
+
+
+def phrase_times(text, t0, per_word=0.27, base=0.45, lo=1.6, hi=3.2, wstep=0.06):
+    """Reading-pace phrase timing: each phrase gets clamp(base + per_word * words) seconds,
+    its words spring in wstep apart. Returns (clean_text, times, phrase_idx, starts, end)."""
+    clean, idx = phrase_index(text)
+    nph = (max(idx) + 1) if idx else 0
+    counts = [idx.count(i) for i in range(nph)]
+    starts, t = [], t0
+    for c in counts:
+        starts.append(round(t, 3))
+        t += min(hi, max(lo, base + per_word * c))
+    seen, times = {}, []
+    for p in idx:
+        j = seen.get(p, 0)
+        seen[p] = j + 1
+        times.append(round(starts[p] + j * wstep, 3))
+    return clean, times, idx, starts, round(t, 3)
+
+
+def kinetic_html(text, t0=0.0, step=0.2, pause=0.32, groups=False, times=None, end=None, phrases=None):
+    """Build kinetic HTML for a text block. Returns (html, end_time, accent_times).
+    times/end: explicit absolute per-token times (then t0/step/groups are ignored).
+    phrases: per-token phrase index; each phrase is wrapped in <span class="ph" data-p>."""
     tokens = parse_marked(text)
-    if groups:
-        times, end = group_times(tokens, **(groups if isinstance(groups, dict) else {}))
-    else:
-        times, end = word_times(tokens, step, pause)
-    times = [t0 + t for t in times]
-    end = t0 + end
+    if times is None:
+        if groups:
+            times, end = group_times(tokens, **(groups if isinstance(groups, dict) else {}))
+        else:
+            times, end = word_times(tokens, step, pause)
+        times = [t0 + t for t in times]
+        end = t0 + end
 
     # 1) split into runs: islands of consecutive non-Hebrew tokens
     items = []  # each: ('w', idx) or ('isl', [idx...])
@@ -134,16 +177,31 @@ def kinetic_html(text, t0=0.0, step=0.2, pause=0.32, groups=False):
             tg = times[gfirst]
             if style == "acc":
                 accent_times.append(tg)
-                parts.append(
+                parts.append((gfirst,
                     f'<span class="accgrp" data-t="{tg:.3f}">{inner}'
                     f'<i class="ul" data-t="{tg + 0.18:.3f}"></i></span>'
-                )
+                ))
             else:
-                parts.append(f'<span class="strgrp">{inner}</span>')
+                parts.append((gfirst, f'<span class="strgrp">{inner}</span>'))
             continue
-        parts.append(_emit(items[k], tokens, times))
+        parts.append((first_idx, _emit(items[k], tokens, times)))
         k += 1
-    return " ".join(parts), end, accent_times
+    if phrases is None:
+        return " ".join(h for _, h in parts), end, accent_times
+    out, cur = [], None
+    for i0, h in parts:
+        ph = phrases[i0]
+        if ph != cur:
+            if cur is not None:
+                out.append("</span> ")
+            out.append(f'<span class="ph" data-p="{ph}">')
+            cur = ph
+        else:
+            out.append(" ")
+        out.append(h)
+    if cur is not None:
+        out.append("</span>")
+    return "".join(out), end, accent_times
 
 
 def _emit(item, tokens, times):

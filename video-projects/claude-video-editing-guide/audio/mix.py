@@ -59,6 +59,7 @@ def main():
     ap.add_argument("--window", nargs=2, type=float)
     ap.add_argument("--extra-cues")
     ap.add_argument("--music-db", type=float, default=0.0)
+    ap.add_argument("--music-offset", type=float, default=0.0, help="read the music from window+offset (draft variants)")
     a = ap.parse_args()
 
     music = load(a.music) * (10 ** (a.music_db / 20))
@@ -67,7 +68,7 @@ def main():
         cues += json.loads(pathlib.Path(a.extra_cues).read_text(encoding="utf-8"))["cues"]
     if a.window:
         A, B = a.window
-        seg = music[int(A * SR):int(B * SR)].copy()
+        seg = music[int((A + a.music_offset) * SR):int((B + a.music_offset) * SR)].copy()
         n = len(seg)
         fade = int(0.35 * SR)
         seg[:fade] *= np.linspace(0, 1, fade)[:, None]
