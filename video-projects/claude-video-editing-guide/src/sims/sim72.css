@@ -1,0 +1,109 @@
+/* 7.2 check frames, Claude doesn't watch video: video -> stills -> film strip with markers -> 0.1 s strip -> the caught frame (canvas 800 x 700) */
+/* a generic 9:16 frame (sizes vary; everything inside is in % of the frame) */
+.sim72 .s72-fr { position: absolute; overflow: hidden; border-radius: 8px; background: linear-gradient(180deg, #2c2556 0%, #181433 66%, #0e0c1f 100%); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.38); --hx: 0%; }
+.sim72 .s72-fr > i { position: absolute; display: block; }
+.sim72 .s72-h { left: calc(36% + var(--hx)); top: 33%; width: 28%; height: 15.75%; border-radius: 50%; background: linear-gradient(180deg, #4a3f8c, #2c2560); box-shadow: inset 0 0 0 1px rgba(201, 194, 255, 0.35); }
+.sim72 .s72-bd { left: calc(16% + var(--hx)); top: 50%; width: 68%; height: 52%; border-radius: 50% 50% 0 0 / 34% 34% 0 0; background: linear-gradient(180deg, #3b3274, #221c48); box-shadow: inset 0 1px 0 rgba(201, 194, 255, 0.4); }
+.sim72 .s72-ti { left: 14%; top: 9%; width: 72%; height: 4.4%; border-radius: 99px; background: rgba(245, 242, 234, 0.92); }
+.sim72 .s72-cp { left: 18%; top: 77%; width: 64%; height: 9%; border-radius: 4px; background: #ffffff; }
+.sim72 .s72-cp::after { content: ""; position: absolute; left: 16%; right: 16%; top: 36%; height: 28%; border-radius: 9px; background: rgba(20, 16, 40, 0.85); }
+.sim72 .s72-fx { left: 69%; top: 22%; width: 9%; height: 5.1%; border-radius: 1.5px; background: #ece9ff; box-shadow: 0 0 8px #c9c2ff; transform: rotate(45deg); opacity: 0; }
+.sim72 .fxon .s72-fx { opacity: 1; }
+.sim72 .notitle .s72-ti { opacity: 0; }
+.sim72 .nocap .s72-cp { opacity: 0; }
+.sim72 .jump .s72-ti { top: 2.5%; left: 22%; }
+.sim72 .jump .s72-h { top: 15%; }
+/* scene B: after the cut, a glowing orb instead of the presenter */
+.sim72 .sB { background: linear-gradient(180deg, #1f2550 0%, #141735 66%, #0b0c1f 100%); }
+.sim72 .sB .s72-h { left: 28%; top: 30%; width: 44%; height: 24.75%; background: radial-gradient(circle at 36% 34%, #f1efff 0%, #a79cf2 38%, #4a3f9a 72%, #2a2366 100%); box-shadow: 0 0 14px rgba(201, 194, 255, 0.55); }
+.sim72 .sB .s72-bd { left: 22%; top: 60%; width: 56%; height: 6%; border-radius: 50%; background: rgba(201, 194, 255, 0.22); box-shadow: none; }
+
+/* B0: the video and its stills */
+.sim72 .s72-b0 { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
+.sim72 .s72-vid { left: 315px; top: 168px; width: 170px; height: 302px; border-radius: 18px; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.6), 0 0 26px rgba(201, 194, 255, 0.22); }
+.sim72 .s72-vid > .s72-prog { left: 10%; top: 93%; width: 80%; height: 1.4%; border-radius: 3px; background: rgba(201, 194, 255, 0.25); }
+.sim72 .s72-prog b { position: absolute; left: 0; top: 0; width: 30%; height: 100%; border-radius: 3px; background: #c9c2ff; display: block; }
+.sim72 .s72-vid > .s72-play { left: 31%; top: 39%; width: 66px; height: 66px; border-radius: 50%; background: rgba(255, 255, 255, 0.95); box-shadow: 0 0 22px rgba(201, 194, 255, 0.6); }
+.sim72 .s72-play b { position: absolute; left: 25px; top: 19px; width: 0; height: 0; border-left: 24px solid #1a1636; border-top: 14px solid transparent; border-bottom: 14px solid transparent; display: block; }
+.sim72 .s72-no { position: absolute; left: 0; top: 0; width: 170px; height: 302px; overflow: visible; }
+.sim72 .s72-no path { fill: none; stroke: #ff453a; stroke-width: 7; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.8)); }
+.sim72 .s72-still { width: 104px; height: 185px; border-radius: 12px; opacity: 0; box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.5), 0 10px 24px rgba(0, 0, 0, 0.45); }
+.sim72 .s72-st0 { left: 48px; top: 252px; }
+.sim72 .s72-st1 { left: 162px; top: 228px; }
+.sim72 .s72-st2 { left: 534px; top: 228px; }
+.sim72 .s72-st3 { left: 648px; top: 252px; }
+.sim72 .s72-ok { right: 6px; top: 6px; width: 26px; height: 26px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 10px rgba(201, 194, 255, 0.7); opacity: 0; }
+.sim72 .s72-ok svg { position: absolute; left: 4px; top: 4px; width: 18px; height: 18px; overflow: visible; display: block; }
+.sim72 .s72-ok path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* B1: the film strip after the render, with markers */
+.sim72 .s72-strip { position: absolute; left: 20px; top: 116px; width: 760px; height: 176px; border-radius: 14px; background: #0c0a18; border: 1.5px solid rgba(201, 194, 255, 0.3);
+  clip-path: inset(0px 0px 0px 100%); }
+.sim72 .s72-holes { position: absolute; left: 0; width: 757px; height: 12px; }
+.sim72 .s72-ht { top: 6px; }
+.sim72 .s72-hb { top: 155px; }
+.sim72 .s72-holes i { position: absolute; top: 0; width: 15px; height: 11px; border-radius: 3px; background: rgba(201, 194, 255, 0.2); display: block; }
+.sim72 .s72-sf { width: 72px; height: 128px; }
+/* B1: frames taken out under the markers */
+.sim72 .s72-ex { top: 330px; width: 104px; height: 185px; border-radius: 12px; opacity: 0; transform-origin: 0 0; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.7), 0 12px 26px rgba(0, 0, 0, 0.45); }
+.sim72 .s72-ex0 { left: 588px; }
+.sim72 .s72-ex1 { left: 404px; }
+.sim72 .s72-ex2 { left: 174px; }
+.sim72 .s72-edge { position: absolute; left: 777px; top: 116px; width: 3px; height: 176px; background: #ffffff; box-shadow: 0 0 14px #c9c2ff; display: block; opacity: 0; }
+.sim72 .s72-mark { position: absolute; top: 30px; width: 180px; height: 86px; opacity: 0; }
+.sim72 .s72-chip { position: absolute; left: 0; right: 0; top: 0; margin: 0 auto; width: max-content; display: flex; align-items: center; gap: 8px; padding: 7px 14px 7px 12px; border-radius: 999px;
+  background: rgba(36, 31, 72, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.55); font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim72 .s72-mi { width: 26px; height: 26px; display: block; flex: none; overflow: visible; }
+.sim72 .s72-mi path, .sim72 .s72-mi circle { fill: none; stroke: #c9c2ff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim72 .s72-stem { position: absolute; left: 88px; top: 46px; width: 4px; height: 40px; overflow: visible; }
+.sim72 .s72-stem path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+
+/* B2: the callout to the strip of a frame every 0.1 s */
+.sim72 .s72-call { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
+.sim72 .s72-cf { fill: rgba(201, 194, 255, 0.07); stroke: none; opacity: 0; }
+.sim72 .s72-cl { fill: none; stroke: rgba(201, 194, 255, 0.75); stroke-width: 2; stroke-linecap: round; }
+.sim72 .s72-dense { position: absolute; left: 40px; top: 380px; width: 720px; height: 214px; border-radius: 16px; background: rgba(14, 12, 30, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.4);
+  box-shadow: 0 0 24px rgba(201, 194, 255, 0.16); opacity: 0; }
+.sim72 .s72-df { width: 64px; height: 114px; border-radius: 7px; opacity: 0; }
+.sim72 .s72-ticks { position: absolute; left: 0; top: 134px; width: 717px; height: 10px; }
+.sim72 .s72-ticks i { position: absolute; top: 0; width: 2px; height: 9px; border-radius: 1px; background: rgba(201, 194, 255, 0.55); display: block; opacity: 0; }
+.sim72 .s72-dim { position: absolute; left: 592px; top: 136px; width: 82px; height: 16px; overflow: visible; }
+.sim72 .s72-dim path { fill: none; stroke: #ffffff; stroke-width: 2.2; stroke-linecap: round; }
+.sim72 .s72-step { position: absolute; left: 533px; top: 162px; width: 200px; text-align: center; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim72 .s72-eq { position: absolute; left: 547px; top: 56px; width: 16px; font: 700 28px/1 "Rubik"; color: #ffffff; text-align: center; display: block; opacity: 0; }
+.sim72 .s72-red { position: absolute; left: 324px; top: 12px; width: 72px; height: 122px; overflow: visible; }
+.sim72 .s72-red rect { fill: none; stroke: #ff453a; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.85)); }
+.sim72 .s72-hl { position: absolute; top: 12px; width: 72px; height: 122px; border-radius: 10px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); display: block; opacity: 0; }
+.sim72 .s72-hl1 { left: 558px; }
+.sim72 .s72-hl2 { left: 480px; }
+.sim72 .s72-hl6 { left: 168px; }
+.sim72 .s72-jarrow { position: absolute; left: 189px; top: -22px; width: 30px; height: 30px; overflow: visible; opacity: 0; }
+.sim72 .s72-jarrow path { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+
+/* B3 flags under the dense strip */
+.sim72 .s72-flag { position: absolute; top: 540px; display: flex; align-items: center; gap: 8px; padding: 6px 14px 6px 12px; border-radius: 999px; background: rgba(36, 31, 72, 0.97);
+  border: 1.5px solid rgba(201, 194, 255, 0.6); font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim72 .s72-fz { left: 482px; }
+.sim72 .s72-fj { left: 170px; }
+
+/* payoff: the caught frame, grown, with its label */
+.sim72 .s72-big { left: 560px; top: 30px; width: 186px; height: 331px; border-radius: 16px; transform-origin: 0 0; opacity: 0; box-shadow: 0 0 0 3px #ff453a, 0 0 26px rgba(255, 69, 58, 0.45); }
+.sim72 .s72-big > .s72-ph { position: absolute; left: 0; top: 0; width: 186px; height: 331px; overflow: visible; opacity: 0; }
+.sim72 .s72-ph rect { fill: rgba(255, 69, 58, 0.08); stroke: #ff6b61; stroke-width: 2.5; stroke-dasharray: 7 6; }
+.sim72 .s72-catch { position: absolute; right: 262px; top: 118px; width: 440px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; direction: rtl; }
+.sim72 .s72-ct1 { display: flex; align-items: center; gap: 14px; font: 700 38px/1.1 "Rubik"; color: #ffffff; white-space: nowrap; opacity: 0; }
+.sim72 .s72-ct1 i { width: 16px; height: 16px; border-radius: 50%; background: #ff453a; box-shadow: 0 0 12px rgba(255, 69, 58, 0.9); display: block; flex: none; }
+.sim72 .s72-ct2 { font: 500 33px/1.4 "Rubik"; color: #dcd9e6; width: 400px; margin-right: 30px; opacity: 0; }
+
+/* the check: a magnifier that looks at frames (persists) */
+.sim72 .s72-mag { position: absolute; left: 0; top: 0; width: 96px; height: 96px; opacity: 0; pointer-events: none; }
+.sim72 .s72-lens { position: absolute; left: 0; top: 0; width: 96px; height: 96px; border-radius: 50%; border: 5px solid #ece9ff; display: block;
+  box-shadow: 0 0 18px rgba(201, 194, 255, 0.85), inset 0 0 16px rgba(201, 194, 255, 0.35); background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 46%); }
+.sim72 .s72-handle { position: absolute; left: 82px; top: 79px; width: 44px; height: 12px; border-radius: 6px; background: #ece9ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.7); transform: rotate(45deg); transform-origin: 0 50%; display: block; }
+/* payoff: the automatic check that passed */
+.sim72 .s72-autorow { position: absolute; left: 0; top: 540px; width: 800px; display: flex; justify-content: center; }
+.sim72 .s72-auto { display: flex; align-items: center; gap: 12px; padding: 6px 12px 6px 16px; border-radius: 999px; background: rgba(36, 31, 72, 0.97); border: 1.5px solid rgba(201, 194, 255, 0.5);
+  font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim72 .s72-aok { position: relative; width: 30px; height: 30px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff; display: block; flex: none; }
+.sim72 .s72-aok svg { position: absolute; left: 6px; top: 6px; width: 18px; height: 18px; overflow: visible; display: block; }
+.sim72 .s72-aok path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }

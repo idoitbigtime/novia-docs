@@ -1,0 +1,1313 @@
+<!doctype html>
+<html lang="he">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>עריכת וידאו עם Claude</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+/* IBM Plex Mono 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 300 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-300.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-300.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-300.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 400 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-400.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 500 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-500.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 600 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-600.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 700 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-700.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Rubik 300 900 normal — hebrew */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-hebrew-300-900.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* Rubik 300 900 normal — latin-ext */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-ext-300-900.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Rubik 300 900 normal — latin */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-300-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Design tokens. Safe area for text: x 140..940, y 300..1570 (1080x1920). */
+:root {
+  --bg: #06060b;
+  --ink: #f5f2ea;
+  --ink2: #dcd9e6;
+  --muted: #9c99ae;
+  --acc: #ff453a;
+  --acc-soft: #ff8a80;
+  --line: #c9c2ff;
+  --line-glow: rgba(201, 194, 255, 0.55);
+  --panel: rgba(18, 17, 34, 0.96);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: "Rubik", sans-serif; }
+.stagewrap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; overflow: hidden; }
+
+/* ---------- background ---------- */
+#bg { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #08080f 0%, #0b0a17 55%, #07070d 100%); }
+#bg .glow { position: absolute; border-radius: 50%; }
+#bg .g1 { width: 1500px; height: 1500px; left: -420px; top: -380px; background: radial-gradient(circle, rgba(124, 92, 255, 0.20) 0%, rgba(124, 92, 255, 0.07) 38%, rgba(124, 92, 255, 0) 66%); }
+#bg .g2 { width: 1400px; height: 1400px; left: 260px; top: 980px; background: radial-gradient(circle, rgba(255, 69, 58, 0.15) 0%, rgba(255, 69, 58, 0.05) 40%, rgba(255, 69, 58, 0) 66%); }
+#bg .grain { position: absolute; inset: 0; background-image: url("assets/grain.png"); background-size: 256px 256px; opacity: 0.07; mix-blend-mode: screen; }
+#bg .vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
+
+#cam { position: absolute; inset: 0; transform-origin: 540px 960px; }
+.scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.scam { position: absolute; inset: 0; }
+
+/* ---------- header (chapter indicator) ---------- */
+.hdr { position: absolute; top: 300px; left: 140px; width: 800px; height: 46px; display: flex; justify-content: space-between; align-items: center; direction: rtl; opacity: 0; }
+.hdr-ch { font: 500 30px/1 "Rubik"; color: #b3b0c4; }
+.hdr-num { font: 600 28px/1 "IBM Plex Mono"; color: var(--acc); border: 1.5px solid rgba(255, 69, 58, 0.55); border-radius: 10px; padding: 7px 12px 6px; }
+
+/* ---------- kinetic text ---------- */
+.kin { direction: rtl; text-align: right; }
+.w { display: inline-block; white-space: pre; opacity: 0; }
+.isl { unicode-bidi: isolate; }
+.accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
+.accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
+.strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+
+/* ---------- topic layout ---------- */
+.main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
+.ttl { font: 800 60px/1.14 "Rubik"; color: var(--ink); letter-spacing: -0.005em; text-wrap: balance; }
+.exp { font: 400 36px/1.42 "Rubik"; color: var(--ink2); }
+.exp .accgrp { font-weight: 800; }
+.exp .ph { transition: none; }
+/* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
+.stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
+.stcam { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; }
+.stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
+.simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
+.simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
+/* the illustration canvas: 800 x 700 (frame x 140..940) */
+.simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
+
+/* fact overlay inside the stage */
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; direction: rtl; }
+.pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
+.factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
+.metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
+.metaline .w, .factline .w { opacity: 0; }
+
+/* ---------- prompt card ---------- */
+.pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
+.pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
+.pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
+.pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
+.pc-num b { color: var(--ink); font-weight: 600; }
+.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
+.tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
+.tab .tul { display: none; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
+.pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
+  }
+.pct { position: absolute; top: 0; left: 48px; right: 48px; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
+.pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
+.pl-empty { height: 44px; }
+.ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; color: #d8d4ea; white-space: nowrap; }
+.codeblock { display: block; direction: ltr; text-align: left; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.tk { white-space: nowrap; }
+.nb, .neg { white-space: nowrap; }
+.code .bt, .codeblock .bt { color: #6f6b86; }
+.hlbg { position: absolute; z-index: -1; top: 0; bottom: 0; left: -14px; right: -14px; background: #2e1626; border-right: 4px solid #e5484d; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); opacity: 0; display: block; }
+.pbody { position: relative; }
+/* lifted key lines: a layer over the card (same box, not clipped by it) */
+.plift { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; pointer-events: none; }
+.pl-lift { position: absolute; z-index: 3; opacity: 0; box-sizing: border-box; padding: 0 12px; font: 400 30px/44px "Rubik"; color: #f5f2ea; direction: rtl; white-space: pre-wrap; transform-origin: 50% 50%; }
+/* the lifted backing is as wide as the line, so at x1.10 it stays clear of the card border */
+.pl-lift .hlbg { opacity: 1; left: 0; right: 0; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55); }
+
+/* ---------- tip ---------- */
+.tipwrap { position: absolute; left: 140px; width: 800px; top: 0; height: 1920px; display: flex; align-items: center; justify-content: center; }
+.tipcard { width: 800px; padding: 44px 48px 50px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(18, 17, 34, 0.88); box-shadow: 0 0 40px rgba(140, 120, 255, 0.15); direction: rtl; text-align: right; opacity: 0; }
+.tip-label { display: flex; align-items: center; gap: 12px; font: 600 30px/1 "Rubik"; color: #f2eef8; margin-bottom: 26px; }
+.tip-ico { width: 46px; height: 46px; display: block; overflow: visible; filter: drop-shadow(0 0 8px rgba(255, 69, 58, 0.55)); }
+.tip-ico path { fill: none; stroke: var(--acc); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.tip-text { font: 600 46px/1.38 "Rubik"; color: var(--ink); }
+.tip-text .w { opacity: 0; }
+
+/* ---------- chapter card ---------- */
+.chap { position: absolute; inset: 0; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(255, 69, 58, 0.7); box-shadow: 0 0 30px rgba(255, 69, 58, 0.35), inset 0 0 30px rgba(255, 69, 58, 0.2); display: block; opacity: 0; }
+.ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); }
+.ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
+.ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 30px/1.45 "Rubik"; color: var(--muted); }
+/* centred blocks wrap into even lines; paragraphs never end on a lone word */
+.ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
+.exp, .tip-text { text-wrap: pretty; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0; }
+.ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
+.ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+
+/* ---------- effects ---------- */
+/* light sweep across an element (the element clips it) */
+.fx-sweep { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.fx-sweep b { position: absolute; top: -40%; bottom: -40%; left: 100%; width: 34%; display: block; transform: skewX(-16deg);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--sweep, rgba(255, 255, 255, 0.22)), rgba(255, 255, 255, 0)); }
+/* light band across the whole frame at a scene change */
+.fx-band { position: absolute; top: -400px; left: 1080px; width: 560px; height: 2720px; display: block; pointer-events: none; z-index: 40;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.10) 35%, rgba(255, 255, 255, 0.16) 50%, rgba(201, 194, 255, 0.10) 65%, rgba(201, 194, 255, 0));
+  transform: rotate(14deg); mix-blend-mode: screen; opacity: 0; }
+/* particle burst */
+.fx-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; display: block; pointer-events: none; opacity: 0; z-index: 7; }
+/* drifting dust in the background */
+.dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
+
+/* 4.2 an AI clip with your real face (canvas 800 x 700): a generic platform window at the left, your column at the
+   right; the payoff is a strip of 6 frames across the canvas */
+.sim42 .s42-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* the generic window (logo-free mock: the platform's name as plain text only) */
+.sim42 .s42-win { position: absolute; left: 62px; top: 50px; width: 432px; height: 600px; border-radius: 24px; background: rgba(26, 23, 52, 0.88);
+  border: 1.5px solid rgba(201, 194, 255, 0.24); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35); }
+.sim42 .s42-wbar { position: absolute; left: 0; right: 0; top: 0; height: 56px; display: flex; direction: rtl; justify-content: space-between; align-items: center;
+  padding: 0 22px; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
+.sim42 .s42-wname { font: 600 30px/1 "IBM Plex Mono", monospace; color: var(--ink); }
+.sim42 .s42-dots { display: flex; gap: 8px; direction: ltr; }
+.sim42 .s42-dots i { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.32); display: block; }
+.sim42 .s42-slots { position: absolute; left: 124px; top: 72px; width: 286px; height: 80px; display: flex; direction: rtl; gap: 10px; }
+.sim42 .s42-slot { position: relative; width: 64px; height: 80px; border-radius: 10px; border: 1.5px dashed rgba(201, 194, 255, 0.34); display: block; flex: none; }
+.sim42 .s42-upc { position: absolute; inset: -1.5px; border-radius: 10px; overflow: hidden; display: block; opacity: 0; box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.7); }
+.sim42 .s42-fsvg { width: 100%; height: 100%; display: block; }
+.sim42 .s42-uptag { position: absolute; left: 124px; top: 162px; width: 286px; text-align: right; font: 500 24px/1 "IBM Plex Mono", monospace; color: #bdb7e3; opacity: 0; }
+.sim42 .s42-upbar { position: absolute; left: 124px; top: 196px; width: 286px; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, 0.1); }
+.sim42 .s42-upbar i { position: absolute; inset: 0; border-radius: 3px; background: #d9d4ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.8); transform-origin: 100% 50%; transform: scaleX(0); display: block; }
+
+/* B1: lots of image and video models */
+.sim42 .s42-grid { position: absolute; left: 22px; top: 222px; width: 388px; height: 356px; border-radius: 14px; }
+.sim42 .s42-gl { position: absolute; right: 0; display: flex; direction: rtl; align-items: center; gap: 12px; font: 600 32px/1 "Rubik"; color: var(--ink); opacity: 0; }
+.sim42 .s42-gl i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; flex: none; }
+.sim42 .s42-gl1 { top: 2px; }
+.sim42 .s42-gl2 { top: 184px; }
+.sim42 .s42-tiles { position: absolute; left: 0; width: 388px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; direction: rtl; }
+.sim42 .s42-t1 { top: 46px; }
+.sim42 .s42-t2 { top: 228px; }
+.sim42 .s42-tile { height: 54px; border-radius: 12px; background: rgba(201, 194, 255, 0.08); border: 1.5px solid rgba(201, 194, 255, 0.24); display: grid; place-items: center; opacity: 0; }
+.sim42 .s42-tile svg { width: 32px; height: 32px; display: block; overflow: visible; }
+.sim42 .s42-tile use { fill: none; stroke: #d9d4ff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim42 .s42-fillp { fill: #d9d4ff; stroke: none; }
+
+/* B2 label; B3 the video model */
+.sim42 .s42-olbl { position: absolute; left: 22px; top: 218px; width: 388px; text-align: center; font: 600 34px/1.1 "Rubik"; color: var(--ink); opacity: 0; }
+.sim42 .s42-chip { position: absolute; left: 22px; top: 214px; width: 388px; height: 70px; border-radius: 18px; background: rgba(40, 34, 84, 0.96);
+  border: 2px solid #c9c2ff; box-shadow: 0 0 18px rgba(201, 194, 255, 0.4); display: flex; direction: rtl; justify-content: center; align-items: center; gap: 14px; opacity: 0; }
+.sim42 .s42-chip span { font: 700 32px/1 "Rubik"; color: #ffffff; }
+.sim42 .s42-cplay { width: 34px; height: 34px; display: block; }
+.sim42 .s42-cplay path { fill: #ffffff; }
+.sim42 .s42-port { position: absolute; right: -7px; top: 50%; width: 12px; height: 12px; margin-top: -6px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 10px #c9c2ff; display: block; }
+
+/* your column: the video, then the four sharp frames */
+.sim42 .s42-col { position: absolute; left: 524px; top: 139px; width: 238px; height: 423px; }
+.sim42 .s42-src { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; background: linear-gradient(180deg, #241f4c 0%, #171433 55%, #0e0c1f 100%);
+  box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.55), 0 0 26px rgba(201, 194, 255, 0.2); }
+.sim42 .s42-person { position: absolute; left: -46px; top: 42px; width: 330px; height: 402px; }
+.sim42 .s42-sprog { position: absolute; left: 16px; right: 16px; bottom: 16px; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, 0.16); }
+.sim42 .s42-sprog i { position: absolute; inset: 0; border-radius: 3px; background: #d9d4ff; transform-origin: 100% 50%; transform: scaleX(0.08); display: block; }
+.sim42 .s42-flash { position: absolute; inset: 0; background: #ffffff; display: block; opacity: 0; }
+.sim42 .s42-faces { position: absolute; left: 0; top: 64px; width: 238px; height: 294px; display: grid; grid-template-columns: 112px 112px; gap: 14px; direction: rtl; }
+.sim42 .s42-face { position: relative; width: 112px; height: 140px; opacity: 0; }
+.sim42 .s42-fimg { position: absolute; inset: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.45); }
+.sim42 .s42-fglow { position: absolute; inset: -5px; border-radius: 16px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 16px rgba(201, 194, 255, 0.7); display: block; opacity: 0; }
+.sim42 .s42-brk { position: absolute; left: -8px; top: -8px; width: 128px; height: 156px; overflow: visible; }
+.sim42 .s42-brk path { fill: none; stroke: #ffffff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+.sim42 .s42-rlbl { position: absolute; left: 524px; top: 152px; width: 238px; display: flex; direction: rtl; justify-content: center; align-items: center; gap: 12px;
+  font: 600 32px/1 "Rubik"; color: var(--ink); opacity: 0; white-space: nowrap; }
+.sim42 .s42-rlbl i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; flex: none; }
+.sim42 .s42-refs { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
+.sim42 .s42-rl { fill: none; stroke: rgba(201, 194, 255, 0.6); stroke-width: 2.5; stroke-linecap: round; }
+.sim42 .s42-rf { fill: none; stroke: #ffffff; stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 5px #c9c2ff); opacity: 0; }
+
+/* the opening frames (A is chosen; it becomes the clip, then frame 1 of the strip) */
+.sim42 .s42-fr { position: absolute; top: 312px; width: 170px; height: 302px; border-radius: 16px; transform-origin: 50% 0%; opacity: 0; }
+.sim42 .s42-frA { left: 293px; }
+.sim42 .s42-frB { left: 93px; }
+.sim42 .s42-fin { position: absolute; inset: 0; border-radius: 16px; overflow: hidden; clip-path: inset(0px 0px 0px 100%); }
+.sim42 .s42-osvg, .sim42 .s42-ssvg { width: 100%; height: 100%; display: block; }
+.sim42 .s42-fo { position: absolute; inset: 0; width: 170px; height: 302px; overflow: visible; }
+.sim42 .s42-fo path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.7)); }
+.sim42 .s42-gen { position: absolute; left: 0; right: 0; top: 0; height: 60px; display: block; opacity: 0;
+  background: linear-gradient(180deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.45) 75%, #ffffff 92%, rgba(255, 255, 255, 0)); }
+.sim42 .s42-pbar { position: absolute; left: 12px; right: 12px; bottom: 12px; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.18); opacity: 0; }
+.sim42 .s42-pbar i { position: absolute; inset: 0; border-radius: 3px; background: #ffffff; box-shadow: 0 0 8px #c9c2ff; transform-origin: 100% 50%; transform: scaleX(0); display: block; }
+.sim42 .s42-pick { position: absolute; right: -16px; top: -16px; width: 42px; height: 42px; border-radius: 50%; background: #1f1a3f;
+  box-shadow: 0 0 0 2px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.7); display: block; opacity: 0; }
+.sim42 .s42-bigplay { position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%; background: rgba(20, 18, 40, 0.75);
+  box-shadow: 0 0 0 2px #ffffff, 0 0 18px rgba(201, 194, 255, 0.7); display: block; opacity: 0; }
+.sim42 .s42-bplay { position: absolute; inset: 16px; width: 40px; height: 40px; }
+.sim42 .s42-bplay path { fill: #ffffff; }
+.sim42 .s42-ok, .sim42 .s42-no { position: absolute; inset: 6px; width: calc(100% - 12px); height: calc(100% - 12px); overflow: visible; }
+.sim42 .s42-ok path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim42 .s42-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
+
+/* payoff: the clip as a strip of 6 frames (film band with perforations) */
+.sim42 .s42-band { position: absolute; left: 40px; top: 168px; width: 720px; height: 236px; border-radius: 14px; opacity: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(201, 194, 255, 0.22) 0 14px, rgba(0, 0, 0, 0) 14px 30px) 8px 9px / calc(100% - 16px) 9px no-repeat,
+    repeating-linear-gradient(90deg, rgba(201, 194, 255, 0.22) 0 14px, rgba(0, 0, 0, 0) 14px 30px) 8px 218px / calc(100% - 16px) 9px no-repeat,
+    rgba(12, 11, 26, 0.92);
+  box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.22), 0 24px 50px rgba(0, 0, 0, 0.4); }
+.sim42 .s42-strip { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
+.sim42 .s42-sf { position: absolute; top: 194px; width: 104px; height: 185px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.4); opacity: 0; }
+.sim42 .s42-sf2 { left: 522px; }
+.sim42 .s42-sf3 { left: 406px; }
+.sim42 .s42-sf4 { left: 290px; }
+.sim42 .s42-sf5 { left: 174px; }
+.sim42 .s42-sf6 { left: 58px; }
+.sim42 .s42-scan { position: absolute; left: 739px; top: 184px; width: 6px; height: 205px; border-radius: 3px; background: #ffffff; box-shadow: 0 0 18px #c9c2ff, 0 0 5px #ffffff; display: block; opacity: 0; }
+.sim42 .s42-bd { position: absolute; top: 128px; width: 40px; height: 40px; border-radius: 50%; display: block; opacity: 0; background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.6); }
+.sim42 .s42-bd1 { left: 670px; }
+.sim42 .s42-bd2 { left: 554px; }
+.sim42 .s42-bd3 { left: 438px; }
+.sim42 .s42-bd4 { left: 322px; }
+.sim42 .s42-bd5 { left: 206px; }
+.sim42 .s42-bd6 { left: 90px; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); }
+.sim42 .s42-ring { position: absolute; left: 84px; top: 254px; width: 68px; height: 84px; border-radius: 50%; border: 3px solid #ff6b61; box-shadow: 0 0 14px rgba(255, 69, 58, 0.7); display: block; opacity: 0; }
+.sim42 .s42-cut { position: absolute; left: 163px; top: 150px; width: 10px; height: 260px; overflow: visible; }
+.sim42 .s42-cut path { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 5px #c9c2ff); }
+.sim42 .s42-sci { position: absolute; left: 151px; top: 104px; width: 34px; height: 34px; overflow: visible; opacity: 0; }
+.sim42 .s42-sci circle, .sim42 .s42-sci path { fill: none; stroke: #c9c2ff; stroke-width: 2.6; stroke-linecap: round; }
+.sim42 .s42-plbl { position: absolute; left: 40px; top: 436px; width: 720px; text-align: center; font: 600 36px/1.2 "Rubik"; color: var(--ink); opacity: 0; }
+.sim42 .s42-tags { position: absolute; left: 30px; top: 512px; width: 740px; display: flex; direction: rtl; justify-content: center; gap: 16px; }
+.sim42 .s42-tag { display: flex; direction: rtl; align-items: center; gap: 10px; padding: 11px 18px 11px 20px; border-radius: 999px; background: rgba(26, 23, 52, 0.9);
+  border: 1.5px solid rgba(201, 194, 255, 0.35); opacity: 0; }
+.sim42 .s42-tag b { font: 600 30px/1 "Rubik"; color: #ece9f7; white-space: nowrap; }
+.sim42 .s42-tico { width: 30px; height: 30px; display: block; overflow: visible; flex: none; }
+.sim42 .s42-tico path, .sim42 .s42-tico circle { fill: none; stroke: #c9c2ff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim42 .s42-tico .s42-slash { stroke: #ffffff; stroke-width: 2.6; }
+
+/* local light sweep (see sweep() in the js): the band starts and ends fully outside the element */
+.sim42 .s42-swp { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.sim42 .s42-swp b { position: absolute; top: 0; bottom: 0; left: 100%; display: block; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="36.570" data-fps="30" data-width="1080" data-height="1920">
+<div class="stagewrap" style="transform: scale(1.0);">
+<div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
+<div id="cam">
+<div id="sc-t42" class="clip scene" data-start="0.000" data-duration="36.570" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 4 · בירולים</span><span class="hdr-num" dir="ltr">4.2</span></div>
+<div class="scam">
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">קליפ</span> <span class="w" dir="rtl" data-t="0.430">AI</span> <span class="w" dir="rtl" data-t="0.560">עם</span> <span class="w" dir="rtl" data-t="0.690">הפנים</span> <span class="w" dir="rtl" data-t="0.820">האמיתיות</span> <span class="w" dir="rtl" data-t="0.950">שלכם,</span> <span class="w" dir="rtl" data-t="1.080">דרך</span> <span class="w" dir="rtl" data-t="1.210">fal.ai</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="2.040">קלוד</span> <span class="w" dir="rtl" data-t="2.100">לוקח</span> <span class="w" dir="rtl" data-t="2.160">ארבעה</span> <span class="w" dir="rtl" data-t="2.220">פריימים</span> <span class="w" dir="rtl" data-t="2.280">חדים</span> <span class="w" dir="rtl" data-t="2.340">מהסרטון</span> <span class="w" dir="rtl" data-t="2.400">ושולח</span> <span class="w" dir="rtl" data-t="2.460">אותם</span> <span class="w" dir="rtl" data-t="2.520">ל-fal.ai,</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.740">פלטפורמה</span> <span class="w" dir="rtl" data-t="4.800">עם</span> <span class="w" dir="rtl" data-t="4.860">המון</span> <span class="w" dir="rtl" data-t="4.920">מודלים</span> <span class="w" dir="rtl" data-t="4.980">ליצירת</span> <span class="w" dir="rtl" data-t="5.040">תמונות</span> <span class="w" dir="rtl" data-t="5.100">וסרטונים.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.940">שם</span> <span class="w" dir="rtl" data-t="7.000">הוא</span> <span class="w" dir="rtl" data-t="7.060">יוצר</span> <span class="w" dir="rtl" data-t="7.120">פריים</span> <span class="w" dir="rtl" data-t="7.180">פתיחה</span> <span class="w" dir="rtl" data-t="7.240">בסצנה</span> <span class="w" dir="rtl" data-t="7.300">חדשה</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.140">ומנפיש</span> <span class="w" dir="rtl" data-t="9.200">אותו</span> <span class="w" dir="rtl" data-t="9.260">במודל</span> <span class="w" dir="rtl" data-t="9.320">שמקבל</span> <span class="accgrp" data-t="9.380"><span class="w s-str" dir="rtl" data-t="9.380">פנים</span> <span class="w s-str" dir="rtl" data-t="9.440">אמיתיות</span><i class="ul" data-t="9.560"></i></span> <span class="w" dir="rtl" data-t="9.500">כרפרנס.</span></span></p></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim42">
+<svg class="s42-defs" width="0" height="0" aria-hidden="true"><defs>
+<linearGradient id="s42-gpf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
+<linearGradient id="s42-gpf2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a4ea6"/><stop offset="1" stop-color="#2c255c"/></linearGradient>
+<linearGradient id="s42-gpr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset=".65" stop-color="#c9c2ff" stop-opacity=".15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity=".85"/></linearGradient>
+<linearGradient id="s42-gpl" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset=".65" stop-color="#c9c2ff" stop-opacity=".15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity=".85"/></linearGradient>
+<linearGradient id="s42-gbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2456"/><stop offset=".6" stop-color="#181536"/><stop offset="1" stop-color="#0e0c1f"/></linearGradient>
+<linearGradient id="s42-sbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16132f"/><stop offset="1" stop-color="#0b0a19"/></linearGradient>
+<radialGradient id="s42-sgl"><stop offset="0" stop-color="#a993ff" stop-opacity=".5"/><stop offset="1" stop-color="#a993ff" stop-opacity="0"/></radialGradient>
+<g id="s42-fbg"><rect width="200" height="250" fill="url(#s42-gbg)"/><circle cx="30" cy="20" r="110" fill="url(#s42-sgl)" opacity=".55"/></g>
+<g id="s42-fb"><rect x="82" y="136" width="36" height="52" rx="15" fill="url(#s42-gpf)"/>
+<path d="M8 250C14 204 50 182 82 178L118 178C150 182 186 204 192 250Z" fill="url(#s42-gpf)"/>
+<path d="M8 250C14 204 50 182 82 178L118 178C150 182 186 204 192 250" fill="none" stroke="url(#s42-gpr)" stroke-width="3"/></g>
+<g id="s42-hf"><ellipse cx="100" cy="98" rx="44" ry="52" fill="url(#s42-gpf)"/><ellipse cx="100" cy="98" rx="44" ry="52" fill="none" stroke="url(#s42-gpr)" stroke-width="3"/>
+<circle cx="84" cy="96" r="3.6" fill="#d9d4ff" fill-opacity=".75"/><circle cx="116" cy="96" r="3.6" fill="#d9d4ff" fill-opacity=".75"/>
+<path d="M88 122Q100 128 112 122" fill="none" stroke="#d9d4ff" stroke-opacity=".65" stroke-width="3" stroke-linecap="round"/></g>
+<g id="s42-hl"><ellipse cx="91" cy="98" rx="40" ry="52" fill="url(#s42-gpf)"/><ellipse cx="91" cy="98" rx="40" ry="52" fill="none" stroke="url(#s42-gpr)" stroke-width="3"/>
+<circle cx="72" cy="96" r="3.1" fill="#d9d4ff" fill-opacity=".75"/><circle cx="100" cy="96" r="3.6" fill="#d9d4ff" fill-opacity=".75"/>
+<path d="M75 122Q85 127 95 122" fill="none" stroke="#d9d4ff" stroke-opacity=".65" stroke-width="3" stroke-linecap="round"/><path d="M66 100L59 113L67 115" fill="none" stroke="#d9d4ff" stroke-opacity=".6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s42-hr"><ellipse cx="109" cy="98" rx="40" ry="52" fill="url(#s42-gpf)"/><ellipse cx="109" cy="98" rx="40" ry="52" fill="none" stroke="url(#s42-gpl)" stroke-width="3"/>
+<circle cx="100" cy="96" r="3.6" fill="#d9d4ff" fill-opacity=".75"/><circle cx="128" cy="96" r="3.1" fill="#d9d4ff" fill-opacity=".75"/>
+<path d="M105 122Q115 127 125 122" fill="none" stroke="#d9d4ff" stroke-opacity=".65" stroke-width="3" stroke-linecap="round"/><path d="M134 100L141 113L133 115" fill="none" stroke="#d9d4ff" stroke-opacity=".6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s42-hs"><ellipse cx="96" cy="98" rx="42" ry="52" fill="url(#s42-gpf)"/><ellipse cx="96" cy="98" rx="42" ry="52" fill="none" stroke="url(#s42-gpr)" stroke-width="3"/>
+<path d="M74 97Q80 90 86 97M104 97Q110 90 116 97" fill="none" stroke="#d9d4ff" stroke-opacity=".8" stroke-width="3" stroke-linecap="round"/>
+<path d="M78 115Q95 136 112 115" fill="none" stroke="#d9d4ff" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></g>
+<g id="s42-room"><rect width="180" height="320" fill="url(#s42-sbg)"/>
+<rect x="118" y="30" width="44" height="66" rx="3" fill="none" stroke="#c9c2ff" stroke-opacity=".16" stroke-width="2"/><path d="M140 30v66" stroke="#c9c2ff" stroke-opacity=".16" stroke-width="2"/>
+<rect y="266" width="180" height="54" fill="#0a0916"/><path d="M0 266H180" stroke="#c9c2ff" stroke-opacity=".28" stroke-width="2"/></g>
+<g id="s42-body"><path d="M18 304C22 252 54 230 84 226L112 226C142 230 172 252 176 304Z" fill="url(#s42-gpf)"/>
+<path d="M58 210C52 150 76 108 99 108C122 108 146 150 140 210C128 226 70 226 58 210Z" fill="#241e50"/>
+<path d="M58 210C52 150 76 108 99 108C122 108 146 150 140 210" fill="none" stroke="url(#s42-gpl)" stroke-width="2.5"/></g>
+<g id="s42-head"><ellipse cx="99" cy="168" rx="27" ry="33" fill="url(#s42-gpf2)"/>
+<circle cx="89" cy="166" r="2.5" fill="#e6e2ff" fill-opacity=".8"/><circle cx="109" cy="166" r="2.5" fill="#e6e2ff" fill-opacity=".8"/>
+<path d="M93 182Q99 185 105 182" fill="none" stroke="#e6e2ff" stroke-opacity=".7" stroke-width="2.2" stroke-linecap="round"/></g>
+<g id="s42-headx"><ellipse cx="103" cy="174" rx="22" ry="42" fill="url(#s42-gpf2)"/>
+<circle cx="92" cy="160" r="2.6" fill="#e6e2ff" fill-opacity=".8"/><circle cx="113" cy="174" r="2.1" fill="#e6e2ff" fill-opacity=".8"/>
+<path d="M92 198Q100 193 112 203" fill="none" stroke="#e6e2ff" stroke-opacity=".7" stroke-width="2.2" stroke-linecap="round"/></g>
+<g id="s42-lap"><path d="M6 270L74 262L80 272L2 280Z" fill="#2a2452" stroke="#c9c2ff" stroke-opacity=".5" stroke-width="1.5"/>
+<path d="M10 264L6 214L64 206L72 258Z" fill="#0d0b1f" stroke="#c9c2ff" stroke-width="2"/>
+<g fill="#c9c2ff"><path d="M16 222L40 219L40 223L16 226Z"/><path d="M17 231L52 227L52 231L17 235Z" opacity=".65"/><path d="M22 240L44 237L44 241L22 244Z"/><path d="M18 249L48 245L48 249L18 253Z" opacity=".65"/></g></g>
+<g id="s42-iimg"><rect x="3" y="5" width="24" height="20" rx="4"/><path d="M5 22l7-7 4.5 4.5 3.5-3.5 5 5"/><circle cx="20.5" cy="11" r="2.4"/></g>
+<g id="s42-ivid"><rect x="3" y="6" width="24" height="18" rx="4"/><path d="M12.5 10.5v9l7-4.5z" class="s42-fillp"/></g>
+</defs></svg>
+<div class="s42-win">
+<div class="s42-wbar"><span class="s42-wname" dir="ltr">fal.ai</span><span class="s42-dots"><i></i><i></i><i></i></span></div>
+<div class="s42-slots"><i class="s42-slot"><b class="s42-upc"><svg class="s42-fsvg" viewBox="0 0 200 250" aria-hidden="true"><use href="#s42-fbg"/><use href="#s42-fb"/><use href="#s42-hf"/></svg></b></i><i class="s42-slot"><b class="s42-upc"><svg class="s42-fsvg" viewBox="0 0 200 250" aria-hidden="true"><use href="#s42-fbg"/><use href="#s42-fb"/><use href="#s42-hl"/></svg></b></i><i class="s42-slot"><b class="s42-upc"><svg class="s42-fsvg" viewBox="0 0 200 250" aria-hidden="true"><use href="#s42-fbg"/><use href="#s42-fb"/><use href="#s42-hr"/></svg></b></i><i class="s42-slot"><b class="s42-upc"><svg class="s42-fsvg" viewBox="0 0 200 250" aria-hidden="true"><use href="#s42-fbg"/><use href="#s42-fb"/><use href="#s42-hs"/></svg></b></i></div>
+<div class="s42-uptag" dir="ltr">upload_file</div>
+<div class="s42-upbar"><i></i></div>
+<div class="s42-grid">
+<div class="s42-gl s42-gl1" dir="rtl"><i></i><span>תמונות</span></div>
+<div class="s42-tiles s42-t1"><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-iimg"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-iimg"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-iimg"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-iimg"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-iimg"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-iimg"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-iimg"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-iimg"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-iimg"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-iimg"/></svg></i></div>
+<div class="s42-gl s42-gl2" dir="rtl"><i></i><span>סרטונים</span></div>
+<div class="s42-tiles s42-t2"><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-ivid"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-ivid"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-ivid"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-ivid"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-ivid"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-ivid"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-ivid"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-ivid"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-ivid"/></svg></i><i class="s42-tile"><svg viewBox="0 0 30 30" aria-hidden="true"><use href="#s42-ivid"/></svg></i></div>
+</div>
+<div class="s42-olbl" dir="rtl">פריים פתיחה</div>
+<div class="s42-chip"><svg class="s42-cplay" viewBox="0 0 30 30" aria-hidden="true"><path d="M11 8.5v13l10.5-6.5z"/></svg><span dir="rtl">מודל וידאו</span><i class="s42-port"></i></div>
+</div>
+<div class="s42-col">
+<div class="s42-src"><svg class="s42-person" viewBox="0 0 312 380" aria-hidden="true">
+<defs>
+<linearGradient id="pf42" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
+<linearGradient id="pr42" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
+</defs>
+<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380 Z" fill="url(#pf42)"/>
+<rect x="128" y="196" width="56" height="70" rx="22" fill="url(#pf42)"/>
+<ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pf42)"/>
+<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#pr42)" stroke-width="3"/>
+<ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#pr42)" stroke-width="3"/>
+</svg><div class="s42-sprog"><i></i></div><i class="s42-flash"></i></div>
+<div class="s42-faces" data-focus="3"><div class="s42-face"><div class="s42-fimg"><svg class="s42-fsvg" viewBox="0 0 200 250" aria-hidden="true"><use href="#s42-fbg"/><use href="#s42-fb"/><use href="#s42-hf"/></svg></div><i class="s42-fglow"></i><svg class="s42-brk" viewBox="0 0 128 156" aria-hidden="true"><path d="M2 22V2h20"/><path d="M106 2h20v20"/><path d="M126 134v20h-20"/><path d="M22 154H2v-20"/></svg></div><div class="s42-face"><div class="s42-fimg"><svg class="s42-fsvg" viewBox="0 0 200 250" aria-hidden="true"><use href="#s42-fbg"/><use href="#s42-fb"/><use href="#s42-hl"/></svg></div><i class="s42-fglow"></i><svg class="s42-brk" viewBox="0 0 128 156" aria-hidden="true"><path d="M2 22V2h20"/><path d="M106 2h20v20"/><path d="M126 134v20h-20"/><path d="M22 154H2v-20"/></svg></div><div class="s42-face"><div class="s42-fimg"><svg class="s42-fsvg" viewBox="0 0 200 250" aria-hidden="true"><use href="#s42-fbg"/><use href="#s42-fb"/><use href="#s42-hr"/></svg></div><i class="s42-fglow"></i><svg class="s42-brk" viewBox="0 0 128 156" aria-hidden="true"><path d="M2 22V2h20"/><path d="M106 2h20v20"/><path d="M126 134v20h-20"/><path d="M22 154H2v-20"/></svg></div><div class="s42-face"><div class="s42-fimg"><svg class="s42-fsvg" viewBox="0 0 200 250" aria-hidden="true"><use href="#s42-fbg"/><use href="#s42-fb"/><use href="#s42-hs"/></svg></div><i class="s42-fglow"></i><svg class="s42-brk" viewBox="0 0 128 156" aria-hidden="true"><path d="M2 22V2h20"/><path d="M106 2h20v20"/><path d="M126 134v20h-20"/><path d="M22 154H2v-20"/></svg></div></div>
+</div>
+<div class="s42-rlbl" dir="rtl"><i></i><span>רפרנס לפנים</span></div>
+<svg class="s42-refs" viewBox="0 0 800 700" aria-hidden="true"><path class="s42-rl"/><path class="s42-rf"/><path class="s42-rl"/><path class="s42-rf"/><path class="s42-rl"/><path class="s42-rf"/><path class="s42-rl"/><path class="s42-rf"/></svg>
+<div class="s42-band"></div>
+<div class="s42-fr s42-frB"><div class="s42-fin"><svg class="s42-osvg" viewBox="0 0 180 320" aria-hidden="true"><use href="#s42-room"/><ellipse class="s42-glo" cx="140" cy="236" rx="84" ry="70" fill="url(#s42-sgl)"/><g transform="translate(6 0)"><use href="#s42-body"/><g class="s42-hd"><use href="#s42-head"/></g></g><g transform="matrix(-1 0 0 1 180 0)"><use href="#s42-lap"/></g></svg></div>
+<svg class="s42-fo" viewBox="0 0 170 302" preserveAspectRatio="none" aria-hidden="true"><path d="M153.5 1.5H16.5A15 15 0 0 0 1.5 16.5V285.5A15 15 0 0 0 16.5 300.5H153.5A15 15 0 0 0 168.5 285.5V16.5A15 15 0 0 0 153.5 1.5Z"/></svg></div>
+<div class="s42-fr s42-frA"><div class="s42-fin"><svg class="s42-osvg" viewBox="0 0 180 320" aria-hidden="true"><use href="#s42-room"/><ellipse class="s42-glo" cx="40" cy="236" rx="84" ry="70" fill="url(#s42-sgl)"/><g transform="translate(0 0)"><use href="#s42-body"/><g class="s42-hd"><use href="#s42-head"/></g></g><g><use href="#s42-lap"/></g></svg><i class="s42-gen"></i>
+<div class="s42-pbar"><i></i></div></div>
+<svg class="s42-fo" viewBox="0 0 170 302" preserveAspectRatio="none" aria-hidden="true"><path d="M153.5 1.5H16.5A15 15 0 0 0 1.5 16.5V285.5A15 15 0 0 0 16.5 300.5H153.5A15 15 0 0 0 168.5 285.5V16.5A15 15 0 0 0 153.5 1.5Z"/></svg>
+<i class="s42-pick"><svg class="s42-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i><i class="s42-bigplay"><svg class="s42-bplay" viewBox="0 0 30 30" aria-hidden="true"><path d="M11 8.5v13l10.5-6.5z"/></svg></i></div>
+<div class="s42-strip"><div class="s42-sf s42-sf2"><svg class="s42-ssvg" viewBox="0 0 180 320" aria-hidden="true"><use href="#s42-room"/><ellipse class="s42-glo" cx="40" cy="236" rx="84" ry="70" fill="url(#s42-sgl)"/><g transform="translate(-3 0)"><use href="#s42-body"/><g class="s42-hd"><use href="#s42-head"/></g></g><g><use href="#s42-lap"/></g></svg></div><div class="s42-sf s42-sf3"><svg class="s42-ssvg" viewBox="0 0 180 320" aria-hidden="true"><use href="#s42-room"/><ellipse class="s42-glo" cx="40" cy="236" rx="84" ry="70" fill="url(#s42-sgl)"/><g transform="translate(-6 0)"><use href="#s42-body"/><g class="s42-hd"><use href="#s42-head"/></g></g><g><use href="#s42-lap"/></g></svg></div><div class="s42-sf s42-sf4"><svg class="s42-ssvg" viewBox="0 0 180 320" aria-hidden="true"><use href="#s42-room"/><ellipse class="s42-glo" cx="40" cy="236" rx="84" ry="70" fill="url(#s42-sgl)"/><g transform="translate(-4 0)"><use href="#s42-body"/><g class="s42-hd"><use href="#s42-head"/></g></g><g><use href="#s42-lap"/></g></svg></div><div class="s42-sf s42-sf5"><svg class="s42-ssvg" viewBox="0 0 180 320" aria-hidden="true"><use href="#s42-room"/><ellipse class="s42-glo" cx="40" cy="236" rx="84" ry="70" fill="url(#s42-sgl)"/><g transform="translate(0 0)"><use href="#s42-body"/><g class="s42-hd"><use href="#s42-head"/></g></g><g><use href="#s42-lap"/></g></svg></div><div class="s42-sf s42-sf6"><svg class="s42-ssvg" viewBox="0 0 180 320" aria-hidden="true"><use href="#s42-room"/><ellipse class="s42-glo" cx="40" cy="236" rx="84" ry="70" fill="url(#s42-sgl)"/><g transform="translate(2 0)"><use href="#s42-body"/><g class="s42-hd"><use href="#s42-headx"/></g></g><g><use href="#s42-lap"/></g></svg></div></div>
+<i class="s42-scan"></i>
+<i class="s42-bd s42-bd1"><svg class="s42-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i><i class="s42-bd s42-bd2"><svg class="s42-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i><i class="s42-bd s42-bd3"><svg class="s42-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i><i class="s42-bd s42-bd4"><svg class="s42-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i><i class="s42-bd s42-bd5"><svg class="s42-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i><i class="s42-bd s42-bd6"><svg class="s42-no" viewBox="0 0 30 30" aria-hidden="true"><path d="M9.5 9.5l11 11"/><path d="M20.5 9.5l-11 11"/></svg></i>
+<i class="s42-ring"></i>
+<svg class="s42-cut" viewBox="0 0 10 260" aria-hidden="true"><path d="M5 2V258"/></svg>
+<svg class="s42-sci" viewBox="0 0 30 30" aria-hidden="true"><circle cx="9" cy="7.5" r="4.2"/><circle cx="21" cy="7.5" r="4.2"/><path d="M11 11L22 27M19 11L8 27"/></svg>
+<div class="s42-plbl" dir="rtl">אם הפנים זזות בסוף, חותכים לפני</div>
+<div class="s42-tags" dir="rtl"><span class="s42-tag"><svg class="s42-tico" viewBox="0 0 30 30" aria-hidden="true"><path d="M8 8h14M15 8v15"/><path class="s42-slash" d="M5 25L25 5"/></svg><b dir="rtl">בלי טקסט</b></span><span class="s42-tag"><svg class="s42-tico" viewBox="0 0 30 30" aria-hidden="true"><path d="M12 21V8l11-2.5v12.5"/><circle cx="9.5" cy="21" r="2.8"/><circle cx="20.5" cy="18" r="2.8"/><path class="s42-slash" d="M5 25L25 5"/></svg><b dir="rtl">בלי מוזיקה</b></span><span class="s42-tag"><svg class="s42-tico" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 12h4.5l6-5v16l-6-5H5z"/><path d="M19.5 11c1.2 1.8 1.2 4.2 0 6"/><path class="s42-slash" d="M5 25L25 5"/></svg><b dir="rtl">בלי קול</b></span></div>
+</div></div></div></div>
+<div class="factbox"><span class="pill">בערך דולר לקליפ</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="17.790">קליפ</span> <span class="w" dir="rtl" data-t="17.910">של</span> <span class="w" dir="rtl" data-t="18.030">5</span> <span class="w" dir="rtl" data-t="18.150">שניות</span> <span class="w" dir="rtl" data-t="18.270">עם</span> <span class="w" dir="rtl" data-t="18.390">הפנים</span> <span class="w" dir="rtl" data-t="18.510">שלכם,</span> <span class="w" dir="rtl" data-t="18.630">כולל</span> <span class="w" dir="rtl" data-t="18.750">שתי</span> <span class="w" dir="rtl" data-t="18.870">גרסאות</span> <span class="w" dir="rtl" data-t="18.990">של</span> <span class="w" dir="rtl" data-t="19.110">פריים</span> <span class="w" dir="rtl" data-t="19.230">הפתיחה.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="19.550">הפרומפט</span> <span class="w" dir="rtl" data-t="19.580">בודק</span> <span class="w" dir="rtl" data-t="19.610">לבד</span> <span class="w" dir="rtl" data-t="19.640">אם</span> <span class="w" dir="rtl" data-t="19.670">fal</span> <span class="w" dir="rtl" data-t="19.700">מחובר,</span> <span class="w" dir="rtl" data-t="19.730">ואם</span> <span class="w" dir="rtl" data-t="19.760">לא,</span> <span class="w" dir="rtl" data-t="19.790">קלוד</span> <span class="w" dir="rtl" data-t="19.820">מחבר</span> <span class="w" dir="rtl" data-t="19.850">אותו</span> <span class="w" dir="rtl" data-t="19.880">ומבקש</span> <span class="w" dir="rtl" data-t="19.910">מכם</span> <span class="w" dir="rtl" data-t="19.940">רק</span> <span class="w" dir="rtl" data-t="19.970">להתחבר</span> <span class="w" dir="rtl" data-t="20.000">עם</span> <span class="w" dir="rtl" data-t="20.030">החשבון.</span></p></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>15</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על ארבעה דברים:</div>
+<div class="pl" dir="rtl">- הסרטון שממנו לוקחים את הפנים שלי, או תמונות חדות שלי מקדימה ומהצד.</div>
+<div class="pl" dir="rtl">- הסצנה, כלומר איפה הקליפ מתרחש, מה קורה בו ומה הבגדים שלי.</div>
+<div class="pl" dir="rtl">- האורך (בדרך כלל 5 שניות) והיחס, 9:16 או 16:9.</div>
+<div class="pl" dir="rtl">- אם מי שבסרטון גבר או אישה, כדי שהפרומפטים באנגלית ייכתבו נכון.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/קלט&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="כיוון">&lt;כיוון&gt;</div>
+<div class="pl" dir="rtl">הקליפ נראה כמו צילום טלפון אמיתי עם אור טבעי וצבעים אמיתיים, ואין בו מראה קולנועי.</div>
+<div class="pl" dir="rtl">הפנים שלי נשארות הפנים שלי מהפריים הראשון ועד האחרון.</div>
+<div class="pl" dir="rtl">חיוך רגוע במקום צחוק גדול.</div>
+<div class="pl" dir="rtl">בלי טקסט, בלי כתוביות, בלי מוזיקה ובלי קול בתוך הקליפ.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/כיוון&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="בנייה">&lt;בנייה&gt;</div>
+<div class="pl" dir="rtl">1. תבדוק <span class="nb">ש-fal</span> מחובר אליך, ואם לא, תריץ בעצמך <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">claude</span> <span class="tk">mcp</span> <span class="tk">add</span> <span class="tk">--transport http</span> <span class="tk">--scope user</span> <span class="tk">fal</span> <span class="tk">https://mcp.fal.ai/mcp-relay</span><span class="bt">`</span>,</span>ואז תגיד לי לכתוב <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">/mcp</span><span class="bt">`</span></span>, לבחור fal ולהתחבר עם החשבון שלי, ושהתשלום יורד מארנק שטוענים מראש <span class="nb">ב-fal.</span> אם fal לא מופיע שם, תגיד לי לסגור ולפתוח את קלוד קוד.</div>
+<div class="pl" dir="rtl">2. תוציא מהסרטון 4 פריימים חדים, אחד מקדימה ושלושה מזוויות קצת שונות (אחד מהם עם חיוך), ותראה לי אותם לאישור.</div>
+<div class="pl" dir="rtl">3. את 4 הפריימים תעלה <span class="nb">ל-fal</span> עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">upload_file</span><span class="bt">`</span></span>, כי המודלים מקבלים רק כתובות.</div>
+<div class="pl" dir="rtl">4. תמצא <span class="nb">ב-fal</span> מודל שמייצר וידאו מתמונה ומקבל גם פריים פתיחה וגם פנים אמיתיות כרפרנס, כי חלק מהמודלים חוסמים פנים אמיתיות.</div>
+<div class="pl" dir="rtl">5. תבדוק <span class="nb">ב-fal</span> את המחיר של מודל הווידאו ושל מודל התמונה, ותראה לי כמה תעלה הרצה לפני שאתה מריץ (קליפ של 5 שניות עם רפרנס לפנים יוצא בערך דולר, כולל פריימי הפתיחה).</div>
+<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>6. פריים הפתיחה נוצר במודל לעריכת תמונה <span class="nb">ב-fal,</span> מהפריים שלי מקדימה, עם הסצנה החדשה, עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">aspect_ratio</span><span class="bt">`</span></span> של היחס שבחרתי (היחס של הקליפ נקבע לפי פריים הפתיחה), ועם המשפט <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">Keep</span> <span class="tk">his</span> <span class="tk">exact</span> <span class="tk">face</span> <span class="tk">and</span> <span class="tk">copy</span> <span class="tk">his</span> <span class="tk">real</span> <span class="tk">proportions,</span> <span class="tk">do</span> <span class="tk">not</span> <span class="tk">exaggerate</span> <span class="tk">any</span> <span class="tk">feature</span><span class="bt">`</span>.</span></div>
+<div class="pl" dir="rtl">7. בסוף הפרומפט של התמונה <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">Vertical</span> <span class="tk">9:16</span> <span class="tk">photo</span> <span class="tk">shot</span> <span class="tk">on</span> <span class="tk">an</span> <span class="tk">iPhone</span> <span class="tk">main</span> <span class="tk">camera,</span> <span class="tk">natural</span> <span class="tk">daylight,</span> <span class="tk">realistic</span> <span class="tk">colours,</span> <span class="tk">no</span> <span class="tk">colour</span> <span class="tk">grade,</span> <span class="tk">visible</span> <span class="tk">skin</span> <span class="tk">texture,</span> <span class="tk">no</span> <span class="tk">retouching,</span> <span class="tk">no</span> <span class="tk">text,</span> <span class="tk">no</span> <span class="tk">logos,</span> <span class="tk">no</span> <span class="tk">watermark</span><span class="bt">`</span>,</span><span class="nb">וב-16:9</span> תכתוב <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">Horizontal</span> <span class="tk">16:9</span> <span class="tk">photo</span><span class="bt">`</span></span> במקום <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">Vertical</span> <span class="tk">9:16</span> <span class="tk">photo</span><span class="bt">`</span></span>.</div>
+<div class="pl" dir="rtl">8. תייצר שתי גרסאות של פריים הפתיחה ותיתן לי לבחור.</div>
+<div class="pl" dir="rtl">9. את הסרטון תייצר מפריים הפתיחה, עם 4 הפריימים האמיתיים כרפרנס לפנים (הפריים מקדימה ראשון), ובלי קול: אם יש הגדרה כמו <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">generate_audio</span><span class="bt">`</span></span>, תכבה אותה, כי אצל חלק מהמודלים היא דלוקה כברירת מחדל.</div>
+<div class="pl" dir="rtl">10. אם המודל קורא לרפרנס בשם, כמו <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">@Element1</span><span class="bt">`</span></span>, תוסיף לפרומפט <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">His</span> <span class="tk">face</span> <span class="tk">stays</span> <span class="tk">exactly</span> <span class="tk">the</span> <span class="tk">face</span> <span class="tk">of</span> <span class="tk">@Element1</span> <span class="tk">the</span> <span class="tk">whole</span> <span class="tk">time.</span><span class="bt">`</span></span></div>
+<div class="pl" dir="rtl">11. בפעולה עצמה תכתוב <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">smiling</span> <span class="tk">warmly</span><span class="bt">`</span></span> ולא <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">laughing</span><span class="bt">`</span></span>, ותסיים את הפרומפט ב-<span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">Handheld</span> <span class="tk">iPhone</span> <span class="tk">footage,</span> <span class="tk">realistic,</span> <span class="tk">natural</span> <span class="tk">light,</span> <span class="tk">no</span> <span class="tk">cinematic</span> <span class="tk">grading.</span> <span class="tk">No</span> <span class="tk">subtitles.</span> <span class="tk">No</span> <span class="tk">text.</span> <span class="tk">No</span> <span class="tk">music.</span><span class="bt">`</span></span></div>
+<div class="pl" dir="rtl">12. אם המודל מקבל רשימת דברים שאסור שיופיעו, תכתוב בה <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">face</span> <span class="tk">morphing,</span> <span class="tk">different</span> <span class="tk">person,</span> <span class="tk">deformed</span> <span class="tk">hands,</span> <span class="tk">extra</span> <span class="tk">fingers,</span> <span class="tk">cinematic</span> <span class="tk">colour</span> <span class="tk">grading,</span> <span class="tk">subtitles,</span> <span class="tk">watermark</span><span class="bt">`</span>.</span></div>
+<div class="pl" dir="rtl">13. אחרי הג&#x27;נרוט תוציא 6 פריימים לאורך הקליפ ותשווה את הפנים לרפרנסים, ואם הפנים זזות בסוף, תציע לחתוך לפני הרגע הזה.</div>
+<div class="pl" dir="rtl">14. בסוף תגדיל <span class="nb">ל-1080</span> על 1920 (או 1920 על 1080) עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">scale=&lt;רוחב&gt;:&lt;גובה&gt;:force_original_aspect_ratio=increase:flags=lanczos,crop=&lt;רוחב&gt;:&lt;גובה&gt;</span><span class="bt">`</span>,</span>תקודד <span class="nb">ב-h264</span> עם crf 16 ותמסור בלי קול.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/בנייה&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="מלכודות">&lt;מלכודות&gt;</div>
+<div class="pl" dir="rtl">רשימה של תווי פנים בפרומפט, כמו &quot;פנים ארוכות&quot; או &quot;מצח גבוה&quot;, יוצאת מוגזמת בתוצאה.</div>
+<div class="pl" dir="rtl">מה שאסור שיופיע נכתב במפורש בפרומפט, למשל <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">no</span> <span class="tk">phone</span> <span class="tk">in</span> <span class="tk">his</span> <span class="tk">hands</span><span class="bt">`</span></span>, אחרת המודל מוסיף אותו מעצמו.</div>
+<div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>הרצה אחת בכל פעם, כי כל הרצה יורדת מהארנק.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/מלכודות&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="התחלה">&lt;התחלה&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על הקלט, תבדוק שהחיבור <span class="nb">ל-fal</span> עובד, ותראה לי את 4 הפריימים, את המודל שבחרת, את המחיר ואת הפרומפטים לפני שאתה מייצר משהו.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>6. פריים הפתיחה נוצר במודל לעריכת תמונה <span class="nb">ב-fal,</span> מהפריים שלי מקדימה, עם הסצנה החדשה, עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">aspect_ratio</span><span class="bt">`</span></span> של היחס שבחרתי (היחס של הקליפ נקבע לפי פריים הפתיחה), ועם המשפט <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">Keep</span> <span class="tk">his</span> <span class="tk">exact</span> <span class="tk">face</span> <span class="tk">and</span> <span class="tk">copy</span> <span class="tk">his</span> <span class="tk">real</span> <span class="tk">proportions,</span> <span class="tk">do</span> <span class="tk">not</span> <span class="tk">exaggerate</span> <span class="tk">any</span> <span class="tk">feature</span><span class="bt">`</span>.</span></div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>הרצה אחת בכל פעם, כי כל הרצה יורדת מהארנק.</div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="32.680">צחוק</span> <span class="w" dir="rtl" data-t="32.840">גדול</span> <span class="w" dir="rtl" data-t="33.000">עיוות</span> <span class="w" dir="rtl" data-t="33.160">את</span> <span class="w" dir="rtl" data-t="33.320">הפנים,</span> <span class="w" dir="rtl" data-t="33.480">ולכן</span> <span class="w" dir="rtl" data-t="33.640">הפרומפט</span> <span class="w" dir="rtl" data-t="33.800">כותב</span> <span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="33.960">smiling</span> <span class="w" dir="ltr" data-t="34.120">warmly</span></span> <span class="w" dir="rtl" data-t="34.280">(חיוך</span> <span class="w" dir="rtl" data-t="34.440">חם)</span> <span class="w" dir="rtl" data-t="34.600">במקום</span> <span class="w" dir="rtl" data-t="34.760">צחוק.</span></p></div></div>
+</div></div>
+</div>
+</div>
+</div>
+<script>
+/* Runtime helpers that add tweens to one paused GSAP master timeline.
+   Every tween is a fromTo with explicit values and immediateRender:false (CSS holds the
+   initial state), so any frame can be rendered by seeking to it in any order.
+   Each scene has its own camera (.scam); the chapter header sits outside it and never zooms. */
+(function () {
+  const E = (window.ENG = {});
+  // The guide's no-overshoot spring (prompts 9 and 13).
+  const SPRING = (p) => (1 - (1 + 7 * p) * Math.exp(-7 * p)) / (1 - 8 * Math.exp(-7));
+  E.SPRING = SPRING;
+  E.debug = (window.__ENG_DEBUG = { scenes: {} });
+  E.q = (s, r) => (r || document).querySelector(s);
+  E.qa = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const NI = { immediateRender: false };
+  E.NI = NI;
+  const A = (o) => Object.assign(o, NI);
+  E.A = A;
+  /* Deterministic PRNG (mulberry32): never use Math.random in scenes. */
+  E.rand = function (seed) {
+    let a = seed >>> 0;
+    return function () { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  };
+  /* Offsets ignore transforms: measure layout before any tween moves things. */
+  E.off = function (el, top) {
+    let x = 0, y = 0, e = el;
+    while (e && e !== top) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+    return { x, y };
+  };
+  E.center = function (el, top) {
+    const o = E.off(el, top);
+    return { x: o.x + el.offsetWidth / 2, y: o.y + el.offsetHeight / 2 };
+  };
+
+  E.fadeIn = function (tl, el, t, d, dy) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: 0, y: dy || 0 }, A({ opacity: 1, y: 0, duration: d || 0.5, ease: SPRING }), t);
+  };
+  E.fadeOut = function (tl, el, t, d, dy, from) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from, y: 0 }, A({ opacity: 0, y: dy || 0, duration: d || 0.3, ease: "power2.in" }), t);
+  };
+  E.dim = function (tl, el, t, to, from, d) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from }, A({ opacity: to, duration: d || 0.35, ease: "power2.out" }), t);
+  };
+
+  /* Kinetic words: each word enters on its time with a spring (slightly above final size,
+     then settles) and unblurs. Blur is animated separately from the spring and ends on
+     0px then "none", so it never goes negative (prompt 2's pitfall). */
+  E.kin = function (tl, root, S, o) {
+    if (!root) return;
+    o = o || {};
+    const dy = o.dy == null ? 18 : o.dy;
+    E.qa(".w", root).forEach((w) => {
+      const t = S + parseFloat(w.dataset.t || "0");
+      tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.22, ease: "power2.out" }), t);
+      tl.fromTo(w, { y: dy, scale: 0.82 }, A({ y: 0, scale: 1, duration: 0.62, ease: "back.out(2.1)" }), t);
+      tl.fromTo(w, { filter: "blur(9px)" }, A({ filter: "blur(0px)", duration: 0.3, ease: "power2.out" }), t);
+      tl.set(w, { filter: "none" }, t + 0.31);
+    });
+    E.qa(".ul", root).forEach((u) => {
+      const t = S + parseFloat(u.dataset.t || "0");
+      tl.fromTo(u, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.5, ease: "power3.inOut" }), t);
+    });
+  };
+
+  /* White pill caption: switches in one frame, no animation (prompt 2). */
+  E.pill = function (tl, el, tin, tout) {
+    tl.set(el, { opacity: 1 }, tin);
+    if (tout != null) tl.set(el, { opacity: 0 }, tout);
+  };
+
+  /* Bouncy zoom on the scene camera with the guide's spring. The focal x is clamped so a
+     content column [colL, colR] scaled by (1+amt) stays inside the safe area x 140..940. */
+  E.zoom = function (tl, ctx, cx, cy, t, amt, tBack, backDur, col) {
+    const s = 1 + amt;
+    const L = col ? col[0] : 220, R = col ? col[1] : 940;
+    const lo = (s * R - 940) / (s - 1), hi = (s * L - 140) / (s - 1);
+    if (lo <= hi) cx = Math.min(hi, Math.max(lo, cx));
+    else cx = (L + R) / 2;
+    tl.set(ctx.cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(ctx.cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) {
+      if (backDur) tl.fromTo(ctx.cam, { scale: s }, A({ scale: 1, duration: backDur, ease: "power2.inOut" }), tBack);
+      else tl.set(ctx.cam, { scale: 1 }, tBack);
+    }
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  E.zoomOn = function (tl, ctx, el, t, amt, tBack, backDur, col) {
+    const c = E.center(el, ctx.scene);
+    E.zoom(tl, ctx, c.x, c.y, t, amt, tBack, backDur, col);
+  };
+
+  /* ---------- effects (all pure transforms/opacity, created once before the first seek) ---------- */
+  /* Light sweep across an element, right to left (the reading direction). The element must be
+     positioned; it clips the band to its own shape. o.color tints the band. */
+  E.sweep = function (tl, el, t, d, o) {
+    if (!el) return;
+    o = o || {};
+    const fx = document.createElement("i"), b = document.createElement("b");
+    fx.className = "fx-sweep";
+    if (o.color) fx.style.setProperty("--sweep", o.color);
+    fx.appendChild(b);
+    el.appendChild(fx);
+    const w = el.offsetWidth;
+    tl.fromTo(b, { x: 0 }, A({ x: -(w * 1.34 + 60), duration: d || 0.8, ease: "power2.inOut" }), t);
+  };
+  /* A soft light band crosses the whole frame (scene change). */
+  E.band = function (tl, scene, t) {
+    const b = document.createElement("i");
+    b.className = "fx-band";
+    scene.appendChild(b);
+    tl.fromTo(b, { x: 0 }, A({ x: -1900, duration: 0.85, ease: "power2.inOut" }), t);
+    tl.fromTo(b, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power1.out" }), t);
+    tl.fromTo(b, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), t + 0.55);
+  };
+  /* Particle burst from (x, y) inside parent: n dots fly out and fade (deterministic). */
+  E.burst = function (tl, parent, x, y, t, o) {
+    if (!parent) return;
+    o = o || {};
+    const n = o.n || 14, rnd = E.rand(o.seed || 7), col = o.color || "#ff6b61", r0 = o.r0 || 30, r1 = o.r1 || 120;
+    for (let i = 0; i < n; i++) {
+      const d = document.createElement("i");
+      d.className = "fx-dot";
+      const sz = 5 + rnd() * 7;
+      d.style.cssText = "left:" + x + "px;top:" + y + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:" + col + ";box-shadow:0 0 10px " + col;
+      parent.appendChild(d);
+      const ang = (i / n) * Math.PI * 2 + rnd() * 0.5, dist = r0 + rnd() * (r1 - r0), dur = 0.55 + rnd() * 0.35;
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * dist, y: Math.sin(ang) * dist, scale: 0.35, duration: dur, ease: "power3.out" }), t);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), t);
+    }
+  };
+  /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
+  E.draw = function (tl, el, t, d, ease) {
+    if (!el) return;
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2;
+    el.style.strokeDasharray = L + " " + L;
+    el.style.strokeDashoffset = L;
+    tl.fromTo(el, { strokeDashoffset: L }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+  };
+  /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
+  E.glitch = function (tl, el, t, amp) {
+    if (!el) return;
+    const a = amp || 8;
+    const seq = [[0, 0], [a, -7], [-a * 0.7, 5], [a * 0.45, -3], [-a * 0.2, 1.5], [0, 0]];
+    for (let i = 1; i < seq.length; i++) {
+      tl.fromTo(el, { x: seq[i - 1][0], skewX: seq[i - 1][1] }, A({ x: seq[i][0], skewX: seq[i][1], duration: 0.05, ease: "none" }), t + (i - 1) * 0.05);
+    }
+  };
+  /* Bouncy zoom inside the illustration (the guide's spring): the stage camera punches in on a
+     focal element and comes back at tBack. The camera box clips, so text above is never touched. */
+  E.zoomStage = function (tl, ctx, el, t, amt, tBack) {
+    const cam = ctx.stcam, fit = ctx.fit || 1, sf = ctx.stfit;
+    let cx = cam.offsetWidth / 2, cy = cam.offsetHeight / 2;
+    if (el) {
+      const c = E.center(el, sf);
+      const hw = sf.offsetWidth / 2, hh = sf.offsetHeight / 2;
+      cx = sf.offsetLeft + hw + (c.x - hw) * fit;
+      cy = sf.offsetTop + hh + (c.y - hh) * fit;
+    }
+    const s = 1 + amt;
+    tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  /* Slow drifting dust over the whole video (depth; deterministic). */
+  E.dust = function (tl, bg, total) {
+    const rnd = E.rand(11);
+    for (let i = 0; i < 28; i++) {
+      const d = document.createElement("i"), sz = 2 + rnd() * 3.5;
+      d.className = "dust";
+      d.style.cssText = "left:" + (rnd() * 1080).toFixed(0) + "px;top:" + (200 + rnd() * 1700).toFixed(0) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;opacity:" + (0.15 + rnd() * 0.35).toFixed(2);
+      bg.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0 }, A({ x: (rnd() - 0.5) * 160, y: -(140 + rnd() * 320), duration: total, ease: "none" }), 0);
+    }
+  };
+
+  /* Prompt card: the full verbatim text, paged (static pages and short slides, so any
+     paused frame is readable). On a key line the page text dims and a copy of the line
+     lifts above the card (bouncy zoom on the line; it sits in its own layer, so its backing
+     is never clipped). One underline slides between the section tabs. Exits at t1. */
+  E.prompt = function (tl, ctx, card, t0, t1, hls) {
+    const vp = E.q(".pvp", card), ct = E.q(".pct", card), body = E.q(".pbody", card);
+    const ROW = 44, ROWS = 23;                     // the viewport is exactly 23 rows: no line is ever cut
+    const totalRows = Math.round(body.offsetHeight / ROW);
+    const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
+    const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
+    const H = (hls || []).map((h) => {
+      const ln = E.q('[data-hl="' + h.id + '"]', card);
+      const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
+      return { id: h.id, ln, lift, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, want: h.hold || 2.4 };
+    }).sort((a, b) => a.top - b.top);
+    // pages advance by 22 rows (one row of overlap); a page is pulled up so a key line never straddles an edge
+    const pages = [0];
+    while (pages[pages.length - 1] < lastTop) {
+      const cur = pages[pages.length - 1];
+      let nxt = Math.min(lastTop, cur + (ROWS - 1) * ROW);
+      for (const h of H) if (h.top > cur && h.top < cur + ROWS * ROW && h.bot > cur + ROWS * ROW) nxt = Math.min(nxt, h.top - 2 * ROW);
+      if (nxt <= cur) nxt = Math.min(lastTop, cur + ROW);
+      pages.push(nxt);
+    }
+    // a key line is held on the page where it sits furthest from the edges (the lift needs room)
+    H.forEach((h) => {
+      let bestM = -1e9;
+      h.page = 0;
+      pages.forEach((p, i) => {
+        const m = Math.min(h.top - p, p + ROWS * ROW - h.bot);
+        if (m >= 0 && m > bestM + 0.5) { bestM = m; h.page = i; }
+      });
+    });
+    // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
+    // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
+    const n = pages.length;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.35, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LIFT = 1.1, DIM = 0.38;
+    const mineOf = (i) => H.filter((h) => h.page === i);
+    const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
+    // a plain last page stays settled a little longer before the exit
+    let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
+    for (let i = 0; i < n; i++) {
+      const mine = mineOf(i);
+      if (!mine.length) nPlain++;
+      else fixed += liftDelay(i) + (mine.length - 1) * UNLIFT + (isHold(i + 1) ? UNLIFT : UNDIM);
+      if (i < n - 1) fixed += isHold(i) && isHold(i + 1) ? DSLIDE : SLIDE;
+    }
+    fixed += tail;
+    const want = H.reduce((a, h) => a + h.want, 0);
+    let dwell = 0.27;
+    let room = t1 - t0 - fixed - nPlain * dwell;
+    if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
+      dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
+      room = t1 - t0 - fixed - nPlain * dwell;
+    }
+    if (H.length) {
+      let k = room / want;
+      if (k > 1.35) {
+        const extra = room - want * 1.35;
+        k = 1.35;
+        dwell += extra / (nPlain + 1);
+        tail += extra / (nPlain + 1);
+      }
+      H.forEach((h) => { h.hold = h.want * k; });
+      // keep a 2 s floor on every hold where the budget allows it
+      for (let it = 0; it < 3; it++) {
+        const low = H.filter((h) => h.hold < MINH), high = H.filter((h) => h.hold >= MINH);
+        if (!low.length || !high.length) break;
+        const need = low.reduce((a, h) => a + MINH - h.hold, 0);
+        const spare = high.reduce((a, h) => a + h.hold - MINH, 0);
+        const take = Math.min(need, spare);
+        low.forEach((h) => { h.hold += (MINH - h.hold) * (take / need); });
+        high.forEach((h) => { h.hold -= (h.hold - MINH) * (take / spare); });
+      }
+    } else {
+      dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
+    }
+    // the lifted copies sit over their line on the page where it is held (static layout)
+    H.forEach((h) => {
+      h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
+      h.lift.style.top = (bw + vp.offsetTop + h.top - pages[h.page]) + "px";
+      h.lift.style.width = h.ln.offsetWidth + "px";
+    });
+    tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
+    tl.fromTo(card, { rotationX: 16, y: 90, scale: 0.94, transformPerspective: 1600 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SPRING }), t0);
+    E.sweep(tl, card, t0 + 0.4, 1.0, { color: "rgba(201, 194, 255, 0.16)" });
+    const arrivals = [], slides = [], holdTimes = [];
+    let t = t0 + LEAD, dimmed = false, tFinal = null;
+    for (let i = 0; i < n; i++) {
+      arrivals.push(t);
+      const mine = mineOf(i);
+      if (!mine.length) t += dwell;
+      else {
+        t += liftDelay(i);
+        mine.forEach((h, j) => {
+          if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
+          dimmed = true;
+          tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          holdTimes.push(+t.toFixed(3));
+          t += h.hold;
+          const keepDim = j < mine.length - 1 || isHold(i + 1);
+          const d = keepDim ? UNLIFT : UNDIM;
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d, ease: "power2.inOut" }), t);
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d, ease: "power2.in" }), t);
+          if (!keepDim) {
+            tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
+            dimmed = false;
+            if (i === n - 1) tFinal = t;
+          }
+          t += d;
+        });
+      }
+      if (i < n - 1) {
+        const sd = dimmed ? DSLIDE : SLIDE;
+        tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: sd, ease: "power2.inOut" }), t);
+        slides.push([t, sd]);
+        t += sd;
+      }
+    }
+    // tabs: one underline slides with the page to the section that fills most of the visible rows
+    const tabs = E.qa(".tab", card), ul = E.q(".tabul", card);
+    if (tabs.length && ul) {
+      const tags = tabs.map((tab) => E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card));
+      const starts = tags.map((g) => (g ? g.offsetTop : 1e9));
+      const secAt = (p) => {
+        let best = 0, bestRows = -1;
+        starts.forEach((st, j) => {
+          const en = j + 1 < starts.length ? starts[j + 1] : 1e9;
+          const vis = Math.max(0, Math.min(en, p + ROWS * ROW) - Math.max(st, p));
+          if (vis > bestRows) { bestRows = vis; best = j; }
+        });
+        return best;
+      };
+      const MUTED = "#9c99ae", INK = "#f5f2ea";
+      const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
+      let cur = secAt(pages[0]);
+      ul.style.left = pos(cur).left + "px";
+      ul.style.width = pos(cur).width + "px";
+      tl.fromTo(ul, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power2.out" }), t0 + 0.1);
+      tl.fromTo(tabs[cur], { color: MUTED }, A({ color: INK, duration: 0.2 }), t0 + 0.1);
+      const move = (k, ta, d) => {
+        const a = pos(cur), b = pos(k);
+        tl.fromTo(ul, { left: a.left, width: a.width }, A({ left: b.left, width: b.width, duration: d, ease: "power3.inOut" }), ta);
+        tl.fromTo(tabs[cur], { color: INK }, A({ color: MUTED, duration: 0.2 }), ta + d / 2 - 0.1);
+        tl.fromTo(tabs[k], { color: MUTED }, A({ color: INK, duration: 0.2 }), ta + d / 2 - 0.1);
+        cur = k;
+      };
+      // the section that holds the last visible row (the end of the prompt on the last page)
+      const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      for (let i = 1; i < n; i++) {
+        const k = i === n - 1 && !isHold(i) ? lastVisible(pages[i]) : secAt(pages[i]);
+        if (k !== cur) move(k, slides[i - 1][0], Math.max(0.3, slides[i - 1][1]));
+      }
+      // a last page with key lines: its last section takes over when the page undims
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) > cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
+    }
+    tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
+    return {
+      pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
+      holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, liftH: h.lift.offsetHeight })),
+    };
+  };
+
+  /* Standard topic scene. Layout is measured once (static):
+     the title and the explanation sit at the top; the illustration fills the safe area below.
+     title -> illustration enters -> explanation phrase by phrase (current phrase bright, the
+     illustration shows each phrase, bouncy zoom inside it on the key phrase) -> payoff ->
+     fact over the dimmed illustration -> prompt card -> tip. */
+  E.topic = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const hdr = E.q(".hdr", sc), main = E.q(".main", sc), exp = E.q(".exp", sc), ttl = E.q(".ttl", sc);
+    const stage = E.q(".stage", sc), simtag = E.q(".simtag", sc), fact = E.q(".factbox", sc);
+    const stcam = E.q(".stcam", sc), stfit = E.q(".stfit", sc);
+    // static layout
+    const TOP = 376, BOTTOM = 1566;
+    const h = main.offsetHeight;
+    const stTop = Math.round(TOP + h + 30);
+    stage.style.top = stTop + "px";
+    stage.style.height = BOTTOM - stTop + "px";
+    const camH = BOTTOM - stTop - 50;
+    const simH = (E.q(".simwrap", sc) || { offsetHeight: 700 }).offsetHeight || 700;
+    stfit.style.height = simH + "px";
+    stfit.style.marginTop = -simH / 2 + "px";
+    const fit = Math.min(1, camH / simH);
+    if (fit < 1) stfit.style.transform = "scale(" + fit.toFixed(3) + ")";
+    if (fact) { fact.style.top = stTop + 50 + "px"; fact.style.height = camH + "px"; }
+    Object.assign(ctx, { stcam, stfit, fit, stTop });
+    // scene change: a light band crosses the frame while the camera settles
+    E.band(tl, sc, S);
+    tl.fromTo(ctx.cam, { scale: 1.035 }, A({ scale: 1, duration: 1.0, ease: SPRING }), S);
+    E.fadeIn(tl, hdr, S + 0.05, 0.5, 0);
+    E.kin(tl, ttl, S);
+    // the illustration enters with the explanation
+    E.fadeIn(tl, simtag, S + cfg.tStage, 0.4, 0);
+    tl.fromTo(stage, { opacity: 0, y: 46 }, A({ opacity: 1, y: 0, duration: 0.8, ease: SPRING }), S + cfg.tStage);
+    // explanation: phrase by phrase; the phrase being read is bright, the ones before step back
+    E.kin(tl, exp, S, { dy: 14 });
+    const phs = E.qa(".ph", exp);
+    phs.forEach((ph, i) => {
+      const tEnd = i + 1 < phs.length ? cfg.phr[i + 1] : cfg.phrEnd + 0.8;
+      tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0.5, duration: 0.45, ease: "power2.out" }), S + tEnd);
+      E.qa(".accgrp", ph).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#dcd9e6", duration: 0.45 }), S + tEnd));
+      E.qa(".ul", ph).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + tEnd));
+    });
+    if (window.SIMS[cfg.sim]) window.SIMS[cfg.sim](tl, ctx, cfg, S);
+    // bouncy zoom inside the illustration on the key phrase (focus: [data-focus="<phrase>"])
+    const acc = E.q(".exp .accgrp", sc);
+    if (acc && cfg.expZoom) {
+      const p = +(acc.closest(".ph") || { dataset: { p: 0 } }).dataset.p;
+      const tb = p + 1 < cfg.phr.length ? cfg.phr[p + 1] : cfg.phrEnd + 0.6;
+      const focus = E.q('[data-focus="' + p + '"]', stage) || E.q("[data-focus]", stage);
+      E.zoomStage(tl, ctx, focus, S + parseFloat(acc.dataset.t) + 0.1, cfg.expZoom, S + tb);
+    }
+    const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
+    if (cfg.tFact != null) {
+      // the fact takes over the illustration's area; the illustration steps far back
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.14, 1, 0.4);
+      E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const pill = E.q(".factbox .pill", sc);
+      if (pill) {
+        tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
+        tl.fromTo(pill, { scale: 0.92, y: 20 }, A({ scale: 1, y: 0, duration: 0.45, ease: SPRING }), S + cfg.tFact - 0.1);
+        E.sweep(tl, pill, S + cfg.tFact + 0.25, 0.7, { color: "rgba(120, 100, 255, 0.28)" });
+        E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
+      }
+      E.kin(tl, fact, S, { dy: 12 });
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.14, 0.25);
+    } else {
+      E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
+      E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
+    }
+    E.dim(tl, simtag, S + (cfg.tFact != null ? cfg.tFact - 0.45 : tNext - 0.35), 0, 1, 0.3);
+    // first cut: the title (and the fact) leave before the card or the tip arrives
+    tl.fromTo(main, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), S + tNext - 0.3);
+    if (fact) E.fadeOut(tl, fact, S + tNext - 0.3, 0.25, -20);
+    let info = null;
+    if (cfg.tPrompt != null) {
+      const pend = cfg.tTip != null ? cfg.tTip : cfg.tPromptEnd;
+      info = E.prompt(tl, ctx, E.q(".pcard", sc), S + cfg.tPrompt, S + pend, cfg.hls);
+    }
+    if (cfg.tTip != null) {
+      const tip = E.q(".tipcard", sc);
+      tl.fromTo(tip, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + cfg.tTip);
+      tl.fromTo(tip, { scale: 0.96, y: 30, rotationX: 10, transformPerspective: 1400 }, A({ scale: 1, y: 0, rotationX: 0, duration: 0.7, ease: SPRING }), S + cfg.tTip);
+      E.qa(".tip-ico .dr", sc).forEach((pth, i) => E.draw(tl, pth, S + cfg.tTip + 0.15 + i * 0.18, 0.55));
+      E.kin(tl, E.q(".tip-text", sc), S);
+      E.fadeOut(tl, tip, S + cfg.D - 0.4, 0.3, -20);
+    }
+    E.fadeOut(tl, hdr, S + cfg.D - 0.4, 0.3, 0);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { stTop, h, fit: +fit.toFixed(3) }, prompt: info };
+  };
+
+  /* Chapter title card. */
+  E.chapter = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
+    E.band(tl, sc, S);
+    tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
+    E.qa(".ch-ring", sc).forEach((r, i) => {
+      tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
+    });
+    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ff8a80" });
+    tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
+    tl.set(n, { filter: "none" }, S + 0.58);
+    E.fadeIn(tl, k, S + 0.25, 0.5, 14);
+    E.kin(tl, E.q(".ch-title", sc), S);
+    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.7, ease: "power3.inOut" }), S + 0.75);
+    E.kin(tl, E.q(".ch-sub", sc), S, { dy: 12 });
+    E.kin(tl, E.q(".ch-tag", sc), S, { dy: 10 });
+    E.fadeIn(tl, dots, S + 0.6, 0.6, 10);
+    tl.fromTo(E.q(".chap", sc), { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.04, duration: 0.38, ease: "power2.in" }), S + cfg.D - 0.4);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "chapter" };
+  };
+
+  window.SIMS = window.SIMS || {};
+})();
+
+window.SIMS = window.SIMS || {};
+window.SIMS.sim42 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, P = cfg.phr, pe = cfg.phrEnd;
+  const T = (x) => S + x;                    // scene-local -> master time
+  const q = (s) => E.q(s, sc), qa = (s) => E.qa(s, sc);
+  const root = q(".sim42");
+  const faces = qa(".s42-face"), frA = q(".s42-frA"), frB = q(".s42-frB");
+  // light sweep, right to left; unlike a skewed band it starts and ends fully outside its element, so a tall
+  // element never shows a sliver of it before or after
+  const sweep = (el, t, d, color) => {
+    const fx = document.createElement("i"), b = document.createElement("b");
+    fx.className = "s42-swp";
+    b.style.background = "linear-gradient(105deg, rgba(255, 255, 255, 0) 25%, " + color + " 50%, rgba(255, 255, 255, 0) 75%)";
+    fx.appendChild(b);
+    el.appendChild(fx);
+    const w = el.offsetWidth, bw = Math.round(Math.max(140, w * 0.6));
+    b.style.width = bw + "px";
+    tl.fromTo(b, { x: 0 }, A({ x: -(w + bw + 4), duration: d, ease: "power2.inOut" }), t);
+  };
+  const badge = (el, t) => tl.fromTo(el, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }), t);
+
+  // establishing: the video plays at the right; the platform window waits with four empty upload slots
+  tl.fromTo(q(".s42-sprog i"), { scaleX: 0.08 }, A({ scaleX: 0.62, duration: 2.2, ease: "none" }), T(cfg.tStage));
+
+  // B0 "קלוד לוקח ארבעה פריימים חדים מהסרטון ושולח אותם ל-fal.ai": four captures (front, two angles, a smile),
+  // focus brackets snap on each (sharp); the video gives way to the frames, which are uploaded into the window
+  const b0 = P[0], flash = q(".s42-flash");
+  faces.forEach((f, i) => {
+    const t = b0 + 0.16 + i * 0.35;
+    tl.fromTo(flash, { opacity: 0 }, A({ opacity: 0.3, duration: 0.04 }), T(t));
+    tl.fromTo(flash, { opacity: 0.3 }, A({ opacity: 0, duration: 0.18, ease: "power2.out" }), T(t + 0.04));
+    tl.fromTo(f, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(t + 0.04));
+    tl.fromTo(f, { scale: 1.14 }, A({ scale: 1, duration: 0.45, ease: E.SPRING }), T(t + 0.04));
+    E.qa(".s42-brk path", f).forEach((p) => E.draw(tl, p, T(t + 0.14), 0.26));
+  });
+  tl.fromTo(q(".s42-src"), { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), T(b0 + 1.55));
+  qa(".s42-upc").forEach((u, i) => {
+    const a = E.center(faces[i], root), b = E.center(u, root), t = T(b0 + 1.72 + i * 0.1);
+    tl.fromTo(u, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), t);
+    tl.fromTo(u, { x: a.x - b.x, y: a.y - b.y, scale: faces[i].offsetWidth / u.offsetWidth },
+      A({ x: 0, y: 0, scale: 1, duration: 0.62, ease: E.SPRING }), t);
+  });
+  E.fadeIn(tl, q(".s42-uptag"), T(b0 + 1.76), 0.45, 10);
+  tl.fromTo(q(".s42-upbar i"), { scaleX: 0 }, A({ scaleX: 1, duration: 0.8, ease: "power1.inOut" }), T(b0 + 1.76));
+
+  // B1 "פלטפורמה עם המון מודלים ליצירת תמונות וסרטונים": the window fills with image and video models
+  const b1 = P[1];
+  tl.fromTo(qa(".s42-brk"), { opacity: 1 }, A({ opacity: 0.35, duration: 0.4 }), T(b1));
+  [[".s42-gl1", ".s42-t1 .s42-tile", 0.06], [".s42-gl2", ".s42-t2 .s42-tile", 0.62]].forEach(([lbl, tiles, d]) => {
+    E.fadeIn(tl, q(lbl), T(b1 + d), 0.45, 12);
+    qa(tiles).forEach((tile, i) => {
+      const t = T(b1 + d + 0.06 + i * 0.04);
+      tl.fromTo(tile, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t);
+      tl.fromTo(tile, { scale: 0.55 }, A({ scale: 1, duration: 0.5, ease: "back.out(1.8)" }), t);
+    });
+  });
+  sweep(q(".s42-grid"), T(b1 + 1.32), 0.8, "rgba(201, 194, 255, 0.2)");
+
+  // B2 "שם הוא יוצר פריים פתיחה בסצנה חדשה": two versions of the opening frame develop; one is chosen
+  const b2 = P[2];
+  E.fadeOut(tl, q(".s42-grid"), T(b2), 0.3, -14);
+  E.fadeIn(tl, q(".s42-olbl"), T(b2 + 0.26), 0.45, 12);
+  [frA, frB].forEach((fr, i) => {
+    const t = T(b2 + 0.3 + i * 0.15), fin = E.q(".s42-fin", fr);
+    tl.fromTo(fr, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), t);
+    E.draw(tl, E.q(".s42-fo path", fr), t, 0.6);
+    tl.fromTo(fin, { clipPath: "inset(0px 0px 0px 100%)" }, A({ clipPath: "inset(0px 0px 0px 0%)", duration: 0.7, ease: "power2.inOut" }), t + 0.12);
+    sweep(fin, t + 0.78, 0.6, "rgba(255, 255, 255, 0.2)");
+  });
+  const pick = q(".s42-pick"), tp = b2 + 1.3;
+  badge(pick, T(tp));
+  E.draw(tl, q(".s42-pick path"), T(tp + 0.05), 0.3);
+  tl.fromTo(frA, { boxShadow: "0 0 0px rgba(201, 194, 255, 0)" }, A({ boxShadow: "0 0 34px rgba(201, 194, 255, 0.6)", duration: 0.4 }), T(tp));
+  tl.fromTo(frB, { opacity: 1, scale: 1 }, A({ opacity: 0.38, scale: 0.94, duration: 0.45, ease: "power2.out" }), T(tp));
+  E.burst(tl, root, frA.offsetLeft + frA.offsetWidth - 4, frA.offsetTop + 4, T(tp + 0.02), { n: 10, seed: 42, r0: 30, r1: 90, color: "#c9c2ff" });
+
+  // B3 "ומנפיש אותו במודל שמקבל פנים אמיתיות כרפרנס": the video model takes the chosen frame, the four real
+  // faces flow in as the reference (the punch-in lands on them), the frame comes alive as a clip
+  const b3 = P[3], chip = q(".s42-chip");
+  E.fadeOut(tl, frB, T(b3), 0.3, 0, 0.38);
+  E.fadeOut(tl, q(".s42-olbl"), T(b3), 0.3, -10);
+  tl.fromTo(pick, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(b3));
+  tl.fromTo(frA, { boxShadow: "0 0 34px rgba(201, 194, 255, 0.6)" }, A({ boxShadow: "0 0 0px rgba(201, 194, 255, 0)", duration: 0.3 }), T(b3));
+  tl.fromTo(chip, { opacity: 0, y: -14, scale: 0.96 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.55, ease: E.SPRING }), T(b3 + 0.22));
+  const win = q(".s42-win"), AX = win.offsetLeft + win.offsetWidth / 2 - (frA.offsetLeft + frA.offsetWidth / 2);   // A centred under the model
+  tl.fromTo(frA, { x: 0, y: 0, scale: 1 }, A({ x: AX, y: 34, scale: 0.9, duration: 0.7, ease: E.SPRING }), T(b3 + 0.18));
+  qa(".s42-fglow").forEach((g, i) => tl.fromTo(g, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b3 + 0.3 + i * 0.05)));
+  E.fadeIn(tl, q(".s42-rlbl"), T(b3 + 0.32), 0.45, 12);
+  const port = E.center(q(".s42-port"), root);
+  const gx = q(".s42-col").offsetLeft + q(".s42-faces").offsetLeft - 6, gy = q(".s42-col").offsetTop + q(".s42-faces").offsetTop;
+  const rl = qa(".s42-rl"), rf = qa(".s42-rf");
+  [52, 88, 206, 242].forEach((dy, i) => {
+    const y = gy + dy, d = `M${gx} ${y} C${gx - 40} ${y} ${port.x + 40} ${port.y} ${port.x + 6} ${port.y}`;
+    rl[i].setAttribute("d", d);
+    rf[i].setAttribute("d", d);
+    E.draw(tl, rl[i], T(b3 + 0.36 + i * 0.06), 0.4);
+    const L = Math.ceil(rf[i].getTotalLength());
+    rf[i].style.strokeDasharray = "16 " + (L + 40);
+    tl.fromTo(rf[i], { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(b3 + 0.72 + i * 0.05));
+    tl.fromTo(rf[i], { strokeDashoffset: 16 }, A({ strokeDashoffset: -L, duration: 0.45, ease: "power1.in" }), T(b3 + 0.72 + i * 0.05));
+    tl.fromTo(rf[i], { strokeDashoffset: 16 }, A({ strokeDashoffset: -L, duration: 0.45, ease: "power1.in" }), T(b3 + 1.24 + i * 0.05));
+    tl.fromTo(rf[i], { opacity: 1 }, A({ opacity: 0, duration: 0.1 }), T(b3 + 1.62 + i * 0.05));
+  });
+  // the model works through the frame (a scan line), then the frame plays
+  const gen = q(".s42-gen");
+  tl.fromTo(gen, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(b3 + 0.86));
+  tl.fromTo(gen, { y: -60 }, A({ y: 302, duration: 0.6, ease: "power1.inOut" }), T(b3 + 0.86));
+  tl.fromTo(gen, { opacity: 1 }, A({ opacity: 0, duration: 0.1 }), T(b3 + 1.38));
+  const bp = q(".s42-bigplay"), pbar = q(".s42-frA .s42-pbar");
+  badge(bp, T(b3 + 1.45));
+  tl.fromTo(bp, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b3 + 1.95));
+  tl.fromTo(pbar, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), T(b3 + 1.45));
+  tl.fromTo(q(".s42-frA .s42-pbar i"), { scaleX: 0 }, A({ scaleX: 0.85, duration: pe - (b3 + 1.45), ease: "none" }), T(b3 + 1.45));
+  const hd = q(".s42-frA .s42-hd"), glo = q(".s42-frA .s42-glo");
+  tl.fromTo(hd, { x: 0, y: 0 }, A({ x: -2, y: -3, duration: 0.4, ease: "sine.inOut" }), T(b3 + 1.5));
+  tl.fromTo(hd, { x: -2, y: -3 }, A({ x: 1, y: 0, duration: 0.4, ease: "sine.inOut" }), T(b3 + 1.9));
+  tl.fromTo(glo, { opacity: 1 }, A({ opacity: 0.55, duration: 0.22 }), T(b3 + 1.55));
+  tl.fromTo(glo, { opacity: 0.55 }, A({ opacity: 1, duration: 0.3 }), T(b3 + 1.8));
+
+  // payoff: the clip unrolls into a strip of 6 frames; a scanner compares each face with the reference; the last
+  // face drifts and the clip is cut before it; the output carries no text, no music, no voice
+  E.fadeOut(tl, q(".s42-win"), T(pe), 0.35, 0);
+  E.fadeOut(tl, q(".s42-faces"), T(pe), 0.35, 0);
+  E.fadeOut(tl, q(".s42-rlbl"), T(pe), 0.3, 0);
+  E.fadeOut(tl, q(".s42-refs"), T(pe), 0.3, 0);
+  tl.fromTo(pbar, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(pe + 0.1));
+  const sf = qa(".s42-sf"), f1 = q(".s42-sf2");
+  const X1 = f1.offsetLeft + 116 + 52 - (frA.offsetLeft + frA.offsetWidth / 2), Y1 = f1.offsetTop - frA.offsetTop;
+  tl.fromTo(frA, { x: AX, y: 34, scale: 0.9 }, A({ x: X1, y: Y1, scale: f1.offsetWidth / frA.offsetWidth, duration: 0.75, ease: E.SPRING }), T(pe + 0.3));
+  tl.fromTo(q(".s42-band"), { opacity: 0, scaleX: 0.92 }, A({ opacity: 1, scaleX: 1, duration: 0.5, ease: E.SPRING }), T(pe + 0.45));
+  sf.forEach((f, i) => tl.fromTo(f, { opacity: 0, x: 26 }, A({ opacity: 1, x: 0, duration: 0.45, ease: E.SPRING }), T(pe + 0.7 + i * 0.08)));
+  const scan = q(".s42-scan"), t0s = pe + 1.25, RUN = 1.35, x0 = scan.offsetLeft + scan.offsetWidth / 2, span = x0 - (q(".s42-sf6").offsetLeft);
+  tl.fromTo(scan, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(t0s));
+  tl.fromTo(scan, { x: 0 }, A({ x: -span, duration: RUN, ease: "none" }), T(t0s));
+  tl.fromTo(scan, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), T(t0s + RUN));
+  const bds = qa(".s42-bd"), f6 = q(".s42-sf6"), ring = q(".s42-ring");
+  let t6 = 0;
+  bds.forEach((bd, k) => {
+    const cx = bd.offsetLeft + bd.offsetWidth / 2, tk = t0s + (RUN * (x0 - cx)) / span;
+    badge(bd, T(tk));
+    if (k < 5) E.draw(tl, E.q(".s42-ok path", bd), T(tk + 0.05), 0.25);
+    else {
+      t6 = tk;
+      qa(".s42-no path").forEach((p, j) => E.draw(tl, p, T(tk + 0.06 + j * 0.1), 0.2));
+    }
+  });
+  E.glitch(tl, f6, T(t6 - 0.02), 8);
+  tl.fromTo(ring, { opacity: 0, scale: 1.4 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: E.SPRING }), T(t6 + 0.04));
+  const tc = pe + 2.82, sci = q(".s42-sci");
+  E.draw(tl, q(".s42-cut path"), T(tc), 0.4, "power2.out");
+  tl.fromTo(sci, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(tc));
+  tl.fromTo(sci, { y: 0 }, A({ y: 150, duration: 0.55, ease: "power2.inOut" }), T(tc));
+  [f6, ring, bds[5]].forEach((el) => tl.fromTo(el, { opacity: 1, x: 0 }, A({ opacity: el === f6 ? 0.3 : 0.55, x: -14, duration: 0.4, ease: "power2.out" }), T(tc + 0.32)));
+  E.fadeIn(tl, q(".s42-plbl"), T(tc + 0.42), 0.5, 16);
+  qa(".s42-tag").forEach((tg, i) => {
+    const t = T(tc + 0.95 + i * 0.12);
+    tl.fromTo(tg, { opacity: 0, y: 16, scale: 0.9 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.5, ease: E.SPRING }), t);
+    E.draw(tl, E.q(".s42-slash", tg), t + 0.25, 0.3);
+  });
+  sweep(q(".s42-band"), T(tc + 1.5), 0.9, "rgba(201, 194, 255, 0.16)");
+};
+
+
+(function () {
+  const CFGS = [{"id": "t42", "sim": "sim42", "D": 36.57, "tStage": 1.44, "tExp": 2.04, "phr": [2.04, 4.74, 6.94, 9.14], "phrEnd": 11.34, "tSimEnd": 17.34, "tFact": 17.34, "tPrompt": 22.68, "tPromptEnd": 32.28, "tTip": 32.28, "expZoom": 0.1, "simDur": 15.9, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim42": {"win": "fal.ai", "upload": "upload_file", "groups": ["תמונות", "סרטונים"], "open": "פריים פתיחה", "model": "מודל וידאו", "ref": "רפרנס לפנים", "cut": "אם הפנים זזות בסוף, חותכים לפני", "tags": ["בלי טקסט", "בלי מוזיקה", "בלי קול"]}, "S": 0.0}];
+  const WINDOW = null;
+  const fontsReady = Promise.all([
+    document.fonts.load('400 38px Rubik', 'אבג abc 123'),
+    document.fonts.load('800 62px Rubik', 'אבג abc'),
+    document.fonts.load('900 40px Rubik', 'אבג'),
+    document.fonts.load('600 27px "IBM Plex Mono"', 'abc 123'),
+    document.fonts.load('400 27px "IBM Plex Sans Hebrew"', 'אבג'),
+  ]).then(() => document.fonts.ready);
+  fontsReady.then(() => {
+    const stage = document.querySelector('.stagewrap');
+    const cam = document.getElementById('cam');
+    const master = gsap.timeline({ paused: true });
+    // slow background drift for the whole video (the "camera that never stops")
+    const TOT = 36.570;
+    master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    window.ENG.dust(master, document.getElementById('bg'), TOT);
+    for (const cfg of CFGS) {
+      const scene = document.getElementById('sc-' + cfg.id);
+      const scam = scene.querySelector('.scam') || cam;
+      const hdr = scene.querySelector('.hdr');
+      if (cfg.type === 'chapter') window.ENG.chapter(master, { stage, cam: scam, scene, hdr }, cfg);
+      else if (cfg.type === 'custom') window.SIMS[cfg.sim](master, { stage, cam: scam, scene, hdr }, cfg, cfg.S);
+      else window.ENG.topic(master, { stage, cam: scam, scene, hdr }, cfg);
+    }
+    let root = master;
+    if (WINDOW) {
+      root = gsap.timeline({ paused: true });
+      root.add(master.tweenFromTo(WINDOW[0], WINDOW[1], { duration: WINDOW[1] - WINDOW[0], ease: 'none' }), 0);
+    }
+    window.__ENG_DEBUG.ready = true;
+    window.__timelines['main'] = root;
+  });
+})();
+
+</script>
+</body>
+</html>

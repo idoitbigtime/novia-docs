@@ -1,0 +1,1306 @@
+<!doctype html>
+<html lang="he">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>עריכת וידאו עם Claude</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+/* IBM Plex Mono 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 300 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-300.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-300.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-300.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 400 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-400.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 500 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-500.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 600 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-600.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 700 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-700.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Rubik 300 900 normal — hebrew */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-hebrew-300-900.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* Rubik 300 900 normal — latin-ext */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-ext-300-900.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Rubik 300 900 normal — latin */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-300-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Design tokens. Safe area for text: x 140..940, y 300..1570 (1080x1920). */
+:root {
+  --bg: #06060b;
+  --ink: #f5f2ea;
+  --ink2: #dcd9e6;
+  --muted: #9c99ae;
+  --acc: #ff453a;
+  --acc-soft: #ff8a80;
+  --line: #c9c2ff;
+  --line-glow: rgba(201, 194, 255, 0.55);
+  --panel: rgba(18, 17, 34, 0.96);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: "Rubik", sans-serif; }
+.stagewrap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; overflow: hidden; }
+
+/* ---------- background ---------- */
+#bg { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #08080f 0%, #0b0a17 55%, #07070d 100%); }
+#bg .glow { position: absolute; border-radius: 50%; }
+#bg .g1 { width: 1500px; height: 1500px; left: -420px; top: -380px; background: radial-gradient(circle, rgba(124, 92, 255, 0.20) 0%, rgba(124, 92, 255, 0.07) 38%, rgba(124, 92, 255, 0) 66%); }
+#bg .g2 { width: 1400px; height: 1400px; left: 260px; top: 980px; background: radial-gradient(circle, rgba(255, 69, 58, 0.15) 0%, rgba(255, 69, 58, 0.05) 40%, rgba(255, 69, 58, 0) 66%); }
+#bg .grain { position: absolute; inset: 0; background-image: url("assets/grain.png"); background-size: 256px 256px; opacity: 0.07; mix-blend-mode: screen; }
+#bg .vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
+
+#cam { position: absolute; inset: 0; transform-origin: 540px 960px; }
+.scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.scam { position: absolute; inset: 0; }
+
+/* ---------- header (chapter indicator) ---------- */
+.hdr { position: absolute; top: 300px; left: 140px; width: 800px; height: 46px; display: flex; justify-content: space-between; align-items: center; direction: rtl; opacity: 0; }
+.hdr-ch { font: 500 30px/1 "Rubik"; color: #b3b0c4; }
+.hdr-num { font: 600 28px/1 "IBM Plex Mono"; color: var(--acc); border: 1.5px solid rgba(255, 69, 58, 0.55); border-radius: 10px; padding: 7px 12px 6px; }
+
+/* ---------- kinetic text ---------- */
+.kin { direction: rtl; text-align: right; }
+.w { display: inline-block; white-space: pre; opacity: 0; }
+.isl { unicode-bidi: isolate; }
+.accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
+.accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
+.strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+
+/* ---------- topic layout ---------- */
+.main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
+.ttl { font: 800 60px/1.14 "Rubik"; color: var(--ink); letter-spacing: -0.005em; text-wrap: balance; }
+.exp { font: 400 36px/1.42 "Rubik"; color: var(--ink2); }
+.exp .accgrp { font-weight: 800; }
+.exp .ph { transition: none; }
+/* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
+.stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
+.stcam { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; }
+.stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
+.simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
+.simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
+/* the illustration canvas: 800 x 700 (frame x 140..940) */
+.simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
+
+/* fact overlay inside the stage */
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; direction: rtl; }
+.pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
+.factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
+.metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
+.metaline .w, .factline .w { opacity: 0; }
+
+/* ---------- prompt card ---------- */
+.pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
+.pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
+.pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
+.pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
+.pc-num b { color: var(--ink); font-weight: 600; }
+.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
+.tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
+.tab .tul { display: none; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
+.pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
+  }
+.pct { position: absolute; top: 0; left: 48px; right: 48px; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
+.pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
+.pl-empty { height: 44px; }
+.ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; color: #d8d4ea; white-space: nowrap; }
+.codeblock { display: block; direction: ltr; text-align: left; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.tk { white-space: nowrap; }
+.nb, .neg { white-space: nowrap; }
+.code .bt, .codeblock .bt { color: #6f6b86; }
+.hlbg { position: absolute; z-index: -1; top: 0; bottom: 0; left: -14px; right: -14px; background: #2e1626; border-right: 4px solid #e5484d; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); opacity: 0; display: block; }
+.pbody { position: relative; }
+/* lifted key lines: a layer over the card (same box, not clipped by it) */
+.plift { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; pointer-events: none; }
+.pl-lift { position: absolute; z-index: 3; opacity: 0; box-sizing: border-box; padding: 0 12px; font: 400 30px/44px "Rubik"; color: #f5f2ea; direction: rtl; white-space: pre-wrap; transform-origin: 50% 50%; }
+/* the lifted backing is as wide as the line, so at x1.10 it stays clear of the card border */
+.pl-lift .hlbg { opacity: 1; left: 0; right: 0; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55); }
+
+/* ---------- tip ---------- */
+.tipwrap { position: absolute; left: 140px; width: 800px; top: 0; height: 1920px; display: flex; align-items: center; justify-content: center; }
+.tipcard { width: 800px; padding: 44px 48px 50px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(18, 17, 34, 0.88); box-shadow: 0 0 40px rgba(140, 120, 255, 0.15); direction: rtl; text-align: right; opacity: 0; }
+.tip-label { display: flex; align-items: center; gap: 12px; font: 600 30px/1 "Rubik"; color: #f2eef8; margin-bottom: 26px; }
+.tip-ico { width: 46px; height: 46px; display: block; overflow: visible; filter: drop-shadow(0 0 8px rgba(255, 69, 58, 0.55)); }
+.tip-ico path { fill: none; stroke: var(--acc); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.tip-text { font: 600 46px/1.38 "Rubik"; color: var(--ink); }
+.tip-text .w { opacity: 0; }
+
+/* ---------- chapter card ---------- */
+.chap { position: absolute; inset: 0; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(255, 69, 58, 0.7); box-shadow: 0 0 30px rgba(255, 69, 58, 0.35), inset 0 0 30px rgba(255, 69, 58, 0.2); display: block; opacity: 0; }
+.ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); }
+.ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
+.ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 30px/1.45 "Rubik"; color: var(--muted); }
+/* centred blocks wrap into even lines; paragraphs never end on a lone word */
+.ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
+.exp, .tip-text { text-wrap: pretty; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0; }
+.ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
+.ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+
+/* ---------- effects ---------- */
+/* light sweep across an element (the element clips it) */
+.fx-sweep { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.fx-sweep b { position: absolute; top: -40%; bottom: -40%; left: 100%; width: 34%; display: block; transform: skewX(-16deg);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--sweep, rgba(255, 255, 255, 0.22)), rgba(255, 255, 255, 0)); }
+/* light band across the whole frame at a scene change */
+.fx-band { position: absolute; top: -400px; left: 1080px; width: 560px; height: 2720px; display: block; pointer-events: none; z-index: 40;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.10) 35%, rgba(255, 255, 255, 0.16) 50%, rgba(201, 194, 255, 0.10) 65%, rgba(201, 194, 255, 0));
+  transform: rotate(14deg); mix-blend-mode: screen; opacity: 0; }
+/* particle burst */
+.fx-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; display: block; pointer-events: none; opacity: 0; z-index: 7; }
+/* drifting dust in the background */
+.dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
+
+/* 3.1 saying what to edit out loud while filming (canvas 800 x 700) */
+/* the camera frame (640 x 360) */
+.sim31 .s31-cam { position: absolute; left: 40px; top: 0; width: 720px; height: 405px; border-radius: 24px; overflow: hidden; transform-origin: 50% 0%;
+  background: linear-gradient(180deg, #241f4c 0%, #171433 60%, #0e0c1f 100%); border: 1.5px solid rgba(201, 194, 255, 0.28); box-shadow: 0 0 30px rgba(201, 194, 255, 0.14); }
+.sim31 .s31-fin { position: absolute; left: 0; top: 0; width: 640px; height: 360px; transform: scale(1.125); transform-origin: 0 0; }
+.sim31 .s31-lamp { position: absolute; left: -90px; top: -110px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(169, 147, 255, 0.22), rgba(169, 147, 255, 0) 70%); display: block; }
+.sim31 .s31-pres { position: absolute; left: 0; top: 0; width: 640px; height: 360px; }
+.sim31 .s31-vf { position: absolute; left: 0; top: 0; width: 640px; height: 360px; overflow: visible; }
+.sim31 .s31-vf path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.85)); }
+.sim31 .s31-rec { position: absolute; left: 28px; top: 26px; width: 16px; height: 16px; border-radius: 50%; background: #ff453a; box-shadow: 0 0 12px rgba(255, 69, 58, 0.95); opacity: 0; }
+.sim31 .s31-rec i { position: absolute; left: -7px; top: -7px; width: 30px; height: 30px; border-radius: 50%; border: 2px solid rgba(255, 107, 97, 0.8); display: block; }
+
+/* B0: what you want (a thought bubble); B1: said out loud (a speech bubble) */
+.sim31 .s31-tdots i { position: absolute; border-radius: 50%; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.55); display: block; opacity: 0; }
+.sim31 .s31-tdots i:nth-child(1) { left: 282px; top: 118px; width: 10px; height: 10px; }
+.sim31 .s31-tdots i:nth-child(2) { left: 260px; top: 102px; width: 14px; height: 14px; }
+.sim31 .s31-tdots i:nth-child(3) { left: 236px; top: 84px; width: 18px; height: 18px; }
+.sim31 .s31-think { position: absolute; left: 20px; top: 60px; width: 214px; height: 112px; border-radius: 48px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.5);
+  box-shadow: 0 0 22px rgba(201, 194, 255, 0.2); display: flex; justify-content: center; align-items: center; gap: 8px; opacity: 0; }
+.sim31 .s31-ib { width: 58px; height: 58px; display: block; opacity: 0; }
+.sim31 .s31-ic { width: 58px; height: 58px; display: block; overflow: visible; }
+.sim31 .s31-ic path, .sim31 .s31-ic rect, .sim31 .s31-ic circle { fill: none; stroke: #e6e2ff; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
+.sim31 .s31-ic .f { fill: rgba(201, 194, 255, 0.5); stroke: none; }
+.sim31 .s31-say { position: absolute; left: 12px; top: 52px; width: 252px; height: 150px; border-radius: 22px; background: rgba(26, 23, 52, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.7);
+  box-shadow: 0 0 22px rgba(201, 194, 255, 0.28); opacity: 0; transform-origin: 90% 80%; }
+.sim31 .s31-say::after { content: ""; position: absolute; right: -15px; bottom: 30px; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 16px solid rgba(201, 194, 255, 0.7); }
+.sim31 .s31-say p { position: absolute; left: 16px; right: 18px; top: 16px; font: 600 30px/1.3 "Rubik"; color: #ffffff; text-align: right; }
+.sim31 .s31-say .ln { display: block; white-space: nowrap; }
+.sim31 .s31-arcs { position: absolute; left: 272px; top: 136px; width: 26px; height: 46px; overflow: visible; }
+.sim31 .s31-arcs path { fill: none; stroke: #c9c2ff; stroke-width: 2.6; stroke-linecap: round; opacity: 0; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+
+/* the effect: a generic 3D logo over the open palm (CSS 3D layers) */
+.sim31 .s31-pg { position: absolute; left: 486px; top: 128px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(ellipse, rgba(255, 110, 90, 0.5), rgba(255, 110, 90, 0) 68%); display: block; opacity: 0; }
+.sim31 .s31-lgw { position: absolute; left: 510px; top: 30px; width: 100px; height: 100px; perspective: 600px; opacity: 0; }
+.sim31 .s31-lp { position: absolute; left: 43px; top: 91px; width: 14px; height: 14px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 10px #ffd0c0, 0 0 24px rgba(255, 110, 90, 0.95); display: block; opacity: 0; }
+.sim31 .s31-lg3 { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: 50% 98%; transform: scale(0.05); }
+.sim31 .s31l-ly { position: absolute; left: 0; top: 0; width: 100px; height: 100px; display: block; backface-visibility: visible; }
+.sim31 .s31-link { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
+.sim31 .s31-link path { fill: none; stroke: rgba(201, 194, 255, 0.75); stroke-width: 2; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.8)); }
+
+/* the transcript strip: waveform, words, ticks to the time ruler */
+.sim31 .s31-strip { position: absolute; left: 0; top: 425px; width: 800px; height: 190px; }
+.sim31 .s31-wvc { position: absolute; left: 0; top: 0; width: 800px; height: 60px; clip-path: inset(0px 0px 0px 100%); }
+.sim31 .s31-wv { position: absolute; left: 0; top: 0; width: 800px; height: 60px; display: block; overflow: visible; }
+.sim31 .s31-wv path { fill: none; stroke: #b9b0f5; stroke-width: 4.4; stroke-linecap: round; }
+.sim31 .s31-rhead { position: absolute; left: 794px; top: -8px; width: 3px; height: 76px; border-radius: 2px; background: #ff6b61; box-shadow: 0 0 12px rgba(255, 69, 58, 0.95); display: block; opacity: 0; }
+.sim31 .s31-crow { position: absolute; left: 0; top: 72px; width: 800px; height: 46px; display: flex; justify-content: center; gap: 7px; direction: rtl; }
+.sim31 .s31-ins { position: relative; display: flex; gap: 7px; direction: rtl; }
+.sim31 .s31-aw, .sim31 .s31-iw { position: relative; height: 46px; border-radius: 12px; opacity: 0; flex: none; }
+.sim31 .s31-aw { background: rgba(201, 194, 255, 0.14); border: 1.5px solid rgba(201, 194, 255, 0.28); }
+.sim31 .s31-iw { padding: 0 8px; background-color: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.32); }
+.sim31 .s31-iw b { position: relative; display: block; font: 600 30px/43px "Rubik"; color: #ece9f7; white-space: nowrap; }
+.sim31 .s31-iw .hl { position: absolute; inset: -1.5px; border-radius: 12px; background: rgba(201, 194, 255, 0.3); border: 2px solid #d9d4ff; box-shadow: 0 0 16px rgba(201, 194, 255, 0.75); display: block; opacity: 0; }
+.sim31 .tk { position: absolute; right: 8px; top: 46px; width: 2px; height: 14px; background: rgba(201, 194, 255, 0.8); display: block; opacity: 0; transform-origin: 50% 0%; }
+.sim31 .tk::after { content: ""; position: absolute; left: -3px; bottom: -4px; width: 8px; height: 8px; border-radius: 50%; background: #d9d4ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); }
+.sim31 .s31-rul { position: absolute; left: 0; top: 136px; width: 800px; height: 16px; display: block; overflow: visible; }
+.sim31 .s31-rl { fill: none; stroke: rgba(201, 194, 255, 0.7); stroke-width: 2; }
+.sim31 .s31-rt { fill: none; stroke: rgba(201, 194, 255, 0.45); stroke-width: 1.6; opacity: 0; }
+.sim31 .s31-brk { position: absolute; top: 158px; height: 16px; overflow: visible; }
+.sim31 .s31-brk path { fill: none; stroke: #ffffff; stroke-width: 2.6; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+.sim31 .s31-ph { position: absolute; left: 780px; top: -10px; width: 3px; height: 160px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 14px #c9c2ff, 0 0 3px #ffffff; display: block; opacity: 0; }
+.sim31 .s31-scan { position: absolute; left: 800px; top: -10px; width: 90px; height: 140px; display: block; opacity: 0;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.4) 70%, #ffffff 92%, rgba(255, 255, 255, 0)); }
+
+/* B4: the table of instructions, waiting for approval */
+.sim31 .s31-tbl { position: absolute; left: 0; top: 300px; width: 800px; height: 292px; border-radius: 20px; overflow: hidden; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.3); opacity: 0; transform-origin: 50% 0%; }
+.sim31 .s31-grid { position: absolute; inset: 0; display: grid; direction: rtl; grid-template-columns: 306px 100px 214px 1fr; grid-template-rows: 46px 132px 56px 56px; }
+.sim31 .s31-th { display: flex; align-items: center; padding: 0 12px; font: 500 25px/1 "Rubik"; color: #c4bfdc; white-space: nowrap; background: rgba(201, 194, 255, 0.06); border-bottom: 1.5px solid rgba(201, 194, 255, 0.2); border-left: 1px solid rgba(201, 194, 255, 0.12); }
+.sim31 .s31-td { display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(201, 194, 255, 0.12); border-left: 1px solid rgba(201, 194, 255, 0.12); }
+.sim31 .s31-td.s31-c1 { justify-content: flex-start; padding: 0 16px; }
+.sim31 .s31-r2, .sim31 .s31-r3 { opacity: 0; }
+.sim31 .s31-tins { width: 274px; font: 600 30px/1.3 "Rubik"; color: #ffffff; text-align: right; }
+.sim31 .s31-tins .tw { opacity: 0; }
+.sim31 .s31-tb { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.sim31 .s31-tb i { height: 12px; border-radius: 6px; background: rgba(201, 194, 255, 0.35); display: block; }
+.sim31 .s31-pic { width: 96px; height: 56px; display: block; overflow: visible; }
+.sim31 .s31-r1 .s31-pic { opacity: 0; }
+.sim31 .s31-pic .pl, .sim31 .s31-pic .pt { fill: none; stroke: rgba(201, 194, 255, 0.7); stroke-width: 2; }
+.sim31 .s31-pic .ph { fill: rgba(201, 194, 255, 0.3); stroke: #e6e2ff; stroke-width: 2; }
+.sim31 .s31-pic .hand { fill: #3a3175; stroke: #c9c2ff; stroke-width: 2; }
+.sim31 .s31-pic .lg { fill: #ff6b61; stroke: #ffb3a8; stroke-width: 1.5; }
+.sim31 .s31-pic .gl { fill: none; stroke: rgba(255, 140, 120, 0.8); stroke-width: 3; stroke-linecap: round; }
+.sim31 .s31-pic .ar { fill: none; stroke: #c9c2ff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim31 .s31-pic .dot { fill: #ffffff; filter: drop-shadow(0 0 5px #ff8a70); }
+.sim31 .s31-pic .wl { fill: rgba(201, 194, 255, 0.1); stroke: #c9c2ff; stroke-width: 2; }
+.sim31 .s31-pic .tx { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; }
+.sim31 .s31-pic .hd { fill: #3a3175; stroke: #c9c2ff; stroke-width: 2; }
+.sim31 .s31-pic .ly { fill: rgba(201, 194, 255, 0.14); stroke: #c9c2ff; stroke-width: 2; stroke-linejoin: round; }
+.sim31 .s31-pic .fa { fill: rgba(201, 194, 255, 0.35); stroke: #c9c2ff; stroke-width: 2; }
+.sim31 .s31-pic .fb { fill: none; stroke: rgba(201, 194, 255, 0.4); stroke-width: 2; stroke-dasharray: 4 3; }
+.sim31 .s31-ok { position: absolute; left: 290px; top: 608px; width: 220px; height: 60px; border-radius: 999px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.45);
+  display: flex; justify-content: center; align-items: center; gap: 12px; direction: rtl; opacity: 0; }
+.sim31 .s31-ok b { font: 600 32px/1 "Rubik"; color: #f5f2ea; }
+.sim31 .s31-okr { position: relative; width: 34px; height: 34px; border-radius: 50%; border: 2.5px dashed rgba(201, 194, 255, 0.85); display: block; flex: none; }
+.sim31 .s31-okr .okf { position: absolute; left: -3px; top: -3px; width: 35px; height: 35px; border-radius: 50%; background: #2a2450; box-shadow: 0 0 0 2.5px #ffffff, 0 0 12px rgba(201, 194, 255, 0.8); display: block; opacity: 0; }
+.sim31 .s31-okr svg { position: absolute; left: 0; top: 0; width: 29px; height: 29px; overflow: visible; }
+.sim31 .s31-okr path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* payoff: BRIEF.md -> a scene file and an agent per instruction -> the independent critic */
+.sim31 .s31-brief { position: absolute; left: 250px; top: 22px; width: 300px; height: 130px; border-radius: 22px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid #c9c2ff;
+  box-shadow: 0 0 24px rgba(201, 194, 255, 0.35); display: flex; justify-content: center; align-items: center; gap: 22px; direction: rtl; opacity: 0; }
+.sim31 .s31-brief b { font: 600 38px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ffffff; }
+.sim31 .s31-bf { width: 60px; height: 72px; overflow: visible; }
+.sim31 .s31-bf path { fill: rgba(201, 194, 255, 0.12); stroke: #e6e2ff; stroke-width: 2.4; stroke-linejoin: round; }
+.sim31 .s31-bf .fold { fill: none; }
+.sim31 .s31-bf .ln { fill: none; stroke: rgba(255, 255, 255, 0.7); stroke-width: 3; stroke-linecap: round; }
+.sim31 .s31-links { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
+.sim31 .s31-links path { fill: none; stroke: rgba(201, 194, 255, 0.75); stroke-width: 2.2; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.7)); }
+.sim31 .s31-scn { position: absolute; top: 242px; width: 180px; height: 170px; opacity: 0; }
+.sim31 .s31-s1 { left: 550px; }
+.sim31 .s31-s2 { left: 310px; }
+.sim31 .s31-s3 { left: 70px; }
+.sim31 .s31-file { position: absolute; left: 0; top: 0; width: 180px; height: 170px; overflow: visible; }
+.sim31 .s31-file path { fill: rgba(26, 23, 52, 0.95); stroke: #c9c2ff; stroke-width: 2.2; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.sim31 .s31-file .fold { fill: none; }
+.sim31 .s31-sp { position: absolute; left: 18px; top: 34px; width: 144px; height: 84px; display: flex; justify-content: center; align-items: center; }
+.sim31 .s31-sp .s31-pic { width: 130px; height: 76px; }
+.sim31 .s31-sl { position: absolute; left: 70px; right: 22px; top: 128px; height: 9px; border-radius: 5px; background: rgba(201, 194, 255, 0.3); display: block; }
+.sim31 .s31-sl2 { top: 146px; left: 96px; }
+.sim31 .s31-ag { position: absolute; left: -20px; top: -20px; width: 50px; height: 50px; opacity: 0; }
+.sim31 .s31-ag svg { width: 50px; height: 50px; display: block; overflow: visible; }
+.sim31 .s31-ag circle { fill: #2a2450; stroke: #c9c2ff; stroke-width: 2.4; filter: drop-shadow(0 0 7px rgba(201, 194, 255, 0.8)); }
+.sim31 .s31-ag path { fill: #ffffff; }
+.sim31 .s31-sr { position: absolute; left: 14px; top: 114px; width: 46px; height: 46px; overflow: visible; opacity: 0; }
+.sim31 .s31-sr .bg { fill: none; stroke: rgba(201, 194, 255, 0.2); stroke-width: 5; }
+.sim31 .s31-sr .fg { fill: none; stroke: #ffffff; stroke-width: 5; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 24px 24px; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+.sim31 .s31-aglab { position: absolute; left: 200px; top: 432px; width: 400px; display: flex; justify-content: center; align-items: center; gap: 12px; direction: rtl; font: 600 31px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
+.sim31 .s31-aglab i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.9); display: block; }
+.sim31 .s31-crit { position: absolute; left: 120px; top: 520px; width: 560px; height: 84px; border-radius: 999px; background: rgba(26, 23, 52, 0.96); border: 2px solid #c9c2ff;
+  box-shadow: 0 0 26px rgba(201, 194, 255, 0.35); display: flex; justify-content: center; align-items: center; gap: 16px; direction: rtl; opacity: 0; }
+.sim31 .s31-crit b { font: 700 35px/1 "Rubik"; color: #ffffff; white-space: nowrap; }
+.sim31 .s31-eye { width: 56px; height: 56px; display: block; flex: none; }
+.sim31 .s31-eye svg { width: 56px; height: 56px; display: block; overflow: visible; }
+.sim31 .s31-eye circle { fill: #2a2450; stroke: #c9c2ff; stroke-width: 2.4; }
+.sim31 .s31-eye path { fill: none; stroke: #ffffff; stroke-width: 2.6; stroke-linejoin: round; }
+.sim31 .s31-eye .pu { fill: #ff6b61; stroke: none; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.9)); }
+
+/* B0: the other way, typing it to Claude (a prompt box, slowly filling) */
+.sim31 .s31-term { position: absolute; left: 140px; top: 456px; width: 520px; height: 150px; border-radius: 18px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); opacity: 0; }
+.sim31 .s31-tbar { position: absolute; left: 0; right: 0; top: 0; height: 34px; border-bottom: 1px solid rgba(201, 194, 255, 0.16); display: flex; gap: 8px; align-items: center; padding: 0 16px; }
+.sim31 .s31-tbar i { width: 10px; height: 10px; border-radius: 50%; background: rgba(201, 194, 255, 0.35); display: block; }
+.sim31 .s31-pr { position: absolute; left: 22px; top: 52px; font: 600 32px/1 "IBM Plex Mono", monospace; color: #c9c2ff; }
+.sim31 .s31-tl { position: absolute; left: 56px; height: 14px; border-radius: 7px; background: rgba(230, 226, 255, 0.75); display: block; transform-origin: 0 50%; transform: scaleX(0); }
+.sim31 .s31-tl1 { top: 61px; width: 400px; }
+.sim31 .s31-tl2 { top: 97px; width: 300px; left: 22px; }
+.sim31 .s31-cur { position: absolute; left: 60px; top: 50px; width: 14px; height: 34px; background: #ffffff; display: block; opacity: 0; }
+.sim31 .s31-cscan { position: absolute; left: 800px; top: 232px; width: 120px; height: 190px; display: block; opacity: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.28) 70%, rgba(255, 255, 255, 0.7) 92%, rgba(255, 255, 255, 0)); }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="40.460" data-fps="30" data-width="1080" data-height="1920">
+<div class="stagewrap" style="transform: scale(1.0);">
+<div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
+<div id="cam">
+<div id="sc-t31" class="clip scene" data-start="0.000" data-duration="40.460" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.1</span></div>
+<div class="scam">
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">אומרים</span> <span class="w" dir="rtl" data-t="0.430">בקול</span> <span class="w" dir="rtl" data-t="0.560">מה</span> <span class="w" dir="rtl" data-t="0.690">לערוך,</span> <span class="w" dir="rtl" data-t="0.820">בזמן</span> <span class="w" dir="rtl" data-t="0.950">הצילום</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.780">הדרך</span> <span class="w" dir="rtl" data-t="1.840">הכי</span> <span class="w" dir="rtl" data-t="1.900">מהירה</span> <span class="w" dir="rtl" data-t="1.960">להסביר</span> <span class="w" dir="rtl" data-t="2.020">לקלוד</span> <span class="w" dir="rtl" data-t="2.080">מה</span> <span class="w" dir="rtl" data-t="2.140">אתם</span> <span class="w" dir="rtl" data-t="2.200">רוצים</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.230">היא</span> <span class="w" dir="rtl" data-t="4.290">להגיד</span> <span class="w" dir="rtl" data-t="4.350">את</span> <span class="w" dir="rtl" data-t="4.410">זה</span> <span class="w" dir="rtl" data-t="4.470">בזמן</span> <span class="w" dir="rtl" data-t="4.530">הצילום.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.180">קלוד</span> <span class="w" dir="rtl" data-t="6.240">מתמלל</span> <span class="w" dir="rtl" data-t="6.300">עם</span> <span class="w" dir="rtl" data-t="6.360">זמן</span> <span class="w" dir="rtl" data-t="6.420">לכל</span> <span class="w" dir="rtl" data-t="6.480">מילה,</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="8.130">מוצא</span> <span class="w" dir="rtl" data-t="8.190">את</span> <span class="w" dir="rtl" data-t="8.250">ההוראות</span> <span class="w" dir="rtl" data-t="8.310">ובונה</span> <span class="w" dir="rtl" data-t="8.370">כל</span> <span class="w" dir="rtl" data-t="8.430">אפקט</span> <span class="accgrp" data-t="8.490"><span class="w s-str" dir="rtl" data-t="8.490">בדיוק</span> <span class="w s-str" dir="rtl" data-t="8.550">על</span> <span class="w s-str" dir="rtl" data-t="8.610">המילים</span> <span class="w s-str" dir="rtl" data-t="8.670">שלו</span><i class="ul" data-t="8.670"></i></span><span class="w" dir="rtl" data-t="8.670">.</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="11.230">לפני</span> <span class="w" dir="rtl" data-t="11.290">שהוא</span> <span class="w" dir="rtl" data-t="11.350">בונה,</span> <span class="w" dir="rtl" data-t="11.410">הוא</span> <span class="w" dir="rtl" data-t="11.470">מראה</span> <span class="w" dir="rtl" data-t="11.530">טבלה</span> <span class="w" dir="rtl" data-t="11.590">של</span> <span class="w" dir="rtl" data-t="11.650">כל</span> <span class="w" dir="rtl" data-t="11.710">ההוראות</span> <span class="w" dir="rtl" data-t="11.770">לאישור.</span></span></p></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim31">
+<div class="s31-cam"><div class="s31-fin"><div class="s31-room"><i class="s31-lamp"></i></div>
+<svg class="s31-pres" viewBox="0 0 640 360" aria-hidden="true">
+<defs>
+<linearGradient id="pf31" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
+<linearGradient id="pr31" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
+</defs>
+<path d="M180 360 C 188 300, 240 262, 306 256 L 394 256 C 460 262, 512 300, 520 360 Z" fill="url(#pf31)"/>
+<rect x="322" y="200" width="56" height="66" rx="22" fill="url(#pf31)"/>
+<ellipse cx="350" cy="142" rx="54" ry="64" fill="url(#pf31)"/>
+<path d="M180 360 C 188 300, 240 262, 306 256 L 394 256 C 460 262, 512 300, 520 360" fill="none" stroke="url(#pr31)" stroke-width="3"/>
+<ellipse cx="350" cy="142" rx="54" ry="64" fill="none" stroke="url(#pr31)" stroke-width="3"/>
+<g transform="translate(560 262)">
+<path d="M-24 0 L-31 110 L35 110 L26 0 Z" fill="url(#pf31)"/>
+<path d="M-27 4 C-29 -14 -31 -26 -32 -36 C-40 -44 -50 -56 -58 -70 C-61 -77 -53 -83 -47 -77 C-42 -69 -36 -61 -31 -57 L-31 -104 C-31 -114 -18 -114 -18 -104 L-18 -86 L-16 -86 L-16 -112 C-16 -122 -2 -122 -2 -112 L-2 -86 L0 -86 L0 -106 C0 -116 13 -116 13 -106 L13 -84 L15 -82 L16 -94 C16 -103 28 -103 28 -94 L27 -66 C30 -44 30 -20 26 4 Z" fill="url(#pf31)"/>
+<path d="M-27 4 C-29 -14 -31 -26 -32 -36 C-40 -44 -50 -56 -58 -70 C-61 -77 -53 -83 -47 -77 C-42 -69 -36 -61 -31 -57 L-31 -104 C-31 -114 -18 -114 -18 -104 L-18 -86 L-16 -86 L-16 -112 C-16 -122 -2 -122 -2 -112 L-2 -86 L0 -86 L0 -106 C0 -116 13 -116 13 -106 L13 -84 L15 -82 L16 -94 C16 -103 28 -103 28 -94 L27 -66 C30 -44 30 -20 26 4" fill="none" stroke="url(#pr31)" stroke-width="2.6" stroke-linejoin="round"/>
+</g>
+</svg>
+<i class="s31-pg"></i>
+<div class="s31-lgw"><i class="s31-lp"></i><div class="s31-lg3"><svg class="s31l-ly" viewBox="0 0 100 100" style="transform:translateZ(-10.00px)" aria-hidden="true"><path d="M40.9 11.3Q50.0 6.0 59.1 11.3 L79.0 22.7Q88.1 28.0 88.1 38.6 L88.1 61.4Q88.1 72.0 79.0 77.3 L59.1 88.7Q50.0 94.0 40.9 88.7 L21.0 77.3Q11.9 72.0 11.9 61.4 L11.9 38.6Q11.9 28.0 21.0 22.7Z" fill="#c3463d"/></svg><svg class="s31l-ly" viewBox="0 0 100 100" style="transform:translateZ(-7.50px)" aria-hidden="true"><path d="M40.9 11.3Q50.0 6.0 59.1 11.3 L79.0 22.7Q88.1 28.0 88.1 38.6 L88.1 61.4Q88.1 72.0 79.0 77.3 L59.1 88.7Q50.0 94.0 40.9 88.7 L21.0 77.3Q11.9 72.0 11.9 61.4 L11.9 38.6Q11.9 28.0 21.0 22.7Z" fill="#9f312d"/></svg><svg class="s31l-ly" viewBox="0 0 100 100" style="transform:translateZ(-5.00px)" aria-hidden="true"><path d="M40.9 11.3Q50.0 6.0 59.1 11.3 L79.0 22.7Q88.1 28.0 88.1 38.6 L88.1 61.4Q88.1 72.0 79.0 77.3 L59.1 88.7Q50.0 94.0 40.9 88.7 L21.0 77.3Q11.9 72.0 11.9 61.4 L11.9 38.6Q11.9 28.0 21.0 22.7Z" fill="#a2322e"/></svg><svg class="s31l-ly" viewBox="0 0 100 100" style="transform:translateZ(-2.50px)" aria-hidden="true"><path d="M40.9 11.3Q50.0 6.0 59.1 11.3 L79.0 22.7Q88.1 28.0 88.1 38.6 L88.1 61.4Q88.1 72.0 79.0 77.3 L59.1 88.7Q50.0 94.0 40.9 88.7 L21.0 77.3Q11.9 72.0 11.9 61.4 L11.9 38.6Q11.9 28.0 21.0 22.7Z" fill="#a5332f"/></svg><svg class="s31l-ly" viewBox="0 0 100 100" style="transform:translateZ(0.00px)" aria-hidden="true"><path d="M40.9 11.3Q50.0 6.0 59.1 11.3 L79.0 22.7Q88.1 28.0 88.1 38.6 L88.1 61.4Q88.1 72.0 79.0 77.3 L59.1 88.7Q50.0 94.0 40.9 88.7 L21.0 77.3Q11.9 72.0 11.9 61.4 L11.9 38.6Q11.9 28.0 21.0 22.7Z" fill="#a83430"/></svg><svg class="s31l-ly" viewBox="0 0 100 100" style="transform:translateZ(2.50px)" aria-hidden="true"><path d="M40.9 11.3Q50.0 6.0 59.1 11.3 L79.0 22.7Q88.1 28.0 88.1 38.6 L88.1 61.4Q88.1 72.0 79.0 77.3 L59.1 88.7Q50.0 94.0 40.9 88.7 L21.0 77.3Q11.9 72.0 11.9 61.4 L11.9 38.6Q11.9 28.0 21.0 22.7Z" fill="#ab3531"/></svg><svg class="s31l-ly" viewBox="0 0 100 100" style="transform:translateZ(5.00px)" aria-hidden="true"><path d="M40.9 11.3Q50.0 6.0 59.1 11.3 L79.0 22.7Q88.1 28.0 88.1 38.6 L88.1 61.4Q88.1 72.0 79.0 77.3 L59.1 88.7Q50.0 94.0 40.9 88.7 L21.0 77.3Q11.9 72.0 11.9 61.4 L11.9 38.6Q11.9 28.0 21.0 22.7Z" fill="#ae3632"/></svg><svg class="s31l-ly" viewBox="0 0 100 100" style="transform:translateZ(7.50px)" aria-hidden="true"><path d="M40.9 11.3Q50.0 6.0 59.1 11.3 L79.0 22.7Q88.1 28.0 88.1 38.6 L88.1 61.4Q88.1 72.0 79.0 77.3 L59.1 88.7Q50.0 94.0 40.9 88.7 L21.0 77.3Q11.9 72.0 11.9 61.4 L11.9 38.6Q11.9 28.0 21.0 22.7Z" fill="#b13733"/></svg><svg class="s31l-ly" viewBox="0 0 100 100" style="transform:translateZ(10.00px)" aria-hidden="true"><defs><linearGradient id="s31lg" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#ff9a76"/><stop offset="1" stop-color="#ff4a42"/></linearGradient></defs><path d="M40.9 11.3Q50.0 6.0 59.1 11.3 L79.0 22.7Q88.1 28.0 88.1 38.6 L88.1 61.4Q88.1 72.0 79.0 77.3 L59.1 88.7Q50.0 94.0 40.9 88.7 L21.0 77.3Q11.9 72.0 11.9 61.4 L11.9 38.6Q11.9 28.0 21.0 22.7Z" fill="url(#s31lg)"/><path d="M43.1 21.0Q50.0 17.0 56.9 21.0 L71.7 29.5Q78.6 33.5 78.6 41.4 L78.6 58.6Q78.6 66.5 71.7 70.5 L56.9 79.0Q50.0 83.0 43.1 79.0 L28.3 70.5Q21.4 66.5 21.4 58.6 L21.4 41.4Q21.4 33.5 28.3 29.5Z" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2"/><path d="M50 30 C 52 44, 56 48, 70 50 C 56 52, 52 56, 50 70 C 48 56, 44 52, 30 50 C 44 48, 48 44, 50 30Z" fill="#ffffff"/></svg></div></div>
+<svg class="s31-vf" viewBox="0 0 640 360" aria-hidden="true"><path d="M14 46 V14 H46"/><path d="M594 14 H626 V46"/><path d="M626 314 V346 H594"/><path d="M46 346 H14 V314"/></svg>
+<div class="s31-rec"><i></i></div>
+<div class="s31-tdots"><i></i><i></i><i></i></div>
+<div class="s31-think"><span class="s31-ib"><svg class="s31-ic" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8 L54 20 L54 44 L32 56 L10 44 L10 20 Z"/><path d="M10 20 L32 32 L54 20 M32 32 V56"/></svg></span><span class="s31-ib"><svg class="s31-ic" viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="12" width="48" height="40" rx="5"/><path d="M16 26 H48 M16 36 H40"/><circle cx="44" cy="46" r="8" class="f"/></svg></span><span class="s31-ib"><svg class="s31-ic" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 40 L32 50 L56 40 L32 30 Z"/><path d="M8 30 L32 40 L56 30 L32 20 Z"/><path d="M8 20 L32 30 L56 20 L32 10 Z"/></svg></span></div>
+<div class="s31-say"><p class="kin" dir="rtl"><span class="ln"><span class="w" dir="rtl" data-t="4.430">שביד</span> <span class="w" dir="rtl" data-t="4.540">הזאת</span> <span class="w" dir="rtl" data-t="4.650">ירחף</span></span><span class="ln"><span class="w" dir="rtl" data-t="4.760">הלוגו</span> <span class="w" dir="rtl" data-t="4.870">של</span> <span class="w" dir="rtl" data-t="4.980">קלוד</span></span><span class="ln"><span class="w" dir="rtl" data-t="5.090">בתלת</span> <span class="w" dir="rtl" data-t="5.200">ממד</span></span></p></div>
+<svg class="s31-arcs" viewBox="0 0 60 80" aria-hidden="true"><path d="M44 24 Q36 40 44 56"/><path d="M32 14 Q20 40 32 66"/><path d="M20 4 Q4 40 20 76"/></svg>
+</div></div>
+<div class="s31-term"><div class="s31-tbar"><i></i><i></i><i></i></div><b class="s31-pr" dir="ltr">&gt;</b>
+<i class="s31-tl s31-tl1"></i><i class="s31-tl s31-tl2"></i><i class="s31-cur"></i></div>
+<svg class="s31-link" viewBox="0 0 800 700" aria-hidden="true"><path d="M400 494 C 400 380, 670 370, 670 160"/></svg>
+<div class="s31-tbl"><div class="s31-grid"><div class="s31-th" dir="rtl">ההוראה</div><div class="s31-th" dir="rtl">זמן</div><div class="s31-th" dir="rtl">מה יקרה על המסך</div><div class="s31-th" dir="rtl">איך זה נגמר</div><div class="s31-td s31-c1 s31-r1"><div class="s31-tins" dir="rtl"><span class="tw">שביד</span> <span class="tw">הזאת</span> <span class="tw">ירחף</span><br><span class="tw">הלוגו</span> <span class="tw">של</span> <span class="tw">קלוד</span><br><span class="tw">בתלת</span> <span class="tw">ממד</span></div></div><div class="s31-td s31-r1"><svg class="s31-pic" viewBox="0 0 96 56" aria-hidden="true"><path class="pl" d="M90 34H6"/><path class="pt" d="M90 30V38 M70 31V37 M50 31V37 M30 31V37 M10 30V38"/><rect class="ph" x="30" y="22" width="40" height="24" rx="6"/></svg></div><div class="s31-td s31-r1"><svg class="s31-pic" viewBox="0 0 96 56" aria-hidden="true"><path class="hand" d="M24 46 C 26 38, 70 38, 72 46 C 70 52, 26 54, 24 46 Z"/><g transform="translate(48 20)"><path class="lg" d="M-2.7 -11.4Q0.0 -13.0 2.7 -11.4 L8.6 -8.1Q11.3 -6.5 11.3 -3.4 L11.3 3.4Q11.3 6.5 8.6 8.1 L2.7 11.4Q0.0 13.0 -2.7 11.4 L-8.6 8.1Q-11.3 6.5 -11.3 3.4 L-11.3 -3.4Q-11.3 -6.5 -8.6 -8.1Z"/></g><path class="gl" d="M36 44 Q48 36 60 44"/></svg></div><div class="s31-td s31-r1"><svg class="s31-pic" viewBox="0 0 96 56" aria-hidden="true"><g transform="translate(24 28)"><path class="lg" d="M-2.7 -11.4Q0.0 -13.0 2.7 -11.4 L8.6 -8.1Q11.3 -6.5 11.3 -3.4 L11.3 3.4Q11.3 6.5 8.6 8.1 L2.7 11.4Q0.0 13.0 -2.7 11.4 L-8.6 8.1Q-11.3 6.5 -11.3 3.4 L-11.3 -3.4Q-11.3 -6.5 -8.6 -8.1Z"/></g><path class="ar" d="M44 28 H60 M55 23 L60 28 L55 33"/><circle class="dot" cx="74" cy="28" r="5"/></svg></div><div class="s31-td s31-c1 s31-r2"><div class="s31-tb"><i style="width:220px"></i><i style="width:150px"></i></div></div><div class="s31-td s31-r2"><svg class="s31-pic" viewBox="0 0 96 56" aria-hidden="true"><path class="pl" d="M90 34H6"/><path class="pt" d="M90 30V38 M70 31V37 M50 31V37 M30 31V37 M10 30V38"/><rect class="ph" x="30" y="22" width="40" height="24" rx="6"/></svg></div><div class="s31-td s31-r2"><svg class="s31-pic" viewBox="0 0 96 56" aria-hidden="true"><rect class="wl" x="14" y="8" width="68" height="42" rx="5"/><path class="tx" d="M24 22 H64 M24 32 H54"/><circle class="hd" cx="60" cy="44" r="9"/></svg></div><div class="s31-td s31-r2"><svg class="s31-pic" viewBox="0 0 96 56" aria-hidden="true"><rect class="fa" x="14" y="14" width="30" height="28" rx="5"/><path class="ar" d="M50 28 H64 M59 23 L64 28 L59 33"/><rect class="fb" x="70" y="18" width="16" height="20" rx="4"/></svg></div><div class="s31-td s31-c1 s31-r3"><div class="s31-tb"><i style="width:190px"></i><i style="width:210px"></i></div></div><div class="s31-td s31-r3"><svg class="s31-pic" viewBox="0 0 96 56" aria-hidden="true"><path class="pl" d="M90 34H6"/><path class="pt" d="M90 30V38 M70 31V37 M50 31V37 M30 31V37 M10 30V38"/><rect class="ph" x="30" y="22" width="40" height="24" rx="6"/></svg></div><div class="s31-td s31-r3"><svg class="s31-pic" viewBox="0 0 96 56" aria-hidden="true"><path class="ly" d="M18 38 L48 50 L78 38 L48 26 Z"/><path class="ly" d="M18 28 L48 40 L78 28 L48 16 Z"/><path class="ly" d="M18 18 L48 30 L78 18 L48 6 Z"/></svg></div><div class="s31-td s31-r3"><svg class="s31-pic" viewBox="0 0 96 56" aria-hidden="true"><rect class="fa" x="14" y="14" width="30" height="28" rx="5"/><path class="ar" d="M50 28 H64 M59 23 L64 28 L59 33"/><rect class="fb" x="70" y="18" width="16" height="20" rx="4"/></svg></div></div></div>
+<div class="s31-strip">
+<div class="s31-wvc"><svg class="s31-wv" viewBox="0 0 800 60" aria-hidden="true"><path d="M790 15.1V44.9 M782 12.5V47.5 M774 13.4V46.6 M766 14.0V46.0 M758 28.5V31.5 M750 18.8V41.2 M742 3.8V56.2 M734 10.8V49.2 M726 12.9V47.1 M718 18.2V41.8 M710 28.5V31.5 M702 20.3V39.7 M694 12.1V47.9 M686 12.5V47.5 M678 4.5V55.5 M670 5.0V55.0 M662 14.1V45.9 M654 20.3V39.7 M646 28.5V31.5 M638 17.4V42.6 M630 16.2V43.8 M622 12.8V47.2 M614 8.1V51.9 M606 9.8V50.2 M598 10.7V49.3 M590 17.9V42.1 M582 28.5V31.5 M574 21.8V38.2 M566 12.6V47.4 M558 12.6V47.4 M550 15.1V44.9 M542 14.5V45.5 M534 20.5V39.5 M526 28.5V31.5 M518 19.6V40.4 M510 13.9V46.1 M502 12.0V48.0 M494 10.3V49.7 M486 19.3V40.7 M478 28.5V31.5 M470 20.0V40.0 M462 13.9V46.1 M454 8.3V51.7 M446 6.5V53.5 M438 9.5V50.5 M430 16.8V43.2 M422 28.5V31.5 M414 16.2V43.8 M406 9.6V50.4 M398 4.6V55.4 M390 14.6V45.4 M382 28.5V31.5 M374 21.8V38.2 M366 12.1V47.9 M358 11.1V48.9 M350 10.3V49.7 M342 17.8V42.2 M334 20.9V39.1 M326 28.5V31.5 M318 14.8V45.2 M310 13.4V46.6 M302 7.1V52.9 M294 3.4V56.6 M286 11.2V48.8 M278 16.0V44.0 M270 28.5V31.5 M262 15.9V44.1 M254 9.6V50.4 M246 6.8V53.2 M238 19.6V40.4 M230 28.5V31.5 M222 14.3V45.7 M214 8.8V51.2 M206 5.5V54.5 M198 5.7V54.3 M190 17.9V42.1 M182 28.5V31.5 M174 16.0V44.0 M166 7.1V52.9 M158 -0.9V60.9 M150 3.7V56.3 M142 5.0V55.0 M134 15.3V44.7 M126 28.5V31.5 M118 15.0V45.0 M110 11.9V48.1 M102 1.6V58.4 M94 -3.1V63.1 M86 6.5V53.5 M78 14.2V45.8 M70 17.4V42.6 M62 28.5V31.5 M54 16.1V43.9 M46 15.3V44.7 M38 7.9V52.1 M30 7.5V52.5 M22 8.8V51.2 M14 16.6V43.4"/></svg></div>
+<i class="s31-rhead"></i>
+<div class="s31-crow" dir="rtl"><span class="s31-aw" style="width:34px"><i class="tk"></i></span><span class="s31-ins" data-focus="3"><span class="s31-iw" dir="rtl"><i class="hl"></i><b>שביד</b><i class="tk"></i></span><span class="s31-iw" dir="rtl"><i class="hl"></i><b>הזאת</b><i class="tk"></i></span><span class="s31-iw" dir="rtl"><i class="hl"></i><b>ירחף</b><i class="tk"></i></span><span class="s31-iw" dir="rtl"><i class="hl"></i><b>הלוגו</b><i class="tk"></i></span><span class="s31-iw" dir="rtl"><i class="hl"></i><b>של</b><i class="tk"></i></span><span class="s31-iw" dir="rtl"><i class="hl"></i><b>קלוד</b><i class="tk"></i></span><span class="s31-iw" dir="rtl"><i class="hl"></i><b>בתלת</b><i class="tk"></i></span><span class="s31-iw" dir="rtl"><i class="hl"></i><b>ממד</b><i class="tk"></i></span></span><span class="s31-aw" style="width:30px"><i class="tk"></i></span></div>
+<svg class="s31-rul" viewBox="0 0 800 16" aria-hidden="true"><path class="s31-rl" d="M790 0H10"/><path class="s31-rt" d="M790 0V14 M764 0V8 M738 0V8 M712 0V8 M686 0V14 M660 0V8 M634 0V8 M608 0V8 M582 0V14 M556 0V8 M530 0V8 M504 0V8 M478 0V14 M452 0V8 M426 0V8 M400 0V8 M374 0V14 M348 0V8 M322 0V8 M296 0V8 M270 0V14 M244 0V8 M218 0V8 M192 0V8 M166 0V14 M140 0V8 M114 0V8 M88 0V8 M62 0V14 M36 0V8 M10 0V8"/></svg>
+<svg class="s31-brk" viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true"><path d="M99 0 V10 H1 V0"/></svg>
+<i class="s31-ph"></i><i class="s31-scan"></i>
+</div>
+<div class="s31-ok" dir="rtl"><span class="s31-okr"><i class="okf"></i><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><b>לאישור</b></div>
+<div class="s31-brief"><svg class="s31-bf" viewBox="0 0 64 76" aria-hidden="true"><path d="M8 4 H42 L58 20 V68 a4 4 0 0 1 -4 4 H8 a4 4 0 0 1 -4 -4 V8 a4 4 0 0 1 4 -4 Z"/><path class="fold" d="M42 4 V20 H58"/>
+<path class="ln" d="M14 34 H46 M14 44 H40 M14 54 H44"/></svg><b dir="ltr">BRIEF.md</b></div>
+<svg class="s31-links" viewBox="0 0 800 700" aria-hidden="true"><path d="M400 152 C 400 196, 160 196, 160 238"/><path d="M400 152 V238"/><path d="M400 152 C 400 196, 640 196, 640 238"/></svg>
+<div class="s31-scns"><div class="s31-scn s31-s1"><svg class="s31-file" viewBox="0 0 180 170" preserveAspectRatio="none" aria-hidden="true"><path d="M14 4 H140 L176 40 V158 a8 8 0 0 1 -8 8 H14 a8 8 0 0 1 -8 -8 V12 a8 8 0 0 1 8 -8 Z"/><path class="fold" d="M140 4 V40 H176"/></svg><div class="s31-sp"><svg class="s31-pic" viewBox="0 0 96 56" aria-hidden="true"><path class="hand" d="M24 46 C 26 38, 70 38, 72 46 C 70 52, 26 54, 24 46 Z"/><g transform="translate(48 20)"><path class="lg" d="M-2.7 -11.4Q0.0 -13.0 2.7 -11.4 L8.6 -8.1Q11.3 -6.5 11.3 -3.4 L11.3 3.4Q11.3 6.5 8.6 8.1 L2.7 11.4Q0.0 13.0 -2.7 11.4 L-8.6 8.1Q-11.3 6.5 -11.3 3.4 L-11.3 -3.4Q-11.3 -6.5 -8.6 -8.1Z"/></g><path class="gl" d="M36 44 Q48 36 60 44"/></svg></div><i class="s31-sl"></i><i class="s31-sl s31-sl2"></i><div class="s31-ag"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M24 12 C 25 20, 28 23, 36 24 C 28 25, 25 28, 24 36 C 23 28, 20 25, 12 24 C 20 23, 23 20, 24 12Z"/></svg></div><svg class="s31-sr" viewBox="0 0 48 48" aria-hidden="true"><circle class="bg" cx="24" cy="24" r="18"/><circle class="fg" cx="24" cy="24" r="18"/></svg></div><div class="s31-scn s31-s2"><svg class="s31-file" viewBox="0 0 180 170" preserveAspectRatio="none" aria-hidden="true"><path d="M14 4 H140 L176 40 V158 a8 8 0 0 1 -8 8 H14 a8 8 0 0 1 -8 -8 V12 a8 8 0 0 1 8 -8 Z"/><path class="fold" d="M140 4 V40 H176"/></svg><div class="s31-sp"><svg class="s31-pic" viewBox="0 0 96 56" aria-hidden="true"><rect class="wl" x="14" y="8" width="68" height="42" rx="5"/><path class="tx" d="M24 22 H64 M24 32 H54"/><circle class="hd" cx="60" cy="44" r="9"/></svg></div><i class="s31-sl"></i><i class="s31-sl s31-sl2"></i><div class="s31-ag"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M24 12 C 25 20, 28 23, 36 24 C 28 25, 25 28, 24 36 C 23 28, 20 25, 12 24 C 20 23, 23 20, 24 12Z"/></svg></div><svg class="s31-sr" viewBox="0 0 48 48" aria-hidden="true"><circle class="bg" cx="24" cy="24" r="18"/><circle class="fg" cx="24" cy="24" r="18"/></svg></div><div class="s31-scn s31-s3"><svg class="s31-file" viewBox="0 0 180 170" preserveAspectRatio="none" aria-hidden="true"><path d="M14 4 H140 L176 40 V158 a8 8 0 0 1 -8 8 H14 a8 8 0 0 1 -8 -8 V12 a8 8 0 0 1 8 -8 Z"/><path class="fold" d="M140 4 V40 H176"/></svg><div class="s31-sp"><svg class="s31-pic" viewBox="0 0 96 56" aria-hidden="true"><path class="ly" d="M18 38 L48 50 L78 38 L48 26 Z"/><path class="ly" d="M18 28 L48 40 L78 28 L48 16 Z"/><path class="ly" d="M18 18 L48 30 L78 18 L48 6 Z"/></svg></div><i class="s31-sl"></i><i class="s31-sl s31-sl2"></i><div class="s31-ag"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M24 12 C 25 20, 28 23, 36 24 C 28 25, 25 28, 24 36 C 23 28, 20 25, 12 24 C 20 23, 23 20, 24 12Z"/></svg></div><svg class="s31-sr" viewBox="0 0 48 48" aria-hidden="true"><circle class="bg" cx="24" cy="24" r="18"/><circle class="fg" cx="24" cy="24" r="18"/></svg></div></div>
+<i class="s31-cscan"></i>
+<div class="s31-aglab" dir="rtl"><i></i><span>סוכן לכל סצנה</span></div>
+<div class="s31-crit" dir="rtl"><span class="s31-eye"><svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="25"/><path d="M12 28 C 18 18, 38 18, 44 28 C 38 38, 18 38, 12 28 Z"/><circle class="pu" cx="28" cy="28" r="6"/></svg></span>
+<b>מבקר עצמאי: ציון מעל 90</b></div>
+</div></div></div></div>
+<div class="factbox"><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="20.130">ההוראות</span> <span class="w" dir="rtl" data-t="20.250">נשארות</span> <span class="w" dir="rtl" data-t="20.370">בקול</span> <span class="w" dir="rtl" data-t="20.490">של</span> <span class="w" dir="rtl" data-t="20.610">הסרטון,</span> <span class="w" dir="rtl" data-t="20.730">אז</span> <span class="w" dir="rtl" data-t="20.850">זה</span> <span class="w" dir="rtl" data-t="20.970">מתאים</span> <span class="w" dir="rtl" data-t="21.090">לסרטון</span> <span class="w" dir="rtl" data-t="21.210">שמראה</span> <span class="w" dir="rtl" data-t="21.330">את</span> <span class="w" dir="rtl" data-t="21.450">העריכה</span> <span class="w" dir="rtl" data-t="21.570">עצמה.</span> <span class="w" dir="rtl" data-t="21.890">בסרטון</span> <span class="w" dir="rtl" data-t="22.010">רגיל</span> <span class="w" dir="rtl" data-t="22.130">משתמשים</span> <span class="w" dir="rtl" data-t="22.250">בפרומפטים</span> <span class="w" dir="rtl" data-t="22.370">של</span> <span class="w" dir="rtl" data-t="22.490">האפקטים</span> <span class="w" dir="rtl" data-t="22.610">שבהמשך.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="22.930">גם</span> <span class="w" dir="rtl" data-t="22.960">הסרטון</span> <span class="w" dir="rtl" data-t="22.990">הזה</span> <span class="w" dir="rtl" data-t="23.020">בנוי</span> <span class="w" dir="rtl" data-t="23.050">בשפה</span> <span class="w" dir="rtl" data-t="23.080">של</span> <span class="w" dir="rtl" data-t="23.110">אקספליינר</span> <span class="w" dir="rtl" data-t="23.140">דוקומנטרי:</span> <span class="w" dir="rtl" data-t="23.170">קווים</span> <span class="w" dir="rtl" data-t="23.200">דקים</span> <span class="w" dir="rtl" data-t="23.230">שזוהרים,</span> <span class="w" dir="rtl" data-t="23.260">ותוויות</span> <span class="w" dir="rtl" data-t="23.290">עם</span> <span class="w" dir="rtl" data-t="23.320">נקודה</span> <span class="w" dir="rtl" data-t="23.350">וקו.</span></p></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>7</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">ההוראות כאן מחליפות את ראיון הפתיחה של HyperFrames, אז אל תריץ אותו.</div>
+<div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על חמישה דברים:</div>
+<div class="pl" dir="rtl">- הסרטון שבו אמרתי את ההוראות.</div>
+<div class="pl" dir="rtl">- אם הסרטון הסופי לאורך (9:16) או לרוחב (16:9).</div>
+<div class="pl" dir="rtl">- צבעי המותג שלי: צבע רקע כהה, צבע הדגשה אחד, ופונט עברי (ברירת המחדל Rubik).</div>
+<div class="pl" dir="rtl">- כל קובץ שההוראות מזכירות, למשל לוגו, הסרטונים שלי, תמונה של מוצר, או צילום של החדר הריק אם ביקשתי לפרק את הסצנה לשכבות.</div>
+<div class="pl" dir="rtl">- אם יש לי ספרייה של אפקטים קוליים, או שתבחר אותם בעצמך מהקטלוג של HyperFrames.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/קלט&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="כיוון">&lt;כיוון&gt;</div>
+<div class="pl" dir="rtl">תערוך את הסרטון בדיוק לפי ההוראות שאמרתי בו, תשקיע, ותשתמש במושן גרפיקס בסגנון של אקספליינר דוקומנטרי של נטפליקס, בצבעים של המותג שלי.</div>
+<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>כל הוראה קורית על המילים שלה, בשנייה שבה אמרתי אותה.</div>
+<div class="pl" dir="rtl">המראה של אקספליינר דוקומנטרי: אובייקטים מצוירים בקווים דקים שזוהרים, זוהר בצבע ההדגשה, תוויות עם נקודה קטנה וקו דק שמוביל לחלק, מצלמה איטית שלא עוצרת, עומק שדה וגרעיניות עדינה.</div>
+<div class="pl" dir="rtl">הטקסט מינימלי, בלי משפטים שחוזרים על מה שאמרתי, ויש על המסך רק טקסט שביקשתי במפורש ותוויות קצרות.</div>
+<div class="pl" dir="rtl">כל התוויות בעברית, מימין לשמאל, בלי מקף בין שתי מילים, וגדולות מספיק כדי לקרוא אותן בטלפון (לפחות 44 פיקסלים, בפריים של 1080 על 1920 או של 1920 על 1080).</div>
+<div class="pl" dir="rtl">כל תנועה בקפיץ, רגועה ויקרה, ומה שנחת נשאר במקום ולא מרחף לנצח, חוץ מדברים שביקשתי שירחפו.</div>
+<div class="pl" dir="rtl">כל איור הגיוני פיזית, ומספר עולה למסך רק אם הוא אמיתי.</div>
+<div class="pl" dir="rtl">מעט אפקטים קוליים, שקטים, בלי בס, ותמיד מתחת לקול שלי.</div>
+<div class="pl" dir="rtl">כתוביות נצרבות רק אם ביקשתי אותן בסרטון, ותמיד תמסור גם גרסה בלי כתוביות.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/כיוון&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="בנייה">&lt;בנייה&gt;</div>
+<div class="pl" dir="rtl">1. תתמלל עם זמן לכל מילה בעזרת <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk">&lt;הקובץ&gt;</span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span><span class="bt">`</span>,</span>ותתקן מילים שגויות לפי ההקשר (<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">transcript.json</span><span class="bt">`</span></span> נשמר בתיקייה של הסרטון ולא בתיקייה שבה אתה עובד).</div>
+<div class="pl" dir="rtl">2. תתקן את זמני המילים לפי עוצמת הקול, כי אחרי שקט whisper מקדים את המילה הבאה <span class="nb">ב-0.1</span> עד 0.3 שנייה.</div>
+<div class="pl" dir="rtl">3. תכתוב קובץ BRIEF.md: לכל הוראה המילים המדויקות והזמן שלהן, מה יקרה על המסך, ומתי האפקט נגמר וחוזר למצב רגיל.</div>
+<div class="pl" dir="rtl">4. כל המידע שצריך נבנה פעם אחת לפני הסצנות: מעקב אחרי הידיים והפנים עם MediaPipe אם יש הוראה על הידיים, הגוף שלי בלי הרקע עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">remove-background</span><span class="bt">`</span>,</span>ופריימים מכל סרטון שביקשתי להראות.</div>
+<div class="pl" dir="rtl">5. את העריכה תבנה כקומפוזיציה של HyperFrames עם three.js, בשכבות מלמטה למעלה: הסרטון, שכבה על הקיר, הגוף שלי בלי הרקע, שכבה קדמית ושכבה לטקסט.</div>
+<div class="pl" dir="rtl">6. כל פריים מחושב רק מהזמן, בלי טיימרים ובלי מספרים אקראיים בזמן הציור.</div>
+<div class="pl" dir="rtl">7. כל הוראה היא סצנה בקובץ משלה עם חלון זמן, ומחוץ לחלון כל מה שהיא הוסיפה מוסתר וכל השכבות המשותפות חוזרות למצב רגיל.</div>
+<div class="pl" dir="rtl">8. אם יש יותר משלוש הוראות, תחלק את העבודה לסוכנים, סוכן לכל סצנה שעובד רק על הקובץ שלו, עם הבריף המשותף.</div>
+<div class="pl" dir="rtl">9. בכל סצנה תוציא פריימים ברגעים של המילים החשובות ותסתכל עליהם, ותעשה לפחות שלושה סבבים של בדיקה ותיקון.</div>
+<div class="pl" dir="rtl">10. סוכן נפרד שלא בנה כלום נותן ציון מתוך 100 לכל סצנה (ביצוע ההוראה על המילים שלה, גימור, תנועה, עברית, התאמה לסגנון, היגיון פיזי) עם תיקונים במספרים, ואתה מתקן עד שהציון עובר 90.</div>
+<div class="pl" dir="rtl">11. את האפקטים הקוליים תמקם מתחת לקול ותגביל את השיא כך שלא יעבור <span dir="ltr" class="neg">-1 dBTP</span>.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/בנייה&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="מלכודות">&lt;מלכודות&gt;</div>
+<div class="pl" dir="rtl">בלי תיקון הזמנים לפי עוצמת הקול, אפקטים מתחילים לפני שאמרתי את המילה.</div>
+<div class="pl" dir="rtl">אובייקט שסצנה הוסיפה נשאר על המסך אחרי החלון שלה, אם לא מסתירים אותו במפורש.</div>
+<div class="pl" dir="rtl">ברגעי המעבר בין סצנות צריך להיות ברור מי שולט במצלמה, בסרטון ובגוף בלי הרקע, אחרת שתי סצנות נלחמות על אותו דבר.</div>
+<div class="pl" dir="rtl">מילה עברית נכנסת שלמה, כי חשיפה מאחורי קו מראה חצי מילה שנראית כמו מקפים.</div>
+<div class="pl" dir="rtl">לוגו של מותג נשאר בצבעים האמיתיים שלו.</div>
+<div class="pl" dir="rtl">את MediaPipe תתקין בתוך venv עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">pip</span> <span class="tk">install</span> <span class="tk">mediapipe==0.10.35</span><span class="bt">`</span></span>ותשתמש <span class="nb">ב-Tasks</span> API (<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">HandLandmarker</span><span class="bt">`</span></span>, <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">FaceDetector</span><span class="bt">`</span></span>), כי הגרסה האחרונה <span class="nb">ב-pip</span> קורסת <span class="nb">ב-Mac</span> בזיהוי הראשון.</div>
+<div class="pl" dir="rtl">סרטון שמוצג בתוך three.js מקבל <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">texture.needsUpdate</span> <span class="tk">=</span> <span class="tk">true</span><span class="bt">`</span></span> בכל פריים ו-<span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">texture.colorSpace</span> <span class="tk">=</span> <span class="tk">THREE.SRGBColorSpace</span><span class="bt">`</span>,</span>אחרת הוא לא מופיע או יוצא דהוי.</div>
+<div class="pl" dir="rtl">בסיכום של <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">render</span><span class="bt">`</span></span> צריך להיות כתוב <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">hardware</span> <span class="tk">gpu</span><span class="bt">`</span></span>, ואם כתוב <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">software</span> <span class="tk">gpu</span><span class="bt">`</span></span> תוסיף לרינדור <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">--browser-gpu</span><span class="bt">`</span></span>.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/מלכודות&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="התחלה">&lt;התחלה&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על הקלט, תתמלל, ותראה לי טבלה של ההוראות: בכל שורה ההוראה כמו שאמרתי אותה, הזמן, מה יקרה על המסך ואיך זה ייגמר.</div>
+<div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>אל תבנה לפני שאישרתי.</div>
+<div class="pl" dir="rtl">ל-<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">render</span><span class="bt">`</span></span> אין דגל לטווח זמן או להקטנה, ולכן אחרי האישור תעשה עותק זמני וקצר של הקומפוזיציה <span class="nb">ב-540</span> על 960 (או 960 על 540), שמכיל רק 15 שניות, ותרנדר אותו קודם.</div>
+<div class="pl" dir="rtl">את כל הסרטון תרנדר בסוף.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>כל הוראה קורית על המילים שלה, בשנייה שבה אמרתי אותה.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>אל תבנה לפני שאישרתי.</div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="36.000">כל</span> <span class="w" dir="rtl" data-t="36.160">אפקט</span> <span class="w" dir="rtl" data-t="36.320">צריך</span> <span class="w" dir="rtl" data-t="36.480">להיעלם</span> <span class="w" dir="rtl" data-t="36.640">כשהזמן</span> <span class="w" dir="rtl" data-t="36.800">שלו</span> <span class="w" dir="rtl" data-t="36.960">נגמר.</span> <span class="w" dir="rtl" data-t="37.370">בבדיקה,</span> <span class="w" dir="rtl" data-t="37.530">טקסט</span> <span class="w" dir="rtl" data-t="37.690">על</span> <span class="w" dir="rtl" data-t="37.850">הקיר</span> <span class="w" dir="rtl" data-t="38.010">נשאר</span> <span class="w" dir="rtl" data-t="38.170">בטעות</span> <span class="w" dir="rtl" data-t="38.330">עד</span> <span class="w" dir="rtl" data-t="38.490">שנייה</span> <span class="w" dir="rtl" data-t="38.650">49.5.</span></p></div></div>
+</div></div>
+</div>
+</div>
+</div>
+<script>
+/* Runtime helpers that add tweens to one paused GSAP master timeline.
+   Every tween is a fromTo with explicit values and immediateRender:false (CSS holds the
+   initial state), so any frame can be rendered by seeking to it in any order.
+   Each scene has its own camera (.scam); the chapter header sits outside it and never zooms. */
+(function () {
+  const E = (window.ENG = {});
+  // The guide's no-overshoot spring (prompts 9 and 13).
+  const SPRING = (p) => (1 - (1 + 7 * p) * Math.exp(-7 * p)) / (1 - 8 * Math.exp(-7));
+  E.SPRING = SPRING;
+  E.debug = (window.__ENG_DEBUG = { scenes: {} });
+  E.q = (s, r) => (r || document).querySelector(s);
+  E.qa = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const NI = { immediateRender: false };
+  E.NI = NI;
+  const A = (o) => Object.assign(o, NI);
+  E.A = A;
+  /* Deterministic PRNG (mulberry32): never use Math.random in scenes. */
+  E.rand = function (seed) {
+    let a = seed >>> 0;
+    return function () { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  };
+  /* Offsets ignore transforms: measure layout before any tween moves things. */
+  E.off = function (el, top) {
+    let x = 0, y = 0, e = el;
+    while (e && e !== top) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+    return { x, y };
+  };
+  E.center = function (el, top) {
+    const o = E.off(el, top);
+    return { x: o.x + el.offsetWidth / 2, y: o.y + el.offsetHeight / 2 };
+  };
+
+  E.fadeIn = function (tl, el, t, d, dy) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: 0, y: dy || 0 }, A({ opacity: 1, y: 0, duration: d || 0.5, ease: SPRING }), t);
+  };
+  E.fadeOut = function (tl, el, t, d, dy, from) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from, y: 0 }, A({ opacity: 0, y: dy || 0, duration: d || 0.3, ease: "power2.in" }), t);
+  };
+  E.dim = function (tl, el, t, to, from, d) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from }, A({ opacity: to, duration: d || 0.35, ease: "power2.out" }), t);
+  };
+
+  /* Kinetic words: each word enters on its time with a spring (slightly above final size,
+     then settles) and unblurs. Blur is animated separately from the spring and ends on
+     0px then "none", so it never goes negative (prompt 2's pitfall). */
+  E.kin = function (tl, root, S, o) {
+    if (!root) return;
+    o = o || {};
+    const dy = o.dy == null ? 18 : o.dy;
+    E.qa(".w", root).forEach((w) => {
+      const t = S + parseFloat(w.dataset.t || "0");
+      tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.22, ease: "power2.out" }), t);
+      tl.fromTo(w, { y: dy, scale: 0.82 }, A({ y: 0, scale: 1, duration: 0.62, ease: "back.out(2.1)" }), t);
+      tl.fromTo(w, { filter: "blur(9px)" }, A({ filter: "blur(0px)", duration: 0.3, ease: "power2.out" }), t);
+      tl.set(w, { filter: "none" }, t + 0.31);
+    });
+    E.qa(".ul", root).forEach((u) => {
+      const t = S + parseFloat(u.dataset.t || "0");
+      tl.fromTo(u, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.5, ease: "power3.inOut" }), t);
+    });
+  };
+
+  /* White pill caption: switches in one frame, no animation (prompt 2). */
+  E.pill = function (tl, el, tin, tout) {
+    tl.set(el, { opacity: 1 }, tin);
+    if (tout != null) tl.set(el, { opacity: 0 }, tout);
+  };
+
+  /* Bouncy zoom on the scene camera with the guide's spring. The focal x is clamped so a
+     content column [colL, colR] scaled by (1+amt) stays inside the safe area x 140..940. */
+  E.zoom = function (tl, ctx, cx, cy, t, amt, tBack, backDur, col) {
+    const s = 1 + amt;
+    const L = col ? col[0] : 220, R = col ? col[1] : 940;
+    const lo = (s * R - 940) / (s - 1), hi = (s * L - 140) / (s - 1);
+    if (lo <= hi) cx = Math.min(hi, Math.max(lo, cx));
+    else cx = (L + R) / 2;
+    tl.set(ctx.cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(ctx.cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) {
+      if (backDur) tl.fromTo(ctx.cam, { scale: s }, A({ scale: 1, duration: backDur, ease: "power2.inOut" }), tBack);
+      else tl.set(ctx.cam, { scale: 1 }, tBack);
+    }
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  E.zoomOn = function (tl, ctx, el, t, amt, tBack, backDur, col) {
+    const c = E.center(el, ctx.scene);
+    E.zoom(tl, ctx, c.x, c.y, t, amt, tBack, backDur, col);
+  };
+
+  /* ---------- effects (all pure transforms/opacity, created once before the first seek) ---------- */
+  /* Light sweep across an element, right to left (the reading direction). The element must be
+     positioned; it clips the band to its own shape. o.color tints the band. */
+  E.sweep = function (tl, el, t, d, o) {
+    if (!el) return;
+    o = o || {};
+    const fx = document.createElement("i"), b = document.createElement("b");
+    fx.className = "fx-sweep";
+    if (o.color) fx.style.setProperty("--sweep", o.color);
+    fx.appendChild(b);
+    el.appendChild(fx);
+    const w = el.offsetWidth;
+    tl.fromTo(b, { x: 0 }, A({ x: -(w * 1.34 + 60), duration: d || 0.8, ease: "power2.inOut" }), t);
+  };
+  /* A soft light band crosses the whole frame (scene change). */
+  E.band = function (tl, scene, t) {
+    const b = document.createElement("i");
+    b.className = "fx-band";
+    scene.appendChild(b);
+    tl.fromTo(b, { x: 0 }, A({ x: -1900, duration: 0.85, ease: "power2.inOut" }), t);
+    tl.fromTo(b, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power1.out" }), t);
+    tl.fromTo(b, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), t + 0.55);
+  };
+  /* Particle burst from (x, y) inside parent: n dots fly out and fade (deterministic). */
+  E.burst = function (tl, parent, x, y, t, o) {
+    if (!parent) return;
+    o = o || {};
+    const n = o.n || 14, rnd = E.rand(o.seed || 7), col = o.color || "#ff6b61", r0 = o.r0 || 30, r1 = o.r1 || 120;
+    for (let i = 0; i < n; i++) {
+      const d = document.createElement("i");
+      d.className = "fx-dot";
+      const sz = 5 + rnd() * 7;
+      d.style.cssText = "left:" + x + "px;top:" + y + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:" + col + ";box-shadow:0 0 10px " + col;
+      parent.appendChild(d);
+      const ang = (i / n) * Math.PI * 2 + rnd() * 0.5, dist = r0 + rnd() * (r1 - r0), dur = 0.55 + rnd() * 0.35;
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * dist, y: Math.sin(ang) * dist, scale: 0.35, duration: dur, ease: "power3.out" }), t);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), t);
+    }
+  };
+  /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
+  E.draw = function (tl, el, t, d, ease) {
+    if (!el) return;
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2;
+    el.style.strokeDasharray = L + " " + L;
+    el.style.strokeDashoffset = L;
+    tl.fromTo(el, { strokeDashoffset: L }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+  };
+  /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
+  E.glitch = function (tl, el, t, amp) {
+    if (!el) return;
+    const a = amp || 8;
+    const seq = [[0, 0], [a, -7], [-a * 0.7, 5], [a * 0.45, -3], [-a * 0.2, 1.5], [0, 0]];
+    for (let i = 1; i < seq.length; i++) {
+      tl.fromTo(el, { x: seq[i - 1][0], skewX: seq[i - 1][1] }, A({ x: seq[i][0], skewX: seq[i][1], duration: 0.05, ease: "none" }), t + (i - 1) * 0.05);
+    }
+  };
+  /* Bouncy zoom inside the illustration (the guide's spring): the stage camera punches in on a
+     focal element and comes back at tBack. The camera box clips, so text above is never touched. */
+  E.zoomStage = function (tl, ctx, el, t, amt, tBack) {
+    const cam = ctx.stcam, fit = ctx.fit || 1, sf = ctx.stfit;
+    let cx = cam.offsetWidth / 2, cy = cam.offsetHeight / 2;
+    if (el) {
+      const c = E.center(el, sf);
+      const hw = sf.offsetWidth / 2, hh = sf.offsetHeight / 2;
+      cx = sf.offsetLeft + hw + (c.x - hw) * fit;
+      cy = sf.offsetTop + hh + (c.y - hh) * fit;
+    }
+    const s = 1 + amt;
+    tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  /* Slow drifting dust over the whole video (depth; deterministic). */
+  E.dust = function (tl, bg, total) {
+    const rnd = E.rand(11);
+    for (let i = 0; i < 28; i++) {
+      const d = document.createElement("i"), sz = 2 + rnd() * 3.5;
+      d.className = "dust";
+      d.style.cssText = "left:" + (rnd() * 1080).toFixed(0) + "px;top:" + (200 + rnd() * 1700).toFixed(0) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;opacity:" + (0.15 + rnd() * 0.35).toFixed(2);
+      bg.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0 }, A({ x: (rnd() - 0.5) * 160, y: -(140 + rnd() * 320), duration: total, ease: "none" }), 0);
+    }
+  };
+
+  /* Prompt card: the full verbatim text, paged (static pages and short slides, so any
+     paused frame is readable). On a key line the page text dims and a copy of the line
+     lifts above the card (bouncy zoom on the line; it sits in its own layer, so its backing
+     is never clipped). One underline slides between the section tabs. Exits at t1. */
+  E.prompt = function (tl, ctx, card, t0, t1, hls) {
+    const vp = E.q(".pvp", card), ct = E.q(".pct", card), body = E.q(".pbody", card);
+    const ROW = 44, ROWS = 23;                     // the viewport is exactly 23 rows: no line is ever cut
+    const totalRows = Math.round(body.offsetHeight / ROW);
+    const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
+    const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
+    const H = (hls || []).map((h) => {
+      const ln = E.q('[data-hl="' + h.id + '"]', card);
+      const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
+      return { id: h.id, ln, lift, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, want: h.hold || 2.4 };
+    }).sort((a, b) => a.top - b.top);
+    // pages advance by 22 rows (one row of overlap); a page is pulled up so a key line never straddles an edge
+    const pages = [0];
+    while (pages[pages.length - 1] < lastTop) {
+      const cur = pages[pages.length - 1];
+      let nxt = Math.min(lastTop, cur + (ROWS - 1) * ROW);
+      for (const h of H) if (h.top > cur && h.top < cur + ROWS * ROW && h.bot > cur + ROWS * ROW) nxt = Math.min(nxt, h.top - 2 * ROW);
+      if (nxt <= cur) nxt = Math.min(lastTop, cur + ROW);
+      pages.push(nxt);
+    }
+    // a key line is held on the page where it sits furthest from the edges (the lift needs room)
+    H.forEach((h) => {
+      let bestM = -1e9;
+      h.page = 0;
+      pages.forEach((p, i) => {
+        const m = Math.min(h.top - p, p + ROWS * ROW - h.bot);
+        if (m >= 0 && m > bestM + 0.5) { bestM = m; h.page = i; }
+      });
+    });
+    // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
+    // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
+    const n = pages.length;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.35, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LIFT = 1.1, DIM = 0.38;
+    const mineOf = (i) => H.filter((h) => h.page === i);
+    const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
+    // a plain last page stays settled a little longer before the exit
+    let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
+    for (let i = 0; i < n; i++) {
+      const mine = mineOf(i);
+      if (!mine.length) nPlain++;
+      else fixed += liftDelay(i) + (mine.length - 1) * UNLIFT + (isHold(i + 1) ? UNLIFT : UNDIM);
+      if (i < n - 1) fixed += isHold(i) && isHold(i + 1) ? DSLIDE : SLIDE;
+    }
+    fixed += tail;
+    const want = H.reduce((a, h) => a + h.want, 0);
+    let dwell = 0.27;
+    let room = t1 - t0 - fixed - nPlain * dwell;
+    if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
+      dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
+      room = t1 - t0 - fixed - nPlain * dwell;
+    }
+    if (H.length) {
+      let k = room / want;
+      if (k > 1.35) {
+        const extra = room - want * 1.35;
+        k = 1.35;
+        dwell += extra / (nPlain + 1);
+        tail += extra / (nPlain + 1);
+      }
+      H.forEach((h) => { h.hold = h.want * k; });
+      // keep a 2 s floor on every hold where the budget allows it
+      for (let it = 0; it < 3; it++) {
+        const low = H.filter((h) => h.hold < MINH), high = H.filter((h) => h.hold >= MINH);
+        if (!low.length || !high.length) break;
+        const need = low.reduce((a, h) => a + MINH - h.hold, 0);
+        const spare = high.reduce((a, h) => a + h.hold - MINH, 0);
+        const take = Math.min(need, spare);
+        low.forEach((h) => { h.hold += (MINH - h.hold) * (take / need); });
+        high.forEach((h) => { h.hold -= (h.hold - MINH) * (take / spare); });
+      }
+    } else {
+      dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
+    }
+    // the lifted copies sit over their line on the page where it is held (static layout)
+    H.forEach((h) => {
+      h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
+      h.lift.style.top = (bw + vp.offsetTop + h.top - pages[h.page]) + "px";
+      h.lift.style.width = h.ln.offsetWidth + "px";
+    });
+    tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
+    tl.fromTo(card, { rotationX: 16, y: 90, scale: 0.94, transformPerspective: 1600 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SPRING }), t0);
+    E.sweep(tl, card, t0 + 0.4, 1.0, { color: "rgba(201, 194, 255, 0.16)" });
+    const arrivals = [], slides = [], holdTimes = [];
+    let t = t0 + LEAD, dimmed = false, tFinal = null;
+    for (let i = 0; i < n; i++) {
+      arrivals.push(t);
+      const mine = mineOf(i);
+      if (!mine.length) t += dwell;
+      else {
+        t += liftDelay(i);
+        mine.forEach((h, j) => {
+          if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
+          dimmed = true;
+          tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          holdTimes.push(+t.toFixed(3));
+          t += h.hold;
+          const keepDim = j < mine.length - 1 || isHold(i + 1);
+          const d = keepDim ? UNLIFT : UNDIM;
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d, ease: "power2.inOut" }), t);
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d, ease: "power2.in" }), t);
+          if (!keepDim) {
+            tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
+            dimmed = false;
+            if (i === n - 1) tFinal = t;
+          }
+          t += d;
+        });
+      }
+      if (i < n - 1) {
+        const sd = dimmed ? DSLIDE : SLIDE;
+        tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: sd, ease: "power2.inOut" }), t);
+        slides.push([t, sd]);
+        t += sd;
+      }
+    }
+    // tabs: one underline slides with the page to the section that fills most of the visible rows
+    const tabs = E.qa(".tab", card), ul = E.q(".tabul", card);
+    if (tabs.length && ul) {
+      const tags = tabs.map((tab) => E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card));
+      const starts = tags.map((g) => (g ? g.offsetTop : 1e9));
+      const secAt = (p) => {
+        let best = 0, bestRows = -1;
+        starts.forEach((st, j) => {
+          const en = j + 1 < starts.length ? starts[j + 1] : 1e9;
+          const vis = Math.max(0, Math.min(en, p + ROWS * ROW) - Math.max(st, p));
+          if (vis > bestRows) { bestRows = vis; best = j; }
+        });
+        return best;
+      };
+      const MUTED = "#9c99ae", INK = "#f5f2ea";
+      const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
+      let cur = secAt(pages[0]);
+      ul.style.left = pos(cur).left + "px";
+      ul.style.width = pos(cur).width + "px";
+      tl.fromTo(ul, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power2.out" }), t0 + 0.1);
+      tl.fromTo(tabs[cur], { color: MUTED }, A({ color: INK, duration: 0.2 }), t0 + 0.1);
+      const move = (k, ta, d) => {
+        const a = pos(cur), b = pos(k);
+        tl.fromTo(ul, { left: a.left, width: a.width }, A({ left: b.left, width: b.width, duration: d, ease: "power3.inOut" }), ta);
+        tl.fromTo(tabs[cur], { color: INK }, A({ color: MUTED, duration: 0.2 }), ta + d / 2 - 0.1);
+        tl.fromTo(tabs[k], { color: MUTED }, A({ color: INK, duration: 0.2 }), ta + d / 2 - 0.1);
+        cur = k;
+      };
+      // the section that holds the last visible row (the end of the prompt on the last page)
+      const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      for (let i = 1; i < n; i++) {
+        const k = i === n - 1 && !isHold(i) ? lastVisible(pages[i]) : secAt(pages[i]);
+        if (k !== cur) move(k, slides[i - 1][0], Math.max(0.3, slides[i - 1][1]));
+      }
+      // a last page with key lines: its last section takes over when the page undims
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) > cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
+    }
+    tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
+    return {
+      pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
+      holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, liftH: h.lift.offsetHeight })),
+    };
+  };
+
+  /* Standard topic scene. Layout is measured once (static):
+     the title and the explanation sit at the top; the illustration fills the safe area below.
+     title -> illustration enters -> explanation phrase by phrase (current phrase bright, the
+     illustration shows each phrase, bouncy zoom inside it on the key phrase) -> payoff ->
+     fact over the dimmed illustration -> prompt card -> tip. */
+  E.topic = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const hdr = E.q(".hdr", sc), main = E.q(".main", sc), exp = E.q(".exp", sc), ttl = E.q(".ttl", sc);
+    const stage = E.q(".stage", sc), simtag = E.q(".simtag", sc), fact = E.q(".factbox", sc);
+    const stcam = E.q(".stcam", sc), stfit = E.q(".stfit", sc);
+    // static layout
+    const TOP = 376, BOTTOM = 1566;
+    const h = main.offsetHeight;
+    const stTop = Math.round(TOP + h + 30);
+    stage.style.top = stTop + "px";
+    stage.style.height = BOTTOM - stTop + "px";
+    const camH = BOTTOM - stTop - 50;
+    const simH = (E.q(".simwrap", sc) || { offsetHeight: 700 }).offsetHeight || 700;
+    stfit.style.height = simH + "px";
+    stfit.style.marginTop = -simH / 2 + "px";
+    const fit = Math.min(1, camH / simH);
+    if (fit < 1) stfit.style.transform = "scale(" + fit.toFixed(3) + ")";
+    if (fact) { fact.style.top = stTop + 50 + "px"; fact.style.height = camH + "px"; }
+    Object.assign(ctx, { stcam, stfit, fit, stTop });
+    // scene change: a light band crosses the frame while the camera settles
+    E.band(tl, sc, S);
+    tl.fromTo(ctx.cam, { scale: 1.035 }, A({ scale: 1, duration: 1.0, ease: SPRING }), S);
+    E.fadeIn(tl, hdr, S + 0.05, 0.5, 0);
+    E.kin(tl, ttl, S);
+    // the illustration enters with the explanation
+    E.fadeIn(tl, simtag, S + cfg.tStage, 0.4, 0);
+    tl.fromTo(stage, { opacity: 0, y: 46 }, A({ opacity: 1, y: 0, duration: 0.8, ease: SPRING }), S + cfg.tStage);
+    // explanation: phrase by phrase; the phrase being read is bright, the ones before step back
+    E.kin(tl, exp, S, { dy: 14 });
+    const phs = E.qa(".ph", exp);
+    phs.forEach((ph, i) => {
+      const tEnd = i + 1 < phs.length ? cfg.phr[i + 1] : cfg.phrEnd + 0.8;
+      tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0.5, duration: 0.45, ease: "power2.out" }), S + tEnd);
+      E.qa(".accgrp", ph).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#dcd9e6", duration: 0.45 }), S + tEnd));
+      E.qa(".ul", ph).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + tEnd));
+    });
+    if (window.SIMS[cfg.sim]) window.SIMS[cfg.sim](tl, ctx, cfg, S);
+    // bouncy zoom inside the illustration on the key phrase (focus: [data-focus="<phrase>"])
+    const acc = E.q(".exp .accgrp", sc);
+    if (acc && cfg.expZoom) {
+      const p = +(acc.closest(".ph") || { dataset: { p: 0 } }).dataset.p;
+      const tb = p + 1 < cfg.phr.length ? cfg.phr[p + 1] : cfg.phrEnd + 0.6;
+      const focus = E.q('[data-focus="' + p + '"]', stage) || E.q("[data-focus]", stage);
+      E.zoomStage(tl, ctx, focus, S + parseFloat(acc.dataset.t) + 0.1, cfg.expZoom, S + tb);
+    }
+    const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
+    if (cfg.tFact != null) {
+      // the fact takes over the illustration's area; the illustration steps far back
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.14, 1, 0.4);
+      E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const pill = E.q(".factbox .pill", sc);
+      if (pill) {
+        tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
+        tl.fromTo(pill, { scale: 0.92, y: 20 }, A({ scale: 1, y: 0, duration: 0.45, ease: SPRING }), S + cfg.tFact - 0.1);
+        E.sweep(tl, pill, S + cfg.tFact + 0.25, 0.7, { color: "rgba(120, 100, 255, 0.28)" });
+        E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
+      }
+      E.kin(tl, fact, S, { dy: 12 });
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.14, 0.25);
+    } else {
+      E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
+      E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
+    }
+    E.dim(tl, simtag, S + (cfg.tFact != null ? cfg.tFact - 0.45 : tNext - 0.35), 0, 1, 0.3);
+    // first cut: the title (and the fact) leave before the card or the tip arrives
+    tl.fromTo(main, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), S + tNext - 0.3);
+    if (fact) E.fadeOut(tl, fact, S + tNext - 0.3, 0.25, -20);
+    let info = null;
+    if (cfg.tPrompt != null) {
+      const pend = cfg.tTip != null ? cfg.tTip : cfg.tPromptEnd;
+      info = E.prompt(tl, ctx, E.q(".pcard", sc), S + cfg.tPrompt, S + pend, cfg.hls);
+    }
+    if (cfg.tTip != null) {
+      const tip = E.q(".tipcard", sc);
+      tl.fromTo(tip, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + cfg.tTip);
+      tl.fromTo(tip, { scale: 0.96, y: 30, rotationX: 10, transformPerspective: 1400 }, A({ scale: 1, y: 0, rotationX: 0, duration: 0.7, ease: SPRING }), S + cfg.tTip);
+      E.qa(".tip-ico .dr", sc).forEach((pth, i) => E.draw(tl, pth, S + cfg.tTip + 0.15 + i * 0.18, 0.55));
+      E.kin(tl, E.q(".tip-text", sc), S);
+      E.fadeOut(tl, tip, S + cfg.D - 0.4, 0.3, -20);
+    }
+    E.fadeOut(tl, hdr, S + cfg.D - 0.4, 0.3, 0);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { stTop, h, fit: +fit.toFixed(3) }, prompt: info };
+  };
+
+  /* Chapter title card. */
+  E.chapter = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
+    E.band(tl, sc, S);
+    tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
+    E.qa(".ch-ring", sc).forEach((r, i) => {
+      tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
+    });
+    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ff8a80" });
+    tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
+    tl.set(n, { filter: "none" }, S + 0.58);
+    E.fadeIn(tl, k, S + 0.25, 0.5, 14);
+    E.kin(tl, E.q(".ch-title", sc), S);
+    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.7, ease: "power3.inOut" }), S + 0.75);
+    E.kin(tl, E.q(".ch-sub", sc), S, { dy: 12 });
+    E.kin(tl, E.q(".ch-tag", sc), S, { dy: 10 });
+    E.fadeIn(tl, dots, S + 0.6, 0.6, 10);
+    tl.fromTo(E.q(".chap", sc), { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.04, duration: 0.38, ease: "power2.in" }), S + cfg.D - 0.4);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "chapter" };
+  };
+
+  window.SIMS = window.SIMS || {};
+})();
+
+window.SIMS = window.SIMS || {};
+window.SIMS.sim31 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, P = cfg.phr, pe = cfg.phrEnd;
+  const T = (x) => S + x;                    // scene-local -> master time
+  const q = (s) => E.q(".sim31 " + s, sc), qa = (s) => E.qa(".sim31 " + s, sc);
+  const root = q(".s31-cam").parentNode, strip = q(".s31-strip");
+
+  // establishing: the camera frame; its viewfinder corners draw on
+  qa(".s31-vf path").forEach((p, i) => E.draw(tl, p, T(cfg.tStage + 0.15 + i * 0.06), 0.45));
+
+  // B0 "הדרך הכי מהירה להסביר לקלוד מה אתם רוצים": what you want, as a thought (a 3D logo, text on the wall, layers)
+  const b0 = P[0], think = q(".s31-think"), tdots = qa(".s31-tdots i"), ibs = qa(".s31-ib");
+  tdots.forEach((d, i) => tl.fromTo(d, { opacity: 0, scale: 0.4 }, A({ opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }), T(b0 + 0.1 + i * 0.12)));
+  tl.fromTo(think, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.55, ease: E.SPRING }), T(b0 + 0.42));
+  ibs.forEach((ib, i) => {
+    tl.fromTo(ib, { opacity: 0, y: 12, scale: 0.6 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.8)" }), T(b0 + 0.72 + i * 0.22));
+    tl.fromTo(ib, { y: 0 }, A({ y: -5, duration: 0.5, ease: "sine.inOut" }), T(b0 + 1.3 + i * 0.22));
+    tl.fromTo(ib, { y: -5 }, A({ y: 0, duration: 0.5, ease: "sine.inOut" }), T(b0 + 1.8 + i * 0.22));
+  });
+  E.sweep(tl, think, T(b0 + 1.6), 0.7, { color: "rgba(255, 255, 255, 0.2)" });
+  // the slower way: typing it to Claude in a prompt box (it fills slowly, the cursor blinks)
+  const term = q(".s31-term"), tl1 = q(".s31-tl1"), tl2 = q(".s31-tl2"), cur = q(".s31-cur");
+  tl.fromTo(term, { opacity: 0, y: 16 }, A({ opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }), T(b0 + 0.25));
+  tl.fromTo(tl1, { scaleX: 0 }, A({ scaleX: 1, duration: 1.3, ease: "none" }), T(b0 + 0.75));
+  tl.fromTo(cur, { x: 0 }, A({ x: 400, duration: 1.3, ease: "none" }), T(b0 + 0.75));
+  tl.fromTo(cur, { x: 400, y: 0 }, A({ x: -34, y: 36, duration: 0.05, ease: "none" }), T(b0 + 2.06));
+  tl.fromTo(tl2, { scaleX: 0 }, A({ scaleX: 0.3, duration: 0.6, ease: "none" }), T(b0 + 2.1));
+  tl.fromTo(cur, { x: -34 }, A({ x: 56, duration: 0.6, ease: "none" }), T(b0 + 2.12));
+  [0.55, 0.95, 1.35, 1.75, 2.15].forEach((o, i) => tl.set(cur, { opacity: i % 2 ? 0.25 : 1 }, T(b0 + o)));
+
+  // B1 "היא להגיד את זה בזמן הצילום": REC; the thought is said out loud, word by word; the waveform records
+  const b1 = P[1], rec = q(".s31-rec"), rr = q(".s31-rec i"), say = q(".s31-say");
+  tl.fromTo(rec, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }), T(b1 + 0.02));
+  [0, 0.6, 1.2].forEach((o) => tl.fromTo(rr, { scale: 0.6, opacity: 1 }, A({ scale: 1.5, opacity: 0, duration: 0.55, ease: "power2.out" }), T(b1 + 0.1 + o)));
+  tl.fromTo(think, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(b1));
+  tl.fromTo(term, { opacity: 1, y: 0 }, A({ opacity: 0, y: 16, duration: 0.3, ease: "power2.in" }), T(b1));
+  tdots.forEach((d) => tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(b1)));
+  tl.fromTo(say, { opacity: 0, scale: 0.85 }, A({ opacity: 1, scale: 1, duration: 0.45, ease: E.SPRING }), T(b1 + 0.08));
+  E.kin(tl, q(".s31-say p"), S, { dy: 10 });
+  const arcs = qa(".s31-arcs path");
+  for (let k = 0; k < 3; k++) arcs.forEach((a, i) => {
+    const t = T(b1 + 0.2 + k * 0.55 + i * 0.1);
+    tl.fromTo(a, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), t);
+    tl.fromTo(a, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), t + 0.2);
+  });
+  const rh = q(".s31-rhead");
+  tl.fromTo(q(".s31-wvc"), { clipPath: "inset(0px 0px 0px 100%)" }, A({ clipPath: "inset(0px 0px 0px 0%)", duration: 1.65, ease: "none" }), T(b1 + 0.15));
+  tl.fromTo(rh, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(b1 + 0.1));
+  tl.fromTo(rh, { x: 0 }, A({ x: -784, duration: 1.65, ease: "none" }), T(b1 + 0.15));
+  tl.fromTo(rh, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b1 + 1.8));
+
+  // B2 "קלוד מתמלל עם זמן לכל מילה": a scanner passes; every word lands under its sound with a tick on the time ruler
+  const b2 = P[2], scan = q(".s31-scan");
+  tl.fromTo(rec, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(b2));
+  tl.fromTo(say, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b2 + 0.05));
+  E.draw(tl, q(".s31-rl"), T(b2), 0.5, "power2.out");
+  tl.fromTo(q(".s31-rt"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b2 + 0.3));
+  tl.fromTo(scan, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(b2 + 0.1));
+  tl.fromTo(scan, { x: 0 }, A({ x: -890, duration: 1.0, ease: "power1.inOut" }), T(b2 + 0.1));
+  tl.fromTo(scan, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), T(b2 + 1.0));
+  qa(".s31-aw, .s31-iw").forEach((ch) => {
+    const cx = E.center(ch, root).x;
+    const t = T(b2 + 0.14 + ((800 - cx) / 890) * 0.95);
+    tl.fromTo(ch, { opacity: 0, y: -16 }, A({ opacity: 1, y: 0, duration: 0.4, ease: E.SPRING }), t);
+    tl.fromTo(E.q(".tk", ch), { opacity: 0, scaleY: 0 }, A({ opacity: 1, scaleY: 1, duration: 0.3, ease: "power2.out" }), t + 0.18);
+  });
+
+  // B3 "מוצא את ההוראות ובונה כל אפקט בדיוק על המילים שלו": the instruction lights up; a bracket marks its words;
+  // when the playhead reaches them the effect enters over the hand, and it leaves when they end (punch-in here)
+  const b3 = P[3], ins = qa(".s31-iw"), insEl = q(".s31-ins");
+  ins.forEach((ch, i) => tl.fromTo(E.q(".hl", ch), { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), T(b3 + 0.12 + i * 0.05)));
+  qa(".s31-aw").forEach((a) => tl.fromTo(a, { opacity: 1 }, A({ opacity: 0.4, duration: 0.3 }), T(b3 + 0.1)));
+  const io = E.off(insEl, strip), iw = insEl.offsetWidth;
+  const brk = q(".s31-brk"), bp = q(".s31-brk path");
+  brk.style.left = io.x + "px";
+  brk.style.width = iw + "px";
+  brk.setAttribute("viewBox", "0 0 " + iw + " 16");
+  bp.setAttribute("d", "M" + (iw - 1) + " 0 V10 H1 V0");
+  E.draw(tl, bp, T(b3 + 0.45), 0.45);
+  const ph = q(".s31-ph"), X0 = 780, X1 = 20, PD = 1.8, tp = b3 + 0.8;
+  tl.fromTo(ph, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(tp));
+  tl.fromTo(ph, { x: 0 }, A({ x: X1 - X0, duration: PD, ease: "none" }), T(tp));
+  tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(tp + PD - 0.1));
+  const tin = tp + ((X0 - (io.x + iw)) / (X0 - X1)) * PD;   // the playhead reaches the instruction's first word
+  const tout = tp + ((X0 - io.x) / (X0 - X1)) * PD;         // and leaves its last word
+  const lgw = q(".s31-lgw"), lp = q(".s31-lp"), lg3 = q(".s31-lg3"), pg = q(".s31-pg"), link = q(".s31-link");
+  tl.fromTo(lgw, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(tin));
+  tl.fromTo(lp, { opacity: 0, scale: 0.3 }, A({ opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }), T(tin));
+  tl.fromTo(lg3, { scale: 0.05, rotationY: -360 }, A({ scale: 1, rotationY: 0, duration: 0.8, ease: E.SPRING }), T(tin + 0.1));
+  tl.fromTo(lp, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(tin + 0.45));
+  tl.fromTo(pg, { opacity: 0 }, A({ opacity: 1, duration: 0.5 }), T(tin + 0.3));
+  E.draw(tl, q(".s31-link path"), T(tin), 0.45);
+  tl.fromTo(lg3, { rotationY: 0 }, A({ rotationY: 30, duration: Math.max(0.3, tout - tin - 0.9), ease: "sine.inOut" }), T(tin + 0.9));
+  tl.fromTo(lgw, { y: 0 }, A({ y: -7, duration: 0.55, ease: "sine.inOut" }), T(tin + 0.9));
+  tl.fromTo(lgw, { y: -7 }, A({ y: 0, duration: 0.5, ease: "sine.inOut" }), T(tin + 1.45));
+  // its words end: it shrinks back into a point of light
+  tl.fromTo(lg3, { scale: 1 }, A({ scale: 0.05, duration: 0.35, ease: "power2.in" }), T(tout));
+  tl.fromTo(lp, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(tout + 0.22));
+  tl.fromTo(lp, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(tout + 0.42));
+  tl.fromTo(pg, { opacity: 1 }, A({ opacity: 0, duration: 0.35 }), T(tout));
+  tl.fromTo(link, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(tout));
+  tl.fromTo(lgw, { opacity: 1 }, A({ opacity: 0, duration: 0.1 }), T(tout + 0.6));
+
+  // B4 "לפני שהוא בונה, הוא מראה טבלה של כל ההוראות לאישור": the words fly into a table row; waiting for approval
+  const b4 = P[4], cam = q(".s31-cam"), tbl = q(".s31-tbl");
+  [q(".s31-wvc"), q(".s31-rul"), brk].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b4)));
+  qa(".s31-aw").forEach((a) => tl.fromTo(a, { opacity: 0.4 }, A({ opacity: 0, duration: 0.3 }), T(b4)));
+  qa(".s31-iw .tk").forEach((tk) => tl.fromTo(tk, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b4)));
+  tl.fromTo(cam, { scale: 1, opacity: 1 }, A({ scale: 0.7, opacity: 0.5, duration: 0.6, ease: E.SPRING }), T(b4));
+  tl.fromTo(tbl, { opacity: 0, y: 40 }, A({ opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }), T(b4 + 0.12));
+  const tws = qa(".s31-tins .tw");
+  ins.forEach((ch, i) => {
+    const a = E.center(ch, root), b = E.center(tws[i], root), t = T(b4 + 0.25 + i * 0.035);
+    tl.fromTo(E.q(".hl", ch), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), t);
+    tl.fromTo(ch, { backgroundColor: "rgba(26, 23, 52, 0.92)", borderColor: "rgba(201, 194, 255, 0.32)" },
+      A({ backgroundColor: "rgba(26, 23, 52, 0)", borderColor: "rgba(201, 194, 255, 0)", duration: 0.3 }), t);
+    tl.fromTo(ch, { x: 0, y: 0 }, A({ x: b.x - a.x, y: b.y - a.y, duration: 0.62, ease: "power3.inOut" }), t);
+    tl.fromTo(ch, { opacity: 1 }, A({ opacity: 0, duration: 0.1 }), t + 0.62);
+    tl.fromTo(tws[i], { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), t + 0.6);
+  });
+  qa(".s31-r1 .s31-pic").forEach((pic, i) => tl.fromTo(pic, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }), T(b4 + 1.0 + i * 0.12)));
+  qa(".s31-r2, .s31-r3").forEach((cell, i) => tl.fromTo(cell, { opacity: 0 }, A({ opacity: 0.55, duration: 0.35 }), T(b4 + 1.3 + (i % 4) * 0.04 + (i >= 4 ? 0.12 : 0))));
+  const ok = q(".s31-ok"), okr = q(".s31-okr");
+  tl.fromTo(ok, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }), T(b4 + 1.6));
+  [0, 0.55].forEach((o) => {
+    tl.fromTo(okr, { scale: 1 }, A({ scale: 1.18, duration: 0.25, ease: "sine.out" }), T(b4 + 2.0 + o));
+    tl.fromTo(okr, { scale: 1.18 }, A({ scale: 1, duration: 0.25, ease: "sine.in" }), T(b4 + 2.25 + o));
+  });
+
+  // payoff: approved -> BRIEF.md -> a scene file and an agent for every instruction -> the independent critic
+  tl.fromTo(q(".s31-okr .okf"), { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }), T(pe + 0.1));
+  E.draw(tl, q(".s31-okr path"), T(pe + 0.16), 0.3);
+  tl.fromTo(ok, { borderColor: "rgba(201, 194, 255, 0.45)" }, A({ borderColor: "#c9c2ff", duration: 0.3 }), T(pe + 0.1));
+  E.sweep(tl, tbl, T(pe + 0.22), 0.6, { color: "rgba(255, 255, 255, 0.16)" });
+  tl.fromTo(cam, { opacity: 0.5 }, A({ opacity: 0, duration: 0.35 }), T(pe + 0.75));
+  tl.fromTo(ok, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe + 0.75));
+  tl.fromTo(tbl, { scale: 1, y: 0, opacity: 1 }, A({ scale: 0.36, y: -250, opacity: 0, duration: 0.55, ease: "power2.in" }), T(pe + 0.75));
+  const brief = q(".s31-brief");
+  tl.fromTo(brief, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.55, ease: E.SPRING }), T(pe + 1.05));
+  E.sweep(tl, brief, T(pe + 1.4), 0.6);
+  qa(".s31-links path").forEach((p, i) => E.draw(tl, p, T(pe + 1.5 + i * 0.06), 0.45));
+  const scns = qa(".s31-scn");
+  scns.forEach((s, i) => tl.fromTo(s, { opacity: 0, y: 20, scale: 0.9 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.5, ease: E.SPRING }), T(pe + 1.75 + i * 0.12)));
+  qa(".s31-ag").forEach((a, i) => tl.fromTo(a, { opacity: 0, scale: 0.4 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.2)" }), T(pe + 2.2 + i * 0.1)));
+  tl.fromTo(q(".s31-aglab"), { opacity: 0, y: 10 }, A({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }), T(pe + 2.45));
+  tl.fromTo(q(".s31-crit"), { opacity: 0, y: 18, scale: 0.92 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.5, ease: E.SPRING }), T(pe + 3.0));
+  scns.forEach((s, i) => {
+    const t = T(pe + 3.25 + i * 0.14), sr = E.q(".s31-sr", s), fg = E.q(".s31-sr .fg", s), L = 2 * Math.PI * 18;
+    fg.style.strokeDasharray = L.toFixed(2) + " " + L.toFixed(2);
+    fg.style.strokeDashoffset = L.toFixed(2);
+    tl.fromTo(sr, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), t);
+    tl.fromTo(fg, { strokeDashoffset: L }, A({ strokeDashoffset: L * 0.07, duration: 0.6, ease: "power2.out" }), t);
+  });
+  const csc = q(".s31-cscan");
+  tl.fromTo(csc, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(pe + 3.12));
+  tl.fromTo(csc, { x: 0 }, A({ x: -920, duration: 0.9, ease: "power1.inOut" }), T(pe + 3.12));
+  tl.fromTo(csc, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), T(pe + 3.9));
+  E.burst(tl, root, 400, 562, T(pe + 3.45), { n: 14, seed: 31, r0: 70, r1: 190, color: "#c9c2ff" });
+};
+
+
+(function () {
+  const CFGS = [{"id": "t31", "sim": "sim31", "D": 40.46, "tStage": 1.18, "tExp": 1.78, "phr": [1.78, 4.23, 6.18, 8.13, 11.23], "phrEnd": 14.18, "tSimEnd": 19.68, "tFact": 19.68, "tPrompt": 26.0, "tPromptEnd": 35.6, "tTip": 35.6, "expZoom": 0.1, "simDur": 18.5, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim31": {"instruction": "שביד הזאת ירחף הלוגו של קלוד בתלת ממד", "cols": ["ההוראה", "זמן", "מה יקרה על המסך", "איך זה נגמר"], "approve": "לאישור", "brief": "BRIEF.md", "agents": "סוכן לכל סצנה", "critic": "מבקר עצמאי: ציון מעל 90"}, "S": 0.0}];
+  const WINDOW = null;
+  const fontsReady = Promise.all([
+    document.fonts.load('400 38px Rubik', 'אבג abc 123'),
+    document.fonts.load('800 62px Rubik', 'אבג abc'),
+    document.fonts.load('900 40px Rubik', 'אבג'),
+    document.fonts.load('600 27px "IBM Plex Mono"', 'abc 123'),
+    document.fonts.load('400 27px "IBM Plex Sans Hebrew"', 'אבג'),
+  ]).then(() => document.fonts.ready);
+  fontsReady.then(() => {
+    const stage = document.querySelector('.stagewrap');
+    const cam = document.getElementById('cam');
+    const master = gsap.timeline({ paused: true });
+    // slow background drift for the whole video (the "camera that never stops")
+    const TOT = 40.460;
+    master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    window.ENG.dust(master, document.getElementById('bg'), TOT);
+    for (const cfg of CFGS) {
+      const scene = document.getElementById('sc-' + cfg.id);
+      const scam = scene.querySelector('.scam') || cam;
+      const hdr = scene.querySelector('.hdr');
+      if (cfg.type === 'chapter') window.ENG.chapter(master, { stage, cam: scam, scene, hdr }, cfg);
+      else if (cfg.type === 'custom') window.SIMS[cfg.sim](master, { stage, cam: scam, scene, hdr }, cfg, cfg.S);
+      else window.ENG.topic(master, { stage, cam: scam, scene, hdr }, cfg);
+    }
+    let root = master;
+    if (WINDOW) {
+      root = gsap.timeline({ paused: true });
+      root.add(master.tweenFromTo(WINDOW[0], WINDOW[1], { duration: WINDOW[1] - WINDOW[0], ease: 'none' }), 0);
+    }
+    window.__ENG_DEBUG.ready = true;
+    window.__timelines['main'] = root;
+  });
+})();
+
+</script>
+</body>
+</html>

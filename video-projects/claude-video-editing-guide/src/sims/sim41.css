@@ -21,7 +21,7 @@
 .sim41 .s41-chk { position: absolute; inset: 0; opacity: 0; background-color: #23203a;
   background-image: repeating-conic-gradient(#3b3858 0% 25%, #23203a 0% 50%); background-size: 36px 36px; }
 .sim41 .s41-ovlo { position: absolute; left: 0; top: 0; width: 324px; height: 576px; overflow: visible; }
-.sim41 .s41-ovlo rect { fill: none; stroke: #c9c2ff; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.85)); }
+.sim41 .s41-ovlo path { fill: none; stroke: #c9c2ff; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.85)); }
 .sim41 .s41-card { position: absolute; left: 14px; width: 138px; height: 118px; border-radius: 20px; background: rgba(108, 76, 255, 0.88);
   border: 1.5px solid rgba(255, 255, 255, 0.24); box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35), 0 0 22px rgba(124, 92, 255, 0.35);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; opacity: 0; }
@@ -58,7 +58,7 @@
 .sim41 .s41-sp2 { left: 143px; }
 
 /* B1: the transparent file, with a leader to the lifted layer */
-.sim41 .s41-p1 { position: absolute; left: 60px; top: 228px; width: 380px; height: 240px; }
+.sim41 .s41-p1 { position: absolute; left: 60px; top: 372px; width: 380px; height: 240px; }
 .sim41 .s41-file { position: absolute; left: 112px; top: 0; width: 96px; height: 118px; opacity: 0; }
 .sim41 .s41-fileo { position: absolute; inset: 0; width: 96px; height: 118px; overflow: visible; }
 .sim41 .s41-fileo path { fill: rgba(26, 23, 52, 0.9); stroke: #c9c2ff; stroke-width: 3; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
@@ -74,7 +74,9 @@
 .sim41 .s41-p2 { position: absolute; left: 0; top: 0; width: 430px; height: 700px; }
 .sim41 .s41-mini { position: absolute; left: 38px; top: 62px; width: 324px; height: 576px; }
 .sim41 .s41-mbg { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; clip-path: inset(0px 0px 0px 100%);
-  background: linear-gradient(165deg, #3b2b92 0%, #2a1f6e 60%, #21185a 100%); box-shadow: inset 0 0 0 2px rgba(201, 194, 255, 0.4); }
+  background: linear-gradient(165deg, #3b2b92 0%, #2a1f6e 60%, #21185a 100%); }
+.sim41 .s41-mout { position: absolute; left: 0; top: 0; width: 324px; height: 576px; overflow: visible; }
+.sim41 .s41-mout path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.75)); }
 .sim41 .s41-tmp4 { left: 38px; }
 
 /* B3: a generic editor (not a real product): the MOV is not read, the MP4 goes in */
@@ -100,6 +102,7 @@
   font: 600 30px/1 "IBM Plex Mono", monospace; color: #ffffff; white-space: nowrap; opacity: 0; }
 .sim41 .s41-bmov { background: rgba(32, 28, 64, 0.97); border: 1.5px solid rgba(201, 194, 255, 0.55); }
 .sim41 .s41-bmp4 { background: rgba(74, 54, 184, 0.97); border: 1.5px solid rgba(201, 194, 255, 0.7); }
+.sim41 .s41-bmp4 .s41-swbrand { background: #21185a; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.75); }
 .sim41 .s41-ok, .sim41 .s41-no { position: absolute; right: -15px; top: -17px; width: 38px; height: 38px; border-radius: 50%; overflow: visible; opacity: 0; }
 .sim41 .s41-ok { background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.6); }
 .sim41 .s41-no { background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); }
@@ -115,3 +118,7 @@
 .sim41 .s41-gl { position: absolute; left: 0; width: 380px; text-align: center; color: var(--ink); opacity: 0; white-space: nowrap; }
 .sim41 .s41-gl1 { top: 96px; font: 600 36px/1.2 "Rubik"; }
 .sim41 .s41-gl2 { top: 150px; font: 800 44px/1.2 "Rubik"; color: #ffffff; }
+
+/* local light sweep (see sweep() in the js): the band starts and ends fully outside the element */
+.sim41 .s41-swp { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.sim41 .s41-swp b { position: absolute; top: 0; bottom: 0; left: 100%; display: block; }

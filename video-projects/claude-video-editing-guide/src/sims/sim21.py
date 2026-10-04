@@ -127,15 +127,15 @@ def _words(s, c):
     if k == "sil":
         return f'<span class="s21-silc" dir="rtl">{esc(c["silLabel"])}</span>'
     if k == "um":
-        return f'<span class="s21-w s21-um" dir="rtl">{esc(c["umWord"])}</span>'
+        return f'<span class="s21-w s21-umw" dir="rtl">{esc(c["umWord"])}</span>'
     for i, ww in enumerate(s["words"]):
         a = 0.85
         if k == "aband":
             a = (0.85, 0.66, 0.46)[i]
         out.append(f'<i class="s21-w" style="width:{ww}px;background:rgba(217, 212, 255, {a})"></i>')
     if k == "aband":
-        out.append('<svg class="s21-w s21-dots" viewBox="0 0 30 26" aria-hidden="true"><circle cx="25" cy="13" r="3"/>'
-                   '<circle cx="15" cy="13" r="3"/><circle cx="5" cy="13" r="3"/></svg>')
+        out.append('<span class="s21-w s21-dots"><svg viewBox="0 0 30 26" aria-hidden="true"><circle cx="25" cy="13" r="3"/>'
+                   '<circle cx="15" cy="13" r="3"/><circle cx="5" cy="13" r="3"/></svg></span>')
     if k == "take1":
         out.append(f'<i class="s21-w s21-brk" style="width:{BROKEN_W}px"></i>')
     return "".join(out)
@@ -151,7 +151,7 @@ def _seg_html(s, c):
         extra += '<i class="s21-st"></i>'
     if s["id"] == "k4":
         extra += '<i class="s21-keep"></i>'
-    data = f' data-line="{s["line"]}"'
+    data = f' data-line="{s["line"]}" data-kind="{s["kind"]}"'
     if s["kind"] == "keep":
         data += f' data-dx="{s["dx"]}" data-dy="{s["dy"]}"'
     cls = "s21-seg s21-k" if s["kind"] == "keep" else "s21-seg s21-x"
@@ -170,8 +170,7 @@ def _box(segs, pad=8):
 def _pict(kind, c):
     """'מה נמחק' cell: a small picture of what is deleted."""
     if kind == "sil":
-        return ('<svg class="s21-pg" viewBox="0 0 132 30" aria-hidden="true"><path class="s21-flat" d="M8 15H124"/>'
-                '<path class="s21-flat2" d="M30 15h0M52 15h0M74 15h0M96 15h0"/></svg>')
+        return ('<svg class="s21-pg" viewBox="0 0 132 30" aria-hidden="true"><path class="s21-flat" d="M8 15H125"/></svg>')
     if kind == "um":
         return f'<span class="s21-pum" dir="rtl">{esc(c["umWord"])}</span>'
     ws = (46, 36, 28) if kind == "aband" else (50, 36)
@@ -219,7 +218,7 @@ def html(cfg):
 
     # payoff: joins, leaders, label, play-through head (doc coordinates, the final strip sits on line 1)
     jtop = LINE_TOP[0] - 8
-    jhtml = "".join(f'<i class="s21-join" style="left:{j - 8}px;top:{jtop}px"><b></b><u></u></i>' for j in joins)
+    jhtml = "".join(f'<i class="s21-join" style="left:{j - 8}px;top:{jtop}px"><b></b><u></u><em></em></i>' for j in joins)
     lead = ""
     for j in joins:
         ex = min(520, max(280, 400 + (j - 400) * 0.45))
@@ -237,14 +236,17 @@ def html(cfg):
 
     # cuts table: columns זמן · מה נמחק · סיבה (RTL), one row per cut, then the approval button
     total = (R_EDGE - line_l[0]) + (R_EDGE - line_l[1])
-    rows, flies = "", ""
+    rows, flies, slots = "", "", ""
     for i, k in enumerate(CUTS):
         s = by[k]
         pos = (R_EDGE - (s["left"] + s["w"] / 2)) + (0 if s["line"] == 0 else R_EDGE - line_l[0])
         u = pos / total
+        rw = max(10.0, s["w"] / total * C1_W)
+        rr = max(0.0, min(C1_W - rw, u * C1_W - rw / 2))
+        slots += f'<i class="s21-slot" style="top:{ROW0 + i * ROW_P}px"></i>'
         rows += (f'<div class="s21-row" id="t21-r{i + 1}" style="top:{ROW0 + i * ROW_P}px">'
                  f'<span class="s21-c0">{SCISSORS.format(cls="s21-rsc")}</span>'
-                 f'<span class="s21-c1"><i class="s21-trk"><b style="right:{u * 100:.1f}%"></b></i></span>'
+                 f'<span class="s21-c1"><i class="s21-trk"><b style="right:{rr:.1f}px;width:{rw:.1f}px"></b></i></span>'
                  f'<span class="s21-c2">{_pict(s["kind"], c)}</span>'
                  f'<span class="s21-c3" dir="rtl">{esc(c["reasons"][i])}</span></div>')
         # a spark flies from the mark on the transcript to its row
@@ -255,7 +257,7 @@ def html(cfg):
     btn = (f'<div class="s21-btn"><i class="s21-bring"></i><span class="s21-bw" dir="rtl">{CLOCK}<span>{esc(c["wait"])}</span></span>'
            f'<span class="s21-bo" dir="rtl">{CHECK.format(cls="s21-bok")}<span>{esc(c["ok"])}</span></span></div>')
     table = (f'<div class="s21-table" style="top:{TABLE_TOP}px"><div class="s21-th"><span class="s21-c0"></span>{cols}</div>'
-             f'<i class="s21-tdiv"></i>{rows}{btn}</div>')
+             f'<i class="s21-tdiv"></i>{slots}{rows}{btn}</div>')
 
     return f"""<div class="simwrap sim21">
 <div class="s21-doc">
@@ -272,4 +274,4 @@ def html(cfg):
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
     return [("tick", P[0] + 1.55), ("snap", P[1] + 0.4), ("tick", P[2] + 0.9),
-            ("pop", pe + 1.1), ("swipe", pe + 2.2)]
+            ("pop", pe + 1.0), ("swipe", pe + 1.95)]

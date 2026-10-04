@@ -14,14 +14,15 @@ NEXT_LINE = "כל טיפ כאן נשען על כלי שיש עליו מדריך 
 CARDS = [
     ("HyperFrames", "התקנה צעד אחרי צעד, והנגן שבו כל שינוי מופיע מיד.", "film"),
     ("מושן גרפיקס", "9 פרומפטים לאנימציות ברמה של סטודיו, עם סקיל חינמי שאורז את כולם.", "spark"),
-    ("Remotion", "הכלי השני לעריכת סרטונים ואנימציות בקוד עם Claude Code.", "code"),
+    ("Remotion", "הכלי השני לעריכת סרטונים ואנימציות בקוד עם Claude\u00a0Code.", "code"),
     ("ניתוח וידאו", "שני סקילים חינמיים שנותנים לקלוד \"עיניים\": אחד מפרק סרטון לפריימים ולכתוביות, והשני מוריד סרטונים מיוטיוב, טיקטוק ואינסטגרם.", "eye"),
 ]
 DOCS = "ובתיעוד הרשמי: hyperframes.heygen.com, וההסברים של Higgsfield ו-fal על החיבור לקלוד."
 END_TITLE = "עריכת וידאו עם Claude"
-END_LINE = "הסרטון הזה נבנה ב-Claude Code עם HyperFrames, לפי השיטות שבו."
+END_LINE = "הסרטון הזה נבנה ב-Claude Code עם HyperFrames, לפי השיטות שמוצגות בו."
+END_BADGE = "21 פרומפטים מוכנים"
 
-T_RECAP, T_CHK0, CHK_STEP, T_NEXT, T_END, D = 0.2, 1.0, 0.3, 14.0, 28.4, 32.6
+T_RECAP, T_CHK0, CHK_STEP, T_NEXT, T_END, D = 0.2, 1.0, 0.3, 10.8, 24.8, 29.6
 
 ICONS = {
     "film": '<rect x="5" y="9" width="38" height="30" rx="5"/><path d="M5 17h38M5 31h38M14 9v8M24 9v8M34 9v8M14 31v8M24 31v8M34 31v8"/>',
@@ -34,7 +35,7 @@ CHECK = '<svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 1
 
 def _chip(label):
     d = "ltr" if all(ord(ch) < 0x0590 for ch in label.replace(" ", "")) else "rtl"
-    return f'<span class="sm-chip"><b dir="{d}">{esc(label)}</b>{CHECK}</span>'
+    return f'<span class="sm-chip">{CHECK}<b dir="{d}">{esc(label)}</b></span>'
 
 
 def scene(cfg):
@@ -45,12 +46,12 @@ def scene(cfg):
                     f'<div><h4 dir="{"ltr" if t.isascii() else "rtl"}">{esc(t)}</h4><p>{esc(d)}</p></div></div>' for t, d, ic in CARDS)
     docs = esc(DOCS).replace("hyperframes.heygen.com", '<span dir="ltr" class="sm-url">hyperframes.heygen.com</span>')
     et, _, _ = kinetic_html(END_TITLE, t0=T_END + 0.25, step=0.12, pause=0.0)
-    el, _, _ = kinetic_html(END_LINE, t0=T_END + 1.0, step=0.07, pause=0.0)
+    el, _, _ = kinetic_html(END_LINE, t0=T_END + 1.6, step=0.07, pause=0.0)
     inner = f"""<div class="hdr" dir="rtl"><span class="hdr-ch">פרק 8 · מה למדנו, ולאן ממשיכים</span></div>
 <div class="scam"><div class="summary">
 <div class="sm-recap"><p class="sm-kick" dir="rtl"><i></i>מה למדנו</p><div class="sm-blocks">{blocks}</div></div>
 <div class="sm-next"><p class="sm-kick" dir="rtl"><i></i>לאן ממשיכים</p><p class="sm-nl kin" dir="rtl">{nl}</p><div class="sm-cards">{cards}</div><p class="sm-docs" dir="rtl">{docs}</p></div>
-<div class="sm-end"><i class="ch-ring sm-ring"></i><i class="ch-ring ch-ring2 sm-ring"></i><h1 class="sm-tt kin" dir="rtl">{et}</h1><p class="sm-el kin" dir="rtl">{el}</p></div>
+<div class="sm-end"><i class="ch-ring sm-ring"></i><i class="ch-ring ch-ring2 sm-ring"></i><h1 class="sm-tt kin" dir="rtl">{et}</h1><span class="sm-badge" dir="rtl">{esc(END_BADGE)}</span><p class="sm-el kin" dir="rtl">{el}</p></div>
 </div></div>"""
     c = dict(cfg)
     c["D"] = D

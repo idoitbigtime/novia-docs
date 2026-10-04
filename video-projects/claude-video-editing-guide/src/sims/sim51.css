@@ -8,7 +8,7 @@
 .sim51 .s51-hubwrap { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
 .sim51 .s51-hub { position: absolute; left: 10px; top: 8px; width: 780px; height: 454px; border-radius: 24px; background: rgba(22, 20, 44, 0.82); opacity: 0; }
 .sim51 .s51-hubo { position: absolute; left: 0; top: 0; width: 780px; height: 454px; overflow: visible; }
-.sim51 .s51-hubo rect { fill: none; stroke: rgba(201, 194, 255, 0.55); stroke-width: 2; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.45)); }
+.sim51 .s51-hubo path { fill: none; stroke: rgba(201, 194, 255, 0.55); stroke-width: 2; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.45)); }
 .sim51 .s51-wd { position: absolute; left: 26px; top: 26px; display: flex; gap: 9px; }
 .sim51 .s51-wd u { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
 .sim51 .s51-htitle { position: absolute; right: 26px; top: 16px; display: flex; align-items: center; gap: 12px; font: 600 32px/1 "Rubik"; color: var(--ink); opacity: 0; }
@@ -37,7 +37,7 @@
 
 /* B2: the request, the scanning ring, the chosen model */
 .sim51 .s51-ring { position: absolute; width: 100px; height: 100px; border-radius: 22px; border: 3px solid #ffffff; box-shadow: 0 0 18px rgba(201, 194, 255, 0.9), inset 0 0 12px rgba(201, 194, 255, 0.4); display: block; opacity: 0; }
-.sim51 .s51-req { position: absolute; right: 30px; top: 500px; width: 340px; padding: 16px 24px 20px; border-radius: 22px 22px 6px 22px; background: rgba(26, 23, 52, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.32);
+.sim51 .s51-req { position: absolute; right: 30px; top: 500px; padding: 16px 26px 20px; border-radius: 22px 22px 6px 22px; background: rgba(26, 23, 52, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.32);
   display: flex; flex-direction: column; gap: 14px; direction: rtl; opacity: 0; }
 .sim51 .s51-rtag { display: flex; align-items: center; gap: 10px; font: 500 28px/1 "Rubik"; color: #b8b4cc; }
 .sim51 .s51-rtag i { width: 10px; height: 10px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.7); display: block; }
@@ -97,9 +97,9 @@
 .sim51 .s51-caret { position: absolute; left: 14px; top: 11px; width: 3px; height: 28px; border-radius: 1px; background: #ffffff; display: block; opacity: 0; }
 /* step 4: the account */
 .sim51 .s51-acct { width: 64px; height: 64px; margin-top: -32px; }
-.sim51 .s51-acct svg { width: 64px; height: 64px; display: block; overflow: visible; }
-.sim51 .s51-acct circle, .sim51 .s51-acct path { fill: rgba(201, 194, 255, 0.55); }
-.sim51 .s51-acct .s51-afr { fill: rgba(201, 194, 255, 0.1); stroke: #c9c2ff; stroke-width: 2; }
+.sim51 .s51-acct .s51-av { width: 64px; height: 64px; display: block; overflow: visible; }
+.sim51 .s51-av circle, .sim51 .s51-av path { fill: rgba(201, 194, 255, 0.55); }
+.sim51 .s51-av .s51-afr { fill: rgba(201, 194, 255, 0.1); stroke: #c9c2ff; stroke-width: 2; }
 .sim51 .s51-aok { right: -10px; bottom: -8px; width: 28px; height: 28px; }
 /* step 5: no API key, /mcp in the terminal */
 .sim51 .s51-key { width: 48px; height: 30px; flex: none; overflow: visible; }

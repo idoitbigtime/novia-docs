@@ -1,0 +1,93 @@
+/* 2.3 from 16:9 to 9:16, the crop follows the face (canvas 800 x 700). Source at the right, output at the left. */
+.sim23 .s23-tag { position: absolute; height: 34px; padding: 0 12px; border-radius: 9px; border: 1.5px solid rgba(201, 194, 255, 0.35); background: rgba(26, 23, 52, 0.9);
+  font: 600 26px/31px "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #d6d2ea; display: flex; align-items: center; opacity: 0; }
+
+/* the 9:16 output: a true crop of the same room */
+.sim23 .s23-out { position: absolute; border-radius: 20px; overflow: hidden; background: #0e0c1f; opacity: 0;
+  box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.55), 0 0 26px rgba(201, 194, 255, 0.22); }
+.sim23 .s23-ocam { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.sim23 .s23-oin { position: absolute; top: 0; }
+.sim23 .s23-ovl { position: absolute; inset: 0; }
+
+/* the 16:9 source */
+.sim23 .s23-src { position: absolute; border-radius: 16px; overflow: hidden; opacity: 0; box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.4), 0 18px 50px rgba(0, 0, 0, 0.45); }
+.sim23 .s23-room { position: absolute; left: 0; top: 0; width: 508px; height: 286px; overflow: hidden; background: linear-gradient(180deg, #2b255a 0%, #1f1a45 60%, #161332 100%); }
+.sim23 .s23-lamp { position: absolute; left: -100px; top: -120px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(169, 147, 255, 0.3), rgba(169, 147, 255, 0) 68%); display: block; }
+.sim23 .s23-win { position: absolute; left: 380px; top: 30px; width: 92px; height: 124px; border: 2px solid rgba(201, 194, 255, 0.3); border-radius: 6px;
+  background: linear-gradient(180deg, rgba(130, 118, 235, 0.2), rgba(60, 50, 140, 0.05)); }
+.sim23 .s23-win i { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(201, 194, 255, 0.26); display: block; }
+.sim23 .s23-win b { position: absolute; top: 48%; left: 0; right: 0; height: 2px; background: rgba(201, 194, 255, 0.26); display: block; }
+.sim23 .s23-pic { position: absolute; left: 168px; top: 42px; width: 58px; height: 42px; border: 2px solid rgba(201, 194, 255, 0.22); border-radius: 4px; display: block; }
+.sim23 .s23-shelf { position: absolute; left: 18px; top: 104px; width: 130px; height: 120px; overflow: visible; }
+.sim23 .s23-leaf { fill: rgba(201, 194, 255, 0.14); stroke: rgba(201, 194, 255, 0.5); stroke-width: 1.6; }
+.sim23 .s23-pot { fill: rgba(201, 194, 255, 0.18); stroke: rgba(201, 194, 255, 0.55); stroke-width: 1.6; }
+.sim23 .s23-board { fill: none; stroke: rgba(201, 194, 255, 0.45); stroke-width: 3; stroke-linecap: round; }
+.sim23 .s23-book { fill: rgba(201, 194, 255, 0.16); stroke: rgba(201, 194, 255, 0.45); stroke-width: 1.4; }
+.sim23 .s23-desk { display: none; }
+.sim23 .s23-p { position: absolute; }
+.sim23 .s23-psvg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; overflow: visible; }
+.sim23 .s23-fbox { position: absolute; overflow: visible; opacity: 0; }
+.sim23 .s23-fbox path { fill: none; stroke: #e8e4ff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+.sim23 .s23-fbox circle { fill: #ffffff; }
+
+/* crop window: grey dashed (fixed) -> red (follows the face); the dead zone rides inside it */
+.sim23 .s23-crop { position: absolute; top: 0; height: 286px; }
+.sim23 .s23-dim { position: absolute; top: 0; bottom: 0; width: 520px; background: rgba(6, 6, 14, 0.6); display: block; opacity: 0; }
+.sim23 .s23-dim-l { right: 100%; }
+.sim23 .s23-dim-r { left: 100%; }
+.sim23 .s23-zone { position: absolute; top: 0; bottom: 0; background: rgba(201, 194, 255, 0.13); border-left: 2px dashed rgba(201, 194, 255, 0.75);
+  border-right: 2px dashed rgba(201, 194, 255, 0.75); display: block; opacity: 0; transform-origin: 50% 50%; }
+.sim23 .s23-cfix, .sim23 .s23-cred { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; }
+.sim23 .s23-cfix { opacity: 0; clip-path: inset(0px 0px 100% 0px); }
+.sim23 .s23-cfix rect { fill: none; stroke: #c3bfd2; stroke-width: 3; stroke-dasharray: 11 8; }
+.sim23 .s23-cred { opacity: 0; }
+.sim23 .s23-ghost { position: absolute; top: 0; height: 286px; overflow: visible; opacity: 0; }
+.sim23 .s23-ghost rect { fill: none; stroke: #ff6b61; stroke-width: 3; }
+.sim23 .s23-cred rect { fill: none; stroke: #ff453a; stroke-width: 4; filter: drop-shadow(0 0 7px rgba(255, 69, 58, 0.75)); }
+.sim23 .s23-x { position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px 0 0 -60px; overflow: visible; opacity: 0; }
+.sim23 .s23-x path { fill: none; stroke: #ff453a; stroke-width: 9; stroke-linecap: round; filter: drop-shadow(0 0 10px rgba(255, 69, 58, 0.8)); }
+.sim23 .s23-arr { position: absolute; width: 36px; height: 19px; opacity: 0; }
+.sim23 .s23-arrow { width: 36px; height: 19px; display: block; }
+.sim23 .s23-fixl { position: absolute; width: 0; height: 40px; display: flex; justify-content: center; opacity: 0; }
+.sim23 .s23-fixl span { flex: none; display: flex; align-items: center; gap: 10px; font: 600 30px/1 "Rubik"; color: #dcd9e6; white-space: nowrap; direction: rtl; }
+.sim23 .s23-fixl i { width: 12px; height: 12px; border-radius: 50%; background: #b9b5c9; display: block; flex: none; }
+
+/* B1: every frame gets a face */
+.sim23 .s23-film { position: absolute; left: 0; top: 454px; width: 800px; height: 46px; }
+.sim23 .s23-fr { position: absolute; top: 0; width: 74px; height: 42px; border-radius: 6px; overflow: hidden; background: linear-gradient(180deg, #2b255a, #17142f);
+  box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.3); opacity: 0; }
+.sim23 .s23-fr svg { width: 74px; height: 42px; display: block; }
+.sim23 .s23-fsh { fill: #3b3274; stroke: rgba(201, 194, 255, 0.55); stroke-width: 1; }
+.sim23 .s23-fbx { fill: none; stroke: #ffffff; stroke-width: 2; opacity: 0; }
+.sim23 .s23-fscan { position: absolute; top: -6px; width: 3px; height: 54px; margin-left: -1.5px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 10px #c9c2ff; display: block; opacity: 0; }
+
+/* B2: the dead-zone label */
+.sim23 .s23-zl { position: absolute; display: flex; justify-content: center; opacity: 0; }
+.sim23 .s23-zl span, .sim23 .s23-el span { display: flex; align-items: center; gap: 12px; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; direction: rtl; }
+.sim23 .s23-zl span { padding: 8px 18px; border-radius: 999px; background: rgba(20, 18, 40, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.38); }
+.sim23 .s23-zl i, .sim23 .s23-el i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; flex: none; }
+.sim23 .s23-zlead { position: absolute; width: 2px; height: 22px; background: #c9c2ff; box-shadow: 0 0 6px rgba(201, 194, 255, 0.8); display: block; opacity: 0; transform-origin: 50% 0; }
+
+/* B3: what the phone cuts, the safe lines, the text */
+.sim23 .s23-edge { position: absolute; top: 0; bottom: 0; display: block; opacity: 0; clip-path: inset(0px 0px 100% 0px);
+  background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0 3px, rgba(0, 0, 0, 0) 3px 9px), rgba(6, 6, 14, 0.62); }
+.sim23 .s23-edge-l { left: 0; }
+.sim23 .s23-edge-r { right: 0; }
+.sim23 .s23-sl { position: absolute; top: 0; bottom: 0; width: 2px; display: block; opacity: 0; transform-origin: 50% 0;
+  background: repeating-linear-gradient(180deg, #d9d4ff 0 9px, rgba(0, 0, 0, 0) 9px 15px); filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+.sim23 .s23-stag { position: absolute; width: 0; display: flex; justify-content: center; opacity: 0; }
+.sim23 .s23-stag b { flex: none; font: 600 26px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ece9f7; padding: 5px 9px 4px; border-radius: 8px;
+  background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.45); }
+.sim23 .s23-br { position: absolute; height: 58px; display: flex; justify-content: center; opacity: 0; }
+.sim23 .s23-brl { position: absolute; left: 0; right: 0; top: 0; height: 12px; border: 2px solid rgba(201, 194, 255, 0.65); border-top: none; border-radius: 0 0 6px 6px; display: block; }
+.sim23 .s23-br span { flex: none; margin-top: 22px; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim23 .s23-pill { position: absolute; left: 50%; top: 326px; width: 112px; margin-left: -56px; height: 50px; border-radius: 14px; background: #ffffff; color: #0b0b0b;
+  font: 800 30px/50px "Rubik"; text-align: center; opacity: 0; box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4); }
+
+/* payoff: the eye line through both frames */
+.sim23 .s23-eye { position: absolute; left: 0; width: 800px; height: 2px; display: block; opacity: 0; transform-origin: 100% 50%;
+  background: repeating-linear-gradient(90deg, #e2deff 0 10px, rgba(0, 0, 0, 0) 10px 16px); filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.95)); }
+.sim23 .s23-el { position: absolute; height: 40px; display: flex; align-items: center; opacity: 0; }
+.sim23 .s23-elead { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; }
+.sim23 .s23-elead path { fill: none; stroke: rgba(201, 194, 255, 0.85); stroke-width: 2; stroke-linejoin: round; }
+.sim23 .s23-focus { position: absolute; display: block; }

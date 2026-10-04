@@ -26,8 +26,8 @@ CHART = [(12, 80), (46, 66), (80, 72), (114, 50), (148, 58), (182, 38), (216, 46
 # zoom segments on the recording track: (left, width) in track px; the first one is the B0 zoom
 SEGS = [(334, 189), (238, 62), (150, 58), (66, 52), (8, 40)]
 
-# click points (recording px): button, chart, cards, side row
-CLICKS = [(80, 291), (230, 210), (204, 118), (452, 82)]
+# click points (recording px): button, chart, cards, side row 3
+CLICKS = [(80, 291), (230, 210), (204, 118), (452, 128)]
 
 
 def _spiral(cx=27, cy=27, turns=2.5, a=1.2, b=1.55, n=64):
@@ -63,13 +63,17 @@ def html(cfg):
     vf = ('<svg class="s62-vf" viewBox="0 0 504 314" aria-hidden="true">'
           '<path d="M14 46 V14 H46"/><path d="M458 14 H490 V46"/><path d="M490 268 V300 H458"/><path d="M46 300 H14 V268"/></svg>')
     a1, lat, a1b = c["askL1"]
+    # words wrapped in plain inline spans (no bidi change) so the typing can stop at word edges
+    wd = lambda t: f'<span class="s62-wd">{esc(t)}</span>'
+    ws1 = " ".join(wd(w) for w in a1.split()) + f'<span class="s62-lat" dir="ltr">{" ".join(wd(w) for w in lat.split())}</span>{esc(a1b)}'
+    ws2 = " ".join(wd(w) for w in c["askL2"].split())
     return f"""<div class="simwrap sim62">
 <i class="s62-glow"></i>
 <div class="s62-lid"><i class="s62-cam"></i>
 <div class="s62-screen" data-focus="3">
 <div class="s62-zb"><div class="s62-za">{_app()}</div><div class="s62-gw"><div class="s62-gz">{_app(ghost=True)}</div></div></div>
 {vf}
-<div class="s62-hud"><i></i><span dir="ltr">{esc(c["recName"])}</span></div>
+<div class="s62-hud"><div class="s62-hudp"><i></i><span dir="ltr">{esc(c["recName"])}</span></div></div>
 </div>
 <div class="s62-no"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M9.5 9.5l11 11"/><path d="M20.5 9.5l-11 11"/></svg></div>
 <div class="s62-ok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></div>
@@ -80,8 +84,8 @@ def html(cfg):
 <svg class="s62-lead" viewBox="0 0 20 60" aria-hidden="true"><path d="M10 2 V52"/></svg>
 <div class="s62-lbl s62-auto" dir="rtl"><i></i><span>{esc(c["autoLabel"])}</span></div>
 <div class="s62-ask"><div class="s62-lbl s62-asklbl" dir="rtl"><i></i><span>{esc(c["askLabel"])}</span></div>
-<div class="s62-bub"><div class="s62-ln" dir="rtl"><span class="s62-tx s62-tx1">{esc(a1)}<span class="s62-lat" dir="ltr">{esc(lat)}</span>{esc(a1b)}</span></div>
-<div class="s62-ln" dir="rtl"><span class="s62-tx s62-tx2">{esc(c["askL2"])}</span></div>
+<div class="s62-bub"><div class="s62-ln" dir="rtl"><span class="s62-tx s62-tx1">{ws1}</span></div>
+<div class="s62-ln" dir="rtl"><span class="s62-tx s62-tx2">{ws2}</span></div>
 <i class="s62-caret s62-c1"></i><i class="s62-caret s62-c2"></i></div></div>
 <div class="s62-legend" dir="rtl"><div class="s62-lg s62-lgb"><i></i><span>{esc(c["bouncyLabel"])}</span></div>
 <div class="s62-lg s62-lga"><i>{MAG}</i><span>{esc(c["autoLabel"])}</span></div></div>
@@ -92,4 +96,4 @@ def html(cfg):
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
     return [("tick", P[0] + 1.14), ("swipe", P[1] + 0.05), ("pop", P[2] + 0.25),
-            ("glitch_soft", P[3] + 1.4), ("shimmer", pe + 0.9), ("whoosh_soft", pe + 1.85)]
+            ("glitch_soft", P[3] + 1.4), ("shimmer", pe + 0.95), ("whoosh_soft", pe + 2.2)]

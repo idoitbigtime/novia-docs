@@ -31,12 +31,18 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
   const l1 = q(".c1-l1"), ty1 = q(".c1-ty1");
   tl.fromTo(l1, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t(0.9));
   tl.fromTo(ty1, { clipPath: "inset(0px 100% 0px 0px)" }, A({ clipPath: "inset(0px 0% 0px 0px)", duration: 0.5, ease: "steps(6)" }), t(1.0));
-  qa(".c1-file").forEach((f, i) => {
-    tl.fromTo(f, { opacity: 0, y: 26 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(1.5 + i * 0.15));
+  const files = qa(".c1-file");
+  files.forEach((f, i) => {
+    const r = files.length - 1 - i;     // right to left
+    tl.fromTo(f, { opacity: 0, y: 26 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(1.5 + r * 0.12));
     // Claude works on each file
-    tl.fromTo(f, { borderColor: "rgba(201, 194, 255, 0.3)" }, A({ borderColor: "rgba(201, 194, 255, 1)", duration: 0.2 }), t(2.2 + i * 0.3));
-    tl.fromTo(f, { boxShadow: "0 0 0px rgba(201, 194, 255, 0)" }, A({ boxShadow: "0 0 22px rgba(201, 194, 255, 0.7)", duration: 0.2 }), t(2.2 + i * 0.3));
+    tl.fromTo(f, { borderColor: "rgba(201, 194, 255, 0.3)" }, A({ borderColor: "rgba(201, 194, 255, 1)", duration: 0.2 }), t(2.2 + r * 0.3));
+    tl.fromTo(f, { boxShadow: "0 0 0px rgba(201, 194, 255, 0)" }, A({ boxShadow: "0 0 22px rgba(201, 194, 255, 0.7)", duration: 0.2 }), t(2.2 + r * 0.3));
   });
+  // a blinking cursor while the terminal waits
+  const cur = q(".c1-cur1");
+  for (let k = 0; k < 16; k++) tl.set(cur, { opacity: k % 2 ? 0 : 1 }, t(1.55 + k * 0.5));
+  tl.set(cur, { opacity: 0 }, t(9.6));
   // ...and runs programs
   const run = q(".c1-run");
   tl.fromTo(run, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), t(P1[1]));
@@ -62,13 +68,14 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
 
   // ---- S2 the HyperFrames skills
   const P2 = secs[1].phr;
-  tl.fromTo(term, { scale: 1, y: 0 }, A({ scale: 0.6, y: 170, duration: 0.8, ease: SP }), t(10.3));
+  tl.fromTo(term, { scale: 1, y: 0 }, A({ scale: 0.76, y: 120, duration: 0.8, ease: SP }), t(10.3));
   const glow = q(".c1-glow");
   qa(".c1-skill").forEach((k, i) => {
     const a = 10.9 + i * 0.25;
-    tl.fromTo(k, { opacity: 0, x: 40 }, A({ opacity: 1, x: 0, duration: 0.45, ease: SP }), t(a));
-    const fy = 430 - (300 + i * 110);
-    tl.fromTo(k, { x: 0, y: 0, scale: 1 }, A({ x: -313, y: fy, scale: 0.3, duration: 0.5, ease: "power2.in" }), t(a + 0.75));
+    tl.fromTo(k, { opacity: 0, y: 24 }, A({ opacity: 1, y: 0, duration: 0.45, ease: SP }), t(a));
+    // into the terminal (its centre is at 400, 400 of the picture)
+    const fy = 400 - (6 + i * 76 + 30), fx = 400 - (606 + 95);
+    tl.fromTo(k, { x: 0, y: 0, scale: 1 }, A({ x: fx, y: fy, scale: 0.3, duration: 0.5, ease: "power2.in" }), t(a + 0.75));
     tl.fromTo(k, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(a + 1.1));
   });
   tl.fromTo(glow, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t(11.95));
@@ -80,7 +87,7 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
   // ...and export it as a video file
   const mp4 = q(".c1-mp4");
   tl.fromTo(mp4, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), t(P2[2] + 0.1));
-  tl.fromTo(mp4, { x: 210, scale: 0.6 }, A({ x: 0, scale: 1, duration: 0.7, ease: SP }), t(P2[2] + 0.1));
+  tl.fromTo(mp4, { x: 290, y: -270, scale: 0.5 }, A({ x: 0, y: 0, scale: 1, duration: 0.7, ease: SP }), t(P2[2] + 0.1));
   tl.fromTo(q(".c1-prog b"), { scaleX: 0 }, A({ scaleX: 1, duration: 0.8, ease: "power1.inOut" }), t(P2[2] + 0.55));
   E.burst(tl, mp4, 100, 40, t(P2[2] + 1.35), { n: 10, seed: 31, r0: 40, r1: 110, color: "#ff8a80" });
   const free = q(".c1-free .pill");
@@ -106,16 +113,17 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
     tl.fromTo(dot, { y: ymid }, A({ y: y1, duration: 0.45, ease: "sine.in" }), t(a + 0.45));
     tl.fromTo(dot, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(a + 0.85));
   };
-  travel(d1, P3[1] + 0.6, 708, 566, 238, 356, 300);
-  travel(d1, P3[1] + 1.55, 708, 566, 238, 356, 300);
+  travel(d1, P3[1] + 0.6, 600, 462, 120, 95, 232);
+  travel(d1, P3[1] + 1.55, 600, 462, 120, 95, 232);
   tl.fromTo(glow, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), t(P3[1] + 1.45));
   tl.fromTo(glow, { opacity: 1 }, A({ opacity: 0, duration: 0.5 }), t(P3[1] + 1.65));
   // talk to it in Hebrew; the whole picture: folder -> Claude Code -> MP4
   const say = q(".c1-say");
   tl.fromTo(say, { opacity: 0, scale: 0.8, y: 16 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.5, ease: SP }), t(P3[2] + 0.15));
   E.draw(tl, arc2, t(P3[2] + 0.6), 0.6);
-  travel(d2, P3[2] + 1.1, 234, 92, 238, 300, 346);
-  travel(d2, P3[2] + 2.05, 234, 92, 238, 300, 346);
+  travel(d2, P3[2] + 1.1, 146, 112, 520, 470, 594);
+  travel(d2, P3[2] + 2.05, 146, 112, 520, 470, 594);
+  E.sweep(tl, term, t(P3[2] + 2.6), 0.9, { color: "rgba(201, 194, 255, 0.14)" });
   tl.fromTo(mp4, { boxShadow: "0 0 22px rgba(255, 69, 58, 0.4)" }, A({ boxShadow: "0 0 44px rgba(255, 69, 58, 0.9)", duration: 0.25 }), t(P3[2] + 2.0));
   [term, mp4, fw, say, q(".c1-arcs")].forEach((el) => E.dim(tl, el, t(30.1), 0, 1, 0.3));
 
@@ -160,8 +168,19 @@ window.SIMS.ch1 = function (tl, ctx, cfg, S) {
   tl.fromTo(box, { opacity: 0, scale: 0.94, y: 30 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.6, ease: SP }), t(40.0));
   qa(".c1-shield path").forEach((p, i) => E.draw(tl, p, t(40.15 + i * 0.35), 0.5));
   E.kin(tl, q(".c1-ct"), S, { dy: 14 });
-  E.sweep(tl, box, t(41.7), 0.9, { color: "rgba(201, 194, 255, 0.14)" });
+  // the picture: the prompt goes to a separate copy of Claude, and a check comes back
+  const cm = q(".c1-cmini"), ct = q(".c1-cterm"), ok = q(".c1-cok");
+  tl.fromTo(cm, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(40.35));
+  tl.fromTo(ct, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SP }), t(40.5));
+  E.draw(tl, q(".c1-carrow path"), t(41.0), 0.5);
+  tl.fromTo(cm, { x: 0, scale: 1 }, A({ x: -475, scale: 0.4, duration: 0.55, ease: "power2.in" }), t(41.55));
+  tl.fromTo(cm, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), t(41.95));
+  tl.fromTo(ok, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }), t(42.2));
+  E.draw(tl, q(".c1-cok path"), t(42.35), 0.35);
+  E.burst(tl, ct, 170, 180, t(42.3), { n: 14, seed: 23, r0: 60, r1: 160, color: "#c9c2ff" });
+  E.sweep(tl, box, t(42.6), 0.9, { color: "rgba(201, 194, 255, 0.14)" });
   E.fadeOut(tl, box, t(cfg.D - 0.4), 0.3, -16);
+  E.fadeOut(tl, q(".c1-cpic"), t(cfg.D - 0.4), 0.3, -16);
   E.fadeOut(tl, q(".hdr"), t(cfg.D - 0.4), 0.3, 0);
   E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "custom" };
 };

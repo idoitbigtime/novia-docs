@@ -1,0 +1,149 @@
+/* 5.2 fal.ai: a prepaid wallet, you pay only for what came out, then the connection steps (canvas 800 x 700) */
+.sim52 .s52-ok-p, .sim52 .s52-rok path, .sim52 .s52-uok path, .sim52 .s52-sok path, .sim52 .s52-cok path, .sim52 .s52-calok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim52 .s52-rok, .sim52 .s52-uok, .sim52 .s52-sok, .sim52 .s52-cok, .sim52 .s52-calok { border-radius: 50%; background: #2b2560; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.7); overflow: visible; display: block; }
+
+/* the wallet and its balance (persistent through the five beats) */
+.sim52 .s52-walu { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
+.sim52 .s52-wal { position: absolute; left: 480px; top: 165px; width: 290px; height: 212px; }
+.sim52 .s52-wfill, .sim52 .s52-wline { position: absolute; left: 0; top: 0; width: 290px; height: 212px; overflow: visible; display: block; }
+.sim52 .s52-wfill { opacity: 0; }
+.sim52 .s52-wc1 { fill: #3b3274; stroke: rgba(201, 194, 255, 0.5); stroke-width: 1.5; }
+.sim52 .s52-wc2 { fill: #2c3f7a; stroke: rgba(201, 194, 255, 0.5); stroke-width: 1.5; }
+.sim52 .s52-wst { fill: none; stroke: rgba(201, 194, 255, 0.22); stroke-width: 1.5; stroke-dasharray: 4 5; }
+.sim52 .s52-wtab { fill: #241f4c; }
+.sim52 .s52-wbtn { fill: #c9c2ff; }
+.sim52 .s52-wline path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
+.sim52 .s52-wname { position: absolute; left: 30px; bottom: 28px; font: 600 34px/1 "Rubik"; color: #c9c2ff; opacity: 0; }
+.sim52 .s52-meter { position: absolute; left: 484px; top: 411px; width: 282px; height: 46px; display: flex; justify-content: space-between; direction: rtl; }
+.sim52 .s52-cell { position: relative; width: 23px; height: 46px; border-radius: 7px; border: 1.5px solid rgba(201, 194, 255, 0.34); display: block; opacity: 0; }
+.sim52 .s52-cell b { position: absolute; left: 3px; right: 3px; top: 3px; bottom: 3px; border-radius: 4px; background: linear-gradient(180deg, #f2efff, #aaa0f0); box-shadow: 0 0 10px rgba(201, 194, 255, 0.75); display: block; opacity: 0; transform-origin: 50% 100%; }
+.sim52 .s52-bal { position: absolute; right: 34px; top: 473px; display: flex; align-items: center; gap: 10px; direction: rtl; font: 500 30px/1 "Rubik"; color: #d6d2e6; opacity: 0; }
+.sim52 .s52-bal i { width: 11px; height: 11px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; }
+.sim52 .s52-coin { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; display: block; opacity: 0;
+  background: radial-gradient(circle at 34% 30%, #ffffff 0%, #e4dfff 28%, #a99ff0 72%, #8a7fdc 100%); border: 2px solid #f0edff; box-shadow: 0 0 16px rgba(201, 194, 255, 0.85); }
+.sim52 .s52-coin::after { content: ""; position: absolute; left: 8px; top: 8px; right: 8px; bottom: 8px; border-radius: 50%; border: 2px solid rgba(70, 58, 140, 0.45); }
+
+/* B1: the subscription that fal does not require */
+.sim52 .s52-sub { position: absolute; left: 30px; top: 165px; width: 410px; height: 300px; border-radius: 22px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.26); opacity: 0; }
+.sim52 .s52-subh { position: absolute; right: 24px; top: 26px; display: flex; align-items: center; gap: 12px; direction: rtl; }
+.sim52 .s52-rep { width: 36px; height: 36px; overflow: visible; display: block; }
+.sim52 .s52-rep path { fill: none; stroke: #c9c2ff; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.sim52 .s52-subh b { font: 700 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim52 .s52-subr { position: absolute; right: 24px; left: 24px; height: 50px; display: flex; align-items: center; gap: 16px; direction: rtl; opacity: 0; }
+.sim52 .s52-pg { width: 34px; height: 34px; flex: none; display: block; }
+.sim52 .s52-pg rect, .sim52 .s52-pg path { fill: none; stroke: rgba(201, 194, 255, 0.75); stroke-width: 2.2; stroke-linecap: round; }
+.sim52 .s52-bar { height: 14px; border-radius: 7px; background: rgba(201, 194, 255, 0.28); display: block; flex: none; }
+.sim52 .s52-cg { width: 32px; height: 32px; margin-right: auto; flex: none; display: block; }
+.sim52 .s52-cg circle { fill: rgba(201, 194, 255, 0.2); stroke: #d9d4ff; stroke-width: 2; }
+.sim52 .s52-cg circle + circle { fill: none; stroke: rgba(217, 212, 255, 0.6); }
+.sim52 .s52-strike { position: absolute; left: 0; top: 0; width: 410px; height: 300px; overflow: visible; }
+.sim52 .s52-strike path { fill: none; stroke: #ff453a; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(255, 69, 58, 0.7)); }
+.sim52 .s52-x { position: absolute; left: -16px; top: -16px; width: 44px; height: 44px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: block; opacity: 0; }
+.sim52 .s52-x svg { width: 44px; height: 44px; display: block; }
+.sim52 .s52-x path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
+
+/* B2: the billing dashboard */
+.sim52 .s52-dash { position: absolute; left: 30px; top: 150px; width: 410px; height: 400px; border-radius: 22px; background: rgba(22, 20, 44, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.28); opacity: 0; }
+.sim52 .s52-dbar, .sim52 .s52-tbar { height: 58px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; border-bottom: 1px solid rgba(201, 194, 255, 0.14); direction: rtl; }
+.sim52 .s52-dt, .sim52 .s52-tt { display: flex; align-items: center; gap: 10px; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim52 .s52-tt { flex-direction: row-reverse; font-size: 28px; }
+.sim52 .s52-dt i { width: 11px; height: 11px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; }
+.sim52 .s52-dots { display: flex; gap: 8px; direction: ltr; }
+.sim52 .s52-dots u { width: 11px; height: 11px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
+.sim52 .s52-chart { position: absolute; left: 44px; right: 44px; top: 92px; height: 140px; display: flex; align-items: flex-end; justify-content: space-between; direction: rtl; border-bottom: 1.5px solid rgba(201, 194, 255, 0.25); }
+.sim52 .s52-chart i { width: 30px; border-radius: 8px 8px 3px 3px; background: linear-gradient(180deg, rgba(201, 194, 255, 0.55), rgba(201, 194, 255, 0.12)); display: block; transform-origin: 50% 100%; }
+.sim52 .s52-buy { position: absolute; left: 56px; right: 56px; top: 288px; height: 72px; border-radius: 999px; background: #d6d0ff; display: flex; align-items: center; justify-content: center; gap: 12px; direction: rtl; box-shadow: 0 0 22px rgba(201, 194, 255, 0.45); overflow: hidden; }
+.sim52 .s52-buy svg { width: 26px; height: 26px; display: block; }
+.sim52 .s52-buy path { fill: none; stroke: #17142f; stroke-width: 3.2; stroke-linecap: round; }
+.sim52 .s52-buy b { font: 700 32px/1 "Rubik"; color: #17142f; white-space: nowrap; }
+
+/* B3: a result that came out */
+.sim52 .s52-res { position: absolute; left: 30px; top: 140px; width: 410px; height: 410px; border-radius: 22px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.26); opacity: 0; }
+.sim52 .s52-thumb { position: absolute; left: 95px; top: 42px; width: 220px; height: 220px; border-radius: 18px; background: linear-gradient(160deg, #4f3d94 0%, #2a2560 55%, #1a1638 100%); border: 1.5px solid rgba(201, 194, 255, 0.4); }
+.sim52 .s52-pic { position: absolute; left: 0; top: 0; width: 217px; height: 217px; border-radius: 17px; display: block; }
+.sim52 .s52-pic circle { fill: #f3f0ff; }
+.sim52 .s52-pic path { fill: rgba(150, 138, 230, 0.9); }
+.sim52 .s52-gen { position: absolute; left: 0; top: 0; right: 0; bottom: 0; border-radius: 17px; background: linear-gradient(160deg, #241f4c, #110e24); display: block; }
+.sim52 .s52-ring { position: absolute; left: 68px; top: 68px; width: 80px; height: 80px; overflow: visible; transform: rotate(-90deg); }
+.sim52 .s52-rt { fill: none; stroke: rgba(201, 194, 255, 0.2); stroke-width: 6; }
+.sim52 .s52-rp { fill: none; stroke: #e2deff; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.8)); }
+.sim52 .s52-rok { position: absolute; left: -15px; top: -15px; width: 40px; height: 40px; opacity: 0; }
+.sim52 .s52-resl { position: absolute; left: 0; right: 0; top: 304px; display: flex; justify-content: center; direction: rtl; opacity: 0; }
+.sim52 .s52-resl span { font: 600 34px/1.1 "Rubik"; color: var(--ink); white-space: nowrap; }
+
+/* B4: a server error and a queue (their coins come back), the stamp */
+.sim52 .s52-ca, .sim52 .s52-cb { position: absolute; left: 30px; width: 420px; height: 150px; border-radius: 20px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.26); opacity: 0; }
+.sim52 .s52-ca { top: 126px; }
+.sim52 .s52-cb { top: 296px; }
+.sim52 .s52-cin { position: absolute; right: 26px; top: 39px; display: flex; align-items: center; gap: 18px; direction: rtl; }
+.sim52 .s52-cin b { font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim52 .s52-ico { width: 72px; height: 72px; flex: none; overflow: visible; display: block; }
+.sim52 .s52-ico rect { fill: rgba(201, 194, 255, 0.12); stroke: #c9c2ff; stroke-width: 2; }
+.sim52 .s52-sl { fill: none; stroke: rgba(201, 194, 255, 0.5); stroke-width: 2.4; stroke-linecap: round; }
+.sim52 .s52-led { fill: #c9c2ff; }
+.sim52 .s52-hg path { fill: none; stroke: #c9c2ff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim52 .s52-hg .s52-sand { fill: rgba(201, 194, 255, 0.6); stroke: none; }
+.sim52 .s52-warn { position: absolute; right: 74px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 12px rgba(255, 69, 58, 0.7); display: block; opacity: 0; }
+.sim52 .s52-warn svg { width: 34px; height: 34px; display: block; }
+.sim52 .s52-warn path { fill: none; stroke: #ff6b61; stroke-width: 3.6; stroke-linecap: round; }
+.sim52 .s52-q { position: absolute; left: 24px; top: 64px; width: 76px; height: 22px; overflow: hidden; display: flex; gap: 8px; direction: ltr; }
+.sim52 .s52-q i { width: 20px; height: 20px; border-radius: 6px; background: rgba(201, 194, 255, 0.4); display: block; flex: none; }
+.sim52 .s52-stamp { position: absolute; left: 96px; top: 494px; width: 300px; height: 96px; border-radius: 16px; border: 4px solid #ff5a4f; background: rgba(34, 12, 20, 0.6);
+  box-shadow: 0 0 22px rgba(255, 69, 58, 0.45), inset 0 0 0 5px rgba(12, 10, 22, 0.9), inset 0 0 0 7px rgba(255, 90, 79, 0.65); display: flex; align-items: center; justify-content: center; opacity: 0; }
+.sim52 .s52-stamp span { font: 800 46px/1 "Rubik"; color: #ff6b61; text-shadow: 0 0 14px rgba(255, 69, 58, 0.55); white-space: nowrap; }
+
+/* B5: valid for a year */
+.sim52 .s52-cal { position: absolute; left: 30px; top: 140px; width: 420px; height: 430px; border-radius: 22px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.26); transform-origin: 50% 0%; opacity: 0; }
+.sim52 .s52-rg { position: absolute; top: -14px; width: 14px; height: 34px; border-radius: 7px; background: #0d0c1d; border: 2px solid #c9c2ff; display: block; }
+.sim52 .s52-rg1 { left: 104px; }
+.sim52 .s52-rg2 { right: 104px; }
+.sim52 .s52-calh { position: absolute; right: 28px; top: 36px; display: flex; align-items: center; gap: 12px; direction: rtl; }
+.sim52 .s52-calh b { font: 700 36px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim52 .s52-calok { width: 34px; height: 34px; opacity: 0; }
+.sim52 .s52-months { position: absolute; left: 29px; top: 104px; width: 362px; display: grid; grid-template-columns: repeat(4, 80px); grid-auto-rows: 84px; gap: 14px; direction: rtl; }
+.sim52 .s52-mo { position: relative; border-radius: 10px; border: 1.5px solid rgba(201, 194, 255, 0.3); background: rgba(14, 12, 30, 0.85); display: block; overflow: hidden; }
+.sim52 .s52-mo u { position: absolute; left: 0; right: 0; top: 0; height: 20px; background: rgba(201, 194, 255, 0.22); display: block; }
+.sim52 .s52-mo b { position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: block; opacity: 0;
+  background: linear-gradient(180deg, rgba(222, 217, 255, 0.95) 0, rgba(222, 217, 255, 0.95) 20px, rgba(201, 194, 255, 0.24) 20px, rgba(201, 194, 255, 0.08) 100%); }
+
+/* payoff: Claude Code, the reopen hint, claude.ai */
+.sim52 .s52-term, .sim52 .s52-hint, .sim52 .s52-web { position: absolute; left: 20px; width: 760px; border-radius: 22px; background: rgba(14, 13, 30, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.28); transform-origin: 50% 0%; opacity: 0; }
+.sim52 .s52-term { top: 14px; height: 316px; }
+.sim52 .s52-hint { top: 346px; height: 122px; background: rgba(26, 23, 52, 0.94); }
+.sim52 .s52-web { top: 484px; height: 202px; }
+.sim52 .s52-addr { font: 500 26px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #d8d4ea; padding: 8px 16px; border-radius: 999px; background: rgba(201, 194, 255, 0.1); border: 1px solid rgba(201, 194, 255, 0.22); }
+.sim52 .s52-st { position: absolute; left: 24px; right: 22px; display: flex; align-items: center; gap: 14px; direction: rtl; opacity: 0; }
+.sim52 .s52-st1 { top: 72px; }
+.sim52 .s52-st2 { top: 196px; }
+.sim52 .s52-st4 { top: 74px; }
+.sim52 .s52-n { width: 44px; height: 44px; border-radius: 50%; background: #1f1a3f; border: 2px solid rgba(201, 194, 255, 0.65); display: grid; place-items: center; font: 700 27px/1 "Rubik"; font-style: normal; color: #ffffff; flex: none; }
+.sim52 .s52-cap { font: 500 30px/1.2 "Rubik"; color: #ece9f7; white-space: nowrap; }
+.sim52 .s52-in { position: absolute; left: 24px; right: 24px; top: 128px; height: 56px; display: flex; align-items: center; gap: 14px; padding: 0 16px; border-radius: 12px; background: #090814; border: 1.5px solid rgba(201, 194, 255, 0.3); direction: ltr; }
+.sim52 .s52-pr { font: 600 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #9c99ae; }
+.sim52 .s52-url { position: relative; display: block; }
+.sim52 .s52-typed { position: relative; display: block; font: 500 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #e8e4ff; white-space: nowrap; letter-spacing: -0.01em; clip-path: inset(0px 100% 0px 0px); }
+.sim52 .s52-sel { position: absolute; left: -5px; right: -5px; top: -8px; bottom: -8px; border-radius: 6px; background: rgba(201, 194, 255, 0.4); display: block; opacity: 0; }
+.sim52 .s52-uok { width: 32px; height: 32px; margin-left: auto; flex: none; opacity: 0; }
+.sim52 .s52-key { width: 48px; height: 30px; flex: none; overflow: visible; display: block; }
+.sim52 .s52-key circle, .sim52 .s52-key path { fill: none; stroke: #9c99ae; stroke-width: 2.6; stroke-linecap: round; }
+.sim52 .s52-key .s52-kx { stroke: #ece9f7; stroke-width: 3; }
+.sim52 .s52-out { position: absolute; left: 24px; right: 24px; top: 250px; height: 50px; display: flex; align-items: center; gap: 14px; padding: 0 16px; direction: ltr; opacity: 0; }
+.sim52 .s52-cmd { font: 500 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #e8e4ff; display: inline-block; clip-path: inset(0px 100% 0px 0px); }
+.sim52 .s52-srv { position: relative; display: flex; align-items: center; gap: 10px; margin-left: 22px; padding: 7px 16px 7px 14px; border-radius: 10px; background: rgba(201, 194, 255, 0.12); border: 1.5px solid rgba(201, 194, 255, 0.4); font: 500 28px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ffffff; opacity: 0; }
+.sim52 .s52-sdot { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px #c9c2ff; display: block; }
+.sim52 .s52-sok { position: absolute; right: -12px; top: -12px; width: 28px; height: 28px; opacity: 0; }
+.sim52 .s52-hint .s52-n { position: absolute; right: 22px; top: 22px; }
+.sim52 .s52-h1 { position: absolute; right: 82px; top: 27px; direction: rtl; font: 600 32px/1.1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim52 .s52-h2 { position: absolute; right: 24px; top: 76px; direction: rtl; font: 400 30px/1.1 "Rubik"; color: #c4c0d6; white-space: nowrap; }
+.sim52 .s52-rst { position: absolute; left: 24px; top: 21px; width: 80px; height: 80px; overflow: visible; }
+.sim52 .s52-rarr path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.7)); }
+.sim52 .s52-fold { fill: rgba(201, 194, 255, 0.2); stroke: #e2deff; stroke-width: 2.2; stroke-linejoin: round; }
+.sim52 .s52-chips { position: absolute; right: 22px; left: 22px; top: 132px; display: flex; gap: 18px; direction: rtl; }
+.sim52 .s52-chip { position: relative; display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 18px 0 14px; border-radius: 14px; background: rgba(44, 38, 90, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.4); font: 600 30px/1 "Rubik"; color: #ffffff; }
+.sim52 .s52-plug { width: 28px; height: 28px; display: block; flex: none; }
+.sim52 .s52-plug path { fill: none; stroke: #c9c2ff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim52 .s52-cok { position: absolute; right: -11px; top: -11px; width: 28px; height: 28px; }
+.sim52 .s52-ch2 { opacity: 0; }
+.sim52 .s52-ch2 .s52-cok { opacity: 0; }
+.sim52 .s52-tg { width: 32px; height: 26px; display: block; flex: none; overflow: visible; }
+.sim52 .s52-tg rect, .sim52 .s52-tg path { fill: none; stroke: #c9c2ff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }

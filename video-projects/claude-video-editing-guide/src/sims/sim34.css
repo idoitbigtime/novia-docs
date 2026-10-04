@@ -1,0 +1,109 @@
+/* 3.4 the frame breaks into layers in CSS 3D (canvas 800 x 700; frame 640 x 360 centred at 400, 322) */
+.sim34 .s34-in { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
+.sim34 .s34-view { position: absolute; left: 0; top: 0; width: 800px; height: 700px; perspective: 1800px; perspective-origin: 400px 322px; }
+.sim34 .s34-cam { position: absolute; left: 400px; top: 322px; width: 0; height: 0; transform-style: preserve-3d; }
+.sim34 .s34-yaw { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; }
+.sim34 .s34-pl { position: absolute; left: -320px; top: -180px; width: 640px; height: 360px; border-radius: 22px; }
+.sim34 .s34-edge { position: absolute; inset: 0; border-radius: 22px; border: 2.5px solid #d6d0ff; display: block; opacity: 0;
+  box-shadow: 0 0 18px rgba(201, 194, 255, 0.6), inset 0 0 16px rgba(201, 194, 255, 0.28); }
+
+/* layer 1: the empty room (opaque) */
+.sim34 .s34-room { overflow: hidden; background: linear-gradient(180deg, #2c2659 0%, #231e4b 60%, #17142f 60.3%, #100e22 100%);
+  box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.24), 0 26px 60px rgba(0, 0, 0, 0.5); }
+.sim34 .s34-lamp { position: absolute; left: -110px; top: -150px; width: 420px; height: 420px; border-radius: 50%; display: block;
+  background: radial-gradient(circle, rgba(169, 147, 255, 0.30), rgba(169, 147, 255, 0) 68%); }
+.sim34 .s34-win { position: absolute; left: 32px; top: 32px; width: 116px; height: 146px; border: 2px solid rgba(201, 194, 255, 0.3); border-radius: 6px; display: block;
+  background: linear-gradient(155deg, rgba(170, 160, 255, 0.2), rgba(170, 160, 255, 0.04) 70%); }
+.sim34 .s34-win u { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(201, 194, 255, 0.3); display: block; }
+.sim34 .s34-win s { position: absolute; top: 46%; left: 0; right: 0; height: 2px; background: rgba(201, 194, 255, 0.3); display: block; }
+.sim34 .s34-floor { position: absolute; left: 0; right: 0; top: 216px; height: 2px; background: rgba(201, 194, 255, 0.2); display: block; }
+.sim34 .s34-plant { position: absolute; left: 552px; top: 196px; width: 62px; height: 106px; overflow: visible; }
+.sim34 .s34-plant path { fill: none; stroke: rgba(201, 194, 255, 0.42); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim34 .s34-plant path + path { fill: rgba(20, 17, 42, 0.92); }
+
+/* layer 2: the text on the wall (transparent) */
+.sim34 .s34-wt { position: absolute; right: 32px; top: 36px; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.sim34 .s34-wt span { font: 900 56px/1.08 "Rubik"; color: #ffffff; white-space: nowrap; text-shadow: 0 4px 18px rgba(0, 0, 0, 0.45); }
+
+/* layer 3: you, without the background (transparent) */
+.sim34 .s34-person { position: absolute; left: 94px; top: 60px; width: 246px; height: 300px; display: block; }
+.sim34 .s34-cut { position: absolute; left: 94px; top: 60px; width: 246px; height: 300px; overflow: visible; }
+.sim34 .s34-cut path { fill: none; stroke: #ffffff; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 7px rgba(201, 194, 255, 0.95)); }
+
+/* layer 4: the effects in front of you (transparent) */
+.sim34 .s34-gem { position: absolute; left: 36px; top: 230px; width: 84px; height: 84px; overflow: visible; filter: drop-shadow(0 0 10px rgba(201, 194, 255, 0.85)); }
+.sim34 .s34-gem .g1 { fill: rgba(201, 194, 255, 0.12); stroke: #d9d4ff; stroke-width: 2.4; stroke-linejoin: round; }
+.sim34 .s34-gem .g2 { fill: rgba(255, 255, 255, 0.16); stroke: #ffffff; stroke-width: 2; stroke-linejoin: round; }
+.sim34 .s34-gem .g3 { fill: none; stroke: rgba(217, 212, 255, 0.6); stroke-width: 1.6; }
+.sim34 .s34-orb { position: absolute; left: 354px; top: 232px; width: 96px; height: 96px; overflow: visible; filter: drop-shadow(0 0 9px rgba(201, 194, 255, 0.85)); }
+.sim34 .s34-orb .o1 { fill: rgba(201, 194, 255, 0.16); stroke: #ffffff; stroke-width: 2.2; }
+.sim34 .s34-orb .o2 { fill: none; stroke: #d9d4ff; stroke-width: 2.2; }
+.sim34 .s34-orb .o3 { fill: #ffffff; }
+.sim34 .s34-sp { position: absolute; display: block; }
+.sim34 .s34-sp svg { width: 100%; height: 100%; display: block; overflow: visible; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.95)); }
+.sim34 .s34-sp path { fill: #efedff; }
+
+/* light sweep band: starts and ends fully outside the plate (skew included) */
+.sim34 .s34-sw { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; display: block; pointer-events: none; }
+.sim34 .s34-sw b { position: absolute; top: -10%; bottom: -10%; left: 100%; margin-left: 72px; width: 170px; display: block; transform: skewX(-16deg);
+  background: linear-gradient(90deg, rgba(214, 208, 255, 0), rgba(214, 208, 255, 0.34), rgba(214, 208, 255, 0)); }
+
+/* depth rails along the corners (lengthen as the layers come apart) */
+.sim34 .s34-rail { position: absolute; height: 2px; margin-top: -1px; transform-origin: 0 50%; display: block; opacity: 0;
+  background: linear-gradient(90deg, rgba(214, 208, 255, 0.85), rgba(201, 194, 255, 0.18)); }
+
+/* the light line around the frame (flat, frame position) */
+.sim34 .s34-ring { position: absolute; overflow: visible; }
+.sim34 .s34-ring path { fill: none; stroke: #ece9ff; stroke-width: 2.6; stroke-linejoin: round; filter: drop-shadow(0 0 7px rgba(201, 194, 255, 0.95)); }
+
+/* names (flat layer over the 3D) */
+.sim34 .s34-lab { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
+.sim34 .s34-ln { position: absolute; width: 2.5px; border-radius: 2px; background: #d6d0ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.85); display: block; opacity: 0; }
+.sim34 .s34-dot { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: #ffffff; display: block; opacity: 0;
+  box-shadow: 0 0 0 3px rgba(201, 194, 255, 0.4), 0 0 14px #c9c2ff; }
+.sim34 .s34-name { position: absolute; height: 46px; font: 600 34px/46px "Rubik"; color: #f5f2ea; white-space: nowrap; direction: rtl; opacity: 0;
+  text-shadow: 0 2px 12px rgba(6, 6, 11, 0.9), 0 0 2px rgba(6, 6, 11, 0.9); }
+
+/* top-down map of the camera turn (an inset panel in the bottom-right corner, which the turning stack never enters) */
+.sim34 .s34-mm { position: absolute; left: 548px; top: 534px; width: 244px; height: 158px; border-radius: 20px; opacity: 0;
+  background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.22); }
+.sim34 .s34-mmsvg { position: absolute; left: 0; top: 0; width: 244px; height: 158px; overflow: visible; }
+.sim34 .s34-mmorb { fill: none; stroke: rgba(201, 194, 255, 0.3); stroke-width: 1.6; stroke-dasharray: 4 7; }
+.sim34 .s34-mmarc { fill: none; stroke: #ff6b61; stroke-width: 3.2; stroke-linecap: round; }
+.sim34 .s34-mmpiv { position: absolute; left: 84px; top: 66px; width: 0; height: 0; }
+.sim34 .s34-mmb { position: absolute; left: -34px; width: 68px; height: 3px; border-radius: 2px; background: #d6d0ff; box-shadow: 0 0 6px rgba(201, 194, 255, 0.85); display: block; }
+.sim34 .s34-mmarm { position: absolute; left: 0; top: 0; width: 0; height: 0; display: block; }
+.sim34 .s34-mmsight { position: absolute; left: -1px; top: 8px; width: 2px; height: 26px; display: block;
+  background: repeating-linear-gradient(180deg, rgba(214, 208, 255, 0.75) 0 5px, rgba(214, 208, 255, 0) 5px 10px); }
+.sim34 .s34-mmcam { position: absolute; left: -19px; top: 35px; width: 38px; height: 38px; overflow: visible; }
+.sim34 .s34-mmcam rect, .sim34 .s34-mmcam path { fill: #1c1840; stroke: #f1eeff; stroke-width: 2.4; stroke-linejoin: round; }
+.sim34 .s34-deg { position: absolute; left: 156px; top: 58px; display: flex; align-items: flex-start; direction: ltr; color: #ffffff; }
+.sim34 .s34-odo { display: block; height: 36px; overflow: hidden; }
+.sim34 .s34-strip { display: block; }
+.sim34 .s34-strip b { display: block; width: 20px; height: 36px; font: 700 32px/36px "Rubik"; text-align: center; }
+.sim34 .s34-degs { font: 700 32px/36px "Rubik"; }
+
+/* the chosen words */
+.sim34 .s34-chips { position: absolute; left: 0; width: 800px; display: grid; justify-items: center; }
+.sim34 .s34-chip { grid-area: 1 / 1; position: relative; display: flex; align-items: center; gap: 12px; direction: rtl; padding: 11px 24px 11px 22px; border-radius: 999px;
+  background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.32); opacity: 0; }
+.sim34 .s34-spk { width: 30px; height: 26px; display: block; flex: none; }
+.sim34 .s34-cw { font: 700 36px/1.1 "Rubik"; color: #ffffff; white-space: nowrap; }
+.sim34 .s34-pulse { position: absolute; inset: -2px; border-radius: 999px; border: 2.5px solid #ff6b61; display: block; opacity: 0; }
+
+/* payoff: corner marks lock, a scan passes, check + label */
+.sim34 .s34-regs { position: absolute; }
+.sim34 .s34-reg { position: absolute; width: 38px; height: 38px; display: block; opacity: 0; border: 0 solid #ffffff; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.95)); }
+.sim34 .s34-g0 { right: -11px; top: -11px; border-top-width: 3.5px; border-right-width: 3.5px; border-top-right-radius: 14px; }
+.sim34 .s34-g1 { left: -11px; top: -11px; border-top-width: 3.5px; border-left-width: 3.5px; border-top-left-radius: 14px; }
+.sim34 .s34-g2 { left: -11px; bottom: -11px; border-bottom-width: 3.5px; border-left-width: 3.5px; border-bottom-left-radius: 14px; }
+.sim34 .s34-g3 { right: -11px; bottom: -11px; border-bottom-width: 3.5px; border-right-width: 3.5px; border-bottom-right-radius: 14px; }
+.sim34 .s34-scanbox { position: absolute; border-radius: 22px; overflow: hidden; }
+.sim34 .s34-scan { position: absolute; top: 0; bottom: 0; left: 640px; width: 120px; display: block; opacity: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 5%, rgba(201, 194, 255, 0.42) 22%, rgba(201, 194, 255, 0) 100%); }
+.sim34 .s34-ok { position: absolute; width: 50px; height: 50px; border-radius: 50%; overflow: visible; opacity: 0;
+  background: #1f1a3f; box-shadow: 0 0 0 2.5px #c9c2ff, 0 0 16px rgba(201, 194, 255, 0.7); }
+.sim34 .s34-ok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim34 .s34-done { position: absolute; left: 0; width: 800px; display: flex; justify-content: center; align-items: center; gap: 14px; direction: rtl;
+  font: 600 36px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
+.sim34 .s34-done i { width: 15px; height: 15px; border-radius: 50%; background: #ff453a; box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; }

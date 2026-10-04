@@ -193,7 +193,7 @@ def chapter_scene(cfg):
 <div class="ch-k" dir="rtl">פרק</div>
 <i class="ch-ring"></i><i class="ch-ring ch-ring2"></i>
 <div class="ch-n" dir="ltr">{c["n"]}</div>
-<h2 class="ch-title kin" dir="rtl">{title}</h2>
+<h2 class="ch-title kin" dir="rtl"><span class="ch-tin">{title}</span></h2>
 <i class="ch-line"></i>
 <p class="ch-sub kin" dir="rtl">{sub}</p>
 {tag}

@@ -27,9 +27,10 @@ NOTE1 = "ברירת המחדל בכל מנוי בתשלום לקלוד."
 NOTE2 = "נבחר מודל אחר? כותבים /model ובוחרים בו."
 BADGE = "המודל: Claude Opus 5.5"
 FREE = "כלי חינמי"
-MOST = "ככה בנויים רוב הפרומפטים במדריך"          # 14 of the guide's 21 prompts have all five sections
+MOST = "ככה בנויים רוב הפרומפטים בסרטון"          # 14 of the guide's 21 prompts have all five sections
 FORCLAUDE = "בשביל קלוד"
-CLOSE = "כל פרומפט נבדק על ידי עותק נפרד של קלוד שקיבל רק אותו."
+CLOSE = "כל פרומפט נבדק [על ידי] עותק נפרד של קלוד שקיבל רק אותו."
+COPY_LABEL = "עותק נפרד"                         # from the sentence above
 D = 44.6
 
 CHECK = '<svg class="c1-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg>'
@@ -79,13 +80,13 @@ def scene(cfg):
   <div class="c1-skills">{skills}</div>
   <div class="c1-mp4" dir="ltr">{FILM}<span>final.mp4</span><i class="c1-prog"><b></b></i></div>
   <div class="c1-foldwrap"><div class="c1-clips">{clips}<div class="c1-logo"></div></div>{FOLDER}<div class="c1-lidw">{LID}</div></div>
-  <svg class="c1-arcs" viewBox="0 0 800 400" aria-hidden="true"><path class="c1-arc1" d="M708 356 C 696 230 610 222 566 300"/><path class="c1-arc2" d="M234 300 C 190 222 104 230 92 346"/></svg>
+  <svg class="c1-arcs" viewBox="0 0 800 800" aria-hidden="true"><path class="c1-arc1" d="M600 95 C 520 95 470 150 462 232"/><path class="c1-arc2" d="M146 470 C 96 500 94 560 112 594"/></svg>
   <i class="c1-dot c1-dot1"></i><i class="c1-dot c1-dot2"></i>
   <div class="c1-say" dir="rtl">{MIC}<i></i><i></i><span>עברית</span></div>
   <div class="c1-term">
     <div class="c1-tbar"><i></i><i></i><i></i><span dir="ltr">Claude Code</span></div>
     <div class="c1-tbody" dir="ltr">
-      <div class="c1-line c1-l1"><b>&gt;</b> <span class="c1-ty c1-ty1">claude</span></div>
+      <div class="c1-line c1-l1"><b>&gt;</b> <span class="c1-ty c1-ty1">claude</span><i class="c1-cur c1-cur1"></i></div>
       <div class="c1-line c1-l2"><b>&gt;</b> <span class="c1-ty c1-ty2">/model</span><span class="c1-menu">Opus 5.5{CHECK}</span></div>
       <div class="c1-run"><i></i></div>
       <div class="c1-tl"><i></i><i></i><i></i></div>
@@ -99,7 +100,11 @@ def scene(cfg):
   <div class="c1-qs">{bubbles}</div>
   <div class="c1-cmd"><span class="c1-cmdt" dir="ltr">{_code_tokens(_cmd())}</span><span class="c1-fc" dir="rtl">{esc(FORCLAUDE)}</span></div>
 </div>
-<div class="c1-close"><div class="c1-cbox">{SHIELD}<p class="c1-ct kin" dir="rtl">{close}</p></div></div>
+<div class="c1-close"><div class="c1-cbox">{SHIELD}<p class="c1-ct kin" dir="rtl">{close}</p></div>
+<div class="c1-cpic"><div class="c1-cmini"><i></i><i></i><i></i><i></i></div>
+<svg class="c1-carrow" viewBox="0 0 150 46" aria-hidden="true"><path d="M146 23H8M24 8 8 23l16 15"/></svg>
+<div class="c1-cterm"><div class="c1-tbar"><i></i><i></i><i></i><span dir="ltr">Claude Code</span></div><span class="c1-clabel" dir="rtl">{esc(COPY_LABEL)}</span>
+<div class="c1-cok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></div></div></div></div>
 </div>"""
     c = dict(cfg)
     c["D"] = D

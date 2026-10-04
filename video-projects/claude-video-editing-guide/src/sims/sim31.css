@@ -1,0 +1,148 @@
+/* 3.1 saying what to edit out loud while filming (canvas 800 x 700) */
+/* the camera frame (640 x 360) */
+.sim31 .s31-cam { position: absolute; left: 40px; top: 0; width: 720px; height: 405px; border-radius: 24px; overflow: hidden; transform-origin: 50% 0%;
+  background: linear-gradient(180deg, #241f4c 0%, #171433 60%, #0e0c1f 100%); border: 1.5px solid rgba(201, 194, 255, 0.28); box-shadow: 0 0 30px rgba(201, 194, 255, 0.14); }
+.sim31 .s31-fin { position: absolute; left: 0; top: 0; width: 640px; height: 360px; transform: scale(1.125); transform-origin: 0 0; }
+.sim31 .s31-lamp { position: absolute; left: -90px; top: -110px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(169, 147, 255, 0.22), rgba(169, 147, 255, 0) 70%); display: block; }
+.sim31 .s31-pres { position: absolute; left: 0; top: 0; width: 640px; height: 360px; }
+.sim31 .s31-vf { position: absolute; left: 0; top: 0; width: 640px; height: 360px; overflow: visible; }
+.sim31 .s31-vf path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.85)); }
+.sim31 .s31-rec { position: absolute; left: 28px; top: 26px; width: 16px; height: 16px; border-radius: 50%; background: #ff453a; box-shadow: 0 0 12px rgba(255, 69, 58, 0.95); opacity: 0; }
+.sim31 .s31-rec i { position: absolute; left: -7px; top: -7px; width: 30px; height: 30px; border-radius: 50%; border: 2px solid rgba(255, 107, 97, 0.8); display: block; }
+
+/* B0: what you want (a thought bubble); B1: said out loud (a speech bubble) */
+.sim31 .s31-tdots i { position: absolute; border-radius: 50%; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.55); display: block; opacity: 0; }
+.sim31 .s31-tdots i:nth-child(1) { left: 282px; top: 118px; width: 10px; height: 10px; }
+.sim31 .s31-tdots i:nth-child(2) { left: 260px; top: 102px; width: 14px; height: 14px; }
+.sim31 .s31-tdots i:nth-child(3) { left: 236px; top: 84px; width: 18px; height: 18px; }
+.sim31 .s31-think { position: absolute; left: 20px; top: 60px; width: 214px; height: 112px; border-radius: 48px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.5);
+  box-shadow: 0 0 22px rgba(201, 194, 255, 0.2); display: flex; justify-content: center; align-items: center; gap: 8px; opacity: 0; }
+.sim31 .s31-ib { width: 58px; height: 58px; display: block; opacity: 0; }
+.sim31 .s31-ic { width: 58px; height: 58px; display: block; overflow: visible; }
+.sim31 .s31-ic path, .sim31 .s31-ic rect, .sim31 .s31-ic circle { fill: none; stroke: #e6e2ff; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
+.sim31 .s31-ic .f { fill: rgba(201, 194, 255, 0.5); stroke: none; }
+.sim31 .s31-say { position: absolute; left: 12px; top: 52px; width: 252px; height: 150px; border-radius: 22px; background: rgba(26, 23, 52, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.7);
+  box-shadow: 0 0 22px rgba(201, 194, 255, 0.28); opacity: 0; transform-origin: 90% 80%; }
+.sim31 .s31-say::after { content: ""; position: absolute; right: -15px; bottom: 30px; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 16px solid rgba(201, 194, 255, 0.7); }
+.sim31 .s31-say p { position: absolute; left: 16px; right: 18px; top: 16px; font: 600 30px/1.3 "Rubik"; color: #ffffff; text-align: right; }
+.sim31 .s31-say .ln { display: block; white-space: nowrap; }
+.sim31 .s31-arcs { position: absolute; left: 272px; top: 136px; width: 26px; height: 46px; overflow: visible; }
+.sim31 .s31-arcs path { fill: none; stroke: #c9c2ff; stroke-width: 2.6; stroke-linecap: round; opacity: 0; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+
+/* the effect: a generic 3D logo over the open palm (CSS 3D layers) */
+.sim31 .s31-pg { position: absolute; left: 486px; top: 128px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(ellipse, rgba(255, 110, 90, 0.5), rgba(255, 110, 90, 0) 68%); display: block; opacity: 0; }
+.sim31 .s31-lgw { position: absolute; left: 510px; top: 30px; width: 100px; height: 100px; perspective: 600px; opacity: 0; }
+.sim31 .s31-lp { position: absolute; left: 43px; top: 91px; width: 14px; height: 14px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 10px #ffd0c0, 0 0 24px rgba(255, 110, 90, 0.95); display: block; opacity: 0; }
+.sim31 .s31-lg3 { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: 50% 98%; transform: scale(0.05); }
+.sim31 .s31l-ly { position: absolute; left: 0; top: 0; width: 100px; height: 100px; display: block; backface-visibility: visible; }
+.sim31 .s31-link { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
+.sim31 .s31-link path { fill: none; stroke: rgba(201, 194, 255, 0.75); stroke-width: 2; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.8)); }
+
+/* the transcript strip: waveform, words, ticks to the time ruler */
+.sim31 .s31-strip { position: absolute; left: 0; top: 425px; width: 800px; height: 190px; }
+.sim31 .s31-wvc { position: absolute; left: 0; top: 0; width: 800px; height: 60px; clip-path: inset(0px 0px 0px 100%); }
+.sim31 .s31-wv { position: absolute; left: 0; top: 0; width: 800px; height: 60px; display: block; overflow: visible; }
+.sim31 .s31-wv path { fill: none; stroke: #b9b0f5; stroke-width: 4.4; stroke-linecap: round; }
+.sim31 .s31-rhead { position: absolute; left: 794px; top: -8px; width: 3px; height: 76px; border-radius: 2px; background: #ff6b61; box-shadow: 0 0 12px rgba(255, 69, 58, 0.95); display: block; opacity: 0; }
+.sim31 .s31-crow { position: absolute; left: 0; top: 72px; width: 800px; height: 46px; display: flex; justify-content: center; gap: 7px; direction: rtl; }
+.sim31 .s31-ins { position: relative; display: flex; gap: 7px; direction: rtl; }
+.sim31 .s31-aw, .sim31 .s31-iw { position: relative; height: 46px; border-radius: 12px; opacity: 0; flex: none; }
+.sim31 .s31-aw { background: rgba(201, 194, 255, 0.14); border: 1.5px solid rgba(201, 194, 255, 0.28); }
+.sim31 .s31-iw { padding: 0 8px; background-color: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.32); }
+.sim31 .s31-iw b { position: relative; display: block; font: 600 30px/43px "Rubik"; color: #ece9f7; white-space: nowrap; }
+.sim31 .s31-iw .hl { position: absolute; inset: -1.5px; border-radius: 12px; background: rgba(201, 194, 255, 0.3); border: 2px solid #d9d4ff; box-shadow: 0 0 16px rgba(201, 194, 255, 0.75); display: block; opacity: 0; }
+.sim31 .tk { position: absolute; right: 8px; top: 46px; width: 2px; height: 14px; background: rgba(201, 194, 255, 0.8); display: block; opacity: 0; transform-origin: 50% 0%; }
+.sim31 .tk::after { content: ""; position: absolute; left: -3px; bottom: -4px; width: 8px; height: 8px; border-radius: 50%; background: #d9d4ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); }
+.sim31 .s31-rul { position: absolute; left: 0; top: 136px; width: 800px; height: 16px; display: block; overflow: visible; }
+.sim31 .s31-rl { fill: none; stroke: rgba(201, 194, 255, 0.7); stroke-width: 2; }
+.sim31 .s31-rt { fill: none; stroke: rgba(201, 194, 255, 0.45); stroke-width: 1.6; opacity: 0; }
+.sim31 .s31-brk { position: absolute; top: 158px; height: 16px; overflow: visible; }
+.sim31 .s31-brk path { fill: none; stroke: #ffffff; stroke-width: 2.6; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+.sim31 .s31-ph { position: absolute; left: 780px; top: -10px; width: 3px; height: 160px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 14px #c9c2ff, 0 0 3px #ffffff; display: block; opacity: 0; }
+.sim31 .s31-scan { position: absolute; left: 800px; top: -10px; width: 90px; height: 140px; display: block; opacity: 0;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.4) 70%, #ffffff 92%, rgba(255, 255, 255, 0)); }
+
+/* B4: the table of instructions, waiting for approval */
+.sim31 .s31-tbl { position: absolute; left: 0; top: 300px; width: 800px; height: 292px; border-radius: 20px; overflow: hidden; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.3); opacity: 0; transform-origin: 50% 0%; }
+.sim31 .s31-grid { position: absolute; inset: 0; display: grid; direction: rtl; grid-template-columns: 306px 100px 214px 1fr; grid-template-rows: 46px 132px 56px 56px; }
+.sim31 .s31-th { display: flex; align-items: center; padding: 0 12px; font: 500 25px/1 "Rubik"; color: #c4bfdc; white-space: nowrap; background: rgba(201, 194, 255, 0.06); border-bottom: 1.5px solid rgba(201, 194, 255, 0.2); border-left: 1px solid rgba(201, 194, 255, 0.12); }
+.sim31 .s31-td { display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(201, 194, 255, 0.12); border-left: 1px solid rgba(201, 194, 255, 0.12); }
+.sim31 .s31-td.s31-c1 { justify-content: flex-start; padding: 0 16px; }
+.sim31 .s31-r2, .sim31 .s31-r3 { opacity: 0; }
+.sim31 .s31-tins { width: 274px; font: 600 30px/1.3 "Rubik"; color: #ffffff; text-align: right; }
+.sim31 .s31-tins .tw { opacity: 0; }
+.sim31 .s31-tb { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.sim31 .s31-tb i { height: 12px; border-radius: 6px; background: rgba(201, 194, 255, 0.35); display: block; }
+.sim31 .s31-pic { width: 96px; height: 56px; display: block; overflow: visible; }
+.sim31 .s31-r1 .s31-pic { opacity: 0; }
+.sim31 .s31-pic .pl, .sim31 .s31-pic .pt { fill: none; stroke: rgba(201, 194, 255, 0.7); stroke-width: 2; }
+.sim31 .s31-pic .ph { fill: rgba(201, 194, 255, 0.3); stroke: #e6e2ff; stroke-width: 2; }
+.sim31 .s31-pic .hand { fill: #3a3175; stroke: #c9c2ff; stroke-width: 2; }
+.sim31 .s31-pic .lg { fill: #ff6b61; stroke: #ffb3a8; stroke-width: 1.5; }
+.sim31 .s31-pic .gl { fill: none; stroke: rgba(255, 140, 120, 0.8); stroke-width: 3; stroke-linecap: round; }
+.sim31 .s31-pic .ar { fill: none; stroke: #c9c2ff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim31 .s31-pic .dot { fill: #ffffff; filter: drop-shadow(0 0 5px #ff8a70); }
+.sim31 .s31-pic .wl { fill: rgba(201, 194, 255, 0.1); stroke: #c9c2ff; stroke-width: 2; }
+.sim31 .s31-pic .tx { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; }
+.sim31 .s31-pic .hd { fill: #3a3175; stroke: #c9c2ff; stroke-width: 2; }
+.sim31 .s31-pic .ly { fill: rgba(201, 194, 255, 0.14); stroke: #c9c2ff; stroke-width: 2; stroke-linejoin: round; }
+.sim31 .s31-pic .fa { fill: rgba(201, 194, 255, 0.35); stroke: #c9c2ff; stroke-width: 2; }
+.sim31 .s31-pic .fb { fill: none; stroke: rgba(201, 194, 255, 0.4); stroke-width: 2; stroke-dasharray: 4 3; }
+.sim31 .s31-ok { position: absolute; left: 290px; top: 608px; width: 220px; height: 60px; border-radius: 999px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.45);
+  display: flex; justify-content: center; align-items: center; gap: 12px; direction: rtl; opacity: 0; }
+.sim31 .s31-ok b { font: 600 32px/1 "Rubik"; color: #f5f2ea; }
+.sim31 .s31-okr { position: relative; width: 34px; height: 34px; border-radius: 50%; border: 2.5px dashed rgba(201, 194, 255, 0.85); display: block; flex: none; }
+.sim31 .s31-okr .okf { position: absolute; left: -3px; top: -3px; width: 35px; height: 35px; border-radius: 50%; background: #2a2450; box-shadow: 0 0 0 2.5px #ffffff, 0 0 12px rgba(201, 194, 255, 0.8); display: block; opacity: 0; }
+.sim31 .s31-okr svg { position: absolute; left: 0; top: 0; width: 29px; height: 29px; overflow: visible; }
+.sim31 .s31-okr path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* payoff: BRIEF.md -> a scene file and an agent per instruction -> the independent critic */
+.sim31 .s31-brief { position: absolute; left: 250px; top: 22px; width: 300px; height: 130px; border-radius: 22px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid #c9c2ff;
+  box-shadow: 0 0 24px rgba(201, 194, 255, 0.35); display: flex; justify-content: center; align-items: center; gap: 22px; direction: rtl; opacity: 0; }
+.sim31 .s31-brief b { font: 600 38px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ffffff; }
+.sim31 .s31-bf { width: 60px; height: 72px; overflow: visible; }
+.sim31 .s31-bf path { fill: rgba(201, 194, 255, 0.12); stroke: #e6e2ff; stroke-width: 2.4; stroke-linejoin: round; }
+.sim31 .s31-bf .fold { fill: none; }
+.sim31 .s31-bf .ln { fill: none; stroke: rgba(255, 255, 255, 0.7); stroke-width: 3; stroke-linecap: round; }
+.sim31 .s31-links { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
+.sim31 .s31-links path { fill: none; stroke: rgba(201, 194, 255, 0.75); stroke-width: 2.2; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.7)); }
+.sim31 .s31-scn { position: absolute; top: 242px; width: 180px; height: 170px; opacity: 0; }
+.sim31 .s31-s1 { left: 550px; }
+.sim31 .s31-s2 { left: 310px; }
+.sim31 .s31-s3 { left: 70px; }
+.sim31 .s31-file { position: absolute; left: 0; top: 0; width: 180px; height: 170px; overflow: visible; }
+.sim31 .s31-file path { fill: rgba(26, 23, 52, 0.95); stroke: #c9c2ff; stroke-width: 2.2; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.sim31 .s31-file .fold { fill: none; }
+.sim31 .s31-sp { position: absolute; left: 18px; top: 34px; width: 144px; height: 84px; display: flex; justify-content: center; align-items: center; }
+.sim31 .s31-sp .s31-pic { width: 130px; height: 76px; }
+.sim31 .s31-sl { position: absolute; left: 70px; right: 22px; top: 128px; height: 9px; border-radius: 5px; background: rgba(201, 194, 255, 0.3); display: block; }
+.sim31 .s31-sl2 { top: 146px; left: 96px; }
+.sim31 .s31-ag { position: absolute; left: -20px; top: -20px; width: 50px; height: 50px; opacity: 0; }
+.sim31 .s31-ag svg { width: 50px; height: 50px; display: block; overflow: visible; }
+.sim31 .s31-ag circle { fill: #2a2450; stroke: #c9c2ff; stroke-width: 2.4; filter: drop-shadow(0 0 7px rgba(201, 194, 255, 0.8)); }
+.sim31 .s31-ag path { fill: #ffffff; }
+.sim31 .s31-sr { position: absolute; left: 14px; top: 114px; width: 46px; height: 46px; overflow: visible; opacity: 0; }
+.sim31 .s31-sr .bg { fill: none; stroke: rgba(201, 194, 255, 0.2); stroke-width: 5; }
+.sim31 .s31-sr .fg { fill: none; stroke: #ffffff; stroke-width: 5; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 24px 24px; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+.sim31 .s31-aglab { position: absolute; left: 200px; top: 432px; width: 400px; display: flex; justify-content: center; align-items: center; gap: 12px; direction: rtl; font: 600 31px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
+.sim31 .s31-aglab i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.9); display: block; }
+.sim31 .s31-crit { position: absolute; left: 120px; top: 520px; width: 560px; height: 84px; border-radius: 999px; background: rgba(26, 23, 52, 0.96); border: 2px solid #c9c2ff;
+  box-shadow: 0 0 26px rgba(201, 194, 255, 0.35); display: flex; justify-content: center; align-items: center; gap: 16px; direction: rtl; opacity: 0; }
+.sim31 .s31-crit b { font: 700 35px/1 "Rubik"; color: #ffffff; white-space: nowrap; }
+.sim31 .s31-eye { width: 56px; height: 56px; display: block; flex: none; }
+.sim31 .s31-eye svg { width: 56px; height: 56px; display: block; overflow: visible; }
+.sim31 .s31-eye circle { fill: #2a2450; stroke: #c9c2ff; stroke-width: 2.4; }
+.sim31 .s31-eye path { fill: none; stroke: #ffffff; stroke-width: 2.6; stroke-linejoin: round; }
+.sim31 .s31-eye .pu { fill: #ff6b61; stroke: none; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.9)); }
+
+/* B0: the other way, typing it to Claude (a prompt box, slowly filling) */
+.sim31 .s31-term { position: absolute; left: 140px; top: 456px; width: 520px; height: 150px; border-radius: 18px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); opacity: 0; }
+.sim31 .s31-tbar { position: absolute; left: 0; right: 0; top: 0; height: 34px; border-bottom: 1px solid rgba(201, 194, 255, 0.16); display: flex; gap: 8px; align-items: center; padding: 0 16px; }
+.sim31 .s31-tbar i { width: 10px; height: 10px; border-radius: 50%; background: rgba(201, 194, 255, 0.35); display: block; }
+.sim31 .s31-pr { position: absolute; left: 22px; top: 52px; font: 600 32px/1 "IBM Plex Mono", monospace; color: #c9c2ff; }
+.sim31 .s31-tl { position: absolute; left: 56px; height: 14px; border-radius: 7px; background: rgba(230, 226, 255, 0.75); display: block; transform-origin: 0 50%; transform: scaleX(0); }
+.sim31 .s31-tl1 { top: 61px; width: 400px; }
+.sim31 .s31-tl2 { top: 97px; width: 300px; left: 22px; }
+.sim31 .s31-cur { position: absolute; left: 60px; top: 50px; width: 14px; height: 34px; background: #ffffff; display: block; opacity: 0; }
+.sim31 .s31-cscan { position: absolute; left: 800px; top: 232px; width: 120px; height: 190px; display: block; opacity: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.28) 70%, rgba(255, 255, 255, 0.7) 92%, rgba(255, 255, 255, 0)); }

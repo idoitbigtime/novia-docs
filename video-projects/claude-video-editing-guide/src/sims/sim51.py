@@ -79,7 +79,7 @@ def html(cfg):
 <div class="s51-row s51-r4" dir="rtl"><i class="s51-bd"><b>4</b>{OK.format(cls="s51-ok")}</i>
 <div class="s51-ln"><span class="s51-btn s51-c4a" dir="ltr">{esc(st["add"])}</span>{a}<span class="s51-btn s51-c4b" dir="ltr">{esc(st["connect"])}</span></div>
 <div class="s51-sub" dir="rtl">{esc(st["account"])}</div>
-<span class="s51-ill s51-acct"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="s51-afr" cx="32" cy="32" r="29"/><circle cx="32" cy="25" r="10"/><path d="M14 52c3-10 10-14 18-14s15 4 18 14"/></svg>{OK.format(cls="s51-aok")}</span></div>
+<span class="s51-ill s51-acct"><svg class="s51-av" viewBox="0 0 64 64" aria-hidden="true"><circle class="s51-afr" cx="32" cy="32" r="29"/><circle cx="32" cy="25" r="10"/><path d="M14 52c3-10 10-14 18-14s15 4 18 14"/></svg>{OK.format(cls="s51-aok")}</span></div>
 <div class="s51-row s51-r5" dir="rtl"><i class="s51-bd"><b>5</b>{OK.format(cls="s51-ok")}</i>
 <div class="s51-ln"><svg class="s51-key" viewBox="0 0 48 30" aria-hidden="true"><circle cx="11" cy="15" r="7.5"/><path d="M18.5 15H42M35 15v6M41 15v5"/><path class="s51-kx" d="M5 27L43 3"/></svg><span class="s51-t5" dir="rtl">{esc(st["nokey"])}</span></div>
 <div class="s51-sub" dir="rtl">{esc(st["also"])}</div>
@@ -89,7 +89,7 @@ def html(cfg):
 </div>"""
     return f"""<div class="simwrap sim51">
 <div class="s51-hubwrap">
-<div class="s51-hub"><svg class="s51-hubo" viewBox="0 0 780 454" preserveAspectRatio="none" aria-hidden="true"><rect x="1.5" y="1.5" width="777" height="451" rx="24"/></svg>
+<div class="s51-hub"><svg class="s51-hubo" viewBox="0 0 780 454" aria-hidden="true"><path d="M754.5 1.5 H25.5 A24 24 0 0 0 1.5 25.5 V428.5 A24 24 0 0 0 25.5 452.5 H754.5 A24 24 0 0 0 778.5 428.5 V25.5 A24 24 0 0 0 754.5 1.5 Z"/></svg>
 <i class="s51-wd"><u></u><u></u><u></u></i>
 <div class="s51-htitle" dir="ltr"><span>{esc(c["hub"])}</span><i></i></div></div>
 <svg class="s51-slots" viewBox="0 0 756 372" aria-hidden="true">{"".join(slots)}</svg>
@@ -119,6 +119,6 @@ def step_times(cfg):
 
 def cues(cfg):
     P = cfg["phr"]
-    out = [("tick", P[0] + 1.4), ("pop", P[1] + 1.2), ("shimmer", P[2] + 1.15)]
+    out = [("tick", P[0] + 1.1), ("pop", P[1] + 0.9), ("shimmer", P[2] + 1.15)]
     out += [("tick", t + 0.8) for t in step_times(cfg)]
     return out

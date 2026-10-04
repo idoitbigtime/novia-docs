@@ -1,0 +1,82 @@
+/* 3.5 a round frame and a product that comes apart (canvas 800 x 700; the screen is 760 x 640 at 20, 30) */
+/* the screen behind the circle: dark brand colours with slow purple waves */
+.sim35 .s35-bg { position: absolute; border-radius: 24px; overflow: hidden; opacity: 0;
+  background: radial-gradient(120% 90% at 85% 10%, #261f55 0%, #17133a 45%, #0e0c22 100%); border: 1.5px solid rgba(201, 194, 255, 0.16); }
+.sim35 .s35-waves { position: absolute; left: 0; top: 0; width: 1520px; height: 640px; overflow: visible; }
+.sim35 .s35-waves path { fill: none; stroke-width: 2; stroke-linecap: round; }
+.sim35 .s35-waves .w0 { stroke: rgba(169, 147, 255, 0.22); }
+.sim35 .s35-waves .w1 { stroke: rgba(169, 147, 255, 0.32); stroke-width: 2.6; }
+.sim35 .s35-waves .w2 { stroke: rgba(201, 194, 255, 0.16); }
+.sim35 .s35-waves .w3 { stroke: rgba(169, 147, 255, 0.2); }
+
+/* the video: the room and you (it becomes the circle) */
+.sim35 .s35-circ { position: absolute; transform-origin: 380px 395px; }
+.sim35 .s35-vid { position: absolute; left: 0; top: 0; width: 760px; height: 640px; border-radius: 24px; overflow: hidden;
+  clip-path: inset(0px 0px 0px 0px round 24px); background: linear-gradient(180deg, #2c2659 0%, #241f4d 66%, #18152f 66.2%, #100e22 100%);
+  box-shadow: inset 0 0 0 1.5px rgba(201, 194, 255, 0.22); }
+.sim35 .s35-lamp { position: absolute; left: -140px; top: -170px; width: 560px; height: 560px; border-radius: 50%; display: block;
+  background: radial-gradient(circle, rgba(169, 147, 255, 0.3), rgba(169, 147, 255, 0) 68%); }
+.sim35 .s35-win { position: absolute; left: 560px; top: 70px; width: 140px; height: 190px; border: 2px solid rgba(201, 194, 255, 0.3); border-radius: 8px; display: block;
+  background: linear-gradient(155deg, rgba(170, 160, 255, 0.2), rgba(170, 160, 255, 0.04) 70%); }
+.sim35 .s35-win u { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(201, 194, 255, 0.3); display: block; }
+.sim35 .s35-win s { position: absolute; top: 46%; left: 0; right: 0; height: 2px; background: rgba(201, 194, 255, 0.3); display: block; }
+.sim35 .s35-floor { position: absolute; left: 0; right: 0; top: 422px; height: 2px; background: rgba(201, 194, 255, 0.2); display: block; }
+.sim35 .s35-person { position: absolute; left: 210px; top: 225px; width: 340px; height: 415px; display: block; }
+.sim35 .s35-sw { position: absolute; inset: 0; overflow: hidden; display: block; pointer-events: none; }
+.sim35 .s35-sw b { position: absolute; top: -10%; bottom: -10%; left: 100%; margin-left: 110px; width: 220px; display: block; transform: skewX(-16deg);
+  background: linear-gradient(90deg, rgba(214, 208, 255, 0), rgba(214, 208, 255, 0.28), rgba(214, 208, 255, 0)); }
+/* the light line around the circle, its soft shadow, the voice ripple */
+.sim35 .s35-ring { position: absolute; overflow: visible; }
+.sim35 .s35-ring circle { fill: none; stroke: #f1eeff; stroke-width: 3; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.95)) drop-shadow(0 0 18px rgba(255, 107, 97, 0.35)); }
+.sim35 .s35-shadow { position: absolute; border-radius: 50%; display: block; opacity: 0; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)); }
+.sim35 .s35-rip { position: absolute; border-radius: 50%; border: 2.5px solid rgba(214, 208, 255, 0.85); display: block; opacity: 0; }
+/* the light line around the full frame when it lands */
+.sim35 .s35-fl { position: absolute; overflow: visible; }
+.sim35 .s35-fl path { fill: none; stroke: #ece9ff; stroke-width: 2.6; stroke-linejoin: round; filter: drop-shadow(0 0 7px rgba(201, 194, 255, 0.95)); }
+
+/* the product (CSS 3D) */
+.sim35 .s35-prod { position: absolute; border-radius: 24px; overflow: hidden; opacity: 0; }
+.sim35 .s35-glow { position: absolute; left: 170px; top: 566px; width: 220px; height: 44px; border-radius: 50%; display: block; opacity: 0;
+  background: radial-gradient(closest-side, rgba(169, 147, 255, 0.42), rgba(169, 147, 255, 0)); }
+.sim35 .s35-pv { position: absolute; left: -20px; top: -30px; width: 800px; height: 700px; perspective: 1400px; perspective-origin: 300px 390px; }
+.sim35 .s35-pr { position: absolute; left: 300px; top: 390px; width: 0; height: 0; transform-style: preserve-3d; }
+.sim35 .s35-py { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; }
+.sim35 .s35-part { position: absolute; left: -88px; top: -180px; width: 176px; height: 360px; }
+.sim35 .s35-part svg { position: absolute; left: 0; top: 0; width: 176px; height: 360px; overflow: visible; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.55)); }
+.sim35 .s35-back { transform: translateZ(-7px); }
+.sim35 .s35-coil { transform: translateZ(-3px); }
+.sim35 .s35-in { transform: translateZ(1px); }
+.sim35 .s35-disp { transform: translateZ(7px); }
+.sim35 .s35-part .pb { fill: rgba(44, 38, 90, 0.42); stroke: #d9d4ff; stroke-width: 2.4; }
+.sim35 .s35-disp .pb { fill: rgba(16, 14, 34, 0.86); }
+.sim35 .s35-part .pscr { fill: rgba(64, 54, 128, 0.5); stroke: rgba(201, 194, 255, 0.35); stroke-width: 1.5; }
+.sim35 .s35-part .prf { fill: rgba(255, 255, 255, 0.06); }
+.sim35 .s35-part .pm { fill: rgba(16, 14, 34, 0.9); stroke: #ffffff; stroke-width: 2.4; }
+.sim35 .s35-part .pl { fill: rgba(40, 34, 80, 0.9); stroke: #ffffff; stroke-width: 2.2; }
+.sim35 .s35-part .pd { fill: #ffffff; }
+.sim35 .s35-part .ps { fill: rgba(201, 194, 255, 0.05); stroke: rgba(201, 194, 255, 0.4); stroke-width: 1.6; stroke-dasharray: 5 6; }
+.sim35 .s35-part .pc { fill: none; stroke: #e6e2ff; stroke-width: 2.4; }
+.sim35 .s35-part .pg { fill: rgba(201, 194, 255, 0.1); stroke: #d9d4ff; stroke-width: 2.2; }
+.sim35 .s35-part .pt { fill: none; stroke: rgba(214, 208, 255, 0.55); stroke-width: 1.8; stroke-linejoin: round; }
+.sim35 .s35-part .pp { stroke: #e6e2ff; stroke-width: 2.2; }
+.sim35 .s35-part .pk { fill: rgba(40, 34, 80, 0.95); stroke: #ffffff; stroke-width: 2.4; }
+.sim35 .s35-part .pk2 { fill: rgba(201, 194, 255, 0.35); stroke: none; }
+.sim35 .s35-part .pbt { fill: rgba(201, 194, 255, 0.16); stroke: #e6e2ff; stroke-width: 2.4; }
+.sim35 .s35-part .pbt2 { fill: none; stroke: #e6e2ff; stroke-width: 2.4; stroke-linejoin: round; }
+.sim35 .s35-sheen { position: absolute; inset: 9px; border-radius: 23px; overflow: hidden; display: block; }
+.sim35 .s35-sheen b { position: absolute; top: -12%; bottom: -12%; left: 100%; margin-left: 80px; width: 70px; display: block; transform: skewX(-18deg);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0)); }
+/* a part's flash when it clicks back into place */
+.sim35 .s35-pf { position: absolute; inset: -3px; border-radius: 32px; border: 3px solid #ffffff; display: block; opacity: 0;
+  box-shadow: 0 0 18px rgba(201, 194, 255, 0.95), inset 0 0 14px rgba(201, 194, 255, 0.5); }
+/* the depth axis (lies along z) */
+.sim35 .s35-axis { position: absolute; left: 0; top: -1px; height: 2px; transform-origin: 0 50%; display: block; opacity: 0;
+  background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.85) 0 9px, rgba(255, 255, 255, 0) 9px 17px); }
+
+/* names (flat layer over the 3D) */
+.sim35 .s35-lab { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
+.sim35 .s35-ln { position: absolute; height: 2.5px; border-radius: 2px; background: #d6d0ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.85); display: block; opacity: 0; }
+.sim35 .s35-dot { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: #ffffff; display: block; opacity: 0;
+  box-shadow: 0 0 0 3px rgba(201, 194, 255, 0.4), 0 0 14px #c9c2ff; }
+.sim35 .s35-name { position: absolute; height: 46px; font: 600 34px/46px "Rubik"; color: #f5f2ea; white-space: nowrap; direction: rtl; opacity: 0;
+  text-shadow: 0 2px 12px rgba(6, 6, 11, 0.95), 0 0 2px rgba(6, 6, 11, 0.9); }

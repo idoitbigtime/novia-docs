@@ -1,0 +1,107 @@
+/* 7.1 approve 15 low-resolution seconds: busiest stretch -> small draft -> loop of fixes -> one full render -> the race (canvas 800 x 700) */
+/* the render frame (persists): the full 1080x1920 outline with the 540x960 draft in its centre */
+.sim71 .s71-ghost { position: absolute; left: 462px; top: 52px; width: 290px; height: 516px; border-radius: 20px; border: 2px dashed rgba(201, 194, 255, 0.38); opacity: 0; }
+.sim71 .s71-gsolid { position: absolute; left: -2px; top: -2px; width: 290px; height: 516px; border-radius: 20px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 22px rgba(201, 194, 255, 0.45); display: block; opacity: 0; }
+.sim71 .s71-draft { position: absolute; left: 70.5px; top: 127px; width: 145px; height: 258px; border-radius: 12px; overflow: hidden; background: #110e24;
+  box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.7), 0 0 18px rgba(201, 194, 255, 0.35); opacity: 0; transform-origin: 50% 50%; }
+.sim71 .s71-scene { position: absolute; left: 0; top: 0; width: 145px; height: 258px; clip-path: inset(0px 0px 100% 0px); background: linear-gradient(180deg, #2b2453 0%, #1a1638 60%, #0f0c21 100%); }
+.sim71 .s71-lamp { position: absolute; left: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(169, 147, 255, 0.3), rgba(169, 147, 255, 0) 70%); display: block; }
+.sim71 .s71-pers { position: absolute; left: 12px; top: 106px; width: 121px; height: 147px; display: block; }
+.sim71 .s71-t1 { position: absolute; left: 22px; top: 36px; width: 100px; height: 10px; border-radius: 5px; background: rgba(245, 242, 234, 0.9); display: block; }
+.sim71 .s71-t2 { position: absolute; left: 38px; top: 53px; width: 68px; height: 7px; border-radius: 4px; background: rgba(201, 194, 255, 0.55); display: block; }
+.sim71 .s71-sp { position: absolute; width: 7px; height: 7px; border-radius: 1.5px; background: #e9e5ff; box-shadow: 0 0 8px #c9c2ff; transform: rotate(45deg); display: block; }
+.sim71 .s71-cap { position: absolute; left: 35.5px; top: 206px; width: 74px; height: 20px; border-radius: 6px; background: #ffffff; transform-origin: 50% 50%; }
+.sim71 .s71-cap b { position: absolute; left: 12px; top: 7px; width: 50px; height: 6px; border-radius: 3px; background: rgba(20, 16, 40, 0.85); display: block; }
+.sim71 .s71-px { position: absolute; left: 0; top: 0; width: 145px; height: 258px; display: block;
+  background: repeating-linear-gradient(0deg, rgba(8, 6, 20, 0.5) 0 1px, rgba(8, 6, 20, 0) 1px 5px), repeating-linear-gradient(90deg, rgba(8, 6, 20, 0.5) 0 1px, rgba(8, 6, 20, 0) 1px 5px); }
+.sim71 .s71-scan { position: absolute; left: 0; top: 0; width: 145px; height: 3px; background: #ffffff; box-shadow: 0 0 10px #c9c2ff, 0 0 3px #ffffff; display: block; opacity: 0; }
+.sim71 .s71-tagrow { position: absolute; left: 0; width: 286px; display: flex; justify-content: center; }
+.sim71 .s71-tr540 { top: 396px; }
+.sim71 .s71-tr1080 { top: 16px; }
+.sim71 .s71-tag { font: 600 30px/1 "IBM Plex Mono"; color: var(--ink); padding: 8px 14px 7px; border-radius: 999px; background: rgba(22, 19, 46, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.45); white-space: nowrap; opacity: 0; }
+.sim71 .s71-tag2 { border-color: rgba(201, 194, 255, 0.75); box-shadow: 0 0 14px rgba(201, 194, 255, 0.35); }
+.sim71 .s71-dok, .sim71 .s71-sok, .sim71 .s71-rok { position: absolute; width: 44px; height: 44px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2.5px #c9c2ff, 0 0 16px rgba(201, 194, 255, 0.7);
+  display: grid; place-items: center; opacity: 0; }
+.sim71 .s71-dok svg, .sim71 .s71-sok svg, .sim71 .s71-rok svg { width: 28px; height: 28px; overflow: visible; display: block; }
+.sim71 .s71-dok path, .sim71 .s71-sok path, .sim71 .s71-rok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim71 .s71-dok { left: 193.5px; top: 105px; }
+
+/* B0: the whole video's activity, the busiest stretch, its 15 seconds */
+.sim71 .s71-b0, .sim71 .s71-b1, .sim71 .s71-race { position: absolute; left: 0; top: 0; width: 460px; height: 700px; }
+.sim71 .s71-strip { position: absolute; left: 28px; top: 270px; width: 412px; height: 100px; border-radius: 16px; background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.22); opacity: 0; }
+.sim71 .s71-dim, .sim71 .s71-lit { position: absolute; left: 0; top: 0; width: 409px; height: 97px; }
+.sim71 .s71-lit { clip-path: inset(0px 0px 0px 100%); filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.75)); }
+.sim71 .s71-bar { position: absolute; width: 6px; border-radius: 3px; display: block; transform-origin: 50% 100%; }
+.sim71 .s71-dim .s71-bar { background: rgba(201, 194, 255, 0.26); }
+.sim71 .s71-lit .s71-bar { background: #cfc9ff; }
+.sim71 .s71-lit .s71-hot { background: #ffffff; }
+.sim71 .s71-scanner { position: absolute; left: 404px; top: -10px; width: 3px; height: 117px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
+.sim71 .s71-brk { position: absolute; top: 258px; height: 124px; overflow: visible; }
+.sim71 .s71-brk rect { fill: none; stroke: #c9c2ff; stroke-width: 2.6; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.85)); }
+.sim71 .s71-lbl { position: absolute; display: flex; align-items: center; gap: 14px; direction: rtl; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim71 .s71-lbl > i { width: 15px; height: 15px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.8); display: block; flex: none; }
+.sim71 .s71-busy { left: 0; width: 371px; top: 206px; justify-content: center; }
+.sim71 .s71-p15row { position: absolute; left: 0; width: 371px; top: 398px; display: flex; justify-content: center; }
+.sim71 .s71-p15 { font: 700 32px/1 "Rubik"; color: #0b0b0b; background: #ffffff; padding: 10px 18px 9px; border-radius: 12px; white-space: nowrap; opacity: 0; }
+.sim71 .s71-clip { position: absolute; height: 97px; border-radius: 12px; background: rgba(201, 194, 255, 0.12); box-shadow: 0 0 0 2px #c9c2ff, 0 0 18px rgba(201, 194, 255, 0.5); opacity: 0; transform-origin: 0 0; }
+.sim71 .s71-cb { position: absolute; width: 6px; border-radius: 3px; background: #ffffff; display: block; }
+
+/* B1: the style waits for approval */
+.sim71 .s71-stl { right: 20px; top: 150px; }
+.sim71 .s71-style { position: absolute; left: 40px; top: 200px; width: 400px; height: 166px; border-radius: 22px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.28);
+  display: flex; direction: rtl; align-items: center; justify-content: space-between; padding: 0 30px; opacity: 0; }
+.sim71 .s71-glyph { font: 800 76px/1 "Rubik"; color: var(--ink); }
+.sim71 .s71-sw { display: flex; gap: 12px; }
+.sim71 .s71-sw i { width: 26px; height: 26px; border-radius: 50%; display: block; box-shadow: 0 0 10px rgba(201, 194, 255, 0.35); }
+.sim71 .s71-capx { position: relative; width: 112px; height: 40px; border-radius: 10px; background: #ffffff; }
+.sim71 .s71-capx b { position: absolute; left: 18px; top: 16px; width: 76px; height: 8px; border-radius: 4px; background: rgba(20, 16, 40, 0.85); display: block; }
+.sim71 .s71-wait { position: absolute; left: 180px; top: 402px; width: 120px; height: 52px; border-radius: 999px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3);
+  display: flex; justify-content: center; align-items: center; gap: 12px; opacity: 0; }
+.sim71 .s71-wait i { width: 12px; height: 12px; border-radius: 50%; background: #d9d4ff; display: block; }
+.sim71 .s71-sok { left: 212px; top: 406px; }
+
+/* B2-B3: the loop draft -> fix -> draft, then one exit */
+.sim71 .s71-loop { position: absolute; left: 90px; top: 180px; width: 300px; height: 300px; opacity: 0; }
+.sim71 .s71-arcs { position: absolute; left: 0; top: 0; width: 300px; height: 300px; overflow: visible; }
+.sim71 .s71-arcs path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.8)); }
+.sim71 .s71-arm { position: absolute; left: 150px; top: 150px; width: 0; height: 0; }
+.sim71 .s71-dot { position: absolute; left: -9px; top: -109px; width: 18px; height: 18px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 14px #c9c2ff, 0 0 4px #ffffff; display: block; opacity: 0; }
+/* a short comet tail behind the dot (it turns clockwise) */
+.sim71 .s71-tail1 { left: -23.4px; top: -104.5px; width: 12px; height: 12px; background: rgba(233, 229, 255, 0.7); box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); }
+.sim71 .s71-tail2 { left: -38.2px; top: -98px; width: 8px; height: 8px; background: rgba(233, 229, 255, 0.4); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); }
+.sim71 .s71-node { position: absolute; left: 55px; width: 190px; height: 58px; border-radius: 999px; background: rgba(36, 31, 72, 0.97); border: 2px solid rgba(201, 194, 255, 0.6);
+  display: flex; direction: rtl; align-items: center; justify-content: center; gap: 10px; font: 600 32px/1 "Rubik"; color: var(--ink); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4); }
+.sim71 .s71-nd { top: 21px; }
+.sim71 .s71-nf { top: 221px; }
+.sim71 .s71-ico { width: 28px; height: 28px; display: block; flex: none; overflow: visible; }
+.sim71 .s71-ico rect, .sim71 .s71-ico path { fill: none; stroke: #c9c2ff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim71 .s71-wr { transform-origin: 50% 50%; }
+.sim71 .s71-strike { position: absolute; left: 16px; right: 16px; top: 27px; height: 3px; border-radius: 2px; background: #ff6b61; box-shadow: 0 0 8px rgba(255, 69, 58, 0.7); display: block; opacity: 0; transform-origin: 100% 50%; }
+.sim71 .s71-fz { position: absolute; left: 320px; top: 52px; width: 432px; height: 516px; }
+.sim71 .s71-exit { position: absolute; left: 342px; top: 218px; width: 116px; height: 24px; overflow: visible; }
+.sim71 .s71-exit path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.85)); }
+.sim71 .s71-xdot { position: absolute; left: 338px; top: 221px; width: 18px; height: 18px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 14px #c9c2ff; display: block; opacity: 0; }
+.sim71 .s71-one { right: 344px; top: 150px; }
+
+/* payoff: the race, then the single-frame tag */
+.sim71 .s71-rl { right: 20px; }
+.sim71 .s71-rl1 { top: 140px; }
+.sim71 .s71-rl2 { top: 290px; }
+.sim71 .s71-rl2 > i { background: #ff453a; box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); }
+.sim71 .s71-rb { position: absolute; left: 60px; width: 380px; height: 38px; border-radius: 12px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.26); overflow: hidden; opacity: 0; }
+.sim71 .s71-rb1 { top: 192px; }
+.sim71 .s71-rb2 { top: 342px; }
+.sim71 .s71-rf { position: absolute; right: 4px; top: 4px; width: 369px; height: 27px; border-radius: 8px; display: block; transform: scaleX(0); transform-origin: 100% 50%; }
+.sim71 .s71-rb1 .s71-rf { background: linear-gradient(270deg, #b9b0ff, #e6e2ff); box-shadow: 0 0 12px rgba(201, 194, 255, 0.6); }
+.sim71 .s71-rb2 .s71-rf { background: linear-gradient(270deg, #ff453a, #ff8a80); box-shadow: 0 0 12px rgba(255, 69, 58, 0.5); }
+.sim71 .s71-rok { left: 38px; top: 189px; }
+.sim71 .s71-snap { position: absolute; left: 40px; top: 590px; width: 720px; height: 104px; border-radius: 20px; background: rgba(26, 23, 52, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.34);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; opacity: 0; }
+.sim71 .s71-snl { display: flex; align-items: center; gap: 12px; direction: rtl; font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim71 .s71-fico { width: 30px; height: 30px; display: block; flex: none; overflow: visible; }
+.sim71 .s71-fico rect, .sim71 .s71-fico circle, .sim71 .s71-fico path { fill: none; stroke: #c9c2ff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim71 .s71-cmd { font: 500 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #e4e0f5; direction: ltr; white-space: nowrap; }
+/* a light sweep for tall frames (no skew, so nothing shows at rest) */
+.sim71 .s71-swp { position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.sim71 .s71-swp b { position: absolute; top: 0; bottom: 0; left: 100%; width: 80%; display: block;
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 15%, var(--sw, rgba(255, 255, 255, 0.24)) 50%, rgba(255, 255, 255, 0) 85%); }

@@ -17,7 +17,7 @@ BADGE = "21 פרומפטים מוכנים"
 # approved steps, words from the guide's list of what Claude does
 STEPS = ["חיתוך", "כתוביות", "אפקטים"]
 
-T_Q, T_PROM, T_F0, F_STEP, T_SENT, T_TITLE, D = 0.25, 2.0, 2.3, 0.6, 5.95, 8.55, 10.6
+T_Q, T_PROM, T_F0, F_STEP, T_SENT, T_TITLE, D = 0.2, 2.3, 2.62, 0.6, 6.25, 8.5, 10.6
 
 CHECK = '<svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg>'
 
@@ -37,9 +37,11 @@ def _wave():
 
 def _cube():
     faces = "".join(f'<i class="hk-face hk-face{i}"></i>' for i in range(6))
-    palm = ('<svg class="hk-palm" viewBox="0 0 300 220" aria-hidden="true"><path d="M40 200 C 30 150 40 120 70 110 L 80 50 '
-            'C 82 36 100 36 102 50 L 108 100 L 116 30 C 118 16 138 16 140 30 L 142 98 L 152 34 C 154 20 174 20 176 34 L 176 100 '
-            'L 190 50 C 194 38 212 40 210 54 L 200 130 C 230 120 256 128 262 140 C 230 160 214 190 200 210"/></svg>')
+    # an open palm seen from the front: four fingers and a thumb
+    palm = ('<svg class="hk-palm" viewBox="0 0 300 240" aria-hidden="true"><path d="M92 232 C 78 196 70 168 70 140 L 70 70 '
+            'C 70 58 88 58 88 70 L 90 120 L 94 44 C 95 30 114 30 114 44 L 114 116 L 120 34 C 121 20 140 20 141 34 L 140 116 '
+            'L 148 46 C 150 33 168 34 167 48 L 162 124 C 172 106 190 92 204 92 C 214 92 218 102 210 110 C 196 126 186 150 180 172 '
+            'C 172 200 160 222 150 232"/></svg>')
     return f'<div class="hk-3d"><div class="hk-glowpalm"></div>{palm}<div class="hk-cubewrap"><div class="hk-cube">{faces}</div></div></div>'
 
 
@@ -68,20 +70,29 @@ def _phone():
 
 
 def scene(cfg):
-    q, _, _ = kinetic_html(Q, t0=T_Q, step=0.14, pause=0.1)
+    q, _, _ = kinetic_html(Q, t0=T_Q, step=0.1, pause=0.1)
     prom, _, _ = kinetic_html(PROMISE, t0=T_PROM, step=0.08, pause=0.0)
     sent, _, _ = kinetic_html("אומרים לו בעברית מה רוצים, | ורק מאשרים כל שלב בדרך.".replace(" |", ""), t0=T_SENT, step=0.11, pause=0.25)
     title, _, _ = kinetic_html(TITLE, t0=T_TITLE + 0.15, step=0.12, pause=0.0)
     flashes = [_wave(), _phone(), _cube(), _broll(), _screen(), _render()]
     fl = "".join(f'<div class="hk-f hk-f{i}"><div class="hk-fin">{h}</div></div>' for i, h in enumerate(flashes))
     pills = "".join(f'<span class="pill hk-pill" id="hk-p{i}">{esc(p)}</span>' for i, p in enumerate(PILLS))
-    steps = "".join(f'<div class="hk-step"><span>{esc(s)}</span>{CHECK}</div>' for s in STEPS)
+    steps = "".join(f'<div class="hk-step">{CHECK}<span>{esc(s)}</span></div>' for s in STEPS)
     clock = ('<svg class="hk-clock" viewBox="0 0 240 240" aria-hidden="true"><circle class="hk-rim" cx="120" cy="120" r="104"/>'
              + "".join(f'<line x1="120" y1="26" x2="120" y2="{40 if i % 3 else 46}" transform="rotate({i * 30} 120 120)"/>' for i in range(12))
-             + '<line class="hk-hh" x1="120" y1="120" x2="120" y2="70"/><line class="hk-mh" x1="120" y1="120" x2="120" y2="44"/>'
+             + '<path class="hk-trail" d="M120 30 A 90 90 0 0 1 210 120"/>'
+             '<line class="hk-hh" x1="120" y1="120" x2="120" y2="70"/><line class="hk-mh" x1="120" y1="120" x2="120" y2="44"/>'
              '<circle cx="120" cy="120" r="7" class="hk-pin"/></svg>')
+    # the evening of manual work: a crowded timeline, cut marks, crooked caption bars
+    clips = "".join(f'<i class="hk-tc" style="left:{x}px;width:{w}px;top:{y}px"></i>' for x, w, y in
+                    ((10, 150, 18), (168, 96, 18), (272, 190, 18), (470, 120, 18), (598, 152, 18),
+                     (40, 120, 62), (176, 160, 62), (350, 90, 62), (452, 210, 62), (670, 80, 62)))
+    caps = "".join(f'<i class="hk-cb" style="left:{x}px;width:{w}px;transform:rotate({r}deg)"></i>' for x, w, r in
+                   ((30, 130, -4), (190, 110, 3), (330, 150, -2), (520, 120, 5), (660, 90, -3)))
+    cuts = "".join(f'<i class="hk-cm" style="left:{x}px"></i>' for x in (164, 268, 466, 594))
+    tline = f'<div class="hk-tline">{clips}{caps}{cuts}<i class="hk-ph"></i></div>'
     inner = f"""<div class="hook">
-<div class="hk-qwrap">{clock}<p class="hk-q kin" dir="rtl">{q}</p></div>
+<div class="hk-qwrap">{clock}<p class="hk-q kin" dir="rtl">{q}</p>{tline}</div>
 <p class="hk-prom kin" dir="rtl">{prom}</p>
 <div class="hk-fbox">{fl}</div>
 <div class="hk-pills">{pills}</div>

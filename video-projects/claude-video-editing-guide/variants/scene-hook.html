@@ -282,6 +282,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
 .accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
 .strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+.nbgrp { display: inline-block; white-space: nowrap; }
+.glu { display: inline-block; white-space: nowrap; }
 
 /* ---------- topic layout ---------- */
 .main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
@@ -349,12 +351,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .chap { position: absolute; inset: 0; }
 .ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
 .ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
-.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(255, 69, 58, 0.7); box-shadow: 0 0 30px rgba(255, 69, 58, 0.35), inset 0 0 30px rgba(255, 69, 58, 0.2); display: block; opacity: 0; }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
 .ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
-.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
+.ch-tin { display: inline-block; white-space: nowrap; }
 .ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
 .ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
-.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 30px/1.45 "Rubik"; color: var(--muted); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
 /* centred blocks wrap into even lines; paragraphs never end on a lone word */
 .ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
 .exp, .tip-text { text-wrap: pretty; }
@@ -378,14 +381,20 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 
 /* Chapter 0: hook (frame coordinates, 1080 x 1920; text inside x 140..940, y 300..1570) */
 .hook { position: absolute; inset: 0; }
-.hook .hk-qwrap { position: absolute; left: 140px; width: 800px; top: 560px; height: 700px; }
-.hook .hk-clock { position: absolute; left: 280px; top: 0; width: 240px; height: 240px; opacity: 0; overflow: visible; }
+.hook .hk-qwrap { position: absolute; left: 140px; width: 800px; top: 470px; height: 1000px; }
+.hook .hk-clock { position: absolute; left: 230px; top: 0; width: 340px; height: 340px; opacity: 0; overflow: visible; }
+.hook .hk-clock .hk-trail { fill: none; stroke: rgba(255, 107, 97, 0.5); stroke-width: 10; stroke-linecap: round; opacity: 0; }
 .hook .hk-clock line, .hook .hk-clock circle { fill: none; stroke: #c9c2ff; stroke-width: 4; stroke-linecap: round; }
 .hook .hk-clock .hk-rim { stroke-width: 3; filter: drop-shadow(0 0 10px rgba(201, 194, 255, 0.7)); }
 .hook .hk-clock .hk-hh { stroke: #ffffff; stroke-width: 7; }
 .hook .hk-clock .hk-mh { stroke: #ff6b61; stroke-width: 4.5; }
 .hook .hk-clock .hk-pin { fill: #ffffff; stroke: none; }
-.hook .hk-q { position: absolute; left: 0; width: 800px; top: 300px; text-align: center; font: 800 80px/1.15 "Rubik"; color: var(--ink); text-wrap: balance; }
+.hook .hk-q { position: absolute; left: 0; width: 800px; top: 380px; text-align: center; font: 800 80px/1.15 "Rubik"; color: var(--ink); text-wrap: balance; }
+.hook .hk-tline { position: absolute; left: 20px; width: 760px; top: 640px; height: 170px; border-radius: 18px; background: rgba(20, 18, 40, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.22); opacity: 0; overflow: hidden; }
+.hook .hk-tc { position: absolute; height: 34px; border-radius: 8px; background: rgba(201, 194, 255, 0.35); border: 1.5px solid rgba(201, 194, 255, 0.55); display: block; }
+.hook .hk-cb { position: absolute; top: 116px; height: 22px; border-radius: 7px; background: rgba(255, 255, 255, 0.82); display: block; }
+.hook .hk-cm { position: absolute; top: 8px; width: 3px; height: 98px; background: #ff453a; box-shadow: 0 0 8px rgba(255, 69, 58, 0.8); display: block; }
+.hook .hk-ph { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: #ffffff; box-shadow: 0 0 10px #c9c2ff; display: block; }
 .hook .hk-prom { position: absolute; left: 140px; width: 800px; top: 330px; text-align: center; font: 600 46px/1.3 "Rubik"; color: var(--ink2); }
 
 /* flashes: one-frame cuts, each with its own bouncy zoom */
@@ -412,8 +421,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 /* F3 a 3D cube floating over an open palm */
 .hook .hk-3d { position: absolute; inset: 0; perspective: 1100px; }
 .hook .hk-glowpalm { position: absolute; left: 250px; top: 430px; width: 260px; height: 160px; border-radius: 50%; background: radial-gradient(ellipse, rgba(255, 69, 58, 0.45), rgba(255, 69, 58, 0) 70%); }
-.hook .hk-palm { position: absolute; left: 230px; top: 400px; width: 300px; height: 220px; overflow: visible; }
-.hook .hk-palm path { fill: rgba(40, 34, 80, 0.85); stroke: #c9c2ff; stroke-width: 3; stroke-linejoin: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.6)); }
+.hook .hk-palm { position: absolute; left: 230px; top: 390px; width: 300px; height: 240px; overflow: visible; }
+.hook .hk-palm path { fill: rgba(40, 34, 80, 0.85); stroke: #C9C2FF; stroke-width: 3; stroke-linejoin: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.6)); }
 .hook .hk-cubewrap { position: absolute; left: 290px; top: 120px; width: 180px; height: 180px; transform-style: preserve-3d; }
 .hook .hk-cube { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateX(-24deg) rotateY(30deg); }
 .hook .hk-face { position: absolute; inset: 0; border: 3px solid #ff6b61; background: rgba(255, 69, 58, 0.16); box-shadow: 0 0 22px rgba(255, 69, 58, 0.45), inset 0 0 22px rgba(255, 69, 58, 0.25); display: block; }
@@ -480,8 +489,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
 <div id="sc-hook" class="clip scene" data-start="0.000" data-duration="10.600" data-track-index="1"><div class="hook">
-<div class="hk-qwrap"><svg class="hk-clock" viewBox="0 0 240 240" aria-hidden="true"><circle class="hk-rim" cx="120" cy="120" r="104"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(0 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(30 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(60 120 120)"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(90 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(120 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(150 120 120)"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(180 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(210 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(240 120 120)"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(270 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(300 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(330 120 120)"/><line class="hk-hh" x1="120" y1="120" x2="120" y2="70"/><line class="hk-mh" x1="120" y1="120" x2="120" y2="44"/><circle cx="120" cy="120" r="7" class="hk-pin"/></svg><p class="hk-q kin" dir="rtl"><span class="w" dir="rtl" data-t="0.250">ערב</span> <span class="w" dir="rtl" data-t="0.390">שלם</span> <span class="w" dir="rtl" data-t="0.530">על</span> <span class="w" dir="rtl" data-t="0.670">סרטון</span> <span class="w" dir="rtl" data-t="0.810">של</span> <span class="w" dir="rtl" data-t="0.950">דקה?</span></p></div>
-<p class="hk-prom kin" dir="rtl"><span class="w" dir="rtl" data-t="2.000">בסוף</span> <span class="w" dir="rtl" data-t="2.080">הסרטון</span> <span class="w" dir="rtl" data-t="2.160">תדעו</span> <span class="w" dir="rtl" data-t="2.240">לתת</span> <span class="w" dir="rtl" data-t="2.320">לקלוד</span> <span class="w" dir="rtl" data-t="2.400">לערוך:</span></p>
+<div class="hk-qwrap"><svg class="hk-clock" viewBox="0 0 240 240" aria-hidden="true"><circle class="hk-rim" cx="120" cy="120" r="104"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(0 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(30 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(60 120 120)"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(90 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(120 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(150 120 120)"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(180 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(210 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(240 120 120)"/><line x1="120" y1="26" x2="120" y2="46" transform="rotate(270 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(300 120 120)"/><line x1="120" y1="26" x2="120" y2="40" transform="rotate(330 120 120)"/><path class="hk-trail" d="M120 30 A 90 90 0 0 1 210 120"/><line class="hk-hh" x1="120" y1="120" x2="120" y2="70"/><line class="hk-mh" x1="120" y1="120" x2="120" y2="44"/><circle cx="120" cy="120" r="7" class="hk-pin"/></svg><p class="hk-q kin" dir="rtl"><span class="w" dir="rtl" data-t="0.200">ערב</span> <span class="w" dir="rtl" data-t="0.300">שלם</span> <span class="w" dir="rtl" data-t="0.400">על</span> <span class="w" dir="rtl" data-t="0.500">סרטון</span> <span class="w" dir="rtl" data-t="0.600">של</span> <span class="w" dir="rtl" data-t="0.700">דקה?</span></p><div class="hk-tline"><i class="hk-tc" style="left:10px;width:150px;top:18px"></i><i class="hk-tc" style="left:168px;width:96px;top:18px"></i><i class="hk-tc" style="left:272px;width:190px;top:18px"></i><i class="hk-tc" style="left:470px;width:120px;top:18px"></i><i class="hk-tc" style="left:598px;width:152px;top:18px"></i><i class="hk-tc" style="left:40px;width:120px;top:62px"></i><i class="hk-tc" style="left:176px;width:160px;top:62px"></i><i class="hk-tc" style="left:350px;width:90px;top:62px"></i><i class="hk-tc" style="left:452px;width:210px;top:62px"></i><i class="hk-tc" style="left:670px;width:80px;top:62px"></i><i class="hk-cb" style="left:30px;width:130px;transform:rotate(-4deg)"></i><i class="hk-cb" style="left:190px;width:110px;transform:rotate(3deg)"></i><i class="hk-cb" style="left:330px;width:150px;transform:rotate(-2deg)"></i><i class="hk-cb" style="left:520px;width:120px;transform:rotate(5deg)"></i><i class="hk-cb" style="left:660px;width:90px;transform:rotate(-3deg)"></i><i class="hk-cm" style="left:164px"></i><i class="hk-cm" style="left:268px"></i><i class="hk-cm" style="left:466px"></i><i class="hk-cm" style="left:594px"></i><i class="hk-ph"></i></div></div>
+<p class="hk-prom kin" dir="rtl"><span class="w" dir="rtl" data-t="2.300">בסוף</span> <span class="w" dir="rtl" data-t="2.380">הסרטון</span> <span class="w" dir="rtl" data-t="2.460">תדעו</span> <span class="w" dir="rtl" data-t="2.540">לתת</span> <span class="w" dir="rtl" data-t="2.620">לקלוד</span> <span class="w" dir="rtl" data-t="2.700">לערוך:</span></p>
 <div class="hk-fbox"><div class="hk-f hk-f0"><div class="hk-fin"><div class="hk-wave"><svg class="hk-seg hk-seg0" style="left:30px" viewBox="0 0 190 120" aria-hidden="true"><rect x="0" y="51.0" width="10" height="18" rx="5"/><rect x="17" y="43.0" width="10" height="34" rx="5"/><rect x="34" y="34.0" width="10" height="52" rx="5"/><rect x="51" y="45.0" width="10" height="30" rx="5"/><rect x="68" y="28.0" width="10" height="64" rx="5"/><rect x="85" y="38.0" width="10" height="44" rx="5"/><rect x="102" y="47.0" width="10" height="26" rx="5"/><rect x="119" y="40.0" width="10" height="40" rx="5"/><rect x="136" y="31.0" width="10" height="58" rx="5"/><rect x="153" y="42.0" width="10" height="36" rx="5"/><rect x="170" y="49.0" width="10" height="22" rx="5"/></svg><svg class="hk-seg hk-seg1" style="left:290px" viewBox="0 0 190 120" aria-hidden="true"><rect x="0" y="51.0" width="10" height="18" rx="5"/><rect x="17" y="43.0" width="10" height="34" rx="5"/><rect x="34" y="34.0" width="10" height="52" rx="5"/><rect x="51" y="45.0" width="10" height="30" rx="5"/><rect x="68" y="28.0" width="10" height="64" rx="5"/><rect x="85" y="38.0" width="10" height="44" rx="5"/><rect x="102" y="47.0" width="10" height="26" rx="5"/><rect x="119" y="40.0" width="10" height="40" rx="5"/><rect x="136" y="31.0" width="10" height="58" rx="5"/><rect x="153" y="42.0" width="10" height="36" rx="5"/><rect x="170" y="49.0" width="10" height="22" rx="5"/></svg><svg class="hk-seg hk-seg2" style="left:550px" viewBox="0 0 190 120" aria-hidden="true"><rect x="0" y="51.0" width="10" height="18" rx="5"/><rect x="17" y="43.0" width="10" height="34" rx="5"/><rect x="34" y="34.0" width="10" height="52" rx="5"/><rect x="51" y="45.0" width="10" height="30" rx="5"/><rect x="68" y="28.0" width="10" height="64" rx="5"/><rect x="85" y="38.0" width="10" height="44" rx="5"/><rect x="102" y="47.0" width="10" height="26" rx="5"/><rect x="119" y="40.0" width="10" height="40" rx="5"/><rect x="136" y="31.0" width="10" height="58" rx="5"/><rect x="153" y="42.0" width="10" height="36" rx="5"/><rect x="170" y="49.0" width="10" height="22" rx="5"/></svg><i class="hk-gap" style="left:220px"></i><i class="hk-gap" style="left:480px"></i><i class="hk-cut" style="left:218px"></i><i class="hk-cut" style="left:408px"></i><i class="hk-base"></i></div></div></div><div class="hk-f hk-f1"><div class="hk-fin"><div class="hk-phone"><div class="hk-scr"><svg class="hk-person2" viewBox="0 0 312 380" aria-hidden="true">
 <defs>
 <linearGradient id="pfhk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
@@ -492,7 +501,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pfhk2)"/>
 <path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#prhk2)" stroke-width="3"/>
 <ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#prhk2)" stroke-width="3"/>
-</svg><span class="hk-cap">בפריים אחד</span></div></div></div></div><div class="hk-f hk-f2"><div class="hk-fin"><div class="hk-3d"><div class="hk-glowpalm"></div><svg class="hk-palm" viewBox="0 0 300 220" aria-hidden="true"><path d="M40 200 C 30 150 40 120 70 110 L 80 50 C 82 36 100 36 102 50 L 108 100 L 116 30 C 118 16 138 16 140 30 L 142 98 L 152 34 C 154 20 174 20 176 34 L 176 100 L 190 50 C 194 38 212 40 210 54 L 200 130 C 230 120 256 128 262 140 C 230 160 214 190 200 210"/></svg><div class="hk-cubewrap"><div class="hk-cube"><i class="hk-face hk-face0"></i><i class="hk-face hk-face1"></i><i class="hk-face hk-face2"></i><i class="hk-face hk-face3"></i><i class="hk-face hk-face4"></i><i class="hk-face hk-face5"></i></div></div></div></div></div><div class="hk-f hk-f3"><div class="hk-fin"><div class="hk-broll"><div class="hk-spk"><svg class="hk-person" viewBox="0 0 312 380" aria-hidden="true">
+</svg><span class="hk-cap">בפריים אחד</span></div></div></div></div><div class="hk-f hk-f2"><div class="hk-fin"><div class="hk-3d"><div class="hk-glowpalm"></div><svg class="hk-palm" viewBox="0 0 300 240" aria-hidden="true"><path d="M92 232 C 78 196 70 168 70 140 L 70 70 C 70 58 88 58 88 70 L 90 120 L 94 44 C 95 30 114 30 114 44 L 114 116 L 120 34 C 121 20 140 20 141 34 L 140 116 L 148 46 C 150 33 168 34 167 48 L 162 124 C 172 106 190 92 204 92 C 214 92 218 102 210 110 C 196 126 186 150 180 172 C 172 200 160 222 150 232"/></svg><div class="hk-cubewrap"><div class="hk-cube"><i class="hk-face hk-face0"></i><i class="hk-face hk-face1"></i><i class="hk-face hk-face2"></i><i class="hk-face hk-face3"></i><i class="hk-face hk-face4"></i><i class="hk-face hk-face5"></i></div></div></div></div></div><div class="hk-f hk-f3"><div class="hk-fin"><div class="hk-broll"><div class="hk-spk"><svg class="hk-person" viewBox="0 0 312 380" aria-hidden="true">
 <defs>
 <linearGradient id="pfhk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
 <linearGradient id="prhk1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
@@ -504,10 +513,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#prhk1)" stroke-width="3"/>
 </svg></div><div class="hk-clip"><svg class="hk-land" viewBox="0 0 400 225" aria-hidden="true"><circle cx="300" cy="62" r="26"/><path d="M0 200 L 110 92 L 180 160 L 250 104 L 400 210"/></svg><i class="hk-bar"><b></b></i></div></div></div></div><div class="hk-f hk-f4"><div class="hk-fin"><div class="hk-win"><div class="hk-wbar"><i></i><i></i><i></i></div><div class="hk-ln" style="width:420px"></div><div class="hk-ln" style="width:300px"></div><div class="hk-mail" dir="ltr">dana@example.com<i class="hk-mbox"></i></div><div class="hk-ln" style="width:360px"></div><div class="hk-ln" style="width:240px"></div></div></div></div><div class="hk-f hk-f5"><div class="hk-fin"><div class="hk-rend"><div class="hk-big"><span dir="ltr">1080×1920</span></div><div class="hk-small"><span dir="ltr">540×960</span><b dir="rtl">15 שניות</b><svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></div></div></div></div></div>
 <div class="hk-pills"><span class="pill hk-pill" id="hk-p0">חיתוך שתיקות</span><span class="pill hk-pill" id="hk-p1">כתוביות בעברית</span><span class="pill hk-pill" id="hk-p2">אפקטים בתלת ממד</span><span class="pill hk-pill" id="hk-p3">בירולים</span><span class="pill hk-pill" id="hk-p4">הקלטות מסך</span><span class="pill hk-pill" id="hk-p5">חיסכון ברינדורים</span></div>
-<div class="hk-sentwrap"><p class="hk-sent kin" dir="rtl"><span class="w" dir="rtl" data-t="5.950">אומרים</span> <span class="w" dir="rtl" data-t="6.060">לו</span> <span class="w" dir="rtl" data-t="6.170">בעברית</span> <span class="w" dir="rtl" data-t="6.280">מה</span> <span class="w" dir="rtl" data-t="6.390">רוצים,</span> <span class="w" dir="rtl" data-t="6.500">ורק</span> <span class="w" dir="rtl" data-t="6.610">מאשרים</span> <span class="w" dir="rtl" data-t="6.720">כל</span> <span class="w" dir="rtl" data-t="6.830">שלב</span> <span class="w" dir="rtl" data-t="6.940">בדרך.</span></p>
+<div class="hk-sentwrap"><p class="hk-sent kin" dir="rtl"><span class="w" dir="rtl" data-t="6.250">אומרים</span> <span class="w" dir="rtl" data-t="6.360">לו</span> <span class="w" dir="rtl" data-t="6.470">בעברית</span> <span class="w" dir="rtl" data-t="6.580">מה</span> <span class="w" dir="rtl" data-t="6.690">רוצים,</span> <span class="w" dir="rtl" data-t="6.800">ורק</span> <span class="w" dir="rtl" data-t="6.910">מאשרים</span> <span class="w" dir="rtl" data-t="7.020">כל</span> <span class="w" dir="rtl" data-t="7.130">שלב</span> <span class="w" dir="rtl" data-t="7.240">בדרך.</span></p>
 <div class="hk-bubble" dir="rtl"><svg class="hk-mic" viewBox="0 0 30 40" aria-hidden="true"><rect x="9" y="3" width="12" height="22" rx="6"/><path d="M4 19c0 6 5 11 11 11s11-5 11-11M15 30v7M9 37h12"/></svg><i></i><i></i><i></i></div>
-<div class="hk-steps" dir="rtl"><div class="hk-step"><span>חיתוך</span><svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></div><div class="hk-step"><span>כתוביות</span><svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></div><div class="hk-step"><span>אפקטים</span><svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></div></div></div>
-<div class="hk-title"><i class="ch-ring hk-ring"></i><i class="ch-ring ch-ring2 hk-ring"></i><h1 class="hk-tt kin" dir="rtl"><span class="w" dir="rtl" data-t="8.700">עריכת</span> <span class="w" dir="rtl" data-t="8.820">וידאו</span> <span class="w" dir="rtl" data-t="8.940">עם</span> <span class="w" dir="rtl" data-t="9.060">Claude</span></h1><span class="hk-badge" dir="rtl">21 פרומפטים מוכנים</span></div>
+<div class="hk-steps" dir="rtl"><div class="hk-step"><svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><span>חיתוך</span></div><div class="hk-step"><svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><span>כתוביות</span></div><div class="hk-step"><svg class="hk-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><span>אפקטים</span></div></div></div>
+<div class="hk-title"><i class="ch-ring hk-ring"></i><i class="ch-ring ch-ring2 hk-ring"></i><h1 class="hk-tt kin" dir="rtl"><span class="w" dir="rtl" data-t="8.650">עריכת</span> <span class="w" dir="rtl" data-t="8.770">וידאו</span> <span class="w" dir="rtl" data-t="8.890">עם</span> <span class="w" dir="rtl" data-t="9.010">Claude</span></h1><span class="hk-badge" dir="rtl">21 פרומפטים מוכנים</span></div>
 </div></div>
 </div>
 </div>
@@ -647,10 +656,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
   E.draw = function (tl, el, t, d, ease) {
     if (!el) return;
-    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2;
-    el.style.strokeDasharray = L + " " + L;
-    el.style.strokeDashoffset = L;
-    tl.fromTo(el, { strokeDashoffset: L }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+    // the hidden dash ends before the path starts, so a round cap never leaves a dot there
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2, pad = 12;
+    el.style.strokeDasharray = L + " " + (L + 2 * pad);
+    el.style.strokeDashoffset = L + pad;
+    tl.fromTo(el, { strokeDashoffset: L + pad }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
   };
   /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
   E.glitch = function (tl, el, t, amp) {
@@ -950,13 +960,21 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   E.chapter = function (tl, ctx, cfg) {
     const S = cfg.S, sc = ctx.scene;
     const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // static layout: the title is one line no wider than 760 px; the divider and texts flow under it
+    const tt = E.q(".ch-title", sc), tin = E.q(".ch-tin", sc);
+    if (tin && tin.offsetWidth > 760) tt.style.fontSize = (78 * 760 / tin.offsetWidth).toFixed(1) + "px";
+    const tBot = tt.offsetTop + tt.offsetHeight;
+    line.style.top = tBot + 30 + "px";
+    const sub = E.q(".ch-sub", sc), tag = E.q(".ch-tag", sc);
+    if (sub) sub.style.top = tBot + 66 + "px";
+    if (tag && sub) tag.style.top = tBot + 66 + sub.offsetHeight + 34 + "px";
     // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
     E.band(tl, sc, S);
     tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
     E.qa(".ch-ring", sc).forEach((r, i) => {
       tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
     });
-    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ff8a80" });
+    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ffffff" });
     tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
     tl.set(n, { filter: "none" }, S + 0.58);
     E.fadeIn(tl, k, S + 0.25, 0.5, 14);
@@ -981,12 +999,24 @@ window.SIMS.hook = function (tl, ctx, cfg, S) {
   E.band(tl, sc, t(0));
   // 1. the question, and a clock racing through an evening
   const clock = q(".hk-clock");
-  tl.fromTo(clock, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.6, ease: E.SPRING }), t(0.1));
-  tl.fromTo(q(".hk-mh"), { rotation: 0, svgOrigin: "120 120" }, A({ rotation: 360 * 5, svgOrigin: "120 120", duration: 1.6, ease: "power1.inOut" }), t(0.3));
-  tl.fromTo(q(".hk-hh"), { rotation: 0, svgOrigin: "120 120" }, A({ rotation: 150, svgOrigin: "120 120", duration: 1.6, ease: "power1.inOut" }), t(0.3));
+  tl.fromTo(clock, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.6, ease: E.SPRING }), t(0.05));
+  tl.fromTo(q(".hk-mh"), { rotation: 0, svgOrigin: "120 120" }, A({ rotation: 360 * 3, svgOrigin: "120 120", duration: 1.5, ease: "power1.inOut" }), t(0.15));
+  tl.fromTo(q(".hk-trail"), { opacity: 0, rotation: 0, svgOrigin: "120 120" }, A({ opacity: 1, rotation: 360 * 3, svgOrigin: "120 120", duration: 1.5, ease: "power1.inOut" }), t(0.15));
+  tl.fromTo(q(".hk-trail"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), t(1.6));
+  tl.fromTo(q(".hk-hh"), { rotation: 0, svgOrigin: "120 120" }, A({ rotation: 120, svgOrigin: "120 120", duration: 1.5, ease: "power1.inOut" }), t(0.15));
   E.kin(tl, q(".hk-q"), S, { dy: 22 });
+  // the evening of manual work: the timeline fills with cuts and crooked captions, the playhead scrubs back and forth
+  const tln = q(".hk-tline");
+  tl.fromTo(tln, { opacity: 0, y: 30 }, A({ opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }), t(0.45));
+  qa(".hk-tc").forEach((c, i) => tl.fromTo(c, { scaleX: 0 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), t(0.55 + i * 0.05)));
+  qa(".hk-cb").forEach((c, i) => tl.fromTo(c, { opacity: 0, y: 10 }, A({ opacity: 1, y: 0, duration: 0.25 }), t(0.9 + i * 0.08)));
+  qa(".hk-cm").forEach((c, i) => tl.fromTo(c, { scaleY: 0 }, A({ scaleY: 1, duration: 0.2 }), t(1.1 + i * 0.07)));
+  const ph = q(".hk-ph");
+  tl.fromTo(ph, { x: 0 }, A({ x: 700, duration: 0.7, ease: "power1.inOut" }), t(0.6));
+  tl.fromTo(ph, { x: 700 }, A({ x: 180, duration: 0.5, ease: "power1.inOut" }), t(1.3));
+  tl.fromTo(ph, { x: 180 }, A({ x: 520, duration: 0.5, ease: "power1.inOut" }), t(1.8));
   const qw = q(".hk-qwrap");
-  tl.fromTo(qw, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.06, duration: 0.25, ease: "power2.in" }), t(T.prom - 0.22));
+  tl.fromTo(qw, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.06, duration: 0.25, ease: "power2.in" }), t(T.f0 - 0.27));
   // 2. the promise and six flashes
   E.kin(tl, q(".hk-prom"), S, { dy: 14 });
   const fl = qa(".hk-f");
@@ -1006,7 +1036,7 @@ window.SIMS.hook = function (tl, ctx, cfg, S) {
   // F3: the cube turns over the palm
   tl.fromTo(q(".hk-cubewrap"), { rotationY: 0, y: 14 }, A({ rotationY: 80, y: -6, duration: T.fstep, ease: "power1.out" }), t(f(2)));
   // F4: the b-roll slides over the speaker and plays
-  tl.fromTo(q(".hk-clip"), { x: 720 }, A({ x: 0, duration: 0.32, ease: E.SPRING }), t(f(3) + 0.05));
+  tl.fromTo(q(".hk-clip"), { x: 380, opacity: 0 }, A({ x: 0, opacity: 1, duration: 0.32, ease: E.SPRING }), t(f(3) + 0.05));
   tl.fromTo(q(".hk-bar b"), { scaleX: 0.05 }, A({ scaleX: 0.6, duration: 0.45, ease: "none" }), t(f(3) + 0.15));
   // F5: the email is found and blurred
   tl.fromTo(q(".hk-mbox"), { opacity: 0, scale: 1.12 }, A({ opacity: 1, scale: 1, duration: 0.2, ease: "power2.out" }), t(f(4) + 0.05));
@@ -1014,27 +1044,27 @@ window.SIMS.hook = function (tl, ctx, cfg, S) {
   // F6: the small draft is approved
   E.draw(tl, q(".hk-small .hk-ck path"), t(f(5) + 0.15), 0.3);
   // flashes and pills end with the promise
-  const tEnd = T.sent - 0.15;
+  const tEnd = T.f0 + 6 * T.fstep;
   tl.set(fl[fl.length - 1], { opacity: 0 }, t(tEnd));
   tl.set(q("#hk-p" + (fl.length - 1)), { opacity: 0 }, t(tEnd));
-  E.fadeOut(tl, q(".hk-prom"), t(tEnd - 0.1), 0.2, -10);
+  E.fadeOut(tl, q(".hk-prom"), t(tEnd - 0.2), 0.2, -10);
   // 3. ask in Hebrew, approve every step
   E.kin(tl, q(".hk-sent"), S, { dy: 18 });
   const bub = q(".hk-bubble");
-  tl.fromTo(bub, { opacity: 0, y: 30, scale: 0.9 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.55, ease: E.SPRING }), t(T.sent + 0.2));
+  tl.fromTo(bub, { opacity: 0, y: 30, scale: 0.9 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.55, ease: E.SPRING }), t(T.sent + 0.02));
   qa(".hk-bubble i").forEach((l, i) => tl.fromTo(l, { scaleX: 0 }, A({ scaleX: 1, duration: 0.35, ease: "power2.out" }), t(T.sent + 0.45 + i * 0.12)));
   qa(".hk-step").forEach((st, i) => {
-    const a = T.sent + 1.15 + i * 0.38;
+    const a = T.sent + 0.95 + i * 0.3;
     tl.fromTo(st, { opacity: 0, y: 24 }, A({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }), t(a));
     E.draw(tl, E.q(".hk-ck path", st), t(a + 0.25), 0.3);
     tl.fromTo(st, { borderColor: "rgba(201, 194, 255, 0.3)" }, A({ borderColor: "rgba(201, 194, 255, 0.9)", duration: 0.3 }), t(a + 0.25));
   });
-  E.fadeOut(tl, q(".hk-sentwrap"), t(T.title - 0.3), 0.28, -16);
+  E.fadeOut(tl, q(".hk-sentwrap"), t(T.title - 0.12), 0.28, -16);
   // 4. title
   E.band(tl, sc, t(T.title - 0.05));
   E.kin(tl, q(".hk-tt"), S, { dy: 26 });
-  qa(".hk-ring").forEach((r, i) => tl.fromTo(r, { scale: 0.5, opacity: 0.9 }, A({ scale: 1.7 + i * 0.3, opacity: 0, duration: 1.2 + i * 0.2, ease: "power2.out" }), t(T.title + 0.2 + i * 0.12)));
-  E.burst(tl, q(".hk-title"), 400, 150, t(T.title + 0.25), { n: 20, seed: 9, r0: 160, r1: 360, color: "#c9c2ff" });
+  qa(".hk-ring").forEach((r, i) => tl.fromTo(r, { scale: 0.5, opacity: 0.9 }, A({ scale: 1.7 + i * 0.3, opacity: 0, duration: 1.2 + i * 0.2, ease: "power2.out" }), t(T.title + 0.05 + i * 0.12)));
+  E.burst(tl, q(".hk-title"), 400, 150, t(T.title + 0.1), { n: 20, seed: 9, r0: 160, r1: 360, color: "#c9c2ff" });
   const badge = q(".hk-badge");
   tl.fromTo(badge, { opacity: 0, scale: 0.8, y: 20 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.6, ease: E.SPRING }), t(T.title + 0.9));
   E.sweep(tl, badge, t(T.title + 1.25), 0.7, { color: "rgba(255, 255, 255, 0.35)" });
@@ -1044,7 +1074,7 @@ window.SIMS.hook = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"T": {"q": 0.25, "prom": 2.0, "f0": 2.3, "fstep": 0.6, "sent": 5.95, "title": 8.55}, "n": 6, "id": "hook", "type": "custom", "sim": "hook", "D": 10.6, "S": 0.0}];
+  const CFGS = [{"T": {"q": 0.2, "prom": 2.3, "f0": 2.62, "fstep": 0.6, "sent": 6.25, "title": 8.5}, "n": 6, "id": "hook", "type": "custom", "sim": "hook", "D": 10.6, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),

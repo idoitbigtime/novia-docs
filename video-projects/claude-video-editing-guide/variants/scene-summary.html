@@ -282,6 +282,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
 .accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
 .strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+.nbgrp { display: inline-block; white-space: nowrap; }
+.glu { display: inline-block; white-space: nowrap; }
 
 /* ---------- topic layout ---------- */
 .main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
@@ -349,12 +351,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .chap { position: absolute; inset: 0; }
 .ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
 .ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
-.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(255, 69, 58, 0.7); box-shadow: 0 0 30px rgba(255, 69, 58, 0.35), inset 0 0 30px rgba(255, 69, 58, 0.2); display: block; opacity: 0; }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
 .ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
-.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
+.ch-tin { display: inline-block; white-space: nowrap; }
 .ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
 .ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
-.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 30px/1.45 "Rubik"; color: var(--muted); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
 /* centred blocks wrap into even lines; paragraphs never end on a lone word */
 .ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
 .exp, .tip-text { text-wrap: pretty; }
@@ -382,42 +385,43 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .summary .sm-kick i { width: 12px; height: 12px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); display: block; flex: none; }
 .summary .sm-recap { position: absolute; left: 140px; width: 800px; top: 372px; }
 .summary .sm-recap .sm-kick, .summary .sm-next .sm-kick { opacity: 0; }
-.summary .sm-blocks { margin-top: 26px; display: flex; flex-direction: column; gap: 20px; }
+.summary .sm-blocks { margin-top: 24px; display: flex; flex-direction: column; gap: 18px; }
 .summary .sm-blk { opacity: 0; }
-.summary .sm-blk h3 { font: 700 32px/1.1 "Rubik"; color: #ffffff; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.summary .sm-blk h3 { font: 700 34px/1.1 "Rubik"; color: #ffffff; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
 .summary .sm-chips { display: flex; flex-wrap: wrap; gap: 10px 10px; }
-.summary .sm-chip { display: flex; align-items: center; gap: 9px; padding: 9px 12px 9px 16px; border-radius: 999px; border: 1.5px solid rgba(201, 194, 255, 0.22); background: rgba(26, 23, 52, 0.85); font: 600 27px/1 "Rubik"; color: #e4e1f0; white-space: nowrap; }
-.summary .sm-ck { width: 30px; height: 30px; border-radius: 50%; background: rgba(201, 194, 255, 0.1); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.35); overflow: visible; flex: none; }
+.summary .sm-chip { position: relative; display: flex; align-items: center; gap: 10px; padding: 9px 16px 9px 12px; border-radius: 999px; border: 1.5px solid rgba(201, 194, 255, 0.22); background: rgba(26, 23, 52, 0.85); font: 600 30px/1 "Rubik"; color: #e4e1f0; white-space: nowrap; }
+.summary .sm-ck { width: 32px; height: 32px; border-radius: 50%; background: rgba(201, 194, 255, 0.1); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.35); overflow: visible; flex: none; }
 .summary .sm-ck path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
 
 .summary .sm-next { position: absolute; left: 140px; width: 800px; top: 372px; }
 .summary .sm-nl { margin-top: 18px; font: 500 40px/1.35 "Rubik"; color: var(--ink2); text-wrap: balance; }
-.summary .sm-cards { margin-top: 34px; display: flex; flex-direction: column; gap: 18px; }
+.summary .sm-cards { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
 .summary .sm-card { display: flex; align-items: center; gap: 26px; padding: 24px 28px; border-radius: 24px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.25); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35); position: relative; overflow: hidden; opacity: 0; }
 .summary .sm-ico { width: 64px; height: 64px; flex: none; overflow: visible; }
 .summary .sm-ico path, .summary .sm-ico rect, .summary .sm-ico circle { fill: none; stroke: #c9c2ff; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
 .summary .sm-card h4 { font: 800 38px/1.1 "Rubik"; color: #ffffff; margin-bottom: 8px; text-align: right; }
-.summary .sm-card p { font: 400 29px/1.36 "Rubik"; color: #cfcbe0; }
-.summary .sm-docs { margin-top: 26px; font: 500 30px/1.4 "Rubik"; color: #9c99ae; opacity: 0; }
+.summary .sm-card p { font: 400 32px/1.36 "Rubik"; color: #cfcbe0; }
+.summary .sm-docs { margin-top: 24px; font: 500 30px/1.4 "Rubik"; color: #c9c3e6; opacity: 0; }
 .summary .sm-url { font-family: "IBM Plex Mono"; font-weight: 600; color: #d8d4ea; unicode-bidi: isolate; }
 
 .summary .sm-end { position: absolute; left: 140px; width: 800px; top: 640px; height: 600px; }
 .summary .sm-ring { left: 400px; top: 220px; }
 .summary .sm-tt { position: absolute; left: 0; width: 800px; top: 120px; text-align: center; font: 800 96px/1.1 "Rubik"; color: var(--ink); text-shadow: 0 0 40px rgba(201, 194, 255, 0.35); text-wrap: balance; }
-.summary .sm-el { position: absolute; left: 20px; width: 760px; top: 400px; text-align: center; font: 500 38px/1.4 "Rubik"; color: var(--ink2); text-wrap: balance; }
+.summary .sm-el { position: absolute; left: 20px; width: 760px; top: 470px; text-align: center; font: 500 38px/1.4 "Rubik"; color: var(--ink2); text-wrap: balance; }
+.summary .sm-badge { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 360px; white-space: nowrap; font: 700 44px/1 "Rubik"; color: #ffffff; padding: 20px 34px; border-radius: 999px; border: 2.5px solid #ff453a; box-shadow: 0 0 26px rgba(255, 69, 58, 0.45), inset 0 0 18px rgba(255, 69, 58, 0.2); background: rgba(40, 14, 20, 0.6); opacity: 0; overflow: hidden; }
 
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="32.600" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="29.600" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-summary" class="clip scene" data-start="0.000" data-duration="32.600" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 8 · מה למדנו, ולאן ממשיכים</span></div>
+<div id="sc-summary" class="clip scene" data-start="0.000" data-duration="29.600" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 8 · מה למדנו, ולאן ממשיכים</span></div>
 <div class="scam"><div class="summary">
-<div class="sm-recap"><p class="sm-kick" dir="rtl"><i></i>מה למדנו</p><div class="sm-blocks"><div class="sm-blk"><h3 dir="rtl">עריכה בסיסית</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><b dir="rtl">חיתוך לפי משמעות</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">כתוביות בשני סגנונות</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">9:16 עם מעקב פנים</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">צבע מותג ועור טבעי</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">מינוס 14 LUFS</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">החלפת משפט</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div></div><div class="sm-blk"><h3 dir="rtl">תלת ממד</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><b dir="rtl">הוראות בקול</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">לוגו על כף היד</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">טקסט על הקיר</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">פירוק לשכבות</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">עיגול ומוצר מתפרק</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">סרטונים במסלול</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">זום קפיצי</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div></div><div class="sm-blk"><h3 dir="rtl">בירולים</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><b dir="rtl">אנימציה שקופה</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">קליפ AI עם הפנים</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">איפה לשים בירולים</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div></div><div class="sm-blk"><h3 dir="rtl">חיבורים</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><b dir="ltr">Higgsfield</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="ltr">fal</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div></div><div class="sm-blk"><h3 dir="rtl">הקלטות מסך</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><b dir="rtl">טשטוש פרטים</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">Screen Studio בלי זום</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div></div><div class="sm-blk"><h3 dir="rtl">רינדורים</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><b dir="rtl">טיוטה של 15 שניות</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">בדיקת פריימים</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span><span class="sm-chip"><b dir="rtl">מבקר עצמאי</b><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg></span></div></div></div></div>
-<div class="sm-next"><p class="sm-kick" dir="rtl"><i></i>לאן ממשיכים</p><p class="sm-nl kin" dir="rtl"><span class="w" dir="rtl" data-t="14.350">כל</span> <span class="w" dir="rtl" data-t="14.440">טיפ</span> <span class="w" dir="rtl" data-t="14.530">כאן</span> <span class="w" dir="rtl" data-t="14.620">נשען</span> <span class="w" dir="rtl" data-t="14.710">על</span> <span class="w" dir="rtl" data-t="14.800">כלי</span> <span class="w" dir="rtl" data-t="14.890">שיש</span> <span class="w" dir="rtl" data-t="14.980">עליו</span> <span class="w" dir="rtl" data-t="15.070">מדריך</span> <span class="w" dir="rtl" data-t="15.160">מלא</span> <span class="w" dir="rtl" data-t="15.250">משלו.</span></p><div class="sm-cards"><div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="9" width="38" height="30" rx="5"/><path d="M5 17h38M5 31h38M14 9v8M24 9v8M34 9v8M14 31v8M24 31v8M34 31v8"/></svg><div><h4 dir="ltr">HyperFrames</h4><p>התקנה צעד אחרי צעד, והנגן שבו כל שינוי מופיע מיד.</p></div></div><div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4l4.5 13.5L42 22l-13.5 4.5L24 40l-4.5-13.5L6 22l13.5-4.5z"/><path d="M38 34l1.8 4.2L44 40l-4.2 1.8L38 46l-1.8-4.2L32 40l4.2-1.8z"/></svg><div><h4 dir="rtl">מושן גרפיקס</h4><p>9 פרומפטים לאנימציות ברמה של סטודיו, עם סקיל חינמי שאורז את כולם.</p></div></div><div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M17 12L5 24l12 12M31 12l12 12-12 12M27 8l-6 32"/></svg><div><h4 dir="ltr">Remotion</h4><p>הכלי השני לעריכת סרטונים ואנימציות בקוד עם Claude Code.</p></div></div><div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M3 24C9 13 16 8 24 8s15 5 21 16c-6 11-13 16-21 16S9 35 3 24z"/><circle cx="24" cy="24" r="7"/></svg><div><h4 dir="rtl">ניתוח וידאו</h4><p>שני סקילים חינמיים שנותנים לקלוד &quot;עיניים&quot;: אחד מפרק סרטון לפריימים ולכתוביות, והשני מוריד סרטונים מיוטיוב, טיקטוק ואינסטגרם.</p></div></div></div><p class="sm-docs" dir="rtl">ובתיעוד הרשמי: <span dir="ltr" class="sm-url">hyperframes.heygen.com</span>, וההסברים של Higgsfield ו-fal על החיבור לקלוד.</p></div>
-<div class="sm-end"><i class="ch-ring sm-ring"></i><i class="ch-ring ch-ring2 sm-ring"></i><h1 class="sm-tt kin" dir="rtl"><span class="w" dir="rtl" data-t="28.650">עריכת</span> <span class="w" dir="rtl" data-t="28.770">וידאו</span> <span class="w" dir="rtl" data-t="28.890">עם</span> <span class="w" dir="rtl" data-t="29.010">Claude</span></h1><p class="sm-el kin" dir="rtl"><span class="w" dir="rtl" data-t="29.400">הסרטון</span> <span class="w" dir="rtl" data-t="29.470">הזה</span> <span class="w" dir="rtl" data-t="29.540">נבנה</span> <span class="w" dir="rtl" data-t="29.610">ב-Claude</span> <span class="w" dir="rtl" data-t="29.680">Code</span> <span class="w" dir="rtl" data-t="29.750">עם</span> <span class="w" dir="rtl" data-t="29.820">HyperFrames,</span> <span class="w" dir="rtl" data-t="29.890">לפי</span> <span class="w" dir="rtl" data-t="29.960">השיטות</span> <span class="w" dir="rtl" data-t="30.030">שבו.</span></p></div>
+<div class="sm-recap"><p class="sm-kick" dir="rtl"><i></i>מה למדנו</p><div class="sm-blocks"><div class="sm-blk"><h3 dir="rtl">עריכה בסיסית</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">חיתוך לפי משמעות</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">כתוביות בשני סגנונות</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">9:16 עם מעקב פנים</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">צבע מותג ועור טבעי</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">מינוס 14 LUFS</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">החלפת משפט</b></span></div></div><div class="sm-blk"><h3 dir="rtl">תלת ממד</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">הוראות בקול</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">לוגו על כף היד</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">טקסט על הקיר</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">פירוק לשכבות</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">עיגול ומוצר מתפרק</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">סרטונים במסלול</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">זום קפיצי</b></span></div></div><div class="sm-blk"><h3 dir="rtl">בירולים</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">אנימציה שקופה</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">קליפ AI עם הפנים</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">איפה לשים בירולים</b></span></div></div><div class="sm-blk"><h3 dir="rtl">חיבורים</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="ltr">Higgsfield</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="ltr">fal</b></span></div></div><div class="sm-blk"><h3 dir="rtl">הקלטות מסך</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">טשטוש פרטים</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">Screen Studio בלי זום</b></span></div></div><div class="sm-blk"><h3 dir="rtl">רינדורים</h3><div class="sm-chips" dir="rtl"><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">טיוטה של 15 שניות</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">בדיקת פריימים</b></span><span class="sm-chip"><svg class="sm-ck" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5L23.5 9"/></svg><b dir="rtl">מבקר עצמאי</b></span></div></div></div></div>
+<div class="sm-next"><p class="sm-kick" dir="rtl"><i></i>לאן ממשיכים</p><p class="sm-nl kin" dir="rtl"><span class="w" dir="rtl" data-t="11.150">כל</span> <span class="w" dir="rtl" data-t="11.240">טיפ</span> <span class="w" dir="rtl" data-t="11.330">כאן</span> <span class="w" dir="rtl" data-t="11.420">נשען</span> <span class="w" dir="rtl" data-t="11.510">על</span> <span class="w" dir="rtl" data-t="11.600">כלי</span> <span class="w" dir="rtl" data-t="11.690">שיש</span> <span class="w" dir="rtl" data-t="11.780">עליו</span> <span class="w" dir="rtl" data-t="11.870">מדריך</span> <span class="w" dir="rtl" data-t="11.960">מלא</span> <span class="w" dir="rtl" data-t="12.050">משלו.</span></p><div class="sm-cards"><div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="9" width="38" height="30" rx="5"/><path d="M5 17h38M5 31h38M14 9v8M24 9v8M34 9v8M14 31v8M24 31v8M34 31v8"/></svg><div><h4 dir="ltr">HyperFrames</h4><p>התקנה צעד אחרי צעד, והנגן שבו כל שינוי מופיע מיד.</p></div></div><div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4l4.5 13.5L42 22l-13.5 4.5L24 40l-4.5-13.5L6 22l13.5-4.5z"/><path d="M38 34l1.8 4.2L44 40l-4.2 1.8L38 46l-1.8-4.2L32 40l4.2-1.8z"/></svg><div><h4 dir="rtl">מושן גרפיקס</h4><p>9 פרומפטים לאנימציות ברמה של סטודיו, עם סקיל חינמי שאורז את כולם.</p></div></div><div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M17 12L5 24l12 12M31 12l12 12-12 12M27 8l-6 32"/></svg><div><h4 dir="ltr">Remotion</h4><p>הכלי השני לעריכת סרטונים ואנימציות בקוד עם Claude Code.</p></div></div><div class="sm-card" dir="rtl"><svg class="sm-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M3 24C9 13 16 8 24 8s15 5 21 16c-6 11-13 16-21 16S9 35 3 24z"/><circle cx="24" cy="24" r="7"/></svg><div><h4 dir="rtl">ניתוח וידאו</h4><p>שני סקילים חינמיים שנותנים לקלוד &quot;עיניים&quot;: אחד מפרק סרטון לפריימים ולכתוביות, והשני מוריד סרטונים מיוטיוב, טיקטוק ואינסטגרם.</p></div></div></div><p class="sm-docs" dir="rtl">ובתיעוד הרשמי: <span dir="ltr" class="sm-url">hyperframes.heygen.com</span>, וההסברים של Higgsfield ו-fal על החיבור לקלוד.</p></div>
+<div class="sm-end"><i class="ch-ring sm-ring"></i><i class="ch-ring ch-ring2 sm-ring"></i><h1 class="sm-tt kin" dir="rtl"><span class="w" dir="rtl" data-t="25.050">עריכת</span> <span class="w" dir="rtl" data-t="25.170">וידאו</span> <span class="w" dir="rtl" data-t="25.290">עם</span> <span class="w" dir="rtl" data-t="25.410">Claude</span></h1><span class="sm-badge" dir="rtl">21 פרומפטים מוכנים</span><p class="sm-el kin" dir="rtl"><span class="w" dir="rtl" data-t="26.400">הסרטון</span> <span class="w" dir="rtl" data-t="26.470">הזה</span> <span class="w" dir="rtl" data-t="26.540">נבנה</span> <span class="glu"><span class="w" dir="rtl" data-t="26.610">ב-</span><span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="26.610">Claude</span> <span class="w" dir="ltr" data-t="26.750">Code</span></span></span> <span class="w" dir="rtl" data-t="26.820">עם</span> <span class="w" dir="rtl" data-t="26.890">HyperFrames,</span> <span class="w" dir="rtl" data-t="26.960">לפי</span> <span class="w" dir="rtl" data-t="27.030">השיטות</span> <span class="w" dir="rtl" data-t="27.100">שמוצגות</span> <span class="w" dir="rtl" data-t="27.170">בו.</span></p></div>
 </div></div></div>
 </div>
 </div>
@@ -557,10 +561,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
   E.draw = function (tl, el, t, d, ease) {
     if (!el) return;
-    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2;
-    el.style.strokeDasharray = L + " " + L;
-    el.style.strokeDashoffset = L;
-    tl.fromTo(el, { strokeDashoffset: L }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+    // the hidden dash ends before the path starts, so a round cap never leaves a dot there
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2, pad = 12;
+    el.style.strokeDasharray = L + " " + (L + 2 * pad);
+    el.style.strokeDashoffset = L + pad;
+    tl.fromTo(el, { strokeDashoffset: L + pad }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
   };
   /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
   E.glitch = function (tl, el, t, amp) {
@@ -860,13 +865,21 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   E.chapter = function (tl, ctx, cfg) {
     const S = cfg.S, sc = ctx.scene;
     const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // static layout: the title is one line no wider than 760 px; the divider and texts flow under it
+    const tt = E.q(".ch-title", sc), tin = E.q(".ch-tin", sc);
+    if (tin && tin.offsetWidth > 760) tt.style.fontSize = (78 * 760 / tin.offsetWidth).toFixed(1) + "px";
+    const tBot = tt.offsetTop + tt.offsetHeight;
+    line.style.top = tBot + 30 + "px";
+    const sub = E.q(".ch-sub", sc), tag = E.q(".ch-tag", sc);
+    if (sub) sub.style.top = tBot + 66 + "px";
+    if (tag && sub) tag.style.top = tBot + 66 + sub.offsetHeight + 34 + "px";
     // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
     E.band(tl, sc, S);
     tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
     E.qa(".ch-ring", sc).forEach((r, i) => {
       tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
     });
-    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ff8a80" });
+    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ffffff" });
     tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
     tl.set(n, { filter: "none" }, S + 0.58);
     E.fadeIn(tl, k, S + 0.25, 0.5, 14);
@@ -902,15 +915,12 @@ window.SIMS.summary = function (tl, ctx, cfg, S) {
     tl.fromTo(E.q(".sm-ck", c), { backgroundColor: "rgba(201, 194, 255, 0.1)" }, A({ backgroundColor: on, duration: 0.2 }), t(a));
     tl.fromTo(c, { borderColor: "rgba(201, 194, 255, 0.22)" }, A({ borderColor: "rgba(201, 194, 255, 0.75)", duration: 0.2 }), t(a));
   });
-  // bouncy zoom on the last check
+  // bouncy zoom on the last check: only that chip springs up (the list stays in the safe area)
   const last = chips[chips.length - 1], tl0 = T.chk0 + (chips.length - 1) * T.step;
-  E.burst(tl, last, 30, 25, t(tl0 + 0.15), { n: 12, seed: 4, r0: 30, r1: 90, color: "#ff8a80" });
-  // (SVG elements have no offsets: measure the chip, its check sits at the chip's left end)
-  const o = E.off(last, sc);
-  E.zoom(tl, ctx, o.x + 28, o.y + last.offsetHeight / 2, t(tl0 + 0.1), 0.08, t(tl0 + 2.2), 0.45, [140, 940]);
-  // the header (outside the camera) steps out while the camera is pushed in
-  tl.fromTo(q(".hdr"), { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), t(tl0 + 0.05));
-  tl.fromTo(q(".hdr"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), t(tl0 + 2.4));
+  tl.set(last, { transformOrigin: "90% 50%", zIndex: 2 }, t(tl0));
+  tl.fromTo(last, { scale: 1 }, A({ scale: 1.15, duration: 0.8, ease: SP }), t(tl0 + 0.1));
+  tl.fromTo(last, { scale: 1.15 }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), t(tl0 + 2.0));
+  E.burst(tl, last, last.offsetWidth - 30, last.offsetHeight / 2, t(tl0 + 0.15), { n: 12, seed: 4, r0: 30, r1: 90, color: "#ffffff" });
   E.fadeOut(tl, q(".sm-recap"), t(T.next - 0.3), 0.28, -20);
   // where to continue
   E.fadeIn(tl, q(".sm-next .sm-kick"), t(T.next + 0.1), 0.5, 10);
@@ -920,6 +930,10 @@ window.SIMS.summary = function (tl, ctx, cfg, S) {
     tl.fromTo(cd, { opacity: 0, x: -40, rotationY: -12, transformPerspective: 1400 }, A({ opacity: 1, x: 0, rotationY: 0, duration: 0.7, ease: SP }), t(a));
     E.qa(".sm-ico > *", cd).forEach((p) => E.draw(tl, p, t(a + 0.15), 0.6));
     E.sweep(tl, cd, t(a + 0.45), 0.8, { color: "rgba(201, 194, 255, 0.14)" });
+    // then each card lights up in turn while it is read
+    const r = T.next + 4.6 + i * 2.2;
+    tl.fromTo(cd, { borderColor: "rgba(201, 194, 255, 0.25)" }, A({ borderColor: "rgba(201, 194, 255, 0.85)", duration: 0.3 }), t(r));
+    tl.fromTo(cd, { borderColor: "rgba(201, 194, 255, 0.85)" }, A({ borderColor: "rgba(201, 194, 255, 0.25)", duration: 0.4 }), t(r + 1.9));
   });
   E.fadeIn(tl, q(".sm-docs"), t(T.next + 4.2), 0.5, 10);
   E.fadeOut(tl, q(".sm-next"), t(T.end - 0.3), 0.28, -20);
@@ -929,6 +943,10 @@ window.SIMS.summary = function (tl, ctx, cfg, S) {
   E.kin(tl, q(".sm-el"), S, { dy: 12 });
   qa(".sm-ring").forEach((r, i) => tl.fromTo(r, { scale: 0.5, opacity: 0.9 }, A({ scale: 1.8 + i * 0.3, opacity: 0, duration: 1.3 + i * 0.2, ease: "power2.out" }), t(T.end + 0.2 + i * 0.12)));
   E.burst(tl, q(".sm-end"), 400, 220, t(T.end + 0.25), { n: 22, seed: 12, r0: 170, r1: 380, color: "#c9c2ff" });
+  // the hook's promise comes back as the bookend
+  const badge = q(".sm-badge");
+  tl.fromTo(badge, { opacity: 0, scale: 0.8, y: 20 }, A({ opacity: 1, scale: 1, y: 0, duration: 0.6, ease: SP }), t(T.end + 1.0));
+  E.sweep(tl, badge, t(T.end + 1.35), 0.7, { color: "rgba(255, 255, 255, 0.35)" });
   E.fadeOut(tl, q(".sm-end"), t(cfg.D - 0.45), 0.4, 0);
   E.fadeOut(tl, q(".hdr"), t(T.end - 0.3), 0.28, 0);
   E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "custom" };
@@ -936,7 +954,7 @@ window.SIMS.summary = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"T": {"recap": 0.2, "chk0": 1.0, "step": 0.3, "next": 14.0, "end": 28.4}, "n": 23, "id": "summary", "type": "custom", "sim": "summary", "D": 32.6, "S": 0.0}];
+  const CFGS = [{"T": {"recap": 0.2, "chk0": 1.0, "step": 0.3, "next": 10.8, "end": 24.8}, "n": 23, "id": "summary", "type": "custom", "sim": "summary", "D": 29.6, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -950,7 +968,7 @@ window.SIMS.summary = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 32.600;
+    const TOT = 29.600;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

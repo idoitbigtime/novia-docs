@@ -27,22 +27,40 @@ def has_heb(tok):
     return bool(HEB.search(tok))
 
 
+def is_latinish(tok):
+    """A token of a left-to-right run: no Hebrew, and at least one Latin letter or digit."""
+    return not has_heb(tok) and bool(re.search(r"[A-Za-z0-9]", tok))
+
+
+PREFIX_LATIN = re.compile(r"^([א-ת]{1,3}-)([A-Za-z0-9<].*)$")
+PREFIX_ONLY = re.compile(r"^[א-ת]{1,3}-$")
+
+
+def _split_prefix(t):
+    """"ל-Claude" -> ["ל-", "Claude"]: the Latin part can then join the Latin run that follows it."""
+    m = PREFIX_LATIN.match(t)
+    return [m.group(1), m.group(2)] if m else [t]
+
+
 def parse_marked(text):
-    """Return a list of (token, style) where style is '', 'acc' or 'str', plus group ids."""
+    """Return a list of (token, style, group): style is '', 'acc' (accent {..}), 'str' (strong *..*)
+    or 'nb' ([..] words that never break apart)."""
     out = []
     gid = 0
-    for m in re.finditer(r"\{([^}]*)\}|\*([^*]*)\*|([^{*]+)", text):
+    for m in re.finditer(r"\{([^}]*)\}|\*([^*]*)\*|\[([^\]]*)\]|([^{*\[]+)", text):
+        if m.group(4) is not None:
+            for t in m.group(4).split():
+                out += [(x, "", 0) for x in _split_prefix(t)]
+            continue
+        gid += 1
         if m.group(1) is not None:
-            gid += 1
-            for t in m.group(1).split():
-                out.append((t, "acc", gid))
+            style, body = "acc", m.group(1)
         elif m.group(2) is not None:
-            gid += 1
-            for t in m.group(2).split():
-                out.append((t, "str", gid))
+            style, body = "str", m.group(2)
         else:
-            for t in m.group(3).split():
-                out.append((t, "", 0))
+            style, body = "nb", m.group(3)
+        for t in body.split():
+            out += [(x, style, gid) for x in _split_prefix(t)]
     return out
 
 
@@ -131,7 +149,8 @@ def kinetic_html(text, t0=0.0, step=0.2, pause=0.32, groups=False, times=None, e
     times/end: explicit absolute per-token times (then t0/step/groups are ignored).
     phrases: per-token phrase index; each phrase is wrapped in <span class="ph" data-p>."""
     tokens = parse_marked(text)
-    glue = [bool(PUNCT_ONLY.match(t)) and i > 0 for i, (t, _, _) in enumerate(tokens)]
+    glue = [i > 0 and (bool(PUNCT_ONLY.match(t)) or bool(PREFIX_ONLY.match(tokens[i - 1][0])))
+            for i, (t, _, _) in enumerate(tokens)]
     if times is None:
         if groups:
             times, end = group_times(tokens, **(groups if isinstance(groups, dict) else {}))
@@ -149,9 +168,9 @@ def kinetic_html(text, t0=0.0, step=0.2, pause=0.32, groups=False, times=None, e
     i = 0
     n = len(tokens)
     while i < n:
-        if not has_heb(tokens[i][0]):
+        if is_latinish(tokens[i][0]):
             j = i
-            while j < n and not has_heb(tokens[j][0]) and tokens[j][2] == tokens[i][2]:
+            while j < n and is_latinish(tokens[j][0]) and tokens[j][2] == tokens[i][2]:
                 j += 1
             run = list(range(i, j))
             if len(run) >= 2 or NEG_NUM_TOKEN.match(tokens[i][0]):
@@ -171,7 +190,7 @@ def kinetic_html(text, t0=0.0, step=0.2, pause=0.32, groups=False, times=None, e
         kind, val = items[k]
         first_idx = val if kind == "w" else val[0]
         style, gid = tokens[first_idx][1], tokens[first_idx][2]
-        if style in ("acc", "str") and gid:
+        if style in ("acc", "str", "nb") and gid:
             # collect all items of this group
             grp = []
             while k < len(items):
@@ -190,22 +209,32 @@ def kinetic_html(text, t0=0.0, step=0.2, pause=0.32, groups=False, times=None, e
                     f'<span class="accgrp" data-t="{tg:.3f}">{inner}'
                     f'<i class="ul" data-t="{tg + 0.18:.3f}"></i></span>'
                 ))
-            else:
+            elif style == "str":
                 parts.append((gfirst, f'<span class="strgrp">{inner}</span>'))
+            else:
+                parts.append((gfirst, f'<span class="nbgrp">{inner}</span>'))
             continue
         parts.append((first_idx, _emit(items[k], tokens, times)))
         k += 1
-    if phrases is None:
-        return "".join(("" if (k == 0 or glue[i0]) else " ") + h for k, (i0, h) in enumerate(parts)), end, accent_times
-    out, cur = [], None
+    # a glued part (punctuation, or the Latin word after "ל-") never wraps away from the part before it
+    merged = []
     for i0, h in parts:
+        if glue[i0] and merged:
+            j0, prev = merged[-1]
+            merged[-1] = (j0, f'<span class="glu">{prev}{h}</span>')
+        else:
+            merged.append((i0, h))
+    if phrases is None:
+        return " ".join(h for _, h in merged), end, accent_times
+    out, cur = [], None
+    for i0, h in merged:
         ph = phrases[i0]
         if ph != cur:
             if cur is not None:
                 out.append("</span> ")
             out.append(f'<span class="ph" data-p="{ph}">')
             cur = ph
-        elif not glue[i0]:
+        else:
             out.append(" ")
         out.append(h)
     if cur is not None:

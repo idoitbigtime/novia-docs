@@ -15,6 +15,8 @@ CFG = {'id': 't62',
  'fact': None,
  'hls': [],
  'tip': None,
+ # payoff: the clean zoom + check mark, then the instruction bubble holds (this topic has no prompt card)
+ 'payoff': 5.0,
  'sim62': {
      # B0 recorder pill: the app's name as plain text (guide: "Screen Studio היא תוכנה למק שמקליטה את המסך")
      'recName': 'Screen Studio',

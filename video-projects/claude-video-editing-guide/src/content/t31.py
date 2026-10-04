@@ -19,4 +19,21 @@ CFG = {'id': 't31',
                   'וקו.'},
  'hls': [('כל הוראה קורית על המילים שלה, בשנייה שבה אמרתי אותה.', 1.9, 0.1),
          ('אל תבנה לפני שאישרתי.', 1.9, 0.1)],
- 'tip': 'כל אפקט צריך להיעלם כשהזמן שלו נגמר. בבדיקה, טקסט על הקיר נשאר בטעות עד שנייה 49.5.'}
+ 'tip': 'כל אפקט צריך להיעלם כשהזמן שלו נגמר. בבדיקה, טקסט על הקיר נשאר בטעות עד שנייה 49.5.',
+ # the payoff holds the after-approval sequence (BRIEF.md -> a scene and an agent per instruction -> the critic)
+ 'payoff': 5.5,
+ # sim-only labels (every one quotes the guide or this topic's explanation)
+ 'sim31': dict(
+     # guide 3.1: 'כשאמרתי "שביד הזאת ירחף הלוגו של קלוד בתלת ממד", הלוגו נכנס בדיוק על המילים האלה'
+     instruction='שביד הזאת ירחף הלוגו של קלוד בתלת ממד',
+     # approved visual description; guide prompt 7: "בכל שורה ההוראה כמו שאמרתי אותה, הזמן, מה יקרה על המסך ואיך זה ייגמר"
+     cols=['ההוראה', 'זמן', 'מה יקרה על המסך', 'איך זה נגמר'],
+     # explanation: "הוא מראה טבלה של כל ההוראות לאישור"
+     approve='לאישור',
+     # guide prompt 7 step 3: "תכתוב קובץ BRIEF.md"
+     brief='BRIEF.md',
+     # guide prompt 7 step 8: "סוכן לכל סצנה שעובד רק על הקובץ שלו"
+     agents='סוכן לכל סצנה',
+     # approved visual description; guide prompt 7 step 10: "סוכן נפרד שלא בנה כלום נותן ציון ... עד שהציון עובר 90"
+     critic='מבקר עצמאי: ציון מעל 90',
+ )}

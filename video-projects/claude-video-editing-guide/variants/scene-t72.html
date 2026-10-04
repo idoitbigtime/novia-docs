@@ -1,0 +1,1168 @@
+<!doctype html>
+<html lang="he">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>עריכת וידאו עם Claude</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+/* IBM Plex Mono 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 300 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-300.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-300.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-300.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 400 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-400.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 500 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-500.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 600 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-600.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 700 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-700.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Rubik 300 900 normal — hebrew */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-hebrew-300-900.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* Rubik 300 900 normal — latin-ext */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-ext-300-900.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Rubik 300 900 normal — latin */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-300-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Design tokens. Safe area for text: x 140..940, y 300..1570 (1080x1920). */
+:root {
+  --bg: #06060b;
+  --ink: #f5f2ea;
+  --ink2: #dcd9e6;
+  --muted: #9c99ae;
+  --acc: #ff453a;
+  --acc-soft: #ff8a80;
+  --line: #c9c2ff;
+  --line-glow: rgba(201, 194, 255, 0.55);
+  --panel: rgba(18, 17, 34, 0.96);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: "Rubik", sans-serif; }
+.stagewrap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; overflow: hidden; }
+
+/* ---------- background ---------- */
+#bg { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #08080f 0%, #0b0a17 55%, #07070d 100%); }
+#bg .glow { position: absolute; border-radius: 50%; }
+#bg .g1 { width: 1500px; height: 1500px; left: -420px; top: -380px; background: radial-gradient(circle, rgba(124, 92, 255, 0.20) 0%, rgba(124, 92, 255, 0.07) 38%, rgba(124, 92, 255, 0) 66%); }
+#bg .g2 { width: 1400px; height: 1400px; left: 260px; top: 980px; background: radial-gradient(circle, rgba(255, 69, 58, 0.15) 0%, rgba(255, 69, 58, 0.05) 40%, rgba(255, 69, 58, 0) 66%); }
+#bg .grain { position: absolute; inset: 0; background-image: url("assets/grain.png"); background-size: 256px 256px; opacity: 0.07; mix-blend-mode: screen; }
+#bg .vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
+
+#cam { position: absolute; inset: 0; transform-origin: 540px 960px; }
+.scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.scam { position: absolute; inset: 0; }
+
+/* ---------- header (chapter indicator) ---------- */
+.hdr { position: absolute; top: 300px; left: 140px; width: 800px; height: 46px; display: flex; justify-content: space-between; align-items: center; direction: rtl; opacity: 0; }
+.hdr-ch { font: 500 30px/1 "Rubik"; color: #b3b0c4; }
+.hdr-num { font: 600 28px/1 "IBM Plex Mono"; color: var(--acc); border: 1.5px solid rgba(255, 69, 58, 0.55); border-radius: 10px; padding: 7px 12px 6px; }
+
+/* ---------- kinetic text ---------- */
+.kin { direction: rtl; text-align: right; }
+.w { display: inline-block; white-space: pre; opacity: 0; }
+.isl { unicode-bidi: isolate; }
+.accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
+.accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
+.strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+
+/* ---------- topic layout ---------- */
+.main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
+.ttl { font: 800 60px/1.14 "Rubik"; color: var(--ink); letter-spacing: -0.005em; text-wrap: balance; }
+.exp { font: 400 36px/1.42 "Rubik"; color: var(--ink2); }
+.exp .accgrp { font-weight: 800; }
+.exp .ph { transition: none; }
+/* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
+.stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
+.stcam { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; }
+.stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
+.simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
+.simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
+/* the illustration canvas: 800 x 700 (frame x 140..940) */
+.simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
+
+/* fact overlay inside the stage */
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; direction: rtl; }
+.pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
+.factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
+.metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
+.metaline .w, .factline .w { opacity: 0; }
+
+/* ---------- prompt card ---------- */
+.pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
+.pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
+.pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
+.pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
+.pc-num b { color: var(--ink); font-weight: 600; }
+.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
+.tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
+.tab .tul { display: none; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
+.pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
+  }
+.pct { position: absolute; top: 0; left: 48px; right: 48px; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
+.pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
+.pl-empty { height: 44px; }
+.ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; color: #d8d4ea; white-space: nowrap; }
+.codeblock { display: block; direction: ltr; text-align: left; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.tk { white-space: nowrap; }
+.nb, .neg { white-space: nowrap; }
+.code .bt, .codeblock .bt { color: #6f6b86; }
+.hlbg { position: absolute; z-index: -1; top: 0; bottom: 0; left: -14px; right: -14px; background: #2e1626; border-right: 4px solid #e5484d; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); opacity: 0; display: block; }
+.pbody { position: relative; }
+/* lifted key lines: a layer over the card (same box, not clipped by it) */
+.plift { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; pointer-events: none; }
+.pl-lift { position: absolute; z-index: 3; opacity: 0; box-sizing: border-box; padding: 0 12px; font: 400 30px/44px "Rubik"; color: #f5f2ea; direction: rtl; white-space: pre-wrap; transform-origin: 50% 50%; }
+/* the lifted backing is as wide as the line, so at x1.10 it stays clear of the card border */
+.pl-lift .hlbg { opacity: 1; left: 0; right: 0; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55); }
+
+/* ---------- tip ---------- */
+.tipwrap { position: absolute; left: 140px; width: 800px; top: 0; height: 1920px; display: flex; align-items: center; justify-content: center; }
+.tipcard { width: 800px; padding: 44px 48px 50px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(18, 17, 34, 0.88); box-shadow: 0 0 40px rgba(140, 120, 255, 0.15); direction: rtl; text-align: right; opacity: 0; }
+.tip-label { display: flex; align-items: center; gap: 12px; font: 600 30px/1 "Rubik"; color: #f2eef8; margin-bottom: 26px; }
+.tip-ico { width: 46px; height: 46px; display: block; overflow: visible; filter: drop-shadow(0 0 8px rgba(255, 69, 58, 0.55)); }
+.tip-ico path { fill: none; stroke: var(--acc); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.tip-text { font: 600 46px/1.38 "Rubik"; color: var(--ink); }
+.tip-text .w { opacity: 0; }
+
+/* ---------- chapter card ---------- */
+.chap { position: absolute; inset: 0; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(255, 69, 58, 0.7); box-shadow: 0 0 30px rgba(255, 69, 58, 0.35), inset 0 0 30px rgba(255, 69, 58, 0.2); display: block; opacity: 0; }
+.ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); }
+.ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
+.ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 30px/1.45 "Rubik"; color: var(--muted); }
+/* centred blocks wrap into even lines; paragraphs never end on a lone word */
+.ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
+.exp, .tip-text { text-wrap: pretty; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0; }
+.ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
+.ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+
+/* ---------- effects ---------- */
+/* light sweep across an element (the element clips it) */
+.fx-sweep { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.fx-sweep b { position: absolute; top: -40%; bottom: -40%; left: 100%; width: 34%; display: block; transform: skewX(-16deg);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--sweep, rgba(255, 255, 255, 0.22)), rgba(255, 255, 255, 0)); }
+/* light band across the whole frame at a scene change */
+.fx-band { position: absolute; top: -400px; left: 1080px; width: 560px; height: 2720px; display: block; pointer-events: none; z-index: 40;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.10) 35%, rgba(255, 255, 255, 0.16) 50%, rgba(201, 194, 255, 0.10) 65%, rgba(201, 194, 255, 0));
+  transform: rotate(14deg); mix-blend-mode: screen; opacity: 0; }
+/* particle burst */
+.fx-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; display: block; pointer-events: none; opacity: 0; z-index: 7; }
+/* drifting dust in the background */
+.dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
+
+/* 7.2 check frames, Claude doesn't watch video: video -> stills -> film strip with markers -> 0.1 s strip -> the caught frame (canvas 800 x 700) */
+/* a generic 9:16 frame (sizes vary; everything inside is in % of the frame) */
+.sim72 .s72-fr { position: absolute; overflow: hidden; border-radius: 8px; background: linear-gradient(180deg, #2c2556 0%, #181433 66%, #0e0c1f 100%); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.38); --hx: 0%; }
+.sim72 .s72-fr > i { position: absolute; display: block; }
+.sim72 .s72-h { left: calc(36% + var(--hx)); top: 33%; width: 28%; height: 15.75%; border-radius: 50%; background: linear-gradient(180deg, #4a3f8c, #2c2560); box-shadow: inset 0 0 0 1px rgba(201, 194, 255, 0.35); }
+.sim72 .s72-bd { left: calc(16% + var(--hx)); top: 50%; width: 68%; height: 52%; border-radius: 50% 50% 0 0 / 34% 34% 0 0; background: linear-gradient(180deg, #3b3274, #221c48); box-shadow: inset 0 1px 0 rgba(201, 194, 255, 0.4); }
+.sim72 .s72-ti { left: 14%; top: 9%; width: 72%; height: 4.4%; border-radius: 99px; background: rgba(245, 242, 234, 0.92); }
+.sim72 .s72-cp { left: 18%; top: 77%; width: 64%; height: 9%; border-radius: 4px; background: #ffffff; }
+.sim72 .s72-cp::after { content: ""; position: absolute; left: 16%; right: 16%; top: 36%; height: 28%; border-radius: 9px; background: rgba(20, 16, 40, 0.85); }
+.sim72 .s72-fx { left: 69%; top: 22%; width: 9%; height: 5.1%; border-radius: 1.5px; background: #ece9ff; box-shadow: 0 0 8px #c9c2ff; transform: rotate(45deg); opacity: 0; }
+.sim72 .fxon .s72-fx { opacity: 1; }
+.sim72 .notitle .s72-ti { opacity: 0; }
+.sim72 .nocap .s72-cp { opacity: 0; }
+.sim72 .jump .s72-ti { top: 2.5%; left: 22%; }
+.sim72 .jump .s72-h { top: 15%; }
+/* scene B: after the cut, a glowing orb instead of the presenter */
+.sim72 .sB { background: linear-gradient(180deg, #1f2550 0%, #141735 66%, #0b0c1f 100%); }
+.sim72 .sB .s72-h { left: 28%; top: 30%; width: 44%; height: 24.75%; background: radial-gradient(circle at 36% 34%, #f1efff 0%, #a79cf2 38%, #4a3f9a 72%, #2a2366 100%); box-shadow: 0 0 14px rgba(201, 194, 255, 0.55); }
+.sim72 .sB .s72-bd { left: 22%; top: 60%; width: 56%; height: 6%; border-radius: 50%; background: rgba(201, 194, 255, 0.22); box-shadow: none; }
+
+/* B0: the video and its stills */
+.sim72 .s72-b0 { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
+.sim72 .s72-vid { left: 315px; top: 168px; width: 170px; height: 302px; border-radius: 18px; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.6), 0 0 26px rgba(201, 194, 255, 0.22); }
+.sim72 .s72-vid > .s72-prog { left: 10%; top: 93%; width: 80%; height: 1.4%; border-radius: 3px; background: rgba(201, 194, 255, 0.25); }
+.sim72 .s72-prog b { position: absolute; left: 0; top: 0; width: 30%; height: 100%; border-radius: 3px; background: #c9c2ff; display: block; }
+.sim72 .s72-vid > .s72-play { left: 31%; top: 39%; width: 66px; height: 66px; border-radius: 50%; background: rgba(255, 255, 255, 0.95); box-shadow: 0 0 22px rgba(201, 194, 255, 0.6); }
+.sim72 .s72-play b { position: absolute; left: 25px; top: 19px; width: 0; height: 0; border-left: 24px solid #1a1636; border-top: 14px solid transparent; border-bottom: 14px solid transparent; display: block; }
+.sim72 .s72-no { position: absolute; left: 0; top: 0; width: 170px; height: 302px; overflow: visible; }
+.sim72 .s72-no path { fill: none; stroke: #ff453a; stroke-width: 7; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.8)); }
+.sim72 .s72-still { width: 104px; height: 185px; border-radius: 12px; opacity: 0; box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.5), 0 10px 24px rgba(0, 0, 0, 0.45); }
+.sim72 .s72-st0 { left: 48px; top: 252px; }
+.sim72 .s72-st1 { left: 162px; top: 228px; }
+.sim72 .s72-st2 { left: 534px; top: 228px; }
+.sim72 .s72-st3 { left: 648px; top: 252px; }
+.sim72 .s72-ok { right: 6px; top: 6px; width: 26px; height: 26px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 10px rgba(201, 194, 255, 0.7); opacity: 0; }
+.sim72 .s72-ok svg { position: absolute; left: 4px; top: 4px; width: 18px; height: 18px; overflow: visible; display: block; }
+.sim72 .s72-ok path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* B1: the film strip after the render, with markers */
+.sim72 .s72-strip { position: absolute; left: 20px; top: 116px; width: 760px; height: 176px; border-radius: 14px; background: #0c0a18; border: 1.5px solid rgba(201, 194, 255, 0.3);
+  clip-path: inset(0px 0px 0px 100%); }
+.sim72 .s72-holes { position: absolute; left: 0; width: 757px; height: 12px; }
+.sim72 .s72-ht { top: 6px; }
+.sim72 .s72-hb { top: 155px; }
+.sim72 .s72-holes i { position: absolute; top: 0; width: 15px; height: 11px; border-radius: 3px; background: rgba(201, 194, 255, 0.2); display: block; }
+.sim72 .s72-sf { width: 72px; height: 128px; }
+/* B1: frames taken out under the markers */
+.sim72 .s72-ex { top: 330px; width: 104px; height: 185px; border-radius: 12px; opacity: 0; transform-origin: 0 0; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.7), 0 12px 26px rgba(0, 0, 0, 0.45); }
+.sim72 .s72-ex0 { left: 588px; }
+.sim72 .s72-ex1 { left: 404px; }
+.sim72 .s72-ex2 { left: 174px; }
+.sim72 .s72-edge { position: absolute; left: 777px; top: 116px; width: 3px; height: 176px; background: #ffffff; box-shadow: 0 0 14px #c9c2ff; display: block; opacity: 0; }
+.sim72 .s72-mark { position: absolute; top: 30px; width: 180px; height: 86px; opacity: 0; }
+.sim72 .s72-chip { position: absolute; left: 0; right: 0; top: 0; margin: 0 auto; width: max-content; display: flex; align-items: center; gap: 8px; padding: 7px 14px 7px 12px; border-radius: 999px;
+  background: rgba(36, 31, 72, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.55); font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim72 .s72-mi { width: 26px; height: 26px; display: block; flex: none; overflow: visible; }
+.sim72 .s72-mi path, .sim72 .s72-mi circle { fill: none; stroke: #c9c2ff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim72 .s72-stem { position: absolute; left: 88px; top: 46px; width: 4px; height: 40px; overflow: visible; }
+.sim72 .s72-stem path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+
+/* B2: the callout to the strip of a frame every 0.1 s */
+.sim72 .s72-call { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
+.sim72 .s72-cf { fill: rgba(201, 194, 255, 0.07); stroke: none; opacity: 0; }
+.sim72 .s72-cl { fill: none; stroke: rgba(201, 194, 255, 0.75); stroke-width: 2; stroke-linecap: round; }
+.sim72 .s72-dense { position: absolute; left: 40px; top: 380px; width: 720px; height: 214px; border-radius: 16px; background: rgba(14, 12, 30, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.4);
+  box-shadow: 0 0 24px rgba(201, 194, 255, 0.16); opacity: 0; }
+.sim72 .s72-df { width: 64px; height: 114px; border-radius: 7px; opacity: 0; }
+.sim72 .s72-ticks { position: absolute; left: 0; top: 134px; width: 717px; height: 10px; }
+.sim72 .s72-ticks i { position: absolute; top: 0; width: 2px; height: 9px; border-radius: 1px; background: rgba(201, 194, 255, 0.55); display: block; opacity: 0; }
+.sim72 .s72-dim { position: absolute; left: 592px; top: 136px; width: 82px; height: 16px; overflow: visible; }
+.sim72 .s72-dim path { fill: none; stroke: #ffffff; stroke-width: 2.2; stroke-linecap: round; }
+.sim72 .s72-step { position: absolute; left: 533px; top: 162px; width: 200px; text-align: center; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim72 .s72-eq { position: absolute; left: 547px; top: 56px; width: 16px; font: 700 28px/1 "Rubik"; color: #ffffff; text-align: center; display: block; opacity: 0; }
+.sim72 .s72-red { position: absolute; left: 324px; top: 12px; width: 72px; height: 122px; overflow: visible; }
+.sim72 .s72-red rect { fill: none; stroke: #ff453a; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.85)); }
+.sim72 .s72-hl { position: absolute; top: 12px; width: 72px; height: 122px; border-radius: 10px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); display: block; opacity: 0; }
+.sim72 .s72-hl1 { left: 558px; }
+.sim72 .s72-hl2 { left: 480px; }
+.sim72 .s72-hl6 { left: 168px; }
+.sim72 .s72-jarrow { position: absolute; left: 189px; top: -22px; width: 30px; height: 30px; overflow: visible; opacity: 0; }
+.sim72 .s72-jarrow path { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+
+/* B3 flags under the dense strip */
+.sim72 .s72-flag { position: absolute; top: 540px; display: flex; align-items: center; gap: 8px; padding: 6px 14px 6px 12px; border-radius: 999px; background: rgba(36, 31, 72, 0.97);
+  border: 1.5px solid rgba(201, 194, 255, 0.6); font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim72 .s72-fz { left: 482px; }
+.sim72 .s72-fj { left: 170px; }
+
+/* payoff: the caught frame, grown, with its label */
+.sim72 .s72-big { left: 560px; top: 30px; width: 186px; height: 331px; border-radius: 16px; transform-origin: 0 0; opacity: 0; box-shadow: 0 0 0 3px #ff453a, 0 0 26px rgba(255, 69, 58, 0.45); }
+.sim72 .s72-big > .s72-ph { position: absolute; left: 0; top: 0; width: 186px; height: 331px; overflow: visible; opacity: 0; }
+.sim72 .s72-ph rect { fill: rgba(255, 69, 58, 0.08); stroke: #ff6b61; stroke-width: 2.5; stroke-dasharray: 7 6; }
+.sim72 .s72-catch { position: absolute; right: 262px; top: 118px; width: 440px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; direction: rtl; }
+.sim72 .s72-ct1 { display: flex; align-items: center; gap: 14px; font: 700 38px/1.1 "Rubik"; color: #ffffff; white-space: nowrap; opacity: 0; }
+.sim72 .s72-ct1 i { width: 16px; height: 16px; border-radius: 50%; background: #ff453a; box-shadow: 0 0 12px rgba(255, 69, 58, 0.9); display: block; flex: none; }
+.sim72 .s72-ct2 { font: 500 33px/1.4 "Rubik"; color: #dcd9e6; width: 400px; margin-right: 30px; opacity: 0; }
+
+/* the check: a magnifier that looks at frames (persists) */
+.sim72 .s72-mag { position: absolute; left: 0; top: 0; width: 96px; height: 96px; opacity: 0; pointer-events: none; }
+.sim72 .s72-lens { position: absolute; left: 0; top: 0; width: 96px; height: 96px; border-radius: 50%; border: 5px solid #ece9ff; display: block;
+  box-shadow: 0 0 18px rgba(201, 194, 255, 0.85), inset 0 0 16px rgba(201, 194, 255, 0.35); background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 46%); }
+.sim72 .s72-handle { position: absolute; left: 82px; top: 79px; width: 44px; height: 12px; border-radius: 6px; background: #ece9ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.7); transform: rotate(45deg); transform-origin: 0 50%; display: block; }
+/* payoff: the automatic check that passed */
+.sim72 .s72-autorow { position: absolute; left: 0; top: 540px; width: 800px; display: flex; justify-content: center; }
+.sim72 .s72-auto { display: flex; align-items: center; gap: 12px; padding: 6px 12px 6px 16px; border-radius: 999px; background: rgba(36, 31, 72, 0.97); border: 1.5px solid rgba(201, 194, 255, 0.5);
+  font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim72 .s72-aok { position: relative; width: 30px; height: 30px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff; display: block; flex: none; }
+.sim72 .s72-aok svg { position: absolute; left: 6px; top: 6px; width: 18px; height: 18px; overflow: visible; display: block; }
+.sim72 .s72-aok path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="26.120" data-fps="30" data-width="1080" data-height="1920">
+<div class="stagewrap" style="transform: scale(1.0);">
+<div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
+<div id="cam">
+<div id="sc-t72" class="clip scene" data-start="0.000" data-duration="26.120" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 7 · חיסכון ברינדורים</span><span class="hdr-num" dir="ltr">7.2</span></div>
+<div class="scam">
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">בודקים</span> <span class="w" dir="rtl" data-t="0.430">פריימים,</span> <span class="w" dir="rtl" data-t="0.560">כי</span> <span class="w" dir="rtl" data-t="0.690">קלוד</span> <span class="w" dir="rtl" data-t="0.820">לא</span> <span class="w" dir="rtl" data-t="0.950">צופה</span> <span class="w" dir="rtl" data-t="1.080">בווידאו</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.910">קלוד</span> <span class="w" dir="rtl" data-t="1.970">בודק</span> <span class="w" dir="rtl" data-t="2.030">תמונות</span> <span class="w" dir="rtl" data-t="2.090">ולא</span> <span class="w" dir="rtl" data-t="2.150">צופה</span> <span class="w" dir="rtl" data-t="2.210">בסרטון.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.860">לכן</span> <span class="w" dir="rtl" data-t="3.920">אחרי</span> <span class="w" dir="rtl" data-t="3.980">כל</span> <span class="w" dir="rtl" data-t="4.040">רינדור</span> <span class="w" dir="rtl" data-t="4.100">הוא</span> <span class="w" dir="rtl" data-t="4.160">מוציא</span> <span class="w" dir="rtl" data-t="4.220">פריים</span> <span class="w" dir="rtl" data-t="4.280">בכל</span> <span class="w" dir="rtl" data-t="4.340">רגע</span> <span class="w" dir="rtl" data-t="4.400">חשוב</span> <span class="w" dir="rtl" data-t="4.460">ומסתכל</span> <span class="w" dir="rtl" data-t="4.520">עליו,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.960">וסביב</span> <span class="w" dir="rtl" data-t="7.020">כל</span> <span class="w" dir="rtl" data-t="7.080">מעבר</span> <span class="w" dir="rtl" data-t="7.140">פריים</span> <span class="accgrp" data-t="7.200"><span class="w s-str" dir="rtl" data-t="7.200">כל</span> <span class="w s-str" dir="rtl" data-t="7.260">עשירית</span> <span class="w s-str" dir="rtl" data-t="7.320">שנייה</span><i class="ul" data-t="7.380"></i></span><span class="w" dir="rtl" data-t="7.320">,</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.410">כדי</span> <span class="w" dir="rtl" data-t="9.470">לתפוס</span> <span class="w" dir="rtl" data-t="9.530">דברים</span> <span class="w" dir="rtl" data-t="9.590">שקופצים</span> <span class="w" dir="rtl" data-t="9.650">או</span> <span class="w" dir="rtl" data-t="9.710">קופאים.</span></span></p></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim72">
+<div class="s72-b0"><div class="s72-fr sA s72-still s72-st0"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-ok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></i></div><div class="s72-fr sA s72-still s72-st1"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-ok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></i></div><div class="s72-fr sA s72-still s72-st2"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-ok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></i></div><div class="s72-fr sA s72-still s72-st3"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-ok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></i></div><div class="s72-fr sA s72-vid"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-prog"><b></b></i><i class="s72-play"><b></b></i><svg class="s72-no" viewBox="0 0 170 302" aria-hidden="true"><path d="M52 118 L118 184"/></svg></div></div>
+<div class="s72-strip"><div class="s72-holes s72-ht"><i style="left:12px"></i><i style="left:42px"></i><i style="left:72px"></i><i style="left:102px"></i><i style="left:132px"></i><i style="left:162px"></i><i style="left:192px"></i><i style="left:222px"></i><i style="left:252px"></i><i style="left:282px"></i><i style="left:312px"></i><i style="left:342px"></i><i style="left:372px"></i><i style="left:402px"></i><i style="left:432px"></i><i style="left:462px"></i><i style="left:492px"></i><i style="left:522px"></i><i style="left:552px"></i><i style="left:582px"></i><i style="left:612px"></i><i style="left:642px"></i><i style="left:672px"></i><i style="left:702px"></i><i style="left:732px"></i></div><div class="s72-holes s72-hb"><i style="left:12px"></i><i style="left:42px"></i><i style="left:72px"></i><i style="left:102px"></i><i style="left:132px"></i><i style="left:162px"></i><i style="left:192px"></i><i style="left:222px"></i><i style="left:252px"></i><i style="left:282px"></i><i style="left:312px"></i><i style="left:342px"></i><i style="left:372px"></i><i style="left:402px"></i><i style="left:432px"></i><i style="left:462px"></i><i style="left:492px"></i><i style="left:522px"></i><i style="left:552px"></i><i style="left:582px"></i><i style="left:612px"></i><i style="left:642px"></i><i style="left:672px"></i><i style="left:702px"></i><i style="left:732px"></i></div><div class="s72-fr sA notitle s72-sf" style="left:676px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA s72-sf" style="left:584px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA s72-sf" style="left:492px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA fxon s72-sf" style="left:400px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA s72-sf" style="left:308px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA s72-sf" style="left:216px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sB s72-sf" style="left:124px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sB s72-sf" style="left:32px;top:24px"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div></div><i class="s72-edge"></i>
+<div class="s72-mark s72-mt" style="left:550.0px"><div class="s72-chip" dir="rtl"><svg class="s72-mi" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 6h16M13 6v15"/></svg><span>טקסט</span></div><svg class="s72-stem" viewBox="0 0 4 40" aria-hidden="true"><path d="M2 0 V40"/></svg></div><div class="s72-mark s72-mf" style="left:366.0px"><div class="s72-chip" dir="rtl"><svg class="s72-mi" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 3.5l2.4 6.6 6.6 2.4-6.6 2.4-2.4 6.6-2.4-6.6L4 12.5l6.6-2.4z"/></svg><span>אפקט</span></div><svg class="s72-stem" viewBox="0 0 4 40" aria-hidden="true"><path d="M2 0 V40"/></svg></div><div class="s72-mark s72-mc" style="left:136.0px"><div class="s72-chip" dir="rtl"><svg class="s72-mi" viewBox="0 0 26 26" aria-hidden="true"><circle cx="7" cy="19" r="3.4"/><circle cx="19" cy="19" r="3.4"/><path d="M9.4 16.6L19 4M16.6 16.6L7 4"/></svg><span>חיתוך</span></div><svg class="s72-stem" viewBox="0 0 4 40" aria-hidden="true"><path d="M2 0 V40"/></svg></div>
+<div class="s72-fr sA s72-ex s72-ex0"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-ok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></i></div><div class="s72-fr sA fxon s72-ex s72-ex1"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-ok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></i></div><div class="s72-fr sB s72-ex s72-ex2"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><i class="s72-ok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></i></div>
+<svg class="s72-call" viewBox="0 0 800 700" aria-hidden="true"><path class="s72-cf" d="M190 294 L262 294 L760 380 L40 380 Z"/><path class="s72-cl" d="M190 294 L40 380"/><path class="s72-cl" d="M262 294 L760 380"/></svg>
+<div class="s72-dense" data-focus="2"><div class="s72-fr sA s72-df s72-d0" style="left:640px;top:16px;"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA s72-df s72-d1" style="left:562px;top:16px;--hx:5%;"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA s72-df s72-d2" style="left:484px;top:16px;--hx:5%;"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sA s72-df s72-d3" style="left:406px;top:16px;--hx:10%;"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sB nocap s72-df s72-d4" style="left:328px;top:16px;"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sB s72-df s72-d5" style="left:250px;top:16px;"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sB jump s72-df s72-d6" style="left:172px;top:16px;"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sB s72-df s72-d7" style="left:94px;top:16px;"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-fr sB s72-df s72-d8" style="left:16px;top:16px;"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i></div><div class="s72-ticks"><i style="left:671.0px"></i><i style="left:593.0px"></i><i style="left:515.0px"></i><i style="left:437.0px"></i><i style="left:359.0px"></i><i style="left:281.0px"></i><i style="left:203.0px"></i><i style="left:125.0px"></i><i style="left:47.0px"></i></div>
+<svg class="s72-dim" viewBox="0 0 82 16" aria-hidden="true"><path d="M2 2 V14 M2 8 H80 M80 2 V14"/></svg>
+<div class="s72-step" dir="rtl"><span dir="ltr">0.1</span> שנייה</div>
+<i class="s72-eq">=</i>
+<svg class="s72-red" viewBox="0 0 72 122" aria-hidden="true"><rect x="3" y="3" width="66" height="116" rx="9"/></svg>
+<i class="s72-hl s72-hl1"></i><i class="s72-hl s72-hl2"></i><i class="s72-hl s72-hl6"></i>
+<svg class="s72-jarrow" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 26V6M8 12l7-7 7 7"/></svg>
+</div>
+<div class="s72-flag s72-fz" dir="rtl"><svg class="s72-mi" viewBox="0 0 26 26" aria-hidden="true"><path d="M9 6v14M17 6v14"/></svg><span>קופאים</span></div>
+<div class="s72-flag s72-fj" dir="rtl"><svg class="s72-mi" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 21V5M6.5 11.5L13 5l6.5 6.5"/></svg><span>קופצים</span></div>
+<div class="s72-autorow"><div class="s72-auto" dir="rtl"><span>בדיקה אוטומטית</span><i class="s72-aok"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></i></div></div>
+<div class="s72-fr sB nocap s72-big"><i class="s72-h"></i><i class="s72-bd"></i><i class="s72-ti"></i><i class="s72-cp"></i><i class="s72-fx"></i><svg class="s72-ph" viewBox="0 0 186 331" aria-hidden="true"><rect x="35" y="254" width="116" height="30" rx="8"/></svg></div>
+<div class="s72-catch" dir="rtl"><div class="s72-ct1"><i></i><span>פריים בלי כתובית:</span></div><p class="s72-ct2">הבדיקה האוטומטית פספסה, הפריים תפס.</p></div>
+<div class="s72-mag"><i class="s72-lens"></i><i class="s72-handle"></i></div>
+</div></div></div></div>
+<div class="factbox"><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="16.810">גם</span> <span class="w" dir="rtl" data-t="16.930">בסרטון</span> <span class="w" dir="rtl" data-t="17.050">הזה,</span> <span class="w" dir="rtl" data-t="17.170">הפריימים</span> <span class="w" dir="rtl" data-t="17.290">נבדקים</span> <span class="w" dir="rtl" data-t="17.410">אחרי</span> <span class="w" dir="rtl" data-t="17.530">כל</span> <span class="w" dir="rtl" data-t="17.650">רינדור.</span></p></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>20</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">אתה לא צופה בווידאו, אז כל בדיקה שלך נעשית על פריימים.</div>
+<div class="pl" dir="rtl">אחרי כל רינדור תוציא פריים בכל רגע חשוב (כל כניסה של טקסט, כל אפקט וכל חיתוך), ותסתכל עליהם ברזולוציה מלאה.</div>
+<div class="pl" dir="rtl">סביב כל מעבר תוציא גם רצועה של פריים כל 0.1 שנייה, כדי לתפוס דברים שקופצים או קופאים.</div>
+<div class="pl" dir="rtl">בכל פריים תבדוק טקסט חתוך או בכיוון הלא נכון, משהו שמסתיר את הפנים, וחורים או קצוות בשכבות.</div>
+<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>בדיקה אוטומטית שעברה לא מוכיחה שמשהו באמת על המסך, ולכן תמיד מסתכלים על הפריים עצמו.</div>
+<div class="pl" dir="rtl">כשאתה כותב שתיקנת משהו, תצרף את הפריים של הרגע שתוקן.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>בדיקה אוטומטית שעברה לא מוכיחה שמשהו באמת על המסך, ולכן תמיד מסתכלים על הפריים עצמו.</div></div>
+
+</div></div>
+</div>
+</div>
+</div>
+<script>
+/* Runtime helpers that add tweens to one paused GSAP master timeline.
+   Every tween is a fromTo with explicit values and immediateRender:false (CSS holds the
+   initial state), so any frame can be rendered by seeking to it in any order.
+   Each scene has its own camera (.scam); the chapter header sits outside it and never zooms. */
+(function () {
+  const E = (window.ENG = {});
+  // The guide's no-overshoot spring (prompts 9 and 13).
+  const SPRING = (p) => (1 - (1 + 7 * p) * Math.exp(-7 * p)) / (1 - 8 * Math.exp(-7));
+  E.SPRING = SPRING;
+  E.debug = (window.__ENG_DEBUG = { scenes: {} });
+  E.q = (s, r) => (r || document).querySelector(s);
+  E.qa = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const NI = { immediateRender: false };
+  E.NI = NI;
+  const A = (o) => Object.assign(o, NI);
+  E.A = A;
+  /* Deterministic PRNG (mulberry32): never use Math.random in scenes. */
+  E.rand = function (seed) {
+    let a = seed >>> 0;
+    return function () { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  };
+  /* Offsets ignore transforms: measure layout before any tween moves things. */
+  E.off = function (el, top) {
+    let x = 0, y = 0, e = el;
+    while (e && e !== top) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+    return { x, y };
+  };
+  E.center = function (el, top) {
+    const o = E.off(el, top);
+    return { x: o.x + el.offsetWidth / 2, y: o.y + el.offsetHeight / 2 };
+  };
+
+  E.fadeIn = function (tl, el, t, d, dy) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: 0, y: dy || 0 }, A({ opacity: 1, y: 0, duration: d || 0.5, ease: SPRING }), t);
+  };
+  E.fadeOut = function (tl, el, t, d, dy, from) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from, y: 0 }, A({ opacity: 0, y: dy || 0, duration: d || 0.3, ease: "power2.in" }), t);
+  };
+  E.dim = function (tl, el, t, to, from, d) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from }, A({ opacity: to, duration: d || 0.35, ease: "power2.out" }), t);
+  };
+
+  /* Kinetic words: each word enters on its time with a spring (slightly above final size,
+     then settles) and unblurs. Blur is animated separately from the spring and ends on
+     0px then "none", so it never goes negative (prompt 2's pitfall). */
+  E.kin = function (tl, root, S, o) {
+    if (!root) return;
+    o = o || {};
+    const dy = o.dy == null ? 18 : o.dy;
+    E.qa(".w", root).forEach((w) => {
+      const t = S + parseFloat(w.dataset.t || "0");
+      tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.22, ease: "power2.out" }), t);
+      tl.fromTo(w, { y: dy, scale: 0.82 }, A({ y: 0, scale: 1, duration: 0.62, ease: "back.out(2.1)" }), t);
+      tl.fromTo(w, { filter: "blur(9px)" }, A({ filter: "blur(0px)", duration: 0.3, ease: "power2.out" }), t);
+      tl.set(w, { filter: "none" }, t + 0.31);
+    });
+    E.qa(".ul", root).forEach((u) => {
+      const t = S + parseFloat(u.dataset.t || "0");
+      tl.fromTo(u, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.5, ease: "power3.inOut" }), t);
+    });
+  };
+
+  /* White pill caption: switches in one frame, no animation (prompt 2). */
+  E.pill = function (tl, el, tin, tout) {
+    tl.set(el, { opacity: 1 }, tin);
+    if (tout != null) tl.set(el, { opacity: 0 }, tout);
+  };
+
+  /* Bouncy zoom on the scene camera with the guide's spring. The focal x is clamped so a
+     content column [colL, colR] scaled by (1+amt) stays inside the safe area x 140..940. */
+  E.zoom = function (tl, ctx, cx, cy, t, amt, tBack, backDur, col) {
+    const s = 1 + amt;
+    const L = col ? col[0] : 220, R = col ? col[1] : 940;
+    const lo = (s * R - 940) / (s - 1), hi = (s * L - 140) / (s - 1);
+    if (lo <= hi) cx = Math.min(hi, Math.max(lo, cx));
+    else cx = (L + R) / 2;
+    tl.set(ctx.cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(ctx.cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) {
+      if (backDur) tl.fromTo(ctx.cam, { scale: s }, A({ scale: 1, duration: backDur, ease: "power2.inOut" }), tBack);
+      else tl.set(ctx.cam, { scale: 1 }, tBack);
+    }
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  E.zoomOn = function (tl, ctx, el, t, amt, tBack, backDur, col) {
+    const c = E.center(el, ctx.scene);
+    E.zoom(tl, ctx, c.x, c.y, t, amt, tBack, backDur, col);
+  };
+
+  /* ---------- effects (all pure transforms/opacity, created once before the first seek) ---------- */
+  /* Light sweep across an element, right to left (the reading direction). The element must be
+     positioned; it clips the band to its own shape. o.color tints the band. */
+  E.sweep = function (tl, el, t, d, o) {
+    if (!el) return;
+    o = o || {};
+    const fx = document.createElement("i"), b = document.createElement("b");
+    fx.className = "fx-sweep";
+    if (o.color) fx.style.setProperty("--sweep", o.color);
+    fx.appendChild(b);
+    el.appendChild(fx);
+    const w = el.offsetWidth;
+    tl.fromTo(b, { x: 0 }, A({ x: -(w * 1.34 + 60), duration: d || 0.8, ease: "power2.inOut" }), t);
+  };
+  /* A soft light band crosses the whole frame (scene change). */
+  E.band = function (tl, scene, t) {
+    const b = document.createElement("i");
+    b.className = "fx-band";
+    scene.appendChild(b);
+    tl.fromTo(b, { x: 0 }, A({ x: -1900, duration: 0.85, ease: "power2.inOut" }), t);
+    tl.fromTo(b, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power1.out" }), t);
+    tl.fromTo(b, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), t + 0.55);
+  };
+  /* Particle burst from (x, y) inside parent: n dots fly out and fade (deterministic). */
+  E.burst = function (tl, parent, x, y, t, o) {
+    if (!parent) return;
+    o = o || {};
+    const n = o.n || 14, rnd = E.rand(o.seed || 7), col = o.color || "#ff6b61", r0 = o.r0 || 30, r1 = o.r1 || 120;
+    for (let i = 0; i < n; i++) {
+      const d = document.createElement("i");
+      d.className = "fx-dot";
+      const sz = 5 + rnd() * 7;
+      d.style.cssText = "left:" + x + "px;top:" + y + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:" + col + ";box-shadow:0 0 10px " + col;
+      parent.appendChild(d);
+      const ang = (i / n) * Math.PI * 2 + rnd() * 0.5, dist = r0 + rnd() * (r1 - r0), dur = 0.55 + rnd() * 0.35;
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * dist, y: Math.sin(ang) * dist, scale: 0.35, duration: dur, ease: "power3.out" }), t);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), t);
+    }
+  };
+  /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
+  E.draw = function (tl, el, t, d, ease) {
+    if (!el) return;
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2;
+    el.style.strokeDasharray = L + " " + L;
+    el.style.strokeDashoffset = L;
+    tl.fromTo(el, { strokeDashoffset: L }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+  };
+  /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
+  E.glitch = function (tl, el, t, amp) {
+    if (!el) return;
+    const a = amp || 8;
+    const seq = [[0, 0], [a, -7], [-a * 0.7, 5], [a * 0.45, -3], [-a * 0.2, 1.5], [0, 0]];
+    for (let i = 1; i < seq.length; i++) {
+      tl.fromTo(el, { x: seq[i - 1][0], skewX: seq[i - 1][1] }, A({ x: seq[i][0], skewX: seq[i][1], duration: 0.05, ease: "none" }), t + (i - 1) * 0.05);
+    }
+  };
+  /* Bouncy zoom inside the illustration (the guide's spring): the stage camera punches in on a
+     focal element and comes back at tBack. The camera box clips, so text above is never touched. */
+  E.zoomStage = function (tl, ctx, el, t, amt, tBack) {
+    const cam = ctx.stcam, fit = ctx.fit || 1, sf = ctx.stfit;
+    let cx = cam.offsetWidth / 2, cy = cam.offsetHeight / 2;
+    if (el) {
+      const c = E.center(el, sf);
+      const hw = sf.offsetWidth / 2, hh = sf.offsetHeight / 2;
+      cx = sf.offsetLeft + hw + (c.x - hw) * fit;
+      cy = sf.offsetTop + hh + (c.y - hh) * fit;
+    }
+    const s = 1 + amt;
+    tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  /* Slow drifting dust over the whole video (depth; deterministic). */
+  E.dust = function (tl, bg, total) {
+    const rnd = E.rand(11);
+    for (let i = 0; i < 28; i++) {
+      const d = document.createElement("i"), sz = 2 + rnd() * 3.5;
+      d.className = "dust";
+      d.style.cssText = "left:" + (rnd() * 1080).toFixed(0) + "px;top:" + (200 + rnd() * 1700).toFixed(0) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;opacity:" + (0.15 + rnd() * 0.35).toFixed(2);
+      bg.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0 }, A({ x: (rnd() - 0.5) * 160, y: -(140 + rnd() * 320), duration: total, ease: "none" }), 0);
+    }
+  };
+
+  /* Prompt card: the full verbatim text, paged (static pages and short slides, so any
+     paused frame is readable). On a key line the page text dims and a copy of the line
+     lifts above the card (bouncy zoom on the line; it sits in its own layer, so its backing
+     is never clipped). One underline slides between the section tabs. Exits at t1. */
+  E.prompt = function (tl, ctx, card, t0, t1, hls) {
+    const vp = E.q(".pvp", card), ct = E.q(".pct", card), body = E.q(".pbody", card);
+    const ROW = 44, ROWS = 23;                     // the viewport is exactly 23 rows: no line is ever cut
+    const totalRows = Math.round(body.offsetHeight / ROW);
+    const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
+    const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
+    const H = (hls || []).map((h) => {
+      const ln = E.q('[data-hl="' + h.id + '"]', card);
+      const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
+      return { id: h.id, ln, lift, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, want: h.hold || 2.4 };
+    }).sort((a, b) => a.top - b.top);
+    // pages advance by 22 rows (one row of overlap); a page is pulled up so a key line never straddles an edge
+    const pages = [0];
+    while (pages[pages.length - 1] < lastTop) {
+      const cur = pages[pages.length - 1];
+      let nxt = Math.min(lastTop, cur + (ROWS - 1) * ROW);
+      for (const h of H) if (h.top > cur && h.top < cur + ROWS * ROW && h.bot > cur + ROWS * ROW) nxt = Math.min(nxt, h.top - 2 * ROW);
+      if (nxt <= cur) nxt = Math.min(lastTop, cur + ROW);
+      pages.push(nxt);
+    }
+    // a key line is held on the page where it sits furthest from the edges (the lift needs room)
+    H.forEach((h) => {
+      let bestM = -1e9;
+      h.page = 0;
+      pages.forEach((p, i) => {
+        const m = Math.min(h.top - p, p + ROWS * ROW - h.bot);
+        if (m >= 0 && m > bestM + 0.5) { bestM = m; h.page = i; }
+      });
+    });
+    // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
+    // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
+    const n = pages.length;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.35, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LIFT = 1.1, DIM = 0.38;
+    const mineOf = (i) => H.filter((h) => h.page === i);
+    const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
+    // a plain last page stays settled a little longer before the exit
+    let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
+    for (let i = 0; i < n; i++) {
+      const mine = mineOf(i);
+      if (!mine.length) nPlain++;
+      else fixed += liftDelay(i) + (mine.length - 1) * UNLIFT + (isHold(i + 1) ? UNLIFT : UNDIM);
+      if (i < n - 1) fixed += isHold(i) && isHold(i + 1) ? DSLIDE : SLIDE;
+    }
+    fixed += tail;
+    const want = H.reduce((a, h) => a + h.want, 0);
+    let dwell = 0.27;
+    let room = t1 - t0 - fixed - nPlain * dwell;
+    if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
+      dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
+      room = t1 - t0 - fixed - nPlain * dwell;
+    }
+    if (H.length) {
+      let k = room / want;
+      if (k > 1.35) {
+        const extra = room - want * 1.35;
+        k = 1.35;
+        dwell += extra / (nPlain + 1);
+        tail += extra / (nPlain + 1);
+      }
+      H.forEach((h) => { h.hold = h.want * k; });
+      // keep a 2 s floor on every hold where the budget allows it
+      for (let it = 0; it < 3; it++) {
+        const low = H.filter((h) => h.hold < MINH), high = H.filter((h) => h.hold >= MINH);
+        if (!low.length || !high.length) break;
+        const need = low.reduce((a, h) => a + MINH - h.hold, 0);
+        const spare = high.reduce((a, h) => a + h.hold - MINH, 0);
+        const take = Math.min(need, spare);
+        low.forEach((h) => { h.hold += (MINH - h.hold) * (take / need); });
+        high.forEach((h) => { h.hold -= (h.hold - MINH) * (take / spare); });
+      }
+    } else {
+      dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
+    }
+    // the lifted copies sit over their line on the page where it is held (static layout)
+    H.forEach((h) => {
+      h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
+      h.lift.style.top = (bw + vp.offsetTop + h.top - pages[h.page]) + "px";
+      h.lift.style.width = h.ln.offsetWidth + "px";
+    });
+    tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
+    tl.fromTo(card, { rotationX: 16, y: 90, scale: 0.94, transformPerspective: 1600 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SPRING }), t0);
+    E.sweep(tl, card, t0 + 0.4, 1.0, { color: "rgba(201, 194, 255, 0.16)" });
+    const arrivals = [], slides = [], holdTimes = [];
+    let t = t0 + LEAD, dimmed = false, tFinal = null;
+    for (let i = 0; i < n; i++) {
+      arrivals.push(t);
+      const mine = mineOf(i);
+      if (!mine.length) t += dwell;
+      else {
+        t += liftDelay(i);
+        mine.forEach((h, j) => {
+          if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
+          dimmed = true;
+          tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          holdTimes.push(+t.toFixed(3));
+          t += h.hold;
+          const keepDim = j < mine.length - 1 || isHold(i + 1);
+          const d = keepDim ? UNLIFT : UNDIM;
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d, ease: "power2.inOut" }), t);
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d, ease: "power2.in" }), t);
+          if (!keepDim) {
+            tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
+            dimmed = false;
+            if (i === n - 1) tFinal = t;
+          }
+          t += d;
+        });
+      }
+      if (i < n - 1) {
+        const sd = dimmed ? DSLIDE : SLIDE;
+        tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: sd, ease: "power2.inOut" }), t);
+        slides.push([t, sd]);
+        t += sd;
+      }
+    }
+    // tabs: one underline slides with the page to the section that fills most of the visible rows
+    const tabs = E.qa(".tab", card), ul = E.q(".tabul", card);
+    if (tabs.length && ul) {
+      const tags = tabs.map((tab) => E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card));
+      const starts = tags.map((g) => (g ? g.offsetTop : 1e9));
+      const secAt = (p) => {
+        let best = 0, bestRows = -1;
+        starts.forEach((st, j) => {
+          const en = j + 1 < starts.length ? starts[j + 1] : 1e9;
+          const vis = Math.max(0, Math.min(en, p + ROWS * ROW) - Math.max(st, p));
+          if (vis > bestRows) { bestRows = vis; best = j; }
+        });
+        return best;
+      };
+      const MUTED = "#9c99ae", INK = "#f5f2ea";
+      const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
+      let cur = secAt(pages[0]);
+      ul.style.left = pos(cur).left + "px";
+      ul.style.width = pos(cur).width + "px";
+      tl.fromTo(ul, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power2.out" }), t0 + 0.1);
+      tl.fromTo(tabs[cur], { color: MUTED }, A({ color: INK, duration: 0.2 }), t0 + 0.1);
+      const move = (k, ta, d) => {
+        const a = pos(cur), b = pos(k);
+        tl.fromTo(ul, { left: a.left, width: a.width }, A({ left: b.left, width: b.width, duration: d, ease: "power3.inOut" }), ta);
+        tl.fromTo(tabs[cur], { color: INK }, A({ color: MUTED, duration: 0.2 }), ta + d / 2 - 0.1);
+        tl.fromTo(tabs[k], { color: MUTED }, A({ color: INK, duration: 0.2 }), ta + d / 2 - 0.1);
+        cur = k;
+      };
+      // the section that holds the last visible row (the end of the prompt on the last page)
+      const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      for (let i = 1; i < n; i++) {
+        const k = i === n - 1 && !isHold(i) ? lastVisible(pages[i]) : secAt(pages[i]);
+        if (k !== cur) move(k, slides[i - 1][0], Math.max(0.3, slides[i - 1][1]));
+      }
+      // a last page with key lines: its last section takes over when the page undims
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) > cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
+    }
+    tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
+    return {
+      pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
+      holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, liftH: h.lift.offsetHeight })),
+    };
+  };
+
+  /* Standard topic scene. Layout is measured once (static):
+     the title and the explanation sit at the top; the illustration fills the safe area below.
+     title -> illustration enters -> explanation phrase by phrase (current phrase bright, the
+     illustration shows each phrase, bouncy zoom inside it on the key phrase) -> payoff ->
+     fact over the dimmed illustration -> prompt card -> tip. */
+  E.topic = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const hdr = E.q(".hdr", sc), main = E.q(".main", sc), exp = E.q(".exp", sc), ttl = E.q(".ttl", sc);
+    const stage = E.q(".stage", sc), simtag = E.q(".simtag", sc), fact = E.q(".factbox", sc);
+    const stcam = E.q(".stcam", sc), stfit = E.q(".stfit", sc);
+    // static layout
+    const TOP = 376, BOTTOM = 1566;
+    const h = main.offsetHeight;
+    const stTop = Math.round(TOP + h + 30);
+    stage.style.top = stTop + "px";
+    stage.style.height = BOTTOM - stTop + "px";
+    const camH = BOTTOM - stTop - 50;
+    const simH = (E.q(".simwrap", sc) || { offsetHeight: 700 }).offsetHeight || 700;
+    stfit.style.height = simH + "px";
+    stfit.style.marginTop = -simH / 2 + "px";
+    const fit = Math.min(1, camH / simH);
+    if (fit < 1) stfit.style.transform = "scale(" + fit.toFixed(3) + ")";
+    if (fact) { fact.style.top = stTop + 50 + "px"; fact.style.height = camH + "px"; }
+    Object.assign(ctx, { stcam, stfit, fit, stTop });
+    // scene change: a light band crosses the frame while the camera settles
+    E.band(tl, sc, S);
+    tl.fromTo(ctx.cam, { scale: 1.035 }, A({ scale: 1, duration: 1.0, ease: SPRING }), S);
+    E.fadeIn(tl, hdr, S + 0.05, 0.5, 0);
+    E.kin(tl, ttl, S);
+    // the illustration enters with the explanation
+    E.fadeIn(tl, simtag, S + cfg.tStage, 0.4, 0);
+    tl.fromTo(stage, { opacity: 0, y: 46 }, A({ opacity: 1, y: 0, duration: 0.8, ease: SPRING }), S + cfg.tStage);
+    // explanation: phrase by phrase; the phrase being read is bright, the ones before step back
+    E.kin(tl, exp, S, { dy: 14 });
+    const phs = E.qa(".ph", exp);
+    phs.forEach((ph, i) => {
+      const tEnd = i + 1 < phs.length ? cfg.phr[i + 1] : cfg.phrEnd + 0.8;
+      tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0.5, duration: 0.45, ease: "power2.out" }), S + tEnd);
+      E.qa(".accgrp", ph).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#dcd9e6", duration: 0.45 }), S + tEnd));
+      E.qa(".ul", ph).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + tEnd));
+    });
+    if (window.SIMS[cfg.sim]) window.SIMS[cfg.sim](tl, ctx, cfg, S);
+    // bouncy zoom inside the illustration on the key phrase (focus: [data-focus="<phrase>"])
+    const acc = E.q(".exp .accgrp", sc);
+    if (acc && cfg.expZoom) {
+      const p = +(acc.closest(".ph") || { dataset: { p: 0 } }).dataset.p;
+      const tb = p + 1 < cfg.phr.length ? cfg.phr[p + 1] : cfg.phrEnd + 0.6;
+      const focus = E.q('[data-focus="' + p + '"]', stage) || E.q("[data-focus]", stage);
+      E.zoomStage(tl, ctx, focus, S + parseFloat(acc.dataset.t) + 0.1, cfg.expZoom, S + tb);
+    }
+    const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
+    if (cfg.tFact != null) {
+      // the fact takes over the illustration's area; the illustration steps far back
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.14, 1, 0.4);
+      E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const pill = E.q(".factbox .pill", sc);
+      if (pill) {
+        tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
+        tl.fromTo(pill, { scale: 0.92, y: 20 }, A({ scale: 1, y: 0, duration: 0.45, ease: SPRING }), S + cfg.tFact - 0.1);
+        E.sweep(tl, pill, S + cfg.tFact + 0.25, 0.7, { color: "rgba(120, 100, 255, 0.28)" });
+        E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
+      }
+      E.kin(tl, fact, S, { dy: 12 });
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.14, 0.25);
+    } else {
+      E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
+      E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
+    }
+    E.dim(tl, simtag, S + (cfg.tFact != null ? cfg.tFact - 0.45 : tNext - 0.35), 0, 1, 0.3);
+    // first cut: the title (and the fact) leave before the card or the tip arrives
+    tl.fromTo(main, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), S + tNext - 0.3);
+    if (fact) E.fadeOut(tl, fact, S + tNext - 0.3, 0.25, -20);
+    let info = null;
+    if (cfg.tPrompt != null) {
+      const pend = cfg.tTip != null ? cfg.tTip : cfg.tPromptEnd;
+      info = E.prompt(tl, ctx, E.q(".pcard", sc), S + cfg.tPrompt, S + pend, cfg.hls);
+    }
+    if (cfg.tTip != null) {
+      const tip = E.q(".tipcard", sc);
+      tl.fromTo(tip, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + cfg.tTip);
+      tl.fromTo(tip, { scale: 0.96, y: 30, rotationX: 10, transformPerspective: 1400 }, A({ scale: 1, y: 0, rotationX: 0, duration: 0.7, ease: SPRING }), S + cfg.tTip);
+      E.qa(".tip-ico .dr", sc).forEach((pth, i) => E.draw(tl, pth, S + cfg.tTip + 0.15 + i * 0.18, 0.55));
+      E.kin(tl, E.q(".tip-text", sc), S);
+      E.fadeOut(tl, tip, S + cfg.D - 0.4, 0.3, -20);
+    }
+    E.fadeOut(tl, hdr, S + cfg.D - 0.4, 0.3, 0);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { stTop, h, fit: +fit.toFixed(3) }, prompt: info };
+  };
+
+  /* Chapter title card. */
+  E.chapter = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
+    E.band(tl, sc, S);
+    tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
+    E.qa(".ch-ring", sc).forEach((r, i) => {
+      tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
+    });
+    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ff8a80" });
+    tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
+    tl.set(n, { filter: "none" }, S + 0.58);
+    E.fadeIn(tl, k, S + 0.25, 0.5, 14);
+    E.kin(tl, E.q(".ch-title", sc), S);
+    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.7, ease: "power3.inOut" }), S + 0.75);
+    E.kin(tl, E.q(".ch-sub", sc), S, { dy: 12 });
+    E.kin(tl, E.q(".ch-tag", sc), S, { dy: 10 });
+    E.fadeIn(tl, dots, S + 0.6, 0.6, 10);
+    tl.fromTo(E.q(".chap", sc), { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.04, duration: 0.38, ease: "power2.in" }), S + cfg.D - 0.4);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "chapter" };
+  };
+
+  window.SIMS = window.SIMS || {};
+})();
+
+/* 7.2 check frames, because Claude doesn't watch video: one visual beat per explanation phrase, then the caught frame.
+   Every tween is a fromTo with explicit values (immediateRender:false via E.A); times are scene-local via T(). */
+window.SIMS = window.SIMS || {};
+window.SIMS.sim72 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, P = cfg.phr, pe = cfg.phrEnd;
+  const T = (x) => S + x;                    // scene-local -> master time
+  const q = (s) => E.q(s, sc), qa = (s) => E.qa(s, sc);
+  const tw = (el, from, to, t) => tl.fromTo(el, from, A(to), T(t));
+  const pop = (el, t, s0) => tw(el, { opacity: 0, scale: s0 || 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, t);
+  const check = (badge, t) => { pop(badge, t, 0.5); E.draw(tl, E.q("path", badge), T(t + 0.05), 0.28); };
+  const ts = cfg.tStage, b0 = P[0], b1 = P[1], b2 = P[2], b3 = P[3];
+
+  // the magnifier (the check) persists; it moves by offsets from its CSS place, lens centre at (cx, cy)
+  const mag = q(".s72-mag");
+  const M0 = [586, 320];
+  mag.style.left = (M0[0] - 48) + "px";
+  mag.style.top = (M0[1] - 48) + "px";
+  let mp = { x: 0, y: 0 };
+  const magTo = (cx, cy, t, d) => {
+    const to = { x: cx - M0[0], y: cy - M0[1] };
+    tw(mag, { x: mp.x, y: mp.y }, { x: to.x, y: to.y, duration: d, ease: "power2.inOut" }, t);
+    mp = to;
+  };
+
+  // establishing shot: the video
+  const vid = q(".s72-vid");
+  tw(vid, { scale: 0.92 }, { scale: 1, duration: 0.7, ease: E.SPRING }, ts + 0.1);
+
+  // B0 "Claude checks pictures and doesn't watch the video": play is struck out, stills fan out, the magnifier checks them
+  const play = q(".s72-play");
+  tw(play, { scale: 1 }, { scale: 1.12, duration: 0.15, ease: "power2.out" }, b0 + 0.02);
+  tw(play, { scale: 1.12 }, { scale: 1, duration: 0.2, ease: "power2.in" }, b0 + 0.17);
+  E.draw(tl, q(".s72-no path"), T(b0 + 0.25), 0.3);
+  E.glitch(tl, vid, T(b0 + 0.3), 7);
+  const ROT = [-9, -4, 4, 9];
+  [2, 1, 3, 0].forEach((i, n) => {
+    const st = q(".s72-st" + i);
+    const cx = st.offsetLeft + st.offsetWidth / 2, cy = st.offsetTop + st.offsetHeight / 2;
+    tw(st, { x: 400 - cx, y: 319 - cy, scale: 0.55, rotation: 0, opacity: 0 }, { x: 0, y: 0, scale: 1, rotation: ROT[i], opacity: 1, duration: 0.7, ease: E.SPRING }, b0 + 0.55 + n * 0.08);
+  });
+  pop(mag, b0 + 1.05, 0.7);
+  check(q(".s72-st2 .s72-ok"), b0 + 1.35);
+  magTo(700, 344, b0 + 1.45, 0.35);
+  check(q(".s72-st3 .s72-ok"), b0 + 1.8);
+
+  // B1 "so after every render it takes a frame at every important moment and looks at it":
+  // the rendered strip arrives, markers drop on the text entry, the effect and the cut; the magnifier visits each
+  E.fadeOut(tl, q(".s72-b0"), T(b1), 0.3, -10);
+  const strip = q(".s72-strip"), edge = q(".s72-edge"), sfs = qa(".s72-sf");
+  tw(strip, { clipPath: "inset(0px 0px 0px 100%)" }, { clipPath: "inset(0px 0px 0px 0%)", duration: 0.7, ease: "power2.inOut" }, b1 + 0.15);
+  tw(edge, { opacity: 0 }, { opacity: 1, duration: 0.1 }, b1 + 0.12);
+  tw(edge, { x: 0 }, { x: -757, duration: 0.7, ease: "power2.inOut" }, b1 + 0.15);
+  tw(edge, { opacity: 1 }, { opacity: 0, duration: 0.12 }, b1 + 0.8);
+  const marks = [q(".s72-mt"), q(".s72-mf"), q(".s72-mc")];
+  const under = [[1], [3], [5, 6]];        // strip frames under each marker (the cut sits between frames 5 and 6)
+  const RING0 = "0 0 0 1.5px rgba(201, 194, 255, 0.38)", RING1 = "0 0 0 2.5px rgba(255, 255, 255, 0.95), 0 0 14px rgba(201, 194, 255, 0.7)";
+  marks.forEach((m, i) => {
+    const t = b1 + 0.75 + i * 0.18;
+    tw(m, { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }, t);
+    E.draw(tl, E.q(".s72-stem path", m), T(t + 0.2), 0.25);
+    under[i].forEach((k) => tw(sfs[k], { boxShadow: RING0 + ", 0 0 0px rgba(201, 194, 255, 0)" }, { boxShadow: RING1, duration: 0.3 }, t + 0.35));
+  });
+  // each marked frame is taken out of the strip (a copy drops into a row) and the magnifier looks at it
+  const wrap = q(".sim72"), exs = qa(".s72-ex"), src = [sfs[1], sfs[3], sfs[6]];
+  exs.forEach((ex, i) => {
+    const t = b1 + 1.05 + i * 0.12, os = E.off(src[i], wrap), oe = E.off(ex, wrap);
+    tw(ex, { opacity: 0 }, { opacity: 1, duration: 0.15 }, t);
+    tw(ex, { x: os.x - oe.x, y: os.y - oe.y, scale: +(src[i].offsetWidth / ex.offsetWidth).toFixed(4) }, { x: 0, y: 0, scale: 1, duration: 0.6, ease: E.SPRING }, t);
+  });
+  magTo(640, 422, b1 + 1.45, 0.4);
+  check(E.q(".s72-ok", exs[0]), b1 + 1.8);
+  magTo(456, 422, b1 + 1.95, 0.35);
+  check(E.q(".s72-ok", exs[1]), b1 + 2.25);
+  magTo(226, 422, b1 + 2.4, 0.4);
+  check(E.q(".s72-ok", exs[2]), b1 + 2.75);
+
+  // B2 "and around every transition, a frame every tenth of a second": the cut opens into a dense strip
+  E.fadeOut(tl, marks[0], T(b2), 0.3, -8);
+  E.fadeOut(tl, marks[1], T(b2), 0.3, -8);
+  exs.forEach((ex) => E.fadeOut(tl, ex, T(b2), 0.3, 12));
+  [0, 1, 2, 3, 4, 7].forEach((k) => tw(sfs[k], { opacity: 1 }, { opacity: 0.32, duration: 0.35 }, b2 + 0.05));
+  qa(".s72-cl").forEach((l, i) => E.draw(tl, l, T(b2 + 0.1 + i * 0.05), 0.4));
+  tw(q(".s72-cf"), { opacity: 0 }, { opacity: 1, duration: 0.4 }, b2 + 0.2);
+  const dense = q(".s72-dense"), dfs = qa(".s72-df");
+  tw(dense, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }, b2 + 0.2);
+  dfs.forEach((d, i) => pop(d, b2 + 0.35 + i * 0.07, 0.8));
+  qa(".s72-ticks i").forEach((k, i) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.2 }, b2 + 0.42 + i * 0.07));
+  magTo(439, 453, b2 + 0.35, 0.5);
+  E.draw(tl, q(".s72-dim path"), T(b2 + 1.0), 0.4);
+  E.fadeIn(tl, q(".s72-step"), T(b2 + 1.1), 0.45, 10);
+
+  // B3 "to catch things that jump or freeze": two identical frames (freeze), a title that jumps
+  tw(q(".s72-dim"), { opacity: 1 }, { opacity: 0, duration: 0.25 }, b3);
+  E.fadeOut(tl, q(".s72-step"), T(b3), 0.25, 0);
+  magTo(555, 453, b3 + 0.05, 0.35);
+  const hl1 = q(".s72-hl1"), hl2 = q(".s72-hl2"), hl6 = q(".s72-hl6"), eq = q(".s72-eq"), fz = q(".s72-fz"), fj = q(".s72-fj"), ja = q(".s72-jarrow");
+  pop(hl1, b3 + 0.4, 0.9);
+  pop(hl2, b3 + 0.4, 0.9);
+  pop(eq, b3 + 0.45, 0.5);
+  pop(fz, b3 + 0.5, 0.8);
+  magTo(244, 453, b3 + 0.8, 0.4);
+  pop(hl6, b3 + 1.15, 0.9);
+  tw(ja, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(2.4)" }, b3 + 1.15);
+  pop(fj, b3 + 1.2, 0.8);
+
+  // payoff: the frame without a caption is caught: red mark, it lifts and grows, its empty caption place, the label
+  [hl1, hl2, hl6, eq, ja].forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.3 }, pe));
+  E.fadeOut(tl, fz, T(pe), 0.3, 8);
+  E.fadeOut(tl, fj, T(pe), 0.3, 8);
+  // the automatic check has passed...
+  const auto = q(".s72-auto");
+  pop(auto, pe + 0.25, 0.8);
+  E.draw(tl, q(".s72-aok path"), T(pe + 0.32), 0.28);
+  // ...but the frame itself is looked at: no caption
+  magTo(400, 453, pe + 0.25, 0.45);
+  const red = q(".s72-red");
+  E.draw(tl, q(".s72-red rect"), T(pe + 0.75), 0.35);
+  E.glitch(tl, dfs[4], T(pe + 0.75), 5);
+  tw(auto, { opacity: 1 }, { opacity: 0.42, duration: 0.35 }, pe + 0.9);
+  E.fadeOut(tl, strip, T(pe + 0.85), 0.35, 0);
+  E.fadeOut(tl, marks[2], T(pe + 0.85), 0.35, 0);
+  tw(q(".s72-call"), { opacity: 1 }, { opacity: 0, duration: 0.35 }, pe + 0.85);
+  tw(mag, { opacity: 1 }, { opacity: 0, duration: 0.3 }, pe + 1.0);
+  const big = q(".s72-big"), d4 = dfs[4];
+  const od = E.off(d4, wrap), ob = E.off(big, wrap);
+  const fromBig = { x: +(od.x - ob.x).toFixed(1), y: +(od.y - ob.y).toFixed(1), scale: +(d4.offsetWidth / big.offsetWidth).toFixed(4) };
+  tw(big, { opacity: 0 }, { opacity: 1, duration: 0.15 }, pe + 1.1);
+  tw(big, fromBig, { x: 0, y: 0, scale: 1, duration: 0.75, ease: E.SPRING }, pe + 1.1);
+  tw(red, { opacity: 1 }, { opacity: 0.5, duration: 0.4 }, pe + 1.85);
+  const ph = q(".s72-ph");
+  tw(ph, { opacity: 0, scale: 0.9, transformOrigin: "50% 81%" }, { opacity: 1, scale: 1, transformOrigin: "50% 81%", duration: 0.35, ease: "back.out(2)" }, pe + 1.85);
+  E.burst(tl, big, 93, 269, T(pe + 1.9), { n: 12, seed: 72, r0: 30, r1: 80, color: "#c9c2ff" });
+  E.fadeIn(tl, q(".s72-ct1"), T(pe + 1.95), 0.45, 12);
+  E.fadeIn(tl, q(".s72-ct2"), T(pe + 2.25), 0.45, 12);
+};
+
+
+(function () {
+  const CFGS = [{"id": "t72", "sim": "sim72", "D": 26.12, "tStage": 1.31, "tExp": 1.91, "phr": [1.91, 3.86, 6.96, 9.41], "phrEnd": 11.36, "tSimEnd": 16.36, "tFact": 16.36, "tPrompt": 20.17, "tPromptEnd": 25.67, "tTip": null, "expZoom": 0.1, "simDur": 15.05, "hls": [{"id": "hl1", "hold": 2.2, "zoom": 0.1}], "sim72": {"markText": "טקסט", "markFx": "אפקט", "markCut": "חיתוך", "step": ["0.1", "שנייה"], "jumpLabel": "קופצים", "freezeLabel": "קופאים", "autoLabel": "בדיקה אוטומטית", "catchTitle": "פריים בלי כתובית:", "catchLine": "הבדיקה האוטומטית פספסה, הפריים תפס."}, "S": 0.0}];
+  const WINDOW = null;
+  const fontsReady = Promise.all([
+    document.fonts.load('400 38px Rubik', 'אבג abc 123'),
+    document.fonts.load('800 62px Rubik', 'אבג abc'),
+    document.fonts.load('900 40px Rubik', 'אבג'),
+    document.fonts.load('600 27px "IBM Plex Mono"', 'abc 123'),
+    document.fonts.load('400 27px "IBM Plex Sans Hebrew"', 'אבג'),
+  ]).then(() => document.fonts.ready);
+  fontsReady.then(() => {
+    const stage = document.querySelector('.stagewrap');
+    const cam = document.getElementById('cam');
+    const master = gsap.timeline({ paused: true });
+    // slow background drift for the whole video (the "camera that never stops")
+    const TOT = 26.120;
+    master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    window.ENG.dust(master, document.getElementById('bg'), TOT);
+    for (const cfg of CFGS) {
+      const scene = document.getElementById('sc-' + cfg.id);
+      const scam = scene.querySelector('.scam') || cam;
+      const hdr = scene.querySelector('.hdr');
+      if (cfg.type === 'chapter') window.ENG.chapter(master, { stage, cam: scam, scene, hdr }, cfg);
+      else if (cfg.type === 'custom') window.SIMS[cfg.sim](master, { stage, cam: scam, scene, hdr }, cfg, cfg.S);
+      else window.ENG.topic(master, { stage, cam: scam, scene, hdr }, cfg);
+    }
+    let root = master;
+    if (WINDOW) {
+      root = gsap.timeline({ paused: true });
+      root.add(master.tweenFromTo(WINDOW[0], WINDOW[1], { duration: WINDOW[1] - WINDOW[0], ease: 'none' }), 0);
+    }
+    window.__ENG_DEBUG.ready = true;
+    window.__timelines['main'] = root;
+  });
+})();
+
+</script>
+</body>
+</html>

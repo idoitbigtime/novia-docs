@@ -9,47 +9,47 @@
   },
   {
    "sfx": "tick",
-   "t": 2.0,
-   "scene": "hook"
-  },
-  {
-   "sfx": "tick",
    "t": 2.3,
    "scene": "hook"
   },
   {
    "sfx": "tick",
-   "t": 2.9,
+   "t": 2.62,
    "scene": "hook"
   },
   {
    "sfx": "tick",
-   "t": 3.5,
+   "t": 3.22,
    "scene": "hook"
   },
   {
    "sfx": "tick",
-   "t": 4.1,
+   "t": 3.82,
    "scene": "hook"
   },
   {
    "sfx": "tick",
-   "t": 4.7,
+   "t": 4.42,
    "scene": "hook"
   },
   {
    "sfx": "tick",
-   "t": 5.3,
+   "t": 5.02,
+   "scene": "hook"
+  },
+  {
+   "sfx": "tick",
+   "t": 5.62,
    "scene": "hook"
   },
   {
    "sfx": "swipe",
-   "t": 5.95,
+   "t": 6.25,
    "scene": "hook"
   },
   {
    "sfx": "shimmer",
-   "t": 8.65,
+   "t": 8.6,
    "scene": "hook"
   }
  ]

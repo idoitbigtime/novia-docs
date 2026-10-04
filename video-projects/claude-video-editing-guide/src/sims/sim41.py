@@ -53,7 +53,7 @@ def html(cfg):
 <i class="s41-gscan"></i>
 </div>
 <div class="s41-ovl" data-focus="1"><div class="s41-chk"></div>
-<svg class="s41-ovlo" viewBox="0 0 324 576" preserveAspectRatio="none" aria-hidden="true"><rect x="2" y="2" width="320" height="572" rx="25"/></svg>
+<svg class="s41-ovlo" viewBox="0 0 324 576" preserveAspectRatio="none" aria-hidden="true"><path d="M297 2H27A25 25 0 0 0 2 27V549A25 25 0 0 0 27 574H297A25 25 0 0 0 322 549V27A25 25 0 0 0 297 2Z"/></svg>
 {_cards(c, "s41-hc")}</div>
 </div></div>
 <div class="s41-tag s41-tmov" dir="ltr"><i class="s41-sw s41-swchk"></i><span>{esc(c["mov"])}</span></div>
@@ -74,7 +74,8 @@ def html(cfg):
 </div>
 
 <div class="s41-p2">
-<div class="s41-mini"><div class="s41-mbg"></div>{_cards(c, "s41-mc")}</div>
+<div class="s41-mini"><div class="s41-mbg"></div>
+<svg class="s41-mout" viewBox="0 0 324 576" preserveAspectRatio="none" aria-hidden="true"><path d="M297.5 1.5H26.5A25 25 0 0 0 1.5 26.5V549.5A25 25 0 0 0 26.5 574.5H297.5A25 25 0 0 0 322.5 549.5V26.5A25 25 0 0 0 297.5 1.5Z"/></svg>{_cards(c, "s41-mc")}</div>
 <div class="s41-tag s41-tmp4" dir="ltr"><i class="s41-sw s41-swbrand"></i><span>{esc(c["mp4"])}</span></div>
 </div>
 
@@ -101,5 +102,5 @@ def html(cfg):
 def cues(cfg):
     P, pe = cfg["phr"], cfg["phrEnd"]
     return [("pop", P[0] + 1.2), ("pop", P[0] + 2.2), ("whoosh_soft", P[1] + 0.04),
-            ("swipe", P[2] + 0.2), ("glitch_soft", P[3] + 0.6), ("tick", P[3] + 1.5),
-            ("shimmer", pe + 1.9)]
+            ("swipe", P[2] + 0.2), ("glitch_soft", P[3] + 0.66), ("tick", P[3] + 1.48),
+            ("shimmer", pe + 2.4)]
