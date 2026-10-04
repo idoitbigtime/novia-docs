@@ -4,8 +4,9 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
   const T = (x) => S + x;                    // scene-local -> master time
   const q = (s) => E.q(".sim33 " + s, sc), qa = (s) => E.qa(".sim33 " + s, sc);
   const persp = q(".s33-persp"), root = persp.parentNode, stack = q(".s33-stack"), lys = qa(".s33-ly");
-  // the cut-out layer floats higher than the others, so in the side view its silhouette never covers the text below it
-  const R = { x: -104, y: 54, rz: -20, rx: 48, s: 0.54 }, Z0 = [0, 0.6, 1.2], Z = [-165, 0, 195];
+  // the cut-out layer floats a little higher, so in the side view its silhouette never covers the text below it;
+  // the view is fitted so every layer stays inside the canvas and the names stay 30 px clear of its edge
+  const R = { x: -100, y: 54, rz: -20, rx: 48, s: 0.545 }, Z0 = [0, 0.6, 1.2], Z = [-160, 0, 190];
 
   // static layout: measure where each layer's right edge lands in the payoff's side view, then place the names
   stack.style.transform = "translate(" + R.x + "px, " + R.y + "px) rotate(" + R.rz + "deg) rotateX(" + R.rx + "deg) scale(" + R.s + ")";
@@ -40,7 +41,7 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
   tl.fromTo(tring, { opacity: 1 }, A({ opacity: 0, duration: 0.2, ease: "power1.in" }), T(b1 - 0.12));
   tl.fromTo(title, { opacity: 1, y: 0 }, A({ opacity: 0, y: -30, duration: 0.35, ease: "power2.in" }), T(b1));
   tl.fromTo(tag, { opacity: 0, x: -12 }, A({ opacity: 1, x: 0, duration: 0.45, ease: E.SPRING }), T(b1 + 0.1));
-  tl.fromTo(gs, { opacity: 0, y: 20 }, A({ opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }), T(b1 + 0.15));
+  tl.fromTo(gs, { opacity: 0, y: 12 }, A({ opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }), T(b1 + 0.15));
   qa(".s33-gsv .x").forEach((p, i) => E.draw(tl, p, T(b1 + 0.55 + i * 0.12), 0.25, "power2.in"));
   E.glitch(tl, q(".s33-gsv"), T(b1 + 0.75), 7);
 
@@ -104,7 +105,9 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
   tl.fromTo(q(".s33-frame"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe));
   tl.fromTo(q(".s33-wt"), { opacity: 0.4 }, A({ opacity: 0, duration: 0.3 }), T(pe));
   tl.fromTo(stack, { x: 0, y: 0, rotation: 0, rotationX: 0, scale: 1 }, A({ x: R.x, y: R.y, rotation: R.rz, rotationX: R.rx, scale: R.s, duration: 1.2, ease: E.SPRING }), T(pe + 0.2));
-  lys.forEach((l, i) => tl.fromTo(l, { z: Z0[i] }, A({ z: Z[i], duration: 1.2, ease: E.SPRING }), T(pe + 0.25 + i * 0.05)));
+  // you (the cut-out layer) lift off first and a little faster than the turn, so the text under you is uncovered
+  // while the view turns; then the text and the original clip settle into their depths
+  lys.forEach((l, i) => tl.fromTo(l, { z: Z0[i] }, A({ z: Z[i], duration: [1.2, 1.2, 0.95][i], ease: E.SPRING }), T(pe + [0.35, 0.3, 0.15][i])));
   qa(".s33-edge").forEach((e, i) => tl.fromTo(e, { opacity: 0 }, A({ opacity: 1, duration: 0.4 }), T(pe + 0.55 + i * 0.08)));
   leads.forEach((p, i) => E.draw(tl, p, T(pe + 1.3 + i * 0.16), 0.3));
   labs.forEach((l, i) => tl.fromTo(l, { opacity: 0, x: -10 }, A({ opacity: 1, x: 0, duration: 0.4, ease: E.SPRING }), T(pe + 1.4 + i * 0.16)));
