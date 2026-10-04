@@ -85,7 +85,7 @@ def auto_times(cfg):
         t = c["tPromptEnd"]
     if c.get("tip"):
         c.setdefault("tTip", round(t, 2))
-        t = c["tTip"] + 0.4 + _dur(c["tip"], STEP_TIP, 0.25) + c.get("tipHold", 0.8)
+        t = c["tTip"] + 0.4 + _dur(c["tip"], STEP_TIP, 0.25) + c.get("tipHold", 0.7)
     c.setdefault("D", round(t + 0.45, 2))
     return c
 
@@ -121,11 +121,11 @@ def topic_scene(cfg):
         body, sections, hl_ids = prompt_html(prompt_text(cfg), hl_subs)
         lifts = "".join(f'<div class="pl-lift" dir="rtl" data-for="{hid}">{_lift_html(body, hid)}</div>' for hid in hl_ids)
         tabs = ""
-        if sections:
+        if len(sections) > 1:
             tabs = '<div class="pc-tabs">' + "".join(
                 f'<span class="tab" data-sec="{s}">{s}<i class="tul"></i></span>' for s in SECTION_ORDER if s in sections
             ) + '<i class="tabul"></i></div>'
-        pvp_top = "" if sections else ' style="top:110px"'
+        pvp_top = "" if len(sections) > 1 else ' style="top:110px"'
         title_txt = cfg.get("promptTitle", "הפרומפט המוכן")
         card = (f'<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>{esc(title_txt)}</span>'
                 f'<span class="pc-num" dir="ltr"><b>{p}</b> / 21</span></div>{tabs}'
@@ -171,36 +171,104 @@ def topic_scene(cfg):
     return inner, js_cfg, cues, cfg
 
 
+def _ch_motif(n):
+    """180 px line-art motif of chapter n (lavender strokes, no text). Strokes with class "dr" draw
+    themselves on; "fl" dots fade in; the "mo-*" parts move during the hold (E.chapter)."""
+    dots3 = lambda y: "".join(f'<circle class="fl" cx="{x}" cy="{y}" r="3.4"/>' for x in (22, 34, 46))
+    if n == 3:
+        # a wireframe cube in CSS 3D that turns slowly
+        faces = "".join(f'<i class="mo-face{i}"></i>' for i in range(6))
+        return f'<div class="ch-mo ch-mo3"><div class="mo-in"><div class="mo-tilt"><div class="mo-cube">{faces}</div></div></div></div>'
+    if n == 1:      # a terminal and a folder (the two tools and the one folder)
+        body = ('<rect class="dr" x="8" y="18" width="138" height="104" rx="12"/><path class="dr" d="M8 42h138"/>' + dots3(30)
+                + '<path class="dr" d="M26 62l14 12-14 12"/><path class="dr mo-cur" d="M50 88h22"/>'
+                '<path class="dr mo-solid" d="M84 104h30l10 11h48v55H84z"/><path class="dr" d="M84 128h88"/>')
+    elif n == 2:    # a waveform with a playhead
+        hs = (26, 48, 80, 38, 108, 62, 132, 54, 92, 40, 70, 30)
+        body = "".join(f'<path class="dr mo-bar" d="M{18 + i * 13} {90 - h / 2:g}v{h}"/>' for i, h in enumerate(hs))
+        body += '<path class="mo-ph" d="M8 14v152"/>'
+    elif n == 4:    # a film frame with a play mark
+        holes = "".join(f'<rect class="dr" x="{22 + i * 25}" y="{y}" width="11" height="10" rx="2"/>' for y in (37, 133) for i in range(6))
+        body = ('<rect class="dr" x="12" y="30" width="156" height="120" rx="10"/><path class="dr" d="M12 54h156M12 126h156"/>'
+                + holes + '<path class="dr mo-play" d="M78 70l32 20-32 20z"/>')
+    elif n == 5:    # a plug that connects to a socket
+        body = ('<rect class="dr" x="46" y="10" width="88" height="46" rx="12"/><path class="dr" d="M76 25v16M104 25v16"/>'
+                '<g class="mo-plug"><path class="dr" d="M76 66v18M104 66v18"/><rect class="dr" x="56" y="84" width="68" height="44" rx="12"/>'
+                '<path class="dr" d="M90 128v12c0 14-18 18-18 34"/></g><circle class="mo-ring" cx="90" cy="48" r="26"/>')
+    elif n == 6:    # a browser window: one line gets blurred
+        body = ('<defs><filter id="chmo6b" x="-10%" y="-300%" width="120%" height="700%"><feGaussianBlur stdDeviation="3"/></filter></defs>'
+                '<rect class="dr" x="8" y="20" width="164" height="140" rx="12"/><path class="dr" d="M8 44h164"/>' + dots3(32)
+                + '<path class="dr" d="M152 68h-110M152 90h-76M152 136h-94"/>'
+                '<path class="dr mo-sharp" d="M152 113h-118"/><path class="mo-blur" d="M152 113h-118" filter="url(#chmo6b)"/>'
+                '<path class="mo-scan" d="M16 48h148"/>')
+    elif n == 7:    # two progress bars: the draft is done long before the full render
+        body = ('<rect class="dr" x="12" y="52" width="134" height="28" rx="14"/><rect class="dr" x="12" y="104" width="134" height="28" rx="14"/>'
+                '<rect class="mo-f mo-f1" x="17" y="57" width="124" height="18" rx="9"/><rect class="mo-f mo-f2" x="17" y="109" width="124" height="18" rx="9"/>'
+                '<path class="mo-ck" d="M152 118l7 7 15-16"/>')
+    else:           # a checklist (right to left)
+        body = "".join(f'<rect class="dr" x="136" y="{30 + i * 48}" width="30" height="30" rx="7"/><path class="dr" d="M120 {45 + i * 48}h-{w}"/>'
+                       f'<path class="mo-ck" d="M142 {45 + i * 48}l6 6 12-13"/>' for i, w in enumerate((104, 84, 96)))
+    return f'<svg class="ch-mo" viewBox="0 0 180 180" aria-hidden="true">{body}</svg>'
+
+
 def chapter_scene(cfg):
-    """Chapter title card: big outlined number, kinetic title + subtitle, chapter dots."""
+    """Chapter title card. The number, its rings, the kicker and the dots are on screen from the first
+    frame; the title follows at 0.1 s, the subtitle (and the tag) only after the title, and a line-art
+    motif of the chapter draws itself beside the number. The hold after the last line scales with the
+    number of words on the card (cfg extraHold adds to it)."""
+    import re
+    from textlayout import PUNCT_ONLY, group_times
+
+    def last_t(h):
+        v = re.findall(r'class="w[^"]*" dir="\w+" data-t="([\d.]+)"', h)
+        return max(float(x) for x in v) if v else 0.0
+
+    def words(s):
+        return len([t for t, _, _ in parse_marked(s) if not PUNCT_ONLY.match(t)]) if s else 0
+
     c = dict(cfg)
-    c.setdefault("tTitle", 0.45)
-    title, tend, _ = kinetic_html(c["title"], t0=c["tTitle"], step=0.16, pause=0.2)
-    # the subtitle arrives in phrases, then stays whole long enough to read
+    c.setdefault("tTitle", 0.1)
+    title, _, _ = kinetic_html(c["title"], t0=c["tTitle"], step=0.16, pause=0.2)
+    t_line = last_t(title)
+    lw = t_line
+    sub = tag = ""
     if c.get("sub"):
-        sub, send, _ = kinetic_html(c["sub"], t0=tend + 0.35, groups=dict(gstep=0.45))
-    else:
-        sub, send = "", tend
-    end = send
-    tag = ""
+        # the subtitle starts once the title has landed and arrives phrase by phrase
+        s0 = round(max(0.62, t_line + 0.38), 2)
+        gt, gend = group_times(parse_marked(c["sub"]), gstep=0.42)
+        sub, _, _ = kinetic_html(c["sub"], times=[s0 + x for x in gt], end=s0 + gend)
+        lw = last_t(sub)
     if c.get("tag"):
-        tg, tgend, _ = kinetic_html(c["tag"], t0=send + 0.3, step=0.12, pause=0.2)
+        tg, _, _ = kinetic_html(c["tag"], t0=round(lw + 0.45, 2), step=0.12, pause=0.2)
         tag = f'<p class="ch-tag kin" dir="rtl">{tg}</p>'
-        end = tgend
-    c.setdefault("D", round(end + c.get("hold", 1.9), 2))
+        lw = last_t(tg)
+    # how long the last line stays fully readable: it scales with the words on the card
+    if c.get("tag"):
+        hold = 1.0 + 0.11 * words(c["tag"]) + 0.05 * words(c["sub"])
+    elif c.get("sub"):
+        hold = 1.0 + 0.11 * words(c["sub"])
+    else:
+        hold = 1.8
+    if c.get("sub"):
+        hold = min(3.3, max(2.6, hold))
+    hold += c.get("extraHold", 0.0)
+    # last word fully visible after 0.22 s; the 0.22 s exit dims it from D - 0.15
+    c.setdefault("D", round(lw + 0.22 + hold + 0.15, 2))
     dots = "".join(f'<i class="ch-dot{" on" if i == c["n"] else ""}"></i>' for i in range(1, 9))
-    inner = f"""<div class="chap">
+    inner = f"""<div class="chap"><div class="ch-cam">
 <div class="ch-k" dir="rtl">פרק</div>
 <i class="ch-ring"></i><i class="ch-ring ch-ring2"></i>
+{_ch_motif(c["n"])}
 <div class="ch-n" dir="ltr">{c["n"]}</div>
 <h2 class="ch-title kin" dir="rtl"><span class="ch-tin">{title}</span></h2>
 <i class="ch-line"></i>
 <p class="ch-sub kin" dir="rtl">{sub}</p>
 {tag}
 <div class="ch-dots" dir="rtl">{dots}</div>
-</div>"""
-    js = {"id": c["id"], "type": "chapter", "D": c["D"]}
-    cues = [("whoosh_soft", 0.0), ("shimmer", 0.35)]
+</div></div>"""
+    js = {"id": c["id"], "type": "chapter", "D": c["D"], "n": c["n"],
+          "T": {"line": round(t_line + 0.12, 2), "lw": round(lw, 2)}}
+    cues = [("whoosh_soft", 0.0), ("shimmer", 0.15)]
     return inner, js, cues, c
 
 def custom_scene(cfg):

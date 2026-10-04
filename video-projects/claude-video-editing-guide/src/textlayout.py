@@ -284,19 +284,25 @@ def _nobreak_prefix(s_escaped):
 LATIN_SYM = re.compile(r"(?<![\w\u0590-\u05FF-])((?:[\u05D0-\u05EA]{1,3}-)?)([A-Za-z]+\*+)(?![\w*])")
 
 
+NUM_HYPHEN = re.compile(r"(?<![\w\-])\d+(?:-\d+)+(?![\w\-])")
+
+
 def _inline_text(s):
     """Escape plain prompt text, isolate negative numbers and "L*"-style names (bidi), keep
     prefix-hyphen words whole."""
     out = []
     last = 0
     marks = sorted([(m.start(), m.end(), "neg", m) for m in NEG_IN_TEXT.finditer(s)]
-                   + [(m.start(), m.end(), "sym", m) for m in LATIN_SYM.finditer(s)], key=lambda x: x[0])
+                   + [(m.start(), m.end(), "sym", m) for m in LATIN_SYM.finditer(s)]
+                   + [(m.start(), m.end(), "num", m) for m in NUM_HYPHEN.finditer(s)], key=lambda x: x[0])
     for st, en, kind, m in marks:
         if st < last:
             continue
         out.append(_nobreak_prefix(esc(s[last:st])))
         if kind == "neg":
             out.append(f'<span dir="ltr" class="neg">{esc(m.group(1))}</span>')
+        elif kind == "num":
+            out.append(f'<span class="nb">{esc(m.group(0))}</span>')
         else:
             iso = f'<span dir="ltr" class="neg">{esc(m.group(2))}</span>'
             out.append(f'<span class="nb">{esc(m.group(1))}{iso}</span>' if m.group(1) else iso)
@@ -314,13 +320,22 @@ CODE_TOKEN_MAX = 34
 CODE_BREAK = re.compile(r"(?<=[/:,;\]?&])(?!/)")
 
 
+PLACEHOLDER = re.compile(r"&lt;[^&]*?[\u0590-\u05FF][^&]*?&gt;")
+
+
+def _code_esc(x):
+    """Escape code; a Hebrew placeholder ("<רוחב>") becomes an LTR isolate, or two placeholders
+    separated only by ":" or a space would swap places."""
+    return PLACEHOLDER.sub(lambda m: f'<bdi dir="ltr">{m.group(0)}</bdi>', esc(x))
+
+
 def _code_pieces(g):
     """A token longer than CODE_TOKEN_MAX is split at separators into pieces with a break
     opportunity between them (a URL or a filter chain wraps instead of running off the card)."""
     if len(g) <= CODE_TOKEN_MAX:
-        return f'<span class="tk">{esc(g)}</span>'
+        return f'<span class="tk">{_code_esc(g)}</span>'
     parts = [x for x in CODE_BREAK.split(g) if x]
-    return "<wbr>".join(f'<span class="tk">{esc(x)}</span>' for x in parts)
+    return "<wbr>".join(f'<span class="tk">{_code_esc(x)}</span>' for x in parts)
 
 
 def _code_tokens(seg):
