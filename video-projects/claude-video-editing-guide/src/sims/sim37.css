@@ -70,6 +70,7 @@
 .sim37 .s37-rcap { display: flex; align-items: center; gap: 9px; direction: rtl; }
 .sim37 .s37-rcap .s37-bk { background: rgba(214, 208, 255, 0.45); box-shadow: none; }
 .sim37 .s37-rcap .s37-kw { font-size: 32px; text-shadow: none; }
+.sim37 .s37-rcap .s37-ul { background: #c9c2ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.8); }
 /* B2: the meter (0% at the right, 15% at the left): a track, the guide's 10-15% range glowing on it, a marker at 12% */
 .sim37 .s37-track { position: absolute; top: 262px; height: 3px; border-radius: 2px; background: rgba(214, 208, 255, 0.45); display: block; }
 .sim37 .s37-band { position: absolute; top: 254px; height: 19px; border-radius: 10px; display: block;
@@ -99,6 +100,6 @@
 .sim37 .s37-clip { position: absolute; top: 372px; height: 52px; border-radius: 10px; display: block; border: 1.5px solid rgba(214, 208, 255, 0.55); }
 .sim37 .s37-ca { background: linear-gradient(180deg, rgba(120, 104, 220, 0.5), rgba(70, 58, 150, 0.4)); }
 .sim37 .s37-cb { background: linear-gradient(180deg, rgba(96, 120, 210, 0.45), rgba(54, 70, 150, 0.4)); }
-.sim37 .s37-cut { position: absolute; top: 120px; width: 3px; height: 318px; border-radius: 2px; background: #ff453a; display: block; box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); }
+.sim37 .s37-cut { position: absolute; top: 120px; width: 3px; height: 318px; border-radius: 2px; background: #ffffff; display: block; box-shadow: 0 0 12px #c9c2ff; }
 .sim37 .s37-cutl { position: absolute; top: 78px; width: 120px; text-align: center; font: 600 30px/1 "Rubik"; color: #f5f2ea; }
 .sim37 .s37-ph { position: absolute; left: 369px; top: 112px; width: 3px; height: 330px; border-radius: 2px; background: #ffffff; display: block; opacity: 0; box-shadow: 0 0 12px #c9c2ff; }

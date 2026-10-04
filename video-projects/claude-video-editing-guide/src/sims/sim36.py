@@ -77,7 +77,8 @@ def html(cfg):
         fx = ox + side * 430
         g0, g1 = GRADS[i % len(GRADS)]
         bh = 220 - i * 22                     # views bar above the card: rank order only, no numbers
-        badge = (f'<span class="s36-badge">{EYE}<i></i></span>' if i < c["top"] else "")
+        # the eye tag of the three most viewed: just the eye (the real view count belongs there; none is invented)
+        badge = (f'<span class="s36-badge">{EYE}</span>' if i < c["top"] else "")
         cards.append(
             f'<div class="s36-arm" style="transform:rotateY({a:.2f}deg)"><div class="s36-wrap">'
             f'<div class="s36-bb" style="transform:rotateY({-a:.2f}deg) rotateX(90deg)">'

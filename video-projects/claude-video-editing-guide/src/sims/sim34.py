@@ -19,7 +19,8 @@ SHIFT = (-90, 40)          # camera re-centring while turned, so every name stay
 R = 22                     # frame corner radius
 # names: (layer, corner, line direction (-1 up / 1 down), line length, the name hangs left/right of its line)
 # the lines alternate long / short so no two names meet (guide, prompt 10 step 6)
-LABELS = [(0, "tr", -1, 64, "L"), (1, "tr", -1, 20, "L"), (2, "bl", 1, 64, "R"), (3, "bl", 1, 132, "R")]
+# the two upper names sit 24 px higher than the corners need, so "the text on the wall" clears the room's glowing top edge
+LABELS = [(0, "tr", -1, 88, "L"), (1, "tr", -1, 44, "L"), (2, "bl", 1, 64, "R"), (3, "bl", 1, 132, "R")]
 FL, FT = CX - W // 2, CY - H // 2      # frame box in the canvas
 
 
@@ -98,7 +99,8 @@ def html(cfg):
     for k, (i, which, sgn, L, side) in enumerate(LABELS):
         ax, ay = corner(cfg, i, which)
         top = ay - L if sgn < 0 else ay
-        ny = ay - L - 50 if sgn < 0 else ay + L + 4      # the name box (46 px tall) just past the line end
+        # the name box (46 px tall) just past the line end; an upper name's line reaches up to its letters' baseline zone
+        ny = ay - L - 44 if sgn < 0 else ay + L + 4
         pos = f"right:{800 - ax - 12:.1f}px" if side == "L" else f"left:{ax - 12:.1f}px"
         lab.append(
             f'<div class="s34-lab">'

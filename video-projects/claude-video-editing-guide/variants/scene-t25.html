@@ -426,7 +426,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim25 .s25-wl { fill: none; stroke: #e2ddff; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.7)); }
 /* the loud video: its peaks are cut flat at one red ceiling line, and the "נשרף" tag sits on that line (one red thing) */
 .sim25 .s25-wf { stroke-linecap: butt; }
-.sim25 .s25-wcap { fill: none; stroke: #ff453a; stroke-width: 3.5; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.9)); }
+.sim25 .s25-wcap { fill: none; stroke: #ff453a; stroke-width: 3.5; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.9)); opacity: 0; }
 .sim25 .s25-burn { position: absolute; right: 16px; bottom: 124px; font: 700 30px/1 "Rubik"; color: #ff6b61; padding: 5px 12px 4px; border-radius: 999px;
   border: 1.5px solid rgba(255, 107, 97, 0.75); background: rgba(42, 16, 22, 0.92); opacity: 0; }
 .sim25 .s25-swipe { position: absolute; left: 50%; top: 380px; width: 44px; height: 44px; margin-left: -22px; border-radius: 50%; background: rgba(255, 255, 255, 0.85);
@@ -1108,8 +1108,9 @@ window.SIMS.sim25 = function (tl, ctx, cfg, S) {
   const b0 = P[0], burn = q(".s25-burn");
   level(-4, T(b0 + 0.1), 0.45, "power2.out");
   popIn(burn, T(b0 + 0.45), 8);
-  // the one red ceiling line flickers as the peaks hit it
+  // the peaks hit the ceiling: one red line appears there (the "נשרף" tag lands on it) and flickers
   E.qa(".s25-ca .s25-wcap", root).forEach((p) => {
+    tl.fromTo(p, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(b0 + 0.3));
     tl.fromTo(p, { opacity: 1 }, A({ opacity: 0.45, duration: 0.12 }), T(b0 + 0.55));
     tl.fromTo(p, { opacity: 0.45 }, A({ opacity: 1, duration: 0.12 }), T(b0 + 0.67));
   });

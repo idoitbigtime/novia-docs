@@ -35,7 +35,8 @@ window.SIMS.sim34 = function (tl, ctx, cfg, S) {
   // B1 "על המילה שבחרתם הפריים נפרד לשכבות בעומק": the chosen word, a light line around the frame, the layers come apart
   const b1 = P[0], chip0 = q(".s34-chip0");
   tl.fromTo(chip0, { opacity: 0, y: 12, scale: 0.86 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.8)" }), T(b1 + 0.05));
-  tl.fromTo(E.q(".s34-cw", chip0), { color: "#ffffff" }, A({ color: "#ff6b61", duration: 0.15 }), T(b1 + 0.35));
+  // the word is hit: a lilac pulse and the chip's rim lights up (the word itself stays white: red is kept for the accent)
+  tl.fromTo(chip0, { borderColor: "rgba(201, 194, 255, 0.32)" }, A({ borderColor: "#c9c2ff", duration: 0.15 }), T(b1 + 0.35));
   tl.fromTo(E.q(".s34-pulse", chip0), { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.35, duration: 0.7, ease: "power2.out" }), T(b1 + 0.35));
   const ring = q(".s34-ring path");
   E.draw(tl, ring, T(b1 + 0.38), 0.55);
@@ -100,7 +101,7 @@ window.SIMS.sim34 = function (tl, ctx, cfg, S) {
   });
   tl.fromTo(mm, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power2.in" }), T(b4 + 0.2));
   tl.fromTo(chip1, { opacity: 0, y: 12, scale: 0.86 }, A({ opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.8)" }), T(b4 + 0.4));
-  tl.fromTo(E.q(".s34-cw", chip1), { color: "#ffffff" }, A({ color: "#ff6b61", duration: 0.15 }), T(b4 + 0.56));
+  tl.fromTo(chip1, { borderColor: "rgba(201, 194, 255, 0.32)" }, A({ borderColor: "#c9c2ff", duration: 0.15 }), T(b4 + 0.56));
   tl.fromTo(E.q(".s34-pulse", chip1), { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.35, duration: 0.7, ease: "power2.out" }), T(b4 + 0.56));
   const tM = b4 + 0.58, dM = 1.2;
   tl.fromTo(cam, { x: TX, y: TY, z: -ZB, rotationX: PITCH }, A({ x: 0, y: 0, z: 0, rotationX: 0, duration: dM, ease: E.SPRING }), T(tM));

@@ -15,7 +15,7 @@ from textlayout import esc
 from art import person_svg
 
 FW, FH = 330, 586                  # the video frame (9:16)
-FX0, FX1, FY = 235, 450, 57        # frame left in B0 (centred) and from B1 on; top
+FX0, FX1, FY = 235, 435, 57        # frame left in B0 (centred) and from B1 on (sim37.js moves it by 200); top
 FACE = (165, 348)                  # face centre in the frame = the zoom centre
 PX, PY, PW, PH = 20, 116, 400, 470 # the left panel
 # the spring plot (panel-local): time runs right to left
@@ -83,7 +83,7 @@ def html(cfg):
 <i class="s37-band" style="left:{mx(hi):.1f}px;width:{mx(lo) - mx(hi):.1f}px"></i>{ticks}{tlabels}
 <div class="s37-mk" style="left:{mx(0):.1f}px"><i class="s37-mkl"></i><i class="s37-mkd"></i><span class="s37-mkv" dir="ltr">{c["zoom"]}%</span></div></div>"""
     push_y = GY0 + (GY1 - GY0) * c["push"] / c["zoom"]
-    graph = f"""<div class="s37-graph" data-focus="3"><svg class="s37-gsv" viewBox="0 0 {PW} {PH}" aria-hidden="true">
+    graph = f"""<div class="s37-graph"><svg class="s37-gsv" viewBox="0 0 {PW} {PH}" aria-hidden="true">
 <path class="s37-ax" d="M{GX0 + 10} {GY0}H{GX1 - 14}M{GX0} {GY0 + 10}V{GY1 - 34}"/>
 <path class="s37-tg" d="M{GX0} {GY1}H{GX1 - 6}"/>
 <path class="s37-mkt" d="M{GX0} {GY0}V{GY1 - 30}"/></svg>
@@ -103,9 +103,12 @@ def html(cfg):
 <i class="s37-ph"></i></div>"""
     panel = f"""<div class="s37-panel" style="left:{PX}px;top:{PY}px;width:{PW}px;height:{PH}px">
 <div class="s37-rows">{rows}</div>{meter}{graph}{tline}</div>"""
+    # the punch-in on "בתנועת קפיץ" centres between the spring curve and the picture, so at 7% both stay inside the canvas
+    zf = '<i class="s37-zf" data-focus="3" style="position:absolute;left:410px;top:341px;width:20px;height:20px;display:block"></i>'
     return f"""<div class="simwrap sim37">
 {panel}
 {frame}
+{zf}
 </div>"""
 
 

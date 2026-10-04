@@ -4,8 +4,9 @@ B1 on the other side a generic line-art phone rises from below and hovers, turni
 B2 the chosen word (a voice ripple from the circle): the phone swings to a back/side view and its parts come
    apart along the depth axis, each on its own spring (punch-in here)
 B3 each main part gets a Hebrew name: dot on the part, a thin line (alternating lengths, alternating sides)
-B4 the names gather, the parts return in reverse order with a small click, the phone turns back whole
-payoff: the product leaves, the circle glides back and opens through a rounded rectangle to the full frame.
+B4 the names gather, the parts return in reverse order with a small click, the phone turns back whole; then the
+   product leaves and the circle glides back and opens through a rounded rectangle to the full frame (as it is read)
+payoff: the full picture is back: a line of light runs around it, a sweep crosses it, and it holds.
 Beat times come from cfg["phr"] (scene-local). The names sit in a flat layer over the 3D, at each part's point
 as projected by the same perspective math the CSS uses (the guide's method, prompt 11 step 5)."""
 import math
@@ -112,5 +113,6 @@ def html(cfg):
 
 def cues(cfg):
     P = cfg["phr"]
+    # the last part clicks in at P[4] + 1.23; the circle opens at P[4] + 2.77 (sims/sim35.js)
     return [("whoosh_soft", P[0] + 0.1), ("swipe", P[1] + 0.1), ("whoosh_soft", P[2] + 0.25),
-            ("tick", P[3] + 0.1), ("snap", P[4] + 1.44), ("whoosh_soft", cfg["phrEnd"] + 1.2)]
+            ("tick", P[3] + 0.1), ("snap", P[4] + 1.23), ("whoosh_soft", P[4] + 2.77)]

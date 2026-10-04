@@ -69,7 +69,7 @@
   background: rgba(26, 23, 52, 0.88); border: 1.5px solid rgba(201, 194, 255, 0.22); }
 .sim34 .s34-mmsvg { position: absolute; left: 0; top: 0; width: 244px; height: 158px; overflow: visible; }
 .sim34 .s34-mmorb { fill: none; stroke: rgba(201, 194, 255, 0.3); stroke-width: 1.6; stroke-dasharray: 4 7; }
-.sim34 .s34-mmarc { fill: none; stroke: #ff6b61; stroke-width: 3.2; stroke-linecap: round; }
+.sim34 .s34-mmarc { fill: none; stroke: #F5B544; stroke-width: 3.2; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(245, 181, 68, 0.6)); }
 .sim34 .s34-mmpiv { position: absolute; left: 84px; top: 66px; width: 0; height: 0; }
 .sim34 .s34-mmb { position: absolute; left: -34px; width: 68px; height: 3px; border-radius: 2px; background: #d6d0ff; box-shadow: 0 0 6px rgba(201, 194, 255, 0.85); display: block; }
 .sim34 .s34-mmarm { position: absolute; left: 0; top: 0; width: 0; height: 0; display: block; }
@@ -89,7 +89,7 @@
   background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.32); opacity: 0; }
 .sim34 .s34-spk { width: 30px; height: 26px; display: block; flex: none; }
 .sim34 .s34-cw { font: 700 36px/1.1 "Rubik"; color: #ffffff; white-space: nowrap; }
-.sim34 .s34-pulse { position: absolute; inset: -2px; border-radius: 999px; border: 2.5px solid #ff6b61; display: block; opacity: 0; }
+.sim34 .s34-pulse { position: absolute; inset: -2px; border-radius: 999px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.7); display: block; opacity: 0; }
 
 /* payoff: corner marks lock, a scan passes, check + label */
 .sim34 .s34-regs { position: absolute; }

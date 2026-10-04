@@ -72,35 +72,40 @@ window.SIMS.sim35 = function (tl, ctx, cfg, S) {
     tl.fromTo(dot, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 0.3, duration: 0.2, ease: "power2.in" }), T(b5 + 0.3));
   });
   const order = [3, 2, 1, 0];                 // the reverse of the order they came apart
+  const R0 = 0.32, RS = 0.17, RD = 0.4;      // return: first start (after b5), stagger, duration
   order.forEach((i, k) => {
-    const t = b5 + 0.42 + k * 0.2, p = parts[i];
-    tl.fromTo(p, { z: Z_OPEN[i] }, A({ z: Z_SHUT[i], duration: 0.42, ease: "power3.in" }), T(t));
+    const t = b5 + R0 + k * RS, p = parts[i];
+    tl.fromTo(p, { z: Z_OPEN[i] }, A({ z: Z_SHUT[i], duration: RD, ease: "power3.in" }), T(t));
     const f = E.q(".s35-pf", p);
-    tl.fromTo(f, { opacity: 0 }, A({ opacity: 1, duration: 0.06 }), T(t + 0.42));
-    tl.fromTo(f, { opacity: 1 }, A({ opacity: 0, duration: 0.35, ease: "power2.out" }), T(t + 0.48));
+    tl.fromTo(f, { opacity: 0 }, A({ opacity: 1, duration: 0.06 }), T(t + RD));
+    tl.fromTo(f, { opacity: 1 }, A({ opacity: 0, duration: 0.35, ease: "power2.out" }), T(t + RD + 0.06));
   });
-  tl.fromTo(axis, { z: Z_OPEN[3] + 40, rotationY: 90, scaleX: 1, x: 0 }, A({ z: 0, rotationY: 90, scaleX: 0, x: 0, duration: 0.9, ease: "power2.inOut" }), T(b5 + 0.4));
-  tl.fromTo(axis, { opacity: 0.7 }, A({ opacity: 0, duration: 0.3 }), T(b5 + 1.0));
+  tl.fromTo(axis, { z: Z_OPEN[3] + 40, rotationY: 90, scaleX: 1, x: 0 }, A({ z: 0, rotationY: 90, scaleX: 0, x: 0, duration: 0.85, ease: "power2.inOut" }), T(b5 + 0.3));
+  tl.fromTo(axis, { opacity: 0.7 }, A({ opacity: 0, duration: 0.3 }), T(b5 + 0.9));
   // a small bump as the last part clicks in (sparks), then the phone turns back to you, whole
-  const tWhole = b5 + 0.42 + 3 * 0.2 + 0.42;
+  const tWhole = b5 + R0 + 3 * RS + RD;
   E.burst(tl, q(".simwrap.sim35"), 300, 380, T(tWhole), { n: 12, seed: 35, r0: 60, r1: 150, color: "#c9c2ff" });
   tl.fromTo(pr, { scale: 1 }, A({ scale: 1.04, duration: 0.08, ease: "power2.out" }), T(tWhole));
   tl.fromTo(pr, { scale: 1.04 }, A({ scale: 1, duration: 0.3, ease: E.SPRING }), T(tWhole + 0.08));
-  tl.fromTo(pr, { rotationX: PITCH }, A({ rotationX: 0, duration: 1.0, ease: E.SPRING }), T(tWhole + 0.2));
-  tl.fromTo(py, { rotationY: YAW }, A({ rotationY: 360 + 22, duration: 1.0, ease: E.SPRING }), T(tWhole + 0.2));
+  tl.fromTo(pr, { rotationX: PITCH }, A({ rotationX: 0, duration: 0.85, ease: E.SPRING }), T(tWhole + 0.12));
+  tl.fromTo(py, { rotationY: YAW }, A({ rotationY: 360 + 22, duration: 0.85, ease: E.SPRING }), T(tWhole + 0.12));
 
-  // payoff: the product leaves the screen, then the circle glides back and opens through a rounded rectangle,
-  // landing exactly on the original picture
-  tl.fromTo(prod, { opacity: 1 }, A({ opacity: 0, duration: 0.45, ease: "power2.in" }), T(pe + 0.05));
-  tl.fromTo(pv, { y: 0 }, A({ y: 120, duration: 0.5, ease: "power2.in" }), T(pe + 0.05));
-  tl.fromTo(circ, { x: TOX - SX - CX, y: TOY - SY - CY, scale: TOS }, A({ x: 0, y: 0, scale: 1, duration: 0.8, ease: E.SPRING }), T(pe + 0.45));
-  tl.fromTo(q(".s35-ring"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe + 1.15));
-  tl.fromTo(shadow, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe + 1.15));
-  tl.fromTo(vid, { clipPath: DISC }, A({ clipPath: SQ, duration: 0.35, ease: "power2.inOut" }), T(pe + 1.2));
-  tl.fromTo(vid, { clipPath: SQ }, A({ clipPath: FULL, duration: 0.75, ease: E.SPRING }), T(pe + 1.55));
-  tl.fromTo(bg, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe + 2.3));
+  // still on "והעיגול נפתח למסך מלא" (the guide's order): the product leaves first, then the circle glides back and
+  // opens through a rounded rectangle, landing exactly on the original picture while the phrase is read
+  const tOut = tWhole + 0.77, tBack = tOut + 0.35, tOpen = tBack + 0.4;
+  tl.fromTo(prod, { opacity: 1 }, A({ opacity: 0, duration: 0.45, ease: "power2.in" }), T(tOut));
+  tl.fromTo(pv, { y: 0 }, A({ y: 120, duration: 0.5, ease: "power2.in" }), T(tOut));
+  tl.fromTo(circ, { x: TOX - SX - CX, y: TOY - SY - CY, scale: TOS }, A({ x: 0, y: 0, scale: 1, duration: 0.75, ease: E.SPRING }), T(tBack));
+  tl.fromTo(q(".s35-ring"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(tOpen + 0.05));
+  tl.fromTo(shadow, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(tOpen + 0.05));
+  tl.fromTo(vid, { clipPath: DISC }, A({ clipPath: SQ, duration: 0.3, ease: "power2.inOut" }), T(tOpen));
+  tl.fromTo(vid, { clipPath: SQ }, A({ clipPath: FULL, duration: 0.65, ease: E.SPRING }), T(tOpen + 0.3));
+
+  // payoff: the full picture is back; a line of light runs around it and a sweep crosses it, then it holds
+  const tFull = tOpen + 0.95;
+  tl.fromTo(bg, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(tFull - 0.05));
   const fl = q(".s35-fl path");
-  E.draw(tl, fl, T(pe + 2.1), 0.7);
-  tl.fromTo(q(".s35-fl"), { opacity: 1 }, A({ opacity: 0, duration: 0.5 }), T(pe + 3.0));
-  tl.fromTo(q(".s35-sw b"), { x: 0 }, A({ x: -(760 + 110 + 220 + 120), duration: 0.9, ease: "power2.inOut" }), T(pe + 2.2));
+  E.draw(tl, fl, T(tFull), 0.7);
+  tl.fromTo(q(".s35-fl"), { opacity: 1 }, A({ opacity: 0, duration: 0.5 }), T(tFull + 1.1));
+  tl.fromTo(q(".s35-sw b"), { x: 0 }, A({ x: -(760 + 110 + 220 + 120), duration: 0.9, ease: "power2.inOut" }), T(tFull + 0.1));
 };

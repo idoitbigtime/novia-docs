@@ -461,6 +461,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim37 .s37-rcap { display: flex; align-items: center; gap: 9px; direction: rtl; }
 .sim37 .s37-rcap .s37-bk { background: rgba(214, 208, 255, 0.45); box-shadow: none; }
 .sim37 .s37-rcap .s37-kw { font-size: 32px; text-shadow: none; }
+.sim37 .s37-rcap .s37-ul { background: #c9c2ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.8); }
 /* B2: the meter (0% at the right, 15% at the left): a track, the guide's 10-15% range glowing on it, a marker at 12% */
 .sim37 .s37-track { position: absolute; top: 262px; height: 3px; border-radius: 2px; background: rgba(214, 208, 255, 0.45); display: block; }
 .sim37 .s37-band { position: absolute; top: 254px; height: 19px; border-radius: 10px; display: block;
@@ -490,7 +491,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim37 .s37-clip { position: absolute; top: 372px; height: 52px; border-radius: 10px; display: block; border: 1.5px solid rgba(214, 208, 255, 0.55); }
 .sim37 .s37-ca { background: linear-gradient(180deg, rgba(120, 104, 220, 0.5), rgba(70, 58, 150, 0.4)); }
 .sim37 .s37-cb { background: linear-gradient(180deg, rgba(96, 120, 210, 0.45), rgba(54, 70, 150, 0.4)); }
-.sim37 .s37-cut { position: absolute; top: 120px; width: 3px; height: 318px; border-radius: 2px; background: #ff453a; display: block; box-shadow: 0 0 12px rgba(255, 69, 58, 0.8); }
+.sim37 .s37-cut { position: absolute; top: 120px; width: 3px; height: 318px; border-radius: 2px; background: #ffffff; display: block; box-shadow: 0 0 12px #c9c2ff; }
 .sim37 .s37-cutl { position: absolute; top: 78px; width: 120px; text-align: center; font: 600 30px/1 "Rubik"; color: #f5f2ea; }
 .sim37 .s37-ph { position: absolute; left: 369px; top: 112px; width: 3px; height: 330px; border-radius: 2px; background: #ffffff; display: block; opacity: 0; box-shadow: 0 0 12px #c9c2ff; }
 
@@ -503,12 +504,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div id="cam">
 <div id="sc-t37" class="clip scene" data-start="0.000" data-duration="37.740" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.7</span></div>
 <div class="scam">
-<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">זום</span> <span class="w" dir="rtl" data-t="0.430">קפיצי</span> <span class="w" dir="rtl" data-t="0.560">על</span> <span class="w" dir="rtl" data-t="0.690">המילה</span> <span class="w" dir="rtl" data-t="0.820">החשובה</span> <span class="w" dir="rtl" data-t="0.950">בכל</span> <span class="w" dir="rtl" data-t="1.080">משפט</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.910">לא</span> <span class="w" dir="rtl" data-t="1.970">כל</span> <span class="w" dir="rtl" data-t="2.030">סרטון</span> <span class="w" dir="rtl" data-t="2.090">צריך</span> <span class="w" dir="rtl" data-t="2.150">תלת</span> <span class="w" dir="rtl" data-t="2.210">ממד.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.860">בכל</span> <span class="w" dir="rtl" data-t="3.920">משפט</span> <span class="w" dir="rtl" data-t="3.980">יש</span> <span class="w" dir="rtl" data-t="4.040">מילה</span> <span class="w" dir="rtl" data-t="4.100">אחת</span> <span class="w" dir="rtl" data-t="4.160">שהכי</span> <span class="w" dir="rtl" data-t="4.220">חשובה,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.060">וקלוד</span> <span class="w" dir="rtl" data-t="6.120">מקרב</span> <span class="w" dir="rtl" data-t="6.180">עליה</span> <span class="w" dir="rtl" data-t="6.240">את</span> <span class="w" dir="rtl" data-t="6.300">התמונה</span> <span class="glu"><span class="w" dir="rtl" data-t="6.360">ב-</span><span class="w" dir="rtl" data-t="6.360">10</span></span> <span class="w" dir="rtl" data-t="6.480">עד</span> <span class="w" dir="rtl" data-t="6.540">15</span> <span class="w" dir="rtl" data-t="6.600">אחוז</span></span> <span class="ph" data-p="3"><span class="glu"><span class="accgrp" data-t="9.010"><span class="w s-str" dir="rtl" data-t="9.010">בתנועת</span> <span class="w s-str" dir="rtl" data-t="9.070">קפיץ</span><i class="ul" data-t="9.190"></i></span><span class="w" dir="rtl" data-t="9.070">,</span></span> <span class="w" dir="rtl" data-t="9.190">בדיוק</span> <span class="w" dir="rtl" data-t="9.250">כשהיא</span> <span class="w" dir="rtl" data-t="9.310">נאמרת.</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="10.960">מרכז</span> <span class="w" dir="rtl" data-t="11.020">הזום</span> <span class="w" dir="rtl" data-t="11.080">תמיד</span> <span class="w" dir="rtl" data-t="11.140">על</span> <span class="w" dir="rtl" data-t="11.200">הפנים,</span> <span class="w" dir="rtl" data-t="11.260">והוא</span> <span class="w" dir="rtl" data-t="11.320">מתאפס</span> <span class="w" dir="rtl" data-t="11.380">בחיתוך</span> <span class="w" dir="rtl" data-t="11.440">הבא.</span></span></p></div>
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">זום</span> <span class="w" dir="rtl" data-t="0.430">קפיצי</span> <span class="w" dir="rtl" data-t="0.560">על</span> <span class="w" dir="rtl" data-t="0.690">המילה</span> <span class="w" dir="rtl" data-t="0.820">החשובה</span> <span class="w" dir="rtl" data-t="0.950">בכל</span> <span class="w" dir="rtl" data-t="1.080">משפט</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.910">לא</span> <span class="w" dir="rtl" data-t="1.970">כל</span> <span class="w" dir="rtl" data-t="2.030">סרטון</span> <span class="w" dir="rtl" data-t="2.090">צריך</span> <span class="w" dir="rtl" data-t="2.150">תלת</span> <span class="w" dir="rtl" data-t="2.210">ממד.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.860">בכל</span> <span class="w" dir="rtl" data-t="3.920">משפט</span> <span class="w" dir="rtl" data-t="3.980">יש</span> <span class="w" dir="rtl" data-t="4.040">מילה</span> <span class="w" dir="rtl" data-t="4.100">אחת</span> <span class="w" dir="rtl" data-t="4.160">שהכי</span> <span class="w" dir="rtl" data-t="4.220">חשובה,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.060">וקלוד</span> <span class="w" dir="rtl" data-t="6.120">מקרב</span> <span class="w" dir="rtl" data-t="6.180">עליה</span> <span class="w" dir="rtl" data-t="6.240">את</span> <span class="w" dir="rtl" data-t="6.300">התמונה</span> <span class="glu"><span class="w" dir="rtl" data-t="6.360">ב-</span><span class="nbgrp"><span class="w" dir="rtl" data-t="6.360">10</span> <span class="w" dir="rtl" data-t="6.480">עד</span> <span class="w" dir="rtl" data-t="6.540">15</span> <span class="w" dir="rtl" data-t="6.600">אחוז</span></span></span></span> <span class="ph" data-p="3"><span class="glu"><span class="accgrp" data-t="9.010"><span class="w s-str" dir="rtl" data-t="9.010">בתנועת</span> <span class="w s-str" dir="rtl" data-t="9.070">קפיץ</span><i class="ul" data-t="9.190"></i></span><span class="w" dir="rtl" data-t="9.070">,</span></span> <span class="w" dir="rtl" data-t="9.190">בדיוק</span> <span class="w" dir="rtl" data-t="9.250">כשהיא</span> <span class="w" dir="rtl" data-t="9.310">נאמרת.</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="10.960">מרכז</span> <span class="w" dir="rtl" data-t="11.020">הזום</span> <span class="w" dir="rtl" data-t="11.080">תמיד</span> <span class="w" dir="rtl" data-t="11.140">על</span> <span class="w" dir="rtl" data-t="11.200">הפנים,</span> <span class="w" dir="rtl" data-t="11.260">והוא</span> <span class="w" dir="rtl" data-t="11.320">מתאפס</span> <span class="w" dir="rtl" data-t="11.380">בחיתוך</span> <span class="w" dir="rtl" data-t="11.440">הבא.</span></span></p></div>
 <div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim37">
 <div class="s37-panel" style="left:20px;top:116px;width:400px;height:470px">
 <div class="s37-rows"><div class="s37-row" style="top:96px"><svg class="s37-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><div class="s37-rcap" dir="rtl"><i class="s37-bk" style="width:52px"></i><span class="s37-kw" dir="rtl">קלוד<i class="s37-ul"></i></span><i class="s37-bk" style="width:40px"></i><i class="s37-bk" style="width:62px"></i></div></div><div class="s37-row" style="top:200px"><svg class="s37-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><div class="s37-rcap" dir="rtl"><i class="s37-bk" style="width:40px"></i><i class="s37-bk" style="width:66px"></i><span class="s37-kw" dir="rtl">נבדוק<i class="s37-ul"></i></span><i class="s37-bk" style="width:38px"></i></div></div><div class="s37-row" style="top:304px"><svg class="s37-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><div class="s37-rcap" dir="rtl"><i class="s37-bk" style="width:56px"></i><i class="s37-bk" style="width:42px"></i><i class="s37-bk" style="width:50px"></i><span class="s37-kw" dir="rtl">אותו<i class="s37-ul"></i></span></div></div></div><div class="s37-meter"><i class="s37-track" style="left:40.0px;width:316.0px"></i>
 <i class="s37-band" style="left:40.0px;width:105.3px"></i><i class="s37-tick s37-tk5" style="left:355.0px"></i><i class="s37-tick" style="left:333.9px"></i><i class="s37-tick" style="left:312.9px"></i><i class="s37-tick" style="left:291.8px"></i><i class="s37-tick" style="left:270.7px"></i><i class="s37-tick s37-tk5" style="left:249.7px"></i><i class="s37-tick" style="left:228.6px"></i><i class="s37-tick" style="left:207.5px"></i><i class="s37-tick" style="left:186.5px"></i><i class="s37-tick" style="left:165.4px"></i><i class="s37-tick s37-tk5" style="left:144.3px"></i><i class="s37-tick" style="left:123.3px"></i><i class="s37-tick" style="left:102.2px"></i><i class="s37-tick" style="left:81.1px"></i><i class="s37-tick" style="left:60.1px"></i><i class="s37-tick s37-tk5" style="left:39.0px"></i><span class="s37-tl" dir="ltr" style="left:316.0px">0%</span><span class="s37-tl" dir="ltr" style="left:210.7px">5%</span><span class="s37-tl" dir="ltr" style="left:105.3px">10%</span><span class="s37-tl" dir="ltr" style="left:0.0px">15%</span>
-<div class="s37-mk" style="left:356.0px"><i class="s37-mkl"></i><i class="s37-mkd"></i><span class="s37-mkv" dir="ltr">12%</span></div></div><div class="s37-graph" data-focus="3"><svg class="s37-gsv" viewBox="0 0 400 470" aria-hidden="true">
+<div class="s37-mk" style="left:356.0px"><i class="s37-mkl"></i><i class="s37-mkd"></i><span class="s37-mkv" dir="ltr">12%</span></div></div><div class="s37-graph"><svg class="s37-gsv" viewBox="0 0 400 470" aria-hidden="true">
 <path class="s37-ax" d="M370 362H30M360 372V116"/>
 <path class="s37-tg" d="M360 150H38"/>
 <path class="s37-mkt" d="M360 362V120"/></svg>
@@ -542,6 +543,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="s37-pl s37-p2"><i class="s37-ring"></i><i class="s37-fxd" style="left:60px;top:250px"></i><i class="s37-fxd" style="left:262px;top:210px"></i><i class="s37-fxd" style="left:276px;top:420px"></i><i class="s37-fxd" style="left:40px;top:470px"></i><i class="s37-fxd" style="left:150px;top:168px"></i><i class="s37-edge"></i></div></div></div>
 <div class="s37-caps"><div class="s37-cap s37-c0" dir="rtl"><i class="s37-bk" style="width:52px"></i><span class="s37-kw" dir="rtl">קלוד<i class="s37-ul"></i></span><i class="s37-bk" style="width:40px"></i><i class="s37-bk" style="width:62px"></i></div><div class="s37-cap s37-c1" dir="rtl"><i class="s37-bk" style="width:40px"></i><i class="s37-bk" style="width:66px"></i><span class="s37-kw" dir="rtl">נבדוק<i class="s37-ul"></i></span><i class="s37-bk" style="width:38px"></i></div><div class="s37-cap s37-c2" dir="rtl"><i class="s37-bk" style="width:56px"></i><i class="s37-bk" style="width:42px"></i><i class="s37-bk" style="width:50px"></i><span class="s37-kw" dir="rtl">אותו<i class="s37-ul"></i></span></div><div class="s37-cap s37-c3" dir="rtl"><i class="s37-bk" style="width:60px"></i><i class="s37-bk" style="width:44px"></i><i class="s37-bk" style="width:70px"></i><i class="s37-bk" style="width:52px"></i><i class="s37-bk" style="width:64px"></i><i class="s37-bk" style="width:40px"></i></div></div><div class="s37-hud" dir="ltr"><svg class="s37-mag" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6M7 10h6M10 7v6"/></svg><span class="s37-num"><b>1</b><span class="s37-odo s37-tens"><span class="s37-strip"><b>0</b><b>1</b></span></span><span class="s37-odo s37-units"><span class="s37-strip"><b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>0</b><b>1</b><b>2</b></span></span><b>%</b></span></div><i class="s37-sw"><b></b></i><i class="s37-flash"></i><i class="s37-border"></i>
 </div>
+<i class="s37-zf" data-focus="3" style="position:absolute;left:410px;top:341px;width:20px;height:20px;display:block"></i>
 </div></div></div></div></div>
 <div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">10 עד 15 אחוז</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="20.610">בפתיחה</span> <span class="w" dir="rtl" data-t="20.730">של</span> <span class="w" dir="rtl" data-t="20.850">7</span> <span class="w" dir="rtl" data-t="20.970">שניות</span> <span class="w" dir="rtl" data-t="21.090">נבחרו</span> <span class="w" dir="rtl" data-t="21.210">שלוש</span> <span class="w" dir="rtl" data-t="21.330">מילים:</span> <span class="w" dir="rtl" data-t="21.650">&quot;קלוד&quot;,</span> <span class="w" dir="rtl" data-t="21.770">&quot;נבדוק&quot;</span> <span class="w" dir="rtl" data-t="21.890">ו&quot;אותו&quot;.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="22.210">שמתם</span> <span class="w" dir="rtl" data-t="22.240">לב?</span> <span class="w" dir="rtl" data-t="22.270">הזום</span> <span class="w" dir="rtl" data-t="22.300">הזה</span> <span class="w" dir="rtl" data-t="22.330">מופיע</span> <span class="w" dir="rtl" data-t="22.360">לאורך</span> <span class="w" dir="rtl" data-t="22.390">כל</span> <span class="w" dir="rtl" data-t="22.420">הסרטון.</span></p></div></div>
 <div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>13</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">ההוראות כאן מחליפות את ראיון הפתיחה של HyperFrames, אז אל תריץ אותו.</div>
@@ -794,11 +796,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
     // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
     const n = pages.length;
-    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.35, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.25, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
     const LIFT = 1.1, DIM = 0.38;
     const mineOf = (i) => H.filter((h) => h.page === i);
     const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
-    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.15 : 0.2);
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.05 : 0.2);
     // a plain last page stays settled a little longer before the exit
     let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
     for (let i = 0; i < n; i++) {
@@ -837,9 +839,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     } else {
       dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
     }
-    // the lines around a lifted key line make room for it: the ones next to it move PUSH px,
-    // the shift tapers to 0 at the page edge, so no line is pushed out of the viewport
-    const PUSH = 10, plines = E.qa(".pl", body);
+    // the lines around a lifted key line make room for it: the ones next to it move up to PUSH px,
+    // each gap between two lines shrinks by at most COMP px, and the line at the page edge moves
+    // only EDGE px (inside its own leading, so no glyph is ever cut by the viewport)
+    const PUSH = 10, COMP = 4, EDGE = 2, plines = E.qa(".pl", body);
     H.forEach((h) => {
       const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
       const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
@@ -848,7 +851,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
       h.push = [];
       [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
         const m = ls.length;
-        ls.forEach((l, j) => { const s = m > 1 ? (PUSH * (m - 1 - j)) / (m - 1) : 0; if (s > 0.5) h.push.push([l, sgn * s]); });
+        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(PUSH, EDGE + COMP * (m - 1 - j))]));
       });
     });
     // the lifted copies sit over their line on the page where it is held (static layout)
@@ -875,6 +878,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
           h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
+          h.t0 = t;
           t += h.hold;
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
@@ -927,12 +931,18 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
       };
       // the section that holds the last visible row (the end of the prompt on the last page)
       const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      // while a key line is lifted, the underline sits on that line's own section
+      const secOf = (y) => { let k = 0; starts.forEach((st, j) => { if (st <= y) k = j; }); return k; };
+      const ev = [];
       for (let i = 1; i < n; i++) {
-        const k = i === n - 1 && !isHold(i) ? lastVisible(pages[i]) : secAt(pages[i]);
-        if (k !== cur) move(k, slides[i - 1][0], Math.max(0.3, slides[i - 1][1]));
+        const mine = mineOf(i);
+        const k = mine.length ? secOf(mine[0].top) : i === n - 1 ? lastVisible(pages[i]) : secAt(pages[i]);
+        ev.push([slides[i - 1][0], k, Math.max(0.3, slides[i - 1][1])]);
       }
+      H.forEach((h) => ev.push([h.t0, secOf(h.top), 0.3]));
+      ev.sort((a, b) => a[0] - b[0]).forEach(([ta, k, d]) => { if (k !== cur) move(k, ta, d); });
       // a last page with key lines: its last section takes over when the page undims
-      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) > cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) !== cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
     }
     tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
     return {
@@ -1100,16 +1110,19 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
     tl.fromTo(caps[a], { opacity: 1 }, A({ opacity: 0, duration: 0.02, ease: "none" }), T(t));
     tl.fromTo(caps[b], { opacity: 0 }, A({ opacity: 1, duration: 0.02, ease: "none" }), T(t));
   };
-  const light = (t, i) => {                  // the important word is said
-    tl.fromTo(kw(i), { color: "#ffffff" }, A({ color: "#ff6b61", duration: 0.12 }), T(t));
+  const light = (t, i, calm) => {            // the important word is said (calm: white with a lilac underline,
+    // while the explanation's own red phrase is on screen: never two reds besides the badge)
+    if (calm) tl.fromTo(ul(i), { backgroundColor: "#ff453a" }, A({ backgroundColor: "#c9c2ff", duration: 0.02, ease: "none" }), T(t - 0.03));
+    else tl.fromTo(kw(i), { color: "#ffffff" }, A({ color: "#ff6b61", duration: 0.12 }), T(t));
     tl.fromTo(ul(i), { scaleX: 0 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), T(t));
     waves.forEach((w, k) => {
       tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(t + k * 0.08));
       tl.fromTo(w, { opacity: 1 }, A({ opacity: 0, duration: 0.45, ease: "power1.in" }), T(t + 0.2 + k * 0.08));
     });
   };
-  const unlight = (t, i) => {
-    tl.fromTo(kw(i), { color: "#ff6b61" }, A({ color: "#ffffff", duration: 0.02, ease: "none" }), T(t));
+  const unlight = (t, i, calm) => {
+    if (calm) tl.fromTo(ul(i), { backgroundColor: "#c9c2ff" }, A({ backgroundColor: "#ff453a", duration: 0.02, ease: "none" }), T(t + 0.02));
+    else tl.fromTo(kw(i), { color: "#ff6b61" }, A({ color: "#ffffff", duration: 0.02, ease: "none" }), T(t));
     tl.fromTo(ul(i), { scaleX: 1 }, A({ scaleX: 0, duration: 0.02, ease: "none" }), T(t));
   };
   const gclip = q(".s37-gclip"), gdot = q(".s37-gdot");
@@ -1142,7 +1155,7 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
 
   // B2 "בכל משפט יש מילה אחת שהכי חשובה": the frame moves aside; sentences, one important word in each
   const b2 = P[1], panel = q(".s37-panel");
-  tl.fromTo(frame, { x: 0 }, A({ x: 215, duration: 0.75, ease: E.SPRING }), T(b2 + 0.05));
+  tl.fromTo(frame, { x: 0 }, A({ x: 200, duration: 0.75, ease: E.SPRING }), T(b2 + 0.05));
   tl.fromTo(panel, { opacity: 0 }, A({ opacity: 1, duration: 0.35 }), T(b2 + 0.3));
   const rows = qa(".s37-row");
   rows.forEach((r, i) => {
@@ -1151,13 +1164,11 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
   });
   tl.fromTo(caps[0], { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), T(b2 + 0.45));
   rows.forEach((r, i) => {
+    // the important word: a lilac underline and a small pop (white: the caption in the video is this beat's one red)
     const t = b2 + 0.85 + i * 0.42, k = E.q(".s37-kw", r), u = E.q(".s37-ul", r);
-    tl.fromTo(k, { color: "#ffffff" }, A({ color: "#ff6b61", duration: 0.15 }), T(t));
+    tl.fromTo(k, { scale: 1, transformOrigin: "50% 60%" }, A({ scale: 1.12, duration: 0.14, ease: "power2.out" }), T(t));
+    tl.fromTo(k, { scale: 1.12 }, A({ scale: 1, duration: 0.3, ease: E.SPRING }), T(t + 0.14));
     tl.fromTo(u, { scaleX: 0 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), T(t));
-    if (i < rows.length - 1) {               // stays marked, in light colours, as the next sentence's word lights
-      tl.fromTo(k, { color: "#ff6b61" }, A({ color: "#ffffff", duration: 0.1 }), T(t + 0.36));
-      tl.fromTo(u, { backgroundColor: "#ff453a" }, A({ backgroundColor: "#c9c2ff", duration: 0.1 }), T(t + 0.36));
-    }
   });
   light(b2 + 0.85, 0);                       // in the video, the first sentence's word
 
@@ -1176,11 +1187,12 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
   const b4 = P[3], graph = q(".s37-graph");
   tl.fromTo(meter, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), T(b4));
   tl.fromTo(graph, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b4 + 0.22));
+  unlight(b4 - 0.04, 0);
   swap(b4 + 0.1, 0, 1);
   reset(b4 + 0.1, Z);
   const tZ2 = b4 + 0.45;
   tl.fromTo(gdot, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(tZ2 - 0.1));
-  light(tZ2, 1);
+  light(tZ2, 1, true);
   punch(tZ2);
   drawCurve(tZ2);
 
@@ -1194,8 +1206,8 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
   tl.fromTo(ph, { x: 0 }, A({ x: -340, duration: dP, ease: "none" }), T(tP));
   tl.fromTo(q(".s37-zclip"), { clipPath: "inset(0px 0px 0px 370px)" }, A({ clipPath: "inset(0px 0px 0px 30px)", duration: dP, ease: "none" }), T(tP));
   // the cut: a new shot, and the zoom is back to 100% in one frame
-  tl.fromTo(q(".s37-flash"), { opacity: 0 }, A({ opacity: 0.8, duration: 0.04, ease: "none" }), T(tCut));
-  tl.fromTo(q(".s37-flash"), { opacity: 0.8 }, A({ opacity: 0, duration: 0.3, ease: "power2.out" }), T(tCut + 0.04));
+  tl.fromTo(q(".s37-flash"), { opacity: 0 }, A({ opacity: 0.35, duration: 0.04, ease: "none" }), T(tCut));
+  tl.fromTo(q(".s37-flash"), { opacity: 0.35 }, A({ opacity: 0, duration: 0.2, ease: "power2.out" }), T(tCut + 0.04));
   reset(tCut, Z);
   tl.fromTo(q(".s37-win"), { x: 0 }, A({ x: -150, duration: 0.02, ease: "none" }), T(tCut));
   tl.fromTo(face, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(tCut + 0.1));
@@ -1206,13 +1218,12 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
   tl.fromTo(tline, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), T(pe));
   clearCurve(pe + 0.1);
   tl.fromTo(graph, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(pe + 0.2));
-  unlight(pe + 0.08, 0);
   swap(pe + 0.1, 1, 0);
   const STEP = 1.1;
   [0, 1, 2].forEach((i) => {
     const t0 = pe + 0.1 + i * STEP;
     if (i > 0) {
-      if (i === 1) unlight(t0 - 0.02, 1);
+      if (i === 1) unlight(t0 - 0.02, 1, true);
       swap(t0, i - 1, i);
       reset(t0, Z);
       clearCurve(t0);

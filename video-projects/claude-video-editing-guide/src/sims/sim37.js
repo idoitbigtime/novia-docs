@@ -31,16 +31,19 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
     tl.fromTo(caps[a], { opacity: 1 }, A({ opacity: 0, duration: 0.02, ease: "none" }), T(t));
     tl.fromTo(caps[b], { opacity: 0 }, A({ opacity: 1, duration: 0.02, ease: "none" }), T(t));
   };
-  const light = (t, i) => {                  // the important word is said
-    tl.fromTo(kw(i), { color: "#ffffff" }, A({ color: "#ff6b61", duration: 0.12 }), T(t));
+  const light = (t, i, calm) => {            // the important word is said (calm: white with a lilac underline,
+    // while the explanation's own red phrase is on screen: never two reds besides the badge)
+    if (calm) tl.fromTo(ul(i), { backgroundColor: "#ff453a" }, A({ backgroundColor: "#c9c2ff", duration: 0.02, ease: "none" }), T(t - 0.03));
+    else tl.fromTo(kw(i), { color: "#ffffff" }, A({ color: "#ff6b61", duration: 0.12 }), T(t));
     tl.fromTo(ul(i), { scaleX: 0 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), T(t));
     waves.forEach((w, k) => {
       tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(t + k * 0.08));
       tl.fromTo(w, { opacity: 1 }, A({ opacity: 0, duration: 0.45, ease: "power1.in" }), T(t + 0.2 + k * 0.08));
     });
   };
-  const unlight = (t, i) => {
-    tl.fromTo(kw(i), { color: "#ff6b61" }, A({ color: "#ffffff", duration: 0.02, ease: "none" }), T(t));
+  const unlight = (t, i, calm) => {
+    if (calm) tl.fromTo(ul(i), { backgroundColor: "#c9c2ff" }, A({ backgroundColor: "#ff453a", duration: 0.02, ease: "none" }), T(t + 0.02));
+    else tl.fromTo(kw(i), { color: "#ff6b61" }, A({ color: "#ffffff", duration: 0.02, ease: "none" }), T(t));
     tl.fromTo(ul(i), { scaleX: 1 }, A({ scaleX: 0, duration: 0.02, ease: "none" }), T(t));
   };
   const gclip = q(".s37-gclip"), gdot = q(".s37-gdot");
@@ -73,7 +76,7 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
 
   // B2 "בכל משפט יש מילה אחת שהכי חשובה": the frame moves aside; sentences, one important word in each
   const b2 = P[1], panel = q(".s37-panel");
-  tl.fromTo(frame, { x: 0 }, A({ x: 215, duration: 0.75, ease: E.SPRING }), T(b2 + 0.05));
+  tl.fromTo(frame, { x: 0 }, A({ x: 200, duration: 0.75, ease: E.SPRING }), T(b2 + 0.05));
   tl.fromTo(panel, { opacity: 0 }, A({ opacity: 1, duration: 0.35 }), T(b2 + 0.3));
   const rows = qa(".s37-row");
   rows.forEach((r, i) => {
@@ -82,13 +85,11 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
   });
   tl.fromTo(caps[0], { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), T(b2 + 0.45));
   rows.forEach((r, i) => {
+    // the important word: a lilac underline and a small pop (white: the caption in the video is this beat's one red)
     const t = b2 + 0.85 + i * 0.42, k = E.q(".s37-kw", r), u = E.q(".s37-ul", r);
-    tl.fromTo(k, { color: "#ffffff" }, A({ color: "#ff6b61", duration: 0.15 }), T(t));
+    tl.fromTo(k, { scale: 1, transformOrigin: "50% 60%" }, A({ scale: 1.12, duration: 0.14, ease: "power2.out" }), T(t));
+    tl.fromTo(k, { scale: 1.12 }, A({ scale: 1, duration: 0.3, ease: E.SPRING }), T(t + 0.14));
     tl.fromTo(u, { scaleX: 0 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), T(t));
-    if (i < rows.length - 1) {               // stays marked, in light colours, as the next sentence's word lights
-      tl.fromTo(k, { color: "#ff6b61" }, A({ color: "#ffffff", duration: 0.1 }), T(t + 0.36));
-      tl.fromTo(u, { backgroundColor: "#ff453a" }, A({ backgroundColor: "#c9c2ff", duration: 0.1 }), T(t + 0.36));
-    }
   });
   light(b2 + 0.85, 0);                       // in the video, the first sentence's word
 
@@ -107,11 +108,12 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
   const b4 = P[3], graph = q(".s37-graph");
   tl.fromTo(meter, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), T(b4));
   tl.fromTo(graph, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b4 + 0.22));
+  unlight(b4 - 0.04, 0);
   swap(b4 + 0.1, 0, 1);
   reset(b4 + 0.1, Z);
   const tZ2 = b4 + 0.45;
   tl.fromTo(gdot, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(tZ2 - 0.1));
-  light(tZ2, 1);
+  light(tZ2, 1, true);
   punch(tZ2);
   drawCurve(tZ2);
 
@@ -125,8 +127,8 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
   tl.fromTo(ph, { x: 0 }, A({ x: -340, duration: dP, ease: "none" }), T(tP));
   tl.fromTo(q(".s37-zclip"), { clipPath: "inset(0px 0px 0px 370px)" }, A({ clipPath: "inset(0px 0px 0px 30px)", duration: dP, ease: "none" }), T(tP));
   // the cut: a new shot, and the zoom is back to 100% in one frame
-  tl.fromTo(q(".s37-flash"), { opacity: 0 }, A({ opacity: 0.8, duration: 0.04, ease: "none" }), T(tCut));
-  tl.fromTo(q(".s37-flash"), { opacity: 0.8 }, A({ opacity: 0, duration: 0.3, ease: "power2.out" }), T(tCut + 0.04));
+  tl.fromTo(q(".s37-flash"), { opacity: 0 }, A({ opacity: 0.35, duration: 0.04, ease: "none" }), T(tCut));
+  tl.fromTo(q(".s37-flash"), { opacity: 0.35 }, A({ opacity: 0, duration: 0.2, ease: "power2.out" }), T(tCut + 0.04));
   reset(tCut, Z);
   tl.fromTo(q(".s37-win"), { x: 0 }, A({ x: -150, duration: 0.02, ease: "none" }), T(tCut));
   tl.fromTo(face, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(tCut + 0.1));
@@ -137,13 +139,12 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
   tl.fromTo(tline, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), T(pe));
   clearCurve(pe + 0.1);
   tl.fromTo(graph, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(pe + 0.2));
-  unlight(pe + 0.08, 0);
   swap(pe + 0.1, 1, 0);
   const STEP = 1.1;
   [0, 1, 2].forEach((i) => {
     const t0 = pe + 0.1 + i * STEP;
     if (i > 0) {
-      if (i === 1) unlight(t0 - 0.02, 1);
+      if (i === 1) unlight(t0 - 0.02, 1, true);
       swap(t0, i - 1, i);
       reset(t0, Z);
       clearCurve(t0);

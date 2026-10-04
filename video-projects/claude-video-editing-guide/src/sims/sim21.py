@@ -11,7 +11,7 @@ import math
 
 from textlayout import esc
 
-LINE_TOP = (30, 204)        # each transcript line: words row (40) + wave (56) = 100 px
+LINE_TOP = (32, 206)        # each transcript line: words row (40) + wave (56) = 100 px
 SEG_H = 100
 R_EDGE = 762                # lines are right-aligned, like a Hebrew paragraph
 PANEL_X, PANEL_W = 8, 784   # the transcript panel and the table sit inside the canvas with an 8 px margin
@@ -21,15 +21,15 @@ PAD = 4                     # inside a segment, each side
 WGAP = 8                    # between word chips
 DOTS_W, BROKEN_W, MARK_W = 30, 20, 86
 WAVE_C = 28                 # wave row centre (row height 56)
-PANEL_H, PANEL_H2 = 320, 152  # the final strip's join dots sit on the shrunk panel's bottom edge
-TABLE_TOP, TABLE_H = 336, 350   # table 336..686 (bottom >= 14 px inside the canvas)
+PANEL_H, PANEL_H2 = 322, 154  # the final strip's join dots sit on the shrunk panel's bottom edge
+TABLE_TOP, TABLE_H = 338, 350   # table 338..688 (bottom >= 14 px inside the canvas)
 BTN_TOP, BTN_W, BTN_H = 280, 284, 56   # approval button (table-local)
 ROW0, ROW_P = 66, 52        # table rows (table-local)
 # table columns, right to left: scissors, זמן, מה נמחק, סיבה (padding 24, gaps 12)
 T_PAD, C0_W, C1_W, C2_W, C_GAP = 24, 36, 172, 260, 12
 C2_R = PANEL_X + PANEL_W - T_PAD - C0_W - C_GAP - C1_W - C_GAP     # right edge of the 'מה נמחק' cell (canvas)
 # doc group shift for the payoff: the closed strip + its label end up centred in the canvas
-LABEL_TOP = 206
+LABEL_TOP = 208
 DOC_DY = 220
 
 # (id, line, kind, word-chip widths); kinds: keep / sil / um / aband / take1
