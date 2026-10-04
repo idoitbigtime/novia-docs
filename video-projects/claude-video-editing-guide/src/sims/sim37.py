@@ -71,7 +71,7 @@ def html(cfg):
            f'{_odo([str(k % 10) for k in range(13)], "s37-units")}<b>%</b></span></div>')
     frame = f"""<div class="s37-frame" style="left:{FX0}px;top:{FY}px">
 <div class="s37-fv"><div class="s37-rig">{plates}</div></div>
-<div class="s37-caps">{caps}</div>{hud}<i class="s37-flash"></i><i class="s37-border"></i>
+<div class="s37-caps">{caps}</div>{hud}<i class="s37-sw"><b></b></i><i class="s37-flash"></i><i class="s37-border"></i>
 </div>"""
     # --- the left panel: four contents, one per beat ---
     rows = "".join(f'<div class="s37-row" style="top:{96 + i * 104}px">{SPEAKER}{caption(i, words, "s37-rcap")}</div>' for i in range(3))

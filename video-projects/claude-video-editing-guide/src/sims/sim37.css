@@ -51,6 +51,10 @@
 .sim37 .s37-odo { display: block; height: 30px; overflow: hidden; }
 .sim37 .s37-strip { display: block; }
 .sim37 .s37-strip b { display: block; width: 17px; height: 30px; font: 600 27px/30px "IBM Plex Mono"; text-align: center; }
+/* light sweep band: starts and ends fully outside the frame (skew included: tan 16 x 0.6 x 586 ~ 101 px) */
+.sim37 .s37-sw { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; display: block; pointer-events: none; }
+.sim37 .s37-sw b { position: absolute; top: -10%; bottom: -10%; left: 100%; margin-left: 110px; width: 120px; display: block; transform: skewX(-16deg);
+  background: linear-gradient(90deg, rgba(214, 208, 255, 0), rgba(214, 208, 255, 0.3), rgba(214, 208, 255, 0)); }
 .sim37 .s37-flash { position: absolute; inset: 0; border-radius: 26px; background: #ffffff; display: block; opacity: 0; }
 .sim37 .s37-border { position: absolute; inset: 0; border-radius: 26px; border: 1.5px solid rgba(214, 208, 255, 0.4); display: block; opacity: 0;
   box-shadow: 0 22px 56px rgba(0, 0, 0, 0.5); }

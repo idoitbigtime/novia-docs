@@ -15,6 +15,7 @@
 /* the text on the wall (layer 2): white, weight 900, a soft dark shadow; every word enters whole */
 .sim33 .s33-text { position: absolute; right: 268px; top: 70px; width: 470px; font: 900 68px/1.22 "Rubik"; color: #ffffff; text-align: right; text-shadow: 0 4px 18px rgba(0, 0, 0, 0.55); }
 .sim33 .s33-w { display: inline-block; opacity: 0; }
+.sim33 .s33-text > div:nth-child(2) { margin-right: 58px; }
 
 /* the frame: viewfinder corners and border over the stack */
 .sim33 .s33-frame { position: absolute; left: 10px; top: 40px; width: 780px; height: 439px; border-radius: 20px; border: 1.5px solid rgba(201, 194, 255, 0.28); box-shadow: 0 0 30px rgba(201, 194, 255, 0.12); pointer-events: none; }
@@ -55,3 +56,11 @@
 .sim33 .s33-leads path { fill: none; stroke: rgba(201, 194, 255, 0.8); stroke-width: 2; }
 .sim33 .s33-lab { position: absolute; display: flex; align-items: center; gap: 12px; direction: rtl; font: 600 32px/1 "Rubik"; color: #f5f2ea; white-space: nowrap; opacity: 0; }
 .sim33 .s33-lab i { width: 14px; height: 14px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.95); display: block; flex: none; }
+
+/* B3: each word enters whole when it is said (a time strip; time runs right to left) */
+.sim33 .s33-wt { position: absolute; left: 0; top: 506px; width: 800px; height: 120px; opacity: 0; }
+.sim33 .s33-wtv { position: absolute; left: 120px; top: 0; width: 570px; height: 50px; overflow: visible; }
+.sim33 .s33-wtv path { fill: none; stroke: #b9b0f5; stroke-width: 4; stroke-linecap: round; }
+.sim33 .s33-wc { position: absolute; top: 62px; height: 46px; border-radius: 12px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3);
+  display: grid; place-items: center; font: 700 29px/1 "Rubik"; color: #dcd9e6; white-space: nowrap; }
+.sim33 .s33-wph { position: absolute; left: 688px; top: -8px; width: 3px; height: 124px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 14px #c9c2ff; display: block; opacity: 0; }

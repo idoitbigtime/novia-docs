@@ -56,7 +56,7 @@
 .sim21 .s21-lead { position: absolute; left: 0; top: 0; width: 800px; height: 340px; overflow: visible; }
 .sim21 .s21-lead path { fill: none; stroke: rgba(201, 194, 255, 0.75); stroke-width: 2; }
 .sim21 .s21-jlw { position: absolute; left: 0; width: 800px; height: 54px; display: flex; justify-content: center; }
-.sim21 .s21-jl { flex: none; display: flex; align-items: center; gap: 12px; height: 54px; padding: 0 24px; border-radius: 999px; background: rgba(28, 24, 58, 0.96);
+.sim21 .s21-jl { position: relative; flex: none; display: flex; align-items: center; gap: 12px; height: 54px; padding: 0 24px; border-radius: 999px; background: rgba(28, 24, 58, 0.96);
   border: 1.5px solid rgba(201, 194, 255, 0.55); box-shadow: 0 0 22px rgba(201, 194, 255, 0.22); font: 700 33px/1 "Rubik"; color: #ffffff; white-space: nowrap; direction: rtl; opacity: 0; }
 
 /* the cuts table: scissors · זמן · מה נמחק · סיבה */

@@ -282,6 +282,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
 .accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
 .strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+.nbgrp { display: inline-block; white-space: nowrap; }
+.glu { display: inline-block; white-space: nowrap; }
 
 /* ---------- topic layout ---------- */
 .main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
@@ -349,12 +351,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .chap { position: absolute; inset: 0; }
 .ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
 .ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
-.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(255, 69, 58, 0.7); box-shadow: 0 0 30px rgba(255, 69, 58, 0.35), inset 0 0 30px rgba(255, 69, 58, 0.2); display: block; opacity: 0; }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
 .ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
-.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
+.ch-tin { display: inline-block; white-space: nowrap; }
 .ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
 .ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
-.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 30px/1.45 "Rubik"; color: var(--muted); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
 /* centred blocks wrap into even lines; paragraphs never end on a lone word */
 .ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
 .exp, .tip-text { text-wrap: pretty; }
@@ -462,13 +465,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="35.690" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="35.810" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t35" class="clip scene" data-start="0.000" data-duration="35.690" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.5</span></div>
+<div id="sc-t35" class="clip scene" data-start="0.000" data-duration="35.810" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.5</span></div>
 <div class="scam">
-<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">מסגרת</span> <span class="w" dir="rtl" data-t="0.430">עגולה,</span> <span class="w" dir="rtl" data-t="0.560">ומוצר</span> <span class="w" dir="rtl" data-t="0.690">שמתפרק</span> <span class="w" dir="rtl" data-t="0.820">לחלקים</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.650">הסרטון</span> <span class="w" dir="rtl" data-t="1.710">שלכם</span> <span class="w" dir="rtl" data-t="1.770">מתכווץ</span> <span class="w" dir="rtl" data-t="1.830">לעיגול</span> <span class="w" dir="rtl" data-t="1.890">בצד</span> <span class="w" dir="rtl" data-t="1.950">אחד</span> <span class="w" dir="rtl" data-t="2.010">של</span> <span class="w" dir="rtl" data-t="2.070">המסך,</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.100">ובצד</span> <span class="w" dir="rtl" data-t="4.160">השני</span> <span class="w" dir="rtl" data-t="4.220">מרחף</span> <span class="w" dir="rtl" data-t="4.280">מוצר</span> <span class="w" dir="rtl" data-t="4.340">בתלת</span> <span class="w" dir="rtl" data-t="4.400">ממד.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.050">על</span> <span class="w" dir="rtl" data-t="6.110">המילה</span> <span class="w" dir="rtl" data-t="6.170">שבחרתם</span> <span class="w" dir="rtl" data-t="6.230">הוא</span> <span class="w" dir="rtl" data-t="6.290">מתפרק</span> <span class="accgrp" data-t="6.350"><span class="w s-str" dir="rtl" data-t="6.350">לחלקים</span> <span class="w s-str" dir="rtl" data-t="6.410">האמיתיים</span> <span class="w s-str" dir="rtl" data-t="6.470">שלו</span><i class="ul" data-t="6.530"></i></span><span class="w" dir="rtl" data-t="6.470">,</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="8.750">כל</span> <span class="w" dir="rtl" data-t="8.810">חלק</span> <span class="w" dir="rtl" data-t="8.870">מרכזי</span> <span class="w" dir="rtl" data-t="8.930">מקבל</span> <span class="w" dir="rtl" data-t="8.990">תווית</span> <span class="w" dir="rtl" data-t="9.050">בעברית,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="10.700">ואחר</span> <span class="w" dir="rtl" data-t="10.760">כך</span> <span class="w" dir="rtl" data-t="10.820">הכל</span> <span class="w" dir="rtl" data-t="10.880">מתרכב</span> <span class="w" dir="rtl" data-t="10.940">חזרה</span> <span class="w" dir="rtl" data-t="11.000">והעיגול</span> <span class="w" dir="rtl" data-t="11.060">נפתח</span> <span class="w" dir="rtl" data-t="11.120">למסך</span> <span class="w" dir="rtl" data-t="11.180">מלא.</span></span></p></div>
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">מסגרת</span> <span class="w" dir="rtl" data-t="0.430">עגולה,</span> <span class="w" dir="rtl" data-t="0.560">ומוצר</span> <span class="w" dir="rtl" data-t="0.690">שמתפרק</span> <span class="w" dir="rtl" data-t="0.820">לחלקים</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.650">הסרטון</span> <span class="w" dir="rtl" data-t="1.710">שלכם</span> <span class="w" dir="rtl" data-t="1.770">מתכווץ</span> <span class="w" dir="rtl" data-t="1.830">לעיגול</span> <span class="w" dir="rtl" data-t="1.890">בצד</span> <span class="w" dir="rtl" data-t="1.950">אחד</span> <span class="w" dir="rtl" data-t="2.010">של</span> <span class="w" dir="rtl" data-t="2.070">המסך,</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.100">ובצד</span> <span class="w" dir="rtl" data-t="4.160">השני</span> <span class="w" dir="rtl" data-t="4.220">מרחף</span> <span class="w" dir="rtl" data-t="4.280">מוצר</span> <span class="w" dir="rtl" data-t="4.340">בתלת</span> <span class="w" dir="rtl" data-t="4.400">ממד.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.050">על</span> <span class="w" dir="rtl" data-t="6.110">המילה</span> <span class="w" dir="rtl" data-t="6.170">שבחרתם</span> <span class="w" dir="rtl" data-t="6.230">הוא</span> <span class="w" dir="rtl" data-t="6.290">מתפרק</span> <span class="glu"><span class="accgrp" data-t="6.350"><span class="w s-str" dir="rtl" data-t="6.350">לחלקים</span> <span class="w s-str" dir="rtl" data-t="6.410">האמיתיים</span> <span class="w s-str" dir="rtl" data-t="6.470">שלו</span><i class="ul" data-t="6.530"></i></span><span class="w" dir="rtl" data-t="6.470">,</span></span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="8.750">כל</span> <span class="w" dir="rtl" data-t="8.810">חלק</span> <span class="w" dir="rtl" data-t="8.870">מרכזי</span> <span class="w" dir="rtl" data-t="8.930">מקבל</span> <span class="w" dir="rtl" data-t="8.990">תווית</span> <span class="w" dir="rtl" data-t="9.050">בעברית,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="10.700">ואחר</span> <span class="w" dir="rtl" data-t="10.760">כך</span> <span class="w" dir="rtl" data-t="10.820">הכל</span> <span class="w" dir="rtl" data-t="10.880">מתרכב</span> <span class="w" dir="rtl" data-t="10.940">חזרה</span> <span class="w" dir="rtl" data-t="11.000">והעיגול</span> <span class="w" dir="rtl" data-t="11.060">נפתח</span> <span class="w" dir="rtl" data-t="11.120">למסך</span> <span class="w" dir="rtl" data-t="11.180">מלא.</span></span></p></div>
 <div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim35">
 <div class="s35-bg" style="left:20px;top:30px;width:760px;height:640px"><svg class="s35-waves" viewBox="0 0 1520 640" aria-hidden="true" preserveAspectRatio="none"><path class="w0" d="M0 150 C 190 90 380 210 570 150 S 950 90 1140 150 S 1520 210 1520 150"/><path class="w1" d="M0 330 C 190 250 380 410 570 330 S 950 250 1140 330 S 1520 410 1520 330"/><path class="w2" d="M0 470 C 190 414 380 526 570 470 S 950 414 1140 470 S 1520 526 1520 470"/><path class="w3" d="M0 560 C 190 490 380 630 570 560 S 950 490 1140 560 S 1520 630 1520 560"/></svg></div>
 <div class="s35-circ" style="left:20px;top:30px;width:760px;height:640px"><i class="s35-shadow" style="left:250px;top:521px;width:260px;height:46px"></i><div class="s35-vid"><i class="s35-lamp"></i><i class="s35-win"><u></u><s></s></i><i class="s35-floor"></i><svg class="s35-person" viewBox="0 0 312 380" aria-hidden="true">
@@ -488,7 +491,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="s35-lab"><i class="s35-ln" style="left:245.2px;top:191.5px;width:82px;transform-origin:100% 50%"></i><i class="s35-dot" style="left:320.2px;top:185.7px"></i><span class="s35-name" dir="rtl" style="right:566.8px;top:169.7px">מצלמות</span></div><div class="s35-lab"><i class="s35-ln" style="left:373.8px;top:377.2px;width:70px;transform-origin:0% 50%"></i><i class="s35-dot" style="left:366.8px;top:371.4px"></i><span class="s35-name" dir="rtl" style="left:455.8px;top:355.4px">טעינה אלחוטית</span></div><div class="s35-lab"><i class="s35-ln" style="left:328.9px;top:507.2px;width:116px;transform-origin:0% 50%"></i><i class="s35-dot" style="left:321.9px;top:501.4px"></i><span class="s35-name" dir="rtl" style="left:456.9px;top:485.4px">סוללה</span></div><div class="s35-lab"><i class="s35-ln" style="left:136.7px;top:359.6px;width:112px;transform-origin:100% 50%"></i><i class="s35-dot" style="left:241.7px;top:353.9px"></i><span class="s35-name" dir="rtl" style="right:675.3px;top:337.9px">מעבד</span></div>
 <svg class="s35-fl" viewBox="0 0 768 648" style="left:16px;top:26px;width:768px;height:648px" aria-hidden="true"><path d="M384.0 4H740a24 24 0 0 1 24 24V620a24 24 0 0 1 -24 24H28a24 24 0 0 1 -24 -24V28a24 24 0 0 1 24 -24Z"/></svg>
 </div></div></div></div>
-<div class="factbox"><span class="pill">31 חלקים אמיתיים</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="18.350">בדוגמה</span> <span class="w" dir="rtl" data-t="18.470">מהמדריך:</span> <span class="w" dir="rtl" data-t="18.790">אייפון</span> <span class="w" dir="rtl" data-t="18.910">שהתפרק</span> <span class="w" dir="rtl" data-t="19.030">ל-31</span> <span class="w" dir="rtl" data-t="19.150">חלקים,</span> <span class="w" dir="rtl" data-t="19.270">עם</span> <span class="w" dir="rtl" data-t="19.390">הסבר</span> <span class="w" dir="rtl" data-t="19.510">בעברית</span> <span class="w" dir="rtl" data-t="19.630">על</span> <span class="w" dir="rtl" data-t="19.750">5</span> <span class="w" dir="rtl" data-t="19.870">החלקים</span> <span class="w" dir="rtl" data-t="19.990">המרכזיים.</span></p></div>
+<div class="factbox"><span class="pill">31 חלקים אמיתיים</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="18.350">בדוגמה</span> <span class="w" dir="rtl" data-t="18.470">מהמדריך:</span> <span class="w" dir="rtl" data-t="18.790">אייפון</span> <span class="w" dir="rtl" data-t="18.910">שהתפרק</span> <span class="glu"><span class="w" dir="rtl" data-t="19.030">ל-</span><span class="w" dir="rtl" data-t="19.030">31</span></span> <span class="w" dir="rtl" data-t="19.270">חלקים,</span> <span class="w" dir="rtl" data-t="19.390">עם</span> <span class="w" dir="rtl" data-t="19.510">הסבר</span> <span class="w" dir="rtl" data-t="19.630">בעברית</span> <span class="w" dir="rtl" data-t="19.750">על</span> <span class="w" dir="rtl" data-t="19.870">5</span> <span class="w" dir="rtl" data-t="19.990">החלקים</span> <span class="w" dir="rtl" data-t="20.110">המרכזיים.</span></p></div>
 <div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>11</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">ההוראות כאן מחליפות את ראיון הפתיחה של HyperFrames, אז אל תריץ אותו.</div>
 <div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
 <div class="pl" dir="rtl">תשאל אותי על חמישה דברים:</div>
@@ -530,7 +533,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl" dir="rtl">תשאל אותי על הקלט, ותראה לי את רשימת החלקים ואת הטקסט של התוויות לאישור.</div>
 <div class="pl" dir="rtl">אחרי שאישרתי, תראה לי פריים מכל שלב (עיגול, מוצר שלם, פירוק, תוויות, הרכבה, חזרה), ורק אז תרנדר את הקטע מעותק זמני וקצר של הקומפוזיציה <span class="nb">ב-540</span> על 960 (או 960 על 540), כי ל-<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">render</span><span class="bt">`</span></span> אין דגל לטווח זמן או להקטנה.</div>
 <div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>1. תחפש את רשימת החלקים האמיתית של המוצר ממקור אמיתי, כמו מדריך פירוק, ותראה לי אותה עם המקור.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>חלק שלא קיים במוצר האמיתי, או מספר שלא נבדק, לא עולים למסך.</div></div>
-<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="32.120">קלוד</span> <span class="w" dir="rtl" data-t="32.280">מחפש</span> <span class="w" dir="rtl" data-t="32.440">קודם</span> <span class="w" dir="rtl" data-t="32.600">רשימת</span> <span class="w" dir="rtl" data-t="32.760">חלקים</span> <span class="w" dir="rtl" data-t="32.920">אמיתית</span> <span class="w" dir="rtl" data-t="33.080">של</span> <span class="w" dir="rtl" data-t="33.240">המוצר,</span> <span class="w" dir="rtl" data-t="33.400">ומראה</span> <span class="w" dir="rtl" data-t="33.560">לכם</span> <span class="w" dir="rtl" data-t="33.720">אותה</span> <span class="w" dir="rtl" data-t="33.880">לאישור.</span></p></div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="32.240">קלוד</span> <span class="w" dir="rtl" data-t="32.400">מחפש</span> <span class="w" dir="rtl" data-t="32.560">קודם</span> <span class="w" dir="rtl" data-t="32.720">רשימת</span> <span class="w" dir="rtl" data-t="32.880">חלקים</span> <span class="w" dir="rtl" data-t="33.040">אמיתית</span> <span class="w" dir="rtl" data-t="33.200">של</span> <span class="w" dir="rtl" data-t="33.360">המוצר,</span> <span class="w" dir="rtl" data-t="33.520">ומראה</span> <span class="w" dir="rtl" data-t="33.680">לכם</span> <span class="w" dir="rtl" data-t="33.840">אותה</span> <span class="w" dir="rtl" data-t="34.000">לאישור.</span></p></div></div>
 </div></div>
 </div>
 </div>
@@ -639,8 +642,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     if (o.color) fx.style.setProperty("--sweep", o.color);
     fx.appendChild(b);
     el.appendChild(fx);
-    const w = el.offsetWidth;
-    tl.fromTo(b, { x: 0 }, A({ x: -(w * 1.34 + 60), duration: d || 0.8, ease: "power2.inOut" }), t);
+    // the band is 180% of the element's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // element's height: it starts and ends that far outside, never as a wedge inside a tall element
+    const w = el.offsetWidth, h = el.offsetHeight;
+    const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
+    b.style.width = bw + "px";
+    b.style.left = w + slant + "px";
+    tl.fromTo(b, { x: 0 }, A({ x: -(w + 2 * slant + bw), duration: d || 0.8, ease: "power2.inOut" }), t);
   };
   /* A soft light band crosses the whole frame (scene change). */
   E.band = function (tl, scene, t) {
@@ -670,10 +678,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
   E.draw = function (tl, el, t, d, ease) {
     if (!el) return;
-    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2;
-    el.style.strokeDasharray = L + " " + L;
-    el.style.strokeDashoffset = L;
-    tl.fromTo(el, { strokeDashoffset: L }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+    // the hidden dash ends before the path starts, so a round cap never leaves a dot there
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2, pad = 12;
+    el.style.strokeDasharray = L + " " + (L + 2 * pad);
+    el.style.strokeDashoffset = L + pad;
+    tl.fromTo(el, { strokeDashoffset: L + pad }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
   };
   /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
   E.glitch = function (tl, el, t, amp) {
@@ -973,13 +982,21 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   E.chapter = function (tl, ctx, cfg) {
     const S = cfg.S, sc = ctx.scene;
     const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // static layout: the title is one line no wider than 760 px; the divider and texts flow under it
+    const tt = E.q(".ch-title", sc), tin = E.q(".ch-tin", sc);
+    if (tin && tin.offsetWidth > 760) tt.style.fontSize = (78 * 760 / tin.offsetWidth).toFixed(1) + "px";
+    const tBot = tt.offsetTop + tt.offsetHeight;
+    line.style.top = tBot + 30 + "px";
+    const sub = E.q(".ch-sub", sc), tag = E.q(".ch-tag", sc);
+    if (sub) sub.style.top = tBot + 66 + "px";
+    if (tag && sub) tag.style.top = tBot + 66 + sub.offsetHeight + 34 + "px";
     // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
     E.band(tl, sc, S);
     tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
     E.qa(".ch-ring", sc).forEach((r, i) => {
       tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
     });
-    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ff8a80" });
+    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ffffff" });
     tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
     tl.set(n, { filter: "none" }, S + 0.58);
     E.fadeIn(tl, k, S + 0.25, 0.5, 14);
@@ -1104,7 +1121,7 @@ window.SIMS.sim35 = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"id": "t35", "sim": "sim35", "D": 35.69, "tStage": 1.05, "tExp": 1.65, "phr": [1.65, 4.1, 6.05, 8.75, 10.7], "phrEnd": 13.4, "tSimEnd": 17.9, "tFact": 17.9, "tPrompt": 22.51, "tPromptEnd": 31.72, "tTip": 31.72, "expZoom": 0.1, "simDur": 16.85, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim35": {"parts": ["מצלמות", "טעינה אלחוטית", "סוללה", "מעבד"], "hover": 25}, "S": 0.0}];
+  const CFGS = [{"id": "t35", "sim": "sim35", "D": 35.81, "tStage": 1.05, "tExp": 1.65, "phr": [1.65, 4.1, 6.05, 8.75, 10.7], "phrEnd": 13.4, "tSimEnd": 17.9, "tFact": 17.9, "tPrompt": 22.63, "tPromptEnd": 31.84, "tTip": 31.84, "expZoom": 0.1, "simDur": 16.85, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim35": {"parts": ["מצלמות", "טעינה אלחוטית", "סוללה", "מעבד"], "hover": 25}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1118,7 +1135,7 @@ window.SIMS.sim35 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 35.690;
+    const TOT = 35.810;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

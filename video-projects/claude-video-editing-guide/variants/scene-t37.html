@@ -432,6 +432,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sim37 .s37-odo { display: block; height: 30px; overflow: hidden; }
 .sim37 .s37-strip { display: block; }
 .sim37 .s37-strip b { display: block; width: 17px; height: 30px; font: 600 27px/30px "IBM Plex Mono"; text-align: center; }
+/* light sweep band: starts and ends fully outside the frame (skew included: tan 16 x 0.6 x 586 ~ 101 px) */
+.sim37 .s37-sw { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; display: block; pointer-events: none; }
+.sim37 .s37-sw b { position: absolute; top: -10%; bottom: -10%; left: 100%; margin-left: 110px; width: 120px; display: block; transform: skewX(-16deg);
+  background: linear-gradient(90deg, rgba(214, 208, 255, 0), rgba(214, 208, 255, 0.3), rgba(214, 208, 255, 0)); }
 .sim37 .s37-flash { position: absolute; inset: 0; border-radius: 26px; background: #ffffff; display: block; opacity: 0; }
 .sim37 .s37-border { position: absolute; inset: 0; border-radius: 26px; border: 1.5px solid rgba(214, 208, 255, 0.4); display: block; opacity: 0;
   box-shadow: 0 22px 56px rgba(0, 0, 0, 0.5); }
@@ -526,7 +530,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="s37-face" style="left:99px;top:268px"><i class="s37-fc s37-fc0"></i><i class="s37-fc s37-fc1"></i><i class="s37-fc s37-fc2"></i><i class="s37-fc s37-fc3"></i><i class="s37-fdot"></i></div>
 </div><i class="s37-edge"></i></div>
 <div class="s37-pl s37-p2"><i class="s37-ring"></i><i class="s37-fxd" style="left:60px;top:250px"></i><i class="s37-fxd" style="left:262px;top:210px"></i><i class="s37-fxd" style="left:276px;top:420px"></i><i class="s37-fxd" style="left:40px;top:470px"></i><i class="s37-fxd" style="left:150px;top:168px"></i><i class="s37-edge"></i></div></div></div>
-<div class="s37-caps"><div class="s37-cap s37-c0" dir="rtl"><i class="s37-bk" style="width:52px"></i><span class="s37-kw" dir="rtl">קלוד<i class="s37-ul"></i></span><i class="s37-bk" style="width:40px"></i><i class="s37-bk" style="width:62px"></i></div><div class="s37-cap s37-c1" dir="rtl"><i class="s37-bk" style="width:40px"></i><i class="s37-bk" style="width:66px"></i><span class="s37-kw" dir="rtl">נבדוק<i class="s37-ul"></i></span><i class="s37-bk" style="width:38px"></i></div><div class="s37-cap s37-c2" dir="rtl"><i class="s37-bk" style="width:56px"></i><i class="s37-bk" style="width:42px"></i><i class="s37-bk" style="width:50px"></i><span class="s37-kw" dir="rtl">אותו<i class="s37-ul"></i></span></div><div class="s37-cap s37-c3" dir="rtl"><i class="s37-bk" style="width:60px"></i><i class="s37-bk" style="width:44px"></i><i class="s37-bk" style="width:70px"></i><i class="s37-bk" style="width:52px"></i><i class="s37-bk" style="width:64px"></i><i class="s37-bk" style="width:40px"></i></div></div><div class="s37-hud" dir="ltr"><svg class="s37-mag" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6M7 10h6M10 7v6"/></svg><span class="s37-num"><b>1</b><span class="s37-odo s37-tens"><span class="s37-strip"><b>0</b><b>1</b></span></span><span class="s37-odo s37-units"><span class="s37-strip"><b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>0</b><b>1</b><b>2</b></span></span><b>%</b></span></div><i class="s37-flash"></i><i class="s37-border"></i>
+<div class="s37-caps"><div class="s37-cap s37-c0" dir="rtl"><i class="s37-bk" style="width:52px"></i><span class="s37-kw" dir="rtl">קלוד<i class="s37-ul"></i></span><i class="s37-bk" style="width:40px"></i><i class="s37-bk" style="width:62px"></i></div><div class="s37-cap s37-c1" dir="rtl"><i class="s37-bk" style="width:40px"></i><i class="s37-bk" style="width:66px"></i><span class="s37-kw" dir="rtl">נבדוק<i class="s37-ul"></i></span><i class="s37-bk" style="width:38px"></i></div><div class="s37-cap s37-c2" dir="rtl"><i class="s37-bk" style="width:56px"></i><i class="s37-bk" style="width:42px"></i><i class="s37-bk" style="width:50px"></i><span class="s37-kw" dir="rtl">אותו<i class="s37-ul"></i></span></div><div class="s37-cap s37-c3" dir="rtl"><i class="s37-bk" style="width:60px"></i><i class="s37-bk" style="width:44px"></i><i class="s37-bk" style="width:70px"></i><i class="s37-bk" style="width:52px"></i><i class="s37-bk" style="width:64px"></i><i class="s37-bk" style="width:40px"></i></div></div><div class="s37-hud" dir="ltr"><svg class="s37-mag" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6M7 10h6M10 7v6"/></svg><span class="s37-num"><b>1</b><span class="s37-odo s37-tens"><span class="s37-strip"><b>0</b><b>1</b></span></span><span class="s37-odo s37-units"><span class="s37-strip"><b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>0</b><b>1</b><b>2</b></span></span><b>%</b></span></div><i class="s37-sw"><b></b></i><i class="s37-flash"></i><i class="s37-border"></i>
 </div>
 </div></div></div></div>
 <div class="factbox"><span class="pill">10 עד 15 אחוז</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="20.610">בפתיחה</span> <span class="w" dir="rtl" data-t="20.730">של</span> <span class="w" dir="rtl" data-t="20.850">7</span> <span class="w" dir="rtl" data-t="20.970">שניות</span> <span class="w" dir="rtl" data-t="21.090">נבחרו</span> <span class="w" dir="rtl" data-t="21.210">שלוש</span> <span class="w" dir="rtl" data-t="21.330">מילים:</span> <span class="w" dir="rtl" data-t="21.650">&quot;קלוד&quot;,</span> <span class="w" dir="rtl" data-t="21.770">&quot;נבדוק&quot;</span> <span class="w" dir="rtl" data-t="21.890">ו&quot;אותו&quot;.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="22.210">שמתם</span> <span class="w" dir="rtl" data-t="22.240">לב?</span> <span class="w" dir="rtl" data-t="22.270">הזום</span> <span class="w" dir="rtl" data-t="22.300">הזה</span> <span class="w" dir="rtl" data-t="22.330">מופיע</span> <span class="w" dir="rtl" data-t="22.360">לאורך</span> <span class="w" dir="rtl" data-t="22.390">כל</span> <span class="w" dir="rtl" data-t="22.420">הסרטון.</span></p></div>
@@ -652,8 +656,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     if (o.color) fx.style.setProperty("--sweep", o.color);
     fx.appendChild(b);
     el.appendChild(fx);
-    const w = el.offsetWidth;
-    tl.fromTo(b, { x: 0 }, A({ x: -(w * 1.34 + 60), duration: d || 0.8, ease: "power2.inOut" }), t);
+    // the band is 180% of the element's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // element's height: it starts and ends that far outside, never as a wedge inside a tall element
+    const w = el.offsetWidth, h = el.offsetHeight;
+    const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
+    b.style.width = bw + "px";
+    b.style.left = w + slant + "px";
+    tl.fromTo(b, { x: 0 }, A({ x: -(w + 2 * slant + bw), duration: d || 0.8, ease: "power2.inOut" }), t);
   };
   /* A soft light band crosses the whole frame (scene change). */
   E.band = function (tl, scene, t) {
@@ -1033,11 +1042,12 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
 
   // ---- helpers (every change is a chained fromTo; "one frame" = 0.02 s) ----
   const inv = (v) => { let lo = 0, hi = 1; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (E.SPRING(m) < v) lo = m; else hi = m; } return hi; };
+  const DC = 0.6;                            // the counter rolls on a shorter spring, so it settles while the picture settles
   const punch = (t) => {                     // the picture punches in on the face, the HUD rolls 100 -> 112
     ins.forEach((el) => tl.fromTo(el, { scale: 1 }, A({ scale: Z, duration: DZ, ease: E.SPRING }), T(t)));
-    tl.fromTo(units, { y: 0 }, A({ y: -H * c.zoom, duration: DZ, ease: E.SPRING }), T(t));
+    tl.fromTo(units, { y: 0 }, A({ y: -H * c.zoom, duration: DC, ease: E.SPRING }), T(t));
     const a = inv(9.5 / c.zoom), b = inv(10 / c.zoom);
-    tl.fromTo(tens, { y: 0 }, A({ y: -H, duration: Math.max(0.04, (b - a) * DZ), ease: "none" }), T(t + a * DZ));
+    tl.fromTo(tens, { y: 0 }, A({ y: -H, duration: Math.max(0.04, (b - a) * DC), ease: "none" }), T(t + a * DC));
   };
   const reset = (t, from) => {               // back to 100% in one frame
     ins.forEach((el) => tl.fromTo(el, { scale: from }, A({ scale: 1, duration: 0.02, ease: "none" }), T(t)));
@@ -1087,6 +1097,7 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
   [p0, p1].forEach((p) => tl.fromTo(E.q(".s37-edge", p), { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), T(b1 + 0.95)));
   tl.fromTo(q(".s37-border"), { opacity: 0 }, A({ opacity: 1, duration: 0.4 }), T(b1 + 1.0));
   tl.fromTo(hud, { opacity: 0 }, A({ opacity: 1, duration: 0.35 }), T(b1 + 1.3));
+  tl.fromTo(q(".s37-sw b"), { x: 0 }, A({ x: -(330 + 110 + 120 + 101 + 29), duration: 0.75, ease: "power2.inOut" }), T(b1 + 1.15));   // a flat, plain video (the band ends fully outside)
 
   // B2 "בכל משפט יש מילה אחת שהכי חשובה": the frame moves aside; sentences, one important word in each
   const b2 = P[1], panel = q(".s37-panel");

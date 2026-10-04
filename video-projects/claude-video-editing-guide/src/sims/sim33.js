@@ -4,10 +4,10 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
   const T = (x) => S + x;                    // scene-local -> master time
   const q = (s) => E.q(".sim33 " + s, sc), qa = (s) => E.qa(".sim33 " + s, sc);
   const persp = q(".s33-persp"), root = persp.parentNode, stack = q(".s33-stack"), lys = qa(".s33-ly");
-  const R = { x: -110, rz: -28, rx: 56, s: 0.6 }, Z0 = [0, 0.6, 1.2], Z = [-150, 0, 150];
+  const R = { x: -110, y: 66, rz: -27, rx: 57, s: 0.62 }, Z0 = [0, 0.6, 1.2], Z = [-150, 0, 150];
 
   // static layout: measure where each layer's right edge lands in the payoff's side view, then place the names
-  stack.style.transform = "translate(" + R.x + "px, 0px) rotate(" + R.rz + "deg) rotateX(" + R.rx + "deg) scale(" + R.s + ")";
+  stack.style.transform = "translate(" + R.x + "px, " + R.y + "px) rotate(" + R.rz + "deg) rotateX(" + R.rx + "deg) scale(" + R.s + ")";
   lys.forEach((l, i) => { l.style.transform = "translateZ(" + Z[i] + "px)"; });
   const rr = root.getBoundingClientRect(), k = rr.width / root.offsetWidth || 1;
   const pts = lys.map((l) => {
@@ -71,10 +71,24 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
     tl.set(w, { filter: "none" }, t + 0.31);
   });
   E.sweep(tl, q(".s33-text"), T(b3 + 1.35), 0.6, { color: "rgba(255, 255, 255, 0.35)" });
+  // the time strip: a playhead reaches each word as it enters on the wall
+  const wt = q(".s33-wt"), wph = q(".s33-wph"), wcs = qa(".s33-wc");
+  tl.fromTo(wt, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.4, ease: E.SPRING }), T(b3 + 0.02));
+  tl.fromTo(wph, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(b3 + 0.15));
+  tl.fromTo(wph, { x: 0 }, A({ x: -570, duration: 0.95, ease: "none" }), T(b3 + 0.167));
+  tl.fromTo(wph, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b3 + 1.12));
+  wcs.forEach((wc, i) => {
+    const t = T(b3 + 0.2 + i * 0.32);
+    tl.fromTo(wc, { backgroundColor: "rgba(26, 23, 52, 0.92)", borderColor: "rgba(201, 194, 255, 0.3)", color: "#dcd9e6" },
+      A({ backgroundColor: "rgba(255, 255, 255, 0.95)", borderColor: "#ffffff", color: "#0b0b0b", duration: 0.12 }), t);
+    tl.fromTo(wc, { backgroundColor: "rgba(255, 255, 255, 0.95)", borderColor: "#ffffff", color: "#0b0b0b" },
+      A({ backgroundColor: "rgba(201, 194, 255, 0.22)", borderColor: "rgba(201, 194, 255, 0.7)", color: "#ffffff", duration: 0.4 }), t + 0.3);
+  });
 
   // B4 "וכל תנועה של היד מסתירה את החלק של הטקסט שמאחוריה": the hand rises and passes over "לכבד";
   // it hides only what is behind it (the same arm in the original layer and in the cut-out layer)
   const b4 = P[4], arms = qa(".s33-arm");
+  tl.fromTo(q(".s33-wt"), { opacity: 1 }, A({ opacity: 0.4, duration: 0.35 }), T(b4));
   arms.forEach((a) => {
     tl.fromTo(a, { y: 230, rotation: 12, svgOrigin: "338 420" }, A({ y: 0, rotation: 0, duration: 0.85, ease: E.SPRING }), T(b4 + 0.1));
     tl.fromTo(a, { x: 0 }, A({ x: -34, duration: 0.6, ease: "sine.inOut" }), T(b4 + 1.1));
@@ -83,7 +97,8 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
 
   // payoff: a side view of the three layers, bottom to top: the original clip · the text · you without the background
   tl.fromTo(q(".s33-frame"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe));
-  tl.fromTo(stack, { x: 0, rotation: 0, rotationX: 0, scale: 1 }, A({ x: R.x, rotation: R.rz, rotationX: R.rx, scale: R.s, duration: 1.2, ease: E.SPRING }), T(pe + 0.2));
+  tl.fromTo(q(".s33-wt"), { opacity: 0.4 }, A({ opacity: 0, duration: 0.3 }), T(pe));
+  tl.fromTo(stack, { x: 0, y: 0, rotation: 0, rotationX: 0, scale: 1 }, A({ x: R.x, y: R.y, rotation: R.rz, rotationX: R.rx, scale: R.s, duration: 1.2, ease: E.SPRING }), T(pe + 0.2));
   lys.forEach((l, i) => tl.fromTo(l, { z: Z0[i] }, A({ z: Z[i], duration: 1.2, ease: E.SPRING }), T(pe + 0.25 + i * 0.05)));
   qa(".s33-edge").forEach((e, i) => tl.fromTo(e, { opacity: 0 }, A({ opacity: 1, duration: 0.4 }), T(pe + 0.55 + i * 0.08)));
   leads.forEach((p, i) => E.draw(tl, p, T(pe + 1.3 + i * 0.16), 0.3));

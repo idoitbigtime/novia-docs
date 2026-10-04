@@ -71,7 +71,7 @@ def auto_times(cfg):
             f.setdefault("tMeta", round(end, 2))
             done = f["tMeta"] + 0.03 * (len(f["meta"].split()) - 1) + 0.35
         c["fact"] = f
-        t = done + c.get("factHold", 2.0 if f.get("meta") else 1.8) + 0.2
+        t = done + c.get("factHold", 1.8 if f.get("meta") else 1.6) + 0.2
     if c.get("prompt") is not None:
         c.setdefault("tPrompt", round(t + 0.1, 2))
         if "tPromptEnd" not in c:
@@ -80,12 +80,12 @@ def auto_times(cfg):
             else:
                 n = len(prompt_text(c))
                 holds = sum(h[1] for h in c.get("hls", []))
-                pd = c.get("promptDur") or min(9.6, max(5.5, 2.2 + n / 1000 * 1.15 + holds))
+                pd = c.get("promptDur") or min(9.2, max(5.5, 2.2 + n / 1000 * 1.15 + holds))
                 c["tPromptEnd"] = round(c["tPrompt"] + pd, 2)
         t = c["tPromptEnd"]
     if c.get("tip"):
         c.setdefault("tTip", round(t, 2))
-        t = c["tTip"] + 0.4 + _dur(c["tip"], STEP_TIP, 0.25) + c.get("tipHold", 0.95)
+        t = c["tTip"] + 0.4 + _dur(c["tip"], STEP_TIP, 0.25) + c.get("tipHold", 0.8)
     c.setdefault("D", round(t + 0.45, 2))
     return c
 
@@ -187,7 +187,7 @@ def chapter_scene(cfg):
         tg, tgend, _ = kinetic_html(c["tag"], t0=send + 0.3, step=0.12, pause=0.2)
         tag = f'<p class="ch-tag kin" dir="rtl">{tg}</p>'
         end = tgend
-    c.setdefault("D", round(end + c.get("hold", 2.2), 2))
+    c.setdefault("D", round(end + c.get("hold", 1.9), 2))
     dots = "".join(f'<i class="ch-dot{" on" if i == c["n"] else ""}"></i>' for i in range(1, 9))
     inner = f"""<div class="chap">
 <div class="ch-k" dir="rtl">פרק</div>

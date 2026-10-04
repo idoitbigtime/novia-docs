@@ -63,6 +63,27 @@ def _mini(i):
             f'<ellipse cx="{88 + (i % 3) * 2 - 2}" cy="40" rx="15" ry="18"/></svg></div>')
 
 
+def _wtime(words):
+    """B3: the words on a time strip (right to left), each chip where its word is said."""
+    import math as _m
+    spans = [(570, 670), (388, 478), (206, 286)]          # chip x ranges (canvas px); right edges 192 px apart
+    bars, x = [], 686
+    segs = [(a - 6, b + 6) for a, b in spans]
+    while x >= 120:
+        inside = [sg for sg in segs if sg[0] <= x <= sg[1]]
+        if inside:
+            a, b = inside[0]
+            ph = (b - x) / max(1, b - a)
+            h = 7 + 15 * _m.sin(_m.pi * ph) * (0.75 + 0.25 * _m.sin(x * 0.37))
+        else:
+            h = 2.5 + 1.5 * _m.sin(x * 0.9)
+        bars.append(f"M{x - 120} {25 - h:.1f}V{25 + h:.1f}")
+        x -= 8
+    chips = "".join(f'<span class="s33-wc" style="left:{a}px;width:{b - a}px" dir="rtl">{esc(w)}</span>' for (a, b), w in zip(spans, words))
+    return (f'<div class="s33-wt"><svg class="s33-wtv" viewBox="0 0 570 50" aria-hidden="true"><path d="{" ".join(bars)}"/></svg>'
+            f'{chips}<i class="s33-wph"></i></div>')
+
+
 def html(cfg):
     c = cfg["sim33"]
     l1, l2 = c["text"]
@@ -92,6 +113,7 @@ def html(cfg):
 <rect class="bd" x="44" y="16" width="132" height="92" rx="4"/><path class="fl" d="M80 16 V108 M140 16 V108"/>
 <path class="x" d="M28 6 L192 132"/><path class="x" d="M192 6 L28 132"/></svg><b dir="rtl">{esc(c["green"])}</b></div>
 <div class="s33-strip">{"".join(_mini(i) for i in range(5))}<i class="s33-msel"></i></div>
+{_wtime([w for w, _ in words])}
 <svg class="s33-leads" viewBox="0 0 800 700" aria-hidden="true"><path/><path/><path/></svg>
 {labs}
 </div>"""

@@ -14,11 +14,12 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
 
   // ---- helpers (every change is a chained fromTo; "one frame" = 0.02 s) ----
   const inv = (v) => { let lo = 0, hi = 1; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (E.SPRING(m) < v) lo = m; else hi = m; } return hi; };
+  const DC = 0.6;                            // the counter rolls on a shorter spring, so it settles while the picture settles
   const punch = (t) => {                     // the picture punches in on the face, the HUD rolls 100 -> 112
     ins.forEach((el) => tl.fromTo(el, { scale: 1 }, A({ scale: Z, duration: DZ, ease: E.SPRING }), T(t)));
-    tl.fromTo(units, { y: 0 }, A({ y: -H * c.zoom, duration: DZ, ease: E.SPRING }), T(t));
+    tl.fromTo(units, { y: 0 }, A({ y: -H * c.zoom, duration: DC, ease: E.SPRING }), T(t));
     const a = inv(9.5 / c.zoom), b = inv(10 / c.zoom);
-    tl.fromTo(tens, { y: 0 }, A({ y: -H, duration: Math.max(0.04, (b - a) * DZ), ease: "none" }), T(t + a * DZ));
+    tl.fromTo(tens, { y: 0 }, A({ y: -H, duration: Math.max(0.04, (b - a) * DC), ease: "none" }), T(t + a * DC));
   };
   const reset = (t, from) => {               // back to 100% in one frame
     ins.forEach((el) => tl.fromTo(el, { scale: from }, A({ scale: 1, duration: 0.02, ease: "none" }), T(t)));
@@ -68,6 +69,7 @@ window.SIMS.sim37 = function (tl, ctx, cfg, S) {
   [p0, p1].forEach((p) => tl.fromTo(E.q(".s37-edge", p), { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), T(b1 + 0.95)));
   tl.fromTo(q(".s37-border"), { opacity: 0 }, A({ opacity: 1, duration: 0.4 }), T(b1 + 1.0));
   tl.fromTo(hud, { opacity: 0 }, A({ opacity: 1, duration: 0.35 }), T(b1 + 1.3));
+  tl.fromTo(q(".s37-sw b"), { x: 0 }, A({ x: -(330 + 110 + 120 + 101 + 29), duration: 0.75, ease: "power2.inOut" }), T(b1 + 1.15));   // a flat, plain video (the band ends fully outside)
 
   // B2 "בכל משפט יש מילה אחת שהכי חשובה": the frame moves aside; sentences, one important word in each
   const b2 = P[1], panel = q(".s37-panel");
