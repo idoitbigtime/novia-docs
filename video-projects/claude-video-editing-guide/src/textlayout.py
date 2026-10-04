@@ -266,7 +266,8 @@ def _emit(item, tokens, times):
 
 # ---------------------------------------------------------------- prompt cards
 SECTION_TAG = re.compile(r"^<(/?)(קלט|כיוון|בנייה|מלכודות|התחלה)>$")
-NEG_IN_TEXT = re.compile(r"(?<![\w\-/=])(-\d[\d.,]*(?:\s?(?:LUFS|dBTP|dBFS|dB|Hz|kHz|ms))?)")
+# a trailing comma or period stays outside the isolate, so it lands after the number in RTL reading order
+NEG_IN_TEXT = re.compile(r"(?<![\w\-/=])(-\d+(?:[.,]\d+)*(?:\s?(?:LUFS|dBTP|dBFS|dB|Hz|kHz|ms))?)")
 
 
 PREFIX_HYPHEN = re.compile(r"(?<![\w\u0590-\u05FF])([\u05D0-\u05EA]{1,3}-[^\s]+)")
@@ -278,19 +279,48 @@ def _nobreak_prefix(s_escaped):
     return PREFIX_HYPHEN.sub(lambda m: f'<span class="nb">{m.group(1)}</span>', s_escaped)
 
 
+# a Latin name that ends in a neutral symbol ("L*", "C*" of Lab) is isolated, or the symbol
+# would land on the wrong side of the letter in RTL text; a Hebrew prefix stays glued to it
+LATIN_SYM = re.compile(r"(?<![\w\u0590-\u05FF-])((?:[\u05D0-\u05EA]{1,3}-)?)([A-Za-z]+\*+)(?![\w*])")
+
+
 def _inline_text(s):
-    """Escape plain prompt text, isolate negative numbers (bidi), keep prefix-hyphen words whole."""
+    """Escape plain prompt text, isolate negative numbers and "L*"-style names (bidi), keep
+    prefix-hyphen words whole."""
     out = []
     last = 0
-    for m in NEG_IN_TEXT.finditer(s):
-        out.append(_nobreak_prefix(esc(s[last:m.start()])))
-        out.append(f'<span dir="ltr" class="neg">{esc(m.group(1))}</span>')
-        last = m.end()
+    marks = sorted([(m.start(), m.end(), "neg", m) for m in NEG_IN_TEXT.finditer(s)]
+                   + [(m.start(), m.end(), "sym", m) for m in LATIN_SYM.finditer(s)], key=lambda x: x[0])
+    for st, en, kind, m in marks:
+        if st < last:
+            continue
+        out.append(_nobreak_prefix(esc(s[last:st])))
+        if kind == "neg":
+            out.append(f'<span dir="ltr" class="neg">{esc(m.group(1))}</span>')
+        else:
+            iso = f'<span dir="ltr" class="neg">{esc(m.group(2))}</span>'
+            out.append(f'<span class="nb">{esc(m.group(1))}{iso}</span>' if m.group(1) else iso)
+        last = en
     out.append(_nobreak_prefix(esc(s[last:])))
     return "".join(out)
 
 
 INLINE_CODE_MAX = 26
+
+
+CODE_TOKEN_MAX = 34
+# inside a code token that is longer than a line: break after a path or list separator,
+# but never inside "://" or "//"
+CODE_BREAK = re.compile(r"(?<=[/:,;\]?&])(?!/)")
+
+
+def _code_pieces(g):
+    """A token longer than CODE_TOKEN_MAX is split at separators into pieces with a break
+    opportunity between them (a URL or a filter chain wraps instead of running off the card)."""
+    if len(g) <= CODE_TOKEN_MAX:
+        return f'<span class="tk">{esc(g)}</span>'
+    parts = [x for x in CODE_BREAK.split(g) if x]
+    return "<wbr>".join(f'<span class="tk">{esc(x)}</span>' for x in parts)
 
 
 def _code_tokens(seg):
@@ -306,16 +336,17 @@ def _code_tokens(seg):
         else:
             groups.append(tok)
             i += 1
-    return " ".join(f'<span class="tk">{esc(g)}</span>' for g in groups)
+    return " ".join(_code_pieces(g) for g in groups)
 
 
 def prompt_line_html(line):
     """One verbatim prompt line. Backtick code stays verbatim (backticks shown, muted).
-    Short code is an inline LTR isolate and punctuation after it stays outside, so it lands
-    after the code in RTL reading order. Long code gets its own LTR line, with the
-    punctuation that follows it kept inside, right after the closing backtick."""
+    Code is an LTR isolate and the punctuation after it stays outside, so it lands after the
+    code in RTL reading order. Short code runs inline; long code gets its own right-aligned
+    line (it may wrap), with the punctuation that follows it on that line."""
     segs = line.split("`")
     out = []
+    lead = ""
     for i in range(len(segs)):
         seg = segs[i]
         if i % 2 == 1 and i < len(segs) - 1:
@@ -327,10 +358,17 @@ def prompt_line_html(line):
                 m = re.match(r"^[.,:;!?]+", nxt)
                 trail = m.group(0) if m else ""
                 segs[i + 1] = nxt[len(trail):].lstrip(" ")
-                out.append(f'<span class="codeblock" dir="ltr">{bt}{_code_tokens(seg)}{bt}{esc(trail)}</span>')
+                out.append(f'<span class="codeblock" dir="rtl">{esc(lead)}<span class="cbi" dir="ltr">{bt}{_code_tokens(seg)}{bt}</span>{esc(trail)}</span>')
+            lead = ""
         elif i % 2 == 1:
             out.append(_inline_text("`" + seg))
         else:
+            # a Hebrew prefix glued to long code ("מ-`https://...`") moves onto the code's own line
+            lead = ""
+            if i + 2 < len(segs) and len(segs[i + 1]) > INLINE_CODE_MAX:
+                m = re.search(r"(?<![\w\u0590-\u05FF])[\u05D0-\u05EA]{1,3}-$", seg)
+                if m:
+                    lead, seg = m.group(0), seg[: m.start()]
             out.append(_inline_text(seg))
     return "".join(out)
 

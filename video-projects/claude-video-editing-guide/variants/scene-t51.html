@@ -293,7 +293,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .exp .ph { transition: none; }
 /* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
 .stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
-.stcam { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; }
+/* the illustration's frame: the camera zooms inside it, so nothing ever leaves x 140..940; during a zoom
+   its edges soften (--edge), like a camera crop */
+.stclip { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; --edge: 0px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%); mask-composite: intersect; }
+.stcam { position: absolute; inset: 0; }
 .stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
 .simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
 .simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
@@ -301,7 +306,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
 
 /* fact overlay inside the stage */
-.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; direction: rtl; }
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; direction: rtl; }
+/* the fact sits on its own dark backing (soft edges), so the faded illustration never shows through the text */
+.factin { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 34px 30px; }
+.fscrim { position: absolute; z-index: -1; inset: 0; border-radius: 48px; background: rgba(9, 8, 18, 0.9); box-shadow: 0 0 46px 30px rgba(9, 8, 18, 0.88); opacity: 0; display: block; }
 .pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
 .factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
 .metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
@@ -311,13 +319,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
 .pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
 .pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
-.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: #b9a8ff; box-shadow: 0 0 14px rgba(185, 168, 255, 0.85); display: block; }
 .pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
 .pc-num b { color: var(--ink); font-weight: 600; }
 .pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
 .tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
 .tab .tul { display: none; }
-.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: #b9a8ff; display: block; opacity: 0; }
 .tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
 .pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
   }
@@ -325,8 +333,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
 .pl-empty { height: 44px; }
 .ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
-.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; color: #d8d4ea; white-space: nowrap; }
-.codeblock { display: block; direction: ltr; text-align: left; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; color: #d8d4ea; white-space: nowrap; }
+/* long code: its own right-aligned line (an LTR isolate that may wrap; the punctuation after it stays outside) */
+.codeblock { display: block; direction: rtl; text-align: right; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.cbi { direction: ltr; unicode-bidi: isolate; }
 .tk { white-space: nowrap; }
 .nb, .neg { white-space: nowrap; }
 .code .bt, .codeblock .bt { color: #6f6b86; }
@@ -503,14 +513,14 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="31.130" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="30.780" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t51" class="clip scene" data-start="0.000" data-duration="31.130" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 5 · חיבורים</span><span class="hdr-num" dir="ltr">5.1</span></div>
+<div id="sc-t51" class="clip scene" data-start="0.000" data-duration="30.780" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 5 · חיבורים</span><span class="hdr-num" dir="ltr">5.1</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">מחברים</span> <span class="w" dir="rtl" data-t="0.430">את</span> <span class="w" dir="rtl" data-t="0.560">Higgsfield</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.390">יש</span> <span class="w" dir="rtl" data-t="1.450">בו</span> <span class="w" dir="rtl" data-t="1.510">יותר</span> <span class="glu"><span class="w" dir="rtl" data-t="1.570">מ-</span><span class="w" dir="rtl" data-t="1.570">30</span></span> <span class="w" dir="rtl" data-t="1.690">מודלים</span> <span class="w" dir="rtl" data-t="1.750">ליצירת</span> <span class="w" dir="rtl" data-t="1.810">תמונות</span> <span class="w" dir="rtl" data-t="1.870">וסרטונים.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.090">קלוד</span> <span class="w" dir="rtl" data-t="4.150">בוחר</span> <span class="w" dir="rtl" data-t="4.210">את</span> <span class="w" dir="rtl" data-t="4.270">המודל</span> <span class="w" dir="rtl" data-t="4.330">שמתאים</span> <span class="w" dir="rtl" data-t="4.390">לבקשה,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.040">ובודק</span> <span class="w" dir="rtl" data-t="6.100">כמה</span> <span class="accgrp" data-t="6.160"><span class="w s-str" dir="rtl" data-t="6.160">קרדיטים</span><i class="ul" data-t="6.340"></i></span> <span class="w" dir="rtl" data-t="6.220">הוא</span> <span class="w" dir="rtl" data-t="6.280">יעלה.</span></span></p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim51">
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim51">
 <div class="s51-hubwrap">
 <div class="s51-hub"><svg class="s51-hubo" viewBox="0 0 780 454" aria-hidden="true"><path d="M754.5 1.5 H25.5 A24 24 0 0 0 1.5 25.5 V428.5 A24 24 0 0 0 25.5 452.5 H754.5 A24 24 0 0 0 778.5 428.5 V25.5 A24 24 0 0 0 754.5 1.5 Z"/></svg>
 <i class="s51-wd"><u></u><u></u><u></u></i>
@@ -550,24 +560,24 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="s51-tl s51-tl2"><i class="s51-tdot"></i>Higgsfield</div></div></div>
 </div>
 <svg class="s51-cur" viewBox="0 0 34 42" aria-hidden="true"><path d="M3 2 L3 33 L11 25.5 L16.5 38 L22 35.5 L16.6 23.4 L28 23 Z"/></svg>
-</div></div></div></div>
-<div class="factbox"><span class="pill">35 קרדיטים</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="15.190">קליפ</span> <span class="w" dir="rtl" data-t="15.310">של</span> <span class="w" dir="rtl" data-t="15.430">5</span> <span class="w" dir="rtl" data-t="15.550">שניות</span> <span class="w" dir="rtl" data-t="15.670">במודל</span> <span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="15.790">Seedance</span> <span class="w" dir="ltr" data-t="15.910">2.5</span></span><span class="w" dir="rtl" data-t="15.910">,</span> <span class="w" dir="rtl" data-t="16.030">באיכות</span> <span class="w" dir="rtl" data-t="16.150">720p,</span> <span class="w" dir="rtl" data-t="16.270">לאורך</span> <span class="w" dir="rtl" data-t="16.390">ובלי</span> <span class="w" dir="rtl" data-t="16.510">קול.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="16.830">החיבור</span> <span class="w" dir="rtl" data-t="16.860">דורש</span> <span class="w" dir="rtl" data-t="16.890">מנוי</span> <span class="w" dir="rtl" data-t="16.920">בתשלום</span> <span class="glu"><span class="w" dir="rtl" data-t="16.950">ב-</span><span class="w" dir="rtl" data-t="16.950">Higgsfield,</span></span> <span class="w" dir="rtl" data-t="17.010">וכל</span> <span class="w" dir="rtl" data-t="17.040">ג&#x27;נרוט</span> <span class="w" dir="rtl" data-t="17.070">יורד</span> <span class="w" dir="rtl" data-t="17.100">מהקרדיטים.</span></p></div>
+</div></div></div></div></div>
+<div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">35 קרדיטים</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="15.190">קליפ</span> <span class="w" dir="rtl" data-t="15.310">של</span> <span class="w" dir="rtl" data-t="15.430">5</span> <span class="w" dir="rtl" data-t="15.550">שניות</span> <span class="w" dir="rtl" data-t="15.670">במודל</span> <span class="isl" dir="ltr"><span class="w" dir="ltr" data-t="15.790">Seedance</span> <span class="w" dir="ltr" data-t="15.910">2.5</span></span><span class="w" dir="rtl" data-t="15.910">,</span> <span class="w" dir="rtl" data-t="16.030">באיכות</span> <span class="w" dir="rtl" data-t="16.150">720p,</span> <span class="w" dir="rtl" data-t="16.270">לאורך</span> <span class="w" dir="rtl" data-t="16.390">ובלי</span> <span class="w" dir="rtl" data-t="16.510">קול.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="16.830">החיבור</span> <span class="w" dir="rtl" data-t="16.860">דורש</span> <span class="w" dir="rtl" data-t="16.890">מנוי</span> <span class="w" dir="rtl" data-t="16.920">בתשלום</span> <span class="glu"><span class="w" dir="rtl" data-t="16.950">ב-</span><span class="w" dir="rtl" data-t="16.950">Higgsfield,</span></span> <span class="w" dir="rtl" data-t="17.010">וכל</span> <span class="w" dir="rtl" data-t="17.040">ג&#x27;נרוט</span> <span class="w" dir="rtl" data-t="17.070">יורד</span> <span class="w" dir="rtl" data-t="17.100">מהקרדיטים.</span></p></div></div>
 <div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>17</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
 <div class="pl" dir="rtl">תשאל אותי מה הקליפ או התמונה צריכים להראות, באיזה משפט בסרטון הם נכנסים, באיזה יחס (9:16 או 16:9) וכמה שניות.</div>
 <div class="pl" dir="rtl">אם הקליפ צריך להראות אותי, תבקש ממני תמונה חדה של הפנים שלי מקדימה ותעלה אותה <span class="nb">ל-Higgsfield.</span></div>
 <div class="pl ptag pclose" dir="rtl">&lt;/קלט&gt;</div>
 <div class="pl pl-empty"></div>
-<div class="pl" dir="rtl">תבדוק <span class="nb">ש-Higgsfield</span> מחובר אליך, ואם לא, תסביר לי <span class="nb">שב-claude.ai</span> נכנסים <span class="nb">ל-Customize</span> ומשם <span class="nb">ל-Connectors,</span> לוחצים &quot;+&quot;, בוחרים Add custom connector עם הכתובת <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">https://mcp.higgsfield.ai/mcp</span><span class="bt">`</span></span>ומתחברים לחשבון Higgsfield, ואז הוא מופיע לבד גם <span class="nb">ב-Claude</span> Code, תחת <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">/mcp</span><span class="bt">`</span></span>.</div>
+<div class="pl" dir="rtl">תבדוק <span class="nb">ש-Higgsfield</span> מחובר אליך, ואם לא, תסביר לי <span class="nb">שב-claude.ai</span> נכנסים <span class="nb">ל-Customize</span> ומשם <span class="nb">ל-Connectors,</span> לוחצים &quot;+&quot;, בוחרים Add custom connector עם הכתובת <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">https://mcp.higgsfield.ai/mcp</span><span class="bt">`</span></span></span>ומתחברים לחשבון Higgsfield, ואז הוא מופיע לבד גם <span class="nb">ב-Claude</span> Code, תחת <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">/mcp</span><span class="bt">`</span></span>.</div>
 <div class="pl" dir="rtl">החיבור דורש מנוי בתשלום <span class="nb">ב-Higgsfield,</span> וכל ג&#x27;נרוט יורד מהקרדיטים.</div>
 <div class="pl" dir="rtl">תבדוק את יתרת הקרדיטים שלי, ותמליץ על מודל שמתאים לבקשה.</div>
 <div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>לפני כל ג&#x27;נרוט תבדוק את המחיר עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">get_cost:</span> <span class="tk">true</span><span class="bt">`</span></span>, שלא מריץ שום דבר, ותראה לי את הפרומפט, את המודל, את ההגדרות ואת המחיר בקרדיטים, ותחכה לאישור.</div>
 <div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>אם אין מספיק קרדיטים, תעצור ותגיד לי כמה חסר, בלי לנסות מודל אחר.</div>
 <div class="pl" dir="rtl">אם הקליפ מראה אותי, תבחר מודל שמקבל תמונת פנים כרפרנס, ותגיד לי מראש שאין הבטחה שהוא יקבל פנים אמיתיות.</div>
-<div class="pl" dir="rtl">הפרומפט באנגלית, נראה כמו צילום טלפון אמיתי באור טבעי, ונגמר ב-<span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">No</span> <span class="tk">subtitles.</span> <span class="tk">No</span> <span class="tk">text.</span> <span class="tk">No</span> <span class="tk">music.</span><span class="bt">`</span></span></div>
+<div class="pl" dir="rtl">הפרומפט באנגלית, נראה כמו צילום טלפון אמיתי באור טבעי, ונגמר <span class="codeblock" dir="rtl">ב-<span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">No</span> <span class="tk">subtitles.</span> <span class="tk">No</span> <span class="tk">text.</span> <span class="tk">No</span> <span class="tk">music.</span><span class="bt">`</span></span></span></div>
 <div class="pl" dir="rtl">בלי קול בקליפ, כי יש לי קריינות, וברירת המחדל מייצרת קול, אז תשלח <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">generate_audio:</span> <span class="tk">false</span><span class="bt">`</span></span>.</div>
 <div class="pl" dir="rtl">תייצר קליפ אחד בכל פעם, ולא כמה גרסאות במכה.</div>
 <div class="pl" dir="rtl">כשהקליפ מוכן, תוריד אותו לתיקייה, תוציא ממנו 4 פריימים ותבדוק פנים, ידיים וטקסט שהופיע בטעות לפני שאתה מראה לי.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>לפני כל ג&#x27;נרוט תבדוק את המחיר עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">get_cost:</span> <span class="tk">true</span><span class="bt">`</span></span>, שלא מריץ שום דבר, ותראה לי את הפרומפט, את המודל, את ההגדרות ואת המחיר בקרדיטים, ותחכה לאישור.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>אם אין מספיק קרדיטים, תעצור ותגיד לי כמה חסר, בלי לנסות מודל אחר.</div></div>
-<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>דוגמה</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="27.560">קליפ</span> <span class="w" dir="rtl" data-t="27.720">אחד</span> <span class="w" dir="rtl" data-t="27.880">של</span> <span class="w" dir="rtl" data-t="28.040">5</span> <span class="w" dir="rtl" data-t="28.200">שניות</span> <span class="w" dir="rtl" data-t="28.360">שמתחיל</span> <span class="w" dir="rtl" data-t="28.520">במטוס</span> <span class="w" dir="rtl" data-t="28.680">ועובר</span> <span class="w" dir="rtl" data-t="28.840">לספינה</span> <span class="w" dir="rtl" data-t="29.000">בסערה,</span> <span class="w" dir="rtl" data-t="29.160">בג&#x27;נרוט</span> <span class="w" dir="rtl" data-t="29.320">אחד.</span></p></div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>דוגמה</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="27.360">קליפ</span> <span class="w" dir="rtl" data-t="27.520">אחד</span> <span class="w" dir="rtl" data-t="27.680">של</span> <span class="w" dir="rtl" data-t="27.840">5</span> <span class="w" dir="rtl" data-t="28.000">שניות</span> <span class="w" dir="rtl" data-t="28.160">שמתחיל</span> <span class="w" dir="rtl" data-t="28.320">במטוס</span> <span class="w" dir="rtl" data-t="28.480">ועובר</span> <span class="w" dir="rtl" data-t="28.640">לספינה</span> <span class="w" dir="rtl" data-t="28.800">בסערה,</span> <span class="w" dir="rtl" data-t="28.960">בג&#x27;נרוט</span> <span class="w" dir="rtl" data-t="29.120">אחד.</span></p></div></div>
 </div></div>
 </div>
 </div>
@@ -675,10 +685,16 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     fx.className = "fx-sweep";
     if (o.color) fx.style.setProperty("--sweep", o.color);
     fx.appendChild(b);
+    // the sweep clips to the element's own box, so a static element becomes the containing block
+    // (only when none of its absolutely placed children depends on an outer one)
+    if (getComputedStyle(el).position === "static") {
+      const outer = Array.from(el.querySelectorAll("*")).some((c) => /absolute|fixed/.test(getComputedStyle(c).position) && c.offsetParent !== el && el.contains(c.offsetParent) === false);
+      if (!outer) el.style.position = "relative";
+    }
     el.appendChild(fx);
-    // the band is 180% of the element's height and skewed 16 degrees, so its ends lean by ~0.26 of the
-    // element's height: it starts and ends that far outside, never as a wedge inside a tall element
-    const w = el.offsetWidth, h = el.offsetHeight;
+    // the band is 180% of the swept box's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // height: it starts and ends that far outside, never as a wedge inside a tall box
+    const w = fx.offsetWidth || el.offsetWidth, h = fx.offsetHeight || el.offsetHeight;
     const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
     b.style.width = bw + "px";
     b.style.left = w + slant + "px";
@@ -742,6 +758,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
     tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
     if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    // the frame's edges soften while the camera is pushed in (content beyond them is cropped)
+    const clip = cam.parentElement;
+    if (clip && clip.classList.contains("stclip")) {
+      tl.fromTo(clip, { "--edge": "0px" }, A({ "--edge": "26px", duration: 0.3, ease: "power2.out" }), t);
+      if (tBack != null) tl.fromTo(clip, { "--edge": "26px" }, A({ "--edge": "0px", duration: 0.3, ease: "power2.in" }), tBack + 0.15);
+    }
     E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
   };
   /* Slow drifting dust over the whole video (depth; deterministic). */
@@ -835,6 +857,20 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     } else {
       dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
     }
+    // the lines around a lifted key line make room for it: the ones next to it move PUSH px,
+    // the shift tapers to 0 at the page edge, so no line is pushed out of the viewport
+    const PUSH = 10, plines = E.qa(".pl", body);
+    H.forEach((h) => {
+      const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
+      const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
+      const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
+      const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      h.push = [];
+      [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
+        const m = ls.length;
+        ls.forEach((l, j) => { const s = m > 1 ? (PUSH * (m - 1 - j)) / (m - 1) : 0; if (s > 0.5) h.push.push([l, sgn * s]); });
+      });
+    });
     // the lifted copies sit over their line on the page where it is held (static layout)
     H.forEach((h) => {
       h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
@@ -857,12 +893,15 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           dimmed = true;
           tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
           tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
           t += h.hold;
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
-          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d, ease: "power2.inOut" }), t);
-          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d, ease: "power2.in" }), t);
+          // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
           if (!keepDim) {
             tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
             dimmed = false;
@@ -976,8 +1015,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
     if (cfg.tFact != null) {
       // the fact takes over the illustration's area; the illustration steps far back
-      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.14, 1, 0.4);
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.06, 1, 0.4);
       E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const scrim = E.q(".factbox .fscrim", sc);
+      if (scrim) tl.fromTo(scrim, { opacity: 0 }, A({ opacity: 1, duration: 0.4, ease: "power2.out" }), S + cfg.tFact - 0.45);
       const pill = E.q(".factbox .pill", sc);
       if (pill) {
         tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
@@ -986,7 +1027,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
       }
       E.kin(tl, fact, S, { dy: 12 });
-      E.dim(tl, stage, S + tNext - 0.3, 0, 0.14, 0.25);
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.06, 0.25);
     } else {
       E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
       E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
@@ -1240,7 +1281,7 @@ window.SIMS.sim51 = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"id": "t51", "sim": "sim51", "D": 31.13, "tStage": 0.79, "tExp": 1.39, "phr": [1.39, 4.09, 6.04], "phrEnd": 7.74, "tSimEnd": 14.74, "tFact": 14.74, "tPrompt": 19.72, "tPromptEnd": 27.16, "tTip": 27.16, "expZoom": 0.1, "simDur": 13.95, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim51": {"hub": "Higgsfield", "countPre": "יותר מ-", "count": 30, "countPost": "מודלים", "cats": ["תמונות", "סרטונים"], "reqTag": "הבקשה", "req": "קליפ של 5 שניות", "fitLabel": "המודל שמתאים", "scan": [[0, 0], [1, 4], [2, 2], [3, 5]], "hero": [3, 5], "model": "Seedance 2.5", "getCost": "get_cost: true", "price": 35, "priceLabel": "קרדיטים", "steps0": 0.4, "stepGap": 0.95, "steps": {"customize": "Customize", "connectors": "Connectors", "where": "ב-claude.ai או באפליקציה", "add_custom": "Add custom connector", "name_lbl": "שם", "name": "Higgsfield", "url_lbl": "כתובת", "url": "https://mcp.higgsfield.ai/mcp", "add": "Add", "connect": "Connect", "account": "מתחברים לחשבון Higgsfield", "nokey": "בלי מפתח API", "also": "מופיע לבד גם ב-Claude Code", "cmd": "/mcp", "listed": "Higgsfield"}}, "S": 0.0}];
+  const CFGS = [{"id": "t51", "sim": "sim51", "D": 30.78, "tStage": 0.79, "tExp": 1.39, "phr": [1.39, 4.09, 6.04], "phrEnd": 7.74, "tSimEnd": 14.74, "tFact": 14.74, "tPrompt": 19.52, "tPromptEnd": 26.96, "tTip": 26.96, "expZoom": 0.07, "simDur": 13.95, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim51": {"hub": "Higgsfield", "countPre": "יותר מ-", "count": 30, "countPost": "מודלים", "cats": ["תמונות", "סרטונים"], "reqTag": "הבקשה", "req": "קליפ של 5 שניות", "fitLabel": "המודל שמתאים", "scan": [[0, 0], [1, 4], [2, 2], [3, 5]], "hero": [3, 5], "model": "Seedance 2.5", "getCost": "get_cost: true", "price": 35, "priceLabel": "קרדיטים", "steps0": 0.4, "stepGap": 0.95, "steps": {"customize": "Customize", "connectors": "Connectors", "where": "ב-claude.ai או באפליקציה", "add_custom": "Add custom connector", "name_lbl": "שם", "name": "Higgsfield", "url_lbl": "כתובת", "url": "https://mcp.higgsfield.ai/mcp", "add": "Add", "connect": "Connect", "account": "מתחברים לחשבון Higgsfield", "nokey": "בלי מפתח API", "also": "מופיע לבד גם ב-Claude Code", "cmd": "/mcp", "listed": "Higgsfield"}}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1254,7 +1295,7 @@ window.SIMS.sim51 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 31.130;
+    const TOT = 30.780;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

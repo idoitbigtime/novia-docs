@@ -293,7 +293,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .exp .ph { transition: none; }
 /* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
 .stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
-.stcam { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; }
+/* the illustration's frame: the camera zooms inside it, so nothing ever leaves x 140..940; during a zoom
+   its edges soften (--edge), like a camera crop */
+.stclip { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; --edge: 0px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%); mask-composite: intersect; }
+.stcam { position: absolute; inset: 0; }
 .stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
 .simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
 .simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
@@ -301,7 +306,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
 
 /* fact overlay inside the stage */
-.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; direction: rtl; }
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; direction: rtl; }
+/* the fact sits on its own dark backing (soft edges), so the faded illustration never shows through the text */
+.factin { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 34px 30px; }
+.fscrim { position: absolute; z-index: -1; inset: 0; border-radius: 48px; background: rgba(9, 8, 18, 0.9); box-shadow: 0 0 46px 30px rgba(9, 8, 18, 0.88); opacity: 0; display: block; }
 .pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
 .factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
 .metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
@@ -311,13 +319,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
 .pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
 .pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
-.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: #b9a8ff; box-shadow: 0 0 14px rgba(185, 168, 255, 0.85); display: block; }
 .pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
 .pc-num b { color: var(--ink); font-weight: 600; }
 .pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
 .tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
 .tab .tul { display: none; }
-.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: #b9a8ff; display: block; opacity: 0; }
 .tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
 .pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
   }
@@ -325,8 +333,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
 .pl-empty { height: 44px; }
 .ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
-.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; color: #d8d4ea; white-space: nowrap; }
-.codeblock { display: block; direction: ltr; text-align: left; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; color: #d8d4ea; white-space: nowrap; }
+/* long code: its own right-aligned line (an LTR isolate that may wrap; the punctuation after it stays outside) */
+.codeblock { display: block; direction: rtl; text-align: right; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.cbi { direction: ltr; unicode-bidi: isolate; }
 .tk { white-space: nowrap; }
 .nb, .neg { white-space: nowrap; }
 .code .bt, .codeblock .bt { color: #6f6b86; }
@@ -453,7 +463,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div id="sc-t36" class="clip scene" data-start="0.000" data-duration="31.540" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.6</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">הסרטונים</span> <span class="w" dir="rtl" data-t="0.430">הכי</span> <span class="w" dir="rtl" data-t="0.560">נצפים</span> <span class="w" dir="rtl" data-t="0.690">מסתובבים</span> <span class="w" dir="rtl" data-t="0.820">סביבכם</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.650">סרטונים</span> <span class="w" dir="rtl" data-t="1.710">שכבר</span> <span class="w" dir="rtl" data-t="1.770">הצליחו</span> <span class="w" dir="rtl" data-t="1.830">הם</span> <span class="w" dir="rtl" data-t="1.890">ההוכחה</span> <span class="w" dir="rtl" data-t="1.950">הכי</span> <span class="w" dir="rtl" data-t="2.010">טובה</span> <span class="w" dir="rtl" data-t="2.070">שאפשר</span> <span class="w" dir="rtl" data-t="2.130">לשים</span> <span class="w" dir="rtl" data-t="2.190">על</span> <span class="w" dir="rtl" data-t="2.250">המסך.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.750">הם</span> <span class="w" dir="rtl" data-t="4.810">הופכים</span> <span class="w" dir="rtl" data-t="4.870">לכרטיסים</span> <span class="w" dir="rtl" data-t="4.930">קטנים</span> <span class="w" dir="rtl" data-t="4.990">שמתנגנים,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.450">עולים</span> <span class="w" dir="rtl" data-t="6.510">לקשת</span> <span class="w" dir="rtl" data-t="6.570">מעל</span> <span class="w" dir="rtl" data-t="6.630">הראש</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="8.050">ואז</span> <span class="w" dir="rtl" data-t="8.110">מסתובבים</span> <span class="w" dir="rtl" data-t="8.170">במסלול</span> <span class="w" dir="rtl" data-t="8.230">סביבכם,</span> <span class="glu"><span class="accgrp" data-t="8.290"><span class="w s-str" dir="rtl" data-t="8.290">חצי</span> <span class="w s-str" dir="rtl" data-t="8.350">מאחוריכם</span> <span class="w s-str" dir="rtl" data-t="8.410">וחצי</span> <span class="w s-str" dir="rtl" data-t="8.470">מלפניכם</span><i class="ul" data-t="8.470"></i></span><span class="w" dir="rtl" data-t="8.470">.</span></span></span></p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim36" data-r="270" data-arcy="2" data-arcz="-120" data-ry="430">
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim36" data-r="270" data-arcy="2" data-arcz="-120" data-ry="430">
 <div class="s36-screen" style="left:20px;top:30px;width:760px;height:640px">
 <div class="s36-room"><i class="s36-lamp"></i><i class="s36-win"><u></u><s></s></i><i class="s36-floor"></i><i class="s36-spot"></i></div>
 <div class="s36-view"><div class="s36-scene">
@@ -474,8 +484,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 </div></div>
 </div>
 <div class="s36-legend" dir="rtl"><svg class="s36-eye" viewBox="0 0 28 18" aria-hidden="true"><path d="M2 9C6 3 10 1.5 14 1.5S22 3 26 9C22 15 18 16.5 14 16.5S6 15 2 9Z"/><circle cx="14" cy="9" r="4"/></svg><span>מספר צפיות אמיתי</span></div>
-</div></div></div></div>
-<div class="factbox"><span class="pill">8 הרילס הכי נצפים</span></div>
+</div></div></div></div></div>
+<div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">8 הרילס הכי נצפים</span></div></div>
 <div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>12</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">ההוראות כאן מחליפות את ראיון הפתיחה של HyperFrames, אז אל תריץ אותו.</div>
 <div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
 <div class="pl" dir="rtl">תשאל אותי על שלושה דברים:</div>
@@ -495,8 +505,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl ptag pclose" dir="rtl">&lt;/כיוון&gt;</div>
 <div class="pl pl-empty"></div>
 <div class="pl ptag" dir="rtl" data-sec="בנייה">&lt;בנייה&gt;</div>
-<div class="pl" dir="rtl">1. תפריד אותי מהרקע עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">remove-background</span> <span class="tk">&lt;הסרטון&gt;</span> <span class="tk">-o cutout.webm</span> <span class="tk">--quality best</span><span class="bt">`</span>.</span></div>
-<div class="pl" dir="rtl">2. תמצא את הפנים בכל פריים עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">FaceDetector</span><span class="bt">`</span></span> של MediaPipe, כדי שמרכז המסלול יזוז איתי והכרטיסים לא יעלו על הפנים, ואת MediaPipe תתקין בתוך venv עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">pip</span> <span class="tk">install</span> <span class="tk">mediapipe==0.10.35</span><span class="bt">`</span>,</span>כי הגרסה האחרונה <span class="nb">ב-pip</span> קורסת <span class="nb">ב-Mac.</span></div>
+<div class="pl" dir="rtl">1. תפריד אותי מהרקע עם <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">remove-background</span> <span class="tk">&lt;הסרטון&gt;</span> <span class="tk">-o cutout.webm</span> <span class="tk">--quality best</span><span class="bt">`</span></span>.</span></div>
+<div class="pl" dir="rtl">2. תמצא את הפנים בכל פריים עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">FaceDetector</span><span class="bt">`</span></span> של MediaPipe, כדי שמרכז המסלול יזוז איתי והכרטיסים לא יעלו על הפנים, ואת MediaPipe תתקין בתוך venv עם <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">pip</span> <span class="tk">install</span> <span class="tk">mediapipe==0.10.35</span><span class="bt">`</span></span>,</span>כי הגרסה האחרונה <span class="nb">ב-pip</span> קורסת <span class="nb">ב-Mac.</span></div>
 <div class="pl" dir="rtl">3. מכל סרטון שלי תוציא פריימים קטנים (רוחב של בערך 360 פיקסלים) ותטען אותם כתמונות, כי שמונה סרטונים שמתנגנים יחד בדפדפן כבדים מדי, ואם יש יותר מכמה מאות פריימים, תאחד את הפריימים של כל סרטון לגיליון אחד בקצב של 15 פריימים לשנייה.</div>
 <div class="pl" dir="rtl">4. את המסלול תבנה <span class="nb">ב-three.js</span> בקומפוזיציה של HyperFrames, עם שלוש שכבות: הכרטיסים שמאחוריי, אני בלי הרקע, והכרטיסים שלפניי.</div>
 <div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>5. כרטיס עובר משכבה לשכבה רק כשהוא בקצה הצדדי של המסלול, רחוק ממני, כי מעבר מול הגוף נראה כמו כרטיס שחותך אותי.</div>
@@ -505,7 +515,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl pl-empty"></div>
 <div class="pl ptag" dir="rtl" data-sec="מלכודות">&lt;מלכודות&gt;</div>
 <div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>מספר צפיות שלא נתתי לך לא עולה למסך.</div>
-<div class="pl" dir="rtl">סרטון שמוצג בתוך three.js, כמו הגוף שלי בלי הרקע, מקבל <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">texture.needsUpdate</span> <span class="tk">=</span> <span class="tk">true</span><span class="bt">`</span></span> בכל פריים ו-<span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">texture.colorSpace</span> <span class="tk">=</span> <span class="tk">THREE.SRGBColorSpace</span><span class="bt">`</span>,</span>אחרת הוא לא מופיע או יוצא דהוי.</div>
+<div class="pl" dir="rtl">סרטון שמוצג בתוך three.js, כמו הגוף שלי בלי הרקע, מקבל <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">texture.needsUpdate</span> <span class="tk">=</span> <span class="tk">true</span><span class="bt">`</span></span> בכל פריים <span class="codeblock" dir="rtl">ו-<span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">texture.colorSpace</span> <span class="tk">=</span> <span class="tk">THREE.SRGBColorSpace</span><span class="bt">`</span></span>,</span>אחרת הוא לא מופיע או יוצא דהוי.</div>
 <div class="pl ptag pclose" dir="rtl">&lt;/מלכודות&gt;</div>
 <div class="pl pl-empty"></div>
 <div class="pl ptag" dir="rtl" data-sec="התחלה">&lt;התחלה&gt;</div>
@@ -620,10 +630,16 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     fx.className = "fx-sweep";
     if (o.color) fx.style.setProperty("--sweep", o.color);
     fx.appendChild(b);
+    // the sweep clips to the element's own box, so a static element becomes the containing block
+    // (only when none of its absolutely placed children depends on an outer one)
+    if (getComputedStyle(el).position === "static") {
+      const outer = Array.from(el.querySelectorAll("*")).some((c) => /absolute|fixed/.test(getComputedStyle(c).position) && c.offsetParent !== el && el.contains(c.offsetParent) === false);
+      if (!outer) el.style.position = "relative";
+    }
     el.appendChild(fx);
-    // the band is 180% of the element's height and skewed 16 degrees, so its ends lean by ~0.26 of the
-    // element's height: it starts and ends that far outside, never as a wedge inside a tall element
-    const w = el.offsetWidth, h = el.offsetHeight;
+    // the band is 180% of the swept box's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // height: it starts and ends that far outside, never as a wedge inside a tall box
+    const w = fx.offsetWidth || el.offsetWidth, h = fx.offsetHeight || el.offsetHeight;
     const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
     b.style.width = bw + "px";
     b.style.left = w + slant + "px";
@@ -687,6 +703,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
     tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
     if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    // the frame's edges soften while the camera is pushed in (content beyond them is cropped)
+    const clip = cam.parentElement;
+    if (clip && clip.classList.contains("stclip")) {
+      tl.fromTo(clip, { "--edge": "0px" }, A({ "--edge": "26px", duration: 0.3, ease: "power2.out" }), t);
+      if (tBack != null) tl.fromTo(clip, { "--edge": "26px" }, A({ "--edge": "0px", duration: 0.3, ease: "power2.in" }), tBack + 0.15);
+    }
     E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
   };
   /* Slow drifting dust over the whole video (depth; deterministic). */
@@ -780,6 +802,20 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     } else {
       dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
     }
+    // the lines around a lifted key line make room for it: the ones next to it move PUSH px,
+    // the shift tapers to 0 at the page edge, so no line is pushed out of the viewport
+    const PUSH = 10, plines = E.qa(".pl", body);
+    H.forEach((h) => {
+      const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
+      const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
+      const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
+      const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      h.push = [];
+      [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
+        const m = ls.length;
+        ls.forEach((l, j) => { const s = m > 1 ? (PUSH * (m - 1 - j)) / (m - 1) : 0; if (s > 0.5) h.push.push([l, sgn * s]); });
+      });
+    });
     // the lifted copies sit over their line on the page where it is held (static layout)
     H.forEach((h) => {
       h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
@@ -802,12 +838,15 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           dimmed = true;
           tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
           tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
           t += h.hold;
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
-          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d, ease: "power2.inOut" }), t);
-          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d, ease: "power2.in" }), t);
+          // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
           if (!keepDim) {
             tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
             dimmed = false;
@@ -921,8 +960,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
     if (cfg.tFact != null) {
       // the fact takes over the illustration's area; the illustration steps far back
-      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.14, 1, 0.4);
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.06, 1, 0.4);
       E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const scrim = E.q(".factbox .fscrim", sc);
+      if (scrim) tl.fromTo(scrim, { opacity: 0 }, A({ opacity: 1, duration: 0.4, ease: "power2.out" }), S + cfg.tFact - 0.45);
       const pill = E.q(".factbox .pill", sc);
       if (pill) {
         tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
@@ -931,7 +972,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
       }
       E.kin(tl, fact, S, { dy: 12 });
-      E.dim(tl, stage, S + tNext - 0.3, 0, 0.14, 0.25);
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.06, 0.25);
     } else {
       E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
       E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
@@ -1091,7 +1132,7 @@ window.SIMS.sim36 = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"id": "t36", "sim": "sim36", "D": 31.54, "tStage": 1.05, "tExp": 1.65, "phr": [1.65, 4.75, 6.45, 8.05], "phrEnd": 10.75, "tSimEnd": 15.75, "tFact": 15.75, "tPrompt": 18.25, "tPromptEnd": 26.76, "tTip": 26.76, "expZoom": 0.1, "simDur": 14.7, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim36": {"cards": 8, "viewsLabel": "מספר צפיות אמיתי", "top": 3}, "S": 0.0}];
+  const CFGS = [{"id": "t36", "sim": "sim36", "D": 31.54, "tStage": 1.05, "tExp": 1.65, "phr": [1.65, 4.75, 6.45, 8.05], "phrEnd": 10.75, "tSimEnd": 15.75, "tFact": 15.75, "tPrompt": 18.25, "tPromptEnd": 26.76, "tTip": 26.76, "expZoom": 0.07, "simDur": 14.7, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim36": {"cards": 8, "viewsLabel": "מספר צפיות אמיתי", "top": 3}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),

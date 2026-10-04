@@ -293,7 +293,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .exp .ph { transition: none; }
 /* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
 .stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
-.stcam { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; }
+/* the illustration's frame: the camera zooms inside it, so nothing ever leaves x 140..940; during a zoom
+   its edges soften (--edge), like a camera crop */
+.stclip { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; --edge: 0px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%); mask-composite: intersect; }
+.stcam { position: absolute; inset: 0; }
 .stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
 .simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
 .simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
@@ -301,7 +306,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
 
 /* fact overlay inside the stage */
-.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; direction: rtl; }
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; direction: rtl; }
+/* the fact sits on its own dark backing (soft edges), so the faded illustration never shows through the text */
+.factin { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 34px 30px; }
+.fscrim { position: absolute; z-index: -1; inset: 0; border-radius: 48px; background: rgba(9, 8, 18, 0.9); box-shadow: 0 0 46px 30px rgba(9, 8, 18, 0.88); opacity: 0; display: block; }
 .pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
 .factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
 .metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
@@ -311,13 +319,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
 .pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
 .pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
-.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: #b9a8ff; box-shadow: 0 0 14px rgba(185, 168, 255, 0.85); display: block; }
 .pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
 .pc-num b { color: var(--ink); font-weight: 600; }
 .pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
 .tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
 .tab .tul { display: none; }
-.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: #b9a8ff; display: block; opacity: 0; }
 .tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
 .pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
   }
@@ -325,8 +333,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
 .pl-empty { height: 44px; }
 .ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
-.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; color: #d8d4ea; white-space: nowrap; }
-.codeblock { display: block; direction: ltr; text-align: left; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; color: #d8d4ea; white-space: nowrap; }
+/* long code: its own right-aligned line (an LTR isolate that may wrap; the punctuation after it stays outside) */
+.codeblock { display: block; direction: rtl; text-align: right; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.cbi { direction: ltr; unicode-bidi: isolate; }
 .tk { white-space: nowrap; }
 .nb, .neg { white-space: nowrap; }
 .code .bt, .codeblock .bt { color: #6f6b86; }
@@ -473,7 +483,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div id="sc-t22" class="clip scene" data-start="0.000" data-duration="36.400" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 2 · עריכה בסיסית</span><span class="hdr-num" dir="ltr">2.2</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">כתוביות</span> <span class="w" dir="rtl" data-t="0.430">בעברית</span> <span class="w" dir="rtl" data-t="0.560">בשני</span> <span class="w" dir="rtl" data-t="0.690">סגנונות</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.520">התמלול</span> <span class="w" dir="rtl" data-t="1.580">נעשה</span> <span class="w" dir="rtl" data-t="1.640">עם</span> <span class="w" dir="rtl" data-t="1.700">המודל</span> <span class="w" dir="rtl" data-t="1.760">הגדול</span> <span class="w" dir="rtl" data-t="1.820">(large-v3),</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.470">כי</span> <span class="w" dir="rtl" data-t="3.530">ברירת</span> <span class="w" dir="rtl" data-t="3.590">המחדל</span> <span class="w" dir="rtl" data-t="3.650">של</span> <span class="w" dir="rtl" data-t="3.710">HyperFrames</span> <span class="w" dir="rtl" data-t="3.770">מבינה</span> <span class="w" dir="rtl" data-t="3.830">רק</span> <span class="w" dir="rtl" data-t="3.890">אנגלית.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="5.920">אחר</span> <span class="w" dir="rtl" data-t="5.980">כך</span> <span class="w" dir="rtl" data-t="6.040">קלוד</span> <span class="w" dir="rtl" data-t="6.100">קורא</span> <span class="w" dir="rtl" data-t="6.160">כל</span> <span class="w" dir="rtl" data-t="6.220">כתובית</span> <span class="accgrp" data-t="6.280"><span class="w s-str" dir="rtl" data-t="6.280">כמשפט</span> <span class="w s-str" dir="rtl" data-t="6.340">שלם</span><i class="ul" data-t="6.460"></i></span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="8.370">ומתקן</span> <span class="w" dir="rtl" data-t="8.430">מילים</span> <span class="w" dir="rtl" data-t="8.490">שנשמעות</span> <span class="w" dir="rtl" data-t="8.550">אותו</span> <span class="w" dir="rtl" data-t="8.610">דבר</span> <span class="w" dir="rtl" data-t="8.670">ונכתבות</span> <span class="w" dir="rtl" data-t="8.730">אחרת.</span></span></p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim22">
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim22">
 <div class="s22-phone"><div class="s22-screen"><div class="s22-lamp"></div><div class="s22-win"><i></i></div>
 <svg class="s22-person" viewBox="0 0 312 380" aria-hidden="true">
 <defs>
@@ -508,8 +518,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="s22-fixes"><div class="s22-fix" dir="rtl"><span class="s22-bad">הקאבל<i class="s22-strike"></i></span><svg class="s22-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="s22-good">הכבל</span><span class="s22-pair"><svg class="s22-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><b dir="rtl">ק/כ</b></span></div><div class="s22-fix" dir="rtl"><span class="s22-bad">בסכוכית<i class="s22-strike"></i></span><svg class="s22-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="s22-good">בזכוכית</span><span class="s22-pair"><svg class="s22-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><b dir="rtl">ס/ז</b></span></div><div class="s22-fix" dir="rtl"><span class="s22-bad">עליו<i class="s22-strike"></i></span><svg class="s22-arrow" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="s22-good">אליו</span><span class="s22-pair"><svg class="s22-spk" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 9h5l6-5v16l-6-5H3z" fill="#c9c2ff"/><path d="M18 8.5c1.4 1.9 1.4 5.1 0 7M21.5 5.5c3 3.6 3 9.4 0 13" fill="none" stroke="#c9c2ff" stroke-width="2" stroke-linecap="round"/></svg><b dir="rtl">א/ע</b></span></div></div>
 <div class="s22-label s22-l1"><i></i><span>סגנון 1 · גלולה לבנה</span></div>
 <div class="s22-label s22-l2"><i></i><span>סגנון 2 · קינטי</span></div>
-</div></div></div></div>
-<div class="factbox"><span class="pill">9 טעויות תמלול</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="18.220">בקטע</span> <span class="w" dir="rtl" data-t="18.340">של</span> <span class="w" dir="rtl" data-t="18.460">33</span> <span class="w" dir="rtl" data-t="18.580">שניות:</span> <span class="w" dir="rtl" data-t="18.900">7</span> <span class="w" dir="rtl" data-t="19.020">נתפסו</span> <span class="w" dir="rtl" data-t="19.140">בקריאה,</span> <span class="glu"><span class="w" dir="rtl" data-t="19.260">ו-</span><span class="w" dir="rtl" data-t="19.260">2</span></span> <span class="w" dir="rtl" data-t="19.500">רק</span> <span class="w" dir="rtl" data-t="19.620">באוזן.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="19.940">הכתוביות</span> <span class="w" dir="rtl" data-t="19.970">בסרטון</span> <span class="w" dir="rtl" data-t="20.000">הזה</span> <span class="w" dir="rtl" data-t="20.030">בנויות</span> <span class="w" dir="rtl" data-t="20.060">באותה</span> <span class="w" dir="rtl" data-t="20.090">שיטה.</span></p></div>
+</div></div></div></div></div>
+<div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">9 טעויות תמלול</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="18.220">בקטע</span> <span class="w" dir="rtl" data-t="18.340">של</span> <span class="w" dir="rtl" data-t="18.460">33</span> <span class="w" dir="rtl" data-t="18.580">שניות:</span> <span class="w" dir="rtl" data-t="18.900">7</span> <span class="w" dir="rtl" data-t="19.020">נתפסו</span> <span class="w" dir="rtl" data-t="19.140">בקריאה,</span> <span class="glu"><span class="w" dir="rtl" data-t="19.260">ו-</span><span class="w" dir="rtl" data-t="19.260">2</span></span> <span class="w" dir="rtl" data-t="19.500">רק</span> <span class="w" dir="rtl" data-t="19.620">באוזן.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="19.940">הכתוביות</span> <span class="w" dir="rtl" data-t="19.970">בסרטון</span> <span class="w" dir="rtl" data-t="20.000">הזה</span> <span class="w" dir="rtl" data-t="20.030">בנויות</span> <span class="w" dir="rtl" data-t="20.060">באותה</span> <span class="w" dir="rtl" data-t="20.090">שיטה.</span></p></div></div>
 <div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>2</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
 <div class="pl" dir="rtl">תשאל אותי על שלושה דברים:</div>
 <div class="pl" dir="rtl">- איזה סרטון לערוך, אם יש בתיקייה יותר מאחד.</div>
@@ -539,7 +549,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl ptag pclose" dir="rtl">&lt;/כיוון&gt;</div>
 <div class="pl pl-empty"></div>
 <div class="pl ptag" dir="rtl" data-sec="בנייה">&lt;בנייה&gt;</div>
-<div class="pl" dir="rtl">1. אם כבר חתכתי את הסרטון עם פרומפט החיתוך, תשתמש בזמני המילים שחושבו שם, ורק אם אין כאלה תתמלל עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk">&lt;הקובץ&gt;</span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span><span class="bt">`</span>.</span></div>
+<div class="pl" dir="rtl">1. אם כבר חתכתי את הסרטון עם פרומפט החיתוך, תשתמש בזמני המילים שחושבו שם, ורק אם אין כאלה תתמלל עם <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk">&lt;הקובץ&gt;</span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span><span class="bt">`</span></span>.</span></div>
 <div class="pl" dir="rtl">2. תקרא את כל הכתוביות כמשפטים שלמים ותתקן מילים שנשמעות אותו דבר ונכתבות אחרת: א/ע, כ/ח, ט/ת, ק/כ, ב/ו, ס/ז, ס/ש (למשל &quot;מחובר אליו&quot; ולא &quot;עליו&quot;, &quot;בזכוכית&quot; ולא &quot;בסכוכית&quot;).</div>
 <div class="pl" dir="rtl">3. תתקן גם מילים <span class="nb">ש-whisper</span> פיצל או הדביק (&quot;על פיות&quot; שהיא &quot;אלפיות&quot;), ראשי תיבות בלי גרשיים (כמש שהוא קמ&quot;ש), וכתיב של מילים לועזיות, ותשאיר את הניסוח המדובר כמו שהוא.</div>
 <div class="pl" dir="rtl">4. תתקן את הזמנים לפי עוצמת הקול: אחרי שקט whisper מקדים את המילה <span class="nb">ב-0.1</span> עד 0.3 שנייה או מכניס את השקט לתוכה, אז המילה מתחילה ברגע הראשון שבו הקול עולה.</div>
@@ -555,7 +565,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i><span class="code" dir="ltr"><span class="bt">`</span><span class="tk">dir=&quot;rtl&quot;</span><span class="bt">`</span></span> לא נכנס לתגית <span class="nb">ה-html,</span> כי אז הרינדור יוצא שחור.</div>
 <div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>כל מילה <span class="nb">ב-span</span> משלה עם <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">dir=&quot;rtl&quot;</span><span class="bt">`</span></span>, אחרת פסיק או נקודה בסוף המילה עוברים לצד הלא נכון.</div>
 <div class="pl" dir="rtl">בתוך flex הרווח בין שני span נעלם, אז המרווח בין מילים נקבע עם gap.</div>
-<div class="pl" dir="rtl">הפונט נטען עם טקסט עברי, <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">document.fonts.load(&#x27;800</span> <span class="tk">100px</span> <span class="tk">Rubik&#x27;,</span> <span class="tk">&#x27;אבג&#x27;)</span><span class="bt">`</span>,</span>אחרת נטען רק החלק הלטיני ורוחבי המילים יוצאים שגויים.</div>
+<div class="pl" dir="rtl">הפונט נטען עם טקסט עברי, <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">document.fonts.load(&#x27;800</span> <span class="tk">100px</span> <span class="tk">Rubik&#x27;,</span> <span class="tk">&#x27;אבג&#x27;)</span><span class="bt">`</span></span>,</span>אחרת נטען רק החלק הלטיני ורוחבי המילים יוצאים שגויים.</div>
 <div class="pl" dir="rtl">טקסט רק בין x 140 <span class="nb">ל-940</span> מתוך 1080, כי בטלפונים גבוהים אינסטגרם חותך את הצדדים.</div>
 <div class="pl ptag pclose" dir="rtl">&lt;/מלכודות&gt;</div>
 <div class="pl pl-empty"></div>
@@ -744,6 +754,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
     tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
     if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    // the frame's edges soften while the camera is pushed in (content beyond them is cropped)
+    const clip = cam.parentElement;
+    if (clip && clip.classList.contains("stclip")) {
+      tl.fromTo(clip, { "--edge": "0px" }, A({ "--edge": "26px", duration: 0.3, ease: "power2.out" }), t);
+      if (tBack != null) tl.fromTo(clip, { "--edge": "26px" }, A({ "--edge": "0px", duration: 0.3, ease: "power2.in" }), tBack + 0.15);
+    }
     E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
   };
   /* Slow drifting dust over the whole video (depth; deterministic). */
@@ -837,6 +853,20 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     } else {
       dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
     }
+    // the lines around a lifted key line make room for it: the ones next to it move PUSH px,
+    // the shift tapers to 0 at the page edge, so no line is pushed out of the viewport
+    const PUSH = 10, plines = E.qa(".pl", body);
+    H.forEach((h) => {
+      const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
+      const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
+      const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
+      const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      h.push = [];
+      [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
+        const m = ls.length;
+        ls.forEach((l, j) => { const s = m > 1 ? (PUSH * (m - 1 - j)) / (m - 1) : 0; if (s > 0.5) h.push.push([l, sgn * s]); });
+      });
+    });
     // the lifted copies sit over their line on the page where it is held (static layout)
     H.forEach((h) => {
       h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
@@ -859,12 +889,15 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           dimmed = true;
           tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
           tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
           t += h.hold;
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
-          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d, ease: "power2.inOut" }), t);
-          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d, ease: "power2.in" }), t);
+          // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
           if (!keepDim) {
             tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
             dimmed = false;
@@ -978,8 +1011,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
     if (cfg.tFact != null) {
       // the fact takes over the illustration's area; the illustration steps far back
-      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.14, 1, 0.4);
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.06, 1, 0.4);
       E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const scrim = E.q(".factbox .fscrim", sc);
+      if (scrim) tl.fromTo(scrim, { opacity: 0 }, A({ opacity: 1, duration: 0.4, ease: "power2.out" }), S + cfg.tFact - 0.45);
       const pill = E.q(".factbox .pill", sc);
       if (pill) {
         tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
@@ -988,7 +1023,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
       }
       E.kin(tl, fact, S, { dy: 12 });
-      E.dim(tl, stage, S + tNext - 0.3, 0, 0.14, 0.25);
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.06, 0.25);
     } else {
       E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
       E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
@@ -1161,7 +1196,7 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"id": "t22", "sim": "sim22", "D": 36.4, "tStage": 0.92, "tExp": 1.52, "phr": [1.52, 3.47, 5.92, 8.37], "phrEnd": 10.57, "tSimEnd": 17.77, "tFact": 17.77, "tPrompt": 22.54, "tPromptEnd": 32.74, "tTip": 32.74, "expZoom": 0.1, "simDur": 16.85, "hls": [{"id": "hl1", "hold": 2.6, "zoom": 0.1}, {"id": "hl2", "hold": 3.2, "zoom": 0.1}], "sim22": {"bigLabel": "המודל הגדול", "defLabel": "ברירת המחדל", "defTag": "רק אנגלית", "token": "א", "capWords": ["מחובר", "עליו", "אליו"], "fixStep": 0.5, "fixes": [["הקאבל", "הכבל", "ק/כ"], ["בסכוכית", "בזכוכית", "ס/ז"], ["עליו", "אליו", "א/ע"]], "label1": "סגנון 1 · גלולה לבנה", "label2": "סגנון 2 · קינטי", "pills0": 0.95, "pillStep": 0.58, "pills": ["הכתוביות", "מתחלפות", "בפריים אחד", "בלי אנימציה"], "kin0": 3.5, "kinStep": 0.27, "kin": "וכאן כל מילה נכנסת {בתנועה}"}, "S": 0.0}];
+  const CFGS = [{"id": "t22", "sim": "sim22", "D": 36.4, "tStage": 0.92, "tExp": 1.52, "phr": [1.52, 3.47, 5.92, 8.37], "phrEnd": 10.57, "tSimEnd": 17.77, "tFact": 17.77, "tPrompt": 22.54, "tPromptEnd": 32.74, "tTip": 32.74, "expZoom": 0.07, "simDur": 16.85, "hls": [{"id": "hl1", "hold": 2.6, "zoom": 0.1}, {"id": "hl2", "hold": 3.2, "zoom": 0.1}], "sim22": {"bigLabel": "המודל הגדול", "defLabel": "ברירת המחדל", "defTag": "רק אנגלית", "token": "א", "capWords": ["מחובר", "עליו", "אליו"], "fixStep": 0.5, "fixes": [["הקאבל", "הכבל", "ק/כ"], ["בסכוכית", "בזכוכית", "ס/ז"], ["עליו", "אליו", "א/ע"]], "label1": "סגנון 1 · גלולה לבנה", "label2": "סגנון 2 · קינטי", "pills0": 0.95, "pillStep": 0.58, "pills": ["הכתוביות", "מתחלפות", "בפריים אחד", "בלי אנימציה"], "kin0": 3.5, "kinStep": 0.27, "kin": "וכאן כל מילה נכנסת {בתנועה}"}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),

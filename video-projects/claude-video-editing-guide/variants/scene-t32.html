@@ -293,7 +293,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .exp .ph { transition: none; }
 /* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
 .stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
-.stcam { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; }
+/* the illustration's frame: the camera zooms inside it, so nothing ever leaves x 140..940; during a zoom
+   its edges soften (--edge), like a camera crop */
+.stclip { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; --edge: 0px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%); mask-composite: intersect; }
+.stcam { position: absolute; inset: 0; }
 .stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
 .simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
 .simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
@@ -301,7 +306,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
 
 /* fact overlay inside the stage */
-.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; direction: rtl; }
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; direction: rtl; }
+/* the fact sits on its own dark backing (soft edges), so the faded illustration never shows through the text */
+.factin { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 34px 30px; }
+.fscrim { position: absolute; z-index: -1; inset: 0; border-radius: 48px; background: rgba(9, 8, 18, 0.9); box-shadow: 0 0 46px 30px rgba(9, 8, 18, 0.88); opacity: 0; display: block; }
 .pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
 .factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
 .metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
@@ -311,13 +319,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
 .pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
 .pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
-.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: #b9a8ff; box-shadow: 0 0 14px rgba(185, 168, 255, 0.85); display: block; }
 .pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
 .pc-num b { color: var(--ink); font-weight: 600; }
 .pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
 .tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
 .tab .tul { display: none; }
-.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: #b9a8ff; display: block; opacity: 0; }
 .tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
 .pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
   }
@@ -325,8 +333,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
 .pl-empty { height: 44px; }
 .ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
-.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; color: #d8d4ea; white-space: nowrap; }
-.codeblock { display: block; direction: ltr; text-align: left; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; color: #d8d4ea; white-space: nowrap; }
+/* long code: its own right-aligned line (an LTR isolate that may wrap; the punctuation after it stays outside) */
+.codeblock { display: block; direction: rtl; text-align: right; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.cbi { direction: ltr; unicode-bidi: isolate; }
 .tk { white-space: nowrap; }
 .nb, .neg { white-space: nowrap; }
 .code .bt, .codeblock .bt { color: #6f6b86; }
@@ -461,7 +471,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div id="sc-t32" class="clip scene" data-start="0.000" data-duration="36.940" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.2</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">לוגו</span> <span class="w" dir="rtl" data-t="0.430">בתלת</span> <span class="w" dir="rtl" data-t="0.560">ממד</span> <span class="w" dir="rtl" data-t="0.690">מרחף</span> <span class="w" dir="rtl" data-t="0.820">מעל</span> <span class="w" dir="rtl" data-t="0.950">כף</span> <span class="w" dir="rtl" data-t="1.080">היד</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.910">בכל</span> <span class="w" dir="rtl" data-t="1.970">פריים</span> <span class="w" dir="rtl" data-t="2.030">קלוד</span> <span class="w" dir="rtl" data-t="2.090">יודע</span> <span class="w" dir="rtl" data-t="2.150">איפה</span> <span class="w" dir="rtl" data-t="2.210">היד</span> <span class="w" dir="rtl" data-t="2.270">שלכם.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.110">מעליה</span> <span class="w" dir="rtl" data-t="4.170">הוא</span> <span class="w" dir="rtl" data-t="4.230">מעמיד</span> <span class="w" dir="rtl" data-t="4.290">לוגו</span> <span class="w" dir="rtl" data-t="4.350">בתלת</span> <span class="w" dir="rtl" data-t="4.410">ממד</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.060">שנכנס</span> <span class="w" dir="rtl" data-t="6.120">על</span> <span class="w" dir="rtl" data-t="6.180">המילה</span> <span class="w" dir="rtl" data-t="6.240">שבחרתם</span> <span class="w" dir="rtl" data-t="6.300">ומאיר</span> <span class="w" dir="rtl" data-t="6.360">את</span> <span class="w" dir="rtl" data-t="6.420">כף</span> <span class="w" dir="rtl" data-t="6.480">היד</span> <span class="w" dir="rtl" data-t="6.540">בצבע</span> <span class="w" dir="rtl" data-t="6.600">של</span> <span class="w" dir="rtl" data-t="6.660">הלוגו.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.160">הלוגו</span> <span class="w" dir="rtl" data-t="9.220">עוקב</span> <span class="w" dir="rtl" data-t="9.280">אחרי</span> <span class="w" dir="rtl" data-t="9.340">היד</span> <span class="w" dir="rtl" data-t="9.400">באיחור</span> <span class="w" dir="rtl" data-t="9.460">של</span> <span class="w" dir="rtl" data-t="9.520">עשירית</span> <span class="w" dir="rtl" data-t="9.580">שנייה,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="11.610">כמו</span> <span class="w" dir="rtl" data-t="11.670">משהו</span> <span class="accgrp" data-t="11.730"><span class="w s-str" dir="rtl" data-t="11.730">שמרחף</span><i class="ul" data-t="11.910"></i></span> <span class="w" dir="rtl" data-t="11.790">מעליה.</span></span></p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim32" style="--hx:483.3px;--hy:409.3px">
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim32" style="--hx:483.3px;--hy:409.3px">
 <div class="s32-floor"></div>
 <div class="s32-frames"><div class="s32-th"><svg viewBox="0 0 220 120" aria-hidden="true"><path class="b" d="M110.0 112.0L99.6 101.6 M99.6 101.6L89.7 91.2 M89.7 91.2L83.0 81.3 M83.0 81.3L77.8 73.0 M110.0 112.0L97.5 65.7 M97.5 65.7L95.4 48.6 M95.4 48.6L94.4 37.6 M94.4 37.6L93.6 28.3 M97.5 65.7L107.4 63.6 M107.4 63.6L107.4 44.4 M107.4 44.4L107.4 32.4 M107.4 32.4L107.4 22.0 M107.4 63.6L116.8 65.2 M116.8 65.2L118.3 47.5 M118.3 47.5L119.4 36.6 M119.4 36.6L120.1 27.8 M116.8 65.2L125.1 70.4 M110.0 112.0L125.1 70.4 M125.1 70.4L127.7 56.9 M127.7 56.9L129.2 48.0 M129.2 48.0L130.3 40.2"/><path class="d" d="M110.0 112.0h0.01 M99.6 101.6h0.01 M89.7 91.2h0.01 M83.0 81.3h0.01 M77.8 73.0h0.01 M97.5 65.7h0.01 M95.4 48.6h0.01 M94.4 37.6h0.01 M93.6 28.3h0.01 M107.4 63.6h0.01 M107.4 44.4h0.01 M107.4 32.4h0.01 M107.4 22.0h0.01 M116.8 65.2h0.01 M118.3 47.5h0.01 M119.4 36.6h0.01 M120.1 27.8h0.01 M125.1 70.4h0.01 M127.7 56.9h0.01 M129.2 48.0h0.01 M130.3 40.2h0.01"/></svg></div><div class="s32-th"><svg viewBox="0 0 220 120" aria-hidden="true"><path class="b" d="M120.0 106.0L110.4 94.9 M110.4 94.9L101.2 83.8 M101.2 83.8L95.2 73.5 M95.2 73.5L90.6 64.8 M120.0 106.0L110.8 59.0 M110.8 59.0L109.9 41.7 M109.9 41.7L109.6 30.7 M109.6 30.7L109.5 21.3 M110.8 59.0L120.8 57.6 M120.8 57.6L122.1 38.4 M122.1 38.4L123.0 26.5 M123.0 26.5L123.7 16.1 M120.8 57.6L130.0 59.8 M130.0 59.8L132.8 42.3 M132.8 42.3L134.6 31.4 M134.6 31.4L136.0 22.7 M130.0 59.8L137.9 65.6 M120.0 106.0L137.9 65.6 M137.9 65.6L141.5 52.2 M141.5 52.2L143.7 43.5 M143.7 43.5L145.2 35.8"/><path class="d" d="M120.0 106.0h0.01 M110.4 94.9h0.01 M101.2 83.8h0.01 M95.2 73.5h0.01 M90.6 64.8h0.01 M110.8 59.0h0.01 M109.9 41.7h0.01 M109.6 30.7h0.01 M109.5 21.3h0.01 M120.8 57.6h0.01 M122.1 38.4h0.01 M123.0 26.5h0.01 M123.7 16.1h0.01 M130.0 59.8h0.01 M132.8 42.3h0.01 M134.6 31.4h0.01 M136.0 22.7h0.01 M137.9 65.6h0.01 M141.5 52.2h0.01 M143.7 43.5h0.01 M145.2 35.8h0.01"/></svg></div><div class="s32-th"><svg viewBox="0 0 220 120" aria-hidden="true"><path class="b" d="M130.0 100.0L121.1 88.3 M121.1 88.3L112.8 76.6 M112.8 76.6L107.5 65.9 M107.5 65.9L103.5 56.9 M130.0 100.0L124.1 52.4 M124.1 52.4L124.4 35.2 M124.4 35.2L124.9 24.2 M124.9 24.2L125.4 14.8 M124.1 52.4L134.2 51.7 M134.2 51.7L136.8 32.7 M136.8 32.7L138.5 20.9 M138.5 20.9L139.9 10.6 M134.2 51.7L143.2 54.6 M143.2 54.6L147.2 37.3 M147.2 37.3L149.8 26.6 M149.8 26.6L151.8 18.0 M143.2 54.6L150.7 60.9 M130.0 100.0L150.7 60.9 M150.7 60.9L155.2 47.9 M155.2 47.9L158.0 39.3 M158.0 39.3L160.1 31.8"/><path class="d" d="M130.0 100.0h0.01 M121.1 88.3h0.01 M112.8 76.6h0.01 M107.5 65.9h0.01 M103.5 56.9h0.01 M124.1 52.4h0.01 M124.4 35.2h0.01 M124.9 24.2h0.01 M125.4 14.8h0.01 M134.2 51.7h0.01 M136.8 32.7h0.01 M138.5 20.9h0.01 M139.9 10.6h0.01 M143.2 54.6h0.01 M147.2 37.3h0.01 M149.8 26.6h0.01 M151.8 18.0h0.01 M150.7 60.9h0.01 M155.2 47.9h0.01 M158.0 39.3h0.01 M160.1 31.8h0.01"/></svg></div><div class="s32-th"><svg viewBox="0 0 220 120" aria-hidden="true"><path class="b" d="M122.0 108.0L112.2 97.1 M112.2 97.1L102.8 86.2 M102.8 86.2L96.6 75.9 M96.6 75.9L91.8 67.4 M122.0 108.0L112.0 61.1 M112.0 61.1L110.8 43.9 M110.8 43.9L110.3 32.9 M110.3 32.9L110.0 23.5 M112.0 61.1L121.9 59.6 M121.9 59.6L122.9 40.4 M122.9 40.4L123.6 28.4 M123.6 28.4L124.1 18.0 M121.9 59.6L131.2 61.6 M131.2 61.6L133.7 44.0 M133.7 44.0L135.3 33.2 M135.3 33.2L136.5 24.4 M131.2 61.6L139.2 67.2 M122.0 108.0L139.2 67.2 M139.2 67.2L142.5 53.9 M142.5 53.9L144.6 45.1 M144.6 45.1L146.0 37.4"/><path class="d" d="M122.0 108.0h0.01 M112.2 97.1h0.01 M102.8 86.2h0.01 M96.6 75.9h0.01 M91.8 67.4h0.01 M112.0 61.1h0.01 M110.8 43.9h0.01 M110.3 32.9h0.01 M110.0 23.5h0.01 M121.9 59.6h0.01 M122.9 40.4h0.01 M123.6 28.4h0.01 M124.1 18.0h0.01 M131.2 61.6h0.01 M133.7 44.0h0.01 M135.3 33.2h0.01 M136.5 24.4h0.01 M139.2 67.2h0.01 M142.5 53.9h0.01 M144.6 45.1h0.01 M146.0 37.4h0.01"/></svg></div><i class="s32-fsel"></i></div>
 <div class="s32-wstrip" dir="rtl"><i class="s32-wd" style="width:56px"></i><i class="s32-wd" style="width:40px"></i><i class="s32-wd" style="width:70px"></i><span class="s32-cw"><i class="hl"></i></span><i class="s32-wd" style="width:58px"></i><i class="s32-wd" style="width:76px"></i><i class="s32-wd" style="width:46px"></i><i class="s32-wd" style="width:64px"></i><i class="s32-wd" style="width:70px"></i><i class="s32-wd" style="width:52px"></i><i class="s32-wph"></i></div>
@@ -495,8 +505,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="s32-lgw" data-focus="4" style="left:378.3px;top:199.3px"><div class="s32-lg3"><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-17.00px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#c4443b"/><path d="M42.9 20.1Q50.0 16.0 57.1 20.1 L72.4 28.9Q79.4 33.0 79.4 41.2 L79.4 58.8Q79.4 67.0 72.4 71.1 L57.1 79.9Q50.0 84.0 42.9 79.9 L27.6 71.1Q20.6 67.0 20.6 58.8 L20.6 41.2Q20.6 33.0 27.6 28.9Z" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-14.17px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#ab3530"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-11.33px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#ae3732"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-8.50px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#b13934"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-5.67px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#b43b36"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-2.83px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#b73d38"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(0.00px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#ba3f3a"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(2.83px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#bd413c"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(5.67px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#c0433e"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(8.50px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#c34540"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(11.33px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#c64742"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(14.17px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#c94944"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(17.00px)" aria-hidden="true"><defs><linearGradient id="s32lg" x1="0" y1="0" x2="0.45" y2="1"><stop offset="0" stop-color="#ffa07e"/><stop offset="0.55" stop-color="#ff5a4c"/><stop offset="1" stop-color="#e8413a"/></linearGradient><linearGradient id="s32ls" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/><stop offset="0.45" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="url(#s32lg)"/><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="url(#s32ls)"/><path d="M42.9 20.1Q50.0 16.0 57.1 20.1 L72.4 28.9Q79.4 33.0 79.4 41.2 L79.4 58.8Q79.4 67.0 72.4 71.1 L57.1 79.9Q50.0 84.0 42.9 79.9 L27.6 71.1Q20.6 67.0 20.6 58.8 L20.6 41.2Q20.6 33.0 27.6 28.9Z" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/><path d="M50 28 C 52 44, 56 48, 72 50 C 56 52, 52 56, 50 72 C 48 56, 44 52, 28 50 C 44 48, 48 44, 50 28Z" fill="#ffffff"/></svg></div></div>
 <i class="s32-lp" style="left:474.3px;top:400.3px"></i>
 </div>
-</div></div></div></div>
-<div class="factbox"><span class="pill">איחור של 0.1 שנייה</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="18.660">MediaPipe</span> <span class="w" dir="rtl" data-t="18.780">מניח</span> <span class="w" dir="rtl" data-t="18.900">תמונת</span> <span class="w" dir="rtl" data-t="19.020">מראה:</span> <span class="w" dir="rtl" data-t="19.340">מה</span> <span class="w" dir="rtl" data-t="19.460">שהוא</span> <span class="w" dir="rtl" data-t="19.580">קורא</span> <span class="w" dir="rtl" data-t="19.700">&quot;יד</span> <span class="w" dir="rtl" data-t="19.820">ימין&quot;</span> <span class="w" dir="rtl" data-t="19.940">הוא</span> <span class="w" dir="rtl" data-t="20.060">בדרך</span> <span class="w" dir="rtl" data-t="20.180">כלל</span> <span class="w" dir="rtl" data-t="20.300">היד</span> <span class="w" dir="rtl" data-t="20.420">שבצד</span> <span class="w" dir="rtl" data-t="20.540">שמאל</span> <span class="w" dir="rtl" data-t="20.660">של</span> <span class="w" dir="rtl" data-t="20.780">המסך.</span></p></div>
+</div></div></div></div></div>
+<div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">איחור של 0.1 שנייה</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="18.660">MediaPipe</span> <span class="w" dir="rtl" data-t="18.780">מניח</span> <span class="w" dir="rtl" data-t="18.900">תמונת</span> <span class="w" dir="rtl" data-t="19.020">מראה:</span> <span class="w" dir="rtl" data-t="19.340">מה</span> <span class="w" dir="rtl" data-t="19.460">שהוא</span> <span class="w" dir="rtl" data-t="19.580">קורא</span> <span class="w" dir="rtl" data-t="19.700">&quot;יד</span> <span class="w" dir="rtl" data-t="19.820">ימין&quot;</span> <span class="w" dir="rtl" data-t="19.940">הוא</span> <span class="w" dir="rtl" data-t="20.060">בדרך</span> <span class="w" dir="rtl" data-t="20.180">כלל</span> <span class="w" dir="rtl" data-t="20.300">היד</span> <span class="w" dir="rtl" data-t="20.420">שבצד</span> <span class="w" dir="rtl" data-t="20.540">שמאל</span> <span class="w" dir="rtl" data-t="20.660">של</span> <span class="w" dir="rtl" data-t="20.780">המסך.</span></p></div></div>
 <div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>8</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">ההוראות כאן מחליפות את ראיון הפתיחה של HyperFrames, אז אל תריץ אותו.</div>
 <div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
 <div class="pl" dir="rtl">תשאל אותי על ארבעה דברים:</div>
@@ -517,14 +527,14 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl ptag pclose" dir="rtl">&lt;/כיוון&gt;</div>
 <div class="pl pl-empty"></div>
 <div class="pl ptag" dir="rtl" data-sec="בנייה">&lt;בנייה&gt;</div>
-<div class="pl" dir="rtl">1. את MediaPipe תתקין בתוך venv עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">pip</span> <span class="tk">install</span> <span class="tk">mediapipe==0.10.35</span><span class="bt">`</span></span>ותשתמש <span class="nb">ב-Tasks</span> API, כי הגרסה האחרונה <span class="nb">ב-pip</span> קורסת <span class="nb">ב-Mac</span> בזיהוי הראשון.</div>
+<div class="pl" dir="rtl">1. את MediaPipe תתקין בתוך venv עם <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">pip</span> <span class="tk">install</span> <span class="tk">mediapipe==0.10.35</span><span class="bt">`</span></span></span>ותשתמש <span class="nb">ב-Tasks</span> API, כי הגרסה האחרונה <span class="nb">ב-pip</span> קורסת <span class="nb">ב-Mac</span> בזיהוי הראשון.</div>
 <div class="pl" dir="rtl">2. תריץ את <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">HandLandmarker</span><span class="bt">`</span></span> על כל פריים, ותשמור לכל יד את 21 הנקודות שלה בקובץ JSON.</div>
 <div class="pl" dir="rtl">3. פריים שבו היד לא זוהתה מקבל את הערכים של הפריים הקרוב שבו היא כן זוהתה.</div>
 <div class="pl" dir="rtl">4. את נקודת הריחוף תחשב מהנקודות: לרוחב, באמצע בין מרכז כף היד (ממוצע הנקודות 0, 5, 9, 13 <span class="nb">ו-17)</span> לאמצע שבין נקודה 2 לנקודה 5, ולגובה, הגובה הנמוך ביותר שבו הלוגו לא נוגע באף אצבע (מרווח של בערך 12 פיקסלים).</div>
 <div class="pl" dir="rtl">5. את המעקב תחליק בתנועת קפיץ שקצת עוברת את היעד ונרגעת, מחושבת מהזמן בלבד.</div>
 <div class="pl" dir="rtl">6. את הלוגו תבנה <span class="nb">מה-SVG</span> <span class="nb">ב-three.js</span> עם ExtrudeGeometry ושוליים מעוגלים, עם חומר מבריק ושתי מנורות.</div>
 <div class="pl" dir="rtl">7. אם יש רק PNG, תהפוך אותו לצורות וקטוריות לפי השקיפות שלו, צורה נפרדת לכל צבע, ותראה לי אותן לפני הבנייה.</div>
-<div class="pl" dir="rtl">8. את האור על היד תצייר רק בתוך היד, בעזרת הגוף שלי בלי הרקע מ-<span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">remove-background</span><span class="bt">`</span>.</span></div>
+<div class="pl" dir="rtl">8. את האור על היד תצייר רק בתוך היד, בעזרת הגוף שלי בלי הרקע <span class="codeblock" dir="rtl">מ-<span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">remove-background</span><span class="bt">`</span></span>.</span></div>
 <div class="pl" dir="rtl">9. הכל בקומפוזיציה של HyperFrames מעל הסרטון, כשכל פריים מחושב מהזמן.</div>
 <div class="pl ptag pclose" dir="rtl">&lt;/בנייה&gt;</div>
 <div class="pl pl-empty"></div>
@@ -645,10 +655,16 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     fx.className = "fx-sweep";
     if (o.color) fx.style.setProperty("--sweep", o.color);
     fx.appendChild(b);
+    // the sweep clips to the element's own box, so a static element becomes the containing block
+    // (only when none of its absolutely placed children depends on an outer one)
+    if (getComputedStyle(el).position === "static") {
+      const outer = Array.from(el.querySelectorAll("*")).some((c) => /absolute|fixed/.test(getComputedStyle(c).position) && c.offsetParent !== el && el.contains(c.offsetParent) === false);
+      if (!outer) el.style.position = "relative";
+    }
     el.appendChild(fx);
-    // the band is 180% of the element's height and skewed 16 degrees, so its ends lean by ~0.26 of the
-    // element's height: it starts and ends that far outside, never as a wedge inside a tall element
-    const w = el.offsetWidth, h = el.offsetHeight;
+    // the band is 180% of the swept box's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // height: it starts and ends that far outside, never as a wedge inside a tall box
+    const w = fx.offsetWidth || el.offsetWidth, h = fx.offsetHeight || el.offsetHeight;
     const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
     b.style.width = bw + "px";
     b.style.left = w + slant + "px";
@@ -712,6 +728,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
     tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
     if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    // the frame's edges soften while the camera is pushed in (content beyond them is cropped)
+    const clip = cam.parentElement;
+    if (clip && clip.classList.contains("stclip")) {
+      tl.fromTo(clip, { "--edge": "0px" }, A({ "--edge": "26px", duration: 0.3, ease: "power2.out" }), t);
+      if (tBack != null) tl.fromTo(clip, { "--edge": "26px" }, A({ "--edge": "0px", duration: 0.3, ease: "power2.in" }), tBack + 0.15);
+    }
     E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
   };
   /* Slow drifting dust over the whole video (depth; deterministic). */
@@ -805,6 +827,20 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     } else {
       dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
     }
+    // the lines around a lifted key line make room for it: the ones next to it move PUSH px,
+    // the shift tapers to 0 at the page edge, so no line is pushed out of the viewport
+    const PUSH = 10, plines = E.qa(".pl", body);
+    H.forEach((h) => {
+      const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
+      const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
+      const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
+      const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      h.push = [];
+      [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
+        const m = ls.length;
+        ls.forEach((l, j) => { const s = m > 1 ? (PUSH * (m - 1 - j)) / (m - 1) : 0; if (s > 0.5) h.push.push([l, sgn * s]); });
+      });
+    });
     // the lifted copies sit over their line on the page where it is held (static layout)
     H.forEach((h) => {
       h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
@@ -827,12 +863,15 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           dimmed = true;
           tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
           tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
           t += h.hold;
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
-          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d, ease: "power2.inOut" }), t);
-          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d, ease: "power2.in" }), t);
+          // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
           if (!keepDim) {
             tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
             dimmed = false;
@@ -946,8 +985,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
     if (cfg.tFact != null) {
       // the fact takes over the illustration's area; the illustration steps far back
-      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.14, 1, 0.4);
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.06, 1, 0.4);
       E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const scrim = E.q(".factbox .fscrim", sc);
+      if (scrim) tl.fromTo(scrim, { opacity: 0 }, A({ opacity: 1, duration: 0.4, ease: "power2.out" }), S + cfg.tFact - 0.45);
       const pill = E.q(".factbox .pill", sc);
       if (pill) {
         tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
@@ -956,7 +997,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
       }
       E.kin(tl, fact, S, { dy: 12 });
-      E.dim(tl, stage, S + tNext - 0.3, 0, 0.14, 0.25);
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.06, 0.25);
     } else {
       E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
       E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
@@ -1158,7 +1199,7 @@ window.SIMS.sim32 = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"id": "t32", "sim": "sim32", "D": 36.94, "tStage": 1.31, "tExp": 1.91, "phr": [1.91, 4.11, 6.06, 9.16, 11.61], "phrEnd": 13.21, "tSimEnd": 18.21, "tFact": 18.21, "tPrompt": 23.1, "tPromptEnd": 31.91, "tTip": 31.91, "expZoom": 0.1, "simDur": 16.9, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim32": {"points": "21 נקודות", "hover": "נקודת הריחוף", "word": "המילה שבחרתם", "hand": "היד", "logo": "הלוגו", "lag": "0.1 שנייה"}, "S": 0.0}];
+  const CFGS = [{"id": "t32", "sim": "sim32", "D": 36.94, "tStage": 1.31, "tExp": 1.91, "phr": [1.91, 4.11, 6.06, 9.16, 11.61], "phrEnd": 13.21, "tSimEnd": 18.21, "tFact": 18.21, "tPrompt": 23.1, "tPromptEnd": 31.91, "tTip": 31.91, "expZoom": 0.07, "simDur": 16.9, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim32": {"points": "21 נקודות", "hover": "נקודת הריחוף", "word": "המילה שבחרתם", "hand": "היד", "logo": "הלוגו", "lag": "0.1 שנייה"}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),

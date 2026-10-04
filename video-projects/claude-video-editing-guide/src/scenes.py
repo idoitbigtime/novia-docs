@@ -111,7 +111,7 @@ def topic_scene(cfg):
         if f.get("meta"):
             m, _, _ = kinetic_html(f["meta"], t0=f["tMeta"], step=0.03, pause=0.0)
             parts.append(f'<p class="metaline kin" dir="rtl">{m}</p>')
-        fact = f'<div class="factbox">{"".join(parts)}</div>'
+        fact = f'<div class="factbox"><div class="factin"><i class="fscrim"></i>{"".join(parts)}</div></div>'
 
     card = ""
     hl_ids = []
@@ -141,7 +141,7 @@ def topic_scene(cfg):
     inner = f"""<div class="hdr" dir="rtl"><span class="hdr-ch">{esc(cfg["chapter"])}</span><span class="hdr-num" dir="ltr">{esc(cfg["num"])}</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl">{title}</h2><p class="exp kin" dir="rtl">{exp}</p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit">{sim}</div></div></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit">{sim}</div></div></div></div>
 {fact}
 {card}
 {tipbox}
@@ -154,7 +154,7 @@ def topic_scene(cfg):
         "tPrompt": cfg.get("tPrompt") if cfg.get("prompt") is not None else None,
         "tPromptEnd": cfg.get("tPromptEnd"),
         "tTip": cfg.get("tTip") if cfg.get("tip") else None,
-        "expZoom": cfg.get("expZoom", 0.1), "simDur": cfg["simDur"],
+        "expZoom": cfg.get("expZoom", 0.07), "simDur": cfg["simDur"],
         "hls": [{"id": hid, "hold": h[1], "zoom": h[2]} for hid, h in zip(hl_ids, cfg.get("hls", []))],
     }
     if cfg["sim"] in cfg:

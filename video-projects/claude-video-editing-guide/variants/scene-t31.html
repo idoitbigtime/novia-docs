@@ -293,7 +293,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .exp .ph { transition: none; }
 /* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
 .stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
-.stcam { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; }
+/* the illustration's frame: the camera zooms inside it, so nothing ever leaves x 140..940; during a zoom
+   its edges soften (--edge), like a camera crop */
+.stclip { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; --edge: 0px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%); mask-composite: intersect; }
+.stcam { position: absolute; inset: 0; }
 .stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
 .simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
 .simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
@@ -301,7 +306,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
 
 /* fact overlay inside the stage */
-.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; direction: rtl; }
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; direction: rtl; }
+/* the fact sits on its own dark backing (soft edges), so the faded illustration never shows through the text */
+.factin { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 34px 30px; }
+.fscrim { position: absolute; z-index: -1; inset: 0; border-radius: 48px; background: rgba(9, 8, 18, 0.9); box-shadow: 0 0 46px 30px rgba(9, 8, 18, 0.88); opacity: 0; display: block; }
 .pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
 .factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
 .metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
@@ -311,13 +319,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
 .pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
 .pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
-.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: #b9a8ff; box-shadow: 0 0 14px rgba(185, 168, 255, 0.85); display: block; }
 .pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
 .pc-num b { color: var(--ink); font-weight: 600; }
 .pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
 .tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
 .tab .tul { display: none; }
-.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: #b9a8ff; display: block; opacity: 0; }
 .tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
 .pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
   }
@@ -325,8 +333,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
 .pl-empty { height: 44px; }
 .ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
-.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; color: #d8d4ea; white-space: nowrap; }
-.codeblock { display: block; direction: ltr; text-align: left; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; color: #d8d4ea; white-space: nowrap; }
+/* long code: its own right-aligned line (an LTR isolate that may wrap; the punctuation after it stays outside) */
+.codeblock { display: block; direction: rtl; text-align: right; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.cbi { direction: ltr; unicode-bidi: isolate; }
 .tk { white-space: nowrap; }
 .nb, .neg { white-space: nowrap; }
 .code .bt, .codeblock .bt { color: #6f6b86; }
@@ -538,7 +548,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div id="sc-t31" class="clip scene" data-start="0.000" data-duration="39.710" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.1</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">אומרים</span> <span class="w" dir="rtl" data-t="0.430">בקול</span> <span class="w" dir="rtl" data-t="0.560">מה</span> <span class="w" dir="rtl" data-t="0.690">לערוך,</span> <span class="w" dir="rtl" data-t="0.820">בזמן</span> <span class="w" dir="rtl" data-t="0.950">הצילום</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.780">הדרך</span> <span class="w" dir="rtl" data-t="1.840">הכי</span> <span class="w" dir="rtl" data-t="1.900">מהירה</span> <span class="w" dir="rtl" data-t="1.960">להסביר</span> <span class="w" dir="rtl" data-t="2.020">לקלוד</span> <span class="w" dir="rtl" data-t="2.080">מה</span> <span class="w" dir="rtl" data-t="2.140">אתם</span> <span class="w" dir="rtl" data-t="2.200">רוצים</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.230">היא</span> <span class="w" dir="rtl" data-t="4.290">להגיד</span> <span class="w" dir="rtl" data-t="4.350">את</span> <span class="w" dir="rtl" data-t="4.410">זה</span> <span class="w" dir="rtl" data-t="4.470">בזמן</span> <span class="w" dir="rtl" data-t="4.530">הצילום.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.180">קלוד</span> <span class="w" dir="rtl" data-t="6.240">מתמלל</span> <span class="w" dir="rtl" data-t="6.300">עם</span> <span class="w" dir="rtl" data-t="6.360">זמן</span> <span class="w" dir="rtl" data-t="6.420">לכל</span> <span class="w" dir="rtl" data-t="6.480">מילה,</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="8.130">מוצא</span> <span class="w" dir="rtl" data-t="8.190">את</span> <span class="w" dir="rtl" data-t="8.250">ההוראות</span> <span class="w" dir="rtl" data-t="8.310">ובונה</span> <span class="w" dir="rtl" data-t="8.370">כל</span> <span class="w" dir="rtl" data-t="8.430">אפקט</span> <span class="glu"><span class="accgrp" data-t="8.490"><span class="w s-str" dir="rtl" data-t="8.490">בדיוק</span> <span class="w s-str" dir="rtl" data-t="8.550">על</span> <span class="w s-str" dir="rtl" data-t="8.610">המילים</span> <span class="w s-str" dir="rtl" data-t="8.670">שלו</span><i class="ul" data-t="8.670"></i></span><span class="w" dir="rtl" data-t="8.670">.</span></span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="11.230">לפני</span> <span class="w" dir="rtl" data-t="11.290">שהוא</span> <span class="w" dir="rtl" data-t="11.350">בונה,</span> <span class="w" dir="rtl" data-t="11.410">הוא</span> <span class="w" dir="rtl" data-t="11.470">מראה</span> <span class="w" dir="rtl" data-t="11.530">טבלה</span> <span class="w" dir="rtl" data-t="11.590">של</span> <span class="w" dir="rtl" data-t="11.650">כל</span> <span class="w" dir="rtl" data-t="11.710">ההוראות</span> <span class="w" dir="rtl" data-t="11.770">לאישור.</span></span></p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim31">
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim31">
 <div class="s31-cam"><div class="s31-fin"><div class="s31-room"><i class="s31-lamp"></i></div>
 <svg class="s31-pres" viewBox="0 0 640 360" aria-hidden="true">
 <defs>
@@ -586,8 +596,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="s31-aglab" dir="rtl"><i></i><span>סוכן לכל סצנה</span></div>
 <div class="s31-crit" dir="rtl"><span class="s31-eye"><svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="25"/><path d="M12 28 C 18 18, 38 18, 44 28 C 38 38, 18 38, 12 28 Z"/><circle class="pu" cx="28" cy="28" r="6"/></svg></span>
 <b>מבקר עצמאי: ציון מעל 90</b></div>
-</div></div></div></div>
-<div class="factbox"><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="20.130">ההוראות</span> <span class="w" dir="rtl" data-t="20.250">נשארות</span> <span class="w" dir="rtl" data-t="20.370">בקול</span> <span class="w" dir="rtl" data-t="20.490">של</span> <span class="w" dir="rtl" data-t="20.610">הסרטון,</span> <span class="w" dir="rtl" data-t="20.730">אז</span> <span class="w" dir="rtl" data-t="20.850">זה</span> <span class="w" dir="rtl" data-t="20.970">מתאים</span> <span class="w" dir="rtl" data-t="21.090">לסרטון</span> <span class="w" dir="rtl" data-t="21.210">שמראה</span> <span class="w" dir="rtl" data-t="21.330">את</span> <span class="w" dir="rtl" data-t="21.450">העריכה</span> <span class="w" dir="rtl" data-t="21.570">עצמה.</span> <span class="w" dir="rtl" data-t="21.890">בסרטון</span> <span class="w" dir="rtl" data-t="22.010">רגיל</span> <span class="w" dir="rtl" data-t="22.130">משתמשים</span> <span class="w" dir="rtl" data-t="22.250">בפרומפטים</span> <span class="w" dir="rtl" data-t="22.370">של</span> <span class="w" dir="rtl" data-t="22.490">האפקטים</span> <span class="w" dir="rtl" data-t="22.610">שבהמשך.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="22.930">גם</span> <span class="w" dir="rtl" data-t="22.960">הסרטון</span> <span class="w" dir="rtl" data-t="22.990">הזה</span> <span class="w" dir="rtl" data-t="23.020">בנוי</span> <span class="w" dir="rtl" data-t="23.050">בשפה</span> <span class="w" dir="rtl" data-t="23.080">של</span> <span class="w" dir="rtl" data-t="23.110">אקספליינר</span> <span class="w" dir="rtl" data-t="23.140">דוקומנטרי:</span> <span class="w" dir="rtl" data-t="23.170">קווים</span> <span class="w" dir="rtl" data-t="23.200">דקים</span> <span class="w" dir="rtl" data-t="23.230">שזוהרים,</span> <span class="w" dir="rtl" data-t="23.260">ותוויות</span> <span class="w" dir="rtl" data-t="23.290">עם</span> <span class="w" dir="rtl" data-t="23.320">נקודה</span> <span class="w" dir="rtl" data-t="23.350">וקו.</span></p></div>
+</div></div></div></div></div>
+<div class="factbox"><div class="factin"><i class="fscrim"></i><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="20.130">ההוראות</span> <span class="w" dir="rtl" data-t="20.250">נשארות</span> <span class="w" dir="rtl" data-t="20.370">בקול</span> <span class="w" dir="rtl" data-t="20.490">של</span> <span class="w" dir="rtl" data-t="20.610">הסרטון,</span> <span class="w" dir="rtl" data-t="20.730">אז</span> <span class="w" dir="rtl" data-t="20.850">זה</span> <span class="w" dir="rtl" data-t="20.970">מתאים</span> <span class="w" dir="rtl" data-t="21.090">לסרטון</span> <span class="w" dir="rtl" data-t="21.210">שמראה</span> <span class="w" dir="rtl" data-t="21.330">את</span> <span class="w" dir="rtl" data-t="21.450">העריכה</span> <span class="w" dir="rtl" data-t="21.570">עצמה.</span> <span class="w" dir="rtl" data-t="21.890">בסרטון</span> <span class="w" dir="rtl" data-t="22.010">רגיל</span> <span class="w" dir="rtl" data-t="22.130">משתמשים</span> <span class="w" dir="rtl" data-t="22.250">בפרומפטים</span> <span class="w" dir="rtl" data-t="22.370">של</span> <span class="w" dir="rtl" data-t="22.490">האפקטים</span> <span class="w" dir="rtl" data-t="22.610">שבהמשך.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="22.930">גם</span> <span class="w" dir="rtl" data-t="22.960">הסרטון</span> <span class="w" dir="rtl" data-t="22.990">הזה</span> <span class="w" dir="rtl" data-t="23.020">בנוי</span> <span class="w" dir="rtl" data-t="23.050">בשפה</span> <span class="w" dir="rtl" data-t="23.080">של</span> <span class="w" dir="rtl" data-t="23.110">אקספליינר</span> <span class="w" dir="rtl" data-t="23.140">דוקומנטרי:</span> <span class="w" dir="rtl" data-t="23.170">קווים</span> <span class="w" dir="rtl" data-t="23.200">דקים</span> <span class="w" dir="rtl" data-t="23.230">שזוהרים,</span> <span class="w" dir="rtl" data-t="23.260">ותוויות</span> <span class="w" dir="rtl" data-t="23.290">עם</span> <span class="w" dir="rtl" data-t="23.320">נקודה</span> <span class="w" dir="rtl" data-t="23.350">וקו.</span></p></div></div>
 <div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>7</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">ההוראות כאן מחליפות את ראיון הפתיחה של HyperFrames, אז אל תריץ אותו.</div>
 <div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
 <div class="pl" dir="rtl">תשאל אותי על חמישה דברים:</div>
@@ -611,10 +621,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl ptag pclose" dir="rtl">&lt;/כיוון&gt;</div>
 <div class="pl pl-empty"></div>
 <div class="pl ptag" dir="rtl" data-sec="בנייה">&lt;בנייה&gt;</div>
-<div class="pl" dir="rtl">1. תתמלל עם זמן לכל מילה בעזרת <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk">&lt;הקובץ&gt;</span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span><span class="bt">`</span>,</span>ותתקן מילים שגויות לפי ההקשר (<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">transcript.json</span><span class="bt">`</span></span> נשמר בתיקייה של הסרטון ולא בתיקייה שבה אתה עובד).</div>
+<div class="pl" dir="rtl">1. תתמלל עם זמן לכל מילה בעזרת <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk">&lt;הקובץ&gt;</span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span><span class="bt">`</span></span>,</span>ותתקן מילים שגויות לפי ההקשר (<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">transcript.json</span><span class="bt">`</span></span> נשמר בתיקייה של הסרטון ולא בתיקייה שבה אתה עובד).</div>
 <div class="pl" dir="rtl">2. תתקן את זמני המילים לפי עוצמת הקול, כי אחרי שקט whisper מקדים את המילה הבאה <span class="nb">ב-0.1</span> עד 0.3 שנייה.</div>
 <div class="pl" dir="rtl">3. תכתוב קובץ BRIEF.md: לכל הוראה המילים המדויקות והזמן שלהן, מה יקרה על המסך, ומתי האפקט נגמר וחוזר למצב רגיל.</div>
-<div class="pl" dir="rtl">4. כל המידע שצריך נבנה פעם אחת לפני הסצנות: מעקב אחרי הידיים והפנים עם MediaPipe אם יש הוראה על הידיים, הגוף שלי בלי הרקע עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">remove-background</span><span class="bt">`</span>,</span>ופריימים מכל סרטון שביקשתי להראות.</div>
+<div class="pl" dir="rtl">4. כל המידע שצריך נבנה פעם אחת לפני הסצנות: מעקב אחרי הידיים והפנים עם MediaPipe אם יש הוראה על הידיים, הגוף שלי בלי הרקע עם <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">remove-background</span><span class="bt">`</span></span>,</span>ופריימים מכל סרטון שביקשתי להראות.</div>
 <div class="pl" dir="rtl">5. את העריכה תבנה כקומפוזיציה של HyperFrames עם three.js, בשכבות מלמטה למעלה: הסרטון, שכבה על הקיר, הגוף שלי בלי הרקע, שכבה קדמית ושכבה לטקסט.</div>
 <div class="pl" dir="rtl">6. כל פריים מחושב רק מהזמן, בלי טיימרים ובלי מספרים אקראיים בזמן הציור.</div>
 <div class="pl" dir="rtl">7. כל הוראה היא סצנה בקובץ משלה עם חלון זמן, ומחוץ לחלון כל מה שהיא הוסיפה מוסתר וכל השכבות המשותפות חוזרות למצב רגיל.</div>
@@ -630,8 +640,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl" dir="rtl">ברגעי המעבר בין סצנות צריך להיות ברור מי שולט במצלמה, בסרטון ובגוף בלי הרקע, אחרת שתי סצנות נלחמות על אותו דבר.</div>
 <div class="pl" dir="rtl">מילה עברית נכנסת שלמה, כי חשיפה מאחורי קו מראה חצי מילה שנראית כמו מקפים.</div>
 <div class="pl" dir="rtl">לוגו של מותג נשאר בצבעים האמיתיים שלו.</div>
-<div class="pl" dir="rtl">את MediaPipe תתקין בתוך venv עם <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">pip</span> <span class="tk">install</span> <span class="tk">mediapipe==0.10.35</span><span class="bt">`</span></span>ותשתמש <span class="nb">ב-Tasks</span> API (<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">HandLandmarker</span><span class="bt">`</span></span>, <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">FaceDetector</span><span class="bt">`</span></span>), כי הגרסה האחרונה <span class="nb">ב-pip</span> קורסת <span class="nb">ב-Mac</span> בזיהוי הראשון.</div>
-<div class="pl" dir="rtl">סרטון שמוצג בתוך three.js מקבל <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">texture.needsUpdate</span> <span class="tk">=</span> <span class="tk">true</span><span class="bt">`</span></span> בכל פריים ו-<span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">texture.colorSpace</span> <span class="tk">=</span> <span class="tk">THREE.SRGBColorSpace</span><span class="bt">`</span>,</span>אחרת הוא לא מופיע או יוצא דהוי.</div>
+<div class="pl" dir="rtl">את MediaPipe תתקין בתוך venv עם <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">pip</span> <span class="tk">install</span> <span class="tk">mediapipe==0.10.35</span><span class="bt">`</span></span></span>ותשתמש <span class="nb">ב-Tasks</span> API (<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">HandLandmarker</span><span class="bt">`</span></span>, <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">FaceDetector</span><span class="bt">`</span></span>), כי הגרסה האחרונה <span class="nb">ב-pip</span> קורסת <span class="nb">ב-Mac</span> בזיהוי הראשון.</div>
+<div class="pl" dir="rtl">סרטון שמוצג בתוך three.js מקבל <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">texture.needsUpdate</span> <span class="tk">=</span> <span class="tk">true</span><span class="bt">`</span></span> בכל פריים <span class="codeblock" dir="rtl">ו-<span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">texture.colorSpace</span> <span class="tk">=</span> <span class="tk">THREE.SRGBColorSpace</span><span class="bt">`</span></span>,</span>אחרת הוא לא מופיע או יוצא דהוי.</div>
 <div class="pl" dir="rtl">בסיכום של <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">render</span><span class="bt">`</span></span> צריך להיות כתוב <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">hardware</span> <span class="tk">gpu</span><span class="bt">`</span></span>, ואם כתוב <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">software</span> <span class="tk">gpu</span><span class="bt">`</span></span> תוסיף לרינדור <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">--browser-gpu</span><span class="bt">`</span></span>.</div>
 <div class="pl ptag pclose" dir="rtl">&lt;/מלכודות&gt;</div>
 <div class="pl pl-empty"></div>
@@ -749,10 +759,16 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     fx.className = "fx-sweep";
     if (o.color) fx.style.setProperty("--sweep", o.color);
     fx.appendChild(b);
+    // the sweep clips to the element's own box, so a static element becomes the containing block
+    // (only when none of its absolutely placed children depends on an outer one)
+    if (getComputedStyle(el).position === "static") {
+      const outer = Array.from(el.querySelectorAll("*")).some((c) => /absolute|fixed/.test(getComputedStyle(c).position) && c.offsetParent !== el && el.contains(c.offsetParent) === false);
+      if (!outer) el.style.position = "relative";
+    }
     el.appendChild(fx);
-    // the band is 180% of the element's height and skewed 16 degrees, so its ends lean by ~0.26 of the
-    // element's height: it starts and ends that far outside, never as a wedge inside a tall element
-    const w = el.offsetWidth, h = el.offsetHeight;
+    // the band is 180% of the swept box's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // height: it starts and ends that far outside, never as a wedge inside a tall box
+    const w = fx.offsetWidth || el.offsetWidth, h = fx.offsetHeight || el.offsetHeight;
     const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
     b.style.width = bw + "px";
     b.style.left = w + slant + "px";
@@ -816,6 +832,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
     tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
     if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    // the frame's edges soften while the camera is pushed in (content beyond them is cropped)
+    const clip = cam.parentElement;
+    if (clip && clip.classList.contains("stclip")) {
+      tl.fromTo(clip, { "--edge": "0px" }, A({ "--edge": "26px", duration: 0.3, ease: "power2.out" }), t);
+      if (tBack != null) tl.fromTo(clip, { "--edge": "26px" }, A({ "--edge": "0px", duration: 0.3, ease: "power2.in" }), tBack + 0.15);
+    }
     E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
   };
   /* Slow drifting dust over the whole video (depth; deterministic). */
@@ -909,6 +931,20 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     } else {
       dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
     }
+    // the lines around a lifted key line make room for it: the ones next to it move PUSH px,
+    // the shift tapers to 0 at the page edge, so no line is pushed out of the viewport
+    const PUSH = 10, plines = E.qa(".pl", body);
+    H.forEach((h) => {
+      const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
+      const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
+      const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
+      const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      h.push = [];
+      [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
+        const m = ls.length;
+        ls.forEach((l, j) => { const s = m > 1 ? (PUSH * (m - 1 - j)) / (m - 1) : 0; if (s > 0.5) h.push.push([l, sgn * s]); });
+      });
+    });
     // the lifted copies sit over their line on the page where it is held (static layout)
     H.forEach((h) => {
       h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
@@ -931,12 +967,15 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           dimmed = true;
           tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
           tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
           t += h.hold;
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
-          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d, ease: "power2.inOut" }), t);
-          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d, ease: "power2.in" }), t);
+          // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
           if (!keepDim) {
             tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
             dimmed = false;
@@ -1050,8 +1089,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
     if (cfg.tFact != null) {
       // the fact takes over the illustration's area; the illustration steps far back
-      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.14, 1, 0.4);
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.06, 1, 0.4);
       E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const scrim = E.q(".factbox .fscrim", sc);
+      if (scrim) tl.fromTo(scrim, { opacity: 0 }, A({ opacity: 1, duration: 0.4, ease: "power2.out" }), S + cfg.tFact - 0.45);
       const pill = E.q(".factbox .pill", sc);
       if (pill) {
         tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
@@ -1060,7 +1101,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
       }
       E.kin(tl, fact, S, { dy: 12 });
-      E.dim(tl, stage, S + tNext - 0.3, 0, 0.14, 0.25);
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.06, 0.25);
     } else {
       E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
       E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
@@ -1282,7 +1323,7 @@ window.SIMS.sim31 = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"id": "t31", "sim": "sim31", "D": 39.71, "tStage": 1.18, "tExp": 1.78, "phr": [1.78, 4.23, 6.18, 8.13, 11.23], "phrEnd": 14.18, "tSimEnd": 19.68, "tFact": 19.68, "tPrompt": 25.8, "tPromptEnd": 35.0, "tTip": 35.0, "expZoom": 0.1, "simDur": 18.5, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim31": {"instruction": "שביד הזאת ירחף הלוגו של קלוד בתלת ממד", "cols": ["ההוראה", "זמן", "מה יקרה על המסך", "איך זה נגמר"], "approve": "לאישור", "brief": "BRIEF.md", "agents": "סוכן לכל סצנה", "critic": "מבקר עצמאי: ציון מעל 90"}, "S": 0.0}];
+  const CFGS = [{"id": "t31", "sim": "sim31", "D": 39.71, "tStage": 1.18, "tExp": 1.78, "phr": [1.78, 4.23, 6.18, 8.13, 11.23], "phrEnd": 14.18, "tSimEnd": 19.68, "tFact": 19.68, "tPrompt": 25.8, "tPromptEnd": 35.0, "tTip": 35.0, "expZoom": 0.07, "simDur": 18.5, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim31": {"instruction": "שביד הזאת ירחף הלוגו של קלוד בתלת ממד", "cols": ["ההוראה", "זמן", "מה יקרה על המסך", "איך זה נגמר"], "approve": "לאישור", "brief": "BRIEF.md", "agents": "סוכן לכל סצנה", "critic": "מבקר עצמאי: ציון מעל 90"}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),

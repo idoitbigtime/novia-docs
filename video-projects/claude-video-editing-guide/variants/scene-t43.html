@@ -293,7 +293,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .exp .ph { transition: none; }
 /* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
 .stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
-.stcam { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; }
+/* the illustration's frame: the camera zooms inside it, so nothing ever leaves x 140..940; during a zoom
+   its edges soften (--edge), like a camera crop */
+.stclip { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; --edge: 0px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%); mask-composite: intersect; }
+.stcam { position: absolute; inset: 0; }
 .stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
 .simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
 .simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
@@ -301,7 +306,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
 
 /* fact overlay inside the stage */
-.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; direction: rtl; }
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; direction: rtl; }
+/* the fact sits on its own dark backing (soft edges), so the faded illustration never shows through the text */
+.factin { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 34px 30px; }
+.fscrim { position: absolute; z-index: -1; inset: 0; border-radius: 48px; background: rgba(9, 8, 18, 0.9); box-shadow: 0 0 46px 30px rgba(9, 8, 18, 0.88); opacity: 0; display: block; }
 .pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
 .factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
 .metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
@@ -311,13 +319,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
 .pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
 .pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
-.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); display: block; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: #b9a8ff; box-shadow: 0 0 14px rgba(185, 168, 255, 0.85); display: block; }
 .pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
 .pc-num b { color: var(--ink); font-weight: 600; }
 .pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
 .tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
 .tab .tul { display: none; }
-.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--acc); display: block; opacity: 0; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: #b9a8ff; display: block; opacity: 0; }
 .tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
 .pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
   }
@@ -325,8 +333,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
 .pl-empty { height: 44px; }
 .ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
-.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; color: #d8d4ea; white-space: nowrap; }
-.codeblock { display: block; direction: ltr; text-align: left; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 25px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; color: #d8d4ea; white-space: nowrap; }
+/* long code: its own right-aligned line (an LTR isolate that may wrap; the punctuation after it stays outside) */
+.codeblock { display: block; direction: rtl; text-align: right; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.cbi { direction: ltr; unicode-bidi: isolate; }
 .tk { white-space: nowrap; }
 .nb, .neg { white-space: nowrap; }
 .code .bt, .codeblock .bt { color: #6f6b86; }
@@ -479,14 +489,14 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="31.430" data-fps="30" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="main" data-start="0" data-duration="31.080" data-fps="30" data-width="1080" data-height="1920">
 <div class="stagewrap" style="transform: scale(1.0);">
 <div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
 <div id="cam">
-<div id="sc-t43" class="clip scene" data-start="0.000" data-duration="31.430" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 4 · בירולים</span><span class="hdr-num" dir="ltr">4.3</span></div>
+<div id="sc-t43" class="clip scene" data-start="0.000" data-duration="31.080" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 4 · בירולים</span><span class="hdr-num" dir="ltr">4.3</span></div>
 <div class="scam">
 <div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">איפה</span> <span class="w" dir="rtl" data-t="0.430">לשים</span> <span class="w" dir="rtl" data-t="0.560">בירולים,</span> <span class="w" dir="rtl" data-t="0.690">ומה</span> <span class="w" dir="rtl" data-t="0.820">להראות</span> <span class="w" dir="rtl" data-t="0.950">בכל</span> <span class="w" dir="rtl" data-t="1.080">אחד</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.910">על</span> <span class="w" dir="rtl" data-t="1.970">בסיס</span> <span class="w" dir="rtl" data-t="2.030">התמלול</span> <span class="w" dir="rtl" data-t="2.090">קלוד</span> <span class="w" dir="rtl" data-t="2.150">מחזיר</span> <span class="w" dir="rtl" data-t="2.210">טבלה:</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.860">הזמן,</span> <span class="w" dir="rtl" data-t="3.920">המשפט,</span> <span class="w" dir="rtl" data-t="3.980">מה</span> <span class="w" dir="rtl" data-t="4.040">רואים</span> <span class="w" dir="rtl" data-t="4.100">בבירול</span> <span class="w" dir="rtl" data-t="4.160">ומאיפה</span> <span class="w" dir="rtl" data-t="4.220">הוא</span> <span class="w" dir="rtl" data-t="4.280">מגיע.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.310">הכלל:</span> <span class="w" dir="rtl" data-t="6.370">אף</span> <span class="w" dir="rtl" data-t="6.430">פעם</span> <span class="w" dir="rtl" data-t="6.490">לא</span> <span class="w" dir="rtl" data-t="6.550">יותר</span> <span class="accgrp" data-t="6.610"><span class="w s-str" dir="rtl" data-t="6.610">מ-</span> <span class="w s-str" dir="rtl" data-t="6.610">3</span> <span class="w s-str" dir="rtl" data-t="6.730">שניות</span><i class="ul" data-t="6.790"></i></span> <span class="w" dir="rtl" data-t="6.790">של</span> <span class="w" dir="rtl" data-t="6.850">דיבור</span> <span class="w" dir="rtl" data-t="6.910">בלי</span> <span class="w" dir="rtl" data-t="6.970">בירול,</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.410">וכל</span> <span class="w" dir="rtl" data-t="9.470">קליפ</span> <span class="w" dir="rtl" data-t="9.530">מראה</span> <span class="w" dir="rtl" data-t="9.590">בדיוק</span> <span class="w" dir="rtl" data-t="9.650">את</span> <span class="w" dir="rtl" data-t="9.710">מה</span> <span class="w" dir="rtl" data-t="9.770">שנאמר</span> <span class="w" dir="rtl" data-t="9.830">באותו</span> <span class="w" dir="rtl" data-t="9.890">משפט.</span></span></p></div>
-<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stcam"><div class="stfit"><div class="simwrap sim43">
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim43">
 <div class="s43-table"><i class="s43-tbg"></i><div class="s43-head"><span class="s43-h s43-h1" dir="rtl">הזמן</span><span class="s43-h s43-h2" dir="rtl">המשפט</span><span class="s43-h s43-h3" dir="rtl">מה רואים</span><span class="s43-h s43-h4" dir="rtl">מאיפה</span></div><div class="s43-row s43-r1"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:2.2%;width:12.2%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb" style="width:52px" data-x="615.5"></i><i class="s43-wb" style="width:34px" data-x="579.2"></i><i class="s43-wb s43-key" style="width:60px" data-x="542.9"></i></span><span class="s43-c s43-cw"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="5" width="24" height="16" rx="2.5"/><path d="M11 25.5h8M15 21v4.5"/><path d="M13.5 8.5l6 4.5-3.2.7-1.5 2.9z"/></svg></span><span class="s43-c s43-cx"><span class="s43-src" dir="rtl">הקלטת מסך שתצלמו</span></span></div><div class="s43-row s43-r2"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:26.7%;width:11.1%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb" style="width:40px" data-x="499.2"></i><i class="s43-wb s43-key" style="width:58px" data-x="460.8"></i><i class="s43-wb" style="width:36px" data-x="422.4"></i></span><span class="s43-c s43-cw"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 4l2.4 6.2L24 12l-6.6 1.8L15 20l-2.4-6.2L6 12l6.6-1.8z"/><path d="M5 25h5M20 25h5"/></svg></span><span class="s43-c s43-cx"><span class="s43-src" dir="rtl">אנימציה שקלוד יבנה</span></span></div><div class="s43-row s43-r3"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:51.1%;width:10.0%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb s43-key" style="width:60px" data-x="378.7"></i><i class="s43-wb" style="width:30px" data-x="342.4"></i><i class="s43-wb" style="width:48px" data-x="306.1"></i></span><span class="s43-c s43-cw"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="7" width="22" height="17" rx="3"/><path d="M11.5 11.5v8l6.5-4z"/><path d="M25.5 2.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg></span><span class="s43-c s43-cx"><span class="s43-src" dir="rtl">קליפ AI</span></span></div><div class="s43-row s43-r4"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:61.1%;width:27.8%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb" style="width:36px" data-x="257.1"></i><i class="s43-wb s43-key" style="width:52px" data-x="208.0"></i><i class="s43-wb" style="width:44px" data-x="158.9"></i></span><span class="s43-c s43-cw"><i class="s43-what0"></i></span><span class="s43-c s43-cx"><span class="s43-src s43-miss" dir="rtl">חסר</span><i class="s43-src0"></i></span></div><div class="s43-row s43-r5"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:88.9%;width:11.1%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb" style="width:48px" data-x="117.3"></i><i class="s43-wb" style="width:40px" data-x="96.0"></i><i class="s43-wb s43-key" style="width:54px" data-x="74.7"></i></span><span class="s43-c s43-cw"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M3 9.5a2 2 0 0 1 2-2h6l2.5 2.5H25a2 2 0 0 1 2 2V23a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="s43-c s43-cx"><span class="s43-src" dir="rtl">קובץ שכבר בתיקייה</span></span></div><i class="s43-colhl"></i><svg class="s43-tframe" viewBox="0 0 720 340" preserveAspectRatio="none" aria-hidden="true"><path d="M694 1.5H26A24.5 24.5 0 0 0 1.5 26V314A24.5 24.5 0 0 0 26 338.5H694A24.5 24.5 0 0 0 718.5 314V26A24.5 24.5 0 0 0 694 1.5Z"/></svg></div>
 <div class="s43-tl">
 <div class="s43-ruler"></div>
@@ -506,10 +516,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <span class="s43-calt" dir="rtl">3 שניות</span></div>
 </div>
 <div class="s43-rule s43-u1" dir="rtl"><svg class="s43-rico" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="13" r="5.5"/><path d="M8 25c1.6-4 4-6 7-6s5.4 2 7 6"/><path d="M3 9V3h6M21 3h6v6M27 21v6h-6M9 27H3v-6"/></svg><span>זום על הפנים לא נחשב בירול</span></div><div class="s43-rule s43-u2" dir="rtl"><svg class="s43-rico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="10" width="17" height="14" rx="2.5"/><rect x="10" y="4" width="17" height="14" rx="2.5"/></svg><span>אותו קליפ לא מופיע פעמיים</span></div><div class="s43-rule s43-u3" dir="rtl"><svg class="s43-rico" viewBox="0 0 30 30" aria-hidden="true"><path d="M3 15h11M10.5 11l4 4-4 4"/><path d="M19 6v18"/><path d="M24 11.5l3.5 3.5-3.5 3.5-3.5-3.5z"/></svg><span>כניסה עד שנייה וחצי לפני המילה</span></div>
-</div></div></div></div>
-<div class="factbox"><span class="pill">מקסימום 3 שניות</span></div>
+</div></div></div></div></div>
+<div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">מקסימום 3 שניות</span></div></div>
 <div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>16</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">לפני שאתה מתמלל, תשאל אותי איזה סרטון, ובאיזו תיקייה נמצאים הקבצים שכבר יש לי.</div>
-<div class="pl" dir="rtl">תתמלל את הסרטון עם זמן לכל מילה, בעזרת <span class="codeblock" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk">&lt;הקובץ&gt;</span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span><span class="bt">`</span>,</span>ותציע לי רשימת בירולים כטבלה.</div>
+<div class="pl" dir="rtl">תתמלל את הסרטון עם זמן לכל מילה, בעזרת <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk">&lt;הקובץ&gt;</span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span><span class="bt">`</span></span>,</span>ותציע לי רשימת בירולים כטבלה.</div>
 <div class="pl" dir="rtl">בכל שורה יהיו זמן ההתחלה והסוף, המשפט, המילה המרכזית והזמן שלה (לפיה נקבעת הכניסה), מה רואים בבירול, ומאיפה הוא מגיע (הקלטת מסך שאצלם, אנימציה שתבנה, קליפ AI, או קובץ שכבר יש בתיקייה).</div>
 <div class="pl" dir="rtl">אף פעם לא יותר <span class="nb">מ-3</span> שניות ברצף של דיבור שלי למצלמה בלי בירול, וזום על הפנים לא נחשב בירול.</div>
 <div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>כל בירול מראה בדיוק את מה שנאמר באותו משפט, ואם אין משהו שמתאים באמת, תכתוב &quot;חסר&quot; במקום למלא בקליפ דומה.</div>
@@ -518,7 +528,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="pl" dir="rtl">הבירול נכנס בתוך המשפט שמזכיר אותו, בערך באמצע הדרך בין תחילת המשפט למילה המרכזית, ואף פעם לא יותר משנייה וחצי לפני המילה.</div>
 <div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>הקלטות מסך של החשבונות שלי אצלם בעצמי, ובשבילן תכתוב לי מה לצלם, כמה זמן ובאיזה רגע בסרטון, בלי לבנות צילום מסך מזויף.</div>
 <div class="pl" dir="rtl">תראה לי את הטבלה ותחכה לאישור לפני שאתה בונה או מייצר משהו.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>כל בירול מראה בדיוק את מה שנאמר באותו משפט, ואם אין משהו שמתאים באמת, תכתוב &quot;חסר&quot; במקום למלא בקליפ דומה.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>הקלטות מסך של החשבונות שלי אצלם בעצמי, ובשבילן תכתוב לי מה לצלם, כמה זמן ובאיזה רגע בסרטון, בלי לבנות צילום מסך מזויף.</div></div>
-<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="27.380">נפסלו</span> <span class="w" dir="rtl" data-t="27.540">בירולים</span> <span class="w" dir="rtl" data-t="27.700">שהתאימו</span> <span class="w" dir="rtl" data-t="27.860">רק</span> <span class="w" dir="rtl" data-t="28.020">בערך</span> <span class="w" dir="rtl" data-t="28.180">למשפט,</span> <span class="w" dir="rtl" data-t="28.340">וגם</span> <span class="w" dir="rtl" data-t="28.500">קליפ</span> <span class="w" dir="rtl" data-t="28.660">שחזר</span> <span class="w" dir="rtl" data-t="28.820">פעמיים,</span> <span class="w" dir="rtl" data-t="28.980">אפילו</span> <span class="w" dir="rtl" data-t="29.140">כשכל</span> <span class="w" dir="rtl" data-t="29.300">הסרטון</span> <span class="w" dir="rtl" data-t="29.460">היה</span> <span class="w" dir="rtl" data-t="29.620">מכוסה.</span></p></div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="27.180">נפסלו</span> <span class="w" dir="rtl" data-t="27.340">בירולים</span> <span class="w" dir="rtl" data-t="27.500">שהתאימו</span> <span class="w" dir="rtl" data-t="27.660">רק</span> <span class="w" dir="rtl" data-t="27.820">בערך</span> <span class="w" dir="rtl" data-t="27.980">למשפט,</span> <span class="w" dir="rtl" data-t="28.140">וגם</span> <span class="w" dir="rtl" data-t="28.300">קליפ</span> <span class="w" dir="rtl" data-t="28.460">שחזר</span> <span class="w" dir="rtl" data-t="28.620">פעמיים,</span> <span class="w" dir="rtl" data-t="28.780">אפילו</span> <span class="w" dir="rtl" data-t="28.940">כשכל</span> <span class="w" dir="rtl" data-t="29.100">הסרטון</span> <span class="w" dir="rtl" data-t="29.260">היה</span> <span class="w" dir="rtl" data-t="29.420">מכוסה.</span></p></div></div>
 </div></div>
 </div>
 </div>
@@ -626,10 +636,16 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     fx.className = "fx-sweep";
     if (o.color) fx.style.setProperty("--sweep", o.color);
     fx.appendChild(b);
+    // the sweep clips to the element's own box, so a static element becomes the containing block
+    // (only when none of its absolutely placed children depends on an outer one)
+    if (getComputedStyle(el).position === "static") {
+      const outer = Array.from(el.querySelectorAll("*")).some((c) => /absolute|fixed/.test(getComputedStyle(c).position) && c.offsetParent !== el && el.contains(c.offsetParent) === false);
+      if (!outer) el.style.position = "relative";
+    }
     el.appendChild(fx);
-    // the band is 180% of the element's height and skewed 16 degrees, so its ends lean by ~0.26 of the
-    // element's height: it starts and ends that far outside, never as a wedge inside a tall element
-    const w = el.offsetWidth, h = el.offsetHeight;
+    // the band is 180% of the swept box's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // height: it starts and ends that far outside, never as a wedge inside a tall box
+    const w = fx.offsetWidth || el.offsetWidth, h = fx.offsetHeight || el.offsetHeight;
     const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
     b.style.width = bw + "px";
     b.style.left = w + slant + "px";
@@ -693,6 +709,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
     tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
     if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    // the frame's edges soften while the camera is pushed in (content beyond them is cropped)
+    const clip = cam.parentElement;
+    if (clip && clip.classList.contains("stclip")) {
+      tl.fromTo(clip, { "--edge": "0px" }, A({ "--edge": "26px", duration: 0.3, ease: "power2.out" }), t);
+      if (tBack != null) tl.fromTo(clip, { "--edge": "26px" }, A({ "--edge": "0px", duration: 0.3, ease: "power2.in" }), tBack + 0.15);
+    }
     E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
   };
   /* Slow drifting dust over the whole video (depth; deterministic). */
@@ -786,6 +808,20 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     } else {
       dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
     }
+    // the lines around a lifted key line make room for it: the ones next to it move PUSH px,
+    // the shift tapers to 0 at the page edge, so no line is pushed out of the viewport
+    const PUSH = 10, plines = E.qa(".pl", body);
+    H.forEach((h) => {
+      const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
+      const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
+      const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
+      const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      h.push = [];
+      [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
+        const m = ls.length;
+        ls.forEach((l, j) => { const s = m > 1 ? (PUSH * (m - 1 - j)) / (m - 1) : 0; if (s > 0.5) h.push.push([l, sgn * s]); });
+      });
+    });
     // the lifted copies sit over their line on the page where it is held (static layout)
     H.forEach((h) => {
       h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
@@ -808,12 +844,15 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           dimmed = true;
           tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
           tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
           holdTimes.push(+t.toFixed(3));
           t += h.hold;
           const keepDim = j < mine.length - 1 || isHold(i + 1);
           const d = keepDim ? UNLIFT : UNDIM;
-          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d, ease: "power2.inOut" }), t);
-          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d, ease: "power2.in" }), t);
+          // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
           if (!keepDim) {
             tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
             dimmed = false;
@@ -927,8 +966,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
     if (cfg.tFact != null) {
       // the fact takes over the illustration's area; the illustration steps far back
-      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.14, 1, 0.4);
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.06, 1, 0.4);
       E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const scrim = E.q(".factbox .fscrim", sc);
+      if (scrim) tl.fromTo(scrim, { opacity: 0 }, A({ opacity: 1, duration: 0.4, ease: "power2.out" }), S + cfg.tFact - 0.45);
       const pill = E.q(".factbox .pill", sc);
       if (pill) {
         tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
@@ -937,7 +978,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
       }
       E.kin(tl, fact, S, { dy: 12 });
-      E.dim(tl, stage, S + tNext - 0.3, 0, 0.14, 0.25);
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.06, 0.25);
     } else {
       E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
       E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
@@ -1126,7 +1167,7 @@ window.SIMS.sim43 = function (tl, ctx, cfg, S) {
 
 
 (function () {
-  const CFGS = [{"id": "t43", "sim": "sim43", "D": 31.43, "tStage": 1.31, "tExp": 1.91, "phr": [1.91, 3.86, 6.31, 9.41], "phrEnd": 12.11, "tSimEnd": 17.11, "tFact": 17.11, "tPrompt": 19.81, "tPromptEnd": 26.98, "tTip": 26.98, "expZoom": 0.1, "simDur": 15.8, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim43": {"tracks": ["בירול", "דיבור"], "cols": ["הזמן", "המשפט", "מה רואים", "מאיפה"], "sources": ["הקלטת מסך שתצלמו", "אנימציה שקלוד יבנה", "קליפ AI", "קובץ שכבר בתיקייה"], "missing": "חסר", "gap": "3 שניות", "rules": ["זום על הפנים לא נחשב בירול", "אותו קליפ לא מופיע פעמיים", "כניסה עד שנייה וחצי לפני המילה"]}, "S": 0.0}];
+  const CFGS = [{"id": "t43", "sim": "sim43", "D": 31.08, "tStage": 1.31, "tExp": 1.91, "phr": [1.91, 3.86, 6.31, 9.41], "phrEnd": 12.11, "tSimEnd": 17.11, "tFact": 17.11, "tPrompt": 19.61, "tPromptEnd": 26.78, "tTip": 26.78, "expZoom": 0.07, "simDur": 15.8, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim43": {"tracks": ["בירול", "דיבור"], "cols": ["הזמן", "המשפט", "מה רואים", "מאיפה"], "sources": ["הקלטת מסך שתצלמו", "אנימציה שקלוד יבנה", "קליפ AI", "קובץ שכבר בתיקייה"], "missing": "חסר", "gap": "3 שניות", "rules": ["זום על הפנים לא נחשב בירול", "אותו קליפ לא מופיע פעמיים", "כניסה עד שנייה וחצי לפני המילה"]}, "S": 0.0}];
   const WINDOW = null;
   const fontsReady = Promise.all([
     document.fonts.load('400 38px Rubik', 'אבג abc 123'),
@@ -1140,7 +1181,7 @@ window.SIMS.sim43 = function (tl, ctx, cfg, S) {
     const cam = document.getElementById('cam');
     const master = gsap.timeline({ paused: true });
     // slow background drift for the whole video (the "camera that never stops")
-    const TOT = 31.430;
+    const TOT = 31.080;
     master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
     master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
     window.ENG.dust(master, document.getElementById('bg'), TOT);

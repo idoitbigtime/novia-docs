@@ -5,7 +5,6 @@ CFG = dict(
     # "|" marks the explanation's phrases (not shown); the illustration has one beat per phrase
     exp=("התמלול נעשה עם המודל הגדול (large-v3), | כי ברירת המחדל של HyperFrames מבינה רק אנגלית. | "
          "אחר כך קלוד קורא כל כתובית {כמשפט שלם} | ומתקן מילים שנשמעות אותו דבר ונכתבות אחרת."),
-    expZoom=0.10,
     payoff=7.2,
     sim22=dict(
         # B1-B2 labels: words from the explanation itself
