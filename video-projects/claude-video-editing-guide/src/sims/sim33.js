@@ -4,7 +4,7 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
   const T = (x) => S + x;                    // scene-local -> master time
   const q = (s) => E.q(".sim33 " + s, sc), qa = (s) => E.qa(".sim33 " + s, sc);
   const persp = q(".s33-persp"), root = persp.parentNode, stack = q(".s33-stack"), lys = qa(".s33-ly");
-  const R = { x: -110, y: 66, rz: -27, rx: 57, s: 0.62 }, Z0 = [0, 0.6, 1.2], Z = [-150, 0, 150];
+  const R = { x: -96, y: 58, rz: -20, rx: 48, s: 0.66 }, Z0 = [0, 0.6, 1.2], Z = [-150, 0, 150];
 
   // static layout: measure where each layer's right edge lands in the payoff's side view, then place the names
   stack.style.transform = "translate(" + R.x + "px, " + R.y + "px) rotate(" + R.rz + "deg) rotateX(" + R.rx + "deg) scale(" + R.s + ")";
@@ -64,21 +64,21 @@ window.SIMS.sim33 = function (tl, ctx, cfg, S) {
   tl.fromTo(strip, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b3));
   tl.fromTo(cut, { opacity: 1 }, A({ opacity: 0, duration: 0.35 }), T(b3));
   qa(".s33-w").forEach((w, i) => {
-    const t = T(b3 + 0.2 + i * 0.32);
+    const t = T(b3 + 0.4 + i * 0.32);
     tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.26, ease: "power2.out" }), t);
     tl.fromTo(w, { y: 30 }, A({ y: 0, duration: 0.7, ease: E.SPRING }), t);
     tl.fromTo(w, { filter: "blur(8px)" }, A({ filter: "blur(0px)", duration: 0.3, ease: "power2.out" }), t);
     tl.set(w, { filter: "none" }, t + 0.31);
   });
-  E.sweep(tl, q(".s33-text"), T(b3 + 1.35), 0.6, { color: "rgba(255, 255, 255, 0.35)" });
+  E.sweep(tl, q(".s33-text"), T(b3 + 1.4), 0.5, { color: "rgba(255, 255, 255, 0.35)" });
   // the time strip: a playhead reaches each word as it enters on the wall
   const wt = q(".s33-wt"), wph = q(".s33-wph"), wcs = qa(".s33-wc");
-  tl.fromTo(wt, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.4, ease: E.SPRING }), T(b3 + 0.02));
-  tl.fromTo(wph, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(b3 + 0.15));
-  tl.fromTo(wph, { x: 0 }, A({ x: -570, duration: 0.95, ease: "none" }), T(b3 + 0.167));
-  tl.fromTo(wph, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b3 + 1.12));
+  tl.fromTo(wt, { opacity: 0, y: 14 }, A({ opacity: 1, y: 0, duration: 0.4, ease: E.SPRING }), T(b3 + 0.22));
+  tl.fromTo(wph, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(b3 + 0.33));
+  tl.fromTo(wph, { x: 0 }, A({ x: -570, duration: 0.95, ease: "none" }), T(b3 + 0.37));
+  tl.fromTo(wph, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b3 + 1.3));
   wcs.forEach((wc, i) => {
-    const t = T(b3 + 0.2 + i * 0.32);
+    const t = T(b3 + 0.4 + i * 0.32);
     tl.fromTo(wc, { backgroundColor: "rgba(26, 23, 52, 0.92)", borderColor: "rgba(201, 194, 255, 0.3)", color: "#dcd9e6" },
       A({ backgroundColor: "rgba(255, 255, 255, 0.95)", borderColor: "#ffffff", color: "#0b0b0b", duration: 0.12 }), t);
     tl.fromTo(wc, { backgroundColor: "rgba(255, 255, 255, 0.95)", borderColor: "#ffffff", color: "#0b0b0b" },
