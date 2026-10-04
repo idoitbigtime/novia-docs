@@ -60,7 +60,7 @@ window.SIMS.sim22 = function (tl, ctx, cfg, S) {
     tl.fromTo(r, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b3 + 0.38 + i * 0.07));
     tl.fromTo(r, { x: 14 }, A({ x: 0, duration: 0.5, ease: E.SPRING }), T(b3 + 0.38 + i * 0.07));
   });
-  tl.fromTo(rd, { opacity: 0, scale: 1.06 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: E.SPRING }), T(b3 + 0.6));
+  tl.fromTo(rd, { opacity: 0, scale: 1.02 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: E.SPRING }), T(b3 + 0.6));
   tl.fromTo(rd, { y: 0 }, A({ y: 96, duration: 0.4, ease: E.SPRING }), T(b3 + 1.0));
   tl.fromTo(rd, { y: 96 }, A({ y: 192, duration: 0.4, ease: E.SPRING }), T(b3 + 1.4));
   // flagged in amber: this beat plays while the explanation's key phrase is red
