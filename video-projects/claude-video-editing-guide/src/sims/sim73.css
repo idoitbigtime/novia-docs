@@ -1,0 +1,128 @@
+/* 7.3 an independent critic until the score passes 90: builder -> Claude -> a separate copy -> inputs without explanations
+   -> score and numeric fixes -> rubric, seven rounds, 96, the stopping rule (canvas 800 x 700) */
+/* a generic 9:16 frame (inside sizes in %) */
+.sim73 .s73-fr { position: absolute; overflow: hidden; border-radius: 10px; background: linear-gradient(180deg, #2c2556 0%, #181433 66%, #0e0c1f 100%); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.4); }
+.sim73 .s73-fr > i { position: absolute; display: block; }
+.sim73 .s73-h { left: 36%; top: 33%; width: 28%; height: 15.75%; border-radius: 50%; background: linear-gradient(180deg, #4a3f8c, #2c2560); box-shadow: inset 0 0 0 1px rgba(201, 194, 255, 0.35); }
+.sim73 .s73-bd { left: 16%; top: 50%; width: 68%; height: 52%; border-radius: 50% 50% 0 0 / 34% 34% 0 0; background: linear-gradient(180deg, #3b3274, #221c48); box-shadow: inset 0 1px 0 rgba(201, 194, 255, 0.4); }
+.sim73 .s73-ti { left: 14%; top: 9%; width: 72%; height: 4.4%; border-radius: 99px; background: rgba(245, 242, 234, 0.92); }
+.sim73 .s73-cp { left: 18%; top: 77%; width: 64%; height: 9%; border-radius: 4px; background: #ffffff; }
+.sim73 .s73-cp::after, .sim73 .s73-cut::after { content: ""; position: absolute; left: 16%; right: 16%; top: 36%; height: 28%; border-radius: 9px; background: rgba(20, 16, 40, 0.85); }
+
+/* the builder's side */
+.sim73 .s73-builder { position: absolute; left: 0; top: 0; width: 800px; height: 700px; transform: translateX(-160px); }
+.sim73 .s73-vid { left: 440px; top: 146px; width: 130px; height: 231px; border-radius: 14px; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.6), 0 0 24px rgba(201, 194, 255, 0.2); }
+.sim73 .s73-vid > .s73-cp { display: none; }
+.sim73 .s73-vid > .s73-cut { left: -26%; top: 77%; width: 70%; height: 9%; border-radius: 4px; background: #ffffff; }
+.sim73 .s73-flaw { position: absolute; left: 422px; top: 302px; width: 92px; height: 64px; overflow: visible; transform-origin: 50% 50%; }
+.sim73 .s73-flaw rect { fill: none; stroke: #ff453a; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.85)); }
+/* after B1 the cut caption keeps a thin dashed amber note (so it never reads as a rendering glitch) */
+.sim73 .s73-note { opacity: 0; }
+.sim73 .s73-note rect { stroke: #f5b544; stroke-width: 2; stroke-dasharray: 6 5; filter: drop-shadow(0 0 4px rgba(245, 181, 68, 0.55)); }
+.sim73 .s73-bub { position: absolute; left: 430px; top: 424px; width: 160px; height: 96px; border-radius: 22px 6px 22px 22px; background: rgba(38, 33, 76, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.4);
+  opacity: 0; transform-origin: 100% 0%; }
+.sim73 .s73-bub > i { position: absolute; right: 20px; height: 9px; border-radius: 5px; background: rgba(220, 216, 240, 0.7); display: block; transform-origin: 100% 50%; }
+.sim73 .s73-bub > i:nth-child(1) { top: 22px; width: 116px; }
+.sim73 .s73-bub > i:nth-child(2) { top: 42px; width: 92px; }
+.sim73 .s73-bub > i:nth-child(3) { top: 62px; width: 104px; }
+.sim73 .s73-expl { position: absolute; right: 10px; top: -40px; font: 600 30px/1 "Rubik"; color: var(--ink); background: rgba(26, 23, 52, 0.96); padding: 6px 12px; border-radius: 999px;
+  border: 1.5px solid rgba(201, 194, 255, 0.45); white-space: nowrap; opacity: 0; }
+.sim73 .s73-list { position: absolute; left: 600px; top: 372px; width: 150px; height: 116px; border-radius: 18px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.28);
+  padding: 12px 16px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; }
+.sim73 .s73-li { display: flex; direction: rtl; align-items: center; gap: 10px; height: 26px; }
+.sim73 .s73-li svg { width: 24px; height: 24px; overflow: visible; display: block; flex: none; }
+.sim73 .s73-li path { fill: none; stroke: #c9c2ff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim73 .s73-li i { width: 70px; height: 8px; border-radius: 4px; background: rgba(201, 194, 255, 0.35); display: block; }
+.sim73 .s73-person { position: absolute; left: 600px; top: 138px; width: 150px; height: 183px; }
+.sim73 .s73-card { position: absolute; top: 160px; width: 150px; height: 150px; border-radius: 30px; background: linear-gradient(160deg, #2e2862 0%, #191537 100%);
+  border: 2px solid rgba(201, 194, 255, 0.65); box-shadow: 0 0 26px rgba(201, 194, 255, 0.28); display: grid; place-items: center; opacity: 0; overflow: hidden; }
+.sim73 .s73-card b { font: 600 52px/1 "IBM Plex Mono"; color: #ece9ff; text-shadow: 0 0 14px rgba(201, 194, 255, 0.8); }
+.sim73 .s73-glow { position: absolute; left: -40px; top: -50px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 194, 255, 0.28), rgba(201, 194, 255, 0) 70%); display: block; }
+.sim73 .s73-me { left: 600px; }
+/* the critic sits 28 px in from the left, so its tile and label stay clear of the frame's soft edge in the punch-in */
+.sim73 .s73-cr, .sim73 .s73-ghost { left: 84px; }
+.sim73 .s73-ghost { border-color: rgba(201, 194, 255, 0.4); box-shadow: none; }
+.sim73 .s73-name { position: absolute; top: 324px; text-align: center; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim73 .s73-mename { left: 600px; width: 150px; }
+.sim73 .s73-crname { left: 44px; width: 230px; }
+
+/* the critic's side: the divider and the tray of inputs */
+/* the divider stands mid-gap between the critic's tray and the builder's card, so the X on it reads as stopping the card */
+.sim73 .s73-div { position: absolute; left: 352px; top: 150px; width: 4px; height: 360px; overflow: visible; }
+.sim73 .s73-div path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.8)); }
+/* B3: where the explanations are stopped, on the divider (light, not red: one red thing at a time) */
+.sim73 .s73-blk { position: absolute; left: 334px; top: 452px; width: 40px; height: 40px; border-radius: 50%; background: #1b1733;
+  box-shadow: 0 0 0 2px rgba(244, 241, 255, 0.55), 0 0 16px rgba(201, 194, 255, 0.55); display: grid; place-items: center; opacity: 0; }
+.sim73 .s73-blk svg { width: 24px; height: 24px; overflow: visible; display: block; }
+.sim73 .s73-blk path { fill: none; stroke: #f4f1ff; stroke-width: 3.2; stroke-linecap: round; }
+.sim73 .s73-tray { position: absolute; left: 48px; top: 380px; width: 264px; height: 130px; border-radius: 20px; border: 2px dashed rgba(201, 194, 255, 0.4); opacity: 0; }
+.sim73 .s73-doc { position: absolute; left: 54px; top: 385px; width: 108px; height: 120px; border-radius: 12px; background: #f4f2fb; box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4); opacity: 0; }
+.sim73 .s73-doc > i { position: absolute; left: 14px; height: 7px; border-radius: 4px; background: rgba(40, 34, 80, 0.35); display: block; }
+.sim73 .s73-doc > i:nth-child(1) { top: 16px; width: 68px; }
+.sim73 .s73-doc > i:nth-child(2) { top: 30px; width: 54px; }
+.sim73 .s73-doc > i:nth-child(3) { top: 44px; width: 62px; }
+.sim73 .s73-doc span { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font: 700 30px/1 "Rubik"; color: #1a1636; }
+.sim73 .s73-th { width: 44px; height: 78px; border-radius: 7px; }
+.sim73 .s73-in { top: 410px; opacity: 0; }
+.sim73 .s73-in0 { left: 168px; }
+.sim73 .s73-in1 { left: 214px; }
+.sim73 .s73-in2 { left: 260px; }
+
+/* B4: the gauge (0 at the right end, 100 at the left end) and the numeric fixes */
+.sim73 .s73-gauge { position: absolute; left: 330px; top: 130px; width: 340px; height: 200px; }
+.sim73 .s73-gsvg { position: absolute; left: 0; top: 0; width: 340px; height: 200px; overflow: visible; }
+.sim73 .s73-track { fill: none; stroke: rgba(201, 194, 255, 0.16); stroke-width: 16; stroke-linecap: round; }
+.sim73 .s73-fill { fill: none; stroke: url(#s73gr); stroke-width: 16; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.7)); }
+.sim73 .s73-tk { fill: none; stroke: rgba(236, 233, 255, 0.85); stroke-width: 3; stroke-linecap: round; opacity: 0; }
+.sim73 .s73-tl { position: absolute; width: 60px; text-align: center; font: 600 31px/1 "Rubik"; color: #b8b4cc; opacity: 0; }
+.sim73 .s73-score { position: absolute; left: 0; top: 96px; width: 340px; display: flex; justify-content: center; align-items: baseline; gap: 6px; }
+.sim73 .s73-nn { display: grid; }
+.sim73 .s73-n { grid-area: 1 / 1; font: 800 92px/1 "Rubik"; color: #ffffff; text-shadow: 0 0 22px rgba(201, 194, 255, 0.55); text-align: center; opacity: 0; }
+.sim73 .s73-of { font: 600 36px/1 "Rubik"; color: #9c99ae; opacity: 0; }
+.sim73 .s73-pass { position: absolute; left: -26px; top: 44px; width: 38px; height: 38px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2.5px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.7); display: grid; place-items: center; opacity: 0; }
+.sim73 .s73-pass svg { width: 24px; height: 24px; overflow: visible; display: block; }
+.sim73 .s73-pass path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim73 .s73-rows { position: absolute; left: 100px; top: 436px; width: 600px; height: 176px; }
+.sim73 .s73-row { position: absolute; left: 0; width: 600px; height: 84px; opacity: 0; }
+.sim73 .s73-row0 { top: 0; }
+.sim73 .s73-row1 { top: 92px; }
+.sim73 .s73-dth0, .sim73 .s73-dth1 { left: 540px; top: 3px; }
+.sim73 .s73-dth0 > .s73-cp { left: -22%; width: 70%; }
+.sim73 .s73-dth1 > .s73-ti { left: 34%; top: 4%; }
+/* defect marks are amber: B4 holds the red accent phrase */
+.sim73 .s73-dm { left: -6%; top: 68%; width: 70%; height: 28%; border-radius: 6px; border: 2.5px solid #f5b544; box-shadow: 0 0 8px rgba(245, 181, 68, 0.75); opacity: 0; }
+.sim73 .s73-dth1 > .s73-dm { left: 24%; top: -2%; width: 72%; height: 18%; }
+.sim73 .s73-arr { position: absolute; left: 480px; top: 32px; width: 40px; height: 20px; opacity: 0; }
+.sim73 .s73-sl { position: absolute; left: 110px; top: 24px; width: 340px; height: 36px; border-radius: 12px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); }
+.sim73 .s73-rule { position: absolute; left: 14px; right: 14px; top: 9px; height: 15px; display: block;
+  background: repeating-linear-gradient(90deg, rgba(201, 194, 255, 0.55) 0 2px, rgba(201, 194, 255, 0) 2px 31.2px); }
+.sim73 .s73-knob { position: absolute; left: 60px; top: 4px; width: 25px; height: 25px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #c9c2ff, 0 0 0 4px rgba(201, 194, 255, 0.35); display: block; }
+
+/* payoff: seven rounds of the same critic, the rubric, the stopping rule */
+.sim73 .s73-steps { position: absolute; left: 340px; top: 358px; width: 340px; height: 70px; }
+.sim73 .s73-line, .sim73 .s73-linef { position: absolute; left: 10px; top: 10px; width: 300px; height: 2px; border-radius: 1px; display: block; transform-origin: 100% 50%; transform: scaleX(0); }
+.sim73 .s73-line { background: rgba(201, 194, 255, 0.3); }
+.sim73 .s73-linef { background: #e6e2ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); }
+.sim73 .s73-nd { position: absolute; top: 1px; width: 20px; height: 20px; border-radius: 50%; display: block; opacity: 0;
+  background: radial-gradient(circle, #5c5480 0 5.5px, rgba(0, 0, 0, 0) 6.5px); }
+.sim73 .s73-ndx { background: #2a2450; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.7); }
+.sim73 .s73-sv { position: absolute; top: 30px; width: 60px; text-align: center; font: 700 30px/1 "Rubik"; color: #ffffff; opacity: 0; }
+.sim73 .s73-sv1 { left: 280px; }
+.sim73 .s73-sv7 { left: -20px; }
+.sim73 .s73-slbl { position: absolute; left: 328px; top: -4px; font: 500 30px/1 "Rubik"; color: #9c99ae; white-space: nowrap; opacity: 0; }
+.sim73 .s73-lbl { position: absolute; display: flex; align-items: center; gap: 12px; direction: rtl; font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim73 .s73-lbl > i { width: 14px; height: 14px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.8); display: block; flex: none; }
+.sim73 .s73-rublbl { right: 60px; top: 434px; }
+.sim73 .s73-rub { position: absolute; left: 40px; top: 474px; width: 720px; display: flex; flex-direction: column; gap: 10px; }
+.sim73 .s73-tagrow { display: flex; direction: rtl; justify-content: center; gap: 12px; }
+.sim73 .s73-tag { font: 600 30px/1 "Rubik"; color: #ece9f7; padding: 8px 16px 7px; border-radius: 999px; background: rgba(36, 31, 72, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.5); white-space: nowrap; opacity: 0; }
+.sim73 .s73-rulecard { position: absolute; left: 40px; top: 590px; width: 720px; height: 104px; border-radius: 20px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.34);
+  display: flex; direction: rtl; align-items: center; gap: 20px; padding: 0 28px; opacity: 0; }
+.sim73 .s73-stop { width: 46px; height: 46px; display: block; flex: none; overflow: visible; }
+.sim73 .s73-stop path { fill: none; stroke: #ff453a; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.8)); }
+.sim73 .s73-rtx p { font: 600 31px/1.35 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim73 .s73-rtx p + p { color: #dcd9e6; font-weight: 500; }
+/* a light sweep without skew (nothing shows at rest) */
+.sim73 .s73-swp { position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.sim73 .s73-swp b { position: absolute; top: 0; bottom: 0; left: 100%; width: 80%; display: block;
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 15%, var(--sw, rgba(255, 255, 255, 0.24)) 50%, rgba(255, 255, 255, 0) 85%); }

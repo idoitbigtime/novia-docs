@@ -1,0 +1,1309 @@
+<!doctype html>
+<html lang="he">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>עריכת וידאו עם Claude</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+/* IBM Plex Mono 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 300 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-300.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-300.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-300.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 400 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-400.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 500 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-500.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 600 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-600.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 700 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-700.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Rubik 300 900 normal — hebrew */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-hebrew-300-900.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* Rubik 300 900 normal — latin-ext */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-ext-300-900.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Rubik 300 900 normal — latin */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-300-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Design tokens. Safe area for text: x 140..940, y 300..1570 (1080x1920). */
+:root {
+  --bg: #06060b;
+  --ink: #f5f2ea;
+  --ink2: #dcd9e6;
+  --muted: #9c99ae;
+  --acc: #ff453a;
+  --acc-soft: #ff8a80;
+  --line: #c9c2ff;
+  --line-glow: rgba(201, 194, 255, 0.55);
+  --panel: rgba(18, 17, 34, 0.96);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: "Rubik", sans-serif; }
+.stagewrap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; overflow: hidden; }
+
+/* ---------- background ---------- */
+#bg { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #08080f 0%, #0b0a17 55%, #07070d 100%); }
+#bg .glow { position: absolute; border-radius: 50%; }
+#bg .g1 { width: 1500px; height: 1500px; left: -420px; top: -380px; background: radial-gradient(circle, rgba(124, 92, 255, 0.20) 0%, rgba(124, 92, 255, 0.07) 38%, rgba(124, 92, 255, 0) 66%); }
+#bg .g2 { width: 1400px; height: 1400px; left: 260px; top: 980px; background: radial-gradient(circle, rgba(255, 69, 58, 0.15) 0%, rgba(255, 69, 58, 0.05) 40%, rgba(255, 69, 58, 0) 66%); }
+#bg .grain { position: absolute; inset: 0; background-image: url("assets/grain.png"); background-size: 256px 256px; opacity: 0.07; mix-blend-mode: screen; }
+#bg .vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
+
+#cam { position: absolute; inset: 0; transform-origin: 540px 960px; }
+.scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.scam { position: absolute; inset: 0; }
+
+/* ---------- header (chapter indicator) ---------- */
+.hdr { position: absolute; top: 300px; left: 140px; width: 800px; height: 46px; display: flex; justify-content: space-between; align-items: center; direction: rtl; opacity: 0; }
+.hdr-ch { font: 500 30px/1 "Rubik"; color: #b3b0c4; }
+.hdr-num { font: 600 28px/1 "IBM Plex Mono"; color: var(--acc); border: 1.5px solid rgba(255, 69, 58, 0.55); border-radius: 10px; padding: 7px 12px 6px; }
+
+/* ---------- kinetic text ---------- */
+.kin { direction: rtl; text-align: right; }
+.w { display: inline-block; white-space: pre; opacity: 0; }
+.isl { unicode-bidi: isolate; }
+.accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
+.accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
+.strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+.nbgrp { display: inline-block; white-space: nowrap; }
+.glu { display: inline-block; white-space: nowrap; }
+
+/* ---------- topic layout ---------- */
+.main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
+.ttl { font: 800 60px/1.14 "Rubik"; color: var(--ink); letter-spacing: -0.005em; text-wrap: balance; }
+.exp { font: 400 36px/1.42 "Rubik"; color: var(--ink2); }
+.exp .accgrp { font-weight: 800; }
+.exp .ph { transition: none; }
+/* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
+.stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
+/* the illustration's frame: the camera zooms inside it, so nothing ever leaves x 140..940; during a zoom
+   its edges soften (--edge), like a camera crop */
+.stclip { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; --edge: 0px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%); mask-composite: intersect; }
+.stcam { position: absolute; inset: 0; }
+.stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
+.simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
+.simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
+/* the illustration canvas: 800 x 700 (frame x 140..940) */
+.simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
+
+/* fact overlay inside the stage */
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; direction: rtl; }
+/* the fact sits on its own dark backing (soft edges), so the faded illustration never shows through the text */
+.factin { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 34px 30px; }
+.fscrim { position: absolute; z-index: -1; inset: 0; border-radius: 48px; background: rgba(9, 8, 18, 0.9); box-shadow: 0 0 46px 30px rgba(9, 8, 18, 0.88); opacity: 0; display: block; }
+.pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
+.factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
+.metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
+.metaline .w, .factline .w { opacity: 0; }
+
+/* ---------- prompt card ---------- */
+.pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
+.pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
+.pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: #b9a8ff; box-shadow: 0 0 14px rgba(185, 168, 255, 0.85); display: block; }
+.pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
+.pc-num b { color: var(--ink); font-weight: 600; }
+.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
+.tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
+.tab .tul { display: none; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: #b9a8ff; display: block; opacity: 0; }
+.tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
+.pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
+  }
+.pct { position: absolute; top: 0; left: 48px; right: 48px; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
+.pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
+.pl-empty { height: 44px; }
+.ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; color: #d8d4ea; white-space: nowrap; }
+/* long code: its own right-aligned line (an LTR isolate that may wrap; the punctuation after it stays outside) */
+.codeblock { display: block; direction: rtl; text-align: right; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.cbi { direction: ltr; unicode-bidi: isolate; }
+.tk { white-space: nowrap; }
+.nb, .neg { white-space: nowrap; }
+.code .bt, .codeblock .bt { color: #6f6b86; }
+.hlbg { position: absolute; z-index: -1; top: 0; bottom: 0; left: -14px; right: -14px; background: #2e1626; border-right: 4px solid #e5484d; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); opacity: 0; display: block; }
+.pbody { position: relative; }
+/* lifted key lines: a layer over the card (same box, not clipped by it) */
+.plift { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; pointer-events: none; }
+.pl-lift { position: absolute; z-index: 3; opacity: 0; box-sizing: border-box; padding: 0 12px; font: 400 30px/44px "Rubik"; color: #f5f2ea; direction: rtl; white-space: pre-wrap; transform-origin: 50% 50%; }
+/* the lifted backing is as wide as the line, so at x1.10 it stays clear of the card border */
+.pl-lift .hlbg { opacity: 1; left: 0; right: 0; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55); }
+
+/* ---------- tip ---------- */
+.tipwrap { position: absolute; left: 140px; width: 800px; top: 0; height: 1920px; display: flex; align-items: center; justify-content: center; }
+.tipcard { width: 800px; padding: 44px 48px 50px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(18, 17, 34, 0.88); box-shadow: 0 0 40px rgba(140, 120, 255, 0.15); direction: rtl; text-align: right; opacity: 0; }
+.tip-label { display: flex; align-items: center; gap: 12px; font: 600 30px/1 "Rubik"; color: #f2eef8; margin-bottom: 26px; }
+.tip-ico { width: 46px; height: 46px; display: block; overflow: visible; filter: drop-shadow(0 0 8px rgba(255, 69, 58, 0.55)); }
+.tip-ico path { fill: none; stroke: var(--acc); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.tip-text { font: 600 46px/1.38 "Rubik"; color: var(--ink); }
+.tip-text .w { opacity: 0; }
+
+/* ---------- chapter card ---------- */
+.chap { position: absolute; inset: 0; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); opacity: 0; }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
+.ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
+.ch-tin { display: inline-block; white-space: nowrap; }
+.ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
+.ch-sub { position: absolute; top: 1040px; left: 150px; width: 780px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
+/* centred blocks wrap into even lines; paragraphs never end on a lone word */
+.ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
+.exp, .tip-text { text-wrap: pretty; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0; }
+.ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
+.ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+
+/* ---------- effects ---------- */
+/* light sweep across an element (the element clips it) */
+.fx-sweep { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.fx-sweep b { position: absolute; top: -40%; bottom: -40%; left: 100%; width: 34%; display: block; transform: skewX(-16deg);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--sweep, rgba(255, 255, 255, 0.22)), rgba(255, 255, 255, 0)); }
+/* light band across the whole frame at a scene change */
+.fx-band { position: absolute; top: -400px; left: 1080px; width: 560px; height: 2720px; display: block; pointer-events: none; z-index: 40;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.10) 35%, rgba(255, 255, 255, 0.16) 50%, rgba(201, 194, 255, 0.10) 65%, rgba(201, 194, 255, 0));
+  transform: rotate(14deg); mix-blend-mode: screen; opacity: 0; }
+/* particle burst */
+.fx-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; display: block; pointer-events: none; opacity: 0; z-index: 7; }
+/* drifting dust in the background */
+.dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
+
+/* 7.3 an independent critic until the score passes 90: builder -> Claude -> a separate copy -> inputs without explanations
+   -> score and numeric fixes -> rubric, seven rounds, 96, the stopping rule (canvas 800 x 700) */
+/* a generic 9:16 frame (inside sizes in %) */
+.sim73 .s73-fr { position: absolute; overflow: hidden; border-radius: 10px; background: linear-gradient(180deg, #2c2556 0%, #181433 66%, #0e0c1f 100%); box-shadow: 0 0 0 1.5px rgba(201, 194, 255, 0.4); }
+.sim73 .s73-fr > i { position: absolute; display: block; }
+.sim73 .s73-h { left: 36%; top: 33%; width: 28%; height: 15.75%; border-radius: 50%; background: linear-gradient(180deg, #4a3f8c, #2c2560); box-shadow: inset 0 0 0 1px rgba(201, 194, 255, 0.35); }
+.sim73 .s73-bd { left: 16%; top: 50%; width: 68%; height: 52%; border-radius: 50% 50% 0 0 / 34% 34% 0 0; background: linear-gradient(180deg, #3b3274, #221c48); box-shadow: inset 0 1px 0 rgba(201, 194, 255, 0.4); }
+.sim73 .s73-ti { left: 14%; top: 9%; width: 72%; height: 4.4%; border-radius: 99px; background: rgba(245, 242, 234, 0.92); }
+.sim73 .s73-cp { left: 18%; top: 77%; width: 64%; height: 9%; border-radius: 4px; background: #ffffff; }
+.sim73 .s73-cp::after, .sim73 .s73-cut::after { content: ""; position: absolute; left: 16%; right: 16%; top: 36%; height: 28%; border-radius: 9px; background: rgba(20, 16, 40, 0.85); }
+
+/* the builder's side */
+.sim73 .s73-builder { position: absolute; left: 0; top: 0; width: 800px; height: 700px; transform: translateX(-160px); }
+.sim73 .s73-vid { left: 440px; top: 146px; width: 130px; height: 231px; border-radius: 14px; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.6), 0 0 24px rgba(201, 194, 255, 0.2); }
+.sim73 .s73-vid > .s73-cp { display: none; }
+.sim73 .s73-vid > .s73-cut { left: -26%; top: 77%; width: 70%; height: 9%; border-radius: 4px; background: #ffffff; }
+.sim73 .s73-flaw { position: absolute; left: 422px; top: 302px; width: 92px; height: 64px; overflow: visible; transform-origin: 50% 50%; }
+.sim73 .s73-flaw rect { fill: none; stroke: #ff453a; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255, 69, 58, 0.85)); }
+/* after B1 the cut caption keeps a thin dashed amber note (so it never reads as a rendering glitch) */
+.sim73 .s73-note { opacity: 0; }
+.sim73 .s73-note rect { stroke: #f5b544; stroke-width: 2; stroke-dasharray: 6 5; filter: drop-shadow(0 0 4px rgba(245, 181, 68, 0.55)); }
+.sim73 .s73-bub { position: absolute; left: 430px; top: 424px; width: 160px; height: 96px; border-radius: 22px 6px 22px 22px; background: rgba(38, 33, 76, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.4);
+  opacity: 0; transform-origin: 100% 0%; }
+.sim73 .s73-bub > i { position: absolute; right: 20px; height: 9px; border-radius: 5px; background: rgba(220, 216, 240, 0.7); display: block; transform-origin: 100% 50%; }
+.sim73 .s73-bub > i:nth-child(1) { top: 22px; width: 116px; }
+.sim73 .s73-bub > i:nth-child(2) { top: 42px; width: 92px; }
+.sim73 .s73-bub > i:nth-child(3) { top: 62px; width: 104px; }
+.sim73 .s73-expl { position: absolute; right: 10px; top: -40px; font: 600 30px/1 "Rubik"; color: var(--ink); background: rgba(26, 23, 52, 0.96); padding: 6px 12px; border-radius: 999px;
+  border: 1.5px solid rgba(201, 194, 255, 0.45); white-space: nowrap; opacity: 0; }
+.sim73 .s73-list { position: absolute; left: 600px; top: 372px; width: 150px; height: 116px; border-radius: 18px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.28);
+  padding: 12px 16px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; }
+.sim73 .s73-li { display: flex; direction: rtl; align-items: center; gap: 10px; height: 26px; }
+.sim73 .s73-li svg { width: 24px; height: 24px; overflow: visible; display: block; flex: none; }
+.sim73 .s73-li path { fill: none; stroke: #c9c2ff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim73 .s73-li i { width: 70px; height: 8px; border-radius: 4px; background: rgba(201, 194, 255, 0.35); display: block; }
+.sim73 .s73-person { position: absolute; left: 600px; top: 138px; width: 150px; height: 183px; }
+.sim73 .s73-card { position: absolute; top: 160px; width: 150px; height: 150px; border-radius: 30px; background: linear-gradient(160deg, #2e2862 0%, #191537 100%);
+  border: 2px solid rgba(201, 194, 255, 0.65); box-shadow: 0 0 26px rgba(201, 194, 255, 0.28); display: grid; place-items: center; opacity: 0; overflow: hidden; }
+.sim73 .s73-card b { font: 600 52px/1 "IBM Plex Mono"; color: #ece9ff; text-shadow: 0 0 14px rgba(201, 194, 255, 0.8); }
+.sim73 .s73-glow { position: absolute; left: -40px; top: -50px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 194, 255, 0.28), rgba(201, 194, 255, 0) 70%); display: block; }
+.sim73 .s73-me { left: 600px; }
+/* the critic sits 28 px in from the left, so its tile and label stay clear of the frame's soft edge in the punch-in */
+.sim73 .s73-cr, .sim73 .s73-ghost { left: 84px; }
+.sim73 .s73-ghost { border-color: rgba(201, 194, 255, 0.4); box-shadow: none; }
+.sim73 .s73-name { position: absolute; top: 324px; text-align: center; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim73 .s73-mename { left: 600px; width: 150px; }
+.sim73 .s73-crname { left: 44px; width: 230px; }
+
+/* the critic's side: the divider and the tray of inputs */
+/* the divider stands mid-gap between the critic's tray and the builder's card, so the X on it reads as stopping the card */
+.sim73 .s73-div { position: absolute; left: 352px; top: 150px; width: 4px; height: 360px; overflow: visible; }
+.sim73 .s73-div path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.8)); }
+/* B3: where the explanations are stopped, on the divider (light, not red: one red thing at a time) */
+.sim73 .s73-blk { position: absolute; left: 334px; top: 452px; width: 40px; height: 40px; border-radius: 50%; background: #1b1733;
+  box-shadow: 0 0 0 2px rgba(244, 241, 255, 0.55), 0 0 16px rgba(201, 194, 255, 0.55); display: grid; place-items: center; opacity: 0; }
+.sim73 .s73-blk svg { width: 24px; height: 24px; overflow: visible; display: block; }
+.sim73 .s73-blk path { fill: none; stroke: #f4f1ff; stroke-width: 3.2; stroke-linecap: round; }
+.sim73 .s73-tray { position: absolute; left: 48px; top: 380px; width: 264px; height: 130px; border-radius: 20px; border: 2px dashed rgba(201, 194, 255, 0.4); opacity: 0; }
+.sim73 .s73-doc { position: absolute; left: 54px; top: 385px; width: 108px; height: 120px; border-radius: 12px; background: #f4f2fb; box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4); opacity: 0; }
+.sim73 .s73-doc > i { position: absolute; left: 14px; height: 7px; border-radius: 4px; background: rgba(40, 34, 80, 0.35); display: block; }
+.sim73 .s73-doc > i:nth-child(1) { top: 16px; width: 68px; }
+.sim73 .s73-doc > i:nth-child(2) { top: 30px; width: 54px; }
+.sim73 .s73-doc > i:nth-child(3) { top: 44px; width: 62px; }
+.sim73 .s73-doc span { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font: 700 30px/1 "Rubik"; color: #1a1636; }
+.sim73 .s73-th { width: 44px; height: 78px; border-radius: 7px; }
+.sim73 .s73-in { top: 410px; opacity: 0; }
+.sim73 .s73-in0 { left: 168px; }
+.sim73 .s73-in1 { left: 214px; }
+.sim73 .s73-in2 { left: 260px; }
+
+/* B4: the gauge (0 at the right end, 100 at the left end) and the numeric fixes */
+.sim73 .s73-gauge { position: absolute; left: 330px; top: 130px; width: 340px; height: 200px; }
+.sim73 .s73-gsvg { position: absolute; left: 0; top: 0; width: 340px; height: 200px; overflow: visible; }
+.sim73 .s73-track { fill: none; stroke: rgba(201, 194, 255, 0.16); stroke-width: 16; stroke-linecap: round; }
+.sim73 .s73-fill { fill: none; stroke: url(#s73gr); stroke-width: 16; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.7)); }
+.sim73 .s73-tk { fill: none; stroke: rgba(236, 233, 255, 0.85); stroke-width: 3; stroke-linecap: round; opacity: 0; }
+.sim73 .s73-tl { position: absolute; width: 60px; text-align: center; font: 600 31px/1 "Rubik"; color: #b8b4cc; opacity: 0; }
+.sim73 .s73-score { position: absolute; left: 0; top: 96px; width: 340px; display: flex; justify-content: center; align-items: baseline; gap: 6px; }
+.sim73 .s73-nn { display: grid; }
+.sim73 .s73-n { grid-area: 1 / 1; font: 800 92px/1 "Rubik"; color: #ffffff; text-shadow: 0 0 22px rgba(201, 194, 255, 0.55); text-align: center; opacity: 0; }
+.sim73 .s73-of { font: 600 36px/1 "Rubik"; color: #9c99ae; opacity: 0; }
+.sim73 .s73-pass { position: absolute; left: -26px; top: 44px; width: 38px; height: 38px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2.5px #c9c2ff, 0 0 14px rgba(201, 194, 255, 0.7); display: grid; place-items: center; opacity: 0; }
+.sim73 .s73-pass svg { width: 24px; height: 24px; overflow: visible; display: block; }
+.sim73 .s73-pass path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim73 .s73-rows { position: absolute; left: 100px; top: 436px; width: 600px; height: 176px; }
+.sim73 .s73-row { position: absolute; left: 0; width: 600px; height: 84px; opacity: 0; }
+.sim73 .s73-row0 { top: 0; }
+.sim73 .s73-row1 { top: 92px; }
+.sim73 .s73-dth0, .sim73 .s73-dth1 { left: 540px; top: 3px; }
+.sim73 .s73-dth0 > .s73-cp { left: -22%; width: 70%; }
+.sim73 .s73-dth1 > .s73-ti { left: 34%; top: 4%; }
+/* defect marks are amber: B4 holds the red accent phrase */
+.sim73 .s73-dm { left: -6%; top: 68%; width: 70%; height: 28%; border-radius: 6px; border: 2.5px solid #f5b544; box-shadow: 0 0 8px rgba(245, 181, 68, 0.75); opacity: 0; }
+.sim73 .s73-dth1 > .s73-dm { left: 24%; top: -2%; width: 72%; height: 18%; }
+.sim73 .s73-arr { position: absolute; left: 480px; top: 32px; width: 40px; height: 20px; opacity: 0; }
+.sim73 .s73-sl { position: absolute; left: 110px; top: 24px; width: 340px; height: 36px; border-radius: 12px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.3); }
+.sim73 .s73-rule { position: absolute; left: 14px; right: 14px; top: 9px; height: 15px; display: block;
+  background: repeating-linear-gradient(90deg, rgba(201, 194, 255, 0.55) 0 2px, rgba(201, 194, 255, 0) 2px 31.2px); }
+.sim73 .s73-knob { position: absolute; left: 60px; top: 4px; width: 25px; height: 25px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #c9c2ff, 0 0 0 4px rgba(201, 194, 255, 0.35); display: block; }
+
+/* payoff: seven rounds of the same critic, the rubric, the stopping rule */
+.sim73 .s73-steps { position: absolute; left: 340px; top: 358px; width: 340px; height: 70px; }
+.sim73 .s73-line, .sim73 .s73-linef { position: absolute; left: 10px; top: 10px; width: 300px; height: 2px; border-radius: 1px; display: block; transform-origin: 100% 50%; transform: scaleX(0); }
+.sim73 .s73-line { background: rgba(201, 194, 255, 0.3); }
+.sim73 .s73-linef { background: #e6e2ff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); }
+.sim73 .s73-nd { position: absolute; top: 1px; width: 20px; height: 20px; border-radius: 50%; display: block; opacity: 0;
+  background: radial-gradient(circle, #5c5480 0 5.5px, rgba(0, 0, 0, 0) 6.5px); }
+.sim73 .s73-ndx { background: #2a2450; box-shadow: 0 0 0 2px rgba(201, 194, 255, 0.7); }
+.sim73 .s73-sv { position: absolute; top: 30px; width: 60px; text-align: center; font: 700 30px/1 "Rubik"; color: #ffffff; opacity: 0; }
+.sim73 .s73-sv1 { left: 280px; }
+.sim73 .s73-sv7 { left: -20px; }
+.sim73 .s73-slbl { position: absolute; left: 328px; top: -4px; font: 500 30px/1 "Rubik"; color: #9c99ae; white-space: nowrap; opacity: 0; }
+.sim73 .s73-lbl { position: absolute; display: flex; align-items: center; gap: 12px; direction: rtl; font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim73 .s73-lbl > i { width: 14px; height: 14px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.8); display: block; flex: none; }
+.sim73 .s73-rublbl { right: 60px; top: 434px; }
+.sim73 .s73-rub { position: absolute; left: 40px; top: 474px; width: 720px; display: flex; flex-direction: column; gap: 10px; }
+.sim73 .s73-tagrow { display: flex; direction: rtl; justify-content: center; gap: 12px; }
+.sim73 .s73-tag { font: 600 30px/1 "Rubik"; color: #ece9f7; padding: 8px 16px 7px; border-radius: 999px; background: rgba(36, 31, 72, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.5); white-space: nowrap; opacity: 0; }
+.sim73 .s73-rulecard { position: absolute; left: 40px; top: 590px; width: 720px; height: 104px; border-radius: 20px; background: rgba(26, 23, 52, 0.95); border: 1.5px solid rgba(201, 194, 255, 0.34);
+  display: flex; direction: rtl; align-items: center; gap: 20px; padding: 0 28px; opacity: 0; }
+.sim73 .s73-stop { width: 46px; height: 46px; display: block; flex: none; overflow: visible; }
+.sim73 .s73-stop path { fill: none; stroke: #ff453a; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(255, 69, 58, 0.8)); }
+.sim73 .s73-rtx p { font: 600 31px/1.35 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim73 .s73-rtx p + p { color: #dcd9e6; font-weight: 500; }
+/* a light sweep without skew (nothing shows at rest) */
+.sim73 .s73-swp { position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.sim73 .s73-swp b { position: absolute; top: 0; bottom: 0; left: 100%; width: 80%; display: block;
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 15%, var(--sw, rgba(255, 255, 255, 0.24)) 50%, rgba(255, 255, 255, 0) 85%); }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="31.860" data-fps="30" data-width="1080" data-height="1920">
+<div class="stagewrap" style="transform: scale(1.0);">
+<div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
+<div id="cam">
+<div id="sc-t73" class="clip scene" data-start="0.000" data-duration="31.860" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 7 · חיסכון ברינדורים</span><span class="hdr-num" dir="ltr">7.3</span></div>
+<div class="scam">
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">מבקר</span> <span class="w" dir="rtl" data-t="0.430">עצמאי,</span> <span class="nbgrp"><span class="w" dir="rtl" data-t="0.560">עד</span> <span class="w" dir="rtl" data-t="0.690">שהציון</span> <span class="w" dir="rtl" data-t="0.820">עובר</span> <span class="w" dir="rtl" data-t="0.950">90</span></span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.780">מי</span> <span class="w" dir="rtl" data-t="1.840">שבנה</span> <span class="w" dir="rtl" data-t="1.900">את</span> <span class="w" dir="rtl" data-t="1.960">הסרטון</span> <span class="w" dir="rtl" data-t="2.020">הכי</span> <span class="w" dir="rtl" data-t="2.080">פחות</span> <span class="w" dir="rtl" data-t="2.140">מתאים</span> <span class="w" dir="rtl" data-t="2.200">לבקר</span> <span class="w" dir="rtl" data-t="2.260">אותו,</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.480">וזה</span> <span class="w" dir="rtl" data-t="4.540">נכון</span> <span class="w" dir="rtl" data-t="4.600">גם</span> <span class="w" dir="rtl" data-t="4.660">לקלוד.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.080">מבקר</span> <span class="w" dir="rtl" data-t="6.140">עצמאי</span> <span class="w" dir="rtl" data-t="6.200">הוא</span> <span class="w" dir="rtl" data-t="6.260">עותק</span> <span class="w" dir="rtl" data-t="6.320">נפרד</span> <span class="w" dir="rtl" data-t="6.380">של</span> <span class="w" dir="rtl" data-t="6.440">קלוד</span> <span class="w" dir="rtl" data-t="6.500">שלא</span> <span class="w" dir="rtl" data-t="6.560">בנה</span> <span class="w" dir="rtl" data-t="6.620">כלום.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.030">הוא</span> <span class="w" dir="rtl" data-t="9.090">מקבל</span> <span class="w" dir="rtl" data-t="9.150">את</span> <span class="w" dir="rtl" data-t="9.210">הבקשה</span> <span class="w" dir="rtl" data-t="9.270">ופריימים</span> <span class="w" dir="rtl" data-t="9.330">מכל</span> <span class="w" dir="rtl" data-t="9.390">סצנה,</span> <span class="w" dir="rtl" data-t="9.450">בלי</span> <span class="w" dir="rtl" data-t="9.510">ההסברים,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="11.730">ונותן</span> <span class="accgrp" data-t="11.790"><span class="w s-str" dir="rtl" data-t="11.790">ציון</span> <span class="w s-str" dir="rtl" data-t="11.850">מתוך</span> <span class="w s-str" dir="rtl" data-t="11.910">100</span><i class="ul" data-t="11.970"></i></span> <span class="w" dir="rtl" data-t="11.970">עם</span> <span class="w" dir="rtl" data-t="12.030">תיקון</span> <span class="w" dir="rtl" data-t="12.090">במספרים</span> <span class="w" dir="rtl" data-t="12.150">לכל</span> <span class="w" dir="rtl" data-t="12.210">פגם.</span></span></p></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim73">
+<div class="s73-builder">
+<div class="s73-fr s73-vid"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class="s73-cut"></i></div>
+<svg class="s73-flaw" viewBox="0 0 92 64" aria-hidden="true"><rect x="3" y="3" width="86" height="58" rx="18"/></svg>
+<svg class="s73-flaw s73-note" viewBox="0 0 92 64" aria-hidden="true"><rect x="3" y="3" width="86" height="58" rx="18"/></svg>
+<div class="s73-bub"><i></i><i></i><i></i><span class="s73-expl" dir="rtl">ההסברים</span></div>
+<div class="s73-list"><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div><div class="s73-li"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg><i></i></div></div>
+<svg class="s73-person" viewBox="0 0 312 380" aria-hidden="true">
+<defs>
+<linearGradient id="pf73" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3274"/><stop offset="1" stop-color="#1a1636"/></linearGradient>
+<linearGradient id="pr73" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c2ff" stop-opacity="0"/><stop offset="0.65" stop-color="#c9c2ff" stop-opacity="0.15"/><stop offset="1" stop-color="#c9c2ff" stop-opacity="0.85"/></linearGradient>
+</defs>
+<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380 Z" fill="url(#pf73)"/>
+<rect x="128" y="196" width="56" height="70" rx="22" fill="url(#pf73)"/>
+<ellipse cx="156" cy="132" rx="58" ry="68" fill="url(#pf73)"/>
+<path d="M14 380 C20 300 70 262 120 254 L192 254 C242 262 292 300 298 380" fill="none" stroke="url(#pr73)" stroke-width="3"/>
+<ellipse cx="156" cy="132" rx="58" ry="68" fill="none" stroke="url(#pr73)" stroke-width="3"/>
+</svg>
+<div class="s73-card s73-me"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div>
+<div class="s73-name s73-mename" dir="rtl">קלוד</div>
+</div>
+<svg class="s73-div" viewBox="0 0 4 360" aria-hidden="true"><path d="M2 2 V358"/></svg>
+<div class="s73-blk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4.5l15 15"/><path d="M19.5 4.5l-15 15"/></svg></div>
+<div class="s73-tray"></div>
+<div class="s73-doc"><i></i><i></i><i></i><span dir="rtl">הבקשה</span></div>
+<div class="s73-fr s73-th s73-in s73-in0"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div><div class="s73-fr s73-th s73-in s73-in1"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div><div class="s73-fr s73-th s73-in s73-in2"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i></div>
+<div class="s73-card s73-ghost s73-gh2"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div><div class="s73-card s73-ghost s73-gh1"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div><div class="s73-card s73-cr"><i class="s73-glow"></i><b dir="ltr">&gt;_</b></div>
+<div class="s73-name s73-crname" dir="rtl">מבקר עצמאי</div>
+<div class="s73-gauge" data-focus="4"><svg class="s73-gsvg" viewBox="0 0 340 200" aria-hidden="true">
+<defs><linearGradient id="s73gr" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#9d92f0"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs>
+<path class="s73-track" d="M320 170 A150 150 0 0 0 20 170"/><path class="s73-fill" d="M320 170 A150 150 0 0 0 20 170"/><path class="s73-tk s73-tk70" d="M88.9 58.4 L74.8 38.9"/><path class="s73-tk s73-tk90" d="M38.8 127.4 L15.9 119.9"/></svg><span class="s73-tl s73-tl70" dir="ltr" style="left:28.3px;top:-0.7px">70</span><span class="s73-tl s73-tl90" dir="ltr" style="left:-40.7px;top:94.3px">90</span>
+<div class="s73-score" dir="ltr"><span class="s73-nn"><span class="s73-n s73-n1">68</span><span class="s73-n s73-n2">96</span></span><span class="s73-of">/100</span></div>
+<div class="s73-pass"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M6 15.5l6 6 12-13"/></svg></div></div>
+<div class="s73-rows"><div class="s73-row s73-row0"><div class="s73-fr s73-th s73-dth0"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class=s73-dm></i></div><svg class="s73-arr" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="s73-sl"><i class="s73-rule"></i><i class="s73-knob"></i></div></div><div class="s73-row s73-row1"><div class="s73-fr s73-th s73-dth1"><i class="s73-h"></i><i class="s73-bd"></i><i class="s73-ti"></i><i class="s73-cp"></i><i class=s73-dm></i></div><svg class="s73-arr" viewBox="0 0 46 22" aria-hidden="true"><path d="M44 11 H4 M13 3 L4 11 L13 19" fill="none" stroke="#c9c2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="s73-sl"><i class="s73-rule"></i><i class="s73-knob"></i></div></div></div>
+<div class="s73-steps"><i class="s73-line"></i><i class="s73-linef"></i><i class="s73-nd s73-ndx" style="left:300px"></i><i class="s73-nd" style="left:250px"></i><i class="s73-nd" style="left:200px"></i><i class="s73-nd" style="left:150px"></i><i class="s73-nd" style="left:100px"></i><i class="s73-nd" style="left:50px"></i><i class="s73-nd s73-ndx" style="left:0px"></i>
+<span class="s73-sv s73-sv1" dir="ltr">68</span><span class="s73-sv s73-sv7" dir="ltr">96</span>
+<span class="s73-slbl" dir="rtl">סבבים</span></div>
+<div class="s73-lbl s73-rublbl" dir="rtl"><i></i><span>מחוון</span></div>
+<div class="s73-rub" dir="rtl"><div class="s73-tagrow"><span class=s73-tag>ביצוע</span><span class=s73-tag>גימור</span><span class=s73-tag>תנועה</span></div><div class="s73-tagrow"><span class=s73-tag>טקסט ועברית</span><span class=s73-tag>התאמה לסגנון</span><span class=s73-tag>היגיון פיזי</span></div></div>
+<div class="s73-rulecard" dir="rtl"><svg class="s73-stop" viewBox="0 0 40 40" aria-hidden="true"><path d="M13.4 3h13.2L37 13.4v13.2L26.6 37H13.4L3 26.6V13.4z"/><path d="M13 20h14"/></svg><div class="s73-rtx"><p>אחרי שני סבבים עדיין לא עבר את 70?</p><p>עוצרים ומביאים את הפער.</p></div></div>
+</div></div></div></div></div>
+<div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">מ-68 ל-96</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="21.880">ריל</span> <span class="w" dir="rtl" data-t="22.000">אנימציה</span> <span class="w" dir="rtl" data-t="22.120">של</span> <span class="w" dir="rtl" data-t="22.240">47</span> <span class="w" dir="rtl" data-t="22.360">שניות,</span> <span class="w" dir="rtl" data-t="22.480">בשבעה</span> <span class="w" dir="rtl" data-t="22.600">סבבים</span> <span class="w" dir="rtl" data-t="22.720">של</span> <span class="w" dir="rtl" data-t="22.840">אותו</span> <span class="w" dir="rtl" data-t="22.960">מבקר.</span></p><p class="metaline kin" dir="rtl"><span class="w" dir="rtl" data-t="23.280">גם</span> <span class="w" dir="rtl" data-t="23.310">הסצנות</span> <span class="w" dir="rtl" data-t="23.340">בסרטון</span> <span class="w" dir="rtl" data-t="23.370">הזה</span> <span class="w" dir="rtl" data-t="23.400">עברו</span> <span class="w" dir="rtl" data-t="23.430">מבקר</span> <span class="w" dir="rtl" data-t="23.460">עצמאי.</span></p></div></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>21</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">תפעיל סוכן נפרד שלא בנה את הסרטון, בתור מבקר קשוח של סטודיו לאנימציה.</div>
+<div class="pl" dir="rtl">תן לו את הבריף, פריים מכל סצנה ורצועת פריימים מכל מעבר, בלי ההסברים שלך.</div>
+<div class="pl" dir="rtl">הוא נותן ציון מתוך 100 לפי מחוון קבוע: ביצוע של כל מה שביקשתי, גימור, תנועה, טקסט ועברית, התאמה לסגנון, והיגיון פיזי.</div>
+<div class="pl" dir="rtl">לכל סצנה הוא מחזיר רשימת פגמים, ולכל פגם זמן, מה לא בסדר ותיקון עם מספרים.</div>
+<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>אתה מתקן, ואותו מבקר בודק שוב, עד שהציון עובר 90.</div>
+<div class="pl" dir="rtl">אם אחרי שני סבבים הציון עדיין רחוק <span class="nb">מ-90</span> <span class="nb">ב-20</span> נקודות או יותר, תעצור ותביא לי את הפער ואת האפשרויות במקום לפתוח עוד סבבים.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>אתה מתקן, ואותו מבקר בודק שוב, עד שהציון עובר 90.</div></div>
+
+</div></div>
+</div>
+</div>
+</div>
+<script>
+/* Runtime helpers that add tweens to one paused GSAP master timeline.
+   Every tween is a fromTo with explicit values and immediateRender:false (CSS holds the
+   initial state), so any frame can be rendered by seeking to it in any order.
+   Each scene has its own camera (.scam); the chapter header sits outside it and never zooms. */
+(function () {
+  const E = (window.ENG = {});
+  // The guide's no-overshoot spring (prompts 9 and 13).
+  const SPRING = (p) => (1 - (1 + 7 * p) * Math.exp(-7 * p)) / (1 - 8 * Math.exp(-7));
+  E.SPRING = SPRING;
+  E.debug = (window.__ENG_DEBUG = { scenes: {} });
+  E.q = (s, r) => (r || document).querySelector(s);
+  E.qa = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const NI = { immediateRender: false };
+  E.NI = NI;
+  const A = (o) => Object.assign(o, NI);
+  E.A = A;
+  /* Deterministic PRNG (mulberry32): never use Math.random in scenes. */
+  E.rand = function (seed) {
+    let a = seed >>> 0;
+    return function () { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  };
+  /* Offsets ignore transforms: measure layout before any tween moves things. */
+  E.off = function (el, top) {
+    let x = 0, y = 0, e = el;
+    while (e && e !== top) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+    return { x, y };
+  };
+  E.center = function (el, top) {
+    const o = E.off(el, top);
+    return { x: o.x + el.offsetWidth / 2, y: o.y + el.offsetHeight / 2 };
+  };
+
+  E.fadeIn = function (tl, el, t, d, dy) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: 0, y: dy || 0 }, A({ opacity: 1, y: 0, duration: d || 0.5, ease: SPRING }), t);
+  };
+  E.fadeOut = function (tl, el, t, d, dy, from) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from, y: 0 }, A({ opacity: 0, y: dy || 0, duration: d || 0.3, ease: "power2.in" }), t);
+  };
+  E.dim = function (tl, el, t, to, from, d) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from }, A({ opacity: to, duration: d || 0.35, ease: "power2.out" }), t);
+  };
+
+  /* Kinetic words: each word enters on its time with a spring (slightly above final size,
+     then settles) and unblurs. Blur is animated separately from the spring and ends on
+     0px then "none", so it never goes negative (prompt 2's pitfall). */
+  E.kin = function (tl, root, S, o) {
+    if (!root) return;
+    o = o || {};
+    const dy = o.dy == null ? 18 : o.dy;
+    E.qa(".w", root).forEach((w) => {
+      const t = S + parseFloat(w.dataset.t || "0");
+      tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.22, ease: "power2.out" }), t);
+      tl.fromTo(w, { y: dy, scale: 0.82 }, A({ y: 0, scale: 1, duration: 0.62, ease: "back.out(2.1)" }), t);
+      tl.fromTo(w, { filter: "blur(9px)" }, A({ filter: "blur(0px)", duration: 0.3, ease: "power2.out" }), t);
+      tl.set(w, { filter: "none" }, t + 0.31);
+    });
+    E.qa(".ul", root).forEach((u) => {
+      const t = S + parseFloat(u.dataset.t || "0");
+      tl.fromTo(u, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.5, ease: "power3.inOut" }), t);
+    });
+  };
+
+  /* White pill caption: switches in one frame, no animation (prompt 2). */
+  E.pill = function (tl, el, tin, tout) {
+    tl.set(el, { opacity: 1 }, tin);
+    if (tout != null) tl.set(el, { opacity: 0 }, tout);
+  };
+
+  /* Bouncy zoom on the scene camera with the guide's spring. The focal x is clamped so a
+     content column [colL, colR] scaled by (1+amt) stays inside the safe area x 140..940. */
+  E.zoom = function (tl, ctx, cx, cy, t, amt, tBack, backDur, col) {
+    const s = 1 + amt;
+    const L = col ? col[0] : 220, R = col ? col[1] : 940;
+    const lo = (s * R - 940) / (s - 1), hi = (s * L - 140) / (s - 1);
+    if (lo <= hi) cx = Math.min(hi, Math.max(lo, cx));
+    else cx = (L + R) / 2;
+    tl.set(ctx.cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(ctx.cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) {
+      if (backDur) tl.fromTo(ctx.cam, { scale: s }, A({ scale: 1, duration: backDur, ease: "power2.inOut" }), tBack);
+      else tl.set(ctx.cam, { scale: 1 }, tBack);
+    }
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  E.zoomOn = function (tl, ctx, el, t, amt, tBack, backDur, col) {
+    const c = E.center(el, ctx.scene);
+    E.zoom(tl, ctx, c.x, c.y, t, amt, tBack, backDur, col);
+  };
+
+  /* ---------- effects (all pure transforms/opacity, created once before the first seek) ---------- */
+  /* Light sweep across an element, right to left (the reading direction). The element must be
+     positioned; it clips the band to its own shape. o.color tints the band. */
+  E.sweep = function (tl, el, t, d, o) {
+    if (!el) return;
+    o = o || {};
+    const fx = document.createElement("i"), b = document.createElement("b");
+    fx.className = "fx-sweep";
+    if (o.color) fx.style.setProperty("--sweep", o.color);
+    fx.appendChild(b);
+    // the sweep clips to the element's own box, so a static element becomes the containing block
+    // (only when none of its absolutely placed children depends on an outer one)
+    if (getComputedStyle(el).position === "static") {
+      const outer = Array.from(el.querySelectorAll("*")).some((c) => /absolute|fixed/.test(getComputedStyle(c).position) && c.offsetParent !== el && el.contains(c.offsetParent) === false);
+      if (!outer) el.style.position = "relative";
+    }
+    el.appendChild(fx);
+    // the band is 180% of the swept box's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // height: it starts and ends that far outside, never as a wedge inside a tall box
+    const w = fx.offsetWidth || el.offsetWidth, h = fx.offsetHeight || el.offsetHeight;
+    const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
+    b.style.width = bw + "px";
+    b.style.left = w + slant + "px";
+    tl.fromTo(b, { x: 0 }, A({ x: -(w + 2 * slant + bw), duration: d || 0.8, ease: "power2.inOut" }), t);
+  };
+  /* A soft light band crosses the whole frame (scene change). */
+  E.band = function (tl, scene, t) {
+    const b = document.createElement("i");
+    b.className = "fx-band";
+    scene.appendChild(b);
+    tl.fromTo(b, { x: 0 }, A({ x: -1900, duration: 0.85, ease: "power2.inOut" }), t);
+    tl.fromTo(b, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power1.out" }), t);
+    tl.fromTo(b, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), t + 0.55);
+  };
+  /* Particle burst from (x, y) inside parent: n dots fly out and fade (deterministic). */
+  E.burst = function (tl, parent, x, y, t, o) {
+    if (!parent) return;
+    o = o || {};
+    const n = o.n || 14, rnd = E.rand(o.seed || 7), col = o.color || "#ff6b61", r0 = o.r0 || 30, r1 = o.r1 || 120;
+    for (let i = 0; i < n; i++) {
+      const d = document.createElement("i");
+      d.className = "fx-dot";
+      const sz = 5 + rnd() * 7;
+      d.style.cssText = "left:" + x + "px;top:" + y + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:" + col + ";box-shadow:0 0 10px " + col;
+      parent.appendChild(d);
+      const ang = (i / n) * Math.PI * 2 + rnd() * 0.5, dist = r0 + rnd() * (r1 - r0), dur = 0.55 + rnd() * 0.35;
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * dist, y: Math.sin(ang) * dist, scale: 0.35, duration: dur, ease: "power3.out" }), t);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), t);
+    }
+  };
+  /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
+  E.draw = function (tl, el, t, d, ease) {
+    if (!el) return;
+    // the hidden dash ends before the path starts, so a round cap never leaves a dot there
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2, pad = 12;
+    el.style.strokeDasharray = L + " " + (L + 2 * pad);
+    el.style.strokeDashoffset = L + pad;
+    tl.fromTo(el, { strokeDashoffset: L + pad }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+  };
+  /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
+  E.glitch = function (tl, el, t, amp) {
+    if (!el) return;
+    const a = amp || 8;
+    const seq = [[0, 0], [a, -7], [-a * 0.7, 5], [a * 0.45, -3], [-a * 0.2, 1.5], [0, 0]];
+    for (let i = 1; i < seq.length; i++) {
+      tl.fromTo(el, { x: seq[i - 1][0], skewX: seq[i - 1][1] }, A({ x: seq[i][0], skewX: seq[i][1], duration: 0.05, ease: "none" }), t + (i - 1) * 0.05);
+    }
+  };
+  /* Bouncy zoom inside the illustration (the guide's spring): the stage camera punches in on a
+     focal element and comes back at tBack. The camera box clips, so text above is never touched. */
+  E.zoomStage = function (tl, ctx, el, t, amt, tBack) {
+    const cam = ctx.stcam, fit = ctx.fit || 1, sf = ctx.stfit;
+    let cx = cam.offsetWidth / 2, cy = cam.offsetHeight / 2;
+    if (el) {
+      const c = E.center(el, sf);
+      const hw = sf.offsetWidth / 2, hh = sf.offsetHeight / 2;
+      cx = sf.offsetLeft + hw + (c.x - hw) * fit;
+      cy = sf.offsetTop + hh + (c.y - hh) * fit;
+    }
+    const s = 1 + amt;
+    tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    // the frame's edges soften while the camera is pushed in (content beyond them is cropped)
+    const clip = cam.parentElement;
+    if (clip && clip.classList.contains("stclip")) {
+      tl.fromTo(clip, { "--edge": "0px" }, A({ "--edge": "26px", duration: 0.3, ease: "power2.out" }), t);
+      if (tBack != null) tl.fromTo(clip, { "--edge": "26px" }, A({ "--edge": "0px", duration: 0.3, ease: "power2.in" }), tBack + 0.15);
+    }
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  /* Slow drifting dust over the whole video (depth; deterministic). */
+  E.dust = function (tl, bg, total) {
+    const rnd = E.rand(11);
+    for (let i = 0; i < 28; i++) {
+      const d = document.createElement("i"), sz = 2 + rnd() * 3.5;
+      d.className = "dust";
+      d.style.cssText = "left:" + (rnd() * 1080).toFixed(0) + "px;top:" + (200 + rnd() * 1700).toFixed(0) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;opacity:" + (0.15 + rnd() * 0.35).toFixed(2);
+      bg.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0 }, A({ x: (rnd() - 0.5) * 160, y: -(140 + rnd() * 320), duration: total, ease: "none" }), 0);
+    }
+  };
+
+  /* Prompt card: the full verbatim text, paged (static pages and short slides, so any
+     paused frame is readable). On a key line the page text dims and a copy of the line
+     lifts above the card (bouncy zoom on the line; it sits in its own layer, so its backing
+     is never clipped). One underline slides between the section tabs. Exits at t1. */
+  E.prompt = function (tl, ctx, card, t0, t1, hls) {
+    const vp = E.q(".pvp", card), ct = E.q(".pct", card), body = E.q(".pbody", card);
+    const ROW = 44, ROWS = 23;                     // the viewport is exactly 23 rows: no line is ever cut
+    const totalRows = Math.round(body.offsetHeight / ROW);
+    const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
+    const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
+    const H = (hls || []).map((h) => {
+      const ln = E.q('[data-hl="' + h.id + '"]', card);
+      const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
+      return { id: h.id, ln, lift, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, want: h.hold || 2.4 };
+    }).sort((a, b) => a.top - b.top);
+    // pages advance by 22 rows (one row of overlap); a page is pulled up so a key line never straddles an edge
+    const pages = [0];
+    while (pages[pages.length - 1] < lastTop) {
+      const cur = pages[pages.length - 1];
+      let nxt = Math.min(lastTop, cur + (ROWS - 1) * ROW);
+      for (const h of H) if (h.top > cur && h.top < cur + ROWS * ROW && h.bot > cur + ROWS * ROW) nxt = Math.min(nxt, h.top - 2 * ROW);
+      if (nxt <= cur) nxt = Math.min(lastTop, cur + ROW);
+      pages.push(nxt);
+    }
+    // a key line is held on the page where it sits furthest from the edges (the lift needs room)
+    H.forEach((h) => {
+      let bestM = -1e9;
+      h.page = 0;
+      pages.forEach((p, i) => {
+        const m = Math.min(h.top - p, p + ROWS * ROW - h.bot);
+        if (m >= 0 && m > bestM + 0.5) { bestM = m; h.page = i; }
+      });
+    });
+    // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
+    // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
+    const n = pages.length;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.25, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LIFT = 1.1, DIM = 0.38;
+    const mineOf = (i) => H.filter((h) => h.page === i);
+    const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.05 : 0.2);
+    // a plain last page stays settled a little longer before the exit
+    let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
+    for (let i = 0; i < n; i++) {
+      const mine = mineOf(i);
+      if (!mine.length) nPlain++;
+      else fixed += liftDelay(i) + (mine.length - 1) * UNLIFT + (isHold(i + 1) ? UNLIFT : UNDIM);
+      if (i < n - 1) fixed += isHold(i) && isHold(i + 1) ? DSLIDE : SLIDE;
+    }
+    fixed += tail;
+    const want = H.reduce((a, h) => a + h.want, 0);
+    let dwell = 0.27;
+    let room = t1 - t0 - fixed - nPlain * dwell;
+    if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
+      dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
+      room = t1 - t0 - fixed - nPlain * dwell;
+    }
+    if (H.length) {
+      let k = room / want;
+      if (k > 1.35) {
+        const extra = room - want * 1.35;
+        k = 1.35;
+        dwell += extra / (nPlain + 1);
+        tail += extra / (nPlain + 1);
+      }
+      H.forEach((h) => { h.hold = h.want * k; });
+      // keep a 2 s floor on every hold where the budget allows it
+      for (let it = 0; it < 3; it++) {
+        const low = H.filter((h) => h.hold < MINH), high = H.filter((h) => h.hold >= MINH);
+        if (!low.length || !high.length) break;
+        const need = low.reduce((a, h) => a + MINH - h.hold, 0);
+        const spare = high.reduce((a, h) => a + h.hold - MINH, 0);
+        const take = Math.min(need, spare);
+        low.forEach((h) => { h.hold += (MINH - h.hold) * (take / need); });
+        high.forEach((h) => { h.hold -= (h.hold - MINH) * (take / spare); });
+      }
+    } else {
+      dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
+    }
+    // the lines around a lifted key line make room for it: the ones next to it move up to PUSH px,
+    // each gap between two lines shrinks by at most COMP px, and the line at the page edge moves
+    // only EDGE px (inside its own leading, so no glyph is ever cut by the viewport)
+    const PUSH = 10, COMP = 4, EDGE = 2, plines = E.qa(".pl", body);
+    H.forEach((h) => {
+      const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
+      const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
+      const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
+      const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      h.push = [];
+      [[above, -1], [below, 1]].forEach(([ls, sgn]) => {
+        const m = ls.length;
+        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(PUSH, EDGE + COMP * (m - 1 - j))]));
+      });
+    });
+    // the lifted copies sit over their line on the page where it is held (static layout)
+    H.forEach((h) => {
+      h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
+      h.lift.style.top = (bw + vp.offsetTop + h.top - pages[h.page]) + "px";
+      h.lift.style.width = h.ln.offsetWidth + "px";
+    });
+    tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
+    tl.fromTo(card, { rotationX: 16, y: 90, scale: 0.94, transformPerspective: 1600 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SPRING }), t0);
+    E.sweep(tl, card, t0 + 0.4, 1.0, { color: "rgba(201, 194, 255, 0.16)" });
+    const arrivals = [], slides = [], holdTimes = [];
+    let t = t0 + LEAD, dimmed = false, tFinal = null;
+    for (let i = 0; i < n; i++) {
+      arrivals.push(t);
+      const mine = mineOf(i);
+      if (!mine.length) t += dwell;
+      else {
+        t += liftDelay(i);
+        mine.forEach((h, j) => {
+          if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
+          dimmed = true;
+          tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: LIFT, duration: 0.6, ease: SPRING }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
+          holdTimes.push(+t.toFixed(3));
+          h.t0 = t;
+          t += h.hold;
+          const keepDim = j < mine.length - 1 || isHold(i + 1);
+          const d = keepDim ? UNLIFT : UNDIM;
+          // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
+          tl.fromTo(h.lift, { scale: LIFT }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
+          if (!keepDim) {
+            tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
+            dimmed = false;
+            if (i === n - 1) tFinal = t;
+          }
+          t += d;
+        });
+      }
+      if (i < n - 1) {
+        const sd = dimmed ? DSLIDE : SLIDE;
+        tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: sd, ease: "power2.inOut" }), t);
+        slides.push([t, sd]);
+        t += sd;
+      }
+    }
+    // tabs: one underline slides with the page to the section that fills most of the visible rows
+    const tabs = E.qa(".tab", card), ul = E.q(".tabul", card);
+    if (tabs.length && ul) {
+      const tags = tabs.map((tab) => E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card));
+      const starts = tags.map((g) => (g ? g.offsetTop : 1e9));
+      const secAt = (p) => {
+        let best = 0, bestRows = -1;
+        starts.forEach((st, j) => {
+          const en = j + 1 < starts.length ? starts[j + 1] : 1e9;
+          const vis = Math.max(0, Math.min(en, p + ROWS * ROW) - Math.max(st, p));
+          if (vis > bestRows) { bestRows = vis; best = j; }
+        });
+        return best;
+      };
+      const MUTED = "#9c99ae", INK = "#f5f2ea";
+      const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
+      let cur = secAt(pages[0]);
+      ul.style.left = pos(cur).left + "px";
+      ul.style.width = pos(cur).width + "px";
+      tl.fromTo(ul, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power2.out" }), t0 + 0.1);
+      tl.fromTo(tabs[cur], { color: MUTED }, A({ color: INK, duration: 0.2 }), t0 + 0.1);
+      const move = (k, ta, d) => {
+        const a = pos(cur), b = pos(k);
+        tl.fromTo(ul, { left: a.left, width: a.width }, A({ left: b.left, width: b.width, duration: d, ease: "power3.inOut" }), ta);
+        tl.fromTo(tabs[cur], { color: INK }, A({ color: MUTED, duration: 0.2 }), ta + d / 2 - 0.1);
+        tl.fromTo(tabs[k], { color: MUTED }, A({ color: INK, duration: 0.2 }), ta + d / 2 - 0.1);
+        cur = k;
+      };
+      // the section that holds the last visible row (the end of the prompt on the last page)
+      const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      // while a key line is lifted, the underline sits on that line's own section
+      const secOf = (y) => { let k = 0; starts.forEach((st, j) => { if (st <= y) k = j; }); return k; };
+      const ev = [];
+      for (let i = 1; i < n; i++) {
+        const mine = mineOf(i);
+        const k = mine.length ? secOf(mine[0].top) : i === n - 1 ? lastVisible(pages[i]) : secAt(pages[i]);
+        ev.push([slides[i - 1][0], k, Math.max(0.3, slides[i - 1][1])]);
+      }
+      H.forEach((h) => ev.push([h.t0, secOf(h.top), 0.3]));
+      ev.sort((a, b) => a[0] - b[0]).forEach(([ta, k, d]) => { if (k !== cur) move(k, ta, d); });
+      // a last page with key lines: its last section takes over when the page undims
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) !== cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
+    }
+    tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
+    return {
+      pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
+      holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, liftH: h.lift.offsetHeight })),
+    };
+  };
+
+  /* Standard topic scene. Layout is measured once (static):
+     the title and the explanation sit at the top; the illustration fills the safe area below.
+     title -> illustration enters -> explanation phrase by phrase (current phrase bright, the
+     illustration shows each phrase, bouncy zoom inside it on the key phrase) -> payoff ->
+     fact over the dimmed illustration -> prompt card -> tip. */
+  E.topic = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const hdr = E.q(".hdr", sc), main = E.q(".main", sc), exp = E.q(".exp", sc), ttl = E.q(".ttl", sc);
+    const stage = E.q(".stage", sc), simtag = E.q(".simtag", sc), fact = E.q(".factbox", sc);
+    const stcam = E.q(".stcam", sc), stfit = E.q(".stfit", sc);
+    // static layout
+    const TOP = 376, BOTTOM = 1566;
+    const h = main.offsetHeight;
+    const stTop = Math.round(TOP + h + 30);
+    stage.style.top = stTop + "px";
+    stage.style.height = BOTTOM - stTop + "px";
+    const camH = BOTTOM - stTop - 50;
+    const simH = (E.q(".simwrap", sc) || { offsetHeight: 700 }).offsetHeight || 700;
+    stfit.style.height = simH + "px";
+    stfit.style.marginTop = -simH / 2 + "px";
+    const fit = Math.min(1, camH / simH);
+    if (fit < 1) stfit.style.transform = "scale(" + fit.toFixed(3) + ")";
+    if (fact) { fact.style.top = stTop + 50 + "px"; fact.style.height = camH + "px"; }
+    Object.assign(ctx, { stcam, stfit, fit, stTop });
+    // scene change: a light band crosses the frame while the camera settles
+    E.band(tl, sc, S);
+    tl.fromTo(ctx.cam, { scale: 1.035 }, A({ scale: 1, duration: 1.0, ease: SPRING }), S);
+    E.fadeIn(tl, hdr, S + 0.05, 0.5, 0);
+    E.kin(tl, ttl, S);
+    // the illustration enters with the explanation
+    E.fadeIn(tl, simtag, S + cfg.tStage, 0.4, 0);
+    tl.fromTo(stage, { opacity: 0, y: 46 }, A({ opacity: 1, y: 0, duration: 0.8, ease: SPRING }), S + cfg.tStage);
+    // explanation: phrase by phrase; the phrase being read is bright, the ones before step back
+    E.kin(tl, exp, S, { dy: 14 });
+    const phs = E.qa(".ph", exp);
+    phs.forEach((ph, i) => {
+      const tEnd = i + 1 < phs.length ? cfg.phr[i + 1] : cfg.phrEnd + 0.8;
+      tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0.5, duration: 0.45, ease: "power2.out" }), S + tEnd);
+      E.qa(".accgrp", ph).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#dcd9e6", duration: 0.45 }), S + tEnd));
+      E.qa(".ul", ph).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + tEnd));
+    });
+    if (window.SIMS[cfg.sim]) window.SIMS[cfg.sim](tl, ctx, cfg, S);
+    // bouncy zoom inside the illustration on the key phrase (focus: [data-focus="<phrase>"])
+    const acc = E.q(".exp .accgrp", sc);
+    if (acc && cfg.expZoom) {
+      const p = +(acc.closest(".ph") || { dataset: { p: 0 } }).dataset.p;
+      const tb = p + 1 < cfg.phr.length ? cfg.phr[p + 1] : cfg.phrEnd + 0.6;
+      const focus = E.q('[data-focus="' + p + '"]', stage) || E.q("[data-focus]", stage);
+      E.zoomStage(tl, ctx, focus, S + parseFloat(acc.dataset.t) + 0.1, cfg.expZoom, S + tb);
+    }
+    const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
+    if (cfg.tFact != null) {
+      // the fact takes over the illustration's area; the illustration steps far back
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.06, 1, 0.4);
+      E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const scrim = E.q(".factbox .fscrim", sc);
+      if (scrim) tl.fromTo(scrim, { opacity: 0 }, A({ opacity: 1, duration: 0.4, ease: "power2.out" }), S + cfg.tFact - 0.45);
+      const pill = E.q(".factbox .pill", sc);
+      if (pill) {
+        tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
+        tl.fromTo(pill, { scale: 0.92, y: 20 }, A({ scale: 1, y: 0, duration: 0.45, ease: SPRING }), S + cfg.tFact - 0.1);
+        E.sweep(tl, pill, S + cfg.tFact + 0.25, 0.7, { color: "rgba(120, 100, 255, 0.28)" });
+        E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
+      }
+      E.kin(tl, fact, S, { dy: 12 });
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.06, 0.25);
+    } else {
+      E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
+      E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
+    }
+    E.dim(tl, simtag, S + (cfg.tFact != null ? cfg.tFact - 0.45 : tNext - 0.35), 0, 1, 0.3);
+    // first cut: the title (and the fact) leave before the card or the tip arrives
+    tl.fromTo(main, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), S + tNext - 0.3);
+    if (fact) E.fadeOut(tl, fact, S + tNext - 0.3, 0.25, -20);
+    let info = null;
+    if (cfg.tPrompt != null) {
+      const pend = cfg.tTip != null ? cfg.tTip : cfg.tPromptEnd;
+      info = E.prompt(tl, ctx, E.q(".pcard", sc), S + cfg.tPrompt, S + pend, cfg.hls);
+    }
+    if (cfg.tTip != null) {
+      const tip = E.q(".tipcard", sc);
+      tl.fromTo(tip, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + cfg.tTip);
+      tl.fromTo(tip, { scale: 0.96, y: 30, rotationX: 10, transformPerspective: 1400 }, A({ scale: 1, y: 0, rotationX: 0, duration: 0.7, ease: SPRING }), S + cfg.tTip);
+      E.qa(".tip-ico .dr", sc).forEach((pth, i) => E.draw(tl, pth, S + cfg.tTip + 0.15 + i * 0.18, 0.55));
+      E.kin(tl, E.q(".tip-text", sc), S);
+      E.fadeOut(tl, tip, S + cfg.D - 0.4, 0.3, -20);
+    }
+    E.fadeOut(tl, hdr, S + cfg.D - 0.4, 0.3, 0);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { stTop, h, fit: +fit.toFixed(3) }, prompt: info };
+  };
+
+  /* Chapter title card. */
+  E.chapter = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // static layout: the title is one line no wider than 760 px; the divider and texts flow under it
+    const tt = E.q(".ch-title", sc), tin = E.q(".ch-tin", sc);
+    if (tin && tin.offsetWidth > 760) tt.style.fontSize = (78 * 760 / tin.offsetWidth).toFixed(1) + "px";
+    const tBot = tt.offsetTop + tt.offsetHeight;
+    line.style.top = tBot + 30 + "px";
+    const sub = E.q(".ch-sub", sc), tag = E.q(".ch-tag", sc);
+    if (sub) sub.style.top = tBot + 66 + "px";
+    if (tag && sub) tag.style.top = tBot + 66 + sub.offsetHeight + 34 + "px";
+    // scene change: light band; the number swings in in 3D, a ring and sparks go out from it
+    E.band(tl, sc, S);
+    tl.fromTo(n, { opacity: 0, scale: 0.72, y: 30, rotationY: -62, transformPerspective: 1200 }, A({ opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.0, ease: SPRING }), S + 0.12);
+    E.qa(".ch-ring", sc).forEach((r, i) => {
+      tl.fromTo(r, { scale: 0.55, opacity: 0.9 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S + 0.4 + i * 0.12);
+    });
+    E.burst(tl, sc, 540, 670, S + 0.42, { n: 18, seed: 5, r0: 150, r1: 330, color: "#ffffff" });
+    tl.fromTo(n, { filter: "blur(14px)" }, A({ filter: "blur(0px)", duration: 0.45, ease: "power2.out" }), S + 0.12);
+    tl.set(n, { filter: "none" }, S + 0.58);
+    E.fadeIn(tl, k, S + 0.25, 0.5, 14);
+    E.kin(tl, E.q(".ch-title", sc), S);
+    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.7, ease: "power3.inOut" }), S + 0.75);
+    E.kin(tl, E.q(".ch-sub", sc), S, { dy: 12 });
+    E.kin(tl, E.q(".ch-tag", sc), S, { dy: 10 });
+    E.fadeIn(tl, dots, S + 0.6, 0.6, 10);
+    tl.fromTo(E.q(".chap", sc), { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.04, duration: 0.38, ease: "power2.in" }), S + cfg.D - 0.4);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, type: "chapter" };
+  };
+
+  window.SIMS = window.SIMS || {};
+})();
+
+/* 7.3 an independent critic, iterated until the score passes 90: one visual beat per explanation phrase, then the rounds.
+   Every tween is a fromTo with explicit values (immediateRender:false via E.A); times are scene-local via T(). */
+window.SIMS = window.SIMS || {};
+window.SIMS.sim73 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, c = cfg.sim73, P = cfg.phr, pe = cfg.phrEnd;
+  const T = (x) => S + x;                    // scene-local -> master time
+  const q = (s) => E.q(s, sc), qa = (s) => E.qa(s, sc);
+  const tw = (el, from, to, t) => tl.fromTo(el, from, A(to), T(t));
+  const pop = (el, t, s0) => tw(el, { opacity: 0, scale: s0 || 0.7 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, t);
+  const ts = cfg.tStage, b0 = P[0], b1 = P[1], b2 = P[2], b3 = P[3], b4 = P[4];
+  const wrap = q(".sim73");
+  const sweep = (el, t, d, color) => {       // light sweep, right to left (no skew, so nothing shows at rest)
+    const fx = document.createElement("i"), b = document.createElement("b");
+    fx.className = "s73-swp";
+    if (color) fx.style.setProperty("--sw", color);
+    fx.appendChild(b);
+    el.appendChild(fx);
+    tw(b, { x: 0 }, { x: -(el.clientWidth * 1.8 + 10), duration: d, ease: "power2.inOut" }, t);
+  };
+
+  const vid = q(".s73-vid"), person = q(".s73-person"), bub = q(".s73-bub"), list = q(".s73-list"), flaw = q(".s73-flaw");
+  const me = q(".s73-me"), mename = q(".s73-mename"), cr = q(".s73-cr"), crname = q(".s73-crname");
+
+  // establishing shot: the video that was built, and its builder (centred until the critic needs room)
+  const builder = q(".s73-builder"), SHIFT = -160;
+  tw(vid, { scale: 0.94 }, { scale: 1, duration: 0.7, ease: E.SPRING }, ts + 0.1);
+
+  // B0 "whoever built the video is the least suited to critique it": the builder's explanations,
+  // its own checklist ticked one by one, while the caption is cut at the frame's edge
+  tw(bub, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, b0 + 0.05);
+  qa(".s73-bub > i").forEach((l, i) => tw(l, { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out" }, b0 + 0.3 + i * 0.12));
+  E.fadeIn(tl, list, T(b0 + 0.7), 0.45, 14);
+  qa(".s73-li path").forEach((p, i) => E.draw(tl, p, T(b0 + 0.95 + i * 0.25), 0.25));
+  E.draw(tl, q(".s73-flaw rect"), T(b0 + 1.85), 0.45);
+  tw(flaw, { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out" }, b0 + 2.3);
+  tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b0 + 2.55);
+  tw(person, { y: 0 }, { y: 5, duration: 0.18, ease: "power2.out" }, b0 + 2.1);
+  tw(person, { y: 5 }, { y: 0, duration: 0.3, ease: "back.out(2)" }, b0 + 2.28);
+
+  // B1 "and this is true for Claude too": the builder glitches into Claude (an agent card), same ticked checklist
+  E.glitch(tl, person, T(b1 + 0.02), 8);
+  tw(person, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b1 + 0.22);
+  pop(me, b1 + 0.25, 0.75);
+  E.fadeIn(tl, mename, T(b1 + 0.4), 0.45, 10);
+  sweep(me, b1 + 0.65, 0.7, "rgba(255, 255, 255, 0.22)");
+  tw(list, { borderColor: "rgba(201, 194, 255, 0.28)" }, { borderColor: "rgba(255, 255, 255, 0.85)", duration: 0.15 }, b1 + 0.7);
+  tw(list, { borderColor: "rgba(255, 255, 255, 0.85)" }, { borderColor: "rgba(201, 194, 255, 0.28)", duration: 0.4 }, b1 + 0.85);
+  tw(flaw, { scale: 1 }, { scale: 1.08, duration: 0.25, ease: "power2.out" }, b1 + 0.95);
+  tw(flaw, { scale: 1.08 }, { scale: 1, duration: 0.35, ease: "power2.inOut" }, b1 + 1.2);
+
+  // B2 "an independent critic is a separate copy of Claude that built nothing": a copy slides out (with a depth trail),
+  // a divider goes up between them, the critic's tray is empty. The cut caption keeps a dashed amber note.
+  E.fadeOut(tl, list, T(b2), 0.3, 10);
+  tw(flaw, { opacity: 1 }, { opacity: 0, duration: 0.3 }, b2);
+  tw(q(".s73-note"), { opacity: 0 }, { opacity: 0.9, duration: 0.35 }, b2 + 0.05);
+  tw(builder, { x: SHIFT }, { x: 0, duration: 0.75, ease: E.SPRING }, b2 + 0.1);
+  const DX = me.offsetLeft - cr.offsetLeft + SHIFT;
+  const slide = (el, t, peak) => {
+    tw(el, { x: DX, rotationY: -38, scale: 0.92, transformPerspective: 900, opacity: 0 }, { x: 0, rotationY: 0, scale: 1, transformPerspective: 900, opacity: peak, duration: 0.95, ease: E.SPRING }, t);
+  };
+  slide(q(".s73-gh2"), b2 + 0.27, 0.18);
+  slide(q(".s73-gh1"), b2 + 0.21, 0.36);
+  slide(cr, b2 + 0.15, 1);
+  qa(".s73-ghost").forEach((g, i) => tw(g, { opacity: i ? 0.36 : 0.18 }, { opacity: 0, duration: 0.3 }, b2 + 1.25 + i * 0.05));
+  E.draw(tl, q(".s73-div path"), T(b2 + 1.05), 0.5);
+  E.fadeIn(tl, crname, T(b2 + 1.2), 0.45, 10);
+  E.fadeIn(tl, q(".s73-tray"), T(b2 + 1.5), 0.45, 10);
+  sweep(cr, b2 + 1.7, 0.7, "rgba(255, 255, 255, 0.22)");
+
+  // B3 "it gets the request and frames from every scene, without the explanations": into the tray they go;
+  // the explanations slide toward the critic, are stopped at the divider (an X there) and bounce back
+  const doc = q(".s73-doc");
+  tw(doc, { x: 536, y: -5, scale: 0.8, rotation: -8, opacity: 0 }, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, duration: 0.85, ease: E.SPRING }, b3 + 0.1);
+  const vc = E.center(vid, wrap);
+  qa(".s73-in").forEach((th, i) => {
+    const o = E.center(th, wrap);
+    tw(th, { x: vc.x - o.x, y: vc.y - o.y, scale: 2.4, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.8, ease: E.SPRING }, b3 + 0.45 + i * 0.15);
+  });
+  const expl = q(".s73-expl"), dv = q(".s73-div path"), blk = q(".s73-blk");
+  pop(expl, b3 + 0.8, 0.8);
+  // the card's left edge stops 24 px short of the divider (just clear of the X that appears there); it bounces back and stays
+  // (the divider is an SVG: its place comes from its CSS left; its line runs at x + 2)
+  const divX = parseFloat(getComputedStyle(q(".s73-div")).left) + 2;
+  const reach = Math.round(bub.offsetLeft - divX - 24), hit = b3 + 1.29;
+  tw(bub, { x: 0 }, { x: -reach, duration: 0.22, ease: "power2.in" }, hit - 0.22);
+  tw(bub, { x: -reach }, { x: 0, duration: 0.35, ease: "back.out(1.4)" }, hit);
+  E.glitch(tl, q(".s73-div"), T(hit), 6);
+  tw(dv, { stroke: "#c9c2ff" }, { stroke: "#ffffff", duration: 0.08 }, hit);
+  tw(dv, { stroke: "#ffffff" }, { stroke: "#c9c2ff", duration: 0.5 }, hit + 0.25);
+  pop(blk, hit, 0.5);
+  qa(".s73-blk path").forEach((p) => E.draw(tl, p, T(hit + 0.03), 0.2));    // complete by hit + 0.23
+
+  // B4 "and gives a score out of 100 with a numeric fix for every defect": the gauge lands on 68 (the first round);
+  // two defects, each with its fix dialled in (the punch-in lands on the gauge)
+  E.fadeOut(tl, q(".s73-builder"), T(b4), 0.2, 0);
+  tw(q(".s73-div"), { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4);
+  tw(blk, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4);
+  [q(".s73-tray"), doc].concat(qa(".s73-in")).forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.2 }, b4));
+  // the fill shows v% of the arc at offset L - v * len; hidden, its dash ends 12 px before the arc starts,
+  // so its round cap never leaves a dot there (same as E.draw)
+  const fill = q(".s73-fill"), len = fill.getTotalLength(), L = Math.ceil(len) + 2, pad = 12;
+  fill.style.strokeDasharray = L + " " + (L + 2 * pad);
+  fill.style.strokeDashoffset = L + pad;
+  const off = (v) => +(L - (len * v) / 100).toFixed(1);
+  E.draw(tl, q(".s73-track"), T(b4 + 0.2), 0.5);
+  tw(fill, { strokeDashoffset: L + pad }, { strokeDashoffset: off(c.scoreFrom), duration: 0.8, ease: "power2.out" }, b4 + 0.4);
+  qa(".s73-tk").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.5));
+  qa(".s73-tl").forEach((k) => tw(k, { opacity: 0 }, { opacity: 1, duration: 0.3 }, b4 + 0.55));
+  const n1 = q(".s73-n1"), n2 = q(".s73-n2");
+  pop(n1, b4 + 0.6, 0.6);
+  tw(q(".s73-of"), { opacity: 0 }, { opacity: 1, duration: 0.35 }, b4 + 0.75);
+  qa(".s73-row").forEach((row, i) => {
+    const t = b4 + 1.0 + i * 0.3;
+    tw(row, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E.SPRING }, t);
+    tw(E.q(".s73-dm", row), { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, t + 0.25);
+    tw(E.q(".s73-arr", row), { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, t + 0.35);
+    const kn = E.q(".s73-knob", row), to = i ? -31.2 * 1.5 : 31.2 * 4;
+    tw(kn, { x: 0 }, { x: to, duration: 0.55, ease: "power3.inOut" }, t + 0.5);
+    tw(kn, { scale: 1 }, { scale: 1.25, duration: 0.15, ease: "power2.out" }, t + 1.05);
+    tw(kn, { scale: 1.25 }, { scale: 1, duration: 0.25, ease: "power2.in" }, t + 1.2);
+  });
+
+  // payoff: the same critic, round after round; the middle rounds are dots (no numbers in the guide);
+  // the gauge passes 90 and lands on 96; then the stopping rule
+  qa(".s73-row").forEach((row) => E.fadeOut(tl, row, T(pe), 0.3, 10));
+  const line = q(".s73-line"), linef = q(".s73-linef"), nds = qa(".s73-nd");
+  tw(line, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, pe + 0.1);
+  nds.forEach((n, k) => pop(n, pe + 0.15 + k * 0.05, 0.4));
+  E.fadeIn(tl, q(".s73-slbl"), T(pe + 0.3), 0.4, 6);
+  const lit = (n, t) => tw(n, { boxShadow: "0 0 0 2px rgba(201, 194, 255, 0.7), 0 0 0px rgba(201, 194, 255, 0)", backgroundColor: "#2a2450" },
+    { boxShadow: "0 0 0 2px rgba(255, 255, 255, 1), 0 0 14px rgba(201, 194, 255, 0.9)", backgroundColor: "#c9c2ff", duration: 0.25 }, t);
+  lit(nds[0], pe + 0.45);
+  E.fadeIn(tl, q(".s73-sv1"), T(pe + 0.5), 0.4, 8);
+  E.fadeIn(tl, q(".s73-rublbl"), T(pe + 0.65), 0.4, 10);
+  qa(".s73-tag").forEach((g, i) => pop(g, pe + 0.75 + i * 0.08, 0.7));
+  // rounds 2..7
+  const r0 = pe + 1.55, step = 0.33, rEnd = r0 + 5 * step + 0.2;
+  for (let k = 1; k <= 6; k++) {
+    const t = r0 + (k - 1) * step;
+    tw(linef, { scaleX: (k - 1) / 6 }, { scaleX: k / 6, duration: 0.22, ease: "power2.out" }, t);
+    if (k < 6) {
+      tw(nds[k], { scale: 1 }, { scale: 1.7, duration: 0.15, ease: "power2.out" }, t + 0.12);
+      tw(nds[k], { scale: 1.7 }, { scale: 1, duration: 0.2, ease: "power2.in" }, t + 0.27);
+    } else {
+      lit(nds[6], t + 0.12);
+    }
+    tw(cr, { scale: 1 }, { scale: 1.06, duration: 0.12, ease: "power2.out" }, t + 0.05);
+    tw(cr, { scale: 1.06 }, { scale: 1, duration: 0.18, ease: "power2.in" }, t + 0.17);
+  }
+  tw(n1, { opacity: 1 }, { opacity: 0, duration: 0.25 }, r0);
+  tw(fill, { strokeDashoffset: off(c.scoreFrom) }, { strokeDashoffset: off(c.scoreTo), duration: rEnd - r0, ease: "power1.inOut" }, r0);
+  // the gauge passes the target: its tick and label light up, a check mark
+  const tPass = r0 + (rEnd - r0) * 0.72;
+  tw(q(".s73-tk" + c.target), { stroke: "rgba(236, 233, 255, 0.85)" }, { stroke: "#ffffff", duration: 0.2 }, tPass);
+  tw(q(".s73-tl" + c.target), { color: "#b8b4cc", scale: 1 }, { color: "#ffffff", scale: 1.2, duration: 0.3, ease: "back.out(2)" }, tPass);
+  const pass = q(".s73-pass");
+  pop(pass, tPass + 0.05, 0.5);
+  E.draw(tl, q(".s73-pass path"), T(tPass + 0.1), 0.25);
+  pop(n2, rEnd - 0.05, 0.6);
+  E.fadeIn(tl, q(".s73-sv7"), T(rEnd), 0.4, 8);
+  E.burst(tl, q(".s73-gauge"), 21, 151, T(rEnd), { n: 14, seed: 73, r0: 26, r1: 70, color: "#c9c2ff" });
+  // the stopping rule
+  const rule = q(".s73-rulecard");
+  tw(rule, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, ease: E.SPRING }, pe + 4.1);
+  qa(".s73-stop path").forEach((p, i) => E.draw(tl, p, T(pe + 4.25 + i * 0.2), 0.35));
+  sweep(rule, pe + 4.6, 0.9, "rgba(201, 194, 255, 0.2)");
+  // the fact takes over: the labels that sit outside its dark backing leave completely as the stage dims
+  // (rule card, rubric, gauge tick labels), so nothing peeks out next to the fact text
+  const tOut = cfg.tSimEnd - 0.45;
+  [rule, q(".s73-rub"), q(".s73-rublbl")].concat(qa(".s73-tl")).forEach((el) => tw(el, { opacity: 1 }, { opacity: 0, duration: 0.35, ease: "power2.in" }, tOut));
+};
+
+
+(function () {
+  const CFGS = [{"id": "t73", "sim": "sim73", "D": 31.86, "tStage": 1.18, "tExp": 1.78, "phr": [1.78, 4.48, 6.08, 9.03, 11.73], "phrEnd": 14.43, "tSimEnd": 21.43, "tFact": 21.43, "tPrompt": 25.91, "tPromptEnd": 31.41, "tTip": null, "expZoom": 0.07, "simDur": 20.25, "hls": [{"id": "hl1", "hold": 2.2, "zoom": 0.1}], "sim73": {"builderName": "קלוד", "criticLabel": "מבקר עצמאי", "reqLabel": "הבקשה", "explLabel": "ההסברים", "scoreFrom": 68, "scoreTo": 96, "target": 90, "stopAt": 70, "rounds": 7, "roundsLabel": "סבבים", "rubricLabel": "מחוון", "rubric": ["ביצוע", "גימור", "תנועה", "טקסט ועברית", "התאמה לסגנון", "היגיון פיזי"], "rule": ["אחרי שני סבבים עדיין לא עבר את 70?", "עוצרים ומביאים את הפער."]}, "S": 0.0}];
+  const WINDOW = null;
+  const fontsReady = Promise.all([
+    document.fonts.load('400 38px Rubik', 'אבג abc 123'),
+    document.fonts.load('800 62px Rubik', 'אבג abc'),
+    document.fonts.load('900 40px Rubik', 'אבג'),
+    document.fonts.load('600 27px "IBM Plex Mono"', 'abc 123'),
+    document.fonts.load('400 27px "IBM Plex Sans Hebrew"', 'אבג'),
+  ]).then(() => document.fonts.ready);
+  fontsReady.then(() => {
+    const stage = document.querySelector('.stagewrap');
+    const cam = document.getElementById('cam');
+    const master = gsap.timeline({ paused: true });
+    // slow background drift for the whole video (the "camera that never stops")
+    const TOT = 31.860;
+    master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    window.ENG.dust(master, document.getElementById('bg'), TOT);
+    for (const cfg of CFGS) {
+      const scene = document.getElementById('sc-' + cfg.id);
+      const scam = scene.querySelector('.scam') || cam;
+      const hdr = scene.querySelector('.hdr');
+      if (cfg.type === 'chapter') window.ENG.chapter(master, { stage, cam: scam, scene, hdr }, cfg);
+      else if (cfg.type === 'custom') window.SIMS[cfg.sim](master, { stage, cam: scam, scene, hdr }, cfg, cfg.S);
+      else window.ENG.topic(master, { stage, cam: scam, scene, hdr }, cfg);
+    }
+    let root = master;
+    if (WINDOW) {
+      root = gsap.timeline({ paused: true });
+      root.add(master.tweenFromTo(WINDOW[0], WINDOW[1], { duration: WINDOW[1] - WINDOW[0], ease: 'none' }), 0);
+    }
+    window.__ENG_DEBUG.ready = true;
+    window.__timelines['main'] = root;
+  });
+})();
+
+</script>
+</body>
+</html>

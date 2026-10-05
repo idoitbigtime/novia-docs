@@ -1,0 +1,1344 @@
+<!doctype html>
+<html lang="he">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>עריכת וידאו עם Claude</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+/* IBM Plex Mono 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 300 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-300.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-300.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-300.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 400 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-400.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 500 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-500.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 600 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-600.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 700 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-700.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Rubik 300 900 normal — hebrew */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-hebrew-300-900.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* Rubik 300 900 normal — latin-ext */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-ext-300-900.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Rubik 300 900 normal — latin */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-300-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Design tokens. Safe area for text: x 140..940, y 300..1570 (1080x1920). */
+:root {
+  --bg: #06060b;
+  --ink: #f5f2ea;
+  --ink2: #dcd9e6;
+  --muted: #9c99ae;
+  --acc: #ff453a;
+  --acc-soft: #ff8a80;
+  --line: #c9c2ff;
+  --line-glow: rgba(201, 194, 255, 0.55);
+  --panel: rgba(18, 17, 34, 0.96);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: "Rubik", sans-serif; }
+.stagewrap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; overflow: hidden; }
+
+/* ---------- background ---------- */
+#bg { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #08080f 0%, #0b0a17 55%, #07070d 100%); }
+#bg .glow { position: absolute; border-radius: 50%; }
+#bg .g1 { width: 1500px; height: 1500px; left: -420px; top: -380px; background: radial-gradient(circle, rgba(124, 92, 255, 0.20) 0%, rgba(124, 92, 255, 0.07) 38%, rgba(124, 92, 255, 0) 66%); }
+#bg .g2 { width: 1400px; height: 1400px; left: 260px; top: 980px; background: radial-gradient(circle, rgba(255, 69, 58, 0.15) 0%, rgba(255, 69, 58, 0.05) 40%, rgba(255, 69, 58, 0) 66%); }
+#bg .grain { position: absolute; inset: 0; background-image: url("assets/grain.png"); background-size: 256px 256px; opacity: 0.07; mix-blend-mode: screen; }
+#bg .vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
+
+#cam { position: absolute; inset: 0; transform-origin: 540px 960px; }
+.scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.scam { position: absolute; inset: 0; }
+
+/* ---------- header (chapter indicator) ---------- */
+.hdr { position: absolute; top: 300px; left: 140px; width: 800px; height: 46px; display: flex; justify-content: space-between; align-items: center; direction: rtl; opacity: 0; }
+.hdr-ch { font: 500 30px/1 "Rubik"; color: #b3b0c4; }
+.hdr-num { font: 600 28px/1 "IBM Plex Mono"; color: var(--acc); border: 1.5px solid rgba(255, 69, 58, 0.55); border-radius: 10px; padding: 7px 12px 6px; }
+
+/* ---------- kinetic text ---------- */
+.kin { direction: rtl; text-align: right; }
+.w { display: inline-block; white-space: pre; opacity: 0; }
+.isl { unicode-bidi: isolate; }
+.accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
+.accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
+.strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+.nbgrp { display: inline-block; white-space: nowrap; }
+.glu { display: inline-block; white-space: nowrap; }
+
+/* ---------- topic layout ---------- */
+.main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
+.ttl { font: 800 60px/1.14 "Rubik"; color: var(--ink); letter-spacing: -0.005em; text-wrap: balance; }
+.exp { font: 400 36px/1.42 "Rubik"; color: var(--ink2); }
+.exp .accgrp { font-weight: 800; }
+.exp .ph { transition: none; }
+/* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
+.stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
+/* the illustration's frame: the camera zooms inside it, so nothing ever leaves x 140..940; during a zoom
+   its edges soften (--edge), like a camera crop */
+.stclip { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; --edge: 0px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%); mask-composite: intersect; }
+.stcam { position: absolute; inset: 0; }
+.stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
+.simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
+.simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
+/* the illustration canvas: 800 x 700 (frame x 140..940) */
+.simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
+
+/* fact overlay inside the stage */
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; direction: rtl; }
+/* the fact sits on its own dark backing (soft edges), so the faded illustration never shows through the text */
+.factin { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 34px 30px; }
+.fscrim { position: absolute; z-index: -1; inset: 0; border-radius: 48px; background: rgba(9, 8, 18, 0.9); box-shadow: 0 0 46px 30px rgba(9, 8, 18, 0.88); opacity: 0; display: block; }
+.pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
+.factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
+.metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
+.metaline .w, .factline .w { opacity: 0; }
+
+/* ---------- prompt card ---------- */
+.pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
+.pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
+.pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: #b9a8ff; box-shadow: 0 0 14px rgba(185, 168, 255, 0.85); display: block; }
+.pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
+.pc-num b { color: var(--ink); font-weight: 600; }
+.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
+.tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
+.tab .tul { display: none; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: #b9a8ff; display: block; opacity: 0; }
+.tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
+.pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
+  }
+.pct { position: absolute; top: 0; left: 48px; right: 48px; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
+.pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
+.pl-empty { height: 44px; }
+.ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; color: #d8d4ea; white-space: nowrap; }
+/* long code: its own right-aligned line (an LTR isolate that may wrap; the punctuation after it stays outside) */
+.codeblock { display: block; direction: rtl; text-align: right; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.cbi { direction: ltr; unicode-bidi: isolate; }
+.tk { white-space: nowrap; }
+.nb, .neg { white-space: nowrap; }
+.code .bt, .codeblock .bt { color: #6f6b86; }
+.hlbg { position: absolute; z-index: -1; top: 0; bottom: 0; left: -14px; right: -14px; background: #2e1626; border-right: 4px solid #e5484d; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); opacity: 0; display: block; }
+.pbody { position: relative; }
+/* lifted key lines: a layer over the card (same box, not clipped by it) */
+.plift { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; pointer-events: none; }
+.pl-lift { position: absolute; z-index: 3; opacity: 0; box-sizing: border-box; padding: 0 12px; font: 400 30px/44px "Rubik"; color: #f5f2ea; direction: rtl; white-space: pre-wrap; transform-origin: 50% 50%; }
+/* the lifted backing is as wide as the line, so at x1.10 it stays clear of the card border */
+.pl-lift .hlbg { opacity: 1; left: 0; right: 0; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55); }
+
+/* ---------- tip ---------- */
+.tipwrap { position: absolute; left: 140px; width: 800px; top: 0; height: 1920px; display: flex; align-items: center; justify-content: center; }
+.tipcard { width: 800px; padding: 44px 48px 50px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(18, 17, 34, 0.88); box-shadow: 0 0 40px rgba(140, 120, 255, 0.15); direction: rtl; text-align: right; opacity: 0; }
+.tip-label { display: flex; align-items: center; gap: 12px; font: 600 30px/1 "Rubik"; color: #f2eef8; margin-bottom: 26px; }
+.tip-ico { width: 46px; height: 46px; display: block; overflow: visible; filter: drop-shadow(0 0 8px rgba(255, 69, 58, 0.55)); }
+.tip-ico path { fill: none; stroke: var(--acc); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.tip-text { font: 600 46px/1.38 "Rubik"; color: var(--ink); }
+.tip-text .w { opacity: 0; }
+
+/* ---------- chapter card ---------- */
+.chap { position: absolute; inset: 0; transform-origin: 540px 900px; }
+/* the card's camera: a slow push through the hold */
+.ch-cam { position: absolute; inset: 0; transform-origin: 540px 900px; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0.35; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
+.ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
+.ch-tin { display: inline-block; white-space: nowrap; }
+.ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
+.ch-sub { position: absolute; top: 1040px; left: 160px; width: 760px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
+/* centred blocks wrap into even lines; paragraphs never end on a lone word */
+.ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
+.exp, .tip-text { text-wrap: pretty; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0.4; }
+.ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
+.ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+/* the chapter motif: 180 px line art beside the number (lavender, 35%) */
+/* frame 0 of a card (a seek to 0 may not render the timeline): the number and its rings are already there */
+.chap .ch-n { transform: perspective(1200px) rotateY(-16deg) scale(0.9); }
+.chap .ch-ring { opacity: 0.85; transform: scale(0.66); }
+.chap .ch-ring2 { opacity: 0.65; transform: scale(0.8); }
+.chap .ch-k, .chap .ch-dots { transform: translateY(8px); }
+.ch-mo { position: absolute; left: 740px; top: 580px; width: 180px; height: 180px; opacity: 0.35; overflow: visible; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
+.ch-mo .dr, .ch-mo .mo-ph, .ch-mo .mo-scan, .ch-mo .mo-ck, .ch-mo .mo-ring, .ch-mo .mo-blur { fill: none; stroke: #c9c2ff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.ch-mo .fl, .ch-mo .mo-f { fill: #c9c2ff; }
+.ch-mo .fl { opacity: 0; }
+.ch-mo .mo-solid { fill: #0b0a16; fill-opacity: 0; }
+.ch-mo .mo-bar { stroke-width: 6; }
+.ch-mo .mo-ph { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-scan { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-blur { stroke-width: 11; opacity: 0; }
+.ch-mo .mo-ring { stroke-width: 2.5; opacity: 0; }
+.ch-mo .mo-f { opacity: 0; }
+.ch-mo .mo-ck { stroke-width: 4.5; }
+.ch-mo3 .mo-in { position: absolute; inset: 0; perspective: 640px; opacity: 0; }
+.ch-mo3 .mo-tilt { position: absolute; left: 40px; top: 40px; width: 100px; height: 100px; transform-style: preserve-3d; transform: rotateX(-24deg); }
+.ch-mo3 .mo-cube { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(-10deg); }
+.ch-mo3 .mo-cube i { position: absolute; inset: 0; border: 3.5px solid #c9c2ff; border-radius: 5px; display: block; }
+.ch-mo3 .mo-face0 { transform: translateZ(50px); }
+.ch-mo3 .mo-face1 { transform: rotateY(180deg) translateZ(50px); }
+.ch-mo3 .mo-face2 { transform: rotateY(90deg) translateZ(50px); }
+.ch-mo3 .mo-face3 { transform: rotateY(-90deg) translateZ(50px); }
+.ch-mo3 .mo-face4 { transform: rotateX(90deg) translateZ(50px); }
+.ch-mo3 .mo-face5 { transform: rotateX(-90deg) translateZ(50px); }
+
+/* ---------- effects ---------- */
+/* light sweep across an element (the element clips it) */
+.fx-sweep { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.fx-sweep b { position: absolute; top: -40%; bottom: -40%; left: 100%; width: 34%; display: block; transform: skewX(-16deg);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--sweep, rgba(255, 255, 255, 0.22)), rgba(255, 255, 255, 0)); }
+/* light band across the whole frame at a scene change */
+.fx-band { position: absolute; top: -400px; left: 1080px; width: 560px; height: 2720px; display: block; pointer-events: none; z-index: 40;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.10) 35%, rgba(255, 255, 255, 0.16) 50%, rgba(201, 194, 255, 0.10) 65%, rgba(201, 194, 255, 0));
+  transform: rotate(14deg); mix-blend-mode: screen; opacity: 0; }
+/* particle burst */
+.fx-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; display: block; pointer-events: none; opacity: 0; z-index: 7; }
+/* drifting dust in the background */
+.dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
+
+/* 4.3 where to put b-rolls (canvas 800 x 700): the table Claude returns over the talking video's timeline
+   (time runs right to left on the timeline: 32 px per second from x 640) */
+.sim43 .s43-table { position: absolute; left: 40px; top: 50px; width: 720px; height: 340px; border-radius: 24px; }
+.sim43 .s43-tbg { position: absolute; inset: 0; border-radius: 24px; background: rgba(26, 23, 52, 0.88); opacity: 0; }
+.sim43 .s43-tframe { position: absolute; left: 0; top: 0; width: 720px; height: 340px; overflow: visible; }
+.sim43 .s43-tframe path { fill: none; stroke: rgba(201, 194, 255, 0.45); stroke-width: 1.5; }
+.sim43 .s43-head { position: absolute; left: 0; top: 0; width: 720px; height: 48px; }
+.sim43 .s43-h { position: absolute; top: 9px; text-align: center; font: 600 30px/1 "Rubik"; color: #d8d4ea; opacity: 0; white-space: nowrap; }
+.sim43 .s43-h1 { left: 620px; width: 100px; }
+.sim43 .s43-h2 { left: 420px; width: 200px; }
+.sim43 .s43-h3 { left: 290px; width: 130px; }
+.sim43 .s43-h4 { left: 0; width: 290px; }
+.sim43 .s43-row { position: absolute; left: 0; width: 720px; height: 58px; }
+.sim43 .s43-r1 { top: 48px; }
+.sim43 .s43-r2 { top: 106px; }
+.sim43 .s43-r3 { top: 164px; }
+.sim43 .s43-r4 { top: 222px; }
+.sim43 .s43-r5 { top: 280px; }
+.sim43 .s43-line { position: absolute; left: 16px; right: 16px; top: 0; height: 1px; background: rgba(201, 194, 255, 0.16); transform-origin: 100% 50%; transform: scaleX(0); display: block; }
+.sim43 .s43-band { position: absolute; left: 8px; right: 8px; top: 3px; bottom: 3px; border-radius: 12px; background: rgba(201, 194, 255, 0.14);
+  border: 1.5px solid rgba(201, 194, 255, 0.55); display: block; opacity: 0; }
+.sim43 .s43-c { position: absolute; top: 0; height: 58px; display: flex; align-items: center; }
+.sim43 .s43-ct { left: 620px; width: 100px; justify-content: center; }
+.sim43 .s43-cs { left: 420px; width: 200px; direction: rtl; gap: 8px; padding-right: 14px; }
+.sim43 .s43-cw { left: 290px; width: 130px; justify-content: center; }
+.sim43 .s43-cx { left: 0; width: 290px; justify-content: flex-end; padding-right: 14px; }
+.sim43 .s43-mt { position: relative; width: 80px; height: 8px; border-radius: 4px; background: rgba(201, 194, 255, 0.2); display: block; opacity: 0; transform-origin: 100% 50%; }
+.sim43 .s43-mt i { position: absolute; top: 0; bottom: 0; border-radius: 4px; background: #d9d4ff; box-shadow: 0 0 6px rgba(201, 194, 255, 0.8); display: block; }
+.sim43 .s43-wb { height: 12px; border-radius: 6px; background: rgba(201, 194, 255, 0.5); display: block; flex: none; opacity: 0; }
+.sim43 .s43-key { background: #f0edff; box-shadow: 0 0 8px rgba(201, 194, 255, 0.8); }
+.sim43 .s43-ico { width: 34px; height: 34px; display: block; overflow: visible; }
+.sim43 .s43-ico path, .sim43 .s43-ico rect, .sim43 .s43-ico circle { fill: none; stroke: #d9d4ff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim43 .s43-cw .s43-ico { opacity: 0; }
+.sim43 .s43-what0 { width: 44px; height: 34px; border-radius: 8px; border: 2px dashed rgba(201, 194, 255, 0.4); display: block; opacity: 0; }
+.sim43 .s43-src { font: 500 30px/1 "Rubik"; color: #ece9f7; white-space: nowrap; opacity: 0; }
+/* the table's "חסר": ink on a dashed lavender cell (the timeline's hole is the one red mark) */
+.sim43 .s43-miss { color: #f5f2ea; font-weight: 700; padding: 6px 14px 8px; border-radius: 10px; border: 2px dashed rgba(201, 194, 255, 0.7); background: rgba(201, 194, 255, 0.1); }
+.sim43 .s43-src0 { position: absolute; right: 14px; top: 23px; width: 170px; height: 12px; border-radius: 6px; border: 1.5px dashed rgba(201, 194, 255, 0.35); display: block; opacity: 0; }
+.sim43 .s43-colhl { position: absolute; left: 420px; top: 48px; width: 200px; height: 48px; display: block; opacity: 0;
+  background: linear-gradient(180deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.3) 50%, rgba(201, 194, 255, 0)); }
+
+/* the timeline (a container over the whole canvas; children use canvas coordinates) */
+.sim43 .s43-tl { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
+.sim43 .s43-ruler { position: absolute; left: 60px; top: 424px; width: 584px; height: 14px;
+  background: repeating-linear-gradient(270deg, rgba(201, 194, 255, 0.4) 0 2px, rgba(0, 0, 0, 0) 2px 32px); }
+.sim43 .s43-lane { position: absolute; left: 60px; width: 584px; height: 58px; border-radius: 12px; }
+.sim43 .s43-lb { top: 448px; border: 1.5px dashed rgba(201, 194, 255, 0.25); background: rgba(201, 194, 255, 0.03); }
+.sim43 .s43-ls { top: 514px; background: rgba(201, 194, 255, 0.07); overflow: hidden; }
+.sim43 .s43-wave { position: absolute; left: 0; top: 0; width: 584px; height: 58px; display: block; }
+.sim43 .s43-wave path { fill: none; stroke: rgba(201, 194, 255, 0.55); stroke-width: 4.5; stroke-linecap: round; }
+.sim43 .s43-tlbl { position: absolute; right: 56px; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim43 .s43-tl1 { top: 462px; }
+.sim43 .s43-tl2 { top: 528px; }
+.sim43 .s43-span { position: absolute; top: 514px; height: 58px; border-radius: 10px; background: rgba(201, 194, 255, 0.22); border: 1.5px solid rgba(201, 194, 255, 0.6); display: block; opacity: 0; }
+.sim43 .s43-scan { position: absolute; left: 638px; top: 504px; width: 4px; height: 78px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 14px #c9c2ff; display: block; opacity: 0; }
+.sim43 .s43-gap { position: absolute; top: 448px; height: 58px; border-radius: 10px; border: 2px dashed rgba(201, 194, 255, 0.8); display: grid; place-items: center; opacity: 0; }
+.sim43 .s43-gok { width: 26px; height: 26px; overflow: visible; }
+.sim43 .s43-gok path, .sim43 .s43-ok path { fill: none; stroke: #ffffff; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+/* the hole starts amber (it is found while the red accent "מ-3 שניות" is read) and turns red only when it is
+   marked "חסר" (see the js) */
+.sim43 .s43-hole { position: absolute; top: 448px; height: 58px; border-radius: 10px; border: 2.5px dashed #F5B544; background: rgba(245, 181, 68, 0.12);
+  box-shadow: 0 0 14px rgba(245, 181, 68, 0.35); display: grid; place-items: center; opacity: 0; }
+.sim43 .s43-hlbl { font: 700 30px/1 "Rubik"; color: #ffffff; opacity: 0; }
+.sim43 .s43-blk, .sim43 .s43-sim, .sim43 .s43-acc { position: absolute; top: 452px; height: 50px; border-radius: 10px; display: grid; place-items: center; opacity: 0; }
+.sim43 .s43-blk { background: rgba(74, 54, 184, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.75); }
+.sim43 .s43-sim, .sim43 .s43-acc { background: rgba(52, 46, 98, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.5); }
+.sim43 .s43-blk .s43-ico, .sim43 .s43-sim .s43-ico, .sim43 .s43-acc .s43-ico { width: 30px; height: 30px; }
+.sim43 .s43-blk .s43-ico path, .sim43 .s43-blk .s43-ico rect, .sim43 .s43-blk .s43-ico circle { stroke: #ffffff; }
+.sim43 .s43-bok, .sim43 .s43-bno { position: absolute; right: -12px; top: -15px; width: 30px; height: 30px; border-radius: 50%; display: block; opacity: 0; }
+.sim43 .s43-bok { background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 10px rgba(201, 194, 255, 0.6); }
+.sim43 .s43-bno { background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 12px rgba(255, 69, 58, 0.7); }
+.sim43 .s43-ok, .sim43 .s43-no { position: absolute; inset: 4px; width: 22px; height: 22px; overflow: visible; }
+.sim43 .s43-no path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
+.sim43 .s43-strike { position: absolute; left: -8px; right: -8px; top: 50%; height: 4px; margin-top: -2px; border-radius: 2px; background: #f0edff;
+  box-shadow: 0 0 8px rgba(201, 194, 255, 0.9); transform-origin: 100% 50%; transform: rotate(-14deg) scaleX(0.001); display: block; }
+.sim43 .s43-pin { position: absolute; top: 442px; width: 3px; height: 136px; margin-left: -1.5px; border-radius: 2px; transform-origin: 50% 0%;
+  background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0.55)); box-shadow: 0 0 10px #c9c2ff; display: block; opacity: 0; }
+.sim43 .s43-pin b { position: absolute; left: -7px; top: -9px; width: 17px; height: 17px; border-radius: 3px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; transform: rotate(45deg); display: block; }
+.sim43 .s43-entry { position: absolute; top: 582px; width: 40px; height: 16px; overflow: visible; }
+.sim43 .s43-entry path { fill: none; stroke: #ffffff; stroke-width: 3.5; stroke-linecap: round; filter: drop-shadow(0 0 5px #c9c2ff); }
+.sim43 .s43-cal { position: absolute; top: 582px; height: 60px; opacity: 0; }
+.sim43 .s43-cal svg { position: absolute; left: 0; top: 0; width: 100%; height: 18px; overflow: visible; }
+.sim43 .s43-cal path { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 5px #c9c2ff); }
+.sim43 .s43-cal path.s43-calg { stroke: rgba(255, 255, 255, 0.55); stroke-width: 2; stroke-dasharray: 5 6; filter: none; }
+.sim43 .s43-calt { position: absolute; left: -50px; right: -50px; top: 24px; text-align: center; font: 700 30px/1 "Rubik"; color: #ffffff; white-space: nowrap; }
+
+/* payoff: the rule tags */
+.sim43 .s43-rule { position: absolute; right: 40px; display: flex; direction: rtl; align-items: center; gap: 14px; padding: 12px 20px 12px 24px; border-radius: 18px;
+  background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.32); box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35); opacity: 0; }
+.sim43 .s43-u1 { top: 144px; }
+.sim43 .s43-u2 { top: 230px; }
+.sim43 .s43-u3 { top: 316px; }
+.sim43 .s43-rico { width: 34px; height: 34px; display: block; overflow: visible; flex: none; }
+.sim43 .s43-rico path, .sim43 .s43-rico rect, .sim43 .s43-rico circle { fill: none; stroke: #c9c2ff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim43 .s43-rule span { font: 600 30px/1.1 "Rubik"; color: var(--ink); white-space: nowrap; }
+
+/* local light sweep (see sweep() in the js): the band starts and ends fully outside the element */
+.sim43 .s43-swp { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.sim43 .s43-swp b { position: absolute; top: 0; bottom: 0; left: 100%; display: block; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="30.980" data-fps="30" data-width="1080" data-height="1920">
+<div class="stagewrap" style="transform: scale(1.0);">
+<div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
+<div id="cam">
+<div id="sc-t43" class="clip scene" data-start="0.000" data-duration="30.980" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 4 · בירולים</span><span class="hdr-num" dir="ltr">4.3</span></div>
+<div class="scam">
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">איפה</span> <span class="w" dir="rtl" data-t="0.430">לשים</span> <span class="w" dir="rtl" data-t="0.560">בירולים,</span> <span class="w" dir="rtl" data-t="0.690">ומה</span> <span class="w" dir="rtl" data-t="0.820">להראות</span> <span class="w" dir="rtl" data-t="0.950">בכל</span> <span class="w" dir="rtl" data-t="1.080">אחד</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.910">על</span> <span class="w" dir="rtl" data-t="1.970">בסיס</span> <span class="w" dir="rtl" data-t="2.030">התמלול</span> <span class="w" dir="rtl" data-t="2.090">קלוד</span> <span class="w" dir="rtl" data-t="2.150">מחזיר</span> <span class="w" dir="rtl" data-t="2.210">טבלה:</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="3.860">הזמן,</span> <span class="w" dir="rtl" data-t="3.920">המשפט,</span> <span class="w" dir="rtl" data-t="3.980">מה</span> <span class="w" dir="rtl" data-t="4.040">רואים</span> <span class="w" dir="rtl" data-t="4.100">בבירול</span> <span class="w" dir="rtl" data-t="4.160">ומאיפה</span> <span class="w" dir="rtl" data-t="4.220">הוא</span> <span class="w" dir="rtl" data-t="4.280">מגיע.</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.310">הכלל:</span> <span class="w" dir="rtl" data-t="6.370">אף</span> <span class="w" dir="rtl" data-t="6.430">פעם</span> <span class="w" dir="rtl" data-t="6.490">לא</span> <span class="w" dir="rtl" data-t="6.550">יותר</span> <span class="accgrp" data-t="6.610"><span class="w s-str" dir="rtl" data-t="6.610">מ-</span> <span class="w s-str" dir="rtl" data-t="6.610">3</span> <span class="w s-str" dir="rtl" data-t="6.730">שניות</span><i class="ul" data-t="6.790"></i></span> <span class="w" dir="rtl" data-t="6.790">של</span> <span class="w" dir="rtl" data-t="6.850">דיבור</span> <span class="w" dir="rtl" data-t="6.910">בלי</span> <span class="w" dir="rtl" data-t="6.970">בירול,</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.410">וכל</span> <span class="w" dir="rtl" data-t="9.470">קליפ</span> <span class="w" dir="rtl" data-t="9.530">מראה</span> <span class="w" dir="rtl" data-t="9.590">בדיוק</span> <span class="w" dir="rtl" data-t="9.650">את</span> <span class="w" dir="rtl" data-t="9.710">מה</span> <span class="w" dir="rtl" data-t="9.770">שנאמר</span> <span class="w" dir="rtl" data-t="9.830">באותו</span> <span class="w" dir="rtl" data-t="9.890">משפט.</span></span></p></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim43">
+<div class="s43-table"><i class="s43-tbg"></i><div class="s43-head"><span class="s43-h s43-h1" dir="rtl">הזמן</span><span class="s43-h s43-h2" dir="rtl">המשפט</span><span class="s43-h s43-h3" dir="rtl">מה רואים</span><span class="s43-h s43-h4" dir="rtl">מאיפה</span></div><div class="s43-row s43-r1"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:2.2%;width:12.2%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb" style="width:52px" data-x="615.5"></i><i class="s43-wb" style="width:34px" data-x="579.2"></i><i class="s43-wb s43-key" style="width:60px" data-x="542.9"></i></span><span class="s43-c s43-cw"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="5" width="24" height="16" rx="2.5"/><path d="M11 25.5h8M15 21v4.5"/><path d="M13.5 8.5l6 4.5-3.2.7-1.5 2.9z"/></svg></span><span class="s43-c s43-cx"><span class="s43-src" dir="rtl">הקלטת מסך שתצלמו</span></span></div><div class="s43-row s43-r2"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:26.7%;width:11.1%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb" style="width:40px" data-x="499.2"></i><i class="s43-wb s43-key" style="width:58px" data-x="460.8"></i><i class="s43-wb" style="width:36px" data-x="422.4"></i></span><span class="s43-c s43-cw"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 4l2.4 6.2L24 12l-6.6 1.8L15 20l-2.4-6.2L6 12l6.6-1.8z"/><path d="M5 25h5M20 25h5"/></svg></span><span class="s43-c s43-cx"><span class="s43-src" dir="rtl">אנימציה שקלוד יבנה</span></span></div><div class="s43-row s43-r3"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:51.1%;width:10.0%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb s43-key" style="width:60px" data-x="378.7"></i><i class="s43-wb" style="width:30px" data-x="342.4"></i><i class="s43-wb" style="width:48px" data-x="306.1"></i></span><span class="s43-c s43-cw"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="7" width="22" height="17" rx="3"/><path d="M11.5 11.5v8l6.5-4z"/><path d="M25.5 2.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg></span><span class="s43-c s43-cx"><span class="s43-src" dir="rtl">קליפ AI</span></span></div><div class="s43-row s43-r4"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:61.1%;width:27.8%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb" style="width:36px" data-x="257.1"></i><i class="s43-wb s43-key" style="width:52px" data-x="208.0"></i><i class="s43-wb" style="width:44px" data-x="158.9"></i></span><span class="s43-c s43-cw"><i class="s43-what0"></i></span><span class="s43-c s43-cx"><span class="s43-src s43-miss" dir="rtl">חסר</span><i class="s43-src0"></i></span></div><div class="s43-row s43-r5"><i class="s43-line"></i><i class="s43-band"></i><span class="s43-c s43-ct"><span class="s43-mt"><i style="right:88.9%;width:11.1%"></i></span></span><span class="s43-c s43-cs"><i class="s43-wb" style="width:48px" data-x="117.3"></i><i class="s43-wb" style="width:40px" data-x="96.0"></i><i class="s43-wb s43-key" style="width:54px" data-x="74.7"></i></span><span class="s43-c s43-cw"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M3 9.5a2 2 0 0 1 2-2h6l2.5 2.5H25a2 2 0 0 1 2 2V23a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="s43-c s43-cx"><span class="s43-src" dir="rtl">קובץ שכבר בתיקייה</span></span></div><i class="s43-colhl"></i><svg class="s43-tframe" viewBox="0 0 720 340" preserveAspectRatio="none" aria-hidden="true"><path d="M694 1.5H26A24.5 24.5 0 0 0 1.5 26V314A24.5 24.5 0 0 0 26 338.5H694A24.5 24.5 0 0 0 718.5 314V26A24.5 24.5 0 0 0 694 1.5Z"/></svg></div>
+<div class="s43-tl">
+<div class="s43-ruler"></div>
+<div class="s43-lane s43-lb"></div><div class="s43-lane s43-ls"><svg class="s43-wave" viewBox="60 0 584 58" preserveAspectRatio="none" aria-hidden="true"><path d="M66.0 25.4v7.2 M74.0 23.6v10.8 M82.1 13.7v30.6 M90.2 22.7v12.6 M98.2 20.0v18.0 M106.2 18.2v21.6 M114.3 18.2v21.6 M122.4 13.7v30.6 M130.4 24.5v9.0 M138.4 15.5v27.0 M146.5 16.4v25.2 M154.6 20.9v16.2 M162.6 20.0v18.0 M170.7 21.8v14.4 M178.7 15.5v27.0 M186.8 25.4v7.2 M194.8 19.1v19.8 M202.9 11.9v34.2 M210.9 22.7v12.6 M219.0 22.7v12.6 M227.0 17.3v23.4 M235.1 17.3v23.4 M243.1 25.4v7.2 M251.2 23.6v10.8 M259.2 13.7v30.6 M267.2 22.7v12.6 M275.3 20.0v18.0 M283.4 18.2v21.6 M291.4 18.2v21.6 M299.5 13.7v30.6 M307.5 24.5v9.0 M315.6 15.5v27.0 M323.6 16.4v25.2 M331.7 20.9v16.2 M339.7 20.0v18.0 M347.8 21.8v14.4 M355.8 15.5v27.0 M363.9 25.4v7.2 M371.9 19.1v19.8 M380.0 11.9v34.2 M388.0 22.7v12.6 M396.1 22.7v12.6 M404.1 17.3v23.4 M412.2 17.3v23.4 M420.2 25.4v7.2 M428.3 23.6v10.8 M436.3 13.7v30.6 M444.4 22.7v12.6 M452.4 20.0v18.0 M460.5 18.2v21.6 M468.5 18.2v21.6 M476.6 13.7v30.6 M484.6 24.5v9.0 M492.7 15.5v27.0 M500.7 16.4v25.2 M508.8 20.9v16.2 M516.8 20.0v18.0 M524.9 21.8v14.4 M532.9 15.5v27.0 M541.0 25.4v7.2 M549.0 19.1v19.8 M557.1 11.9v34.2 M565.1 22.7v12.6 M573.2 22.7v12.6 M581.2 17.3v23.4 M589.2 17.3v23.4 M597.3 25.4v7.2 M605.4 23.6v10.8 M613.4 13.7v30.6 M621.5 22.7v12.6 M629.5 20.0v18.0 M637.6 18.2v21.6"/></svg></div>
+<span class="s43-tlbl s43-tl1" dir="rtl">בירול</span><span class="s43-tlbl s43-tl2" dir="rtl">דיבור</span>
+<i class="s43-span s43-sp1" style="left:524.8px;width:108.8px"></i><i class="s43-span s43-sp2" style="left:403.2px;width:115.2px"></i><i class="s43-span s43-sp3" style="left:288.0px;width:108.8px"></i><i class="s43-span s43-sp4" style="left:134.4px;width:147.2px"></i><i class="s43-span s43-sp5" style="left:64.0px;width:64.0px"></i>
+<i class="s43-scan"></i>
+<i class="s43-gap s43-g1" style="left:486.4px;width:70.4px"><svg class="s43-gok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i><i class="s43-gap s43-g2" style="left:345.6px;width:76.8px"><svg class="s43-gok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i>
+<div class="s43-hole" style="left:128.0px;width:160.0px"><span class="s43-hlbl" dir="rtl">חסר</span></div>
+<div class="s43-blk s43-b1" style="left:556.8px;width:70.4px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="5" width="24" height="16" rx="2.5"/><path d="M11 25.5h8M15 21v4.5"/><path d="M13.5 8.5l6 4.5-3.2.7-1.5 2.9z"/></svg><i class="s43-bok"><svg class="s43-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i></div><div class="s43-blk s43-b2" style="left:422.4px;width:64.0px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 4l2.4 6.2L24 12l-6.6 1.8L15 20l-2.4-6.2L6 12l6.6-1.8z"/><path d="M5 25h5M20 25h5"/></svg><i class="s43-bok"><svg class="s43-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i></div><div class="s43-blk s43-b3" style="left:288.0px;width:57.6px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="7" width="22" height="17" rx="3"/><path d="M11.5 11.5v8l6.5-4z"/><path d="M25.5 2.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg><i class="s43-bok"><svg class="s43-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i></div><div class="s43-blk s43-b5" style="left:64.0px;width:64.0px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><path d="M3 9.5a2 2 0 0 1 2-2h6l2.5 2.5H25a2 2 0 0 1 2 2V23a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><i class="s43-bok"><svg class="s43-ok" viewBox="0 0 30 30" aria-hidden="true"><path d="M7 15.5l5.5 5.5 11-12"/></svg></i></div>
+<div class="s43-sim" style="left:150.0px;width:116.0px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="5" width="24" height="20" rx="3"/><path d="M5 22l7-7 4.5 4.5 3.5-3.5 5 5"/><circle cx="20.5" cy="11" r="2.4"/></svg><i class="s43-bno"><svg class="s43-no" viewBox="0 0 30 30" aria-hidden="true"><path d="M9.5 9.5l11 11"/><path d="M20.5 9.5l-11 11"/></svg></i></div>
+<div class="s43-acc s43-az" style="left:158.0px;width:100.0px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="13" r="5.5"/><path d="M8 25c1.6-4 4-6 7-6s5.4 2 7 6"/><path d="M3 9V3h6M21 3h6v6M27 21v6h-6M9 27H3v-6"/></svg><i class="s43-strike"></i></div>
+<div class="s43-acc s43-ad" style="left:173.0px;width:70.4px"><svg class="s43-ico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="5" width="24" height="16" rx="2.5"/><path d="M11 25.5h8M15 21v4.5"/><path d="M13.5 8.5l6 4.5-3.2.7-1.5 2.9z"/></svg><i class="s43-strike"></i></div>
+<i class="s43-pin" style="left:446.4px"><b></b></i>
+<svg class="s43-entry" style="left:446.4px" viewBox="0 0 40 16" aria-hidden="true"><path d="M2 3v10M2 8H38M38 3v10"/></svg>
+<div class="s43-cal" data-focus="2" style="left:192.0px;width:96px"><svg viewBox="0 0 96 18" preserveAspectRatio="none" aria-hidden="true"><path class="s43-calg" d="M2 -132V2M94 -132V2"/><path d="M2 2v14M2 9H94M94 2v14"/></svg>
+<span class="s43-calt" dir="rtl">3 שניות</span></div>
+</div>
+<div class="s43-rule s43-u1" dir="rtl"><svg class="s43-rico" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="13" r="5.5"/><path d="M8 25c1.6-4 4-6 7-6s5.4 2 7 6"/><path d="M3 9V3h6M21 3h6v6M27 21v6h-6M9 27H3v-6"/></svg><span>זום על הפנים לא נחשב בירול</span></div><div class="s43-rule s43-u2" dir="rtl"><svg class="s43-rico" viewBox="0 0 30 30" aria-hidden="true"><rect x="3" y="10" width="17" height="14" rx="2.5"/><rect x="10" y="4" width="17" height="14" rx="2.5"/></svg><span>אותו קליפ לא מופיע פעמיים</span></div><div class="s43-rule s43-u3" dir="rtl"><svg class="s43-rico" viewBox="0 0 30 30" aria-hidden="true"><path d="M3 15h11M10.5 11l4 4-4 4"/><path d="M19 6v18"/><path d="M24 11.5l3.5 3.5-3.5 3.5-3.5-3.5z"/></svg><span>כניסה עד שנייה וחצי לפני המילה</span></div>
+</div></div></div></div></div>
+<div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">מקסימום 3 שניות</span></div></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>16</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">לפני שאתה מתמלל, תשאל אותי איזה סרטון, ובאיזו תיקייה נמצאים הקבצים שכבר יש לי.</div>
+<div class="pl" dir="rtl">תתמלל את הסרטון עם זמן לכל מילה, בעזרת <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">transcribe</span> <span class="tk"><bdi dir="ltr">&lt;הקובץ&gt;</bdi></span> <span class="tk">--language he</span> <span class="tk">--model large-v3</span><span class="bt">`</span></span>,</span>ותציע לי רשימת בירולים כטבלה.</div>
+<div class="pl" dir="rtl">בכל שורה יהיו זמן ההתחלה והסוף, המשפט, המילה המרכזית והזמן שלה (לפיה נקבעת הכניסה), מה רואים בבירול, ומאיפה הוא מגיע (הקלטת מסך שאצלם, אנימציה שתבנה, קליפ AI, או קובץ שכבר יש בתיקייה).</div>
+<div class="pl" dir="rtl">אף פעם לא יותר <span class="nb">מ-3</span> שניות ברצף של דיבור שלי למצלמה בלי בירול, וזום על הפנים לא נחשב בירול.</div>
+<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>כל בירול מראה בדיוק את מה שנאמר באותו משפט, ואם אין משהו שמתאים באמת, תכתוב &quot;חסר&quot; במקום למלא בקליפ דומה.</div>
+<div class="pl" dir="rtl">שורה של &quot;חסר&quot; נספרת כחור בכיסוי, ותסמן אותה כך שאראה איפה חסר לי חומר.</div>
+<div class="pl" dir="rtl">אותו קליפ לא מופיע פעמיים, גם כקטע אחר מאותו קובץ.</div>
+<div class="pl" dir="rtl">הבירול נכנס בתוך המשפט שמזכיר אותו, בערך באמצע הדרך בין תחילת המשפט למילה המרכזית, ואף פעם לא יותר משנייה וחצי לפני המילה.</div>
+<div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>הקלטות מסך של החשבונות שלי אצלם בעצמי, ובשבילן תכתוב לי מה לצלם, כמה זמן ובאיזה רגע בסרטון, בלי לבנות צילום מסך מזויף.</div>
+<div class="pl" dir="rtl">תראה לי את הטבלה ותחכה לאישור לפני שאתה בונה או מייצר משהו.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>כל בירול מראה בדיוק את מה שנאמר באותו משפט, ואם אין משהו שמתאים באמת, תכתוב &quot;חסר&quot; במקום למלא בקליפ דומה.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>הקלטות מסך של החשבונות שלי אצלם בעצמי, ובשבילן תכתוב לי מה לצלם, כמה זמן ובאיזה רגע בסרטון, בלי לבנות צילום מסך מזויף.</div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="27.180">נפסלו</span> <span class="w" dir="rtl" data-t="27.340">בירולים</span> <span class="w" dir="rtl" data-t="27.500">שהתאימו</span> <span class="w" dir="rtl" data-t="27.660">רק</span> <span class="w" dir="rtl" data-t="27.820">בערך</span> <span class="w" dir="rtl" data-t="27.980">למשפט,</span> <span class="w" dir="rtl" data-t="28.140">וגם</span> <span class="w" dir="rtl" data-t="28.300">קליפ</span> <span class="w" dir="rtl" data-t="28.460">שחזר</span> <span class="w" dir="rtl" data-t="28.620">פעמיים,</span> <span class="w" dir="rtl" data-t="28.780">אפילו</span> <span class="w" dir="rtl" data-t="28.940">כשכל</span> <span class="w" dir="rtl" data-t="29.100">הסרטון</span> <span class="w" dir="rtl" data-t="29.260">היה</span> <span class="w" dir="rtl" data-t="29.420">מכוסה.</span></p></div></div>
+</div></div>
+</div>
+</div>
+</div>
+<script>
+/* Runtime helpers that add tweens to one paused GSAP master timeline.
+   Every tween is a fromTo with explicit values and immediateRender:false (CSS holds the
+   initial state), so any frame can be rendered by seeking to it in any order.
+   Each scene has its own camera (.scam); the chapter header sits outside it and never zooms. */
+(function () {
+  const E = (window.ENG = {});
+  // The guide's no-overshoot spring (prompts 9 and 13).
+  const SPRING = (p) => (1 - (1 + 7 * p) * Math.exp(-7 * p)) / (1 - 8 * Math.exp(-7));
+  E.SPRING = SPRING;
+  E.debug = (window.__ENG_DEBUG = { scenes: {} });
+  E.q = (s, r) => (r || document).querySelector(s);
+  E.qa = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const NI = { immediateRender: false };
+  E.NI = NI;
+  const A = (o) => Object.assign(o, NI);
+  E.A = A;
+  /* Deterministic PRNG (mulberry32): never use Math.random in scenes. */
+  E.rand = function (seed) {
+    let a = seed >>> 0;
+    return function () { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  };
+  /* Offsets ignore transforms: measure layout before any tween moves things. */
+  E.off = function (el, top) {
+    let x = 0, y = 0, e = el;
+    while (e && e !== top) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+    return { x, y };
+  };
+  E.center = function (el, top) {
+    const o = E.off(el, top);
+    return { x: o.x + el.offsetWidth / 2, y: o.y + el.offsetHeight / 2 };
+  };
+
+  E.fadeIn = function (tl, el, t, d, dy) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: 0, y: dy || 0 }, A({ opacity: 1, y: 0, duration: d || 0.5, ease: SPRING }), t);
+  };
+  E.fadeOut = function (tl, el, t, d, dy, from) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from, y: 0 }, A({ opacity: 0, y: dy || 0, duration: d || 0.3, ease: "power2.in" }), t);
+  };
+  E.dim = function (tl, el, t, to, from, d) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from }, A({ opacity: to, duration: d || 0.35, ease: "power2.out" }), t);
+  };
+
+  /* Kinetic words: each word enters on its time with a spring (slightly above final size,
+     then settles) and unblurs. Blur is animated separately from the spring and ends on
+     0px then "none", so it never goes negative (prompt 2's pitfall). */
+  E.kin = function (tl, root, S, o) {
+    if (!root) return;
+    o = o || {};
+    const dy = o.dy == null ? 18 : o.dy;
+    E.qa(".w", root).forEach((w) => {
+      const t = S + parseFloat(w.dataset.t || "0");
+      tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.22, ease: "power2.out" }), t);
+      tl.fromTo(w, { y: dy, scale: 0.82 }, A({ y: 0, scale: 1, duration: 0.62, ease: "back.out(2.1)" }), t);
+      tl.fromTo(w, { filter: "blur(9px)" }, A({ filter: "blur(0px)", duration: 0.3, ease: "power2.out" }), t);
+      tl.set(w, { filter: "none" }, t + 0.31);
+    });
+    E.qa(".ul", root).forEach((u) => {
+      const t = S + parseFloat(u.dataset.t || "0");
+      tl.fromTo(u, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.5, ease: "power3.inOut" }), t);
+    });
+  };
+
+  /* White pill caption: switches in one frame, no animation (prompt 2). */
+  E.pill = function (tl, el, tin, tout) {
+    tl.set(el, { opacity: 1 }, tin);
+    if (tout != null) tl.set(el, { opacity: 0 }, tout);
+  };
+
+  /* Bouncy zoom on the scene camera with the guide's spring. The focal x is clamped so a
+     content column [colL, colR] scaled by (1+amt) stays inside the safe area x 140..940. */
+  E.zoom = function (tl, ctx, cx, cy, t, amt, tBack, backDur, col) {
+    const s = 1 + amt;
+    const L = col ? col[0] : 220, R = col ? col[1] : 940;
+    const lo = (s * R - 940) / (s - 1), hi = (s * L - 140) / (s - 1);
+    if (lo <= hi) cx = Math.min(hi, Math.max(lo, cx));
+    else cx = (L + R) / 2;
+    tl.set(ctx.cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(ctx.cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) {
+      if (backDur) tl.fromTo(ctx.cam, { scale: s }, A({ scale: 1, duration: backDur, ease: "power2.inOut" }), tBack);
+      else tl.set(ctx.cam, { scale: 1 }, tBack);
+    }
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  E.zoomOn = function (tl, ctx, el, t, amt, tBack, backDur, col) {
+    const c = E.center(el, ctx.scene);
+    E.zoom(tl, ctx, c.x, c.y, t, amt, tBack, backDur, col);
+  };
+
+  /* ---------- effects (all pure transforms/opacity, created once before the first seek) ---------- */
+  /* Light sweep across an element, right to left (the reading direction). The element must be
+     positioned; it clips the band to its own shape. o.color tints the band. */
+  E.sweep = function (tl, el, t, d, o) {
+    if (!el) return;
+    o = o || {};
+    const fx = document.createElement("i"), b = document.createElement("b");
+    fx.className = "fx-sweep";
+    if (o.color) fx.style.setProperty("--sweep", o.color);
+    fx.appendChild(b);
+    // the sweep clips to the element's own box, so a static element becomes the containing block
+    // (only when none of its absolutely placed children depends on an outer one)
+    if (getComputedStyle(el).position === "static") {
+      const outer = Array.from(el.querySelectorAll("*")).some((c) => /absolute|fixed/.test(getComputedStyle(c).position) && c.offsetParent !== el && el.contains(c.offsetParent) === false);
+      if (!outer) el.style.position = "relative";
+    }
+    el.appendChild(fx);
+    // the band is 180% of the swept box's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // height: it starts and ends that far outside, never as a wedge inside a tall box
+    const w = fx.offsetWidth || el.offsetWidth, h = fx.offsetHeight || el.offsetHeight;
+    const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
+    b.style.width = bw + "px";
+    b.style.left = w + slant + "px";
+    tl.fromTo(b, { x: 0 }, A({ x: -(w + 2 * slant + bw), duration: d || 0.8, ease: "power2.inOut" }), t);
+  };
+  /* A soft light band crosses the whole frame (scene change). */
+  E.band = function (tl, scene, t) {
+    const b = document.createElement("i");
+    b.className = "fx-band";
+    scene.appendChild(b);
+    tl.fromTo(b, { x: 0 }, A({ x: -1900, duration: 0.85, ease: "power2.inOut" }), t);
+    tl.fromTo(b, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power1.out" }), t);
+    tl.fromTo(b, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), t + 0.55);
+  };
+  /* Particle burst from (x, y) inside parent: n dots fly out and fade (deterministic). */
+  E.burst = function (tl, parent, x, y, t, o) {
+    if (!parent) return;
+    o = o || {};
+    const n = o.n || 14, rnd = E.rand(o.seed || 7), col = o.color || "#ff6b61", r0 = o.r0 || 30, r1 = o.r1 || 120;
+    for (let i = 0; i < n; i++) {
+      const d = document.createElement("i");
+      d.className = "fx-dot";
+      const sz = 5 + rnd() * 7;
+      d.style.cssText = "left:" + x + "px;top:" + y + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:" + col + ";box-shadow:0 0 10px " + col;
+      parent.appendChild(d);
+      const ang = (i / n) * Math.PI * 2 + rnd() * 0.5, dist = r0 + rnd() * (r1 - r0), dur = 0.55 + rnd() * 0.35;
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * dist, y: Math.sin(ang) * dist, scale: 0.35, duration: dur, ease: "power3.out" }), t);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), t);
+    }
+  };
+  /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
+  E.draw = function (tl, el, t, d, ease) {
+    if (!el) return;
+    // the hidden dash ends before the path starts, so a round cap never leaves a dot there
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2, pad = 12;
+    el.style.strokeDasharray = L + " " + (L + 2 * pad);
+    el.style.strokeDashoffset = L + pad;
+    tl.fromTo(el, { strokeDashoffset: L + pad }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+  };
+  /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
+  E.glitch = function (tl, el, t, amp) {
+    if (!el) return;
+    const a = amp || 8;
+    const seq = [[0, 0], [a, -7], [-a * 0.7, 5], [a * 0.45, -3], [-a * 0.2, 1.5], [0, 0]];
+    for (let i = 1; i < seq.length; i++) {
+      tl.fromTo(el, { x: seq[i - 1][0], skewX: seq[i - 1][1] }, A({ x: seq[i][0], skewX: seq[i][1], duration: 0.05, ease: "none" }), t + (i - 1) * 0.05);
+    }
+  };
+  /* Bouncy zoom inside the illustration (the guide's spring): the stage camera punches in on a
+     focal element and comes back at tBack. The camera box clips, so text above is never touched. */
+  E.zoomStage = function (tl, ctx, el, t, amt, tBack) {
+    const cam = ctx.stcam, fit = ctx.fit || 1, sf = ctx.stfit;
+    let cx = cam.offsetWidth / 2, cy = cam.offsetHeight / 2;
+    if (el) {
+      const c = E.center(el, sf);
+      const hw = sf.offsetWidth / 2, hh = sf.offsetHeight / 2;
+      cx = sf.offsetLeft + hw + (c.x - hw) * fit;
+      cy = sf.offsetTop + hh + (c.y - hh) * fit;
+    }
+    const s = 1 + amt;
+    tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    // the frame's edges soften while the camera is pushed in (content beyond them is cropped)
+    const clip = cam.parentElement;
+    if (clip && clip.classList.contains("stclip")) {
+      tl.fromTo(clip, { "--edge": "0px" }, A({ "--edge": "26px", duration: 0.3, ease: "power2.out" }), t);
+      if (tBack != null) tl.fromTo(clip, { "--edge": "26px" }, A({ "--edge": "0px", duration: 0.3, ease: "power2.in" }), tBack + 0.15);
+    }
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  /* Slow drifting dust over the whole video (depth; deterministic). */
+  E.dust = function (tl, bg, total) {
+    const rnd = E.rand(11);
+    for (let i = 0; i < 28; i++) {
+      const d = document.createElement("i"), sz = 2 + rnd() * 3.5;
+      d.className = "dust";
+      d.style.cssText = "left:" + (rnd() * 1080).toFixed(0) + "px;top:" + (200 + rnd() * 1700).toFixed(0) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;opacity:" + (0.15 + rnd() * 0.35).toFixed(2);
+      bg.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0 }, A({ x: (rnd() - 0.5) * 160, y: -(140 + rnd() * 320), duration: total, ease: "none" }), 0);
+    }
+  };
+
+  /* Prompt card: the full verbatim text, paged (static pages and short slides, so any
+     paused frame is readable). On a key line the page text dims and a copy of the line
+     lifts above the card (bouncy zoom on the line; it sits in its own layer, so its backing
+     is never clipped). One underline slides between the section tabs. Exits at t1. */
+  E.prompt = function (tl, ctx, card, t0, t1, hls) {
+    const vp = E.q(".pvp", card), ct = E.q(".pct", card), body = E.q(".pbody", card);
+    const ROW = 44, ROWS = 23;                     // the viewport is exactly 23 rows: no line is ever cut
+    const totalRows = Math.round(body.offsetHeight / ROW);
+    const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
+    const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
+    // a short text (an excerpt) gets a card sized to it, centred where the full card would be
+    if (totalRows < ROWS) {
+      const cut = vp.offsetTop + totalRows * ROW + 28, top = card.offsetTop + (card.offsetHeight - cut) / 2;
+      [card, E.q(".plift", ctx.scene)].forEach((el) => { if (el) { el.style.height = cut + "px"; el.style.top = top + "px"; } });
+      vp.style.height = totalRows * ROW + "px";
+    }
+    const H = (hls || []).map((h) => {
+      const ln = E.q('[data-hl="' + h.id + '"]', card);
+      const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
+      return { id: h.id, ln, lift, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, want: h.hold || 2.4 };
+    }).sort((a, b) => a.top - b.top);
+    // pages advance by 22 rows (one row of overlap); a page is pulled up so a key line never straddles an edge
+    const pages = [0];
+    while (pages[pages.length - 1] < lastTop) {
+      const cur = pages[pages.length - 1];
+      let nxt = Math.min(lastTop, cur + (ROWS - 1) * ROW);
+      for (const h of H) if (h.top > cur && h.top < cur + ROWS * ROW && h.bot > cur + ROWS * ROW) nxt = Math.min(nxt, h.top - 2 * ROW);
+      if (nxt <= cur) nxt = Math.min(lastTop, cur + ROW);
+      pages.push(nxt);
+    }
+    // a key line is held on the page where it sits furthest from the edges (the lift needs room)
+    H.forEach((h) => {
+      let bestM = -1e9;
+      h.page = 0;
+      pages.forEach((p, i) => {
+        const m = Math.min(h.top - p, p + ROWS * ROW - h.bot);
+        if (m >= 0 && m > bestM + 0.5) { bestM = m; h.page = i; }
+      });
+    });
+    // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
+    // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
+    const n = pages.length;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.25, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LIFT = 1.1, DIM = 0.38;
+    const mineOf = (i) => H.filter((h) => h.page === i);
+    const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.05 : 0.2);
+    // a plain last page stays settled a little longer before the exit
+    let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
+    for (let i = 0; i < n; i++) {
+      const mine = mineOf(i);
+      if (!mine.length) nPlain++;
+      else fixed += liftDelay(i) + (mine.length - 1) * UNLIFT + (isHold(i + 1) ? UNLIFT : UNDIM);
+      if (i < n - 1) fixed += isHold(i) && isHold(i + 1) ? DSLIDE : SLIDE;
+    }
+    fixed += tail;
+    const want = H.reduce((a, h) => a + h.want, 0);
+    let dwell = 0.45;
+    let room = t1 - t0 - fixed - nPlain * dwell;
+    if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
+      dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
+      room = t1 - t0 - fixed - nPlain * dwell;
+    }
+    if (H.length) {
+      let k = room / want;
+      if (k > 1.35) {
+        const extra = room - want * 1.35;
+        k = 1.35;
+        dwell += extra / (nPlain + 1);
+        tail += extra / (nPlain + 1);
+      }
+      H.forEach((h) => { h.hold = h.want * k; });
+      // keep a 2 s floor on every hold where the budget allows it
+      for (let it = 0; it < 3; it++) {
+        const low = H.filter((h) => h.hold < MINH), high = H.filter((h) => h.hold >= MINH);
+        if (!low.length || !high.length) break;
+        const need = low.reduce((a, h) => a + MINH - h.hold, 0);
+        const spare = high.reduce((a, h) => a + h.hold - MINH, 0);
+        const take = Math.min(need, spare);
+        low.forEach((h) => { h.hold += (MINH - h.hold) * (take / need); });
+        high.forEach((h) => { h.hold -= (h.hold - MINH) * (take / spare); });
+      }
+    } else {
+      dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
+    }
+    // the lines around a lifted key line make room for it: the ones next to it move up to PUSH px,
+    // each gap between two lines shrinks by at most COMP px, and the line at the page edge moves
+    // only EDGE px (inside its own leading, so no glyph is ever cut by the viewport)
+    const PUSH = 10, COMP = 4, EDGE = 2, plines = E.qa(".pl", body);
+    H.forEach((h) => {
+      // a tall key line zooms less, and grows toward the side of the page that has more lines to push
+      const lh = h.bot - h.top;
+      h.s = 1 + Math.min(LIFT - 1, 10 / lh);
+      const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
+      const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
+      const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
+      const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      const f = above.length + below.length ? Math.min(0.85, Math.max(0.15, above.length / (above.length + below.length))) : 0.5;
+      h.lift.style.transformOrigin = "50% " + (f * 100).toFixed(1) + "%";
+      // each side is pushed by what the panel grows on that side, plus a gap
+      const grow = [f * lh * (h.s - 1), (1 - f) * lh * (h.s - 1)];
+      h.push = [];
+      [[above, -1, grow[0]], [below, 1, grow[1]]].forEach(([ls, sgn, g]) => {
+        const m = ls.length, want = Math.max(PUSH, Math.round(g + 8));
+        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(want, EDGE + COMP * (m - 1 - j))]));
+      });
+    });
+    // the lifted copies sit over their line on the page where it is held (static layout)
+    H.forEach((h) => {
+      h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
+      h.lift.style.top = (bw + vp.offsetTop + h.top - pages[h.page]) + "px";
+      h.lift.style.width = h.ln.offsetWidth + "px";
+    });
+    tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
+    tl.fromTo(card, { rotationX: 16, y: 90, scale: 0.94, transformPerspective: 1600 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SPRING }), t0);
+    E.sweep(tl, card, t0 + 0.4, 1.0, { color: "rgba(201, 194, 255, 0.16)" });
+    const arrivals = [], slides = [], holdTimes = [];
+    let t = t0 + LEAD, dimmed = false, tFinal = null;
+    for (let i = 0; i < n; i++) {
+      arrivals.push(t);
+      const mine = mineOf(i);
+      if (!mine.length) t += dwell;
+      else {
+        t += liftDelay(i);
+        mine.forEach((h, j) => {
+          if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
+          dimmed = true;
+          tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: h.s, duration: 0.6, ease: SPRING }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
+          holdTimes.push(+t.toFixed(3));
+          h.t0 = t;
+          t += h.hold;
+          const keepDim = j < mine.length - 1 || isHold(i + 1);
+          const d = keepDim ? UNLIFT : UNDIM;
+          // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
+          tl.fromTo(h.lift, { scale: h.s }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
+          if (!keepDim) {
+            tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
+            dimmed = false;
+            if (i === n - 1) tFinal = t;
+          }
+          t += d;
+        });
+      }
+      if (i < n - 1) {
+        const sd = dimmed ? DSLIDE : SLIDE;
+        tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: sd, ease: "power2.inOut" }), t);
+        slides.push([t, sd]);
+        t += sd;
+      }
+    }
+    // tabs: one underline slides with the page to the section that fills most of the visible rows
+    const tabs = E.qa(".tab", card), ul = E.q(".tabul", card);
+    if (tabs.length && ul) {
+      const tags = tabs.map((tab) => E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card));
+      const starts = tags.map((g) => (g ? g.offsetTop : 1e9));
+      const secAt = (p) => {
+        let best = 0, bestRows = -1;
+        starts.forEach((st, j) => {
+          const en = j + 1 < starts.length ? starts[j + 1] : 1e9;
+          const vis = Math.max(0, Math.min(en, p + ROWS * ROW) - Math.max(st, p));
+          if (vis > bestRows) { bestRows = vis; best = j; }
+        });
+        return best;
+      };
+      const MUTED = "#9c99ae", INK = "#f5f2ea";
+      const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
+      let cur = secAt(pages[0]);
+      ul.style.left = pos(cur).left + "px";
+      ul.style.width = pos(cur).width + "px";
+      tl.fromTo(ul, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power2.out" }), t0 + 0.1);
+      tl.fromTo(tabs[cur], { color: MUTED }, A({ color: INK, duration: 0.2 }), t0 + 0.1);
+      const move = (k, ta, d) => {
+        const a = pos(cur), b = pos(k);
+        tl.fromTo(ul, { left: a.left, width: a.width }, A({ left: b.left, width: b.width, duration: d, ease: "power3.inOut" }), ta);
+        tl.fromTo(tabs[cur], { color: INK }, A({ color: MUTED, duration: 0.2 }), ta + d / 2 - 0.1);
+        tl.fromTo(tabs[k], { color: MUTED }, A({ color: INK, duration: 0.2 }), ta + d / 2 - 0.1);
+        cur = k;
+      };
+      // the section that holds the last visible row (the end of the prompt on the last page)
+      const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      // while a key line is lifted, the underline sits on that line's own section
+      const secOf = (y) => { let k = 0; starts.forEach((st, j) => { if (st <= y) k = j; }); return k; };
+      const ev = [];
+      for (let i = 1; i < n; i++) {
+        const mine = mineOf(i);
+        const k = mine.length ? secOf(mine[0].top) : i === n - 1 ? lastVisible(pages[i]) : secAt(pages[i]);
+        ev.push([slides[i - 1][0], k, Math.max(0.3, slides[i - 1][1])]);
+      }
+      H.forEach((h) => ev.push([h.t0, secOf(h.top), 0.3]));
+      ev.sort((a, b) => a[0] - b[0]).forEach(([ta, k, d]) => { if (k !== cur) move(k, ta, d); });
+      // a last page with key lines: its last section takes over when the page undims
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) !== cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
+    }
+    tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
+    return {
+      pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
+      holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, s: +h.s.toFixed(3), origin: h.lift.style.transformOrigin, push: h.push.map((x) => Math.round(x[1])).join(" ") })),
+    };
+  };
+
+  /* Standard topic scene. Layout is measured once (static):
+     the title and the explanation sit at the top; the illustration fills the safe area below.
+     title -> illustration enters -> explanation phrase by phrase (current phrase bright, the
+     illustration shows each phrase, bouncy zoom inside it on the key phrase) -> payoff ->
+     fact over the dimmed illustration -> prompt card -> tip. */
+  E.topic = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const hdr = E.q(".hdr", sc), main = E.q(".main", sc), exp = E.q(".exp", sc), ttl = E.q(".ttl", sc);
+    const stage = E.q(".stage", sc), simtag = E.q(".simtag", sc), fact = E.q(".factbox", sc);
+    const stcam = E.q(".stcam", sc), stfit = E.q(".stfit", sc);
+    // static layout
+    const TOP = 376, BOTTOM = 1566;
+    const h = main.offsetHeight;
+    const stTop = Math.round(TOP + h + 30);
+    stage.style.top = stTop + "px";
+    stage.style.height = BOTTOM - stTop + "px";
+    const camH = BOTTOM - stTop - 50;
+    const simH = (E.q(".simwrap", sc) || { offsetHeight: 700 }).offsetHeight || 700;
+    stfit.style.height = simH + "px";
+    stfit.style.marginTop = -simH / 2 + "px";
+    const fit = Math.min(1, camH / simH);
+    if (fit < 1) stfit.style.transform = "scale(" + fit.toFixed(3) + ")";
+    if (fact) { fact.style.top = stTop + 50 + "px"; fact.style.height = camH + "px"; }
+    Object.assign(ctx, { stcam, stfit, fit, stTop });
+    // scene change: a light band crosses the frame while the camera settles
+    E.band(tl, sc, S);
+    tl.fromTo(ctx.cam, { scale: 1.035 }, A({ scale: 1, duration: 1.0, ease: SPRING }), S);
+    E.fadeIn(tl, hdr, S, 0.3, 0);
+    E.kin(tl, ttl, S);
+    // the illustration enters with the explanation
+    E.fadeIn(tl, simtag, S + cfg.tStage, 0.4, 0);
+    tl.fromTo(stage, { opacity: 0, y: 46 }, A({ opacity: 1, y: 0, duration: 0.8, ease: SPRING }), S + cfg.tStage);
+    // explanation: phrase by phrase; the phrase being read is bright, the ones before step back
+    E.kin(tl, exp, S, { dy: 14 });
+    const phs = E.qa(".ph", exp);
+    phs.forEach((ph, i) => {
+      const tEnd = i + 1 < phs.length ? cfg.phr[i + 1] : cfg.phrEnd + 0.8;
+      tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0.5, duration: 0.45, ease: "power2.out" }), S + tEnd);
+      E.qa(".accgrp", ph).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#dcd9e6", duration: 0.45 }), S + tEnd));
+      E.qa(".ul", ph).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + tEnd));
+    });
+    if (window.SIMS[cfg.sim]) window.SIMS[cfg.sim](tl, ctx, cfg, S);
+    // bouncy zoom inside the illustration on the key phrase (focus: [data-focus="<phrase>"])
+    const acc = E.q(".exp .accgrp", sc);
+    if (acc && cfg.expZoom) {
+      const p = +(acc.closest(".ph") || { dataset: { p: 0 } }).dataset.p;
+      const tb = p + 1 < cfg.phr.length ? cfg.phr[p + 1] : cfg.phrEnd + 0.6;
+      const focus = E.q('[data-focus="' + p + '"]', stage) || E.q("[data-focus]", stage);
+      E.zoomStage(tl, ctx, focus, S + parseFloat(acc.dataset.t) + 0.1, cfg.expZoom, S + tb);
+    }
+    const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
+    if (cfg.tFact != null) {
+      // the fact takes over the illustration's area; the illustration steps far back
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.06, 1, 0.4);
+      E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const scrim = E.q(".factbox .fscrim", sc);
+      if (scrim) tl.fromTo(scrim, { opacity: 0 }, A({ opacity: 1, duration: 0.4, ease: "power2.out" }), S + cfg.tFact - 0.45);
+      const pill = E.q(".factbox .pill", sc);
+      if (pill) {
+        tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
+        tl.fromTo(pill, { scale: 0.92, y: 20 }, A({ scale: 1, y: 0, duration: 0.45, ease: SPRING }), S + cfg.tFact - 0.1);
+        E.sweep(tl, pill, S + cfg.tFact + 0.25, 0.7, { color: "rgba(120, 100, 255, 0.28)" });
+        E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
+      }
+      E.kin(tl, fact, S, { dy: 12 });
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.06, 0.25);
+    } else {
+      E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
+      E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
+    }
+    E.dim(tl, simtag, S + (cfg.tFact != null ? cfg.tFact - 0.45 : tNext - 0.35), 0, 1, 0.3);
+    // first cut: the title (and the fact) leave before the card or the tip arrives
+    tl.fromTo(main, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), S + tNext - 0.3);
+    if (fact) E.fadeOut(tl, fact, S + tNext - 0.3, 0.25, -20);
+    let info = null;
+    if (cfg.tPrompt != null) {
+      const pend = cfg.tTip != null ? cfg.tTip : cfg.tPromptEnd;
+      info = E.prompt(tl, ctx, E.q(".pcard", sc), S + cfg.tPrompt, S + pend, cfg.hls);
+    }
+    if (cfg.tTip != null) {
+      const tip = E.q(".tipcard", sc);
+      tl.fromTo(tip, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + cfg.tTip);
+      tl.fromTo(tip, { scale: 0.96, y: 30, rotationX: 10, transformPerspective: 1400 }, A({ scale: 1, y: 0, rotationX: 0, duration: 0.7, ease: SPRING }), S + cfg.tTip);
+      E.qa(".tip-ico .dr", sc).forEach((pth, i) => E.draw(tl, pth, S + cfg.tTip + 0.15 + i * 0.18, 0.55));
+      E.kin(tl, E.q(".tip-text", sc), S);
+      E.fadeOut(tl, tip, S + cfg.D - 0.4, 0.3, -20);
+    }
+    E.fadeOut(tl, hdr, S + cfg.D - 0.4, 0.3, 0);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { stTop, h, fit: +fit.toFixed(3) }, prompt: info };
+  };
+
+  /* Chapter title card. Frame 0 already shows the number (springing from 0.9), its rings, the kicker and
+     the dots, so a cut never lands on an empty frame; the title follows, the subtitle (and tag) only after
+     it, and the chapter's line-art motif draws itself beside the number. The hold stays alive: a slow
+     1.00 -> 1.03 push of the whole card, a glow that breathes on the number, a small motion in the motif.
+     The exit is a 0.22 s push-through. */
+  E.chapter = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene, T = cfg.T || {}, D = cfg.D;
+    const chap = E.q(".chap", sc), cam = E.q(".ch-cam", sc);
+    const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // static layout: the title is one line no wider than 760 px; the divider and texts flow under it
+    const tt = E.q(".ch-title", sc), tin = E.q(".ch-tin", sc);
+    if (tin && tin.offsetWidth > 760) tt.style.fontSize = (78 * 760 / tin.offsetWidth).toFixed(1) + "px";
+    const tBot = tt.offsetTop + tt.offsetHeight;
+    line.style.top = tBot + 30 + "px";
+    const sub = E.q(".ch-sub", sc), tag = E.q(".ch-tag", sc);
+    if (sub) sub.style.top = tBot + 66 + "px";
+    if (tag && sub) tag.style.top = tBot + 66 + sub.offsetHeight + 34 + "px";
+    // scene change: light band; the number is there from the first frame, rings and sparks go out from it
+    E.band(tl, sc, S);
+    tl.fromTo(n, { scale: 0.9, rotationY: -16, transformPerspective: 1200 }, A({ scale: 1, rotationY: 0, duration: 0.9, ease: SPRING }), S);
+    E.qa(".ch-ring", sc).forEach((r, i) => {
+      tl.fromTo(r, { scale: 0.66 + i * 0.14, opacity: 0.85 - i * 0.2 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S);
+    });
+    // sparks leave from the ring's edge (never a stack of dots over the number)
+    const rnd = E.rand(5);
+    for (let i = 0; i < 18; i++) {
+      const d = document.createElement("i"), sz = 5 + rnd() * 6, ang = (i / 18) * Math.PI * 2 + rnd() * 0.3;
+      const r0 = 128, r1 = 210 + rnd() * 150, dur = 0.6 + rnd() * 0.35;
+      d.className = "fx-dot";
+      d.style.cssText = "left:" + (540 + Math.cos(ang) * r0).toFixed(1) + "px;top:" + (670 + Math.sin(ang) * r0).toFixed(1) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:#ffffff;box-shadow:0 0 10px #ffffff";
+      sc.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * (r1 - r0), y: Math.sin(ang) * (r1 - r0), scale: 0.35, duration: dur, ease: "power3.out" }), S + 0.03);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), S + 0.03);
+    }
+    tl.fromTo(k, { opacity: 0.35, y: 8 }, A({ opacity: 1, y: 0, duration: 0.4, ease: SPRING }), S);
+    tl.fromTo(dots, { opacity: 0.4, y: 8 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SPRING }), S);
+    E.kin(tl, tt, S);
+    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.6, ease: "power3.inOut" }), S + (T.line || 0.5));
+    E.kin(tl, sub, S, { dy: 12 });
+    E.kin(tl, tag, S, { dy: 10 });
+    // the chapter motif draws itself, then keeps a small motion through the hold
+    const mo = E.q(".ch-mo", sc), mq = (s) => E.q(s, mo), mqa = (s) => E.qa(s, mo);
+    if (mo) {
+      E.qa(".dr", mo).forEach((p, i) => E.draw(tl, p, S + 0.06 + i * 0.035, 0.7));
+      E.qa(".mo-solid", mo).forEach((p) => tl.fromTo(p, { fillOpacity: 0 }, A({ fillOpacity: 1, duration: 0.3 }), S + 0.3));
+      E.qa(".fl", mo).forEach((p, i) => tl.fromTo(p, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.25 + i * 0.06));
+      const hold0 = Math.max(1.0, (T.lw || 1) - 0.4), N = cfg.n;
+      if (N === 1) {
+        // the cursor blinks
+        const cur = mq(".mo-cur");
+        for (let a = hold0, on = false; a < D - 0.3; a += 0.5, on = !on) tl.set(cur, { opacity: on ? 1 : 0 }, S + a);
+      } else if (N === 2) {
+        // a playhead runs over the waveform
+        const ph = mq(".mo-ph");
+        tl.fromTo(ph, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.8);
+        tl.fromTo(ph, { x: 0 }, A({ x: 164, duration: D - 1.1, ease: "none" }), S + 0.8);
+      } else if (N === 3) {
+        // the cube settles in and turns slowly
+        const mi = mq(".mo-in");
+        tl.fromTo(mi, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.8, ease: SPRING }), S + 0.05);
+        tl.fromTo(mq(".mo-cube"), { rotationY: -10 }, A({ rotationY: 62, duration: D, ease: "power1.out" }), S);
+      } else if (N === 4) {
+        // the play mark pulses
+        const pl = mq(".mo-play");
+        for (let a = hold0, j = 0; a + 0.6 < D - 0.25; a += 0.6, j++) {
+          tl.fromTo(pl, { scale: j % 2 ? 1.16 : 1, transformOrigin: "50% 50%" }, A({ scale: j % 2 ? 1 : 1.16, duration: 0.6, ease: "sine.inOut" }), S + a);
+        }
+      } else if (N === 5) {
+        // the plug goes into the socket and the connection glows
+        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -18, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
+        const rg = mq(".mo-ring");
+        tl.fromTo(rg, { opacity: 0.9, scale: 0.6, transformOrigin: "50% 50%" }, A({ opacity: 0, scale: 1.7, duration: 0.8, ease: "power2.out" }), S + hold0 + 0.4);
+      } else if (N === 6) {
+        // a scan line runs down the window; the sensitive line blurs as it passes
+        const scn = mq(".mo-scan"), tB = hold0 + 0.75;
+        tl.fromTo(scn, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + hold0);
+        tl.fromTo(scn, { y: 0 }, A({ y: 108, duration: 1.2, ease: "none" }), S + hold0);
+        tl.fromTo(scn, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), S + hold0 + 1.0);
+        tl.fromTo(mq(".mo-sharp"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), S + tB);
+        tl.fromTo(mq(".mo-blur"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + tB);
+      } else if (N === 7) {
+        // the draft bar fills fast and gets its check; the full render crawls
+        const f1 = mq(".mo-f1"), f2 = mq(".mo-f2");
+        [f1, f2].forEach((f) => tl.fromTo(f, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), S + 0.75));
+        tl.fromTo(f2, { scaleX: 0.04, transformOrigin: "0% 50%" }, A({ scaleX: 1, duration: 1.0, ease: "power1.inOut" }), S + 0.75);
+        tl.fromTo(f1, { scaleX: 0.04, transformOrigin: "0% 50%" }, A({ scaleX: 0.3, duration: D - 1.0, ease: "none" }), S + 0.75);
+        E.draw(tl, mq(".mo-ck"), S + 1.8, 0.35);
+      } else {
+        // the list gets checked, one row after another
+        mqa(".mo-ck").forEach((p, i) => E.draw(tl, p, S + hold0 + i * 0.35, 0.3));
+      }
+    }
+    // the hold: a slow push of the whole card and a soft glow that breathes on the number
+    tl.fromTo(cam, { scale: 1 }, A({ scale: 1.03, duration: D, ease: "none" }), S);
+    const G0 = "0 0 40px rgba(255, 69, 58, 0.35)", G1 = "0 0 70px rgba(255, 69, 58, 0.8)";
+    for (let a = 0.9, up = true; a + 1.0 <= D - 0.2; a += 1.0, up = !up) {
+      tl.fromTo(n, { textShadow: up ? G0 : G1 }, A({ textShadow: up ? G1 : G0, duration: 1.0, ease: "sine.inOut" }), S + a);
+    }
+    // exit: a short push-through into the next scene
+    tl.fromTo(chap, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.025, duration: 0.22, ease: "power2.in" }), S + D - 0.22);
+    E.debug.scenes[cfg.id] = { S, D, type: "chapter" };
+  };
+
+  window.SIMS = window.SIMS || {};
+})();
+
+window.SIMS = window.SIMS || {};
+window.SIMS.sim43 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, P = cfg.phr, pe = cfg.phrEnd;
+  const T = (x) => S + x;                    // scene-local -> master time
+  const q = (s) => E.q(s, sc), qa = (s) => E.qa(s, sc);
+  const root = q(".sim43"), table = q(".s43-table"), rows = qa(".s43-row"), hole = q(".s43-hole");
+  const badge = (el, t) => tl.fromTo(el, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }), t);
+  // light sweep, right to left; it starts and ends fully outside its element
+  const sweep = (el, t, d, color) => {
+    const fx = document.createElement("i"), b = document.createElement("b");
+    fx.className = "s43-swp";
+    b.style.background = "linear-gradient(105deg, rgba(255, 255, 255, 0) 25%, " + color + " 50%, rgba(255, 255, 255, 0) 75%)";
+    fx.appendChild(b);
+    el.appendChild(fx);
+    const w = el.offsetWidth, bw = Math.round(Math.max(140, w * 0.6));
+    b.style.width = bw + "px";
+    tl.fromTo(b, { x: 0 }, A({ x: -(w + bw + 4), duration: d, ease: "power2.inOut" }), t);
+  };
+  const MATCHED = [0, 1, 2, 4];               // rows whose b-roll fits its sentence; row 4 (index 3) has none
+
+  // B0 "על בסיס התמלול קלוד מחזיר טבלה": a scanner transcribes the speech (word chips pop over the track),
+  // the table draws in and the words fly up into its sentence column
+  const b0 = P[0], scan = q(".s43-scan"), RUN = 0.95, X0 = 640, SPAN = 580, chipY = 477;
+  tl.fromTo(scan, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(b0 + 0.05));
+  tl.fromTo(scan, { x: 0 }, A({ x: -SPAN, duration: RUN, ease: "none" }), T(b0 + 0.05));
+  tl.fromTo(scan, { opacity: 1 }, A({ opacity: 0, duration: 0.12 }), T(b0 + 0.05 + RUN));
+  tl.fromTo(q(".s43-tbg"), { opacity: 0 }, A({ opacity: 1, duration: 0.45 }), T(b0 + 0.55));
+  E.draw(tl, q(".s43-tframe path"), T(b0 + 0.55), 0.8);
+  qa(".s43-line").forEach((l, k) => tl.fromTo(l, { scaleX: 0 }, A({ scaleX: 1, duration: 0.45, ease: "power2.out" }), T(b0 + 0.7 + k * 0.06)));
+  rows.forEach((row, k) => E.qa(".s43-wb", row).forEach((bar, j) => {
+    const c = E.center(bar, root), cx = parseFloat(bar.dataset.x), dx = cx - c.x, dy = chipY - c.y;
+    const tp = b0 + 0.05 + (RUN * (X0 - cx)) / SPAN, tf = b0 + 0.95 + k * 0.08 + j * 0.025;
+    tl.fromTo(bar, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(tp));
+    tl.fromTo(bar, { x: dx, y: dy, scale: 0.35 }, A({ x: dx, y: dy, scale: 0.55, duration: 0.25, ease: "back.out(2)" }), T(tp));
+    tl.fromTo(bar, { x: dx, y: dy, scale: 0.55 }, A({ x: 0, y: 0, scale: 1, duration: 0.6, ease: E.SPRING }), T(tf));
+  }));
+
+  // B1 "הזמן, המשפט, מה רואים בבירול ומאיפה הוא מגיע": the columns fill one by one, right to left
+  const b1 = P[1];
+  qa(".s43-h").forEach((h, i) => E.fadeIn(tl, h, T(b1 + 0.05 + i * 0.45), 0.45, 10));
+  qa(".s43-mt").forEach((m, k) => tl.fromTo(m, { opacity: 0, scaleX: 0.3 }, A({ opacity: 1, scaleX: 1, duration: 0.45, ease: E.SPRING }), T(b1 + 0.12 + k * 0.06)));
+  const colhl = q(".s43-colhl");
+  tl.fromTo(colhl, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(b1 + 0.55));
+  tl.fromTo(colhl, { y: 0 }, A({ y: 242, duration: 0.6, ease: "power1.inOut" }), T(b1 + 0.55));
+  tl.fromTo(colhl, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), T(b1 + 1.05));
+  MATCHED.forEach((k, n) => {
+    badge(E.q(".s43-cw .s43-ico", rows[k]), T(b1 + 1.0 + n * 0.07));
+    E.fadeIn(tl, E.q(".s43-src", rows[k]), T(b1 + 1.45 + n * 0.1), 0.45, 10);
+  });
+  tl.fromTo(q(".s43-what0"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b1 + 1.2));
+  tl.fromTo(q(".s43-src0"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b1 + 1.75));
+
+  // B2 "הכלל: אף פעם לא יותר מ-3 שניות של דיבור בלי בירול": the b-rolls drop onto the track; a 3-second caliper
+  // measures each stretch of speech between them: two fit, the third is longer (a red hole; the punch-in is here)
+  const b2 = P[2], blocks = qa(".s43-blk"), cal = q(".s43-cal"), g1 = q(".s43-g1"), g2 = q(".s43-g2");
+  tl.fromTo(table, { opacity: 1 }, A({ opacity: 0.32, duration: 0.4 }), T(b2));
+  blocks.forEach((bk, i) => tl.fromTo(bk, { opacity: 0, y: -26 }, A({ opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }), T(b2 + 0.1 + i * 0.12)));
+  const calR = cal.offsetLeft + cal.offsetWidth, dx1 = g1.offsetLeft + g1.offsetWidth - calR, dx2 = g2.offsetLeft + g2.offsetWidth - calR;
+  tl.fromTo(cal, { opacity: 0, x: dx1, y: 10 }, A({ opacity: 1, x: dx1, y: 0, duration: 0.35, ease: E.SPRING }), T(b2 + 0.6));
+  badge(g1, T(b2 + 0.9));
+  E.draw(tl, E.q(".s43-gok path", g1), T(b2 + 0.95), 0.25);
+  tl.fromTo(cal, { x: dx1 }, A({ x: dx2, duration: 0.5, ease: "power2.inOut" }), T(b2 + 1.25));
+  badge(g2, T(b2 + 1.6));
+  E.draw(tl, E.q(".s43-gok path", g2), T(b2 + 1.65), 0.25);
+  tl.fromTo(cal, { x: dx2 }, A({ x: 0, duration: 0.55, ease: "power2.inOut" }), T(b2 + 1.95));
+  tl.fromTo(hole, { opacity: 0, scale: 0.92 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: E.SPRING }), T(b2 + 2.35));
+  E.glitch(tl, hole, T(b2 + 2.4), 7);
+
+  // B3 "וכל קליפ מראה בדיוק את מה שנאמר באותו משפט": each clip is checked against its own sentence (row, speech
+  // span and block light up together); a merely similar clip is rejected, and the row says "חסר"
+  const b3 = P[3], spans = qa(".s43-span"), bands = qa(".s43-band");
+  tl.fromTo(table, { opacity: 0.32 }, A({ opacity: 1, duration: 0.35 }), T(b3));
+  [g1, g2, cal].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b3)));
+  const lit = (k, t, hold) => {
+    tl.fromTo(bands[k], { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(t));
+    tl.fromTo(spans[k], { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(t));
+    tl.fromTo(bands[k], { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(t + hold));
+    tl.fromTo(spans[k], { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(t + hold));
+  };
+  MATCHED.forEach((k, n) => {
+    const t = b3 + 0.2 + n * 0.25, bk = blocks[n];
+    lit(k, t, 0.45);
+    badge(E.q(".s43-bok", bk), T(t + 0.08));
+    E.draw(tl, E.q(".s43-ok path", bk), T(t + 0.12), 0.22);
+  });
+  const t4 = b3 + 1.05, sim = q(".s43-sim");
+  lit(3, t4, 0.9);
+  tl.fromTo(sim, { opacity: 0, y: -26 }, A({ opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.6)" }), T(t4 + 0.05));
+  E.glitch(tl, sim, T(t4 + 0.4), 8);
+  badge(q(".s43-bno"), T(t4 + 0.45));
+  qa(".s43-no path").forEach((p, i) => E.draw(tl, p, T(t4 + 0.5 + i * 0.1), 0.2));
+  tl.fromTo(sim, { opacity: 1, y: 0 }, A({ opacity: 0, y: 22, duration: 0.3, ease: "power2.in" }), T(t4 + 0.75));
+  E.fadeIn(tl, q(".s43-hlbl"), T(t4 + 1.02), 0.45, 10);
+  // the hole turns red as it is marked "חסר" (after the accent and after the rejected clip's red cross has gone)
+  tl.fromTo(hole, { borderColor: "#F5B544", backgroundColor: "rgba(245, 181, 68, 0.12)", boxShadow: "0 0 14px rgba(245, 181, 68, 0.35)" },
+    A({ borderColor: "#ff6b61", backgroundColor: "rgba(255, 69, 58, 0.1)", boxShadow: "0 0 14px rgba(255, 69, 58, 0.35)", duration: 0.3 }), T(t4 + 1.06));
+  tl.fromTo(q(".s43-src0"), { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(t4 + 0.9));
+  E.fadeIn(tl, q(".s43-miss"), T(t4 + 1.05), 0.45, 10);
+
+  // payoff: the rules, each acted out on the track; the hole stays marked
+  E.fadeOut(tl, table, T(pe), 0.35, -16);
+  qa(".s43-bok").forEach((b) => tl.fromTo(b, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe)));
+  const rule = (el, t) => {
+    tl.fromTo(el, { opacity: 0, x: 30 }, A({ opacity: 1, x: 0, duration: 0.55, ease: E.SPRING }), T(t));
+    sweep(el, T(t + 0.45), 0.8, "rgba(201, 194, 255, 0.2)");
+  };
+  // 1. a zoom on the face does not count as a b-roll: it is tried in the hole and struck out
+  const az = q(".s43-az"), ad = q(".s43-ad");
+  rule(q(".s43-u1"), pe + 0.35);
+  // while a candidate is tried in the hole, the hole's "חסר" steps aside (it returns once the second has gone)
+  const hlbl = q(".s43-hlbl");
+  tl.fromTo(hlbl, { opacity: 1 }, A({ opacity: 0, duration: 0.15 }), T(pe + 0.42));
+  tl.fromTo(hlbl, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(pe + 2.5));
+  tl.fromTo(az, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(pe + 0.55));
+  tl.fromTo(az, { y: -26 }, A({ y: 0, duration: 0.35, ease: "back.out(1.6)" }), T(pe + 0.55));
+  tl.fromTo(E.q(".s43-strike", az), { scaleX: 0.001 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), T(pe + 0.95));
+  tl.fromTo(az, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe + 1.45));
+  // 2. the same clip never appears twice: a copy of the first b-roll is tried in the hole and struck out
+  rule(q(".s43-u2"), pe + 1.15);
+  const dxd = blocks[0].offsetLeft - ad.offsetLeft;
+  tl.fromTo(ad, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(pe + 1.3));
+  tl.fromTo(ad, { x: dxd }, A({ x: 0, duration: 0.6, ease: "power2.inOut" }), T(pe + 1.3));
+  tl.fromTo(ad, { y: 0 }, A({ y: -48, duration: 0.3, ease: "power2.out" }), T(pe + 1.3));
+  tl.fromTo(ad, { y: -48 }, A({ y: 0, duration: 0.3, ease: "power2.in" }), T(pe + 1.6));
+  tl.fromTo(E.q(".s43-strike", ad), { scaleX: 0.001 }, A({ scaleX: 1, duration: 0.3, ease: "power2.out" }), T(pe + 1.95));
+  tl.fromTo(ad, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(pe + 2.4));
+  // 3. a b-roll enters at most a second and a half before its word: the word's pin and the lead before it
+  rule(q(".s43-u3"), pe + 1.95);
+  const pin = q(".s43-pin");
+  tl.fromTo(pin, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(pe + 2.15));
+  tl.fromTo(pin, { scaleY: 0.05 }, A({ scaleY: 1, duration: 0.45, ease: E.SPRING }), T(pe + 2.15));
+  E.draw(tl, q(".s43-entry path"), T(pe + 2.3), 0.4);
+  tl.fromTo(blocks[1], { boxShadow: "0 0 0px rgba(201, 194, 255, 0)" }, A({ boxShadow: "0 0 22px rgba(201, 194, 255, 0.8)", duration: 0.35 }), T(pe + 2.3));
+  // as the stage dims for the fact, the track and the rule tags leave entirely (no faint labels around the fact's backing)
+  [q(".s43-tl"), ...qa(".s43-rule")].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), T(cfg.tSimEnd - 0.45)));
+};
+
+
+(function () {
+  const CFGS = [{"id": "t43", "sim": "sim43", "D": 30.98, "tStage": 1.31, "tExp": 1.91, "phr": [1.91, 3.86, 6.31, 9.41], "phrEnd": 12.11, "tSimEnd": 17.11, "tFact": 17.11, "tPrompt": 19.61, "tPromptEnd": 26.78, "tTip": 26.78, "expZoom": 0.07, "simDur": 15.8, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim43": {"tracks": ["בירול", "דיבור"], "cols": ["הזמן", "המשפט", "מה רואים", "מאיפה"], "sources": ["הקלטת מסך שתצלמו", "אנימציה שקלוד יבנה", "קליפ AI", "קובץ שכבר בתיקייה"], "missing": "חסר", "gap": "3 שניות", "rules": ["זום על הפנים לא נחשב בירול", "אותו קליפ לא מופיע פעמיים", "כניסה עד שנייה וחצי לפני המילה"]}, "S": 0.0}];
+  const WINDOW = null;
+  const fontsReady = Promise.all([
+    document.fonts.load('400 38px Rubik', 'אבג abc 123'),
+    document.fonts.load('800 62px Rubik', 'אבג abc'),
+    document.fonts.load('900 40px Rubik', 'אבג'),
+    document.fonts.load('600 27px "IBM Plex Mono"', 'abc 123'),
+    document.fonts.load('400 27px "IBM Plex Sans Hebrew"', 'אבג'),
+  ]).then(() => document.fonts.ready);
+  fontsReady.then(() => {
+    const stage = document.querySelector('.stagewrap');
+    const cam = document.getElementById('cam');
+    const master = gsap.timeline({ paused: true });
+    // slow background drift for the whole video (the "camera that never stops")
+    const TOT = 30.980;
+    master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    window.ENG.dust(master, document.getElementById('bg'), TOT);
+    for (const cfg of CFGS) {
+      const scene = document.getElementById('sc-' + cfg.id);
+      const scam = scene.querySelector('.scam') || cam;
+      const hdr = scene.querySelector('.hdr');
+      if (cfg.type === 'chapter') window.ENG.chapter(master, { stage, cam: scam, scene, hdr }, cfg);
+      else if (cfg.type === 'custom') window.SIMS[cfg.sim](master, { stage, cam: scam, scene, hdr }, cfg, cfg.S);
+      else window.ENG.topic(master, { stage, cam: scam, scene, hdr }, cfg);
+    }
+    let root = master;
+    if (WINDOW) {
+      root = gsap.timeline({ paused: true });
+      root.add(master.tweenFromTo(WINDOW[0], WINDOW[1], { duration: WINDOW[1] - WINDOW[0], ease: 'none' }), 0);
+    }
+    window.__ENG_DEBUG.ready = true;
+    window.__timelines['main'] = root;
+  });
+})();
+
+</script>
+</body>
+</html>

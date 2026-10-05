@@ -1,0 +1,1492 @@
+<!doctype html>
+<html lang="he">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>עריכת וידאו עם Claude</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+/* IBM Plex Mono 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 300 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-300.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-300.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-300.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 400 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-400.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 500 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-500.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 600 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-600.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 700 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-700.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Rubik 300 900 normal — hebrew */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-hebrew-300-900.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* Rubik 300 900 normal — latin-ext */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-ext-300-900.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Rubik 300 900 normal — latin */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-300-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Design tokens. Safe area for text: x 140..940, y 300..1570 (1080x1920). */
+:root {
+  --bg: #06060b;
+  --ink: #f5f2ea;
+  --ink2: #dcd9e6;
+  --muted: #9c99ae;
+  --acc: #ff453a;
+  --acc-soft: #ff8a80;
+  --line: #c9c2ff;
+  --line-glow: rgba(201, 194, 255, 0.55);
+  --panel: rgba(18, 17, 34, 0.96);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: "Rubik", sans-serif; }
+.stagewrap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; overflow: hidden; }
+
+/* ---------- background ---------- */
+#bg { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #08080f 0%, #0b0a17 55%, #07070d 100%); }
+#bg .glow { position: absolute; border-radius: 50%; }
+#bg .g1 { width: 1500px; height: 1500px; left: -420px; top: -380px; background: radial-gradient(circle, rgba(124, 92, 255, 0.20) 0%, rgba(124, 92, 255, 0.07) 38%, rgba(124, 92, 255, 0) 66%); }
+#bg .g2 { width: 1400px; height: 1400px; left: 260px; top: 980px; background: radial-gradient(circle, rgba(255, 69, 58, 0.15) 0%, rgba(255, 69, 58, 0.05) 40%, rgba(255, 69, 58, 0) 66%); }
+#bg .grain { position: absolute; inset: 0; background-image: url("assets/grain.png"); background-size: 256px 256px; opacity: 0.07; mix-blend-mode: screen; }
+#bg .vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
+
+#cam { position: absolute; inset: 0; transform-origin: 540px 960px; }
+.scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.scam { position: absolute; inset: 0; }
+
+/* ---------- header (chapter indicator) ---------- */
+.hdr { position: absolute; top: 300px; left: 140px; width: 800px; height: 46px; display: flex; justify-content: space-between; align-items: center; direction: rtl; opacity: 0; }
+.hdr-ch { font: 500 30px/1 "Rubik"; color: #b3b0c4; }
+.hdr-num { font: 600 28px/1 "IBM Plex Mono"; color: var(--acc); border: 1.5px solid rgba(255, 69, 58, 0.55); border-radius: 10px; padding: 7px 12px 6px; }
+
+/* ---------- kinetic text ---------- */
+.kin { direction: rtl; text-align: right; }
+.w { display: inline-block; white-space: pre; opacity: 0; }
+.isl { unicode-bidi: isolate; }
+.accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
+.accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
+.strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+.nbgrp { display: inline-block; white-space: nowrap; }
+.glu { display: inline-block; white-space: nowrap; }
+
+/* ---------- topic layout ---------- */
+.main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
+.ttl { font: 800 60px/1.14 "Rubik"; color: var(--ink); letter-spacing: -0.005em; text-wrap: balance; }
+.exp { font: 400 36px/1.42 "Rubik"; color: var(--ink2); }
+.exp .accgrp { font-weight: 800; }
+.exp .ph { transition: none; }
+/* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
+.stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
+/* the illustration's frame: the camera zooms inside it, so nothing ever leaves x 140..940; during a zoom
+   its edges soften (--edge), like a camera crop */
+.stclip { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; --edge: 0px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%); mask-composite: intersect; }
+.stcam { position: absolute; inset: 0; }
+.stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
+.simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
+.simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
+/* the illustration canvas: 800 x 700 (frame x 140..940) */
+.simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
+
+/* fact overlay inside the stage */
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; direction: rtl; }
+/* the fact sits on its own dark backing (soft edges), so the faded illustration never shows through the text */
+.factin { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 34px 30px; }
+.fscrim { position: absolute; z-index: -1; inset: 0; border-radius: 48px; background: rgba(9, 8, 18, 0.9); box-shadow: 0 0 46px 30px rgba(9, 8, 18, 0.88); opacity: 0; display: block; }
+.pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
+.factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
+.metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
+.metaline .w, .factline .w { opacity: 0; }
+
+/* ---------- prompt card ---------- */
+.pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
+.pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
+.pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: #b9a8ff; box-shadow: 0 0 14px rgba(185, 168, 255, 0.85); display: block; }
+.pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
+.pc-num b { color: var(--ink); font-weight: 600; }
+.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
+.tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
+.tab .tul { display: none; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: #b9a8ff; display: block; opacity: 0; }
+.tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
+.pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
+  }
+.pct { position: absolute; top: 0; left: 48px; right: 48px; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
+.pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
+.pl-empty { height: 44px; }
+.ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; color: #d8d4ea; white-space: nowrap; }
+/* long code: its own right-aligned line (an LTR isolate that may wrap; the punctuation after it stays outside) */
+.codeblock { display: block; direction: rtl; text-align: right; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.cbi { direction: ltr; unicode-bidi: isolate; }
+.tk { white-space: nowrap; }
+.nb, .neg { white-space: nowrap; }
+.code .bt, .codeblock .bt { color: #6f6b86; }
+.hlbg { position: absolute; z-index: -1; top: 0; bottom: 0; left: -14px; right: -14px; background: #2e1626; border-right: 4px solid #e5484d; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); opacity: 0; display: block; }
+.pbody { position: relative; }
+/* lifted key lines: a layer over the card (same box, not clipped by it) */
+.plift { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; pointer-events: none; }
+.pl-lift { position: absolute; z-index: 3; opacity: 0; box-sizing: border-box; padding: 0 12px; font: 400 30px/44px "Rubik"; color: #f5f2ea; direction: rtl; white-space: pre-wrap; transform-origin: 50% 50%; }
+/* the lifted backing is as wide as the line, so at x1.10 it stays clear of the card border */
+.pl-lift .hlbg { opacity: 1; left: 0; right: 0; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55); }
+
+/* ---------- tip ---------- */
+.tipwrap { position: absolute; left: 140px; width: 800px; top: 0; height: 1920px; display: flex; align-items: center; justify-content: center; }
+.tipcard { width: 800px; padding: 44px 48px 50px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(18, 17, 34, 0.88); box-shadow: 0 0 40px rgba(140, 120, 255, 0.15); direction: rtl; text-align: right; opacity: 0; }
+.tip-label { display: flex; align-items: center; gap: 12px; font: 600 30px/1 "Rubik"; color: #f2eef8; margin-bottom: 26px; }
+.tip-ico { width: 46px; height: 46px; display: block; overflow: visible; filter: drop-shadow(0 0 8px rgba(255, 69, 58, 0.55)); }
+.tip-ico path { fill: none; stroke: var(--acc); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.tip-text { font: 600 46px/1.38 "Rubik"; color: var(--ink); }
+.tip-text .w { opacity: 0; }
+
+/* ---------- chapter card ---------- */
+.chap { position: absolute; inset: 0; transform-origin: 540px 900px; }
+/* the card's camera: a slow push through the hold */
+.ch-cam { position: absolute; inset: 0; transform-origin: 540px 900px; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0.35; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
+.ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
+.ch-tin { display: inline-block; white-space: nowrap; }
+.ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
+.ch-sub { position: absolute; top: 1040px; left: 160px; width: 760px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
+/* centred blocks wrap into even lines; paragraphs never end on a lone word */
+.ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
+.exp, .tip-text { text-wrap: pretty; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0.4; }
+.ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
+.ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+/* the chapter motif: 180 px line art beside the number (lavender, 35%) */
+/* frame 0 of a card (a seek to 0 may not render the timeline): the number and its rings are already there */
+.chap .ch-n { transform: perspective(1200px) rotateY(-16deg) scale(0.9); }
+.chap .ch-ring { opacity: 0.85; transform: scale(0.66); }
+.chap .ch-ring2 { opacity: 0.65; transform: scale(0.8); }
+.chap .ch-k, .chap .ch-dots { transform: translateY(8px); }
+.ch-mo { position: absolute; left: 740px; top: 580px; width: 180px; height: 180px; opacity: 0.35; overflow: visible; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
+.ch-mo .dr, .ch-mo .mo-ph, .ch-mo .mo-scan, .ch-mo .mo-ck, .ch-mo .mo-ring, .ch-mo .mo-blur { fill: none; stroke: #c9c2ff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.ch-mo .fl, .ch-mo .mo-f { fill: #c9c2ff; }
+.ch-mo .fl { opacity: 0; }
+.ch-mo .mo-solid { fill: #0b0a16; fill-opacity: 0; }
+.ch-mo .mo-bar { stroke-width: 6; }
+.ch-mo .mo-ph { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-scan { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-blur { stroke-width: 11; opacity: 0; }
+.ch-mo .mo-ring { stroke-width: 2.5; opacity: 0; }
+.ch-mo .mo-f { opacity: 0; }
+.ch-mo .mo-ck { stroke-width: 4.5; }
+.ch-mo3 .mo-in { position: absolute; inset: 0; perspective: 640px; opacity: 0; }
+.ch-mo3 .mo-tilt { position: absolute; left: 40px; top: 40px; width: 100px; height: 100px; transform-style: preserve-3d; transform: rotateX(-24deg); }
+.ch-mo3 .mo-cube { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(-10deg); }
+.ch-mo3 .mo-cube i { position: absolute; inset: 0; border: 3.5px solid #c9c2ff; border-radius: 5px; display: block; }
+.ch-mo3 .mo-face0 { transform: translateZ(50px); }
+.ch-mo3 .mo-face1 { transform: rotateY(180deg) translateZ(50px); }
+.ch-mo3 .mo-face2 { transform: rotateY(90deg) translateZ(50px); }
+.ch-mo3 .mo-face3 { transform: rotateY(-90deg) translateZ(50px); }
+.ch-mo3 .mo-face4 { transform: rotateX(90deg) translateZ(50px); }
+.ch-mo3 .mo-face5 { transform: rotateX(-90deg) translateZ(50px); }
+
+/* ---------- effects ---------- */
+/* light sweep across an element (the element clips it) */
+.fx-sweep { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.fx-sweep b { position: absolute; top: -40%; bottom: -40%; left: 100%; width: 34%; display: block; transform: skewX(-16deg);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--sweep, rgba(255, 255, 255, 0.22)), rgba(255, 255, 255, 0)); }
+/* light band across the whole frame at a scene change */
+.fx-band { position: absolute; top: -400px; left: 1080px; width: 560px; height: 2720px; display: block; pointer-events: none; z-index: 40;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.10) 35%, rgba(255, 255, 255, 0.16) 50%, rgba(201, 194, 255, 0.10) 65%, rgba(201, 194, 255, 0));
+  transform: rotate(14deg); mix-blend-mode: screen; opacity: 0; }
+/* particle burst */
+.fx-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; display: block; pointer-events: none; opacity: 0; z-index: 7; }
+/* drifting dust in the background */
+.dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
+
+/* 5.2 fal.ai: a prepaid wallet, you pay only for what came out, then the connection steps (canvas 800 x 700) */
+.sim52 .s52-ok-p, .sim52 .s52-rok path, .sim52 .s52-uok path, .sim52 .s52-sok path, .sim52 .s52-cok path, .sim52 .s52-calok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim52 .s52-rok, .sim52 .s52-uok, .sim52 .s52-sok, .sim52 .s52-cok, .sim52 .s52-calok { border-radius: 50%; background: #2b2560; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.7); overflow: visible; display: block; }
+
+/* the wallet and its balance (persistent through the five beats) */
+.sim52 .s52-walu { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
+.sim52 .s52-wal { position: absolute; left: 480px; top: 165px; width: 290px; height: 212px; }
+.sim52 .s52-wfill, .sim52 .s52-wline { position: absolute; left: 0; top: 0; width: 290px; height: 212px; overflow: visible; display: block; }
+.sim52 .s52-wfill { opacity: 0; }
+.sim52 .s52-wc1 { fill: #3b3274; stroke: rgba(201, 194, 255, 0.5); stroke-width: 1.5; }
+.sim52 .s52-wc2 { fill: #2c3f7a; stroke: rgba(201, 194, 255, 0.5); stroke-width: 1.5; }
+.sim52 .s52-wst { fill: none; stroke: rgba(201, 194, 255, 0.22); stroke-width: 1.5; stroke-dasharray: 4 5; }
+.sim52 .s52-wtab { fill: #241f4c; }
+.sim52 .s52-wbtn { fill: #c9c2ff; }
+.sim52 .s52-wline path { fill: none; stroke: #c9c2ff; stroke-width: 2.5; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
+.sim52 .s52-wname { position: absolute; left: 30px; bottom: 28px; font: 600 34px/1 "Rubik"; color: #c9c2ff; opacity: 0; }
+.sim52 .s52-meter { position: absolute; left: 484px; top: 411px; width: 282px; height: 46px; display: flex; justify-content: space-between; direction: rtl; }
+.sim52 .s52-cell { position: relative; width: 23px; height: 46px; border-radius: 7px; border: 1.5px solid rgba(201, 194, 255, 0.34); display: block; opacity: 0; }
+.sim52 .s52-cell b { position: absolute; left: 3px; right: 3px; top: 3px; bottom: 3px; border-radius: 4px; background: linear-gradient(180deg, #f2efff, #aaa0f0); box-shadow: 0 0 10px rgba(201, 194, 255, 0.75); display: block; opacity: 0; transform-origin: 50% 100%; }
+.sim52 .s52-bal { position: absolute; right: 34px; top: 473px; display: flex; align-items: center; gap: 10px; direction: rtl; font: 500 30px/1 "Rubik"; color: #d6d2e6; opacity: 0; }
+.sim52 .s52-bal i { width: 11px; height: 11px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; }
+.sim52 .s52-coin { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; display: block; opacity: 0;
+  background: radial-gradient(circle at 34% 30%, #ffffff 0%, #e4dfff 28%, #a99ff0 72%, #8a7fdc 100%); border: 2px solid #f0edff; box-shadow: 0 0 16px rgba(201, 194, 255, 0.85); }
+.sim52 .s52-coin::after { content: ""; position: absolute; left: 8px; top: 8px; right: 8px; bottom: 8px; border-radius: 50%; border: 2px solid rgba(70, 58, 140, 0.45); }
+
+/* B1: the subscription that fal does not require */
+.sim52 .s52-sub { position: absolute; left: 30px; top: 165px; width: 410px; height: 300px; border-radius: 22px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.26); opacity: 0; }
+.sim52 .s52-subh { position: absolute; right: 24px; top: 26px; display: flex; align-items: center; gap: 12px; direction: rtl; }
+.sim52 .s52-rep { width: 36px; height: 36px; overflow: visible; display: block; }
+.sim52 .s52-rep path { fill: none; stroke: #c9c2ff; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.sim52 .s52-subh b { font: 700 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim52 .s52-subr { position: absolute; right: 24px; left: 24px; height: 50px; display: flex; align-items: center; gap: 16px; direction: rtl; opacity: 0; }
+.sim52 .s52-pg { width: 34px; height: 34px; flex: none; display: block; }
+.sim52 .s52-pg rect, .sim52 .s52-pg path { fill: none; stroke: rgba(201, 194, 255, 0.75); stroke-width: 2.2; stroke-linecap: round; }
+.sim52 .s52-bar { height: 14px; border-radius: 7px; background: rgba(201, 194, 255, 0.28); display: block; flex: none; }
+.sim52 .s52-cg { width: 32px; height: 32px; margin-right: auto; flex: none; display: block; }
+.sim52 .s52-cg circle { fill: rgba(201, 194, 255, 0.2); stroke: #d9d4ff; stroke-width: 2; }
+.sim52 .s52-cg circle + circle { fill: none; stroke: rgba(217, 212, 255, 0.6); }
+.sim52 .s52-strike { position: absolute; left: 0; top: 0; width: 410px; height: 300px; overflow: visible; }
+/* the strike is ink (red rule: the cross badge is the one red mark of this beat) */
+.sim52 .s52-strike path { fill: none; stroke: #f5f2ea; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.7)); }
+.sim52 .s52-x { position: absolute; left: -8px; top: -14px; width: 44px; height: 44px; border-radius: 50%; background: #2a1016; box-shadow: 0 0 0 2px #ff453a, 0 0 14px rgba(255, 69, 58, 0.7); display: block; opacity: 0; }
+.sim52 .s52-x svg { width: 44px; height: 44px; display: block; }
+.sim52 .s52-x path { fill: none; stroke: #ff6b61; stroke-width: 3.4; stroke-linecap: round; }
+
+/* B2: the billing dashboard */
+.sim52 .s52-dash { position: absolute; left: 30px; top: 150px; width: 410px; height: 400px; border-radius: 22px; background: rgba(22, 20, 44, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.28); opacity: 0; }
+.sim52 .s52-dbar, .sim52 .s52-tbar { height: 58px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; border-bottom: 1px solid rgba(201, 194, 255, 0.14); direction: rtl; }
+.sim52 .s52-dt, .sim52 .s52-tt { display: flex; align-items: center; gap: 10px; font: 600 30px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim52 .s52-tt { flex-direction: row-reverse; font-size: 30px; }
+.sim52 .s52-dt i { width: 11px; height: 11px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; }
+.sim52 .s52-dots { display: flex; gap: 8px; direction: ltr; }
+.sim52 .s52-dots u { width: 11px; height: 11px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
+.sim52 .s52-chart { position: absolute; left: 44px; right: 44px; top: 92px; height: 140px; display: flex; align-items: flex-end; justify-content: space-between; direction: rtl; border-bottom: 1.5px solid rgba(201, 194, 255, 0.25); }
+.sim52 .s52-chart i { width: 30px; border-radius: 8px 8px 3px 3px; background: linear-gradient(180deg, rgba(201, 194, 255, 0.55), rgba(201, 194, 255, 0.12)); display: block; transform-origin: 50% 100%; }
+.sim52 .s52-buy { position: absolute; left: 56px; right: 56px; top: 288px; height: 72px; border-radius: 999px; background: #d6d0ff; display: flex; align-items: center; justify-content: center; gap: 12px; direction: rtl; box-shadow: 0 0 22px rgba(201, 194, 255, 0.45); overflow: hidden; }
+.sim52 .s52-buy svg { width: 26px; height: 26px; display: block; }
+.sim52 .s52-buy path { fill: none; stroke: #17142f; stroke-width: 3.2; stroke-linecap: round; }
+.sim52 .s52-buy b { font: 700 32px/1 "Rubik"; color: #17142f; white-space: nowrap; }
+
+/* B3: a result that came out */
+.sim52 .s52-res { position: absolute; left: 30px; top: 140px; width: 410px; height: 410px; border-radius: 22px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.26); opacity: 0; }
+.sim52 .s52-thumb { position: absolute; left: 95px; top: 42px; width: 220px; height: 220px; border-radius: 18px; background: linear-gradient(160deg, #4f3d94 0%, #2a2560 55%, #1a1638 100%); border: 1.5px solid rgba(201, 194, 255, 0.4); }
+.sim52 .s52-pic { position: absolute; left: 0; top: 0; width: 217px; height: 217px; border-radius: 17px; display: block; }
+.sim52 .s52-pic circle { fill: #f3f0ff; }
+.sim52 .s52-pic path { fill: rgba(150, 138, 230, 0.9); }
+.sim52 .s52-gen { position: absolute; left: 0; top: 0; right: 0; bottom: 0; border-radius: 17px; background: linear-gradient(160deg, #241f4c, #110e24); display: block; }
+.sim52 .s52-ring { position: absolute; left: 68px; top: 68px; width: 80px; height: 80px; overflow: visible; transform: rotate(-90deg); }
+.sim52 .s52-rt { fill: none; stroke: rgba(201, 194, 255, 0.2); stroke-width: 6; }
+.sim52 .s52-rp { fill: none; stroke: #e2deff; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.8)); }
+.sim52 .s52-rok { position: absolute; left: -15px; top: -15px; width: 40px; height: 40px; opacity: 0; }
+.sim52 .s52-resl { position: absolute; left: 0; right: 0; top: 304px; display: flex; justify-content: center; direction: rtl; opacity: 0; }
+.sim52 .s52-resl span { font: 600 34px/1.1 "Rubik"; color: var(--ink); white-space: nowrap; }
+
+/* B4: a server error and a queue (their coins come back), the stamp */
+.sim52 .s52-ca, .sim52 .s52-cb { position: absolute; left: 30px; width: 420px; height: 150px; border-radius: 20px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.26); opacity: 0; }
+.sim52 .s52-ca { top: 126px; }
+.sim52 .s52-cb { top: 296px; }
+.sim52 .s52-cin { position: absolute; right: 26px; top: 39px; display: flex; align-items: center; gap: 18px; direction: rtl; }
+.sim52 .s52-cin b { font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim52 .s52-ico { width: 72px; height: 72px; flex: none; overflow: visible; display: block; }
+.sim52 .s52-ico rect { fill: rgba(201, 194, 255, 0.12); stroke: #c9c2ff; stroke-width: 2; }
+.sim52 .s52-sl { fill: none; stroke: rgba(201, 194, 255, 0.5); stroke-width: 2.4; stroke-linecap: round; }
+.sim52 .s52-led { fill: #c9c2ff; }
+.sim52 .s52-hg path { fill: none; stroke: #c9c2ff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim52 .s52-hg .s52-sand { fill: rgba(201, 194, 255, 0.6); stroke: none; }
+/* the server's "!" is lavender: it shows while the red accent "לא משלמים" is read */
+.sim52 .s52-warn { position: absolute; right: 74px; top: 25px; width: 34px; height: 34px; border-radius: 50%; background: #1f1a3f; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.7); display: block; opacity: 0; }
+.sim52 .s52-warn svg { width: 34px; height: 34px; display: block; }
+.sim52 .s52-warn path { fill: none; stroke: #ffffff; stroke-width: 3.6; stroke-linecap: round; }
+.sim52 .s52-q { position: absolute; left: 24px; top: 64px; width: 76px; height: 22px; overflow: hidden; display: flex; gap: 8px; direction: ltr; }
+.sim52 .s52-q i { width: 20px; height: 20px; border-radius: 6px; background: rgba(201, 194, 255, 0.4); display: block; flex: none; }
+.sim52 .s52-stamp { position: absolute; left: 96px; top: 494px; width: 300px; height: 96px; border-radius: 16px; border: 4px solid #c9c2ff; background: rgba(26, 23, 52, 0.7);
+  box-shadow: 0 0 22px rgba(201, 194, 255, 0.45), inset 0 0 0 5px rgba(12, 10, 22, 0.9), inset 0 0 0 7px rgba(201, 194, 255, 0.6); display: flex; align-items: center; justify-content: center; opacity: 0; }
+/* the stamp lands while the red accent is read, so it is lavender and ink (red rule) */
+.sim52 .s52-stamp span { font: 800 46px/1 "Rubik"; color: #ffffff; text-shadow: 0 0 14px rgba(201, 194, 255, 0.6); white-space: nowrap; }
+
+/* B5: valid for a year */
+.sim52 .s52-cal { position: absolute; left: 30px; top: 140px; width: 420px; height: 430px; border-radius: 22px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.26); transform-origin: 50% 0%; opacity: 0; }
+.sim52 .s52-rg { position: absolute; top: -14px; width: 14px; height: 34px; border-radius: 7px; background: #0d0c1d; border: 2px solid #c9c2ff; display: block; }
+.sim52 .s52-rg1 { left: 104px; }
+.sim52 .s52-rg2 { right: 104px; }
+.sim52 .s52-calh { position: absolute; right: 28px; top: 36px; display: flex; align-items: center; gap: 12px; direction: rtl; }
+.sim52 .s52-calh b { font: 700 36px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim52 .s52-calok { width: 34px; height: 34px; opacity: 0; }
+.sim52 .s52-months { position: absolute; left: 29px; top: 104px; width: 362px; display: grid; grid-template-columns: repeat(4, 80px); grid-auto-rows: 84px; gap: 14px; direction: rtl; }
+.sim52 .s52-mo { position: relative; border-radius: 10px; border: 1.5px solid rgba(201, 194, 255, 0.3); background: rgba(14, 12, 30, 0.85); display: block; overflow: hidden; }
+.sim52 .s52-mo u { position: absolute; left: 0; right: 0; top: 0; height: 20px; background: rgba(201, 194, 255, 0.22); display: block; }
+.sim52 .s52-mo b { position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: block; opacity: 0;
+  background: linear-gradient(180deg, rgba(222, 217, 255, 0.95) 0, rgba(222, 217, 255, 0.95) 20px, rgba(201, 194, 255, 0.24) 20px, rgba(201, 194, 255, 0.08) 100%); }
+
+/* payoff: Claude Code, the reopen hint, claude.ai */
+.sim52 .s52-term, .sim52 .s52-hint, .sim52 .s52-web { position: absolute; left: 20px; width: 760px; border-radius: 22px; background: rgba(14, 13, 30, 0.96); border: 1.5px solid rgba(201, 194, 255, 0.28); transform-origin: 50% 0%; opacity: 0; }
+.sim52 .s52-term { top: 14px; height: 316px; }
+.sim52 .s52-hint { top: 346px; height: 122px; background: rgba(26, 23, 52, 0.94); }
+.sim52 .s52-web { top: 484px; height: 202px; }
+.sim52 .s52-addr { font: 500 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #d8d4ea; padding: 8px 16px; border-radius: 999px; background: rgba(201, 194, 255, 0.1); border: 1px solid rgba(201, 194, 255, 0.22); }
+.sim52 .s52-st { position: absolute; left: 24px; right: 22px; display: flex; align-items: center; gap: 14px; direction: rtl; opacity: 0; }
+.sim52 .s52-st1 { top: 72px; }
+.sim52 .s52-st2 { top: 196px; }
+.sim52 .s52-st4 { top: 74px; }
+.sim52 .s52-n { width: 44px; height: 44px; border-radius: 50%; background: #1f1a3f; border: 2px solid rgba(201, 194, 255, 0.65); display: grid; place-items: center; font: 700 27px/1 "Rubik"; font-style: normal; color: #ffffff; flex: none; }
+.sim52 .s52-cap { font: 500 30px/1.2 "Rubik"; color: #ece9f7; white-space: nowrap; }
+.sim52 .s52-in { position: absolute; left: 24px; right: 24px; top: 128px; height: 56px; display: flex; align-items: center; gap: 14px; padding: 0 16px; border-radius: 12px; background: #090814; border: 1.5px solid rgba(201, 194, 255, 0.3); direction: ltr; }
+.sim52 .s52-pr { font: 600 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #9c99ae; }
+.sim52 .s52-url { position: relative; display: block; }
+.sim52 .s52-typed { position: relative; display: block; font: 500 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #e8e4ff; white-space: nowrap; letter-spacing: -0.01em; clip-path: inset(0px 100% 0px 0px); }
+.sim52 .s52-sel { position: absolute; left: -5px; right: -5px; top: -8px; bottom: -8px; border-radius: 6px; background: rgba(201, 194, 255, 0.4); display: block; opacity: 0; }
+.sim52 .s52-uok { width: 32px; height: 32px; margin-left: auto; flex: none; opacity: 0; }
+.sim52 .s52-key { width: 48px; height: 30px; flex: none; overflow: visible; display: block; }
+.sim52 .s52-key circle, .sim52 .s52-key path { fill: none; stroke: #9c99ae; stroke-width: 2.6; stroke-linecap: round; }
+.sim52 .s52-key .s52-kx { stroke: #ece9f7; stroke-width: 3; }
+.sim52 .s52-out { position: absolute; left: 24px; right: 24px; top: 250px; height: 50px; display: flex; align-items: center; gap: 14px; padding: 0 16px; direction: ltr; opacity: 0; }
+.sim52 .s52-cmd { font: 500 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #e8e4ff; display: inline-block; clip-path: inset(0px 100% 0px 0px); }
+.sim52 .s52-srv { position: relative; display: flex; align-items: center; gap: 10px; margin-left: 22px; padding: 7px 16px 7px 14px; border-radius: 10px; background: rgba(201, 194, 255, 0.12); border: 1.5px solid rgba(201, 194, 255, 0.4); font: 500 28px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ffffff; opacity: 0; }
+.sim52 .s52-sdot { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px #c9c2ff; display: block; }
+.sim52 .s52-sok { position: absolute; right: -12px; top: -12px; width: 28px; height: 28px; opacity: 0; }
+.sim52 .s52-hint .s52-n { position: absolute; right: 22px; top: 22px; }
+.sim52 .s52-h1 { position: absolute; right: 82px; top: 27px; direction: rtl; font: 600 32px/1.1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim52 .s52-h2 { position: absolute; right: 24px; top: 76px; direction: rtl; font: 400 30px/1.1 "Rubik"; color: #c4c0d6; white-space: nowrap; }
+.sim52 .s52-rst { position: absolute; left: 24px; top: 21px; width: 80px; height: 80px; overflow: visible; }
+.sim52 .s52-rarr path { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.7)); }
+.sim52 .s52-fold { fill: rgba(201, 194, 255, 0.2); stroke: #e2deff; stroke-width: 2.2; stroke-linejoin: round; }
+.sim52 .s52-chips { position: absolute; right: 22px; left: 22px; top: 132px; display: flex; gap: 18px; direction: rtl; }
+.sim52 .s52-chip { position: relative; display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 18px 0 14px; border-radius: 14px; background: rgba(44, 38, 90, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.4); font: 600 30px/1 "Rubik"; color: #ffffff; }
+.sim52 .s52-plug { width: 28px; height: 28px; display: block; flex: none; }
+.sim52 .s52-plug path { fill: none; stroke: #c9c2ff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.sim52 .s52-cok { position: absolute; right: -11px; top: -11px; width: 28px; height: 28px; }
+.sim52 .s52-ch2 { opacity: 0; }
+.sim52 .s52-ch2 .s52-cok { opacity: 0; }
+.sim52 .s52-tg { width: 32px; height: 26px; display: block; flex: none; overflow: visible; }
+.sim52 .s52-tg rect, .sim52 .s52-tg path { fill: none; stroke: #c9c2ff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="34.520" data-fps="30" data-width="1080" data-height="1920">
+<div class="stagewrap" style="transform: scale(1.0);">
+<div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
+<div id="cam">
+<div id="sc-t52" class="clip scene" data-start="0.000" data-duration="34.520" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 5 · חיבורים</span><span class="hdr-num" dir="ltr">5.2</span></div>
+<div class="scam">
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">מחברים</span> <span class="w" dir="rtl" data-t="0.430">את</span> <span class="w" dir="rtl" data-t="0.560">fal.ai:</span> <span class="w" dir="rtl" data-t="0.890">ארנק</span> <span class="w" dir="rtl" data-t="1.020">מראש,</span> <span class="w" dir="rtl" data-t="1.150">ומשלמים</span> <span class="w" dir="rtl" data-t="1.280">רק</span> <span class="w" dir="rtl" data-t="1.410">על</span> <span class="w" dir="rtl" data-t="1.540">מה</span> <span class="w" dir="rtl" data-t="1.670">שיצא</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="glu"><span class="w" dir="rtl" data-t="2.500">ב-</span><span class="w" dir="rtl" data-t="2.500">fal</span></span> <span class="w" dir="rtl" data-t="2.620">אין</span> <span class="w" dir="rtl" data-t="2.680">מנוי</span> <span class="w" dir="rtl" data-t="2.740">חובה.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.200">קונים</span> <span class="w" dir="rtl" data-t="4.260">קרדיטים</span> <span class="w" dir="rtl" data-t="4.320">מראש</span> <span class="w" dir="rtl" data-t="4.380">בדשבורד</span> <span class="w" dir="rtl" data-t="4.440">החיובים,</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="5.900">וכל</span> <span class="w" dir="rtl" data-t="5.960">תוצאה</span> <span class="w" dir="rtl" data-t="6.020">שיצאה</span> <span class="w" dir="rtl" data-t="6.080">בהצלחה</span> <span class="w" dir="rtl" data-t="6.140">יורדת</span> <span class="w" dir="rtl" data-t="6.200">מהיתרה.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="7.850">על</span> <span class="w" dir="rtl" data-t="7.910">שגיאה</span> <span class="w" dir="rtl" data-t="7.970">של</span> <span class="w" dir="rtl" data-t="8.030">השרת</span> <span class="w" dir="rtl" data-t="8.090">או</span> <span class="w" dir="rtl" data-t="8.150">על</span> <span class="w" dir="rtl" data-t="8.210">המתנה</span> <span class="w" dir="rtl" data-t="8.270">בתור</span> <span class="glu"><span class="accgrp" data-t="8.330"><span class="w s-str" dir="rtl" data-t="8.330">לא</span> <span class="w s-str" dir="rtl" data-t="8.390">משלמים</span><i class="ul" data-t="8.510"></i></span><span class="w" dir="rtl" data-t="8.390">,</span></span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="10.950">והקרדיטים</span> <span class="w" dir="rtl" data-t="11.010">תקפים</span> <span class="w" dir="rtl" data-t="11.070">לשנה.</span></span></p></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim52">
+<div class="s52-walu"><div class="s52-wal"><svg class="s52-wfill" viewBox="0 0 260 190" aria-hidden="true">
+<defs><linearGradient id="s52wg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f2864"/><stop offset="1" stop-color="#15122c"/></linearGradient></defs>
+<rect class="s52-wc1" x="28" y="10" width="150" height="62" rx="9" transform="rotate(-7 103 41)"/>
+<rect class="s52-wc2" x="80" y="3" width="150" height="62" rx="9" transform="rotate(5 155 34)"/>
+<rect x="2" y="36" width="256" height="152" rx="24" fill="url(#s52wg)"/>
+<rect class="s52-wst" x="13" y="47" width="234" height="130" rx="16"/>
+<path class="s52-wtab" d="M258 92 H196 Q178 92 178 110 V122 Q178 140 196 140 H258 Z"/>
+<circle class="s52-wbtn" cx="204" cy="116" r="8"/>
+</svg><svg class="s52-wline" viewBox="0 0 260 190" aria-hidden="true">
+<path class="s52-wbody" d="M234 36 H26 A24 24 0 0 0 2 60 V164 A24 24 0 0 0 26 188 H234 A24 24 0 0 0 258 164 V60 A24 24 0 0 0 234 36 Z"/>
+<path class="s52-wtabl" d="M258 92 H196 Q178 92 178 110 V122 Q178 140 196 140 H258"/>
+</svg><span class="s52-wname" dir="ltr">fal</span></div>
+<div class="s52-meter" dir="rtl"><i class="s52-cell"><b></b></i><i class="s52-cell"><b></b></i><i class="s52-cell"><b></b></i><i class="s52-cell"><b></b></i><i class="s52-cell"><b></b></i><i class="s52-cell"><b></b></i><i class="s52-cell"><b></b></i><i class="s52-cell"><b></b></i><i class="s52-cell"><b></b></i><i class="s52-cell"><b></b></i></div>
+<div class="s52-bal" dir="rtl"><i></i><span>יתרה</span></div></div>
+<div class="s52-sub"><div class="s52-subh" dir="rtl"><svg class="s52-rep" viewBox="0 0 36 36" aria-hidden="true"><path d="M29 18a11 11 0 1 1-3.4-8"/><path d="M27 4.5v6.5h-6.5"/></svg>
+<b dir="rtl">מנוי חובה</b></div><div class="s52-subr" style="top:92px"><svg class="s52-pg" viewBox="0 0 34 34" aria-hidden="true"><rect x="4" y="6" width="26" height="24" rx="4"/><path d="M4 13h26M11 3v6M23 3v6"/></svg><i class="s52-bar" style="width:176px"></i><svg class="s52-cg" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11.5"/><circle cx="13" cy="13" r="6.5"/></svg></div><div class="s52-subr" style="top:154px"><svg class="s52-pg" viewBox="0 0 34 34" aria-hidden="true"><rect x="4" y="6" width="26" height="24" rx="4"/><path d="M4 13h26M11 3v6M23 3v6"/></svg><i class="s52-bar" style="width:150px"></i><svg class="s52-cg" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11.5"/><circle cx="13" cy="13" r="6.5"/></svg></div><div class="s52-subr" style="top:216px"><svg class="s52-pg" viewBox="0 0 34 34" aria-hidden="true"><rect x="4" y="6" width="26" height="24" rx="4"/><path d="M4 13h26M11 3v6M23 3v6"/></svg><i class="s52-bar" style="width:168px"></i><svg class="s52-cg" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11.5"/><circle cx="13" cy="13" r="6.5"/></svg></div>
+<svg class="s52-strike" viewBox="0 0 410 300" preserveAspectRatio="none" aria-hidden="true"><path d="M384 34 L26 268"/></svg>
+<i class="s52-x"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M10 10l10 10M20 10L10 20"/></svg></i></div>
+<div class="s52-dash"><div class="s52-dbar" dir="rtl"><span class="s52-dt" dir="rtl"><i></i>דשבורד החיובים</span><span class="s52-dots"><u></u><u></u><u></u></span></div>
+<div class="s52-chart"><i style="height:46px"></i><i style="height:70px"></i><i style="height:58px"></i><i style="height:92px"></i><i style="height:76px"></i><i style="height:110px"></i><i style="height:96px"></i></div><div class="s52-buy" dir="rtl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg><b dir="rtl">קונים קרדיטים</b></div></div>
+<div class="s52-res"><div class="s52-thumb"><svg class="s52-pic" viewBox="0 0 220 220" aria-hidden="true"><circle cx="152" cy="64" r="20"/><path d="M0 220 L0 176 L62 106 L106 152 L140 120 L220 186 L220 220 Z"/></svg>
+<i class="s52-gen"></i><svg class="s52-ring" viewBox="0 0 80 80" aria-hidden="true"><circle class="s52-rt" cx="40" cy="40" r="32"/><circle class="s52-rp" cx="40" cy="40" r="32"/></svg>
+<svg class="s52-rok" viewBox="0 0 30 30" aria-hidden="true"><path d="M8 15.5l5 5 9-10"/></svg></div>
+<div class="s52-resl" dir="rtl"><span dir="rtl">יצאה בהצלחה</span></div></div>
+<div class="s52-ca"><div class="s52-cin" dir="rtl"><svg class="s52-ico" viewBox="0 0 72 72" aria-hidden="true">
+<rect x="8" y="8" width="56" height="16" rx="5"/><rect x="8" y="28" width="56" height="16" rx="5"/><rect x="8" y="48" width="56" height="16" rx="5"/>
+<circle class="s52-led" cx="52" cy="16" r="3.2"/><circle class="s52-led" cx="52" cy="36" r="3.2"/><circle class="s52-led s52-ledx" cx="52" cy="56" r="3.2"/>
+<path class="s52-sl" d="M16 16h18M16 36h18M16 56h18"/></svg><b dir="rtl">שגיאה של השרת</b></div><i class="s52-warn"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M15 8v9M15 21.5v.5"/></svg></i></div>
+<div class="s52-cb"><div class="s52-cin" dir="rtl"><svg class="s52-ico s52-hg" viewBox="0 0 72 72" aria-hidden="true">
+<path d="M20 8h32M20 64h32M24 8c0 14 24 18 24 28S24 50 24 64M48 8c0 14-24 18-24 28s24 14 24 28"/>
+<path class="s52-sand" d="M28 18h16l-8 13z"/><path class="s52-sand" d="M27 60l9-10 9 10z"/></svg><b dir="rtl">המתנה בתור</b></div><div class="s52-q"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="s52-stamp" data-focus="3" dir="rtl"><span dir="rtl">לא משלמים</span></div>
+<div class="s52-cal"><i class="s52-rg s52-rg1"></i><i class="s52-rg s52-rg2"></i>
+<div class="s52-calh" dir="rtl"><b dir="rtl">תקף לשנה</b><svg class="s52-calok" viewBox="0 0 30 30" aria-hidden="true"><path d="M8 15.5l5 5 9-10"/></svg></div>
+<div class="s52-months" dir="rtl"><i class="s52-mo"><u></u><b></b></i><i class="s52-mo"><u></u><b></b></i><i class="s52-mo"><u></u><b></b></i><i class="s52-mo"><u></u><b></b></i><i class="s52-mo"><u></u><b></b></i><i class="s52-mo"><u></u><b></b></i><i class="s52-mo"><u></u><b></b></i><i class="s52-mo"><u></u><b></b></i><i class="s52-mo"><u></u><b></b></i><i class="s52-mo"><u></u><b></b></i><i class="s52-mo"><u></u><b></b></i><i class="s52-mo"><u></u><b></b></i></div></div>
+<div class="s52-term"><div class="s52-tbar" dir="rtl"><span class="s52-tt" dir="ltr"><svg class="s52-tg" viewBox="0 0 32 26" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="23" rx="5"/><path d="M8 9l5 4-5 4M16 18h8"/></svg>Claude Code</span><span class="s52-dots"><u></u><u></u><u></u></span></div>
+<div class="s52-st s52-st1" dir="rtl"><i class="s52-n">1</i><span class="s52-cap" dir="rtl">מבקשים מקלוד להוסיף את השרת</span></div>
+<div class="s52-in" dir="ltr"><span class="s52-pr">›</span><span class="s52-url"><i class="s52-sel"></i><span class="s52-typed">https://mcp.fal.ai/mcp-relay</span></span><svg class="s52-uok" viewBox="0 0 30 30" aria-hidden="true"><path d="M8 15.5l5 5 9-10"/></svg></div>
+<div class="s52-st s52-st2" dir="rtl"><i class="s52-n">2</i><span class="s52-cap" dir="rtl">כותבים <span class="isl" dir="ltr">/mcp</span> ומתחברים בלי מפתח <span class="isl" dir="ltr">API</span></span><svg class="s52-key" viewBox="0 0 48 30" aria-hidden="true"><circle cx="11" cy="15" r="7.5"/><path d="M18.5 15H42M35 15v6M41 15v5"/><path class="s52-kx" d="M5 27L43 3"/></svg></div>
+<div class="s52-out" dir="ltr"><span class="s52-pr">›</span><span class="s52-cmd">/mcp</span><span class="s52-srv"><i class="s52-sdot"></i>fal<svg class="s52-sok" viewBox="0 0 30 30" aria-hidden="true"><path d="M8 15.5l5 5 9-10"/></svg></span></div></div>
+<div class="s52-hint"><i class="s52-n">3</i><b class="s52-h1" dir="rtl">אם <span class="isl" dir="ltr">fal</span> לא מופיע,</b><span class="s52-h2" dir="rtl">סוגרים ופותחים את <span class="isl" dir="ltr">Claude Code</span> באותה תיקייה</span><svg class="s52-rst" viewBox="0 0 80 80" aria-hidden="true">
+<g class="s52-rarr"><path d="M66 40a26 26 0 1 1-8-18.8"/><path d="M60 10l-1.6 12.4L46 21"/></g>
+<path class="s52-fold" d="M26 32h10l4 4h14v18H26z"/></svg></div>
+<div class="s52-web"><div class="s52-tbar" dir="rtl"><span class="s52-addr" dir="ltr">claude.ai</span><span class="s52-dots"><u></u><u></u><u></u></span></div>
+<div class="s52-st s52-st4" dir="rtl"><i class="s52-n">4</i><span class="s52-cap" dir="rtl">מוסיפים אותו כ-connector, בדיוק כמו <span class="isl" dir="ltr">Higgsfield</span></span></div>
+<div class="s52-chips" dir="rtl"><span class="s52-chip s52-ch1" dir="ltr"><svg class="s52-plug" viewBox="0 0 32 32" aria-hidden="true"><path d="M11 4v7M21 4v7M7 11h18v5a9 9 0 0 1-18 0z"/><path d="M16 25v4"/></svg>Higgsfield<svg class="s52-cok" viewBox="0 0 30 30" aria-hidden="true"><path d="M8 15.5l5 5 9-10"/></svg></span>
+<span class="s52-chip s52-ch2" dir="ltr"><svg class="s52-plug" viewBox="0 0 32 32" aria-hidden="true"><path d="M11 4v7M21 4v7M7 11h18v5a9 9 0 0 1-18 0z"/><path d="M16 25v4"/></svg>fal<svg class="s52-cok" viewBox="0 0 30 30" aria-hidden="true"><path d="M8 15.5l5 5 9-10"/></svg></span></div></div>
+</div></div></div></div></div>
+<div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">בערך דולר לקליפ</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="20.000">מחירים</span> <span class="w" dir="rtl" data-t="20.120">מהמדריך:</span> <span class="w" dir="rtl" data-t="20.440">קליפ</span> <span class="w" dir="rtl" data-t="20.560">AI</span> <span class="w" dir="rtl" data-t="20.680">של</span> <span class="w" dir="rtl" data-t="20.800">5</span> <span class="w" dir="rtl" data-t="20.920">שניות</span> <span class="w" dir="rtl" data-t="21.040">עם</span> <span class="w" dir="rtl" data-t="21.160">הפנים,</span> <span class="w" dir="rtl" data-t="21.280">בערך</span> <span class="w" dir="rtl" data-t="21.400">דולר.</span> <span class="w" dir="rtl" data-t="21.720">מילוי</span> <span class="w" dir="rtl" data-t="21.840">החדר</span> <span class="w" dir="rtl" data-t="21.960">שמאחוריכם,</span> <span class="w" dir="rtl" data-t="22.080">15</span> <span class="w" dir="rtl" data-t="22.200">סנט</span> <span class="w" dir="rtl" data-t="22.320">לתמונה.</span></p></div></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>מתוך הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>15</b> / 21</span></div><div class="pvp" style="top:110px"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>1. תבדוק <span class="nb">ש-fal</span> מחובר אליך, ואם לא, תריץ בעצמך <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">claude</span> <span class="tk">mcp</span> <span class="tk">add</span> <span class="tk">--transport http</span> <span class="tk">--scope user</span> <span class="tk">fal</span> <span class="tk">https://mcp.fal.ai/mcp-relay</span><span class="bt">`</span></span>,</span>ואז תגיד לי לכתוב <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">/mcp</span><span class="bt">`</span></span>, לבחור fal ולהתחבר עם החשבון שלי, ושהתשלום יורד מארנק שטוענים מראש <span class="nb">ב-fal.</span> אם fal לא מופיע שם, תגיד לי לסגור ולפתוח את קלוד קוד.</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>1. תבדוק <span class="nb">ש-fal</span> מחובר אליך, ואם לא, תריץ בעצמך <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">claude</span> <span class="tk">mcp</span> <span class="tk">add</span> <span class="tk">--transport http</span> <span class="tk">--scope user</span> <span class="tk">fal</span> <span class="tk">https://mcp.fal.ai/mcp-relay</span><span class="bt">`</span></span>,</span>ואז תגיד לי לכתוב <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">/mcp</span><span class="bt">`</span></span>, לבחור fal ולהתחבר עם החשבון שלי, ושהתשלום יורד מארנק שטוענים מראש <span class="nb">ב-fal.</span> אם fal לא מופיע שם, תגיד לי לסגור ולפתוח את קלוד קוד.</div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="31.040">חלק</span> <span class="w" dir="rtl" data-t="31.200">מהמודלים</span> <span class="w" dir="rtl" data-t="31.360">חוסמים</span> <span class="w" dir="rtl" data-t="31.520">פנים</span> <span class="w" dir="rtl" data-t="31.680">אמיתיות,</span> <span class="w" dir="rtl" data-t="31.840">ולכן</span> <span class="w" dir="rtl" data-t="32.000">קלוד</span> <span class="w" dir="rtl" data-t="32.160">בוחר</span> <span class="glu"><span class="w" dir="rtl" data-t="32.320">ב-</span><span class="w" dir="rtl" data-t="32.320">fal</span></span> <span class="w" dir="rtl" data-t="32.640">מודל</span> <span class="w" dir="rtl" data-t="32.800">שמקבל</span> <span class="w" dir="rtl" data-t="32.960">אותן.</span></p></div></div>
+</div></div>
+</div>
+</div>
+</div>
+<script>
+/* Runtime helpers that add tweens to one paused GSAP master timeline.
+   Every tween is a fromTo with explicit values and immediateRender:false (CSS holds the
+   initial state), so any frame can be rendered by seeking to it in any order.
+   Each scene has its own camera (.scam); the chapter header sits outside it and never zooms. */
+(function () {
+  const E = (window.ENG = {});
+  // The guide's no-overshoot spring (prompts 9 and 13).
+  const SPRING = (p) => (1 - (1 + 7 * p) * Math.exp(-7 * p)) / (1 - 8 * Math.exp(-7));
+  E.SPRING = SPRING;
+  E.debug = (window.__ENG_DEBUG = { scenes: {} });
+  E.q = (s, r) => (r || document).querySelector(s);
+  E.qa = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const NI = { immediateRender: false };
+  E.NI = NI;
+  const A = (o) => Object.assign(o, NI);
+  E.A = A;
+  /* Deterministic PRNG (mulberry32): never use Math.random in scenes. */
+  E.rand = function (seed) {
+    let a = seed >>> 0;
+    return function () { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  };
+  /* Offsets ignore transforms: measure layout before any tween moves things. */
+  E.off = function (el, top) {
+    let x = 0, y = 0, e = el;
+    while (e && e !== top) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+    return { x, y };
+  };
+  E.center = function (el, top) {
+    const o = E.off(el, top);
+    return { x: o.x + el.offsetWidth / 2, y: o.y + el.offsetHeight / 2 };
+  };
+
+  E.fadeIn = function (tl, el, t, d, dy) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: 0, y: dy || 0 }, A({ opacity: 1, y: 0, duration: d || 0.5, ease: SPRING }), t);
+  };
+  E.fadeOut = function (tl, el, t, d, dy, from) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from, y: 0 }, A({ opacity: 0, y: dy || 0, duration: d || 0.3, ease: "power2.in" }), t);
+  };
+  E.dim = function (tl, el, t, to, from, d) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from }, A({ opacity: to, duration: d || 0.35, ease: "power2.out" }), t);
+  };
+
+  /* Kinetic words: each word enters on its time with a spring (slightly above final size,
+     then settles) and unblurs. Blur is animated separately from the spring and ends on
+     0px then "none", so it never goes negative (prompt 2's pitfall). */
+  E.kin = function (tl, root, S, o) {
+    if (!root) return;
+    o = o || {};
+    const dy = o.dy == null ? 18 : o.dy;
+    E.qa(".w", root).forEach((w) => {
+      const t = S + parseFloat(w.dataset.t || "0");
+      tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.22, ease: "power2.out" }), t);
+      tl.fromTo(w, { y: dy, scale: 0.82 }, A({ y: 0, scale: 1, duration: 0.62, ease: "back.out(2.1)" }), t);
+      tl.fromTo(w, { filter: "blur(9px)" }, A({ filter: "blur(0px)", duration: 0.3, ease: "power2.out" }), t);
+      tl.set(w, { filter: "none" }, t + 0.31);
+    });
+    E.qa(".ul", root).forEach((u) => {
+      const t = S + parseFloat(u.dataset.t || "0");
+      tl.fromTo(u, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.5, ease: "power3.inOut" }), t);
+    });
+  };
+
+  /* White pill caption: switches in one frame, no animation (prompt 2). */
+  E.pill = function (tl, el, tin, tout) {
+    tl.set(el, { opacity: 1 }, tin);
+    if (tout != null) tl.set(el, { opacity: 0 }, tout);
+  };
+
+  /* Bouncy zoom on the scene camera with the guide's spring. The focal x is clamped so a
+     content column [colL, colR] scaled by (1+amt) stays inside the safe area x 140..940. */
+  E.zoom = function (tl, ctx, cx, cy, t, amt, tBack, backDur, col) {
+    const s = 1 + amt;
+    const L = col ? col[0] : 220, R = col ? col[1] : 940;
+    const lo = (s * R - 940) / (s - 1), hi = (s * L - 140) / (s - 1);
+    if (lo <= hi) cx = Math.min(hi, Math.max(lo, cx));
+    else cx = (L + R) / 2;
+    tl.set(ctx.cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(ctx.cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) {
+      if (backDur) tl.fromTo(ctx.cam, { scale: s }, A({ scale: 1, duration: backDur, ease: "power2.inOut" }), tBack);
+      else tl.set(ctx.cam, { scale: 1 }, tBack);
+    }
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  E.zoomOn = function (tl, ctx, el, t, amt, tBack, backDur, col) {
+    const c = E.center(el, ctx.scene);
+    E.zoom(tl, ctx, c.x, c.y, t, amt, tBack, backDur, col);
+  };
+
+  /* ---------- effects (all pure transforms/opacity, created once before the first seek) ---------- */
+  /* Light sweep across an element, right to left (the reading direction). The element must be
+     positioned; it clips the band to its own shape. o.color tints the band. */
+  E.sweep = function (tl, el, t, d, o) {
+    if (!el) return;
+    o = o || {};
+    const fx = document.createElement("i"), b = document.createElement("b");
+    fx.className = "fx-sweep";
+    if (o.color) fx.style.setProperty("--sweep", o.color);
+    fx.appendChild(b);
+    // the sweep clips to the element's own box, so a static element becomes the containing block
+    // (only when none of its absolutely placed children depends on an outer one)
+    if (getComputedStyle(el).position === "static") {
+      const outer = Array.from(el.querySelectorAll("*")).some((c) => /absolute|fixed/.test(getComputedStyle(c).position) && c.offsetParent !== el && el.contains(c.offsetParent) === false);
+      if (!outer) el.style.position = "relative";
+    }
+    el.appendChild(fx);
+    // the band is 180% of the swept box's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // height: it starts and ends that far outside, never as a wedge inside a tall box
+    const w = fx.offsetWidth || el.offsetWidth, h = fx.offsetHeight || el.offsetHeight;
+    const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
+    b.style.width = bw + "px";
+    b.style.left = w + slant + "px";
+    tl.fromTo(b, { x: 0 }, A({ x: -(w + 2 * slant + bw), duration: d || 0.8, ease: "power2.inOut" }), t);
+  };
+  /* A soft light band crosses the whole frame (scene change). */
+  E.band = function (tl, scene, t) {
+    const b = document.createElement("i");
+    b.className = "fx-band";
+    scene.appendChild(b);
+    tl.fromTo(b, { x: 0 }, A({ x: -1900, duration: 0.85, ease: "power2.inOut" }), t);
+    tl.fromTo(b, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power1.out" }), t);
+    tl.fromTo(b, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), t + 0.55);
+  };
+  /* Particle burst from (x, y) inside parent: n dots fly out and fade (deterministic). */
+  E.burst = function (tl, parent, x, y, t, o) {
+    if (!parent) return;
+    o = o || {};
+    const n = o.n || 14, rnd = E.rand(o.seed || 7), col = o.color || "#ff6b61", r0 = o.r0 || 30, r1 = o.r1 || 120;
+    for (let i = 0; i < n; i++) {
+      const d = document.createElement("i");
+      d.className = "fx-dot";
+      const sz = 5 + rnd() * 7;
+      d.style.cssText = "left:" + x + "px;top:" + y + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:" + col + ";box-shadow:0 0 10px " + col;
+      parent.appendChild(d);
+      const ang = (i / n) * Math.PI * 2 + rnd() * 0.5, dist = r0 + rnd() * (r1 - r0), dur = 0.55 + rnd() * 0.35;
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * dist, y: Math.sin(ang) * dist, scale: 0.35, duration: dur, ease: "power3.out" }), t);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), t);
+    }
+  };
+  /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
+  E.draw = function (tl, el, t, d, ease) {
+    if (!el) return;
+    // the hidden dash ends before the path starts, so a round cap never leaves a dot there
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2, pad = 12;
+    el.style.strokeDasharray = L + " " + (L + 2 * pad);
+    el.style.strokeDashoffset = L + pad;
+    tl.fromTo(el, { strokeDashoffset: L + pad }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+  };
+  /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
+  E.glitch = function (tl, el, t, amp) {
+    if (!el) return;
+    const a = amp || 8;
+    const seq = [[0, 0], [a, -7], [-a * 0.7, 5], [a * 0.45, -3], [-a * 0.2, 1.5], [0, 0]];
+    for (let i = 1; i < seq.length; i++) {
+      tl.fromTo(el, { x: seq[i - 1][0], skewX: seq[i - 1][1] }, A({ x: seq[i][0], skewX: seq[i][1], duration: 0.05, ease: "none" }), t + (i - 1) * 0.05);
+    }
+  };
+  /* Bouncy zoom inside the illustration (the guide's spring): the stage camera punches in on a
+     focal element and comes back at tBack. The camera box clips, so text above is never touched. */
+  E.zoomStage = function (tl, ctx, el, t, amt, tBack) {
+    const cam = ctx.stcam, fit = ctx.fit || 1, sf = ctx.stfit;
+    let cx = cam.offsetWidth / 2, cy = cam.offsetHeight / 2;
+    if (el) {
+      const c = E.center(el, sf);
+      const hw = sf.offsetWidth / 2, hh = sf.offsetHeight / 2;
+      cx = sf.offsetLeft + hw + (c.x - hw) * fit;
+      cy = sf.offsetTop + hh + (c.y - hh) * fit;
+    }
+    const s = 1 + amt;
+    tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    // the frame's edges soften while the camera is pushed in (content beyond them is cropped)
+    const clip = cam.parentElement;
+    if (clip && clip.classList.contains("stclip")) {
+      tl.fromTo(clip, { "--edge": "0px" }, A({ "--edge": "26px", duration: 0.3, ease: "power2.out" }), t);
+      if (tBack != null) tl.fromTo(clip, { "--edge": "26px" }, A({ "--edge": "0px", duration: 0.3, ease: "power2.in" }), tBack + 0.15);
+    }
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  /* Slow drifting dust over the whole video (depth; deterministic). */
+  E.dust = function (tl, bg, total) {
+    const rnd = E.rand(11);
+    for (let i = 0; i < 28; i++) {
+      const d = document.createElement("i"), sz = 2 + rnd() * 3.5;
+      d.className = "dust";
+      d.style.cssText = "left:" + (rnd() * 1080).toFixed(0) + "px;top:" + (200 + rnd() * 1700).toFixed(0) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;opacity:" + (0.15 + rnd() * 0.35).toFixed(2);
+      bg.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0 }, A({ x: (rnd() - 0.5) * 160, y: -(140 + rnd() * 320), duration: total, ease: "none" }), 0);
+    }
+  };
+
+  /* Prompt card: the full verbatim text, paged (static pages and short slides, so any
+     paused frame is readable). On a key line the page text dims and a copy of the line
+     lifts above the card (bouncy zoom on the line; it sits in its own layer, so its backing
+     is never clipped). One underline slides between the section tabs. Exits at t1. */
+  E.prompt = function (tl, ctx, card, t0, t1, hls) {
+    const vp = E.q(".pvp", card), ct = E.q(".pct", card), body = E.q(".pbody", card);
+    const ROW = 44, ROWS = 23;                     // the viewport is exactly 23 rows: no line is ever cut
+    const totalRows = Math.round(body.offsetHeight / ROW);
+    const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
+    const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
+    // a short text (an excerpt) gets a card sized to it, centred where the full card would be
+    if (totalRows < ROWS) {
+      const cut = vp.offsetTop + totalRows * ROW + 28, top = card.offsetTop + (card.offsetHeight - cut) / 2;
+      [card, E.q(".plift", ctx.scene)].forEach((el) => { if (el) { el.style.height = cut + "px"; el.style.top = top + "px"; } });
+      vp.style.height = totalRows * ROW + "px";
+    }
+    const H = (hls || []).map((h) => {
+      const ln = E.q('[data-hl="' + h.id + '"]', card);
+      const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
+      return { id: h.id, ln, lift, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, want: h.hold || 2.4 };
+    }).sort((a, b) => a.top - b.top);
+    // pages advance by 22 rows (one row of overlap); a page is pulled up so a key line never straddles an edge
+    const pages = [0];
+    while (pages[pages.length - 1] < lastTop) {
+      const cur = pages[pages.length - 1];
+      let nxt = Math.min(lastTop, cur + (ROWS - 1) * ROW);
+      for (const h of H) if (h.top > cur && h.top < cur + ROWS * ROW && h.bot > cur + ROWS * ROW) nxt = Math.min(nxt, h.top - 2 * ROW);
+      if (nxt <= cur) nxt = Math.min(lastTop, cur + ROW);
+      pages.push(nxt);
+    }
+    // a key line is held on the page where it sits furthest from the edges (the lift needs room)
+    H.forEach((h) => {
+      let bestM = -1e9;
+      h.page = 0;
+      pages.forEach((p, i) => {
+        const m = Math.min(h.top - p, p + ROWS * ROW - h.bot);
+        if (m >= 0 && m > bestM + 0.5) { bestM = m; h.page = i; }
+      });
+    });
+    // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
+    // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
+    const n = pages.length;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.25, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LIFT = 1.1, DIM = 0.38;
+    const mineOf = (i) => H.filter((h) => h.page === i);
+    const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.05 : 0.2);
+    // a plain last page stays settled a little longer before the exit
+    let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
+    for (let i = 0; i < n; i++) {
+      const mine = mineOf(i);
+      if (!mine.length) nPlain++;
+      else fixed += liftDelay(i) + (mine.length - 1) * UNLIFT + (isHold(i + 1) ? UNLIFT : UNDIM);
+      if (i < n - 1) fixed += isHold(i) && isHold(i + 1) ? DSLIDE : SLIDE;
+    }
+    fixed += tail;
+    const want = H.reduce((a, h) => a + h.want, 0);
+    let dwell = 0.45;
+    let room = t1 - t0 - fixed - nPlain * dwell;
+    if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
+      dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
+      room = t1 - t0 - fixed - nPlain * dwell;
+    }
+    if (H.length) {
+      let k = room / want;
+      if (k > 1.35) {
+        const extra = room - want * 1.35;
+        k = 1.35;
+        dwell += extra / (nPlain + 1);
+        tail += extra / (nPlain + 1);
+      }
+      H.forEach((h) => { h.hold = h.want * k; });
+      // keep a 2 s floor on every hold where the budget allows it
+      for (let it = 0; it < 3; it++) {
+        const low = H.filter((h) => h.hold < MINH), high = H.filter((h) => h.hold >= MINH);
+        if (!low.length || !high.length) break;
+        const need = low.reduce((a, h) => a + MINH - h.hold, 0);
+        const spare = high.reduce((a, h) => a + h.hold - MINH, 0);
+        const take = Math.min(need, spare);
+        low.forEach((h) => { h.hold += (MINH - h.hold) * (take / need); });
+        high.forEach((h) => { h.hold -= (h.hold - MINH) * (take / spare); });
+      }
+    } else {
+      dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
+    }
+    // the lines around a lifted key line make room for it: the ones next to it move up to PUSH px,
+    // each gap between two lines shrinks by at most COMP px, and the line at the page edge moves
+    // only EDGE px (inside its own leading, so no glyph is ever cut by the viewport)
+    const PUSH = 10, COMP = 4, EDGE = 2, plines = E.qa(".pl", body);
+    H.forEach((h) => {
+      // a tall key line zooms less, and grows toward the side of the page that has more lines to push
+      const lh = h.bot - h.top;
+      h.s = 1 + Math.min(LIFT - 1, 10 / lh);
+      const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
+      const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
+      const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
+      const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      const f = above.length + below.length ? Math.min(0.85, Math.max(0.15, above.length / (above.length + below.length))) : 0.5;
+      h.lift.style.transformOrigin = "50% " + (f * 100).toFixed(1) + "%";
+      // each side is pushed by what the panel grows on that side, plus a gap
+      const grow = [f * lh * (h.s - 1), (1 - f) * lh * (h.s - 1)];
+      h.push = [];
+      [[above, -1, grow[0]], [below, 1, grow[1]]].forEach(([ls, sgn, g]) => {
+        const m = ls.length, want = Math.max(PUSH, Math.round(g + 8));
+        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(want, EDGE + COMP * (m - 1 - j))]));
+      });
+    });
+    // the lifted copies sit over their line on the page where it is held (static layout)
+    H.forEach((h) => {
+      h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
+      h.lift.style.top = (bw + vp.offsetTop + h.top - pages[h.page]) + "px";
+      h.lift.style.width = h.ln.offsetWidth + "px";
+    });
+    tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
+    tl.fromTo(card, { rotationX: 16, y: 90, scale: 0.94, transformPerspective: 1600 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SPRING }), t0);
+    E.sweep(tl, card, t0 + 0.4, 1.0, { color: "rgba(201, 194, 255, 0.16)" });
+    const arrivals = [], slides = [], holdTimes = [];
+    let t = t0 + LEAD, dimmed = false, tFinal = null;
+    for (let i = 0; i < n; i++) {
+      arrivals.push(t);
+      const mine = mineOf(i);
+      if (!mine.length) t += dwell;
+      else {
+        t += liftDelay(i);
+        mine.forEach((h, j) => {
+          if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
+          dimmed = true;
+          tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: h.s, duration: 0.6, ease: SPRING }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
+          holdTimes.push(+t.toFixed(3));
+          h.t0 = t;
+          t += h.hold;
+          const keepDim = j < mine.length - 1 || isHold(i + 1);
+          const d = keepDim ? UNLIFT : UNDIM;
+          // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
+          tl.fromTo(h.lift, { scale: h.s }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
+          if (!keepDim) {
+            tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
+            dimmed = false;
+            if (i === n - 1) tFinal = t;
+          }
+          t += d;
+        });
+      }
+      if (i < n - 1) {
+        const sd = dimmed ? DSLIDE : SLIDE;
+        tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: sd, ease: "power2.inOut" }), t);
+        slides.push([t, sd]);
+        t += sd;
+      }
+    }
+    // tabs: one underline slides with the page to the section that fills most of the visible rows
+    const tabs = E.qa(".tab", card), ul = E.q(".tabul", card);
+    if (tabs.length && ul) {
+      const tags = tabs.map((tab) => E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card));
+      const starts = tags.map((g) => (g ? g.offsetTop : 1e9));
+      const secAt = (p) => {
+        let best = 0, bestRows = -1;
+        starts.forEach((st, j) => {
+          const en = j + 1 < starts.length ? starts[j + 1] : 1e9;
+          const vis = Math.max(0, Math.min(en, p + ROWS * ROW) - Math.max(st, p));
+          if (vis > bestRows) { bestRows = vis; best = j; }
+        });
+        return best;
+      };
+      const MUTED = "#9c99ae", INK = "#f5f2ea";
+      const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
+      let cur = secAt(pages[0]);
+      ul.style.left = pos(cur).left + "px";
+      ul.style.width = pos(cur).width + "px";
+      tl.fromTo(ul, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power2.out" }), t0 + 0.1);
+      tl.fromTo(tabs[cur], { color: MUTED }, A({ color: INK, duration: 0.2 }), t0 + 0.1);
+      const move = (k, ta, d) => {
+        const a = pos(cur), b = pos(k);
+        tl.fromTo(ul, { left: a.left, width: a.width }, A({ left: b.left, width: b.width, duration: d, ease: "power3.inOut" }), ta);
+        tl.fromTo(tabs[cur], { color: INK }, A({ color: MUTED, duration: 0.2 }), ta + d / 2 - 0.1);
+        tl.fromTo(tabs[k], { color: MUTED }, A({ color: INK, duration: 0.2 }), ta + d / 2 - 0.1);
+        cur = k;
+      };
+      // the section that holds the last visible row (the end of the prompt on the last page)
+      const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      // while a key line is lifted, the underline sits on that line's own section
+      const secOf = (y) => { let k = 0; starts.forEach((st, j) => { if (st <= y) k = j; }); return k; };
+      const ev = [];
+      for (let i = 1; i < n; i++) {
+        const mine = mineOf(i);
+        const k = mine.length ? secOf(mine[0].top) : i === n - 1 ? lastVisible(pages[i]) : secAt(pages[i]);
+        ev.push([slides[i - 1][0], k, Math.max(0.3, slides[i - 1][1])]);
+      }
+      H.forEach((h) => ev.push([h.t0, secOf(h.top), 0.3]));
+      ev.sort((a, b) => a[0] - b[0]).forEach(([ta, k, d]) => { if (k !== cur) move(k, ta, d); });
+      // a last page with key lines: its last section takes over when the page undims
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) !== cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
+    }
+    tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
+    return {
+      pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
+      holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, s: +h.s.toFixed(3), origin: h.lift.style.transformOrigin, push: h.push.map((x) => Math.round(x[1])).join(" ") })),
+    };
+  };
+
+  /* Standard topic scene. Layout is measured once (static):
+     the title and the explanation sit at the top; the illustration fills the safe area below.
+     title -> illustration enters -> explanation phrase by phrase (current phrase bright, the
+     illustration shows each phrase, bouncy zoom inside it on the key phrase) -> payoff ->
+     fact over the dimmed illustration -> prompt card -> tip. */
+  E.topic = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const hdr = E.q(".hdr", sc), main = E.q(".main", sc), exp = E.q(".exp", sc), ttl = E.q(".ttl", sc);
+    const stage = E.q(".stage", sc), simtag = E.q(".simtag", sc), fact = E.q(".factbox", sc);
+    const stcam = E.q(".stcam", sc), stfit = E.q(".stfit", sc);
+    // static layout
+    const TOP = 376, BOTTOM = 1566;
+    const h = main.offsetHeight;
+    const stTop = Math.round(TOP + h + 30);
+    stage.style.top = stTop + "px";
+    stage.style.height = BOTTOM - stTop + "px";
+    const camH = BOTTOM - stTop - 50;
+    const simH = (E.q(".simwrap", sc) || { offsetHeight: 700 }).offsetHeight || 700;
+    stfit.style.height = simH + "px";
+    stfit.style.marginTop = -simH / 2 + "px";
+    const fit = Math.min(1, camH / simH);
+    if (fit < 1) stfit.style.transform = "scale(" + fit.toFixed(3) + ")";
+    if (fact) { fact.style.top = stTop + 50 + "px"; fact.style.height = camH + "px"; }
+    Object.assign(ctx, { stcam, stfit, fit, stTop });
+    // scene change: a light band crosses the frame while the camera settles
+    E.band(tl, sc, S);
+    tl.fromTo(ctx.cam, { scale: 1.035 }, A({ scale: 1, duration: 1.0, ease: SPRING }), S);
+    E.fadeIn(tl, hdr, S, 0.3, 0);
+    E.kin(tl, ttl, S);
+    // the illustration enters with the explanation
+    E.fadeIn(tl, simtag, S + cfg.tStage, 0.4, 0);
+    tl.fromTo(stage, { opacity: 0, y: 46 }, A({ opacity: 1, y: 0, duration: 0.8, ease: SPRING }), S + cfg.tStage);
+    // explanation: phrase by phrase; the phrase being read is bright, the ones before step back
+    E.kin(tl, exp, S, { dy: 14 });
+    const phs = E.qa(".ph", exp);
+    phs.forEach((ph, i) => {
+      const tEnd = i + 1 < phs.length ? cfg.phr[i + 1] : cfg.phrEnd + 0.8;
+      tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0.5, duration: 0.45, ease: "power2.out" }), S + tEnd);
+      E.qa(".accgrp", ph).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#dcd9e6", duration: 0.45 }), S + tEnd));
+      E.qa(".ul", ph).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + tEnd));
+    });
+    if (window.SIMS[cfg.sim]) window.SIMS[cfg.sim](tl, ctx, cfg, S);
+    // bouncy zoom inside the illustration on the key phrase (focus: [data-focus="<phrase>"])
+    const acc = E.q(".exp .accgrp", sc);
+    if (acc && cfg.expZoom) {
+      const p = +(acc.closest(".ph") || { dataset: { p: 0 } }).dataset.p;
+      const tb = p + 1 < cfg.phr.length ? cfg.phr[p + 1] : cfg.phrEnd + 0.6;
+      const focus = E.q('[data-focus="' + p + '"]', stage) || E.q("[data-focus]", stage);
+      E.zoomStage(tl, ctx, focus, S + parseFloat(acc.dataset.t) + 0.1, cfg.expZoom, S + tb);
+    }
+    const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
+    if (cfg.tFact != null) {
+      // the fact takes over the illustration's area; the illustration steps far back
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.06, 1, 0.4);
+      E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const scrim = E.q(".factbox .fscrim", sc);
+      if (scrim) tl.fromTo(scrim, { opacity: 0 }, A({ opacity: 1, duration: 0.4, ease: "power2.out" }), S + cfg.tFact - 0.45);
+      const pill = E.q(".factbox .pill", sc);
+      if (pill) {
+        tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
+        tl.fromTo(pill, { scale: 0.92, y: 20 }, A({ scale: 1, y: 0, duration: 0.45, ease: SPRING }), S + cfg.tFact - 0.1);
+        E.sweep(tl, pill, S + cfg.tFact + 0.25, 0.7, { color: "rgba(120, 100, 255, 0.28)" });
+        E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
+      }
+      E.kin(tl, fact, S, { dy: 12 });
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.06, 0.25);
+    } else {
+      E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
+      E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
+    }
+    E.dim(tl, simtag, S + (cfg.tFact != null ? cfg.tFact - 0.45 : tNext - 0.35), 0, 1, 0.3);
+    // first cut: the title (and the fact) leave before the card or the tip arrives
+    tl.fromTo(main, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), S + tNext - 0.3);
+    if (fact) E.fadeOut(tl, fact, S + tNext - 0.3, 0.25, -20);
+    let info = null;
+    if (cfg.tPrompt != null) {
+      const pend = cfg.tTip != null ? cfg.tTip : cfg.tPromptEnd;
+      info = E.prompt(tl, ctx, E.q(".pcard", sc), S + cfg.tPrompt, S + pend, cfg.hls);
+    }
+    if (cfg.tTip != null) {
+      const tip = E.q(".tipcard", sc);
+      tl.fromTo(tip, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + cfg.tTip);
+      tl.fromTo(tip, { scale: 0.96, y: 30, rotationX: 10, transformPerspective: 1400 }, A({ scale: 1, y: 0, rotationX: 0, duration: 0.7, ease: SPRING }), S + cfg.tTip);
+      E.qa(".tip-ico .dr", sc).forEach((pth, i) => E.draw(tl, pth, S + cfg.tTip + 0.15 + i * 0.18, 0.55));
+      E.kin(tl, E.q(".tip-text", sc), S);
+      E.fadeOut(tl, tip, S + cfg.D - 0.4, 0.3, -20);
+    }
+    E.fadeOut(tl, hdr, S + cfg.D - 0.4, 0.3, 0);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { stTop, h, fit: +fit.toFixed(3) }, prompt: info };
+  };
+
+  /* Chapter title card. Frame 0 already shows the number (springing from 0.9), its rings, the kicker and
+     the dots, so a cut never lands on an empty frame; the title follows, the subtitle (and tag) only after
+     it, and the chapter's line-art motif draws itself beside the number. The hold stays alive: a slow
+     1.00 -> 1.03 push of the whole card, a glow that breathes on the number, a small motion in the motif.
+     The exit is a 0.22 s push-through. */
+  E.chapter = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene, T = cfg.T || {}, D = cfg.D;
+    const chap = E.q(".chap", sc), cam = E.q(".ch-cam", sc);
+    const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // static layout: the title is one line no wider than 760 px; the divider and texts flow under it
+    const tt = E.q(".ch-title", sc), tin = E.q(".ch-tin", sc);
+    if (tin && tin.offsetWidth > 760) tt.style.fontSize = (78 * 760 / tin.offsetWidth).toFixed(1) + "px";
+    const tBot = tt.offsetTop + tt.offsetHeight;
+    line.style.top = tBot + 30 + "px";
+    const sub = E.q(".ch-sub", sc), tag = E.q(".ch-tag", sc);
+    if (sub) sub.style.top = tBot + 66 + "px";
+    if (tag && sub) tag.style.top = tBot + 66 + sub.offsetHeight + 34 + "px";
+    // scene change: light band; the number is there from the first frame, rings and sparks go out from it
+    E.band(tl, sc, S);
+    tl.fromTo(n, { scale: 0.9, rotationY: -16, transformPerspective: 1200 }, A({ scale: 1, rotationY: 0, duration: 0.9, ease: SPRING }), S);
+    E.qa(".ch-ring", sc).forEach((r, i) => {
+      tl.fromTo(r, { scale: 0.66 + i * 0.14, opacity: 0.85 - i * 0.2 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S);
+    });
+    // sparks leave from the ring's edge (never a stack of dots over the number)
+    const rnd = E.rand(5);
+    for (let i = 0; i < 18; i++) {
+      const d = document.createElement("i"), sz = 5 + rnd() * 6, ang = (i / 18) * Math.PI * 2 + rnd() * 0.3;
+      const r0 = 128, r1 = 210 + rnd() * 150, dur = 0.6 + rnd() * 0.35;
+      d.className = "fx-dot";
+      d.style.cssText = "left:" + (540 + Math.cos(ang) * r0).toFixed(1) + "px;top:" + (670 + Math.sin(ang) * r0).toFixed(1) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:#ffffff;box-shadow:0 0 10px #ffffff";
+      sc.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * (r1 - r0), y: Math.sin(ang) * (r1 - r0), scale: 0.35, duration: dur, ease: "power3.out" }), S + 0.03);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), S + 0.03);
+    }
+    tl.fromTo(k, { opacity: 0.35, y: 8 }, A({ opacity: 1, y: 0, duration: 0.4, ease: SPRING }), S);
+    tl.fromTo(dots, { opacity: 0.4, y: 8 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SPRING }), S);
+    E.kin(tl, tt, S);
+    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.6, ease: "power3.inOut" }), S + (T.line || 0.5));
+    E.kin(tl, sub, S, { dy: 12 });
+    E.kin(tl, tag, S, { dy: 10 });
+    // the chapter motif draws itself, then keeps a small motion through the hold
+    const mo = E.q(".ch-mo", sc), mq = (s) => E.q(s, mo), mqa = (s) => E.qa(s, mo);
+    if (mo) {
+      E.qa(".dr", mo).forEach((p, i) => E.draw(tl, p, S + 0.06 + i * 0.035, 0.7));
+      E.qa(".mo-solid", mo).forEach((p) => tl.fromTo(p, { fillOpacity: 0 }, A({ fillOpacity: 1, duration: 0.3 }), S + 0.3));
+      E.qa(".fl", mo).forEach((p, i) => tl.fromTo(p, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.25 + i * 0.06));
+      const hold0 = Math.max(1.0, (T.lw || 1) - 0.4), N = cfg.n;
+      if (N === 1) {
+        // the cursor blinks
+        const cur = mq(".mo-cur");
+        for (let a = hold0, on = false; a < D - 0.3; a += 0.5, on = !on) tl.set(cur, { opacity: on ? 1 : 0 }, S + a);
+      } else if (N === 2) {
+        // a playhead runs over the waveform
+        const ph = mq(".mo-ph");
+        tl.fromTo(ph, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.8);
+        tl.fromTo(ph, { x: 0 }, A({ x: 164, duration: D - 1.1, ease: "none" }), S + 0.8);
+      } else if (N === 3) {
+        // the cube settles in and turns slowly
+        const mi = mq(".mo-in");
+        tl.fromTo(mi, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.8, ease: SPRING }), S + 0.05);
+        tl.fromTo(mq(".mo-cube"), { rotationY: -10 }, A({ rotationY: 62, duration: D, ease: "power1.out" }), S);
+      } else if (N === 4) {
+        // the play mark pulses
+        const pl = mq(".mo-play");
+        for (let a = hold0, j = 0; a + 0.6 < D - 0.25; a += 0.6, j++) {
+          tl.fromTo(pl, { scale: j % 2 ? 1.16 : 1, transformOrigin: "50% 50%" }, A({ scale: j % 2 ? 1 : 1.16, duration: 0.6, ease: "sine.inOut" }), S + a);
+        }
+      } else if (N === 5) {
+        // the plug goes into the socket and the connection glows
+        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -18, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
+        const rg = mq(".mo-ring");
+        tl.fromTo(rg, { opacity: 0.9, scale: 0.6, transformOrigin: "50% 50%" }, A({ opacity: 0, scale: 1.7, duration: 0.8, ease: "power2.out" }), S + hold0 + 0.4);
+      } else if (N === 6) {
+        // a scan line runs down the window; the sensitive line blurs as it passes
+        const scn = mq(".mo-scan"), tB = hold0 + 0.75;
+        tl.fromTo(scn, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + hold0);
+        tl.fromTo(scn, { y: 0 }, A({ y: 108, duration: 1.2, ease: "none" }), S + hold0);
+        tl.fromTo(scn, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), S + hold0 + 1.0);
+        tl.fromTo(mq(".mo-sharp"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), S + tB);
+        tl.fromTo(mq(".mo-blur"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + tB);
+      } else if (N === 7) {
+        // the draft bar fills fast and gets its check; the full render crawls
+        const f1 = mq(".mo-f1"), f2 = mq(".mo-f2");
+        [f1, f2].forEach((f) => tl.fromTo(f, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), S + 0.75));
+        tl.fromTo(f2, { scaleX: 0.04, transformOrigin: "0% 50%" }, A({ scaleX: 1, duration: 1.0, ease: "power1.inOut" }), S + 0.75);
+        tl.fromTo(f1, { scaleX: 0.04, transformOrigin: "0% 50%" }, A({ scaleX: 0.3, duration: D - 1.0, ease: "none" }), S + 0.75);
+        E.draw(tl, mq(".mo-ck"), S + 1.8, 0.35);
+      } else {
+        // the list gets checked, one row after another
+        mqa(".mo-ck").forEach((p, i) => E.draw(tl, p, S + hold0 + i * 0.35, 0.3));
+      }
+    }
+    // the hold: a slow push of the whole card and a soft glow that breathes on the number
+    tl.fromTo(cam, { scale: 1 }, A({ scale: 1.03, duration: D, ease: "none" }), S);
+    const G0 = "0 0 40px rgba(255, 69, 58, 0.35)", G1 = "0 0 70px rgba(255, 69, 58, 0.8)";
+    for (let a = 0.9, up = true; a + 1.0 <= D - 0.2; a += 1.0, up = !up) {
+      tl.fromTo(n, { textShadow: up ? G0 : G1 }, A({ textShadow: up ? G1 : G0, duration: 1.0, ease: "sine.inOut" }), S + a);
+    }
+    // exit: a short push-through into the next scene
+    tl.fromTo(chap, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.025, duration: 0.22, ease: "power2.in" }), S + D - 0.22);
+    E.debug.scenes[cfg.id] = { S, D, type: "chapter" };
+  };
+
+  window.SIMS = window.SIMS || {};
+})();
+
+window.SIMS = window.SIMS || {};
+window.SIMS.sim52 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, c = cfg.sim52, P = cfg.phr, pe = cfg.phrEnd;
+  const T = (x) => S + x;                    // scene-local -> master time
+  const q = (s) => E.q(s, sc), qa = (s) => E.qa(s, sc);
+  const root = q(".sim52");
+  const wal = q(".s52-wal"), cells = qa(".s52-cell"), fills = qa(".s52-cell b");
+  // where coins go in and out of the wallet (its top edge, measured once)
+  const mouth = { x: wal.offsetLeft + wal.offsetWidth / 2, y: wal.offsetTop + 44 };
+  const coin = (x, y) => {
+    const el = document.createElement("i");
+    el.className = "s52-coin";
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+    root.appendChild(el);
+    return el;
+  };
+  // an arc: x eases across, y rises to `lift` then falls to dy
+  const fly = (el, dx, dy, lift, t, d) => {
+    tl.fromTo(el, { x: 0 }, A({ x: dx, duration: d, ease: "power1.inOut" }), t);
+    tl.fromTo(el, { y: 0 }, A({ y: lift, duration: d / 2, ease: "power2.out" }), t);
+    tl.fromTo(el, { y: lift }, A({ y: dy, duration: d / 2, ease: "power2.in" }), t + d / 2);
+  };
+  const center = (el) => { const o = E.off(el, root); return { x: o.x + el.offsetWidth / 2, y: o.y + el.offsetHeight / 2 }; };
+
+  // B0 establishing shot: the wallet draws on, its balance cells wait empty
+  const t0 = cfg.tStage;
+  E.draw(tl, q(".s52-wbody"), T(t0 + 0.05), 0.8);
+  tl.fromTo(q(".s52-wfill"), { opacity: 0 }, A({ opacity: 1, duration: 0.5 }), T(t0 + 0.3));
+  E.draw(tl, q(".s52-wtabl"), T(t0 + 0.4), 0.4);
+  tl.fromTo(q(".s52-wname"), { opacity: 0 }, A({ opacity: 1, duration: 0.4 }), T(t0 + 0.45));
+  cells.forEach((cl, i) => tl.fromTo(cl, { opacity: 0, y: 8 }, A({ opacity: 1, y: 0, duration: 0.35, ease: E.SPRING }), T(t0 + 0.3 + i * 0.03)));
+  E.fadeIn(tl, q(".s52-bal"), T(t0 + 0.45), 0.4, 8);
+
+  // B1 "ב-fal אין מנוי חובה": a monthly subscription is struck out
+  const b1 = P[0], sub = q(".s52-sub");
+  tl.fromTo(sub, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b1 + 0.05));
+  tl.fromTo(sub, { x: -24, rotationY: 16, transformPerspective: 900 }, A({ x: 0, rotationY: 0, transformPerspective: 900, duration: 0.6, ease: E.SPRING }), T(b1 + 0.05));
+  qa(".s52-subr").forEach((r, i) => tl.fromTo(r, { opacity: 0, x: 16 }, A({ opacity: 1, x: 0, duration: 0.35, ease: E.SPRING }), T(b1 + 0.22 + i * 0.1)));
+  E.draw(tl, q(".s52-strike path"), T(b1 + 0.72), 0.3, "power2.in");
+  E.glitch(tl, sub, T(b1 + 0.95), 7);
+  const xb = q(".s52-x");
+  tl.fromTo(xb, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(b1 + 0.95));
+  qa(".s52-x path").forEach((p, i) => E.draw(tl, p, T(b1 + 1.0 + i * 0.12), 0.22));
+  E.dim(tl, q(".s52-subh"), T(b1 + 1.15), 0.45);
+  qa(".s52-subr").forEach((r) => E.dim(tl, r, T(b1 + 1.15), 0.45));
+
+  // B2 "קונים קרדיטים מראש בדשבורד החיובים": the billing dashboard's button sends coins into the wallet
+  const b2 = P[1], dash = q(".s52-dash"), buy = q(".s52-buy");
+  E.fadeOut(tl, sub, T(b2), 0.25, -20);
+  tl.fromTo(dash, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b2 + 0.2));
+  tl.fromTo(dash, { y: 22, scale: 0.96 }, A({ y: 0, scale: 1, duration: 0.6, ease: E.SPRING }), T(b2 + 0.2));
+  qa(".s52-chart i").forEach((b, i) => tl.fromTo(b, { scaleY: 0.1 }, A({ scaleY: 1, duration: 0.5, ease: E.SPRING }), T(b2 + 0.28 + i * 0.04)));
+  tl.fromTo(buy, { scale: 1 }, A({ scale: 0.92, duration: 0.1, ease: "power1.out" }), T(b2 + 0.5));
+  tl.fromTo(buy, { scale: 0.92 }, A({ scale: 1, duration: 0.4, ease: "back.out(2.2)" }), T(b2 + 0.6));
+  E.sweep(tl, buy, T(b2 + 0.52), 0.55, { color: "rgba(255, 255, 255, 0.75)" });
+  const bc = center(buy);
+  for (let k = 0; k < 5; k++) {
+    const el = coin(bc.x, bc.y), t = T(b2 + 0.55 + k * 0.09), d = 0.5;
+    tl.fromTo(el, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 1, duration: 0.15 }), t);
+    fly(el, mouth.x - bc.x, mouth.y - bc.y, Math.min(0, mouth.y - bc.y) - 70, t, d);
+    tl.fromTo(el, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 0.55, duration: 0.12, ease: "power1.in" }), t + d - 0.04);
+    [2 * k, 2 * k + 1].forEach((j, m) => {
+      tl.fromTo(fills[j], { opacity: 0, scaleY: 0.2 }, A({ opacity: 1, scaleY: 1, duration: 0.3, ease: "back.out(2)" }), t + d + m * 0.05);
+    });
+  }
+  const tFull = b2 + 0.55 + 4 * 0.09 + 0.5;
+  tl.fromTo(wal, { scale: 1 }, A({ scale: 1.05, duration: 0.12, ease: "power1.out" }), T(tFull));
+  tl.fromTo(wal, { scale: 1.05 }, A({ scale: 1, duration: 0.45, ease: E.SPRING }), T(tFull + 0.12));
+
+  // B3 "וכל תוצאה שיצאה בהצלחה יורדת מהיתרה": a result renders and comes out; one coin of the balance pays for it
+  const b3 = P[2], res = q(".s52-res");
+  E.fadeOut(tl, dash, T(b3), 0.25, -20);
+  tl.fromTo(res, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b3 + 0.2));
+  tl.fromTo(res, { y: 22, scale: 0.96 }, A({ y: 0, scale: 1, duration: 0.6, ease: E.SPRING }), T(b3 + 0.2));
+  E.draw(tl, q(".s52-rp"), T(b3 + 0.32), 0.62, "power1.inOut");
+  tl.fromTo(q(".s52-ring"), { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b3 + 0.98));
+  tl.fromTo(q(".s52-gen"), { opacity: 1 }, A({ opacity: 0, duration: 0.35, ease: "power2.out" }), T(b3 + 0.96));
+  E.sweep(tl, q(".s52-thumb"), T(b3 + 1.0), 0.6, { color: "rgba(255, 255, 255, 0.35)" });
+  const rok = q(".s52-rok"), thc = center(q(".s52-thumb"));
+  tl.fromTo(rok, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(b3 + 1.0));
+  E.draw(tl, q(".s52-rok path"), T(b3 + 1.05), 0.3);
+  E.burst(tl, root, thc.x, thc.y, T(b3 + 1.0), { n: 12, seed: 61, r0: 95, r1: 150, color: "#c9c2ff" });
+  E.fadeIn(tl, q(".s52-resl"), T(b3 + 1.05), 0.45, 12);
+  const resl = q(".s52-resl span"), ro = E.off(resl, root);
+  const pay = { x: ro.x - 34, y: ro.y + resl.offsetHeight / 2 };
+  const pc = coin(mouth.x, mouth.y), tp = T(b3 + 1.25);
+  tl.fromTo(pc, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 0.85, duration: 0.15 }), tp);
+  fly(pc, pay.x - mouth.x, pay.y - mouth.y, -60, tp, 0.5);
+  tl.fromTo(fills[9], { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power2.in" }), tp);
+  tl.fromTo(cells[9], { borderColor: "rgba(201, 194, 255, 0.34)" }, A({ borderColor: "rgba(255, 255, 255, 0.95)", duration: 0.12 }), tp);
+  tl.fromTo(cells[9], { borderColor: "rgba(255, 255, 255, 0.95)" }, A({ borderColor: "rgba(201, 194, 255, 0.34)", duration: 0.5 }), tp + 0.15);
+
+  // B4 "על שגיאה של השרת או על המתנה בתור לא משלמים": the server fails, the queue waits;
+  // their coins come back to the wallet, and the stamp says it (the camera punches in on it)
+  const b4 = P[3], ca = q(".s52-ca"), cb = q(".s52-cb"), st = q(".s52-stamp");
+  E.fadeOut(tl, res, T(b4), 0.25, -20);
+  tl.fromTo(pc, { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(b4));
+  tl.fromTo(ca, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b4 + 0.18));
+  tl.fromTo(ca, { x: -26 }, A({ x: 0, duration: 0.55, ease: E.SPRING }), T(b4 + 0.18));
+  tl.fromTo(cb, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b4 + 0.3));
+  tl.fromTo(cb, { x: -26 }, A({ x: 0, duration: 0.55, ease: E.SPRING }), T(b4 + 0.3));
+  const warn = q(".s52-warn");
+  tl.fromTo(warn, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(b4 + 0.5));
+  E.draw(tl, q(".s52-warn path"), T(b4 + 0.55), 0.25);
+  E.glitch(tl, q(".s52-ca .s52-ico"), T(b4 + 0.5), 8);
+  const hg = q(".s52-hg");
+  tl.fromTo(hg, { rotation: 0 }, A({ rotation: 180, duration: 0.6, ease: "power2.inOut" }), T(b4 + 0.62));
+  tl.fromTo(hg, { rotation: 180 }, A({ rotation: 360, duration: 0.6, ease: "power2.inOut" }), T(b4 + 1.9));
+  qa(".s52-q i").forEach((b, i) => {
+    tl.fromTo(b, { x: 0 }, A({ x: -28, duration: 0.45, ease: E.SPRING }), T(b4 + 0.95 + i * 0.04));
+    tl.fromTo(b, { x: -28 }, A({ x: -56, duration: 0.45, ease: E.SPRING }), T(b4 + 1.95 + i * 0.04));
+  });
+  // the stamp lands with the accent
+  tl.fromTo(st, { opacity: 0 }, A({ opacity: 1, duration: 0.14 }), T(b4 + 0.58));
+  tl.fromTo(st, { scale: 1.4, rotation: -14 }, A({ scale: 1, rotation: -6, duration: 0.5, ease: "back.out(1.6)" }), T(b4 + 0.58));
+  const stc = center(st);
+  E.burst(tl, root, stc.x, stc.y, T(b4 + 0.86), { n: 14, seed: 63, r0: 130, r1: 150, color: "#c9c2ff" });
+  // each failed call: a coin heads for the card, bounces off its edge and drops straight back into the wallet
+  // (it never settles at the card: nothing is charged)
+  [ca, cb].forEach((card, i) => {
+    const co = E.off(card, root), tx = co.x + card.offsetWidth + 6, ty = co.y + card.offsetHeight / 2;
+    const el = coin(mouth.x, mouth.y), t = T(b4 + 1.0 + i * 0.42), go = 0.36;
+    const dx = Math.round(tx - mouth.x), dy = Math.round(ty - mouth.y), lift = Math.min(0, dy) - 40;
+    tl.fromTo(el, { opacity: 0, scale: 0.5 }, A({ opacity: 1, scale: 0.85, duration: 0.15 }), t);
+    fly(el, dx, dy, lift, t, go);
+    // the card edge pushes back (a small jolt) as the coin hits it
+    tl.fromTo(card, { x: 0 }, A({ x: -6, duration: 0.06, ease: "power1.out" }), t + go);
+    tl.fromTo(card, { x: -6 }, A({ x: 0, duration: 0.3, ease: E.SPRING }), t + go + 0.06);
+    // rebound: out from the edge, then a short arc back into the wallet
+    tl.fromTo(el, { x: dx }, A({ x: dx + 30, duration: 0.12, ease: "power2.out" }), t + go);
+    tl.fromTo(el, { x: dx + 30 }, A({ x: 0, duration: 0.42, ease: "power2.inOut" }), t + go + 0.12);
+    tl.fromTo(el, { y: dy }, A({ y: Math.min(dy, 0) - 34, duration: 0.24, ease: "power2.out" }), t + go);
+    tl.fromTo(el, { y: Math.min(dy, 0) - 34 }, A({ y: 0, duration: 0.3, ease: "power2.in" }), t + go + 0.24);
+    tl.fromTo(el, { opacity: 1, scale: 0.85 }, A({ opacity: 0, scale: 0.5, duration: 0.12 }), t + go + 0.46);
+  });
+  // the balance did not move
+  E.sweep(tl, q(".s52-meter"), T(b4 + 2.3), 0.7, { color: "rgba(255, 255, 255, 0.35)" });
+
+  // B5 "והקרדיטים תקפים לשנה": a year calendar fills month by month
+  const b5 = P[4], cal = q(".s52-cal");
+  E.fadeOut(tl, ca, T(b5), 0.25, -20);
+  E.fadeOut(tl, cb, T(b5), 0.25, -20);
+  tl.fromTo(st, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), T(b5));
+  tl.fromTo(cal, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b5 + 0.2));
+  tl.fromTo(cal, { rotationX: -50, y: -16, transformPerspective: 1000 }, A({ rotationX: 0, y: 0, transformPerspective: 1000, duration: 0.65, ease: E.SPRING }), T(b5 + 0.2));
+  qa(".s52-mo b").forEach((m, i) => tl.fromTo(m, { opacity: 0 }, A({ opacity: 1, duration: 0.18 }), T(b5 + 0.42 + i * 0.045)));
+  const calok = q(".s52-calok");
+  tl.fromTo(calok, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(b5 + 0.98));
+  E.draw(tl, q(".s52-calok path"), T(b5 + 1.02), 0.3);
+  E.sweep(tl, q(".s52-meter"), T(b5 + 1.0), 0.6, { color: "rgba(255, 255, 255, 0.3)" });
+
+  // payoff: the connection steps. Claude Code adds the server, /mcp connects with no API key,
+  // the reopen hint, and claude.ai adds it as a connector like Higgsfield
+  E.fadeOut(tl, cal, T(pe + 0.02), 0.3, -20);
+  tl.fromTo(q(".s52-walu"), { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power2.in" }), T(pe + 0.02));
+  const tT = pe + c.tTerm, term = q(".s52-term");
+  tl.fromTo(term, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(tT));
+  tl.fromTo(term, { rotationX: -40, y: -8, transformPerspective: 1100 }, A({ rotationX: 0, y: 0, transformPerspective: 1100, duration: 0.65, ease: E.SPRING }), T(tT));
+  const stepIn = (el, t) => {
+    tl.fromTo(el, { opacity: 0, x: 18 }, A({ opacity: 1, x: 0, duration: 0.45, ease: E.SPRING }), T(t));
+    const n = E.q(".s52-n", el);
+    if (n) tl.fromTo(n, { scale: 0.5 }, A({ scale: 1, duration: 0.45, ease: "back.out(2)" }), T(t + 0.05));
+  };
+  const okIn = (el, t) => {
+    tl.fromTo(el, { opacity: 0, scale: 0.6 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(t));
+    E.draw(tl, E.q("path", el), T(t + 0.04), 0.28);
+  };
+  // 1. ask Claude to add the server: the address is pasted
+  stepIn(q(".s52-st1"), tT + 0.25);
+  const ty = q(".s52-typed"), sel = q(".s52-sel");
+  tl.fromTo(ty, { clipPath: "inset(0px 100% 0px 0px)" }, A({ clipPath: "inset(0px 0% 0px 0px)", duration: 0.15, ease: "power1.out" }), T(tT + 0.62));
+  tl.fromTo(sel, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(tT + 0.62));
+  tl.fromTo(sel, { opacity: 1 }, A({ opacity: 0, duration: 0.5, ease: "power2.out" }), T(tT + 0.92));
+  E.sweep(tl, q(".s52-in"), T(tT + 0.65), 0.55, { color: "rgba(255, 255, 255, 0.22)" });
+  okIn(q(".s52-uok"), tT + 0.95);
+  // 2. /mcp, connect, no API key
+  stepIn(q(".s52-st2"), tT + 1.2);
+  E.draw(tl, q(".s52-kx"), T(tT + 1.5), 0.3);
+  tl.fromTo(q(".s52-out"), { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), T(tT + 1.4));
+  const cmd = q(".s52-cmd");
+  tl.fromTo(cmd, { clipPath: "inset(0px 100% 0px 0px)" }, A({ clipPath: "inset(0px 0% 0px 0px)", duration: 0.26, ease: "steps(" + cmd.textContent.length + ")" }), T(tT + 1.5));
+  const srv = q(".s52-srv");
+  tl.fromTo(srv, { opacity: 0, x: -12 }, A({ opacity: 1, x: 0, duration: 0.4, ease: E.SPRING }), T(tT + 1.85));
+  okIn(q(".s52-sok"), tT + 2.05);
+  const sdot = q(".s52-sdot");
+  tl.fromTo(sdot, { scale: 1 }, A({ scale: 1.7, duration: 0.2, ease: "power2.out" }), T(tT + 2.05));
+  tl.fromTo(sdot, { scale: 1.7 }, A({ scale: 1, duration: 0.35, ease: "power2.inOut" }), T(tT + 2.25));
+  // 3. if fal is missing: close and reopen in the same folder
+  const tH = pe + c.tHint, hint = q(".s52-hint");
+  tl.fromTo(hint, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(tH));
+  tl.fromTo(hint, { x: 16 }, A({ x: 0, duration: 0.55, ease: E.SPRING }), T(tH));
+  tl.fromTo(E.q(".s52-n", hint), { scale: 0.5 }, A({ scale: 1, duration: 0.45, ease: "back.out(2)" }), T(tH + 0.05));
+  tl.fromTo(q(".s52-rarr"), { rotation: 0, svgOrigin: "40 40" }, A({ rotation: 360, svgOrigin: "40 40", duration: 1.0, ease: "power2.inOut" }), T(tH + 0.3));
+  const fold = q(".s52-fold");
+  tl.fromTo(fold, { scale: 1, svgOrigin: "40 43" }, A({ scale: 0.75, svgOrigin: "40 43", duration: 0.25, ease: "power2.in" }), T(tH + 0.45));
+  tl.fromTo(fold, { scale: 0.75, svgOrigin: "40 43" }, A({ scale: 1, svgOrigin: "40 43", duration: 0.45, ease: "back.out(2.2)" }), T(tH + 0.75));
+  // 4. claude.ai: added as a connector, like Higgsfield
+  const tW = pe + c.tWeb, web = q(".s52-web");
+  tl.fromTo(web, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(tW));
+  tl.fromTo(web, { rotationX: -40, y: -14, transformPerspective: 1100 }, A({ rotationX: 0, y: 0, transformPerspective: 1100, duration: 0.6, ease: E.SPRING }), T(tW));
+  stepIn(q(".s52-st4"), tW + 0.2);
+  const ch2 = q(".s52-ch2");
+  tl.fromTo(ch2, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }), T(tW + 0.55));
+  const c2 = center(ch2);
+  E.burst(tl, root, c2.x, c2.y - 6, T(tW + 0.6), { n: 10, seed: 65, r0: 34, r1: 44, color: "#c9c2ff" });
+  okIn(E.q(".s52-cok", ch2), tW + 0.8);
+  // all set: one calm light pass
+  [term, hint, web].forEach((el, k) => E.sweep(tl, el, T(tW + 1.2 + k * 0.1), 0.75, { color: "rgba(201, 194, 255, 0.14)" }));
+  // as the stage dims for the fact, the step windows leave entirely (no faint labels around the fact's backing)
+  [term, hint, web].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), T(cfg.tSimEnd - 0.45)));
+};
+
+
+(function () {
+  const CFGS = [{"id": "t52", "sim": "sim52", "D": 34.52, "tStage": 1.9, "tExp": 2.5, "phr": [2.5, 4.2, 5.9, 7.85, 10.95], "phrEnd": 12.55, "tSimEnd": 19.55, "tFact": 19.55, "tPrompt": 24.64, "tPromptEnd": 30.64, "tTip": 30.64, "expZoom": 0.07, "simDur": 17.65, "hls": [{"id": "hl1", "hold": 2.2, "zoom": 0.1}], "sim52": {"wallet": "fal", "balance": "יתרה", "sub": "מנוי חובה", "dash": "דשבורד החיובים", "buy": "קונים קרדיטים", "ok": "יצאה בהצלחה", "err": "שגיאה של השרת", "queue": "המתנה בתור", "free": "לא משלמים", "year": "תקף לשנה", "tTerm": 0.35, "tHint": 2.9, "tWeb": 4.2, "steps": {"cc": "Claude Code", "s1": "מבקשים מקלוד להוסיף את השרת", "url": "https://mcp.fal.ai/mcp-relay", "s2": "כותבים /mcp ומתחברים בלי מפתח API", "cmd": "/mcp", "srv": "fal", "s3a": "אם fal לא מופיע,", "s3b": "סוגרים ופותחים את Claude Code באותה תיקייה", "web": "claude.ai", "s4": "מוסיפים אותו כ-connector, בדיוק כמו Higgsfield", "chips": ["Higgsfield", "fal"]}}, "S": 0.0}];
+  const WINDOW = null;
+  const fontsReady = Promise.all([
+    document.fonts.load('400 38px Rubik', 'אבג abc 123'),
+    document.fonts.load('800 62px Rubik', 'אבג abc'),
+    document.fonts.load('900 40px Rubik', 'אבג'),
+    document.fonts.load('600 27px "IBM Plex Mono"', 'abc 123'),
+    document.fonts.load('400 27px "IBM Plex Sans Hebrew"', 'אבג'),
+  ]).then(() => document.fonts.ready);
+  fontsReady.then(() => {
+    const stage = document.querySelector('.stagewrap');
+    const cam = document.getElementById('cam');
+    const master = gsap.timeline({ paused: true });
+    // slow background drift for the whole video (the "camera that never stops")
+    const TOT = 34.520;
+    master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    window.ENG.dust(master, document.getElementById('bg'), TOT);
+    for (const cfg of CFGS) {
+      const scene = document.getElementById('sc-' + cfg.id);
+      const scam = scene.querySelector('.scam') || cam;
+      const hdr = scene.querySelector('.hdr');
+      if (cfg.type === 'chapter') window.ENG.chapter(master, { stage, cam: scam, scene, hdr }, cfg);
+      else if (cfg.type === 'custom') window.SIMS[cfg.sim](master, { stage, cam: scam, scene, hdr }, cfg, cfg.S);
+      else window.ENG.topic(master, { stage, cam: scam, scene, hdr }, cfg);
+    }
+    let root = master;
+    if (WINDOW) {
+      root = gsap.timeline({ paused: true });
+      root.add(master.tweenFromTo(WINDOW[0], WINDOW[1], { duration: WINDOW[1] - WINDOW[0], ease: 'none' }), 0);
+    }
+    window.__ENG_DEBUG.ready = true;
+    window.__timelines['main'] = root;
+  });
+})();
+
+</script>
+</body>
+</html>

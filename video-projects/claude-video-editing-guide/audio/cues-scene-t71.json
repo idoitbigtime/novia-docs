@@ -1,0 +1,51 @@
+{
+ "window": null,
+ "total": 27.36,
+ "cues": [
+  {
+   "sfx": "whoosh_soft",
+   "t": 0.0,
+   "scene": "t71"
+  },
+  {
+   "sfx": "swipe",
+   "t": 1.05,
+   "scene": "t71"
+  },
+  {
+   "sfx": "whoosh_soft",
+   "t": 20.91,
+   "scene": "t71"
+  },
+  {
+   "sfx": "pop",
+   "t": 16.7,
+   "scene": "t71"
+  },
+  {
+   "sfx": "swipe",
+   "t": 3.45,
+   "scene": "t71"
+  },
+  {
+   "sfx": "pop",
+   "t": 6.25,
+   "scene": "t71"
+  },
+  {
+   "sfx": "tick",
+   "t": 7.8,
+   "scene": "t71"
+  },
+  {
+   "sfx": "whoosh_soft",
+   "t": 9.65,
+   "scene": "t71"
+  },
+  {
+   "sfx": "shimmer",
+   "t": 13.6,
+   "scene": "t71"
+  }
+ ]
+}

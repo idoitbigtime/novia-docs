@@ -1,0 +1,1370 @@
+<!doctype html>
+<html lang="he">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>עריכת וידאו עם Claude</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+/* IBM Plex Mono 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Mono 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Mono 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexMono/IBMPlexMono-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 300 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-300.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-300.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 300 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-300.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 400 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-400.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-400.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 400 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 500 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-500.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-500.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 500 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 600 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-600.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 600 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* IBM Plex Sans Hebrew 700 normal — hebrew */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-hebrew-700.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-ext-700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* IBM Plex Sans Hebrew 700 normal — latin */
+@font-face {
+  font-family: 'IBM Plex Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('fonts/IBMPlexSansHebrew/IBMPlexSansHebrew-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Rubik 300 900 normal — hebrew */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-hebrew-300-900.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+/* Rubik 300 900 normal — latin-ext */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-ext-300-900.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Rubik 300 900 normal — latin */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: block;
+  src: url('fonts/Rubik/Rubik-latin-300-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Design tokens. Safe area for text: x 140..940, y 300..1570 (1080x1920). */
+:root {
+  --bg: #06060b;
+  --ink: #f5f2ea;
+  --ink2: #dcd9e6;
+  --muted: #9c99ae;
+  --acc: #ff453a;
+  --acc-soft: #ff8a80;
+  --line: #c9c2ff;
+  --line-glow: rgba(201, 194, 255, 0.55);
+  --panel: rgba(18, 17, 34, 0.96);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: "Rubik", sans-serif; }
+.stagewrap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; overflow: hidden; }
+
+/* ---------- background ---------- */
+#bg { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #08080f 0%, #0b0a17 55%, #07070d 100%); }
+#bg .glow { position: absolute; border-radius: 50%; }
+#bg .g1 { width: 1500px; height: 1500px; left: -420px; top: -380px; background: radial-gradient(circle, rgba(124, 92, 255, 0.20) 0%, rgba(124, 92, 255, 0.07) 38%, rgba(124, 92, 255, 0) 66%); }
+#bg .g2 { width: 1400px; height: 1400px; left: 260px; top: 980px; background: radial-gradient(circle, rgba(255, 69, 58, 0.15) 0%, rgba(255, 69, 58, 0.05) 40%, rgba(255, 69, 58, 0) 66%); }
+#bg .grain { position: absolute; inset: 0; background-image: url("assets/grain.png"); background-size: 256px 256px; opacity: 0.07; mix-blend-mode: screen; }
+#bg .vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
+
+#cam { position: absolute; inset: 0; transform-origin: 540px 960px; }
+.scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.scam { position: absolute; inset: 0; }
+
+/* ---------- header (chapter indicator) ---------- */
+.hdr { position: absolute; top: 300px; left: 140px; width: 800px; height: 46px; display: flex; justify-content: space-between; align-items: center; direction: rtl; opacity: 0; }
+.hdr-ch { font: 500 30px/1 "Rubik"; color: #b3b0c4; }
+.hdr-num { font: 600 28px/1 "IBM Plex Mono"; color: var(--acc); border: 1.5px solid rgba(255, 69, 58, 0.55); border-radius: 10px; padding: 7px 12px 6px; }
+
+/* ---------- kinetic text ---------- */
+.kin { direction: rtl; text-align: right; }
+.w { display: inline-block; white-space: pre; opacity: 0; }
+.isl { unicode-bidi: isolate; }
+.accgrp { position: relative; display: inline-block; white-space: nowrap; color: var(--acc); font-weight: 800; }
+.accgrp .ul { position: absolute; right: 0; left: 0; bottom: -0.04em; height: 5px; border-radius: 3px; background: var(--acc); transform-origin: 100% 50%; display: block; opacity: 0; }
+.strgrp { display: inline-block; white-space: nowrap; font-weight: 800; color: var(--ink); }
+.nbgrp { display: inline-block; white-space: nowrap; }
+.glu { display: inline-block; white-space: nowrap; }
+
+/* ---------- topic layout ---------- */
+.main { position: absolute; top: 376px; left: 140px; width: 800px; display: flex; flex-direction: column; gap: 16px; direction: rtl; }
+.ttl { font: 800 60px/1.14 "Rubik"; color: var(--ink); letter-spacing: -0.005em; text-wrap: balance; }
+.exp { font: 400 36px/1.42 "Rubik"; color: var(--ink2); }
+.exp .accgrp { font-weight: 800; }
+.exp .ph { transition: none; }
+/* the illustration fills the safe area under the text; its camera (.stcam) clips the punch-in */
+.stage { position: absolute; left: 140px; top: 860px; width: 800px; height: 700px; opacity: 0; }
+/* the illustration's frame: the camera zooms inside it, so nothing ever leaves x 140..940; during a zoom
+   its edges soften (--edge), like a camera crop */
+.stclip { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; overflow: hidden; --edge: 0px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%); mask-composite: intersect; }
+.stcam { position: absolute; inset: 0; }
+.stfit { position: absolute; left: 0; top: 50%; width: 800px; height: 700px; margin-top: -350px; transform-origin: 50% 50%; }
+.simtag { position: absolute; top: 4px; right: 0; display: flex; align-items: center; gap: 12px; font: 600 28px/1 "Rubik"; color: #cfcbe0; direction: rtl; opacity: 0; }
+.simtag i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); box-shadow: 0 0 10px var(--line-glow); display: block; }
+/* the illustration canvas: 800 x 700 (frame x 140..940) */
+.simwrap { position: absolute; left: 0; right: 0; top: 0; height: 700px; }
+
+/* fact overlay inside the stage */
+.factbox { position: absolute; left: 140px; width: 800px; top: 860px; height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; direction: rtl; }
+/* the fact sits on its own dark backing (soft edges), so the faded illustration never shows through the text */
+.factin { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 34px 30px; }
+.fscrim { position: absolute; z-index: -1; inset: 0; border-radius: 48px; background: rgba(9, 8, 18, 0.9); box-shadow: 0 0 46px 30px rgba(9, 8, 18, 0.88); opacity: 0; display: block; }
+.pill { position: relative; overflow: hidden; display: inline-block; background: #ffffff; color: #0b0b0b; font: 800 44px/1 "Rubik"; padding: 28px 42px 28px; border-radius: 20px; direction: rtl; opacity: 0; white-space: nowrap; }
+.factline { font: 500 34px/1.42 "Rubik"; color: var(--ink); text-align: center; max-width: 780px; }
+.metaline { font: 400 30px/1.4 "Rubik"; color: #b8b4cc; text-align: center; max-width: 760px; }
+.metaline .w, .factline .w { opacity: 0; }
+
+/* ---------- prompt card ---------- */
+.pcard { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; border-radius: 30px; background: linear-gradient(180deg, rgba(24, 22, 44, 0.97), rgba(13, 12, 26, 0.97)); border: 1.5px solid rgba(201, 194, 255, 0.20); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55); overflow: hidden; opacity: 0; }
+.pc-head { position: absolute; top: 0; left: 0; right: 0; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.12); }
+.pc-title { font: 700 36px/1 "Rubik"; color: var(--ink); display: flex; align-items: center; gap: 16px; }
+.pc-title i { width: 14px; height: 14px; border-radius: 50%; background: #b9a8ff; box-shadow: 0 0 14px rgba(185, 168, 255, 0.85); display: block; }
+.pc-num { font: 600 27px/1 "IBM Plex Mono"; color: var(--muted); direction: ltr; }
+.pc-num b { color: var(--ink); font-weight: 600; }
+.pc-tabs { position: absolute; top: 100px; left: 0; right: 0; height: 66px; display: flex; gap: 30px; align-items: center; padding: 0 30px; direction: rtl; border-bottom: 1px solid rgba(201, 194, 255, 0.08); }
+.tab { position: relative; font: 500 26px/1 "Rubik"; color: var(--muted); padding: 6px 0 12px; }
+.tab .tul { display: none; }
+.tabul { position: absolute; bottom: 10px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: #b9a8ff; display: block; opacity: 0; }
+.tab .ton { position: absolute; inset: 6px 0 12px 0; color: var(--ink); opacity: 0; white-space: nowrap; }
+.pvp { position: absolute; top: 174px; height: 1012px; left: 2px; right: 2px; overflow: hidden;
+  }
+.pct { position: absolute; top: 0; left: 48px; right: 48px; direction: rtl; font: 400 30px/44px "Rubik"; color: #e7e4f1; white-space: normal; }
+.pl { position: relative; z-index: 0; isolation: isolate; padding: 0 12px; white-space: pre-wrap; }
+.pl-empty { height: 44px; }
+.ptag { color: rgba(157, 144, 224, 0.85); font-weight: 600; }
+.code { font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; color: #d8d4ea; white-space: nowrap; }
+/* long code: its own right-aligned line (an LTR isolate that may wrap; the punctuation after it stays outside) */
+.codeblock { display: block; direction: rtl; text-align: right; font-family: "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; font-size: 28px; line-height: 44px; color: #d8d4ea; white-space: normal; }
+.cbi { direction: ltr; unicode-bidi: isolate; }
+.tk { white-space: nowrap; }
+.nb, .neg { white-space: nowrap; }
+.code .bt, .codeblock .bt { color: #6f6b86; }
+.hlbg { position: absolute; z-index: -1; top: 0; bottom: 0; left: -14px; right: -14px; background: #2e1626; border-right: 4px solid #e5484d; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); opacity: 0; display: block; }
+.pbody { position: relative; }
+/* lifted key lines: a layer over the card (same box, not clipped by it) */
+.plift { position: absolute; left: 160px; top: 366px; width: 780px; height: 1204px; pointer-events: none; }
+.pl-lift { position: absolute; z-index: 3; opacity: 0; box-sizing: border-box; padding: 0 12px; font: 400 30px/44px "Rubik"; color: #f5f2ea; direction: rtl; white-space: pre-wrap; transform-origin: 50% 50%; }
+/* the lifted backing is as wide as the line, so at x1.10 it stays clear of the card border */
+.pl-lift .hlbg { opacity: 1; left: 0; right: 0; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55); }
+
+/* ---------- tip ---------- */
+.tipwrap { position: absolute; left: 140px; width: 800px; top: 0; height: 1920px; display: flex; align-items: center; justify-content: center; }
+.tipcard { width: 800px; padding: 44px 48px 50px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(18, 17, 34, 0.88); box-shadow: 0 0 40px rgba(140, 120, 255, 0.15); direction: rtl; text-align: right; opacity: 0; }
+.tip-label { display: flex; align-items: center; gap: 12px; font: 600 30px/1 "Rubik"; color: #f2eef8; margin-bottom: 26px; }
+.tip-ico { width: 46px; height: 46px; display: block; overflow: visible; filter: drop-shadow(0 0 8px rgba(255, 69, 58, 0.55)); }
+.tip-ico path { fill: none; stroke: var(--acc); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.tip-text { font: 600 46px/1.38 "Rubik"; color: var(--ink); }
+.tip-text .w { opacity: 0; }
+
+/* ---------- chapter card ---------- */
+.chap { position: absolute; inset: 0; transform-origin: 540px 900px; }
+/* the card's camera: a slow push through the hold */
+.ch-cam { position: absolute; inset: 0; transform-origin: 540px 900px; }
+.ch-k { position: absolute; top: 470px; left: 140px; width: 800px; text-align: center; font: 500 36px/1 "Rubik"; color: var(--muted); letter-spacing: 0.02em; opacity: 0.35; }
+.ch-n { position: absolute; top: 520px; left: 140px; width: 800px; text-align: center; font: 900 300px/1 "Rubik"; color: rgba(255, 69, 58, 0.06); -webkit-text-stroke: 3px var(--acc); text-shadow: 0 0 40px rgba(255, 69, 58, 0.35); }
+.ch-ring { position: absolute; left: 540px; top: 670px; width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%; border: 2px solid rgba(201, 194, 255, 0.7); box-shadow: 0 0 30px rgba(201, 194, 255, 0.35), inset 0 0 30px rgba(201, 194, 255, 0.2); display: block; opacity: 0; }
+.ch-ring2 { border-color: rgba(201, 194, 255, 0.55); box-shadow: 0 0 24px rgba(201, 194, 255, 0.3); }
+.ch-title { position: absolute; top: 880px; left: 120px; width: 840px; text-align: center; font: 800 78px/1.15 "Rubik"; color: var(--ink); white-space: nowrap; }
+.ch-tin { display: inline-block; white-space: nowrap; }
+.ch-line { position: absolute; top: 1000px; left: 340px; width: 400px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, rgba(201,194,255,0), #c9c2ff 30%, #c9c2ff 70%, rgba(201,194,255,0)); box-shadow: 0 0 14px rgba(201, 194, 255, 0.6); transform-origin: 100% 50%; display: block; opacity: 0; }
+.ch-sub { position: absolute; top: 1040px; left: 160px; width: 760px; text-align: center; font: 400 40px/1.45 "Rubik"; color: var(--ink2); }
+.ch-tag { position: absolute; top: 1330px; left: 170px; width: 740px; text-align: center; font: 500 32px/1.45 "Rubik"; color: #c9c3e6; }
+/* centred blocks wrap into even lines; paragraphs never end on a lone word */
+.ch-sub, .ch-tag, .factline, .metaline { text-wrap: balance; }
+.exp, .tip-text { text-wrap: pretty; }
+.ch-dots { position: absolute; top: 1500px; left: 140px; width: 800px; display: flex; justify-content: center; gap: 22px; opacity: 0.4; }
+.ch-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
+.ch-dot.on { background: var(--acc); box-shadow: 0 0 14px rgba(255, 69, 58, 0.9); transform: scale(1.35); }
+/* the chapter motif: 180 px line art beside the number (lavender, 35%) */
+/* frame 0 of a card (a seek to 0 may not render the timeline): the number and its rings are already there */
+.chap .ch-n { transform: perspective(1200px) rotateY(-16deg) scale(0.9); }
+.chap .ch-ring { opacity: 0.85; transform: scale(0.66); }
+.chap .ch-ring2 { opacity: 0.65; transform: scale(0.8); }
+.chap .ch-k, .chap .ch-dots { transform: translateY(8px); }
+.ch-mo { position: absolute; left: 740px; top: 580px; width: 180px; height: 180px; opacity: 0.35; overflow: visible; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.6)); }
+.ch-mo .dr, .ch-mo .mo-ph, .ch-mo .mo-scan, .ch-mo .mo-ck, .ch-mo .mo-ring, .ch-mo .mo-blur { fill: none; stroke: #c9c2ff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.ch-mo .fl, .ch-mo .mo-f { fill: #c9c2ff; }
+.ch-mo .fl { opacity: 0; }
+.ch-mo .mo-solid { fill: #0b0a16; fill-opacity: 0; }
+.ch-mo .mo-bar { stroke-width: 6; }
+.ch-mo .mo-ph { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-scan { stroke-width: 2.5; stroke: #ffffff; opacity: 0; }
+.ch-mo .mo-blur { stroke-width: 11; opacity: 0; }
+.ch-mo .mo-ring { stroke-width: 2.5; opacity: 0; }
+.ch-mo .mo-f { opacity: 0; }
+.ch-mo .mo-ck { stroke-width: 4.5; }
+.ch-mo3 .mo-in { position: absolute; inset: 0; perspective: 640px; opacity: 0; }
+.ch-mo3 .mo-tilt { position: absolute; left: 40px; top: 40px; width: 100px; height: 100px; transform-style: preserve-3d; transform: rotateX(-24deg); }
+.ch-mo3 .mo-cube { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(-10deg); }
+.ch-mo3 .mo-cube i { position: absolute; inset: 0; border: 3.5px solid #c9c2ff; border-radius: 5px; display: block; }
+.ch-mo3 .mo-face0 { transform: translateZ(50px); }
+.ch-mo3 .mo-face1 { transform: rotateY(180deg) translateZ(50px); }
+.ch-mo3 .mo-face2 { transform: rotateY(90deg) translateZ(50px); }
+.ch-mo3 .mo-face3 { transform: rotateY(-90deg) translateZ(50px); }
+.ch-mo3 .mo-face4 { transform: rotateX(90deg) translateZ(50px); }
+.ch-mo3 .mo-face5 { transform: rotateX(-90deg) translateZ(50px); }
+
+/* ---------- effects ---------- */
+/* light sweep across an element (the element clips it) */
+.fx-sweep { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 6; display: block; }
+.fx-sweep b { position: absolute; top: -40%; bottom: -40%; left: 100%; width: 34%; display: block; transform: skewX(-16deg);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--sweep, rgba(255, 255, 255, 0.22)), rgba(255, 255, 255, 0)); }
+/* light band across the whole frame at a scene change */
+.fx-band { position: absolute; top: -400px; left: 1080px; width: 560px; height: 2720px; display: block; pointer-events: none; z-index: 40;
+  background: linear-gradient(90deg, rgba(201, 194, 255, 0), rgba(201, 194, 255, 0.10) 35%, rgba(255, 255, 255, 0.16) 50%, rgba(201, 194, 255, 0.10) 65%, rgba(201, 194, 255, 0));
+  transform: rotate(14deg); mix-blend-mode: screen; opacity: 0; }
+/* particle burst */
+.fx-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; display: block; pointer-events: none; opacity: 0; z-index: 7; }
+/* drifting dust in the background */
+.dust { position: absolute; border-radius: 50%; background: rgba(214, 208, 255, 0.55); box-shadow: 0 0 8px rgba(201, 194, 255, 0.6); display: block; }
+
+/* 3.2 a 3D logo floating over the palm (canvas 800 x 700; CSS 3D only) */
+.sim32 .s32-floor { position: absolute; left: 330px; top: 600px; width: 380px; height: 100px; border-radius: 50%; background: radial-gradient(ellipse, rgba(169, 147, 255, 0.16), rgba(169, 147, 255, 0) 70%); }
+
+/* the hand: a line-art plane with the 21 tracking points; it tilts back (palm up) */
+.sim32 .s32-mover { position: absolute; left: 0; top: 0; width: 800px; height: 700px; perspective: 900px; perspective-origin: 520px 660px; }
+.sim32 .s32-plane { position: absolute; width: 450px; height: 600px; transform-origin: 240px 585px; }
+.sim32 .s32-psv { position: absolute; left: 0; top: 0; width: 450px; height: 600px; display: block; overflow: visible; }
+.sim32 .s32-fill { fill: rgba(42, 36, 86, 0.42); opacity: 0; }
+.sim32 .s32-ol { fill: none; stroke: #c9c2ff; stroke-width: 2.1; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.85)); }
+.sim32 .s32-bn { fill: none; stroke: rgba(255, 255, 255, 0.72); stroke-width: 1.7; stroke-linecap: round; }
+.sim32 .s32-lm { fill: #ffffff; stroke: rgba(201, 194, 255, 0.9); stroke-width: 2; opacity: 0; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.95)); }
+.sim32 .s32-sp { fill: none; stroke: #ffd2c4; stroke-width: 1.8; stroke-dasharray: 5 4; opacity: 0; }
+.sim32 .s32-m25 { fill: none; stroke: rgba(255, 255, 255, 0.6); stroke-width: 1.6; stroke-dasharray: 4 4; opacity: 0; }
+.sim32 .s32-pcm { fill: rgba(255, 255, 255, 0.15); stroke: #ffffff; stroke-width: 2.4; opacity: 0; }
+.sim32 .s32-light { opacity: 0; }
+.sim32 .s32-hl { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
+.sim32 .s32-hl path { fill: none; stroke: rgba(255, 255, 255, 0.85); stroke-width: 2; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+.sim32 .s32-hov { position: absolute; width: 32px; height: 32px; border-radius: 50%; border: 2.5px solid #ffffff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.9); opacity: 0; }
+.sim32 .s32-hov i { position: absolute; left: 11px; top: 11px; width: 6px; height: 6px; border-radius: 50%; background: #ffffff; display: block; }
+.sim32 .s32-hlab { position: absolute; left: 150px; width: 260px; display: flex; justify-content: flex-start; align-items: center; gap: 10px; direction: rtl; font: 600 31px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
+.sim32 .s32-hlab i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.9); display: block; flex: none; }
+.sim32 .s32-plab { position: absolute; left: 392px; top: 24px; width: 236px; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0; }
+.sim32 .s32-plab span { font: 600 32px/1 "Rubik"; color: #f5f2ea; direction: rtl; white-space: nowrap; }
+.sim32 .s32-plab i { width: 2px; height: 34px; background: linear-gradient(180deg, rgba(201, 194, 255, 0.9), rgba(201, 194, 255, 0.2)); display: block; }
+
+/* B0: a strip of frames, each one tracked */
+.sim32 .s32-frames { position: absolute; left: 16px; top: 96px; width: 220px; height: 520px; display: flex; flex-direction: column; gap: 14px; }
+.sim32 .s32-th { position: relative; width: 220px; height: 120px; border-radius: 14px; background: linear-gradient(180deg, #221d47, #120f27); border: 1.5px solid rgba(201, 194, 255, 0.22); overflow: hidden; opacity: 0; flex: none; }
+.sim32 .s32-th svg { position: absolute; left: 0; top: 0; width: 220px; height: 120px; display: block; }
+.sim32 .s32-th .b { fill: none; stroke: rgba(255, 255, 255, 0.55); stroke-width: 1.3; }
+.sim32 .s32-th .d { fill: none; stroke: #ffffff; stroke-width: 4.4; stroke-linecap: round; }
+.sim32 .s32-fsel { position: absolute; left: -5px; top: -5px; width: 230px; height: 130px; border-radius: 17px; border: 2.5px solid #c9c2ff; box-shadow: 0 0 16px rgba(201, 194, 255, 0.6); display: block; opacity: 0; }
+
+/* B2: the chosen word on a word strip; a playhead finds it */
+.sim32 .s32-wstrip { position: absolute; right: 76px; top: 52px; height: 46px; display: flex; gap: 10px; direction: rtl; opacity: 0; }
+.sim32 .s32-wd { height: 46px; border-radius: 12px; background: rgba(201, 194, 255, 0.14); border: 1.5px solid rgba(201, 194, 255, 0.26); display: block; flex: none; }
+.sim32 .s32-cw { position: relative; width: 90px; height: 46px; border-radius: 12px; background: rgba(26, 23, 52, 0.95); border: 2px solid rgba(201, 194, 255, 0.55); display: block; flex: none; }
+.sim32 .s32-cw .hl { position: absolute; inset: -2px; border-radius: 12px; background: rgba(255, 255, 255, 0.9); box-shadow: 0 0 22px rgba(255, 255, 255, 0.8), 0 0 40px rgba(201, 194, 255, 0.7); display: block; opacity: 0; }
+.sim32 .s32-wph { position: absolute; right: 0; top: -10px; width: 3px; height: 66px; border-radius: 2px; background: #ffffff; box-shadow: 0 0 12px #c9c2ff; display: block; opacity: 0; }
+.sim32 .s32-wlab { position: absolute; left: 353px; top: 8px; width: 260px; display: flex; justify-content: center; align-items: center; gap: 10px; direction: rtl; font: 600 30px/1 "Rubik"; color: #f5f2ea; opacity: 0; }
+.sim32 .s32-wlab i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.9); display: block; }
+.sim32 .s32-wlink { position: absolute; left: 0; top: 0; width: 800px; height: 700px; overflow: visible; pointer-events: none; }
+.sim32 .s32-wlink path { fill: none; stroke: rgba(255, 255, 255, 0.8); stroke-width: 2; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+
+/* B3: the two paths, the logo's 0.1 s behind the hand's */
+.sim32 .s32-graph { position: absolute; left: 16px; top: 236px; width: 286px; height: 236px; border-radius: 20px; background: rgba(26, 23, 52, 0.9); border: 1.5px solid rgba(201, 194, 255, 0.26); opacity: 0; }
+.sim32 .s32-gsv { position: absolute; left: 8px; top: 52px; width: 270px; height: 130px; overflow: visible; }
+.sim32 .s32-gsv .ax { fill: none; stroke: rgba(201, 194, 255, 0.35); stroke-width: 1.5; }
+.sim32 .s32-gsv .gh { fill: none; stroke: #c9c2ff; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.8)); }
+.sim32 .s32-gsv .gl { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 9 6; opacity: 0; }
+.sim32 .s32-gsv .br { fill: none; stroke: #ffffff; stroke-width: 2.2; }
+.sim32 .s32-lag { position: absolute; left: 0; right: 0; top: 16px; text-align: center; font: 600 31px/1 "Rubik"; color: #ffffff; opacity: 0; }
+.sim32 .s32-leg { position: absolute; left: 0; right: 0; bottom: 18px; display: flex; justify-content: center; gap: 26px; direction: rtl; font: 500 30px/1 "Rubik"; color: #dcd9e6; }
+.sim32 .s32-leg span { display: flex; align-items: center; gap: 8px; }
+.sim32 .s32-leg i { width: 22px; height: 4px; border-radius: 2px; display: block; }
+.sim32 .s32-leg .h i { background: #c9c2ff; }
+.sim32 .s32-leg .l i { background: repeating-linear-gradient(90deg, #ffffff 0px, #ffffff 7px, rgba(255, 255, 255, 0) 7px, rgba(255, 255, 255, 0) 11px); }
+
+/* the logo layer: it follows the hand a little late */
+.sim32 .s32-fol { position: absolute; left: 0; top: 0; width: 800px; height: 700px; pointer-events: none; }
+.sim32 .s32-beam { position: absolute; width: 260px; height: 150px; opacity: 0;
+  background: linear-gradient(180deg, rgba(255, 159, 67, 0.38), rgba(255, 159, 67, 0)); clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%); }
+.sim32 .s32-lglow { position: absolute; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 159, 67, 0.34), rgba(255, 159, 67, 0) 66%); opacity: 0; }
+.sim32 .s32-gh, .sim32 .s32-ghost { position: absolute; width: 210px; height: 210px; opacity: 0; }
+.sim32 .s32-gh svg, .sim32 .s32-ghost svg { width: 210px; height: 210px; display: block; overflow: visible; }
+.sim32 .s32-gh path { fill: none; stroke: #ffc68f; stroke-width: 2.2; }
+.sim32 .s32-ghost path { fill: none; stroke: #ffffff; stroke-width: 2.2; stroke-dasharray: 7 6; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.9)); }
+/* the ghost is a wireframe of the badge: two outlines 34 px apart, joined by 6 depth edges */
+.sim32 .s32-ghost { perspective: 600px; }
+.sim32 .s32-gw { position: absolute; left: 0; top: 0; width: 210px; height: 210px; transform-style: preserve-3d; }
+.sim32 .s32-gw .s32-gf { position: absolute; left: 0; top: 0; }
+.sim32 .s32-ge { position: absolute; width: 34px; height: 2.2px; transform: rotateY(90deg); display: block;
+  background: repeating-linear-gradient(90deg, #ffffff 0px, #ffffff 6px, rgba(255, 255, 255, 0) 6px, rgba(255, 255, 255, 0) 10px); filter: drop-shadow(0 0 4px rgba(201, 194, 255, 0.9)); }
+.sim32 .s32-lgw { position: absolute; width: 210px; height: 210px; perspective: 800px; opacity: 0; }
+.sim32 .s32-lg3 { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: 50% 100%; transform: scale(0.05); }
+.sim32 .s32-ly { position: absolute; left: 0; top: 0; width: 210px; height: 210px; display: block; }
+.sim32 .s32-ly .sd { fill: #c9701c; }
+.sim32 .s32-lp { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 12px #ffe2c0, 0 0 30px rgba(255, 159, 67, 0.95), 0 0 60px rgba(255, 159, 67, 0.5); display: block; opacity: 0; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="36.840" data-fps="30" data-width="1080" data-height="1920">
+<div class="stagewrap" style="transform: scale(1.0);">
+<div id="bg"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div class="vig"></div></div>
+<div id="cam">
+<div id="sc-t32" class="clip scene" data-start="0.000" data-duration="36.840" data-track-index="1"><div class="hdr" dir="rtl"><span class="hdr-ch">פרק 3 · אפקטים בתלת ממד</span><span class="hdr-num" dir="ltr">3.2</span></div>
+<div class="scam">
+<div class="main"><h2 class="ttl kin" dir="rtl"><span class="w" dir="rtl" data-t="0.300">לוגו</span> <span class="w" dir="rtl" data-t="0.430">בתלת</span> <span class="w" dir="rtl" data-t="0.560">ממד</span> <span class="w" dir="rtl" data-t="0.690">מרחף</span> <span class="w" dir="rtl" data-t="0.820">מעל</span> <span class="w" dir="rtl" data-t="0.950">כף</span> <span class="w" dir="rtl" data-t="1.080">היד</span></h2><p class="exp kin" dir="rtl"><span class="ph" data-p="0"><span class="w" dir="rtl" data-t="1.910">בכל</span> <span class="w" dir="rtl" data-t="1.970">פריים</span> <span class="w" dir="rtl" data-t="2.030">קלוד</span> <span class="w" dir="rtl" data-t="2.090">יודע</span> <span class="w" dir="rtl" data-t="2.150">איפה</span> <span class="w" dir="rtl" data-t="2.210">היד</span> <span class="w" dir="rtl" data-t="2.270">שלכם.</span></span> <span class="ph" data-p="1"><span class="w" dir="rtl" data-t="4.110">מעליה</span> <span class="w" dir="rtl" data-t="4.170">הוא</span> <span class="w" dir="rtl" data-t="4.230">מעמיד</span> <span class="w" dir="rtl" data-t="4.290">לוגו</span> <span class="w" dir="rtl" data-t="4.350">בתלת</span> <span class="w" dir="rtl" data-t="4.410">ממד</span></span> <span class="ph" data-p="2"><span class="w" dir="rtl" data-t="6.060">שנכנס</span> <span class="w" dir="rtl" data-t="6.120">על</span> <span class="w" dir="rtl" data-t="6.180">המילה</span> <span class="w" dir="rtl" data-t="6.240">שבחרתם</span> <span class="w" dir="rtl" data-t="6.300">ומאיר</span> <span class="w" dir="rtl" data-t="6.360">את</span> <span class="w" dir="rtl" data-t="6.420">כף</span> <span class="w" dir="rtl" data-t="6.480">היד</span> <span class="w" dir="rtl" data-t="6.540">בצבע</span> <span class="w" dir="rtl" data-t="6.600">של</span> <span class="w" dir="rtl" data-t="6.660">הלוגו.</span></span> <span class="ph" data-p="3"><span class="w" dir="rtl" data-t="9.160">הלוגו</span> <span class="w" dir="rtl" data-t="9.220">עוקב</span> <span class="w" dir="rtl" data-t="9.280">אחרי</span> <span class="w" dir="rtl" data-t="9.340">היד</span> <span class="w" dir="rtl" data-t="9.400">באיחור</span> <span class="w" dir="rtl" data-t="9.460">של</span> <span class="w" dir="rtl" data-t="9.520">עשירית</span> <span class="w" dir="rtl" data-t="9.580">שנייה,</span></span> <span class="ph" data-p="4"><span class="w" dir="rtl" data-t="11.610">כמו</span> <span class="w" dir="rtl" data-t="11.670">משהו</span> <span class="accgrp" data-t="11.730"><span class="w s-str" dir="rtl" data-t="11.730">שמרחף</span><i class="ul" data-t="11.910"></i></span> <span class="w" dir="rtl" data-t="11.790">מעליה.</span></span></p></div>
+<div class="stage"><div class="simtag" dir="rtl"><i></i><span>הדמיה</span></div><div class="stclip"><div class="stcam"><div class="stfit"><div class="simwrap sim32" style="--hx:483.3px;--hy:409.3px">
+<div class="s32-floor"></div>
+<div class="s32-frames"><div class="s32-th"><svg viewBox="0 0 220 120" aria-hidden="true"><path class="b" d="M110.0 112.0L99.6 101.6 M99.6 101.6L89.7 91.2 M89.7 91.2L83.0 81.3 M83.0 81.3L77.8 73.0 M110.0 112.0L97.5 65.7 M97.5 65.7L95.4 48.6 M95.4 48.6L94.4 37.6 M94.4 37.6L93.6 28.3 M97.5 65.7L107.4 63.6 M107.4 63.6L107.4 44.4 M107.4 44.4L107.4 32.4 M107.4 32.4L107.4 22.0 M107.4 63.6L116.8 65.2 M116.8 65.2L118.3 47.5 M118.3 47.5L119.4 36.6 M119.4 36.6L120.1 27.8 M116.8 65.2L125.1 70.4 M110.0 112.0L125.1 70.4 M125.1 70.4L127.7 56.9 M127.7 56.9L129.2 48.0 M129.2 48.0L130.3 40.2"/><path class="d" d="M110.0 112.0h0.01 M99.6 101.6h0.01 M89.7 91.2h0.01 M83.0 81.3h0.01 M77.8 73.0h0.01 M97.5 65.7h0.01 M95.4 48.6h0.01 M94.4 37.6h0.01 M93.6 28.3h0.01 M107.4 63.6h0.01 M107.4 44.4h0.01 M107.4 32.4h0.01 M107.4 22.0h0.01 M116.8 65.2h0.01 M118.3 47.5h0.01 M119.4 36.6h0.01 M120.1 27.8h0.01 M125.1 70.4h0.01 M127.7 56.9h0.01 M129.2 48.0h0.01 M130.3 40.2h0.01"/></svg></div><div class="s32-th"><svg viewBox="0 0 220 120" aria-hidden="true"><path class="b" d="M120.0 106.0L110.4 94.9 M110.4 94.9L101.2 83.8 M101.2 83.8L95.2 73.5 M95.2 73.5L90.6 64.8 M120.0 106.0L110.8 59.0 M110.8 59.0L109.9 41.7 M109.9 41.7L109.6 30.7 M109.6 30.7L109.5 21.3 M110.8 59.0L120.8 57.6 M120.8 57.6L122.1 38.4 M122.1 38.4L123.0 26.5 M123.0 26.5L123.7 16.1 M120.8 57.6L130.0 59.8 M130.0 59.8L132.8 42.3 M132.8 42.3L134.6 31.4 M134.6 31.4L136.0 22.7 M130.0 59.8L137.9 65.6 M120.0 106.0L137.9 65.6 M137.9 65.6L141.5 52.2 M141.5 52.2L143.7 43.5 M143.7 43.5L145.2 35.8"/><path class="d" d="M120.0 106.0h0.01 M110.4 94.9h0.01 M101.2 83.8h0.01 M95.2 73.5h0.01 M90.6 64.8h0.01 M110.8 59.0h0.01 M109.9 41.7h0.01 M109.6 30.7h0.01 M109.5 21.3h0.01 M120.8 57.6h0.01 M122.1 38.4h0.01 M123.0 26.5h0.01 M123.7 16.1h0.01 M130.0 59.8h0.01 M132.8 42.3h0.01 M134.6 31.4h0.01 M136.0 22.7h0.01 M137.9 65.6h0.01 M141.5 52.2h0.01 M143.7 43.5h0.01 M145.2 35.8h0.01"/></svg></div><div class="s32-th"><svg viewBox="0 0 220 120" aria-hidden="true"><path class="b" d="M130.0 100.0L121.1 88.3 M121.1 88.3L112.8 76.6 M112.8 76.6L107.5 65.9 M107.5 65.9L103.5 56.9 M130.0 100.0L124.1 52.4 M124.1 52.4L124.4 35.2 M124.4 35.2L124.9 24.2 M124.9 24.2L125.4 14.8 M124.1 52.4L134.2 51.7 M134.2 51.7L136.8 32.7 M136.8 32.7L138.5 20.9 M138.5 20.9L139.9 10.6 M134.2 51.7L143.2 54.6 M143.2 54.6L147.2 37.3 M147.2 37.3L149.8 26.6 M149.8 26.6L151.8 18.0 M143.2 54.6L150.7 60.9 M130.0 100.0L150.7 60.9 M150.7 60.9L155.2 47.9 M155.2 47.9L158.0 39.3 M158.0 39.3L160.1 31.8"/><path class="d" d="M130.0 100.0h0.01 M121.1 88.3h0.01 M112.8 76.6h0.01 M107.5 65.9h0.01 M103.5 56.9h0.01 M124.1 52.4h0.01 M124.4 35.2h0.01 M124.9 24.2h0.01 M125.4 14.8h0.01 M134.2 51.7h0.01 M136.8 32.7h0.01 M138.5 20.9h0.01 M139.9 10.6h0.01 M143.2 54.6h0.01 M147.2 37.3h0.01 M149.8 26.6h0.01 M151.8 18.0h0.01 M150.7 60.9h0.01 M155.2 47.9h0.01 M158.0 39.3h0.01 M160.1 31.8h0.01"/></svg></div><div class="s32-th"><svg viewBox="0 0 220 120" aria-hidden="true"><path class="b" d="M122.0 108.0L112.2 97.1 M112.2 97.1L102.8 86.2 M102.8 86.2L96.6 75.9 M96.6 75.9L91.8 67.4 M122.0 108.0L112.0 61.1 M112.0 61.1L110.8 43.9 M110.8 43.9L110.3 32.9 M110.3 32.9L110.0 23.5 M112.0 61.1L121.9 59.6 M121.9 59.6L122.9 40.4 M122.9 40.4L123.6 28.4 M123.6 28.4L124.1 18.0 M121.9 59.6L131.2 61.6 M131.2 61.6L133.7 44.0 M133.7 44.0L135.3 33.2 M135.3 33.2L136.5 24.4 M131.2 61.6L139.2 67.2 M122.0 108.0L139.2 67.2 M139.2 67.2L142.5 53.9 M142.5 53.9L144.6 45.1 M144.6 45.1L146.0 37.4"/><path class="d" d="M122.0 108.0h0.01 M112.2 97.1h0.01 M102.8 86.2h0.01 M96.6 75.9h0.01 M91.8 67.4h0.01 M112.0 61.1h0.01 M110.8 43.9h0.01 M110.3 32.9h0.01 M110.0 23.5h0.01 M121.9 59.6h0.01 M122.9 40.4h0.01 M123.6 28.4h0.01 M124.1 18.0h0.01 M131.2 61.6h0.01 M133.7 44.0h0.01 M135.3 33.2h0.01 M136.5 24.4h0.01 M139.2 67.2h0.01 M142.5 53.9h0.01 M144.6 45.1h0.01 M146.0 37.4h0.01"/></svg></div><i class="s32-fsel"></i></div>
+<div class="s32-wstrip" dir="rtl"><i class="s32-wd" style="width:56px"></i><i class="s32-wd" style="width:40px"></i><i class="s32-wd" style="width:70px"></i><span class="s32-cw"><i class="hl"></i></span><i class="s32-wd" style="width:58px"></i><i class="s32-wd" style="width:76px"></i><i class="s32-wd" style="width:46px"></i><i class="s32-wd" style="width:64px"></i><i class="s32-wd" style="width:70px"></i><i class="s32-wd" style="width:52px"></i><i class="s32-wph"></i></div>
+<div class="s32-wlab" dir="rtl"><i></i><span>המילה שבחרתם</span></div>
+<svg class="s32-wlink" viewBox="0 0 800 700" aria-hidden="true"><path d="M483.3 118 V403.3"/></svg>
+<div class="s32-graph"><svg class="s32-gsv" viewBox="0 0 270 130" aria-hidden="true"><path class="ax" d="M258 112 H8"/><path class="gh" d="M250.0 70.0 L246.2 67.2 L242.4 64.3 L238.6 61.5 L234.8 58.8 L231.0 56.2 L227.2 53.6 L223.4 51.2 L219.6 48.9 L215.8 46.7 L212.0 44.7 L208.2 42.9 L204.4 41.3 L200.6 39.9 L196.8 38.7 L193.0 37.7 L189.2 36.9 L185.4 36.4 L181.6 36.1 L177.8 36.0 L174.0 36.2 L170.2 36.6 L166.4 37.3 L162.6 38.1 L158.8 39.2 L155.0 40.6 L151.2 42.1 L147.4 43.8 L143.6 45.7 L139.8 47.8 L136.0 50.0 L132.2 52.4 L128.4 54.9 L124.6 57.5 L120.8 60.2 L117.0 62.9 L113.2 65.7 L109.4 68.6 L105.6 71.4 L101.8 74.3 L98.0 77.1 L94.2 79.8 L90.4 82.5 L86.6 85.1 L82.8 87.6 L79.0 90.0 L75.2 92.2 L71.4 94.3 L67.6 96.2 L63.8 97.9 L60.0 99.4 L56.2 100.8 L52.4 101.9 L48.6 102.7 L44.8 103.4 L41.0 103.8 L37.2 104.0 L33.4 103.9 L29.6 103.6 L25.8 103.1 L22.0 102.3"/><path class="gl" d="M220.0 70.0 L216.2 67.2 L212.4 64.3 L208.6 61.5 L204.8 58.8 L201.0 56.2 L197.2 53.6 L193.4 51.2 L189.6 48.9 L185.8 46.7 L182.0 44.7 L178.2 42.9 L174.4 41.3 L170.6 39.9 L166.8 38.7 L163.0 37.7 L159.2 36.9 L155.4 36.4 L151.6 36.1 L147.8 36.0 L144.0 36.2 L140.2 36.6 L136.4 37.3 L132.6 38.1 L128.8 39.2 L125.0 40.6 L121.2 42.1 L117.4 43.8 L113.6 45.7 L109.8 47.8 L106.0 50.0 L102.2 52.4 L98.4 54.9 L94.6 57.5 L90.8 60.2 L87.0 62.9 L83.2 65.7 L79.4 68.6 L75.6 71.4 L71.8 74.3 L68.0 77.1 L64.2 79.8 L60.4 82.5 L56.6 85.1 L52.8 87.6 L49.0 90.0 L45.2 92.2 L41.4 94.3 L37.6 96.2 L33.8 97.9 L30.0 99.4 L26.2 100.8 L22.4 101.9 L18.6 102.7 L14.8 103.4 L11.0 103.8"/><path class="br" d="M168 26 v-8 h-30 v8"/></svg><div class="s32-lag" dir="rtl">0.1 שנייה</div><div class="s32-leg" dir="rtl"><span class="h"><i></i>היד</span><span class="l"><i></i>הלוגו</span></div></div>
+<div class="s32-mover">
+<div class="s32-plane" style="left:280.0px;top:75.0px"><svg class="s32-psv" viewBox="0 0 300 400" aria-hidden="true">
+<defs><clipPath id="s32clip"><path transform="translate(160 390)" d="M-56 12 C-58 -10 -70 -40 -96 -70 C-118 -96 -136 -122 -144 -146 C-150 -166 -126 -184 -112 -164 C-100 -146 -86 -126 -66 -112 C-70 -150 -78 -240 -82 -312 C-84 -338 -44 -342 -42 -318 C-40 -270 -36 -230 -32 -196 C-34 -250 -35 -320 -34 -346 C-33 -370 14 -370 13 -346 C12 -300 12 -240 10 -196 C12 -240 14 -290 18 -318 C20 -342 58 -342 58 -318 C56 -270 50 -230 46 -190 C50 -220 54 -250 58 -272 C62 -296 98 -296 96 -270 C92 -220 86 -180 82 -150 C78 -100 72 -40 64 12 Z"/></clipPath>
+<radialGradient id="s32pl"><stop offset="0" stop-color="#ffb066" stop-opacity="0.85"/><stop offset="0.45" stop-color="#ff9f43" stop-opacity="0.38"/><stop offset="1" stop-color="#ff9f43" stop-opacity="0"/></radialGradient></defs>
+<g clip-path="url(#s32clip)"><ellipse class="s32-light" cx="159.2" cy="209.2" rx="150" ry="190" fill="url(#s32pl)"/></g>
+<path class="s32-fill" transform="translate(160 390)" d="M-56 12 C-58 -10 -70 -40 -96 -70 C-118 -96 -136 -122 -144 -146 C-150 -166 -126 -184 -112 -164 C-100 -146 -86 -126 -66 -112 C-70 -150 -78 -240 -82 -312 C-84 -338 -44 -342 -42 -318 C-40 -270 -36 -230 -32 -196 C-34 -250 -35 -320 -34 -346 C-33 -370 14 -370 13 -346 C12 -300 12 -240 10 -196 C12 -240 14 -290 18 -318 C20 -342 58 -342 58 -318 C56 -270 50 -230 46 -190 C50 -220 54 -250 58 -272 C62 -296 98 -296 96 -270 C92 -220 86 -180 82 -150 C78 -100 72 -40 64 12 Z"/>
+<path class="s32-ol" transform="translate(160 390)" d="M-56 12 C-58 -10 -70 -40 -96 -70 C-118 -96 -136 -122 -144 -146 C-150 -166 -126 -184 -112 -164 C-100 -146 -86 -126 -66 -112 C-70 -150 -78 -240 -82 -312 C-84 -338 -44 -342 -42 -318 C-40 -270 -36 -230 -32 -196 C-34 -250 -35 -320 -34 -346 C-33 -370 14 -370 13 -346 C12 -300 12 -240 10 -196 C12 -240 14 -290 18 -318 C20 -342 58 -342 58 -318 C56 -270 50 -230 46 -190 C50 -220 54 -250 58 -272 C62 -296 98 -296 96 -270 C92 -220 86 -180 82 -150 C78 -100 72 -40 64 12"/>
+<path class="s32-bn" d="M160.0 390.0 L120.0 350.0 M120.0 350.0 L82.0 310.0 M82.0 310.0 L56.0 272.0 M56.0 272.0 L36.0 240.0 M160.0 390.0 L112.0 212.0 M112.0 212.0 L104.0 146.0 M104.0 146.0 L100.0 104.0 M100.0 104.0 L97.0 68.0 M112.0 212.0 L150.0 204.0 M150.0 204.0 L150.0 130.0 M150.0 130.0 L150.0 84.0 M150.0 84.0 L150.0 44.0 M150.0 204.0 L186.0 210.0 M186.0 210.0 L192.0 142.0 M192.0 142.0 L196.0 100.0 M196.0 100.0 L199.0 66.0 M186.0 210.0 L218.0 230.0 M160.0 390.0 L218.0 230.0 M218.0 230.0 L228.0 178.0 M228.0 178.0 L234.0 144.0 M234.0 144.0 L238.0 114.0"/>
+<path class="s32-sp" d="M160.0 390.0 L165.2 249.2 M112.0 212.0 L165.2 249.2 M150.0 204.0 L165.2 249.2 M186.0 210.0 L165.2 249.2 M218.0 230.0 L165.2 249.2"/>
+<path class="s32-m25" d="M82.0 310.0 L112.0 212.0"/>
+<circle class="s32-lm s32-pp" cx="160.0" cy="390.0" r="5.2"/><circle class="s32-lm" cx="120.0" cy="350.0" r="5.2"/><circle class="s32-lm" cx="82.0" cy="310.0" r="5.2"/><circle class="s32-lm" cx="56.0" cy="272.0" r="5.2"/><circle class="s32-lm" cx="36.0" cy="240.0" r="5.2"/><circle class="s32-lm s32-pp" cx="112.0" cy="212.0" r="5.2"/><circle class="s32-lm" cx="104.0" cy="146.0" r="5.2"/><circle class="s32-lm" cx="100.0" cy="104.0" r="5.2"/><circle class="s32-lm" cx="97.0" cy="68.0" r="5.2"/><circle class="s32-lm s32-pp" cx="150.0" cy="204.0" r="5.2"/><circle class="s32-lm" cx="150.0" cy="130.0" r="5.2"/><circle class="s32-lm" cx="150.0" cy="84.0" r="5.2"/><circle class="s32-lm" cx="150.0" cy="44.0" r="5.2"/><circle class="s32-lm s32-pp" cx="186.0" cy="210.0" r="5.2"/><circle class="s32-lm" cx="192.0" cy="142.0" r="5.2"/><circle class="s32-lm" cx="196.0" cy="100.0" r="5.2"/><circle class="s32-lm" cx="199.0" cy="66.0" r="5.2"/><circle class="s32-lm s32-pp" cx="218.0" cy="230.0" r="5.2"/><circle class="s32-lm" cx="228.0" cy="178.0" r="5.2"/><circle class="s32-lm" cx="234.0" cy="144.0" r="5.2"/><circle class="s32-lm" cx="238.0" cy="114.0" r="5.2"/>
+<circle class="s32-pcm" cx="165.2" cy="249.2" r="9"/>
+</svg></div>
+<svg class="s32-hl" viewBox="0 0 800 700" aria-hidden="true"><path d="M526.6 544.9 L483.3 413.3"/></svg>
+<div class="s32-hov" style="left:467.3px;top:393.3px"><i></i></div>
+<div class="s32-hlab" dir="rtl" style="top:431.3px"><i></i><span>נקודת הריחוף</span></div>
+</div>
+<div class="s32-plab" dir="rtl"><span>21 נקודות</span><i></i></div>
+<div class="s32-gh s32-gh2" style="left:378.3px;top:199.3px"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg></div>
+<div class="s32-gh s32-gh1" style="left:378.3px;top:199.3px"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg></div>
+<div class="s32-fol">
+<div class="s32-beam" style="left:353.3px;top:401.3px"></div>
+<div class="s32-ghost" style="left:378.3px;top:199.3px"><div class="s32-gw"><svg class="s32-gf" viewBox="0 0 100 100" style="transform:translateZ(-17px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><i class="s32-ge" style="left:88.0px;top:15.1px"></i><i class="s32-ge" style="left:164.9px;top:59.5px"></i><i class="s32-ge" style="left:164.9px;top:148.3px"></i><i class="s32-ge" style="left:88.0px;top:192.7px"></i><i class="s32-ge" style="left:11.1px;top:148.3px"></i><i class="s32-ge" style="left:11.1px;top:59.5px"></i><svg class="s32-gf" viewBox="0 0 100 100" style="transform:translateZ(17px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg></div></div>
+<div class="s32-lglow" style="left:323.3px;top:144.3px"></div>
+<div class="s32-lgw" data-focus="4" style="left:378.3px;top:199.3px"><div class="s32-lg3"><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-17.00px)" aria-hidden="true"><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="#b5631a"/><path d="M42.9 20.1Q50.0 16.0 57.1 20.1 L72.4 28.9Q79.4 33.0 79.4 41.2 L79.4 58.8Q79.4 67.0 72.4 71.1 L57.1 79.9Q50.0 84.0 42.9 79.9 L27.6 71.1Q20.6 67.0 20.6 58.8 L20.6 41.2Q20.6 33.0 27.6 28.9Z" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-15.97px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-14.94px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-13.91px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-12.88px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-11.85px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-10.82px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-9.79px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-8.76px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-7.73px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-6.70px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-5.67px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-4.64px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-3.61px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-2.58px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-1.55px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(-0.52px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(0.52px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(1.55px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(2.58px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(3.61px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(4.64px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(5.67px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(6.70px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(7.73px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(8.76px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(9.79px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(10.82px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(11.85px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(12.88px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(13.91px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(14.94px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(15.97px)" aria-hidden="true"><path class="sd" d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z"/></svg><svg class="s32-ly" viewBox="0 0 100 100" style="transform:translateZ(17.00px)" aria-hidden="true"><defs><linearGradient id="s32lg" x1="0" y1="0" x2="0.45" y2="1"><stop offset="0" stop-color="#ffc27a"/><stop offset="0.55" stop-color="#ff9f43"/><stop offset="1" stop-color="#f08a24"/></linearGradient><linearGradient id="s32ls" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/><stop offset="0.45" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="url(#s32lg)"/><path d="M40.6 10.4Q50.0 5.0 59.4 10.4 L79.6 22.1Q89.0 27.5 89.0 38.3 L89.0 61.7Q89.0 72.5 79.6 77.9 L59.4 89.6Q50.0 95.0 40.6 89.6 L20.4 77.9Q11.0 72.5 11.0 61.7 L11.0 38.3Q11.0 27.5 20.4 22.1Z" fill="url(#s32ls)"/><path d="M42.9 20.1Q50.0 16.0 57.1 20.1 L72.4 28.9Q79.4 33.0 79.4 41.2 L79.4 58.8Q79.4 67.0 72.4 71.1 L57.1 79.9Q50.0 84.0 42.9 79.9 L27.6 71.1Q20.6 67.0 20.6 58.8 L20.6 41.2Q20.6 33.0 27.6 28.9Z" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/><path d="M50 28 C 52 44, 56 48, 72 50 C 56 52, 52 56, 50 72 C 48 56, 44 52, 28 50 C 44 48, 48 44, 50 28Z" fill="#ffffff"/></svg></div></div>
+<i class="s32-lp" style="left:474.3px;top:400.3px"></i>
+</div>
+</div></div></div></div></div>
+<div class="factbox"><div class="factin"><i class="fscrim"></i><span class="pill">איחור של 0.1 שנייה</span><p class="factline kin" dir="rtl"><span class="w" dir="rtl" data-t="18.660">MediaPipe</span> <span class="w" dir="rtl" data-t="18.780">מניח</span> <span class="w" dir="rtl" data-t="18.900">תמונת</span> <span class="w" dir="rtl" data-t="19.020">מראה:</span> <span class="w" dir="rtl" data-t="19.340">מה</span> <span class="w" dir="rtl" data-t="19.460">שהוא</span> <span class="w" dir="rtl" data-t="19.580">קורא</span> <span class="nbgrp"><span class="w" dir="rtl" data-t="19.700">&quot;יד</span> <span class="w" dir="rtl" data-t="19.820">ימין&quot;</span></span> <span class="w" dir="rtl" data-t="19.940">הוא</span> <span class="w" dir="rtl" data-t="20.060">בדרך</span> <span class="w" dir="rtl" data-t="20.180">כלל</span> <span class="w" dir="rtl" data-t="20.300">היד</span> <span class="w" dir="rtl" data-t="20.420">שבצד</span> <span class="w" dir="rtl" data-t="20.540">שמאל</span> <span class="w" dir="rtl" data-t="20.660">של</span> <span class="w" dir="rtl" data-t="20.780">המסך.</span></p></div></div>
+<div class="pcard"><div class="pc-head"><span class="pc-title"><i></i>הפרומפט המוכן</span><span class="pc-num" dir="ltr"><b>8</b> / 21</span></div><div class="pc-tabs"><span class="tab" data-sec="קלט">קלט<i class="tul"></i></span><span class="tab" data-sec="כיוון">כיוון<i class="tul"></i></span><span class="tab" data-sec="בנייה">בנייה<i class="tul"></i></span><span class="tab" data-sec="מלכודות">מלכודות<i class="tul"></i></span><span class="tab" data-sec="התחלה">התחלה<i class="tul"></i></span><i class="tabul"></i></div><div class="pvp"><div class="pct" dir="rtl"><div class="pbody"><div class="pl" dir="rtl">ההוראות כאן מחליפות את ראיון הפתיחה של HyperFrames, אז אל תריץ אותו.</div>
+<div class="pl ptag" dir="rtl" data-sec="קלט">&lt;קלט&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על ארבעה דברים:</div>
+<div class="pl" dir="rtl">- הסרטון, ומעל איזו יד הלוגו מרחף: היד שבצד ימין של המסך, זו שבצד שמאל, או שתיהן עם לוגו אחר לכל יד.</div>
+<div class="pl" dir="rtl">- קובץ הלוגו, עדיף SVG, וקובץ לכל לוגו אם יש שניים.</div>
+<div class="pl" dir="rtl">- כמה גדול הלוגו, וברירת המחדל היא בערך הרוחב של כף היד.</div>
+<div class="pl" dir="rtl">- הרגע שבו כל לוגו מופיע והרגע שבו הוא נעלם, לפי מילה שאמרתי או לפי זמן.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/קלט&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="כיוון">&lt;כיוון&gt;</div>
+<div class="pl" dir="rtl">על המילה שבחרתי נדלקת נקודת אור קטנה מעל כף היד, והלוגו צומח ממנה עם סיבוב אחד.</div>
+<div class="pl" dir="rtl">הלוגו בתלת ממד, עם עובי וקצוות מעוגלים, בצבעים האמיתיים שלו.</div>
+<div class="pl" dir="rtl">הוא מרחף מעל כף היד בתנודה איטית של כמה פיקסלים ומסתובב לאט, כדי שרואים שיש לו עומק.</div>
+<div class="pl" dir="rtl" data-hl="hl1"><i class="hlbg"></i>הוא עוקב אחרי היד באיחור קטן של בערך 0.1 שנייה, כמו משהו שמרחף מעליה ולא כמו מדבקה.</div>
+<div class="pl" dir="rtl">אור בצבע הלוגו נופל על כף היד ועל האצבעות, ונחלש כשהלוגו מתרחק מהן.</div>
+<div class="pl" dir="rtl">אם בלוגו כמה צבעים, האור בצבע הדומיננטי שלו.</div>
+<div class="pl" dir="rtl" data-hl="hl2"><i class="hlbg"></i>ביציאה הלוגו מתכווץ חזרה לנקודת אור ונעלם.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/כיוון&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="בנייה">&lt;בנייה&gt;</div>
+<div class="pl" dir="rtl">1. את MediaPipe תתקין בתוך venv עם <span class="codeblock" dir="rtl"><span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">pip</span> <span class="tk">install</span> <span class="tk">mediapipe==0.10.35</span><span class="bt">`</span></span></span>ותשתמש <span class="nb">ב-Tasks</span> API, כי הגרסה האחרונה <span class="nb">ב-pip</span> קורסת <span class="nb">ב-Mac</span> בזיהוי הראשון.</div>
+<div class="pl" dir="rtl">2. תריץ את <span class="code" dir="ltr"><span class="bt">`</span><span class="tk">HandLandmarker</span><span class="bt">`</span></span> על כל פריים, ותשמור לכל יד את 21 הנקודות שלה בקובץ JSON.</div>
+<div class="pl" dir="rtl">3. פריים שבו היד לא זוהתה מקבל את הערכים של הפריים הקרוב שבו היא כן זוהתה.</div>
+<div class="pl" dir="rtl">4. את נקודת הריחוף תחשב מהנקודות: לרוחב, באמצע בין מרכז כף היד (ממוצע הנקודות 0, 5, 9, 13 <span class="nb">ו-17)</span> לאמצע שבין נקודה 2 לנקודה 5, ולגובה, הגובה הנמוך ביותר שבו הלוגו לא נוגע באף אצבע (מרווח של בערך 12 פיקסלים).</div>
+<div class="pl" dir="rtl">5. את המעקב תחליק בתנועת קפיץ שקצת עוברת את היעד ונרגעת, מחושבת מהזמן בלבד.</div>
+<div class="pl" dir="rtl">6. את הלוגו תבנה <span class="nb">מה-SVG</span> <span class="nb">ב-three.js</span> עם ExtrudeGeometry ושוליים מעוגלים, עם חומר מבריק ושתי מנורות.</div>
+<div class="pl" dir="rtl">7. אם יש רק PNG, תהפוך אותו לצורות וקטוריות לפי השקיפות שלו, צורה נפרדת לכל צבע, ותראה לי אותן לפני הבנייה.</div>
+<div class="pl" dir="rtl">8. את האור על היד תצייר רק בתוך היד, בעזרת הגוף שלי בלי הרקע <span class="codeblock" dir="rtl">מ-<span class="cbi" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">remove-background</span><span class="bt">`</span></span>.</span></div>
+<div class="pl" dir="rtl">9. הכל בקומפוזיציה של HyperFrames מעל הסרטון, כשכל פריים מחושב מהזמן.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/בנייה&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="מלכודות">&lt;מלכודות&gt;</div>
+<div class="pl" dir="rtl">כשהיד זזה מהר היא מטושטשת והזיהוי נופל, ואז בלי מילוי מהפריים הקרוב הלוגו קופץ לפינה של המסך.</div>
+<div class="pl" dir="rtl">MediaPipe מניח תמונת מראה, ולכן בסרטון רגיל מה שהוא קורא &quot;יד ימין&quot; הוא בדרך כלל היד שבצד שמאל של המסך, והיד נבחרת לפי הצד שלה במסך.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/מלכודות&gt;</div>
+<div class="pl pl-empty"></div>
+<div class="pl ptag" dir="rtl" data-sec="התחלה">&lt;התחלה&gt;</div>
+<div class="pl" dir="rtl">תשאל אותי על הקלט, תריץ את המעקב, ותראה לי גיליון של 6 פריימים עם הנקודות של היד ונקודת הריחוף מסומנות.</div>
+<div class="pl" dir="rtl">אחרי שאישרתי, תראה לי פריים בכניסה, פריים בתנועה מהירה ופריים ביציאה, ורק אז תרנדר 5 שניות סביב הכניסה מעותק זמני וקצר של הקומפוזיציה <span class="nb">ב-540</span> על 960 (או 960 על 540), כי ל-<span class="code" dir="ltr"><span class="bt">`</span><span class="tk">npx</span> <span class="tk">hyperframes</span> <span class="tk">render</span><span class="bt">`</span></span> אין דגל לטווח זמן או להקטנה.</div>
+<div class="pl ptag pclose" dir="rtl">&lt;/התחלה&gt;</div></div></div></div></div><div class="plift"><div class="pl-lift" dir="rtl" data-for="hl1"><i class="hlbg"></i>הוא עוקב אחרי היד באיחור קטן של בערך 0.1 שנייה, כמו משהו שמרחף מעליה ולא כמו מדבקה.</div><div class="pl-lift" dir="rtl" data-for="hl2"><i class="hlbg"></i>ביציאה הלוגו מתכווץ חזרה לנקודת אור ונעלם.</div></div>
+<div class="tipwrap"><div class="tipcard"><div class="tip-label"><svg class="tip-ico" viewBox="0 0 48 48" aria-hidden="true"><path class="dr" d="M17 30c-3.4-2.6-5.5-6.5-5.5-10.8C11.5 12.2 17.1 6.5 24 6.5s12.5 5.7 12.5 12.7c0 4.3-2.1 8.2-5.5 10.8v4.5H17z"/><path class="dr" d="M18.5 39.5h11M20.5 44h7"/><path class="dr" d="M24 34.5V24m-4-3.5 4 3.5 4-3.5"/></svg>טיפ</div><p class="tip-text kin" dir="rtl"><span class="w" dir="rtl" data-t="32.310">מביאים</span> <span class="w" dir="rtl" data-t="32.470">את</span> <span class="w" dir="rtl" data-t="32.630">הלוגו</span> <span class="w" dir="rtl" data-t="32.790">כקובץ</span> <span class="w" dir="rtl" data-t="32.950">SVG.</span> <span class="glu"><span class="w" dir="rtl" data-t="33.360">מ-</span><span class="w" dir="rtl" data-t="33.360">PNG</span></span> <span class="w" dir="rtl" data-t="33.680">קלוד</span> <span class="w" dir="rtl" data-t="33.840">צריך</span> <span class="w" dir="rtl" data-t="34.000">לשרטט</span> <span class="w" dir="rtl" data-t="34.160">את</span> <span class="w" dir="rtl" data-t="34.320">קווי</span> <span class="w" dir="rtl" data-t="34.480">המתאר</span> <span class="w" dir="rtl" data-t="34.640">בעצמו,</span> <span class="w" dir="rtl" data-t="34.800">והקצוות</span> <span class="w" dir="rtl" data-t="34.960">יוצאים</span> <span class="w" dir="rtl" data-t="35.120">פחות</span> <span class="w" dir="rtl" data-t="35.280">חדים.</span></p></div></div>
+</div></div>
+</div>
+</div>
+</div>
+<script>
+/* Runtime helpers that add tweens to one paused GSAP master timeline.
+   Every tween is a fromTo with explicit values and immediateRender:false (CSS holds the
+   initial state), so any frame can be rendered by seeking to it in any order.
+   Each scene has its own camera (.scam); the chapter header sits outside it and never zooms. */
+(function () {
+  const E = (window.ENG = {});
+  // The guide's no-overshoot spring (prompts 9 and 13).
+  const SPRING = (p) => (1 - (1 + 7 * p) * Math.exp(-7 * p)) / (1 - 8 * Math.exp(-7));
+  E.SPRING = SPRING;
+  E.debug = (window.__ENG_DEBUG = { scenes: {} });
+  E.q = (s, r) => (r || document).querySelector(s);
+  E.qa = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const NI = { immediateRender: false };
+  E.NI = NI;
+  const A = (o) => Object.assign(o, NI);
+  E.A = A;
+  /* Deterministic PRNG (mulberry32): never use Math.random in scenes. */
+  E.rand = function (seed) {
+    let a = seed >>> 0;
+    return function () { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  };
+  /* Offsets ignore transforms: measure layout before any tween moves things. */
+  E.off = function (el, top) {
+    let x = 0, y = 0, e = el;
+    while (e && e !== top) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+    return { x, y };
+  };
+  E.center = function (el, top) {
+    const o = E.off(el, top);
+    return { x: o.x + el.offsetWidth / 2, y: o.y + el.offsetHeight / 2 };
+  };
+
+  E.fadeIn = function (tl, el, t, d, dy) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: 0, y: dy || 0 }, A({ opacity: 1, y: 0, duration: d || 0.5, ease: SPRING }), t);
+  };
+  E.fadeOut = function (tl, el, t, d, dy, from) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from, y: 0 }, A({ opacity: 0, y: dy || 0, duration: d || 0.3, ease: "power2.in" }), t);
+  };
+  E.dim = function (tl, el, t, to, from, d) {
+    if (!el) return;
+    tl.fromTo(el, { opacity: from == null ? 1 : from }, A({ opacity: to, duration: d || 0.35, ease: "power2.out" }), t);
+  };
+
+  /* Kinetic words: each word enters on its time with a spring (slightly above final size,
+     then settles) and unblurs. Blur is animated separately from the spring and ends on
+     0px then "none", so it never goes negative (prompt 2's pitfall). */
+  E.kin = function (tl, root, S, o) {
+    if (!root) return;
+    o = o || {};
+    const dy = o.dy == null ? 18 : o.dy;
+    E.qa(".w", root).forEach((w) => {
+      const t = S + parseFloat(w.dataset.t || "0");
+      tl.fromTo(w, { opacity: 0 }, A({ opacity: 1, duration: 0.22, ease: "power2.out" }), t);
+      tl.fromTo(w, { y: dy, scale: 0.82 }, A({ y: 0, scale: 1, duration: 0.62, ease: "back.out(2.1)" }), t);
+      tl.fromTo(w, { filter: "blur(9px)" }, A({ filter: "blur(0px)", duration: 0.3, ease: "power2.out" }), t);
+      tl.set(w, { filter: "none" }, t + 0.31);
+    });
+    E.qa(".ul", root).forEach((u) => {
+      const t = S + parseFloat(u.dataset.t || "0");
+      tl.fromTo(u, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.5, ease: "power3.inOut" }), t);
+    });
+  };
+
+  /* White pill caption: switches in one frame, no animation (prompt 2). */
+  E.pill = function (tl, el, tin, tout) {
+    tl.set(el, { opacity: 1 }, tin);
+    if (tout != null) tl.set(el, { opacity: 0 }, tout);
+  };
+
+  /* Bouncy zoom on the scene camera with the guide's spring. The focal x is clamped so a
+     content column [colL, colR] scaled by (1+amt) stays inside the safe area x 140..940. */
+  E.zoom = function (tl, ctx, cx, cy, t, amt, tBack, backDur, col) {
+    const s = 1 + amt;
+    const L = col ? col[0] : 220, R = col ? col[1] : 940;
+    const lo = (s * R - 940) / (s - 1), hi = (s * L - 140) / (s - 1);
+    if (lo <= hi) cx = Math.min(hi, Math.max(lo, cx));
+    else cx = (L + R) / 2;
+    tl.set(ctx.cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(ctx.cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) {
+      if (backDur) tl.fromTo(ctx.cam, { scale: s }, A({ scale: 1, duration: backDur, ease: "power2.inOut" }), tBack);
+      else tl.set(ctx.cam, { scale: 1 }, tBack);
+    }
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  E.zoomOn = function (tl, ctx, el, t, amt, tBack, backDur, col) {
+    const c = E.center(el, ctx.scene);
+    E.zoom(tl, ctx, c.x, c.y, t, amt, tBack, backDur, col);
+  };
+
+  /* ---------- effects (all pure transforms/opacity, created once before the first seek) ---------- */
+  /* Light sweep across an element, right to left (the reading direction). The element must be
+     positioned; it clips the band to its own shape. o.color tints the band. */
+  E.sweep = function (tl, el, t, d, o) {
+    if (!el) return;
+    o = o || {};
+    const fx = document.createElement("i"), b = document.createElement("b");
+    fx.className = "fx-sweep";
+    if (o.color) fx.style.setProperty("--sweep", o.color);
+    fx.appendChild(b);
+    // the sweep clips to the element's own box, so a static element becomes the containing block
+    // (only when none of its absolutely placed children depends on an outer one)
+    if (getComputedStyle(el).position === "static") {
+      const outer = Array.from(el.querySelectorAll("*")).some((c) => /absolute|fixed/.test(getComputedStyle(c).position) && c.offsetParent !== el && el.contains(c.offsetParent) === false);
+      if (!outer) el.style.position = "relative";
+    }
+    el.appendChild(fx);
+    // the band is 180% of the swept box's height and skewed 16 degrees, so its ends lean by ~0.26 of the
+    // height: it starts and ends that far outside, never as a wedge inside a tall box
+    const w = fx.offsetWidth || el.offsetWidth, h = fx.offsetHeight || el.offsetHeight;
+    const bw = Math.max(60, Math.round(w * 0.34)), slant = Math.ceil(h * 0.27) + 12;
+    b.style.width = bw + "px";
+    b.style.left = w + slant + "px";
+    tl.fromTo(b, { x: 0 }, A({ x: -(w + 2 * slant + bw), duration: d || 0.8, ease: "power2.inOut" }), t);
+  };
+  /* A soft light band crosses the whole frame (scene change). */
+  E.band = function (tl, scene, t) {
+    const b = document.createElement("i");
+    b.className = "fx-band";
+    scene.appendChild(b);
+    tl.fromTo(b, { x: 0 }, A({ x: -1900, duration: 0.85, ease: "power2.inOut" }), t);
+    tl.fromTo(b, { opacity: 0 }, A({ opacity: 1, duration: 0.25, ease: "power1.out" }), t);
+    tl.fromTo(b, { opacity: 1 }, A({ opacity: 0, duration: 0.3, ease: "power1.in" }), t + 0.55);
+  };
+  /* Particle burst from (x, y) inside parent: n dots fly out and fade (deterministic). */
+  E.burst = function (tl, parent, x, y, t, o) {
+    if (!parent) return;
+    o = o || {};
+    const n = o.n || 14, rnd = E.rand(o.seed || 7), col = o.color || "#ff6b61", r0 = o.r0 || 30, r1 = o.r1 || 120;
+    for (let i = 0; i < n; i++) {
+      const d = document.createElement("i");
+      d.className = "fx-dot";
+      const sz = 5 + rnd() * 7;
+      d.style.cssText = "left:" + x + "px;top:" + y + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:" + col + ";box-shadow:0 0 10px " + col;
+      parent.appendChild(d);
+      const ang = (i / n) * Math.PI * 2 + rnd() * 0.5, dist = r0 + rnd() * (r1 - r0), dur = 0.55 + rnd() * 0.35;
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * dist, y: Math.sin(ang) * dist, scale: 0.35, duration: dur, ease: "power3.out" }), t);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), t);
+    }
+  };
+  /* Draw an SVG stroke on (path, line, polyline, circle, rect). */
+  E.draw = function (tl, el, t, d, ease) {
+    if (!el) return;
+    // the hidden dash ends before the path starts, so a round cap never leaves a dot there
+    const L = Math.ceil(el.getTotalLength ? el.getTotalLength() : 200) + 2, pad = 12;
+    el.style.strokeDasharray = L + " " + (L + 2 * pad);
+    el.style.strokeDashoffset = L + pad;
+    tl.fromTo(el, { strokeDashoffset: L + pad }, A({ strokeDashoffset: 0, duration: d || 0.6, ease: ease || "power2.inOut" }), t);
+  };
+  /* Short glitch: the element jolts sideways with a skew and settles (chained, explicit values). */
+  E.glitch = function (tl, el, t, amp) {
+    if (!el) return;
+    const a = amp || 8;
+    const seq = [[0, 0], [a, -7], [-a * 0.7, 5], [a * 0.45, -3], [-a * 0.2, 1.5], [0, 0]];
+    for (let i = 1; i < seq.length; i++) {
+      tl.fromTo(el, { x: seq[i - 1][0], skewX: seq[i - 1][1] }, A({ x: seq[i][0], skewX: seq[i][1], duration: 0.05, ease: "none" }), t + (i - 1) * 0.05);
+    }
+  };
+  /* Bouncy zoom inside the illustration (the guide's spring): the stage camera punches in on a
+     focal element and comes back at tBack. The camera box clips, so text above is never touched. */
+  E.zoomStage = function (tl, ctx, el, t, amt, tBack) {
+    const cam = ctx.stcam, fit = ctx.fit || 1, sf = ctx.stfit;
+    let cx = cam.offsetWidth / 2, cy = cam.offsetHeight / 2;
+    if (el) {
+      const c = E.center(el, sf);
+      const hw = sf.offsetWidth / 2, hh = sf.offsetHeight / 2;
+      cx = sf.offsetLeft + hw + (c.x - hw) * fit;
+      cy = sf.offsetTop + hh + (c.y - hh) * fit;
+    }
+    const s = 1 + amt;
+    tl.set(cam, { transformOrigin: cx.toFixed(1) + "px " + cy.toFixed(1) + "px" }, t);
+    tl.fromTo(cam, { scale: 1 }, A({ scale: s, duration: 0.8, ease: SPRING }), t);
+    if (tBack != null) tl.fromTo(cam, { scale: s }, A({ scale: 1, duration: 0.45, ease: "power2.inOut" }), tBack);
+    // the frame's edges soften while the camera is pushed in (content beyond them is cropped)
+    const clip = cam.parentElement;
+    if (clip && clip.classList.contains("stclip")) {
+      tl.fromTo(clip, { "--edge": "0px" }, A({ "--edge": "26px", duration: 0.3, ease: "power2.out" }), t);
+      if (tBack != null) tl.fromTo(clip, { "--edge": "26px" }, A({ "--edge": "0px", duration: 0.3, ease: "power2.in" }), tBack + 0.15);
+    }
+    E.debug.zooms = (E.debug.zooms || []).concat([{ t: +t.toFixed(3), s, cx: Math.round(cx), cy: Math.round(cy) }]);
+  };
+  /* Slow drifting dust over the whole video (depth; deterministic). */
+  E.dust = function (tl, bg, total) {
+    const rnd = E.rand(11);
+    for (let i = 0; i < 28; i++) {
+      const d = document.createElement("i"), sz = 2 + rnd() * 3.5;
+      d.className = "dust";
+      d.style.cssText = "left:" + (rnd() * 1080).toFixed(0) + "px;top:" + (200 + rnd() * 1700).toFixed(0) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;opacity:" + (0.15 + rnd() * 0.35).toFixed(2);
+      bg.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0 }, A({ x: (rnd() - 0.5) * 160, y: -(140 + rnd() * 320), duration: total, ease: "none" }), 0);
+    }
+  };
+
+  /* Prompt card: the full verbatim text, paged (static pages and short slides, so any
+     paused frame is readable). On a key line the page text dims and a copy of the line
+     lifts above the card (bouncy zoom on the line; it sits in its own layer, so its backing
+     is never clipped). One underline slides between the section tabs. Exits at t1. */
+  E.prompt = function (tl, ctx, card, t0, t1, hls) {
+    const vp = E.q(".pvp", card), ct = E.q(".pct", card), body = E.q(".pbody", card);
+    const ROW = 44, ROWS = 23;                     // the viewport is exactly 23 rows: no line is ever cut
+    const totalRows = Math.round(body.offsetHeight / ROW);
+    const lastTop = Math.max(0, (totalRows - ROWS) * ROW);
+    const bw = parseFloat(getComputedStyle(card).borderTopWidth) || 0;
+    // a short text (an excerpt) gets a card sized to it, centred where the full card would be
+    if (totalRows < ROWS) {
+      const cut = vp.offsetTop + totalRows * ROW + 28, top = card.offsetTop + (card.offsetHeight - cut) / 2;
+      [card, E.q(".plift", ctx.scene)].forEach((el) => { if (el) { el.style.height = cut + "px"; el.style.top = top + "px"; } });
+      vp.style.height = totalRows * ROW + "px";
+    }
+    const H = (hls || []).map((h) => {
+      const ln = E.q('[data-hl="' + h.id + '"]', card);
+      const lift = E.q('.pl-lift[data-for="' + h.id + '"]', ctx.scene);
+      return { id: h.id, ln, lift, top: ln.offsetTop, bot: ln.offsetTop + ln.offsetHeight, want: h.hold || 2.4 };
+    }).sort((a, b) => a.top - b.top);
+    // pages advance by 22 rows (one row of overlap); a page is pulled up so a key line never straddles an edge
+    const pages = [0];
+    while (pages[pages.length - 1] < lastTop) {
+      const cur = pages[pages.length - 1];
+      let nxt = Math.min(lastTop, cur + (ROWS - 1) * ROW);
+      for (const h of H) if (h.top > cur && h.top < cur + ROWS * ROW && h.bot > cur + ROWS * ROW) nxt = Math.min(nxt, h.top - 2 * ROW);
+      if (nxt <= cur) nxt = Math.min(lastTop, cur + ROW);
+      pages.push(nxt);
+    }
+    // a key line is held on the page where it sits furthest from the edges (the lift needs room)
+    H.forEach((h) => {
+      let bestM = -1e9;
+      h.page = 0;
+      pages.forEach((p, i) => {
+        const m = Math.min(h.top - p, p + ROWS * ROW - h.bot);
+        if (m >= 0 && m > bestM + 0.5) { bestM = m; h.page = i; }
+      });
+    });
+    // schedule: plain pages flip on a ~0.52 s cadence (slide included); key lines get the rest of the
+    // time, in proportion to their wanted holds; the page stays dimmed across a slide between two holds
+    const n = pages.length;
+    const LEAD = 0.25, EXIT = 0.3, SLIDE = 0.25, DSLIDE = 0.25, UNLIFT = 0.25, UNDIM = 0.3, MINH = 2.0;
+    const LIFT = 1.1, DIM = 0.38;
+    const mineOf = (i) => H.filter((h) => h.page === i);
+    const isHold = (i) => i >= 0 && i < n && mineOf(i).length > 0;
+    const liftDelay = (i) => (i === 0 ? Math.max(0.2, 0.92 - LEAD) : i > 0 && isHold(i - 1) ? 0.05 : 0.2);
+    // a plain last page stays settled a little longer before the exit
+    let fixed = LEAD + EXIT, nPlain = 0, tail = isHold(n - 1) ? 0.2 : 0.45;
+    for (let i = 0; i < n; i++) {
+      const mine = mineOf(i);
+      if (!mine.length) nPlain++;
+      else fixed += liftDelay(i) + (mine.length - 1) * UNLIFT + (isHold(i + 1) ? UNLIFT : UNDIM);
+      if (i < n - 1) fixed += isHold(i) && isHold(i + 1) ? DSLIDE : SLIDE;
+    }
+    fixed += tail;
+    const want = H.reduce((a, h) => a + h.want, 0);
+    let dwell = 0.45;
+    let room = t1 - t0 - fixed - nPlain * dwell;
+    if (H.length && room < Math.max(want, H.length * MINH) && nPlain) {
+      dwell = Math.max(0.18, dwell - (Math.max(want, H.length * MINH) - room) / nPlain);
+      room = t1 - t0 - fixed - nPlain * dwell;
+    }
+    if (H.length) {
+      let k = room / want;
+      if (k > 1.35) {
+        const extra = room - want * 1.35;
+        k = 1.35;
+        dwell += extra / (nPlain + 1);
+        tail += extra / (nPlain + 1);
+      }
+      H.forEach((h) => { h.hold = h.want * k; });
+      // keep a 2 s floor on every hold where the budget allows it
+      for (let it = 0; it < 3; it++) {
+        const low = H.filter((h) => h.hold < MINH), high = H.filter((h) => h.hold >= MINH);
+        if (!low.length || !high.length) break;
+        const need = low.reduce((a, h) => a + MINH - h.hold, 0);
+        const spare = high.reduce((a, h) => a + h.hold - MINH, 0);
+        const take = Math.min(need, spare);
+        low.forEach((h) => { h.hold += (MINH - h.hold) * (take / need); });
+        high.forEach((h) => { h.hold -= (h.hold - MINH) * (take / spare); });
+      }
+    } else {
+      dwell = Math.max(dwell, (t1 - t0 - fixed) / Math.max(1, nPlain));
+    }
+    // the lines around a lifted key line make room for it: the ones next to it move up to PUSH px,
+    // each gap between two lines shrinks by at most COMP px, and the line at the page edge moves
+    // only EDGE px (inside its own leading, so no glyph is ever cut by the viewport)
+    const PUSH = 10, COMP = 4, EDGE = 2, plines = E.qa(".pl", body);
+    H.forEach((h) => {
+      // a tall key line zooms less, and grows toward the side of the page that has more lines to push
+      const lh = h.bot - h.top;
+      h.s = 1 + Math.min(LIFT - 1, 10 / lh);
+      const p0 = pages[h.page], p1 = p0 + ROWS * ROW;
+      const vis = plines.filter((l) => l !== h.ln && l.offsetTop >= p0 - 1 && l.offsetTop + l.offsetHeight <= p1 + 1);
+      const above = vis.filter((l) => l.offsetTop + l.offsetHeight <= h.top + 1).reverse();
+      const below = vis.filter((l) => l.offsetTop >= h.bot - 1);
+      const f = above.length + below.length ? Math.min(0.85, Math.max(0.15, above.length / (above.length + below.length))) : 0.5;
+      h.lift.style.transformOrigin = "50% " + (f * 100).toFixed(1) + "%";
+      // each side is pushed by what the panel grows on that side, plus a gap
+      const grow = [f * lh * (h.s - 1), (1 - f) * lh * (h.s - 1)];
+      h.push = [];
+      [[above, -1, grow[0]], [below, 1, grow[1]]].forEach(([ls, sgn, g]) => {
+        const m = ls.length, want = Math.max(PUSH, Math.round(g + 8));
+        ls.forEach((l, j) => h.push.push([l, sgn * Math.min(want, EDGE + COMP * (m - 1 - j))]));
+      });
+    });
+    // the lifted copies sit over their line on the page where it is held (static layout)
+    H.forEach((h) => {
+      h.lift.style.left = (bw + vp.offsetLeft + ct.offsetLeft + h.ln.offsetLeft) + "px";
+      h.lift.style.top = (bw + vp.offsetTop + h.top - pages[h.page]) + "px";
+      h.lift.style.width = h.ln.offsetWidth + "px";
+    });
+    tl.fromTo(card, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power1.out" }), t0);
+    tl.fromTo(card, { rotationX: 16, y: 90, scale: 0.94, transformPerspective: 1600 }, A({ rotationX: 0, y: 0, scale: 1, duration: 0.8, ease: SPRING }), t0);
+    E.sweep(tl, card, t0 + 0.4, 1.0, { color: "rgba(201, 194, 255, 0.16)" });
+    const arrivals = [], slides = [], holdTimes = [];
+    let t = t0 + LEAD, dimmed = false, tFinal = null;
+    for (let i = 0; i < n; i++) {
+      arrivals.push(t);
+      const mine = mineOf(i);
+      if (!mine.length) t += dwell;
+      else {
+        t += liftDelay(i);
+        mine.forEach((h, j) => {
+          if (!dimmed) tl.fromTo(body, { opacity: 1 }, A({ opacity: DIM, duration: 0.3, ease: "power2.out" }), t);
+          dimmed = true;
+          tl.fromTo(h.lift, { opacity: 0 }, A({ opacity: 1, duration: 0.18, ease: "power2.out" }), t);
+          tl.fromTo(h.lift, { scale: 1 }, A({ scale: h.s, duration: 0.6, ease: SPRING }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: 0 }, A({ y: s, duration: 0.45, ease: "power3.out" }), t));
+          holdTimes.push(+t.toFixed(3));
+          h.t0 = t;
+          t += h.hold;
+          const keepDim = j < mine.length - 1 || isHold(i + 1);
+          const d = keepDim ? UNLIFT : UNDIM;
+          // the copy settles exactly onto its line first, then dissolves into it (never two offset copies)
+          tl.fromTo(h.lift, { scale: h.s }, A({ scale: 1, duration: d * 0.6, ease: "power2.out" }), t);
+          h.push.forEach(([l, s]) => tl.fromTo(l, { y: s }, A({ y: 0, duration: d, ease: "power2.inOut" }), t));
+          tl.fromTo(h.lift, { opacity: 1 }, A({ opacity: 0, duration: d * 0.4, ease: "power1.in" }), t + d * 0.6);
+          if (!keepDim) {
+            tl.fromTo(body, { opacity: DIM }, A({ opacity: 1, duration: UNDIM, ease: "power2.inOut" }), t);
+            dimmed = false;
+            if (i === n - 1) tFinal = t;
+          }
+          t += d;
+        });
+      }
+      if (i < n - 1) {
+        const sd = dimmed ? DSLIDE : SLIDE;
+        tl.fromTo(ct, { y: -pages[i] }, A({ y: -pages[i + 1], duration: sd, ease: "power2.inOut" }), t);
+        slides.push([t, sd]);
+        t += sd;
+      }
+    }
+    // tabs: one underline slides with the page to the section that fills most of the visible rows
+    const tabs = E.qa(".tab", card), ul = E.q(".tabul", card);
+    if (tabs.length && ul) {
+      const tags = tabs.map((tab) => E.q('.ptag[data-sec="' + tab.dataset.sec + '"]', card));
+      const starts = tags.map((g) => (g ? g.offsetTop : 1e9));
+      const secAt = (p) => {
+        let best = 0, bestRows = -1;
+        starts.forEach((st, j) => {
+          const en = j + 1 < starts.length ? starts[j + 1] : 1e9;
+          const vis = Math.max(0, Math.min(en, p + ROWS * ROW) - Math.max(st, p));
+          if (vis > bestRows) { bestRows = vis; best = j; }
+        });
+        return best;
+      };
+      const MUTED = "#9c99ae", INK = "#f5f2ea";
+      const pos = (k) => ({ left: tabs[k].offsetLeft, width: tabs[k].offsetWidth });
+      let cur = secAt(pages[0]);
+      ul.style.left = pos(cur).left + "px";
+      ul.style.width = pos(cur).width + "px";
+      tl.fromTo(ul, { opacity: 0 }, A({ opacity: 1, duration: 0.3, ease: "power2.out" }), t0 + 0.1);
+      tl.fromTo(tabs[cur], { color: MUTED }, A({ color: INK, duration: 0.2 }), t0 + 0.1);
+      const move = (k, ta, d) => {
+        const a = pos(cur), b = pos(k);
+        tl.fromTo(ul, { left: a.left, width: a.width }, A({ left: b.left, width: b.width, duration: d, ease: "power3.inOut" }), ta);
+        tl.fromTo(tabs[cur], { color: INK }, A({ color: MUTED, duration: 0.2 }), ta + d / 2 - 0.1);
+        tl.fromTo(tabs[k], { color: MUTED }, A({ color: INK, duration: 0.2 }), ta + d / 2 - 0.1);
+        cur = k;
+      };
+      // the section that holds the last visible row (the end of the prompt on the last page)
+      const lastVisible = (p) => { let k = 0; starts.forEach((st, j) => { if (st < p + ROWS * ROW) k = Math.max(k, j); }); return k; };
+      // while a key line is lifted, the underline sits on that line's own section
+      const secOf = (y) => { let k = 0; starts.forEach((st, j) => { if (st <= y) k = j; }); return k; };
+      const ev = [];
+      for (let i = 1; i < n; i++) {
+        const mine = mineOf(i);
+        const k = mine.length ? secOf(mine[0].top) : i === n - 1 ? lastVisible(pages[i]) : secAt(pages[i]);
+        ev.push([slides[i - 1][0], k, Math.max(0.3, slides[i - 1][1])]);
+      }
+      H.forEach((h) => ev.push([h.t0, secOf(h.top), 0.3]));
+      ev.sort((a, b) => a[0] - b[0]).forEach(([ta, k, d]) => { if (k !== cur) move(k, ta, d); });
+      // a last page with key lines: its last section takes over when the page undims
+      if (isHold(n - 1) && tFinal != null && lastVisible(pages[n - 1]) !== cur) move(lastVisible(pages[n - 1]), tFinal, 0.3);
+    }
+    tl.fromTo(card, { opacity: 1 }, A({ opacity: 0, duration: EXIT, ease: "power2.in" }), t1 - EXIT);
+    return {
+      pages: n, tops: pages, arrivals: arrivals.map((x) => +x.toFixed(3)), dwell: +dwell.toFixed(3),
+      holds: holdTimes, holdLens: H.map((h) => +h.hold.toFixed(2)), slack: +(t1 - EXIT - t).toFixed(3),
+      lifts: H.map((h) => ({ id: h.id, page: h.page, lineH: h.ln.offsetHeight, s: +h.s.toFixed(3), origin: h.lift.style.transformOrigin, push: h.push.map((x) => Math.round(x[1])).join(" ") })),
+    };
+  };
+
+  /* Standard topic scene. Layout is measured once (static):
+     the title and the explanation sit at the top; the illustration fills the safe area below.
+     title -> illustration enters -> explanation phrase by phrase (current phrase bright, the
+     illustration shows each phrase, bouncy zoom inside it on the key phrase) -> payoff ->
+     fact over the dimmed illustration -> prompt card -> tip. */
+  E.topic = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene;
+    const hdr = E.q(".hdr", sc), main = E.q(".main", sc), exp = E.q(".exp", sc), ttl = E.q(".ttl", sc);
+    const stage = E.q(".stage", sc), simtag = E.q(".simtag", sc), fact = E.q(".factbox", sc);
+    const stcam = E.q(".stcam", sc), stfit = E.q(".stfit", sc);
+    // static layout
+    const TOP = 376, BOTTOM = 1566;
+    const h = main.offsetHeight;
+    const stTop = Math.round(TOP + h + 30);
+    stage.style.top = stTop + "px";
+    stage.style.height = BOTTOM - stTop + "px";
+    const camH = BOTTOM - stTop - 50;
+    const simH = (E.q(".simwrap", sc) || { offsetHeight: 700 }).offsetHeight || 700;
+    stfit.style.height = simH + "px";
+    stfit.style.marginTop = -simH / 2 + "px";
+    const fit = Math.min(1, camH / simH);
+    if (fit < 1) stfit.style.transform = "scale(" + fit.toFixed(3) + ")";
+    if (fact) { fact.style.top = stTop + 50 + "px"; fact.style.height = camH + "px"; }
+    Object.assign(ctx, { stcam, stfit, fit, stTop });
+    // scene change: a light band crosses the frame while the camera settles
+    E.band(tl, sc, S);
+    tl.fromTo(ctx.cam, { scale: 1.035 }, A({ scale: 1, duration: 1.0, ease: SPRING }), S);
+    E.fadeIn(tl, hdr, S + 0.05, 0.5, 0);
+    E.kin(tl, ttl, S);
+    // the illustration enters with the explanation
+    E.fadeIn(tl, simtag, S + cfg.tStage, 0.4, 0);
+    tl.fromTo(stage, { opacity: 0, y: 46 }, A({ opacity: 1, y: 0, duration: 0.8, ease: SPRING }), S + cfg.tStage);
+    // explanation: phrase by phrase; the phrase being read is bright, the ones before step back
+    E.kin(tl, exp, S, { dy: 14 });
+    const phs = E.qa(".ph", exp);
+    phs.forEach((ph, i) => {
+      const tEnd = i + 1 < phs.length ? cfg.phr[i + 1] : cfg.phrEnd + 0.8;
+      tl.fromTo(ph, { opacity: 1 }, A({ opacity: 0.5, duration: 0.45, ease: "power2.out" }), S + tEnd);
+      E.qa(".accgrp", ph).forEach((g) => tl.fromTo(g, { color: "#ff453a" }, A({ color: "#dcd9e6", duration: 0.45 }), S + tEnd));
+      E.qa(".ul", ph).forEach((u) => tl.fromTo(u, { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), S + tEnd));
+    });
+    if (window.SIMS[cfg.sim]) window.SIMS[cfg.sim](tl, ctx, cfg, S);
+    // bouncy zoom inside the illustration on the key phrase (focus: [data-focus="<phrase>"])
+    const acc = E.q(".exp .accgrp", sc);
+    if (acc && cfg.expZoom) {
+      const p = +(acc.closest(".ph") || { dataset: { p: 0 } }).dataset.p;
+      const tb = p + 1 < cfg.phr.length ? cfg.phr[p + 1] : cfg.phrEnd + 0.6;
+      const focus = E.q('[data-focus="' + p + '"]', stage) || E.q("[data-focus]", stage);
+      E.zoomStage(tl, ctx, focus, S + parseFloat(acc.dataset.t) + 0.1, cfg.expZoom, S + tb);
+    }
+    const tNext = cfg.tPrompt != null ? cfg.tPrompt : cfg.tTip != null ? cfg.tTip : cfg.D - 0.05;
+    if (cfg.tFact != null) {
+      // the fact takes over the illustration's area; the illustration steps far back
+      E.dim(tl, stage, S + cfg.tFact - 0.45, 0.06, 1, 0.4);
+      E.dim(tl, exp, S + cfg.tFact - 0.45, 0, 0.5, 0.35);
+      const scrim = E.q(".factbox .fscrim", sc);
+      if (scrim) tl.fromTo(scrim, { opacity: 0 }, A({ opacity: 1, duration: 0.4, ease: "power2.out" }), S + cfg.tFact - 0.45);
+      const pill = E.q(".factbox .pill", sc);
+      if (pill) {
+        tl.fromTo(pill, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + cfg.tFact - 0.1);
+        tl.fromTo(pill, { scale: 0.92, y: 20 }, A({ scale: 1, y: 0, duration: 0.45, ease: SPRING }), S + cfg.tFact - 0.1);
+        E.sweep(tl, pill, S + cfg.tFact + 0.25, 0.7, { color: "rgba(120, 100, 255, 0.28)" });
+        E.burst(tl, fact, fact.offsetWidth / 2, fact.offsetHeight / 2 - 40, S + cfg.tFact + 0.05, { n: 16, seed: 3, r0: 140, r1: 300, color: "#c9c2ff" });
+      }
+      E.kin(tl, fact, S, { dy: 12 });
+      E.dim(tl, stage, S + tNext - 0.3, 0, 0.06, 0.25);
+    } else {
+      E.dim(tl, stage, S + tNext - 0.35, 0, 1, 0.3);
+      E.dim(tl, exp, S + tNext - 0.35, 0, 0.5, 0.3);
+    }
+    E.dim(tl, simtag, S + (cfg.tFact != null ? cfg.tFact - 0.45 : tNext - 0.35), 0, 1, 0.3);
+    // first cut: the title (and the fact) leave before the card or the tip arrives
+    tl.fromTo(main, { opacity: 1 }, A({ opacity: 0, duration: 0.25, ease: "power2.in" }), S + tNext - 0.3);
+    if (fact) E.fadeOut(tl, fact, S + tNext - 0.3, 0.25, -20);
+    let info = null;
+    if (cfg.tPrompt != null) {
+      const pend = cfg.tTip != null ? cfg.tTip : cfg.tPromptEnd;
+      info = E.prompt(tl, ctx, E.q(".pcard", sc), S + cfg.tPrompt, S + pend, cfg.hls);
+    }
+    if (cfg.tTip != null) {
+      const tip = E.q(".tipcard", sc);
+      tl.fromTo(tip, { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + cfg.tTip);
+      tl.fromTo(tip, { scale: 0.96, y: 30, rotationX: 10, transformPerspective: 1400 }, A({ scale: 1, y: 0, rotationX: 0, duration: 0.7, ease: SPRING }), S + cfg.tTip);
+      E.qa(".tip-ico .dr", sc).forEach((pth, i) => E.draw(tl, pth, S + cfg.tTip + 0.15 + i * 0.18, 0.55));
+      E.kin(tl, E.q(".tip-text", sc), S);
+      E.fadeOut(tl, tip, S + cfg.D - 0.4, 0.3, -20);
+    }
+    E.fadeOut(tl, hdr, S + cfg.D - 0.4, 0.3, 0);
+    E.debug.scenes[cfg.id] = { S, D: cfg.D, layout: { stTop, h, fit: +fit.toFixed(3) }, prompt: info };
+  };
+
+  /* Chapter title card. Frame 0 already shows the number (springing from 0.9), its rings, the kicker and
+     the dots, so a cut never lands on an empty frame; the title follows, the subtitle (and tag) only after
+     it, and the chapter's line-art motif draws itself beside the number. The hold stays alive: a slow
+     1.00 -> 1.03 push of the whole card, a glow that breathes on the number, a small motion in the motif.
+     The exit is a 0.22 s push-through. */
+  E.chapter = function (tl, ctx, cfg) {
+    const S = cfg.S, sc = ctx.scene, T = cfg.T || {}, D = cfg.D;
+    const chap = E.q(".chap", sc), cam = E.q(".ch-cam", sc);
+    const k = E.q(".ch-k", sc), n = E.q(".ch-n", sc), line = E.q(".ch-line", sc), dots = E.q(".ch-dots", sc);
+    // static layout: the title is one line no wider than 760 px; the divider and texts flow under it
+    const tt = E.q(".ch-title", sc), tin = E.q(".ch-tin", sc);
+    if (tin && tin.offsetWidth > 760) tt.style.fontSize = (78 * 760 / tin.offsetWidth).toFixed(1) + "px";
+    const tBot = tt.offsetTop + tt.offsetHeight;
+    line.style.top = tBot + 30 + "px";
+    const sub = E.q(".ch-sub", sc), tag = E.q(".ch-tag", sc);
+    if (sub) sub.style.top = tBot + 66 + "px";
+    if (tag && sub) tag.style.top = tBot + 66 + sub.offsetHeight + 34 + "px";
+    // scene change: light band; the number is there from the first frame, rings and sparks go out from it
+    E.band(tl, sc, S);
+    tl.fromTo(n, { scale: 0.9, rotationY: -16, transformPerspective: 1200 }, A({ scale: 1, rotationY: 0, duration: 0.9, ease: SPRING }), S);
+    E.qa(".ch-ring", sc).forEach((r, i) => {
+      tl.fromTo(r, { scale: 0.66 + i * 0.14, opacity: 0.85 - i * 0.2 }, A({ scale: 1.55 + i * 0.25, opacity: 0, duration: 1.1 + i * 0.2, ease: "power2.out" }), S);
+    });
+    // sparks leave from the ring's edge (never a stack of dots over the number)
+    const rnd = E.rand(5);
+    for (let i = 0; i < 18; i++) {
+      const d = document.createElement("i"), sz = 5 + rnd() * 6, ang = (i / 18) * Math.PI * 2 + rnd() * 0.3;
+      const r0 = 128, r1 = 210 + rnd() * 150, dur = 0.6 + rnd() * 0.35;
+      d.className = "fx-dot";
+      d.style.cssText = "left:" + (540 + Math.cos(ang) * r0).toFixed(1) + "px;top:" + (670 + Math.sin(ang) * r0).toFixed(1) + "px;width:" + sz.toFixed(1) + "px;height:" + sz.toFixed(1) + "px;margin:" + (-sz / 2).toFixed(1) + "px 0 0 " + (-sz / 2).toFixed(1) + "px;background:#ffffff;box-shadow:0 0 10px #ffffff";
+      sc.appendChild(d);
+      tl.fromTo(d, { x: 0, y: 0, scale: 1 }, A({ x: Math.cos(ang) * (r1 - r0), y: Math.sin(ang) * (r1 - r0), scale: 0.35, duration: dur, ease: "power3.out" }), S + 0.03);
+      tl.fromTo(d, { opacity: 1 }, A({ opacity: 0, duration: dur, ease: "power2.in" }), S + 0.03);
+    }
+    tl.fromTo(k, { opacity: 0.35, y: 8 }, A({ opacity: 1, y: 0, duration: 0.4, ease: SPRING }), S);
+    tl.fromTo(dots, { opacity: 0.4, y: 8 }, A({ opacity: 1, y: 0, duration: 0.5, ease: SPRING }), S);
+    E.kin(tl, tt, S);
+    tl.fromTo(line, { opacity: 1, scaleX: 0 }, A({ opacity: 1, scaleX: 1, duration: 0.6, ease: "power3.inOut" }), S + (T.line || 0.5));
+    E.kin(tl, sub, S, { dy: 12 });
+    E.kin(tl, tag, S, { dy: 10 });
+    // the chapter motif draws itself, then keeps a small motion through the hold
+    const mo = E.q(".ch-mo", sc), mq = (s) => E.q(s, mo), mqa = (s) => E.qa(s, mo);
+    if (mo) {
+      E.qa(".dr", mo).forEach((p, i) => E.draw(tl, p, S + 0.06 + i * 0.035, 0.7));
+      E.qa(".mo-solid", mo).forEach((p) => tl.fromTo(p, { fillOpacity: 0 }, A({ fillOpacity: 1, duration: 0.3 }), S + 0.3));
+      E.qa(".fl", mo).forEach((p, i) => tl.fromTo(p, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.25 + i * 0.06));
+      const hold0 = Math.max(1.0, (T.lw || 1) - 0.4), N = cfg.n;
+      if (N === 1) {
+        // the cursor blinks
+        const cur = mq(".mo-cur");
+        for (let a = hold0, on = false; a < D - 0.3; a += 0.5, on = !on) tl.set(cur, { opacity: on ? 1 : 0 }, S + a);
+      } else if (N === 2) {
+        // a playhead runs over the waveform
+        const ph = mq(".mo-ph");
+        tl.fromTo(ph, { opacity: 0 }, A({ opacity: 1, duration: 0.25 }), S + 0.8);
+        tl.fromTo(ph, { x: 0 }, A({ x: 164, duration: D - 1.1, ease: "none" }), S + 0.8);
+      } else if (N === 3) {
+        // the cube settles in and turns slowly
+        const mi = mq(".mo-in");
+        tl.fromTo(mi, { opacity: 0, scale: 0.7 }, A({ opacity: 1, scale: 1, duration: 0.8, ease: SPRING }), S + 0.05);
+        tl.fromTo(mq(".mo-cube"), { rotationY: -10 }, A({ rotationY: 62, duration: D, ease: "power1.out" }), S);
+      } else if (N === 4) {
+        // the play mark pulses
+        const pl = mq(".mo-play");
+        for (let a = hold0, j = 0; a + 0.6 < D - 0.25; a += 0.6, j++) {
+          tl.fromTo(pl, { scale: j % 2 ? 1.16 : 1, transformOrigin: "50% 50%" }, A({ scale: j % 2 ? 1 : 1.16, duration: 0.6, ease: "sine.inOut" }), S + a);
+        }
+      } else if (N === 5) {
+        // the plug goes into the socket and the connection glows
+        tl.fromTo(mq(".mo-plug"), { y: 0 }, A({ y: -18, duration: 0.55, ease: "back.out(1.6)" }), S + hold0);
+        const rg = mq(".mo-ring");
+        tl.fromTo(rg, { opacity: 0.9, scale: 0.6, transformOrigin: "50% 50%" }, A({ opacity: 0, scale: 1.7, duration: 0.8, ease: "power2.out" }), S + hold0 + 0.4);
+      } else if (N === 6) {
+        // a scan line runs down the window; the sensitive line blurs as it passes
+        const scn = mq(".mo-scan"), tB = hold0 + 0.75;
+        tl.fromTo(scn, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), S + hold0);
+        tl.fromTo(scn, { y: 0 }, A({ y: 108, duration: 1.2, ease: "none" }), S + hold0);
+        tl.fromTo(scn, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), S + hold0 + 1.0);
+        tl.fromTo(mq(".mo-sharp"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), S + tB);
+        tl.fromTo(mq(".mo-blur"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), S + tB);
+      } else if (N === 7) {
+        // the draft bar fills fast and gets its check; the full render crawls
+        const f1 = mq(".mo-f1"), f2 = mq(".mo-f2");
+        [f1, f2].forEach((f) => tl.fromTo(f, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), S + 0.75));
+        tl.fromTo(f2, { scaleX: 0.04, transformOrigin: "0% 50%" }, A({ scaleX: 1, duration: 1.0, ease: "power1.inOut" }), S + 0.75);
+        tl.fromTo(f1, { scaleX: 0.04, transformOrigin: "0% 50%" }, A({ scaleX: 0.3, duration: D - 1.0, ease: "none" }), S + 0.75);
+        E.draw(tl, mq(".mo-ck"), S + 1.8, 0.35);
+      } else {
+        // the list gets checked, one row after another
+        mqa(".mo-ck").forEach((p, i) => E.draw(tl, p, S + hold0 + i * 0.35, 0.3));
+      }
+    }
+    // the hold: a slow push of the whole card and a soft glow that breathes on the number
+    tl.fromTo(cam, { scale: 1 }, A({ scale: 1.03, duration: D, ease: "none" }), S);
+    const G0 = "0 0 40px rgba(255, 69, 58, 0.35)", G1 = "0 0 70px rgba(255, 69, 58, 0.8)";
+    for (let a = 0.9, up = true; a + 1.0 <= D - 0.2; a += 1.0, up = !up) {
+      tl.fromTo(n, { textShadow: up ? G0 : G1 }, A({ textShadow: up ? G1 : G0, duration: 1.0, ease: "sine.inOut" }), S + a);
+    }
+    // exit: a short push-through into the next scene
+    tl.fromTo(chap, { opacity: 1, scale: 1 }, A({ opacity: 0, scale: 1.025, duration: 0.22, ease: "power2.in" }), S + D - 0.22);
+    E.debug.scenes[cfg.id] = { S, D, type: "chapter" };
+  };
+
+  window.SIMS = window.SIMS || {};
+})();
+
+window.SIMS = window.SIMS || {};
+window.SIMS.sim32 = function (tl, ctx, cfg, S) {
+  const E = window.ENG, A = E.A, sc = ctx.scene, P = cfg.phr, pe = cfg.phrEnd;
+  const T = (x) => S + x;                    // scene-local -> master time
+  const q = (s) => E.q(".sim32 " + s, sc), qa = (s) => E.qa(".sim32 " + s, sc);
+  const mover = q(".s32-mover"), root = mover.parentNode, plane = q(".s32-plane"), fol = q(".s32-fol");
+  const lgw = q(".s32-lgw"), lg3 = q(".s32-lg3"), lp = q(".s32-lp"), light = q(".s32-light");
+  const ghs = [q(".s32-gh1"), q(".s32-gh2")];
+  const LAG = 0.1;                            // the guide: the logo follows the hand a tenth of a second late
+  const C50 = { transformOrigin: "50% 50%" };
+
+  // establishing: the hand, drawn in thin glowing lines
+  E.draw(tl, q(".s32-ol"), T(cfg.tStage + 0.1), 0.95, "power2.inOut");
+  tl.fromTo(q(".s32-fill"), { opacity: 0 }, A({ opacity: 1, duration: 0.5 }), T(cfg.tStage + 0.6));
+
+  // B0 "בכל פריים קלוד יודע איפה היד שלכם": the 21 tracking points and their bones; a strip of frames, each one tracked
+  const b0 = P[0];
+  qa(".s32-lm").forEach((d, i) => tl.fromTo(d, Object.assign({ opacity: 0, scale: 0.2 }, C50), A({ opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }), T(b0 + 0.05 + i * 0.03)));
+  E.draw(tl, q(".s32-bn"), T(b0 + 0.2), 0.85, "power1.inOut");
+  tl.fromTo(q(".s32-plab"), { opacity: 0, y: -10 }, A({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }), T(b0 + 0.8));
+  qa(".s32-th").forEach((th, i) => tl.fromTo(th, { opacity: 0, x: -20 }, A({ opacity: 1, x: 0, duration: 0.45, ease: E.SPRING }), T(b0 + 0.1 + i * 0.08)));
+  const fsel = q(".s32-fsel"), steps = [[0, 0], [6, -4], [12, -8], [7, -3]];
+  tl.fromTo(fsel, { opacity: 0 }, A({ opacity: 1, duration: 0.2 }), T(b0 + 0.6));
+  for (let k = 1; k < 4; k++) {
+    const t = T(b0 + 0.6 + k * 0.38);
+    tl.fromTo(fsel, { y: (k - 1) * 134 }, A({ y: k * 134, duration: 0.25, ease: "power2.inOut" }), t);
+    tl.fromTo(mover, { x: steps[k - 1][0], y: steps[k - 1][1] }, A({ x: steps[k][0], y: steps[k][1], duration: 0.25, ease: "power2.inOut" }), t);
+  }
+  tl.fromTo(mover, { x: 7, y: -3 }, A({ x: 0, y: 0, duration: 0.3, ease: "power2.inOut" }), T(b0 + 2.02));
+
+  // B1 "מעליה הוא מעמיד לוגו בתלת ממד": the hand lies back, palm up; the palm centre (points 0, 5, 9, 13, 17) and the
+  // midpoint of 2 and 5 give the hover point, just over the fingers; the logo's place turns there in 3D
+  const b1 = P[1], ghost = q(".s32-ghost"), hov = q(".s32-hov"), hlab = q(".s32-hlab"), hl = q(".s32-hl");
+  tl.fromTo(q(".s32-frames"), { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b1));
+  tl.fromTo(q(".s32-plab"), { opacity: 1 }, A({ opacity: 0, duration: 0.25 }), T(b1));
+  tl.fromTo(plane, { rotationX: 0 }, A({ rotationX: 50, duration: 0.95, ease: E.SPRING }), T(b1 + 0.05));
+  qa(".s32-pp").forEach((d, i) => {
+    tl.fromTo(d, Object.assign({ scale: 1 }, C50), A({ scale: 1.7, duration: 0.25, ease: "power2.out" }), T(b1 + 0.75 + i * 0.04));
+    tl.fromTo(d, Object.assign({ scale: 1.7 }, C50), A({ scale: 1, duration: 0.3, ease: "power2.in" }), T(b1 + 1.05 + i * 0.04));
+  });
+  tl.fromTo(q(".s32-sp"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b1 + 0.8));
+  tl.fromTo(q(".s32-m25"), { opacity: 0 }, A({ opacity: 1, duration: 0.3 }), T(b1 + 0.9));
+  tl.fromTo(q(".s32-pcm"), Object.assign({ opacity: 0, scale: 0.4 }, C50), A({ opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }), T(b1 + 1.0));
+  E.draw(tl, q(".s32-hl path"), T(b1 + 1.2), 0.35);
+  tl.fromTo(hov, { opacity: 0, scale: 0.4 }, A({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }), T(b1 + 1.45));
+  tl.fromTo(hlab, { opacity: 0, x: 12 }, A({ opacity: 1, x: 0, duration: 0.45, ease: E.SPRING }), T(b1 + 1.5));
+  tl.fromTo(ghost, { opacity: 0, scale: 0.6 }, A({ opacity: 0.9, scale: 1, duration: 0.45, ease: E.SPRING }), T(b1 + 1.5));
+  tl.fromTo(q(".s32-gw"), { rotationY: -50 }, A({ rotationY: 50, duration: 1.75, ease: "sine.inOut" }), T(b1 + 1.5));
+
+  // B2 "שנכנס על המילה שבחרתם ומאיר את כף היד בצבע של הלוגו": a playhead reaches the chosen word; a point of light
+  // ignites at the hover point and the logo grows from it with one turn; its light falls on the palm and the fingers
+  const b2 = P[2], ws = q(".s32-wstrip"), wph = q(".s32-wph"), cw = q(".s32-cw"), wlab = q(".s32-wlab");
+  [q(".s32-sp"), q(".s32-m25"), q(".s32-pcm")].forEach((el) => tl.fromTo(el, { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b2)));
+  tl.fromTo(ws, { opacity: 0, y: -12 }, A({ opacity: 1, y: 0, duration: 0.45, ease: E.SPRING }), T(b2 + 0.05));
+  tl.fromTo(wlab, { opacity: 0, y: -8 }, A({ opacity: 1, y: 0, duration: 0.4, ease: E.SPRING }), T(b2 + 0.3));
+  tl.fromTo(cw, { borderColor: "rgba(201, 194, 255, 0.55)" }, A({ borderColor: "#ffffff", duration: 0.3 }), T(b2 + 0.3));
+  const wsW = ws.offsetWidth, cwC = cw.offsetLeft + cw.offsetWidth / 2;
+  const x1 = cwC - (wsW - 1.5), x2 = -(wsW - 4);
+  tl.fromTo(wph, { opacity: 0 }, A({ opacity: 1, duration: 0.15 }), T(b2 + 0.45));
+  tl.fromTo(wph, { x: 0 }, A({ x: x1, duration: 0.6, ease: "none" }), T(b2 + 0.45));
+  tl.fromTo(wph, { x: x1 }, A({ x: x2, duration: 0.9, ease: "none" }), T(b2 + 1.05));
+  tl.fromTo(wph, { opacity: 1 }, A({ opacity: 0, duration: 0.2 }), T(b2 + 1.8));
+  const whl = E.q(".hl", cw);
+  tl.fromTo(whl, { opacity: 0 }, A({ opacity: 1, duration: 0.12 }), T(b2 + 1.05));
+  tl.fromTo(whl, { opacity: 1 }, A({ opacity: 0.35, duration: 0.6 }), T(b2 + 1.3));
+  E.draw(tl, q(".s32-wlink path"), T(b2 + 1.05), 0.3, "power2.in");
+  const tg = b2 + 1.3;
+  tl.fromTo(lp, { opacity: 0, scale: 0.2 }, A({ opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2.5)" }), T(tg));
+  [ghost, hov, hlab, hl].forEach((el) => tl.fromTo(el, { opacity: el === ghost ? 0.9 : 1 }, A({ opacity: 0, duration: 0.3 }), T(tg)));
+  tl.fromTo(lgw, { opacity: 0 }, A({ opacity: 1, duration: 0.1 }), T(tg + 0.12));
+  tl.fromTo(lg3, { scale: 0.05, rotationY: -360 }, A({ scale: 1, rotationY: 0, duration: 0.9, ease: E.SPRING }), T(tg + 0.12));
+  tl.fromTo(lp, { opacity: 1 }, A({ opacity: 0, duration: 0.35 }), T(tg + 0.5));
+  tl.fromTo(light, { opacity: 0 }, A({ opacity: 1, duration: 0.6 }), T(tg + 0.45));
+  tl.fromTo(q(".s32-beam"), { opacity: 0 }, A({ opacity: 1, duration: 0.6 }), T(tg + 0.5));
+  tl.fromTo(q(".s32-lglow"), { opacity: 0 }, A({ opacity: 1, duration: 0.5 }), T(tg + 0.4));
+  tl.fromTo(q(".s32-wlink"), { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), T(tg + 0.9));
+  E.burst(tl, root, E.center(lp, root).x, E.center(lp, root).y, T(tg + 0.05), { n: 10, seed: 32, r0: 16, r1: 60, color: "#ffc68f" });
+  // from here on it turns slowly (its edge shows the depth), until it leaves
+  const tx = pe + 2.6;
+  let ta = tg + 1.02, a0 = 0;
+  const swing = [26, -22, 20, -18, 14], seg = (tx - ta) / swing.length;
+  swing.forEach((a1) => { tl.fromTo(lg3, { rotationY: a0 }, A({ rotationY: a1, duration: seg - 0.02, ease: "sine.inOut" }), T(ta)); a0 = a1; ta += seg; });
+
+  // the hand moves; the logo layer follows LAG later, with a light trail; the palm light dims while the logo lags
+  const move = (x0, y0, x1m, y1m, t, d) => {
+    tl.fromTo(mover, { x: x0, y: y0 }, A({ x: x1m, y: y1m, duration: d, ease: "sine.inOut" }), T(t));
+    tl.fromTo(fol, { x: x0, y: y0 }, A({ x: x1m, y: y1m, duration: d, ease: "sine.inOut" }), T(t + LAG));
+    ghs.forEach((g, j) => tl.fromTo(g, { x: x0, y: y0 }, A({ x: x1m, y: y1m, duration: d, ease: "sine.inOut" }), T(t + LAG + (j + 1) * 0.08)));
+  };
+  // the palm light weakens while the logo lags behind the hand
+  const dim = (t0, t1) => {
+    tl.fromTo(light, { opacity: 1 }, A({ opacity: 0.5, duration: LAG + 0.15, ease: "power1.out" }), T(t0));
+    if (t1 != null) tl.fromTo(light, { opacity: 0.5 }, A({ opacity: 1, duration: 0.35, ease: "power1.inOut" }), T(t1));
+  };
+  const trail = (t0, t1) => ghs.forEach((g, j) => {
+    tl.fromTo(g, { opacity: 0 }, A({ opacity: j ? 0.22 : 0.4, duration: 0.15 }), T(t0));
+    tl.fromTo(g, { opacity: j ? 0.22 : 0.4 }, A({ opacity: 0, duration: 0.25 }), T(t1));
+  });
+
+  // B3 "הלוגו עוקב אחרי היד באיחור של עשירית שנייה": the hand moves, the logo follows a little late; the two paths
+  const b3 = P[3], gr = q(".s32-graph");
+  tl.fromTo([ws, wlab], { opacity: 1 }, A({ opacity: 0, duration: 0.3 }), T(b3));
+  tl.fromTo(gr, { opacity: 0, x: -16 }, A({ opacity: 1, x: 0, duration: 0.5, ease: E.SPRING }), T(b3 + 0.05));
+  E.draw(tl, q(".s32-gsv .gh"), T(b3 + 0.3), 0.7);
+  tl.fromTo(q(".s32-gsv .gl"), { opacity: 0 }, A({ opacity: 1, duration: 0.4 }), T(b3 + 0.7));
+  E.draw(tl, q(".s32-gsv .br"), T(b3 + 1.0), 0.3);
+  tl.fromTo(q(".s32-lag"), { opacity: 0, y: 8 }, A({ opacity: 1, y: 0, duration: 0.4, ease: E.SPRING }), T(b3 + 1.05));
+  const m0 = b3 + 0.25;
+  trail(m0 + LAG, m0 + 1.75 + LAG);
+  dim(m0, m0 + 1.75 + LAG);
+  move(0, 0, 90, -36, m0, 0.75);
+  move(90, -36, 0, 0, m0 + 1.0, 0.75);
+
+  // B4 "כמו משהו שמרחף מעליה": it floats: a slow bob; its glow breathes on the palm (punch-in on the logo)
+  const b4 = P[4], glow = q(".s32-lglow");
+  // the graph has said its part: it leaves, with its "0.1 שנייה" label, as the floating beat starts
+  tl.fromTo(gr, { opacity: 1 }, A({ opacity: 0, duration: 0.35 }), T(b4));
+  tl.fromTo(lgw, { y: 0 }, A({ y: -12, duration: 0.75, ease: "sine.inOut" }), T(b4 + 0.12));
+  tl.fromTo(lgw, { y: -12 }, A({ y: 0, duration: 0.72, ease: "sine.inOut" }), T(b4 + 0.88));
+  tl.fromTo(glow, { scale: 1 }, A({ scale: 1.14, duration: 0.75, ease: "sine.inOut" }), T(b4 + 0.12));
+  tl.fromTo(glow, { scale: 1.14 }, A({ scale: 1, duration: 0.72, ease: "sine.inOut" }), T(b4 + 0.88));
+  tl.fromTo(light, { opacity: 1 }, A({ opacity: 0.78, duration: 0.75, ease: "sine.inOut" }), T(b4 + 0.12));
+  tl.fromTo(light, { opacity: 0.78 }, A({ opacity: 1, duration: 0.72, ease: "sine.inOut" }), T(b4 + 0.88));
+
+  // payoff: a big move (the lag, the trail, the light following), then the exit: back into a point of light
+  trail(pe + 0.1 + LAG, pe + 2.35 + LAG);
+  dim(pe + 0.1, null);
+  move(0, 0, -170, -20, pe + 0.1, 0.8);
+  move(-170, -20, 60, -50, pe + 0.95, 0.8);
+  move(60, -50, 0, 0, pe + 1.8, 0.55);
+  tl.fromTo(lg3, { scale: 1 }, A({ scale: 0.05, duration: 0.4, ease: "power2.in" }), T(tx));
+  tl.fromTo(lgw, { opacity: 1 }, A({ opacity: 0, duration: 0.1 }), T(tx + 0.4));
+  tl.fromTo(lp, { opacity: 0, scale: 0.4 }, A({ opacity: 1, scale: 1.3, duration: 0.3, ease: "power2.out" }), T(tx + 0.3));
+  tl.fromTo(lp, { scale: 1.3 }, A({ scale: 1, duration: 0.45, ease: "sine.inOut" }), T(tx + 0.6));
+  tl.fromTo(q(".s32-beam"), { opacity: 1 }, A({ opacity: 0, duration: 0.4 }), T(tx + 0.1));
+  tl.fromTo(light, { opacity: 0.5 }, A({ opacity: 0.22, duration: 0.5 }), T(tx + 0.2));
+  tl.fromTo(glow, { opacity: 1 }, A({ opacity: 0.45, duration: 0.5 }), T(tx + 0.2));
+  E.burst(tl, root, E.center(lp, root).x, E.center(lp, root).y, T(tx + 0.35), { n: 12, seed: 23, r0: 20, r1: 70, color: "#ffc68f" });
+};
+
+
+(function () {
+  const CFGS = [{"id": "t32", "sim": "sim32", "D": 36.84, "tStage": 1.31, "tExp": 1.91, "phr": [1.91, 4.11, 6.06, 9.16, 11.61], "phrEnd": 13.21, "tSimEnd": 18.21, "tFact": 18.21, "tPrompt": 23.1, "tPromptEnd": 31.91, "tTip": 31.91, "expZoom": 0.07, "simDur": 16.9, "hls": [{"id": "hl1", "hold": 1.9, "zoom": 0.1}, {"id": "hl2", "hold": 1.9, "zoom": 0.1}], "sim32": {"points": "21 נקודות", "hover": "נקודת הריחוף", "word": "המילה שבחרתם", "hand": "היד", "logo": "הלוגו", "lag": "0.1 שנייה"}, "S": 0.0}];
+  const WINDOW = null;
+  const fontsReady = Promise.all([
+    document.fonts.load('400 38px Rubik', 'אבג abc 123'),
+    document.fonts.load('800 62px Rubik', 'אבג abc'),
+    document.fonts.load('900 40px Rubik', 'אבג'),
+    document.fonts.load('600 27px "IBM Plex Mono"', 'abc 123'),
+    document.fonts.load('400 27px "IBM Plex Sans Hebrew"', 'אבג'),
+  ]).then(() => document.fonts.ready);
+  fontsReady.then(() => {
+    const stage = document.querySelector('.stagewrap');
+    const cam = document.getElementById('cam');
+    const master = gsap.timeline({ paused: true });
+    // slow background drift for the whole video (the "camera that never stops")
+    const TOT = 36.840;
+    master.fromTo('#bg .g1', { x: 0, y: 0 }, { x: 260, y: 180, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    master.fromTo('#bg .g2', { x: 0, y: 0 }, { x: -300, y: -260, duration: TOT, ease: 'none', immediateRender: false }, 0);
+    window.ENG.dust(master, document.getElementById('bg'), TOT);
+    for (const cfg of CFGS) {
+      const scene = document.getElementById('sc-' + cfg.id);
+      const scam = scene.querySelector('.scam') || cam;
+      const hdr = scene.querySelector('.hdr');
+      if (cfg.type === 'chapter') window.ENG.chapter(master, { stage, cam: scam, scene, hdr }, cfg);
+      else if (cfg.type === 'custom') window.SIMS[cfg.sim](master, { stage, cam: scam, scene, hdr }, cfg, cfg.S);
+      else window.ENG.topic(master, { stage, cam: scam, scene, hdr }, cfg);
+    }
+    let root = master;
+    if (WINDOW) {
+      root = gsap.timeline({ paused: true });
+      root.add(master.tweenFromTo(WINDOW[0], WINDOW[1], { duration: WINDOW[1] - WINDOW[0], ease: 'none' }), 0);
+    }
+    window.__ENG_DEBUG.ready = true;
+    window.__timelines['main'] = root;
+  });
+})();
+
+</script>
+</body>
+</html>

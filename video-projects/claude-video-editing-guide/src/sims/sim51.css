@@ -1,0 +1,123 @@
+/* 5.1 connecting Higgsfield: the model wall, the choice, the price check, then the five connection steps (canvas 800 x 700) */
+.sim51 .b0 { background: linear-gradient(160deg, #3a2f78 0%, #1c1840 100%); }
+.sim51 .b1 { background: linear-gradient(160deg, #2c3f7a 0%, #161a3c 100%); }
+.sim51 .b2 { background: linear-gradient(160deg, #4a2f6e 0%, #1d1536 100%); }
+.sim51 .b3 { background: linear-gradient(160deg, #303a66 0%, #18172f 100%); }
+
+/* B0-B2: the Higgsfield window with its model wall */
+.sim51 .s51-hubwrap { position: absolute; left: 0; top: 0; width: 800px; height: 700px; }
+.sim51 .s51-hub { position: absolute; left: 10px; top: 8px; width: 780px; height: 454px; border-radius: 24px; background: rgba(22, 20, 44, 0.82); opacity: 0; }
+.sim51 .s51-hubo { position: absolute; left: 0; top: 0; width: 780px; height: 454px; overflow: visible; }
+.sim51 .s51-hubo path { fill: none; stroke: rgba(201, 194, 255, 0.55); stroke-width: 2; filter: drop-shadow(0 0 6px rgba(201, 194, 255, 0.45)); }
+.sim51 .s51-wd { position: absolute; left: 26px; top: 26px; display: flex; gap: 9px; }
+.sim51 .s51-wd u { width: 12px; height: 12px; border-radius: 50%; background: rgba(201, 194, 255, 0.28); display: block; }
+.sim51 .s51-htitle { position: absolute; right: 26px; top: 16px; display: flex; align-items: center; gap: 12px; font: 600 32px/1 "Rubik"; color: var(--ink); opacity: 0; }
+.sim51 .s51-htitle i { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.8); display: block; }
+.sim51 .s51-slots { position: absolute; left: 22px; top: 78px; width: 756px; height: 372px; opacity: 0; overflow: visible; }
+.sim51 .s51-slots rect { fill: none; stroke: rgba(201, 194, 255, 0.24); stroke-width: 1.5; stroke-dasharray: 5 6; }
+.sim51 .s51-grid { position: absolute; left: 22px; top: 78px; width: 756px; height: 372px; }
+.sim51 .s51-tile { position: absolute; width: 84px; height: 84px; border-radius: 16px; border: 1.5px solid rgba(201, 194, 255, 0.28); display: block; opacity: 0; overflow: hidden; }
+.sim51 .s51-g { position: absolute; left: 19px; top: 19px; width: 44px; height: 44px; display: block; }
+.sim51 .s51-g circle { fill: #e2deff; }
+.sim51 .s51-g path { fill: rgba(217, 212, 255, 0.82); }
+.sim51 .s51-g rect { fill: none; stroke: #e2deff; stroke-width: 2.6; }
+
+/* B1: the counter (digit strips) and the two kinds */
+.sim51 .s51-count { position: absolute; left: 0; top: 482px; width: 800px; display: flex; justify-content: center; align-items: flex-end; gap: 14px; direction: rtl; opacity: 0; }
+.sim51 .s51-cw { font: 600 42px/1 "Rubik"; color: var(--ink); white-space: nowrap; margin-bottom: 14px; }
+/* "מ-" hugs the number (reads "מ-30", not "מ- 30") */
+.sim51 .s51-count .s51-cw:first-child { margin-left: -23px; }
+.sim51 .s51-num { display: flex; direction: ltr; }
+.sim51 .s51-dw { position: relative; display: block; height: 110px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 12%, #000 88%, rgba(0, 0, 0, 0) 100%); mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 12%, #000 88%, rgba(0, 0, 0, 0) 100%); }
+.sim51 .s51-strip { display: flex; flex-direction: column; }
+.sim51 .s51-strip b { display: block; height: 110px; font: 800 100px/110px "Rubik"; color: #ffffff; text-align: center; }
+.sim51 .s51-legend { position: absolute; left: 0; top: 612px; width: 800px; display: flex; justify-content: center; gap: 22px; direction: rtl; }
+.sim51 .s51-cat { display: flex; align-items: center; gap: 12px; padding: 9px 22px 9px 18px; border-radius: 999px; border: 1.5px solid rgba(201, 194, 255, 0.35); background: rgba(26, 23, 52, 0.88); opacity: 0; }
+.sim51 .s51-cat .s51-g { position: static; width: 34px; height: 34px; }
+.sim51 .s51-cat b { font: 500 32px/1 "Rubik"; color: #ece9f7; }
+
+/* B2: the request, the scanning ring, the chosen model */
+.sim51 .s51-ring { position: absolute; width: 100px; height: 100px; border-radius: 22px; border: 3px solid #ffffff; box-shadow: 0 0 18px rgba(201, 194, 255, 0.9), inset 0 0 12px rgba(201, 194, 255, 0.4); display: block; opacity: 0; }
+.sim51 .s51-req { position: absolute; right: 30px; top: 500px; padding: 16px 26px 20px; border-radius: 22px 22px 6px 22px; background: rgba(26, 23, 52, 0.94); border: 1.5px solid rgba(201, 194, 255, 0.32);
+  display: flex; flex-direction: column; gap: 14px; direction: rtl; opacity: 0; }
+.sim51 .s51-rtag { display: flex; align-items: center; gap: 10px; font: 500 28px/1 "Rubik"; color: #b8b4cc; }
+.sim51 .s51-rtag i { width: 10px; height: 10px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px rgba(201, 194, 255, 0.7); display: block; }
+.sim51 .s51-rtxt { display: flex; align-items: center; gap: 12px; }
+.sim51 .s51-rtxt .s51-g { position: static; width: 42px; height: 42px; flex: none; }
+.sim51 .s51-rtxt b { font: 600 36px/1.1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim51 .s51-hero { position: absolute; width: 84px; height: 84px; border-radius: 16px; border: 1.5px solid rgba(255, 255, 255, 0.85); display: block; opacity: 0; }
+.sim51 .s51-hglow { position: absolute; left: -2px; top: -2px; right: -2px; bottom: -2px; border-radius: 17px; box-shadow: 0 0 0 2px #ffffff, 0 0 26px rgba(201, 194, 255, 0.95); display: block; opacity: 0; }
+.sim51 .s51-hok, .sim51 .s51-ok, .sim51 .s51-aok { position: absolute; border-radius: 50%; background: #2b2560; box-shadow: 0 0 0 2px #c9c2ff, 0 0 12px rgba(201, 194, 255, 0.7); overflow: visible; opacity: 0; }
+.sim51 .s51-hok { left: -14px; top: -14px; width: 34px; height: 34px; }
+.sim51 .s51-hok path, .sim51 .s51-ok path, .sim51 .s51-aok path { fill: none; stroke: #ffffff; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.sim51 .s51-fit { position: absolute; top: 460px; width: 360px; height: 120px; margin-left: -180px; }
+.sim51 .s51-lead { position: absolute; left: 178.5px; top: 0; width: 3px; height: 50px; border-radius: 2px; background: linear-gradient(180deg, #ffffff, rgba(201, 194, 255, 0.5)); box-shadow: 0 0 8px rgba(201, 194, 255, 0.7); transform-origin: 50% 0%; display: block; opacity: 0; }
+.sim51 .s51-fitl { position: absolute; left: 0; right: 0; top: 60px; display: flex; justify-content: center; align-items: center; gap: 12px; font: 600 34px/1 "Rubik"; color: var(--ink); white-space: nowrap; opacity: 0; }
+.sim51 .s51-fitl i { width: 13px; height: 13px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.85); display: block; }
+
+/* B3: the chosen model, get_cost, the price tag (punch-in) */
+.sim51 .s51-name { position: absolute; left: 0; top: 266px; width: 800px; text-align: center; font: 600 34px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #ffffff; opacity: 0; }
+.sim51 .s51-conn { position: absolute; left: 398px; top: 316px; width: 4px; height: 104px; overflow: visible; }
+.sim51 .s51-conn line { stroke: #c9c2ff; stroke-width: 2.5; filter: drop-shadow(0 0 5px rgba(201, 194, 255, 0.8)); }
+.sim51 .s51-gc { position: absolute; left: 0; top: 342px; width: 800px; display: flex; justify-content: center; opacity: 0; }
+.sim51 .s51-gc span { font: 500 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #e8e4ff; background: #141228; border: 1.5px solid rgba(201, 194, 255, 0.5); border-radius: 12px; padding: 9px 16px 8px; white-space: nowrap; }
+.sim51 .s51-tag { position: absolute; left: 210px; top: 424px; width: 380px; height: 150px; opacity: 0; }
+.sim51 .s51-tago { position: absolute; left: 0; top: 0; width: 380px; height: 150px; overflow: visible; }
+.sim51 .s51-tago path { fill: rgba(26, 23, 52, 0.94); stroke: #c9c2ff; stroke-width: 2.5; stroke-linejoin: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.55)); }
+.sim51 .s51-tago circle { fill: #06060b; stroke: #c9c2ff; stroke-width: 2; }
+.sim51 .s51-price { position: absolute; left: 62px; right: 2px; top: 2px; bottom: 2px; border-radius: 0 21px 21px 0; display: flex; justify-content: center; align-items: flex-end; gap: 16px; padding-bottom: 18px; direction: rtl; }
+.sim51 .s51-pw { font: 600 40px/1 "Rubik"; color: #c9c2ff; white-space: nowrap; margin-bottom: 14px; }
+
+/* payoff: the five connection steps */
+.sim51 .s51-steps { position: absolute; left: 30px; top: 40px; width: 740px; display: flex; flex-direction: column; gap: 12px; }
+.sim51 .s51-row { position: relative; min-height: 84px; padding: 14px 96px 14px 20px; border-radius: 20px; background: rgba(26, 23, 52, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.2);
+  display: flex; flex-direction: column; justify-content: center; gap: 9px; direction: rtl; transform-origin: 50% 0%; opacity: 0; }
+.sim51 .s51-bd { position: absolute; right: 20px; top: 14px; width: 56px; height: 56px; border-radius: 50%; background: #1f1a3f; border: 2px solid rgba(201, 194, 255, 0.6); box-shadow: 0 0 14px rgba(201, 194, 255, 0.3); display: grid; place-items: center; }
+.sim51 .s51-bd b { font: 700 30px/1 "Rubik"; color: #ffffff; }
+/* a done step: its number gives way to the check, drawn inside the ring (see the js) */
+.sim51 .s51-ok { left: 9px; top: 9px; width: 34px; height: 34px; background: none; box-shadow: none; }
+.sim51 .s51-ln { display: flex; align-items: center; gap: 12px; direction: rtl; }
+.sim51 .s51-btn { display: inline-flex; align-items: center; height: 48px; padding: 0 18px; border-radius: 12px; background: rgba(44, 38, 90, 0.92); border: 1.5px solid rgba(201, 194, 255, 0.38); font: 500 30px/1 "Rubik"; color: #ece9f7; white-space: nowrap; flex: none; }
+.sim51 .s51-pbtn { width: 48px; padding: 0; justify-content: center; border-radius: 50%; }
+.sim51 .s51-plus { width: 22px; height: 22px; display: block; }
+.sim51 .s51-plus path { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; }
+.sim51 .s51-c2b { opacity: 0; }
+.sim51 .s51-arr { width: 36px; height: 19px; flex: none; }
+.sim51 .s51-sub { font: 400 30px/1.2 "Rubik"; color: #b8b4cc; white-space: nowrap; }
+.sim51 .s51-ill { position: absolute; left: 22px; top: 50%; display: block; }
+.sim51 .s51-gear { width: 64px; height: 64px; margin-top: -32px; overflow: visible; }
+.sim51 .s51-gear path { fill: rgba(201, 194, 255, 0.14); stroke: #c9c2ff; stroke-width: 2; stroke-linejoin: round; }
+.sim51 .s51-gear circle { fill: #0d0c1d; stroke: #c9c2ff; stroke-width: 2; }
+/* step 3: typed name, pasted address */
+.sim51 .s51-f2 { margin-right: -76px; }
+.sim51 .s51-fl { font: 500 30px/1 "Rubik"; color: #b8b4cc; white-space: nowrap; flex: none; }
+.sim51 .s51-field { position: relative; display: inline-flex; align-items: center; height: 50px; padding: 0 14px; border-radius: 10px; background: #0d0c1d; border: 1.5px solid rgba(201, 194, 255, 0.35); flex: none; }
+.sim51 .s51-typed { position: relative; display: block; white-space: nowrap; clip-path: inset(0px 100% 0px 0px); }
+.sim51 .s51-fname .s51-typed { font: 600 30px/1 "Rubik"; color: #ffffff; }
+.sim51 .s51-furl .s51-typed { font: 500 30px/1 "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #e8e4ff; letter-spacing: -0.02em; }
+.sim51 .s51-sel { position: absolute; left: 9px; right: 9px; top: 8px; bottom: 8px; border-radius: 6px; background: rgba(201, 194, 255, 0.4); display: block; opacity: 0; }
+.sim51 .s51-caret { position: absolute; left: 14px; top: 11px; width: 3px; height: 28px; border-radius: 1px; background: #ffffff; display: block; opacity: 0; }
+/* step 4: the account */
+.sim51 .s51-acct { width: 64px; height: 64px; margin-top: -32px; }
+.sim51 .s51-acct .s51-av { width: 64px; height: 64px; display: block; overflow: visible; }
+.sim51 .s51-av circle, .sim51 .s51-av path { fill: rgba(201, 194, 255, 0.55); }
+.sim51 .s51-av .s51-afr { fill: rgba(201, 194, 255, 0.1); stroke: #c9c2ff; stroke-width: 2; }
+.sim51 .s51-aok { right: -10px; bottom: -8px; width: 28px; height: 28px; }
+/* step 5: no API key, /mcp in the terminal */
+.sim51 .s51-key { width: 48px; height: 30px; flex: none; overflow: visible; }
+.sim51 .s51-key circle, .sim51 .s51-key path { fill: none; stroke: #9c99ae; stroke-width: 2.6; stroke-linecap: round; }
+.sim51 .s51-key .s51-kx { stroke: #ece9f7; stroke-width: 3; }
+.sim51 .s51-t5 { font: 600 32px/1 "Rubik"; color: var(--ink); white-space: nowrap; }
+.sim51 .s51-term { left: 14px; width: 238px; height: 104px; margin-top: -52px; padding: 30px 12px 0; border-radius: 14px; background: #0b0a16; border: 1.5px solid rgba(201, 194, 255, 0.32); }
+.sim51 .s51-tdots { position: absolute; left: 12px; top: 11px; display: flex; gap: 6px; }
+.sim51 .s51-tdots u { width: 8px; height: 8px; border-radius: 50%; background: rgba(201, 194, 255, 0.3); display: block; }
+.sim51 .s51-tl { font: 500 30px/34px "IBM Plex Mono", "IBM Plex Sans Hebrew", monospace; color: #e8e4ff; white-space: nowrap; text-align: left; }
+.sim51 .s51-pr { color: #9c99ae; }
+.sim51 .s51-tcmd { display: inline-block; clip-path: inset(0px 100% 0px 0px); }
+.sim51 .s51-tl2 { display: flex; align-items: center; gap: 8px; opacity: 0; }
+.sim51 .s51-tdot { width: 12px; height: 12px; border-radius: 50%; background: #c9c2ff; box-shadow: 0 0 10px #c9c2ff; display: block; flex: none; }
+/* the cursor and its click ripples */
+.sim51 .s51-cur { position: absolute; left: 0; top: 0; width: 34px; height: 42px; overflow: visible; opacity: 0; }
+.sim51 .s51-cur path { fill: #ffffff; stroke: #17142f; stroke-width: 2; stroke-linejoin: round; filter: drop-shadow(0 0 8px rgba(201, 194, 255, 0.85)); }
+.sim51 .s51-rip { position: absolute; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; border: 2.5px solid #c9c2ff; box-shadow: 0 0 12px rgba(201, 194, 255, 0.7); display: block; opacity: 0; }
