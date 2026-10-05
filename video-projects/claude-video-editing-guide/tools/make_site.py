@@ -18,6 +18,7 @@ import scenes as SC  # noqa: E402
 from textlayout import _inline_text, prompt_html  # noqa: E402
 
 OUT = ROOT / "netlify-site" / "index.html"
+SITE = "https://claude-video-editing-guide.netlify.app"
 TPL = ROOT / "tools" / "site_template.html"
 PLAYLIST = ROOT / "watch" / "v" / "index.m3u8"
 
@@ -127,8 +128,8 @@ def main():
             if it.get("prompt") and it["prompt"]["text"]:
                 it["prompt"]["html"] = prompt_html(it["prompt"]["text"])[0]
     total = round(plan[-1][2] + plan[-1][3], 2)
-    data = {"chapters": chapters, "total": total, "community": COMMUNITY}
-    page = TPL.read_text(encoding="utf-8")
+    data = {"chapters": chapters, "total": total, "community": COMMUNITY, "site": SITE}
+    page = TPL.read_text(encoding="utf-8").replace("__SITE__", SITE)
     page = page.replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
     page = page.replace("__PLAYLIST__", json.dumps(PLAYLIST.read_text()))
     OUT.write_text(page, encoding="utf-8")
