@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>עריכת וידאו עם Claude</title>
+<meta name="description" content="אקספליינר בעברית: עריכת וידאו עם Claude, 8 פרקים, 23 נושאים ו-21 פרומפטים מוכנים.">
+<meta property="og:title" content="עריכת וידאו עם Claude">
+<meta property="og:description" content="8 פרקים, 23 נושאים ו-21 פרומפטים מוכנים, עם הסבר לכל נושא.">
+<meta name="theme-color" content="#07070d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: phones get the film filling the screen with a bar that opens the chapter drawer;
+   wide screens get the film standing on the right and the chapters beside it. */
+:root {
+  --bg: #07070d;
+  --panel: #12111f;
+  --panel2: #1a1830;
+  --line: rgba(201, 194, 255, 0.16);
+  --ink: #f5f2ea;
+  --muted: #a3a0b6;
+  --lav: #c9c2ff;
+  --red: #ff453a;
+  --wa: #25d366;
+  --fb: #1877f2;
+  --f-ui: "Rubik", "Arial Hebrew", "Noto Sans Hebrew", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --bar: 64px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); }
+body { font-family: var(--f-ui); -webkit-text-size-adjust: 100%; }
+button { font: inherit; color: inherit; }
+a { color: var(--lav); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--lav); outline-offset: 2px; }
+
+/* ---------- film ---------- */
+.stage { display: flex; justify-content: center; background: #000; }
+.film { position: relative; aspect-ratio: 9 / 16; background: #000; max-width: 100%; }
+.film video { position: absolute; inset: 0; width: 100%; height: 100%; background: #000; display: block; }
+.err { position: absolute; inset: auto 12px 12px 12px; padding: 10px 12px; border-radius: 10px; background: rgba(40, 10, 12, 0.9); color: #ffd1cd; font-size: 14px; }
+
+/* ---------- content ---------- */
+.side { padding-inline: 16px; padding-block: 24px 120px; display: grid; gap: 22px; align-content: start; min-width: 0; }
+.eyebrow { font: 500 12px/1 var(--f-mono); letter-spacing: 0.08em; color: var(--lav); display: flex; gap: 10px; align-items: center; margin: 0; }
+.eyebrow i { width: 8px; height: 8px; border-radius: 50%; background: var(--red); box-shadow: 0 0 10px rgba(255, 69, 58, 0.8); display: block; }
+h1 { font: 800 clamp(28px, 4.4vw, 44px)/1.1 var(--f-ui); margin: 8px 0 0; text-wrap: balance; }
+.lede { color: var(--muted); font-size: 16px; line-height: 1.65; margin: 10px 0 0; max-width: 60ch; }
+
+/* chapters */
+.toc { display: grid; gap: 10px; }
+.ch { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.ch > summary { list-style: none; cursor: pointer; padding: 14px 16px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.ch > summary::-webkit-details-marker { display: none; }
+.ch-n { font: 700 13px/1 var(--f-mono); color: var(--red); white-space: nowrap; }
+.ch-t { font-weight: 700; font-size: 17px; line-height: 1.3; }
+.ch-sub { color: var(--muted); font-size: 14px; line-height: 1.55; padding: 0 16px 10px; margin: 0; }
+.chev { width: 18px; height: 18px; stroke: var(--muted); fill: none; stroke-width: 2; transition: transform 0.2s; }
+details[open] > summary .chev { transform: rotate(180deg); }
+.items { display: grid; border-top: 1px solid var(--line); }
+.it { border-bottom: 1px solid var(--line); }
+.it:last-child { border-bottom: 0; }
+.it > summary { list-style: none; cursor: pointer; padding: 12px 16px; display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.it > summary::-webkit-details-marker { display: none; }
+.it.on > summary { background: rgba(255, 69, 58, 0.08); box-shadow: inset -3px 0 0 var(--red); }
+.tc { font: 500 13px/1 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; direction: ltr; }
+.num { font: 500 13px/1 var(--f-mono); color: var(--lav); }
+.ttl { font-size: 15.5px; line-height: 1.4; min-width: 0; }
+.play { all: unset; cursor: pointer; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: rgba(201, 194, 255, 0.12); }
+.play:hover { background: rgba(201, 194, 255, 0.24); }
+.play svg { width: 14px; height: 14px; fill: var(--ink); }
+.body { padding: 4px 16px 18px; display: grid; gap: 14px; }
+.blk h4 { margin: 0 0 6px; font: 500 12px/1 var(--f-mono); letter-spacing: 0.06em; color: var(--lav); }
+.blk p { margin: 0; font-size: 15px; line-height: 1.7; color: #e3e0ee; max-width: 66ch; }
+.fact { border-radius: 12px; background: var(--panel2); padding: 12px 14px; }
+.fact p { color: var(--ink); }
+.pr { border: 1px solid var(--line); border-radius: 12px; background: #0d0c18; }
+.pr > summary { list-style: none; cursor: pointer; padding: 12px 14px; display: flex; gap: 10px; align-items: center; justify-content: space-between; font-weight: 500; }
+.pr > summary::-webkit-details-marker { display: none; }
+.pr .pn { font: 500 12px/1 var(--f-mono); color: var(--muted); direction: ltr; }
+.prbar { display: flex; justify-content: flex-start; padding: 0 14px 8px; }
+.copy { all: unset; cursor: pointer; font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: 999px; background: var(--lav); color: #120f24; }
+.copy[data-ok] { background: #9be7b0; }
+.pbody { padding: 4px 14px 14px; font: 400 14.5px/1.75 var(--f-ui); color: #d9d6e6; max-height: 60vh; overflow: auto; overflow-wrap: anywhere; }
+.pbody .pl { white-space: pre-wrap; }
+.pbody .pl-empty { height: 0.9em; }
+.pbody .ptag { color: var(--lav); font-weight: 500; }
+.pbody .code, .pbody .codeblock { font-family: var(--f-mono); font-size: 13px; color: #e9e6f5; }
+.pbody .codeblock { display: block; direction: rtl; text-align: right; }
+.pbody .cbi { direction: ltr; unicode-bidi: isolate; }
+.pbody .tk, .pbody .nb, .pbody .neg { white-space: nowrap; }
+.pbody .bt { color: var(--muted); }
+.pbody .hlbg { display: none; }
+.note { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 0; }
+.links { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.links a { display: inline-flex; gap: 8px; align-items: baseline; font-size: 15px; line-height: 1.5; word-break: break-word; }
+.links small { font-family: var(--f-mono); color: var(--muted); direction: ltr; font-size: 12px; }
+
+/* community */
+.comm { border-radius: 18px; padding: 18px; background: linear-gradient(160deg, #1b1836, #11101d); border: 1px solid var(--line); display: grid; gap: 12px; }
+.comm h2 { margin: 0; font-size: 20px; }
+.comm p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 15px; }
+.cbtns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cbtn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; text-decoration: none; color: #fff; font-weight: 700; font-size: 15px; }
+.cbtn svg { width: 20px; height: 20px; fill: #fff; }
+.cbtn.wa { background: #128c4b; }
+.cbtn.fb { background: var(--fb); }
+.foot { color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+/* ---------- phone: full-screen film + bar + drawer ---------- */
+.bar { position: fixed; inset: auto 0 0 0; z-index: 20; padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px)); background: rgba(7, 7, 13, 0.92); backdrop-filter: blur(10px); border-top: 1px solid var(--line); display: flex; gap: 8px; align-items: center; }
+.bar .open { flex: 1; min-width: 0; all: unset; flex: 1; cursor: pointer; display: grid; gap: 2px; padding: 8px 12px; border-radius: 12px; background: var(--panel2); }
+.bar .open b { font-size: 15px; }
+.bar .open span { font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar .cm { all: unset; cursor: pointer; padding: 12px 14px; border-radius: 12px; background: #128c4b; font-weight: 700; font-size: 14px; }
+.drawer { position: fixed; inset: 0; z-index: 30; display: flex; flex-direction: column; background: var(--bg); transform: translateY(100%); transition: transform 0.28s ease; visibility: hidden; }
+.drawer.show { transform: none; visibility: visible; }
+.dhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 10px; border-bottom: 1px solid var(--line); }
+.dhead b { font-size: 17px; }
+.close { all: unset; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--panel2); }
+.close svg { width: 18px; height: 18px; stroke: var(--ink); stroke-width: 2.2; fill: none; }
+.dbody { overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 14px 12px calc(28px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 18px; align-content: start; }
+
+@media (max-width: 959px) {
+  .stage { position: sticky; top: 0; z-index: 5; }
+  .film { height: calc(100svh - var(--bar) - env(safe-area-inset-bottom, 0px)); max-height: calc(100vw * 16 / 9); }
+  .side .toc-wrap { display: none; }
+}
+@media (min-width: 960px) {
+  .bar, .drawer { display: none; }
+  .page { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 32px; max-width: 1240px; margin-inline: auto; padding-inline: 24px; }
+  .stage { background: transparent; position: sticky; top: 0; height: 100vh; align-items: center; }
+  .film { height: calc(100vh - 48px); border-radius: 22px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(140, 120, 255, 0.1); }
+  .side { padding-inline: 0; padding-block: 32px 48px; }
+}
+@media (prefers-reduced-motion: reduce) { .drawer, .chev { transition: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="stage"><div class="film"><video id="v" controls playsinline preload="metadata"></video></div></div>
+  <main class="side">
+    <header>
+      <p class="eyebrow"><i></i><span>אקספליינר · 14:58 · 9:16</span></p>
+      <h1>עריכת וידאו עם Claude</h1>
+      <p class="lede">כל המדריך בסרטון אחד: 8 פרקים, 23 נושאים ו-21 פרומפטים מוכנים. לכל נושא יש כאן הסבר, מה רואים בסרטון, הפרומפט להעתקה והקישורים.</p>
+    </header>
+    <section class="toc-wrap" aria-label="פרקים ונושאים"><div class="toc" id="toc"></div></section>
+    <section class="comm" id="comm" hidden></section>
+    <p class="foot"><a href="script.html">התסריט המלא עם חותמות זמן</a></p>
+  </main>
+</div>
+
+<nav class="bar" aria-label="ניווט">
+  <button class="open" type="button" id="openD" aria-controls="drawer" aria-expanded="false"><b>פרקים, פרומפטים וקישורים</b><span id="now">פתיחה</span></button>
+  <button class="cm" type="button" id="openC" hidden>הקהילה</button>
+</nav>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="פרקים, פרומפטים וקישורים">
+  <div class="dhead"><b>פרקים, פרומפטים וקישורים</b><button class="close" type="button" id="closeD" aria-label="סגירה"><svg viewBox="0 0 20 20"><path d="M4 4l12 12M16 4L4 16"/></svg></button></div>
+  <div class="dbody"><div class="toc" id="toc2"></div><section class="comm" id="comm2" hidden></section></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
+<script>
+(function () {
+  var DATA = __DATA__;
+  var PLAYLIST = __PLAYLIST__;
+  var v = document.getElementById("v");
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function mmss(t) { t = Math.floor(t); return Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0"); }
+  var CHEV = '<svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5"/></svg>';
+  var PLAY = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z"/></svg>';
+  var WA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3z"/></svg>';
+  var FB = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8z"/></svg>';
+
+  var items = [], drawer = document.getElementById("drawer");
+  function jump(t) {
+    v.currentTime = t + 0.05;
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+    if (drawer.classList.contains("show")) closeDrawer();
+    if (window.matchMedia("(max-width: 959px)").matches) window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  function copyText(btn, text) {
+    function ok() { btn.textContent = "הועתק"; btn.setAttribute("data-ok", ""); setTimeout(function () { btn.textContent = "העתקת הפרומפט"; btn.removeAttribute("data-ok"); }, 1800); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, fallback); else fallback();
+    function fallback() { var ta = el("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); ok(); } catch (e) {} ta.remove(); }
+  }
+  function block(title, html, cls) { var b = el("div", "blk" + (cls ? " " + cls : "")); b.appendChild(el("h4", null, title)); var p = el("p"); p.innerHTML = html; b.appendChild(p); return b; }
+  function buildToc(root) {
+    DATA.chapters.forEach(function (ch, ci) {
+      var d = el("details", "ch");
+      var s = el("summary");
+      s.appendChild(el("span", "ch-n", ch.n ? "פרק " + ch.n : "פתיחה"));
+      s.appendChild(el("span", "ch-t", ch.title));
+      s.insertAdjacentHTML("beforeend", CHEV);
+      d.appendChild(s);
+      if (ch.sub) { var cs = el("p", "ch-sub"); cs.innerHTML = ch.sub; d.appendChild(cs); }
+      var list = el("div", "items");
+      ch.items.forEach(function (it) {
+        var x = el("details", "it"); x.dataset.t = it.t; x.dataset.id = it.id;
+        var sm = el("summary");
+        sm.appendChild(el("span", "tc", mmss(it.t)));
+        sm.appendChild(el("span", "num", it.num || ""));
+        sm.appendChild(el("span", "ttl", it.title));
+        var pb = el("button", "play"); pb.type = "button"; pb.setAttribute("aria-label", "צפייה מ-" + mmss(it.t)); pb.innerHTML = PLAY;
+        pb.addEventListener("click", function (e) { e.preventDefault(); e.stopPropagation(); jump(it.t); });
+        sm.appendChild(pb);
+        x.appendChild(sm);
+        var b = el("div", "body");
+        if (it.see) b.appendChild(block("מה רואים בסרטון", it.see));
+        if (it.exp) b.appendChild(block("ההסבר", it.exp));
+        if (it.fact) b.appendChild(block("עובדה מהמדריך", it.fact, "fact"));
+        if (it.tip) b.appendChild(block("טיפ", it.tip));
+        if (it.prompt) {
+          if (it.prompt.text) {
+            var pr = el("details", "pr");
+            var ps = el("summary"); ps.appendChild(el("span", null, "הפרומפט המוכן"));
+            if (it.prompt.n) ps.appendChild(el("span", "pn", it.prompt.n + " / 21"));
+            pr.appendChild(ps);
+            if (it.prompt.note) { var nn = el("p", "note", it.prompt.note); nn.style.padding = "0 14px 8px"; pr.appendChild(nn); }
+            var bar = el("div", "prbar"); var cb = el("button", "copy", "העתקת הפרומפט"); cb.type = "button";
+            cb.addEventListener("click", function () { copyText(cb, it.prompt.text); });
+            bar.appendChild(cb); pr.appendChild(bar);
+            var pbd = el("div", "pbody"); pbd.dir = "rtl"; pbd.innerHTML = it.prompt.html; pr.appendChild(pbd);
+            b.appendChild(pr);
+          } else if (it.prompt.note) {
+            var nb = el("div", "blk"); nb.appendChild(el("h4", null, "הפרומפט")); nb.appendChild(el("p", null, it.prompt.note)); b.appendChild(nb);
+          }
+        }
+        if (it.links && it.links.length) {
+          var lb = el("div", "blk"); lb.appendChild(el("h4", null, "קישורים"));
+          var ul = el("ul", "links");
+          it.links.forEach(function (l) {
+            var li = el("li"); var a = el("a"); a.href = l.url; a.target = "_blank"; a.rel = "noopener";
+            a.appendChild(el("span", null, l.label)); a.appendChild(el("small", null, l.url.replace(/^https?:\/\//, "").split("/")[0]));
+            li.appendChild(a); ul.appendChild(li);
+          });
+          lb.appendChild(ul); b.appendChild(lb);
+        }
+        var jb = el("button", "copy", "צפייה בנושא בסרטון"); jb.type = "button"; jb.style.justifySelf = "start"; jb.style.background = "var(--panel2)"; jb.style.color = "var(--ink)";
+        jb.addEventListener("click", function () { jump(it.t); });
+        b.appendChild(jb);
+        x.appendChild(b);
+        list.appendChild(x);
+        items.push({ t: it.t, node: x, label: (it.num ? it.num + " · " : "") + it.title });
+      });
+      d.appendChild(list);
+      root.appendChild(d);
+    });
+  }
+  buildToc(document.getElementById("toc"));
+  buildToc(document.getElementById("toc2"));
+
+  // community
+  var C = DATA.community || {};
+  ["comm", "comm2"].forEach(function (id) {
+    if (!C.whatsapp && !C.facebook) return;
+    var c = document.getElementById(id); c.hidden = false;
+    c.appendChild(el("h2", null, "בואו להמשיך יחד"));
+    c.appendChild(el("p", null, "שאלות, פרומפטים חדשים ועדכונים על עריכת וידאו עם Claude, בקבוצה ובקהילה."));
+    var bt = el("div", "cbtns");
+    if (C.whatsapp) { var a = el("a", "cbtn wa"); a.href = C.whatsapp; a.target = "_blank"; a.rel = "noopener"; a.innerHTML = WA; a.appendChild(el("span", null, "קבוצת הוואטסאפ")); bt.appendChild(a); }
+    if (C.facebook) { var f = el("a", "cbtn fb"); f.href = C.facebook; f.target = "_blank"; f.rel = "noopener"; f.innerHTML = FB; f.appendChild(el("span", null, "קהילת הפייסבוק")); bt.appendChild(f); }
+    c.appendChild(bt);
+  });
+  var openC = document.getElementById("openC");
+  if (C.whatsapp || C.facebook) { openC.hidden = false; openC.addEventListener("click", function () { openDrawer(); setTimeout(function () { document.getElementById("comm2").scrollIntoView({ behavior: "smooth" }); }, 300); }); }
+
+  // drawer
+  var openD = document.getElementById("openD");
+  function openDrawer() { drawer.classList.add("show"); openD.setAttribute("aria-expanded", "true"); document.body.style.overflow = "hidden";
+    var on = drawer.querySelector(".it.on"); if (on) { on.closest(".ch").open = true; setTimeout(function () { on.scrollIntoView({ block: "center" }); }, 280); } }
+  function closeDrawer() { drawer.classList.remove("show"); openD.setAttribute("aria-expanded", "false"); document.body.style.overflow = ""; }
+  openD.addEventListener("click", openDrawer);
+  document.getElementById("closeD").addEventListener("click", closeDrawer);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeDrawer(); });
+
+  // current topic
+  var now = document.getElementById("now"), cur = -1;
+  var order = items.slice(0, items.length / 2);
+  v.addEventListener("timeupdate", function () {
+    var t = v.currentTime, k = 0;
+    for (var i = 0; i < order.length; i++) if (order[i].t <= t + 0.01) k = i;
+    if (k === cur) return;
+    items.forEach(function (x) { x.node.classList.remove("on"); });
+    items[k].node.classList.add("on"); items[k + order.length].node.classList.add("on");
+    now.textContent = "עכשיו: " + order[k].label; cur = k;
+  });
+
+  // player
+  var text = PLAYLIST.replace(/^(?!#)(\S+)$/gm, function (m) { return new URL("v/" + m, location.href).href; })
+                     .replace(/URI="([^"]+)"/g, function (m, u) { return 'URI="' + new URL("v/" + u, location.href).href + '"'; });
+  var src = URL.createObjectURL(new Blob([text], { type: "application/vnd.apple.mpegurl" }));
+  function fail(msg) { var e = el("div", "err", msg); document.querySelector(".film").appendChild(e); }
+  if (window.Hls && Hls.isSupported()) {
+    var hls = new Hls({ maxBufferLength: 30 }); hls.loadSource(src); hls.attachMedia(v);
+    hls.on(Hls.Events.ERROR, function (e, d) { if (d && d.fatal) fail("הסרטון לא נטען. נסו לרענן את הדף."); });
+  } else if (v.canPlayType("application/vnd.apple.mpegurl")) {
+    v.src = "v/index.m3u8";
+  } else { fail("הדפדפן הזה לא תומך בנגן. נסו Chrome, Safari, Edge או Firefox עדכני."); }
+})();
+</script>
+</body>
+</html>
