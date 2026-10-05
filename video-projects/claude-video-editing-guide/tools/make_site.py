@@ -23,8 +23,8 @@ PLAYLIST = ROOT / "watch" / "v" / "index.m3u8"
 
 # community invites (filled in when the links are known; an empty value hides that button)
 COMMUNITY = {
-    "whatsapp": "",
-    "facebook": "",
+    "whatsapp": "https://chat.whatsapp.com/DuufM1imt8NEfeP4TpcZu0",
+    "facebook": "https://www.facebook.com/share/g/1CsyuSnfek/",
 }
 
 CHAPTERS = {0: "פתיחה", 1: "ככה זה עובד", 2: "עריכה בסיסית", 3: "אפקטים בתלת ממד", 4: "בירולים",
