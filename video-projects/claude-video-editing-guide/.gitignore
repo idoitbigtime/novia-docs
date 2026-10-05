@@ -4,3 +4,4 @@ qc/
 .hyperframes/
 __pycache__/
 audio/build/
+watch/
