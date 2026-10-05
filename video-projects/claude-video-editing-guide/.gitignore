@@ -5,3 +5,4 @@ qc/
 __pycache__/
 audio/build/
 watch/
+netlify-site/
