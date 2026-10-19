@@ -13,6 +13,7 @@ import Login from "./pages/auth/Login";
 import ResetPassword from "./pages/auth/ResetPassword";
 import RequireAuth from "./pages/auth/RequireAuth";
 import ConfigGate from "./components/ConfigGate";
+import { UiProvider } from "./components/ui";
 
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import Overview from "./pages/dashboard/Overview";
@@ -28,6 +29,7 @@ import SettingsPage from "./pages/dashboard/Settings";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ConfigGate>
+    <UiProvider>
     <BrowserRouter>
       <Routes>
         {/* Public customer flow */}
@@ -65,6 +67,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="*" element={<div className="p-8 text-center">404</div>} />
       </Routes>
     </BrowserRouter>
+    </UiProvider>
     </ConfigGate>
   </React.StrictMode>
 );
