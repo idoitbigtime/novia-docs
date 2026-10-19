@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate, Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, MessageSquare, AlertTriangle, Ticket, Share2, QrCode, Settings, Shield, Plus, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, MessageSquare, AlertTriangle, Ticket, Share2, QrCode, Settings, Shield, Plus, LogOut, Menu, X, Store, Megaphone, Users } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useActiveBusiness } from "@/lib/businessContext";
 
@@ -11,6 +11,9 @@ const NAV = [
   { to: "/app/coupons",   label: "הטבות",    icon: Ticket, badge: "coupons" as const },
   { to: "/app/platforms", label: "פלטפורמות", icon: Share2 },
   { to: "/app/qr",        label: "QR",       icon: QrCode },
+  { to: "/app/campaigns", label: "קמפיינים", icon: Megaphone },
+  { to: "/app/profile",   label: "פרופיל העסק", icon: Store },
+  { to: "/app/team",      label: "צוות",     icon: Users },
   { to: "/app/settings",  label: "הגדרות",   icon: Settings },
 ];
 const MOBILE_TABS = ["/app", "/app/reviews", "/app/negative", "/app/coupons"];

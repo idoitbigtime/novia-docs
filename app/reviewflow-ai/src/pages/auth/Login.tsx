@@ -20,10 +20,12 @@ export default function Login() {
     e.preventDefault();
     setErr(null); setInfo(null); setBusy(true);
     try {
+      const pendingInvite = sessionStorage.getItem("rf:pendingInvite");
+      const afterAuth = pendingInvite ? `/invite/${pendingInvite}` : "/app";
       if (mode === "signin") {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        navigate("/app");
+        navigate(afterAuth);
       } else if (mode === "signup") {
         const { data, error } = await supabase.auth.signUp({
           email, password,
@@ -31,7 +33,7 @@ export default function Login() {
         });
         if (error) throw error;
         if (data.session) {
-          navigate("/app/new");
+          navigate(pendingInvite ? afterAuth : "/app/new");
         } else {
           // confirm-email is ON: no session until the link is clicked
           setInfo(`שלחנו מייל אימות ל-${email}. אחרי הלחיצה על הקישור אפשר להתחבר.`);

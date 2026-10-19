@@ -25,6 +25,10 @@ import CouponsPage from "./pages/dashboard/Coupons";
 import PlatformsPage from "./pages/dashboard/Platforms";
 import QrCodesPage from "./pages/dashboard/QrCodes";
 import SettingsPage from "./pages/dashboard/Settings";
+import ProfilePage from "./pages/dashboard/Profile";
+import CampaignsPage from "./pages/dashboard/Campaigns";
+import TeamPage from "./pages/dashboard/Team";
+import AcceptInvite from "./pages/auth/AcceptInvite";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -38,6 +42,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/r/:businessSlug/recovery" element={<RecoveryFlow />} />
         <Route path="/r/:businessSlug/coupon" element={<CouponClaimed />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/invite/:token" element={<AcceptInvite />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />
@@ -61,6 +66,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="platforms" element={<PlatformsPage />} />
           <Route path="qr" element={<QrCodesPage />} />
           <Route path="settings" element={<SettingsPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="campaigns" element={<CampaignsPage />} />
+          <Route path="team" element={<TeamPage />} />
         </Route>
 
         <Route path="/" element={<Navigate to="/login" replace />} />

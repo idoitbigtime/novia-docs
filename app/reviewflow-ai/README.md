@@ -48,9 +48,12 @@ posting. `tests/e2e/customer-flow.spec.ts` asserts this invariant.
 src/
   pages/customer/      ReviewLanding · ThanksPage · RecoveryFlow · CouponClaimed
   pages/auth/          Login (signup/forgot) · ResetPassword
-  pages/dashboard/     Overview · Reviews · Negative · Coupons · Platforms · QrCodes · Settings · Onboarding · Admin
-  components/          StarRating (a11y radiogroup) · BrandedShell · customer/{CouponBlock,SharePlatforms}
-  lib/                 supabase · publicApi · businessContext · errors (he) · format (he-IL) · types
+  pages/dashboard/     Overview (charts+funnel) · Reviews (+ReviewDrawer) · Negative · Coupons · Platforms
+                       QrCodes · Campaigns · Profile (logo upload) · Team (invites) · Settings · Onboarding · Admin
+  pages/auth/          Login · ResetPassword · AcceptInvite
+  components/          StarRating (a11y radiogroup) · BrandedShell · RequireBusiness · ReviewDrawer
+                       ui/ (Badge, Button, Skeleton, PageState, ConfirmDialog, Toast) · customer/{CouponBlock,SharePlatforms}
+  lib/                 supabase · publicApi · api (authed calls) · businessContext · labels (he) · errors (he) · format (he-IL) · types
 
 netlify/functions/
   submit-review        validation → AI → submit_review_tx → inline outbox delivery (≤2.5s)
@@ -61,10 +64,16 @@ netlify/functions/
   set-ghl-key          owner-only write of the API key (clients can never read it back)
   track-visit          top-of-funnel visits (deduped per visitor/hour)
   process-outbox       scheduled */10min: retries with backoff, row locks, daily failed-alert
+  expire-coupons       scheduled daily: approved/sent → expired past expiration_date
+  coupon-action        approve/reject/send/redeem (emits coupon_* events via outbox)
+  regenerate-reply     new suggested owner reply (OpenAI, template fallback)
+  resend-ghl           re-queue a review's integration event
+  accept-invite        team invitation acceptance (email must match)
   auth-email-hook      Supabase "Send Email" hook → GHL (built, not enabled yet)
-  _shared/             http · validators · ai · ghlService · outbox · supabase
+  _shared/             http · validators · authz · ai · ghlService · outbox · supabase
 
 supabase/migrations/   0001 schema · 0002 RLS · 0003 seed · 0004 hardening · 0005 security+integrity+RPCs
+                       0006 logo storage · invitations · campaign polish · coupon expiry
 tests/                 unit/ (vitest) · e2e/ (playwright)
 ```
 
