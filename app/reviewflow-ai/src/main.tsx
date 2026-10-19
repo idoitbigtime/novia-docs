@@ -4,12 +4,15 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./styles.css";
 
 import ReviewLanding from "./pages/customer/ReviewLanding";
-import PositiveFlow from "./pages/customer/PositiveFlow";
+import ThanksPage from "./pages/customer/ThanksPage";
 import RecoveryFlow from "./pages/customer/RecoveryFlow";
 import CouponClaimed from "./pages/customer/CouponClaimed";
+import Privacy from "./pages/Privacy";
 
 import Login from "./pages/auth/Login";
+import ResetPassword from "./pages/auth/ResetPassword";
 import RequireAuth from "./pages/auth/RequireAuth";
+import ConfigGate from "./components/ConfigGate";
 
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import Overview from "./pages/dashboard/Overview";
@@ -24,16 +27,19 @@ import SettingsPage from "./pages/dashboard/Settings";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <ConfigGate>
     <BrowserRouter>
       <Routes>
         {/* Public customer flow */}
         <Route path="/r/:businessSlug" element={<ReviewLanding />} />
-        <Route path="/r/:businessSlug/thanks" element={<PositiveFlow />} />
+        <Route path="/r/:businessSlug/thanks" element={<ThanksPage />} />
         <Route path="/r/:businessSlug/recovery" element={<RecoveryFlow />} />
         <Route path="/r/:businessSlug/coupon" element={<CouponClaimed />} />
+        <Route path="/privacy" element={<Privacy />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* Authenticated dashboard */}
         <Route
@@ -59,5 +65,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="*" element={<div className="p-8 text-center">404</div>} />
       </Routes>
     </BrowserRouter>
+    </ConfigGate>
   </React.StrictMode>
 );

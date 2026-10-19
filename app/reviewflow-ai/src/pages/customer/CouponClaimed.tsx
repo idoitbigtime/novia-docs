@@ -1,78 +1,39 @@
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import BrandedShell from "@/components/BrandedShell";
-import { supabase } from "@/lib/supabase";
-import type { BusinessBrand } from "@/lib/types";
+import CouponBlock from "@/components/customer/CouponBlock";
+import { fetchPublicPage, loadLastReview } from "@/lib/publicApi";
+import { apiError } from "@/lib/errors";
+import type { CustomerCoupon, PublicBusinessPage } from "@/lib/types";
 
-interface CouponResult {
-  status: string;
-  code?: string;
-  discount?: string;
-  expiration?: string | null;
-}
-
+/** Direct link / refresh view of a coupon (manual-approval polling). Never creates one. */
 export default function CouponClaimed() {
-  const { businessSlug } = useParams();
+  const { businessSlug = "" } = useParams();
   const [params] = useSearchParams();
-  const reviewId = params.get("review");
+  const navigate = useNavigate();
+  const reviewId = params.get("review") || loadLastReview(businessSlug)?.review_id || null;
 
-  const [business, setBusiness] = useState<BusinessBrand | null>(null);
-  const [coupon, setCoupon] = useState<CouponResult | null>(null);
+  const [page, setPage] = useState<PublicBusinessPage | null>(null);
+  const [coupon, setCoupon] = useState<CustomerCoupon | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    (async () => {
-      const { data } = await supabase
-        .from("public_business_brand").select("*").eq("slug", businessSlug).maybeSingle();
-      setBusiness((data as BusinessBrand) ?? null);
-    })();
-  }, [businessSlug]);
-
-  useEffect(() => {
-    if (!reviewId) return;
+    if (!reviewId) { navigate(`/r/${businessSlug}`, { replace: true }); return; }
+    fetchPublicPage(businessSlug).then(setPage).catch(() => setPage(null));
     (async () => {
       try {
-        const r = await fetch("/api/claim-coupon", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ review_id: reviewId }),
-        });
-        const j = await r.json();
-        if (!r.ok) throw new Error(j.error || "כשל ביצירת קופון");
-        setCoupon(j);
-      } catch (e: any) {
-        setError(e.message);
-      }
+        const r = await fetch("/api/claim-coupon", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ review_id: reviewId }) });
+        if (!r.ok) throw new Error(await apiError(r));
+        setCoupon((await r.json()) as CustomerCoupon);
+      } catch (e: any) { setError(e?.message ?? "שגיאה"); }
     })();
-  }, [reviewId]);
+  }, [reviewId, businessSlug]);
 
   return (
-    <BrandedShell business={business}>
-      <div className="card p-6 text-center flex flex-col gap-4">
-        <div className="text-4xl">🎁</div>
-        {!coupon && !error && <p>מכין את ההטבה שלך…</p>}
-        {error && <p className="text-red-600">{error}</p>}
-        {coupon?.status === "pending" && (
-          <>
-            <h2 className="text-xl font-bold">תודה על הפרגון</h2>
-            <p className="text-slate-600">
-              ההטבה שלך ממתינה לאישור ותישלח אליך בוואטסאפ בקרוב.
-            </p>
-          </>
-        )}
-        {coupon?.status === "approved" && coupon.code && (
-          <>
-            <h2 className="text-xl font-bold">הנה הקופון שלך</h2>
-            <div className="bg-slate-900 text-white rounded-2xl px-6 py-5 text-2xl font-mono tracking-widest">
-              {coupon.code}
-            </div>
-            {coupon.discount && <p className="text-slate-700">{coupon.discount}</p>}
-            {coupon.expiration && (
-              <p className="text-slate-500 text-sm">בתוקף עד {coupon.expiration}</p>
-            )}
-          </>
-        )}
-      </div>
+    <BrandedShell business={page?.business ?? null}>
+      {error ? <div className="card p-6 text-center text-red-600">{error}</div>
+        : coupon ? <CouponBlock coupon={coupon} />
+        : <div className="card p-6 animate-pulse h-40" aria-busy="true" />}
     </BrandedShell>
   );
 }

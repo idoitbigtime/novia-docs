@@ -1,91 +1,90 @@
 import type { Handler } from "@netlify/functions";
 import { getServiceSupabase } from "./_shared/supabase";
 import { classifyReview } from "./_shared/ai";
-import { syncReviewToGHL } from "./_shared/ghlService";
-import { ok, bad, parseBody } from "./_shared/http";
+import { deliverNow } from "./_shared/outbox";
+import { ok, fail, parseBody, preflight, clientIp } from "./_shared/http";
+import { isValidRating, clampText, normalizePhone, normalizeEmail, LIMITS } from "./_shared/validators";
 
 interface Body {
-  business_slug: string;
+  business_slug?: string;
   campaign_slug?: string;
-  rating: number;
+  rating?: number;
   text?: string;
+  language?: string;
+  consent?: boolean;
+  visitor_token?: string;
   customer?: { full_name?: string | null; phone?: string | null; email?: string | null };
 }
 
+const PER_IP_PER_HOUR = 60;     // a busy venue shares one NAT IP — do not go lower
+const PER_BUSINESS_PER_DAY = 2000;
+
 export const handler: Handler = async (event) => {
-  if (event.httpMethod !== "POST") return bad("method not allowed", 405);
+  const pre = preflight(event); if (pre) return pre;
+  if (event.httpMethod !== "POST") return fail("METHOD_NOT_ALLOWED", 405);
+
   const b = parseBody<Body>(event);
-  if (!b.business_slug || !b.rating || b.rating < 1 || b.rating > 5) return bad("invalid input");
+  if (!b.business_slug || !isValidRating(b.rating)) return fail("INVALID_INPUT");
+
+  const text = clampText(b.text, LIMITS.text);
+  const full_name = clampText(b.customer?.full_name, LIMITS.name);
+  const phone = normalizePhone(b.customer?.phone);
+  const email = normalizeEmail(b.customer?.email);
+  if (b.customer?.email && !email) return fail("INVALID_INPUT", 400, { field: "email" });
+  if (b.customer?.phone && !phone) return fail("INVALID_INPUT", 400, { field: "phone" });
 
   const sb = getServiceSupabase();
+  const { data: biz } = await sb.from("businesses").select("id, is_active").eq("slug", b.business_slug).maybeSingle();
+  if (!biz || !biz.is_active) return fail("BUSINESS_NOT_FOUND", 404);
 
-  // resolve business
-  const { data: biz } = await sb.from("businesses").select("id").eq("slug", b.business_slug).maybeSingle();
-  if (!biz) return bad("business not found", 404);
+  // rate limits (no extra table: count recent reviews)
+  const ip = clientIp(event.headers as Record<string, string | undefined>);
+  const hourAgo = new Date(Date.now() - 3600_000).toISOString();
+  const dayAgo = new Date(Date.now() - 86_400_000).toISOString();
+  if (ip) {
+    const { count } = await sb.from("reviews").select("id", { count: "exact", head: true })
+      .eq("business_id", biz.id).eq("ip", ip).gte("created_at", hourAgo);
+    if ((count ?? 0) >= PER_IP_PER_HOUR) return fail("RATE_LIMITED", 429);
+  }
+  {
+    const { count } = await sb.from("reviews").select("id", { count: "exact", head: true })
+      .eq("business_id", biz.id).gte("created_at", dayAgo);
+    if ((count ?? 0) >= PER_BUSINESS_PER_DAY) return fail("RATE_LIMITED", 429);
+  }
 
-  // resolve campaign (optional)
   let campaign_id: string | null = null;
   if (b.campaign_slug) {
     const { data: cmp } = await sb.from("campaigns").select("id")
-      .eq("business_id", biz.id).eq("slug", b.campaign_slug).maybeSingle();
+      .eq("business_id", biz.id).eq("slug", b.campaign_slug).eq("is_active", true).maybeSingle();
     campaign_id = cmp?.id ?? null;
   }
 
-  // upsert customer if any identifying field exists
-  let customer_id: string | null = null;
-  if (b.customer && (b.customer.phone || b.customer.email)) {
-    const { data: existing } = await sb.from("customers").select("id")
-      .eq("business_id", biz.id)
-      .or(`phone.eq.${b.customer.phone ?? "__"},email.eq.${b.customer.email ?? "__"}`)
-      .limit(1).maybeSingle();
-    if (existing) {
-      customer_id = existing.id;
-    } else {
-      const { data: ins } = await sb.from("customers").insert({
-        business_id: biz.id,
-        full_name: b.customer.full_name ?? null,
-        phone: b.customer.phone ?? null,
-        email: b.customer.email ?? null,
-      }).select("id").single();
-      customer_id = ins?.id ?? null;
-    }
+  // AI advises (3s budget); the rules inside decide the route.
+  const ai = await classifyReview({ rating: b.rating, text, language: b.language ?? "he" });
+
+  const { data, error } = await sb.rpc("submit_review_tx", {
+    p_business_id: biz.id,
+    p_campaign_id: campaign_id,
+    p_rating: b.rating,
+    p_text: text,
+    p_language: b.language ?? "he",
+    p_full_name: full_name,
+    p_phone: phone,
+    p_email: email,
+    p_consent: b.consent === true,
+    p_ip: ip,
+    p_visitor_token: clampText(b.visitor_token, 64),
+    p_ai: ai,
+  });
+  if (error || !data) {
+    console.error("submit_review_tx failed", error);
+    return fail("INTERNAL", 500);
   }
 
-  // log a request row
-  const { data: req } = await sb.from("review_requests").insert({
-    business_id: biz.id, campaign_id,
-    ip: (event.headers["x-forwarded-for"] || event.headers["x-nf-client-connection-ip"] || "")?.toString().split(",")[0] || null,
-    user_agent: event.headers["user-agent"] ?? null,
-  }).select("id").single();
+  const result = data as { review_id: string; route: string; coupon: unknown; outbox_id?: string | null };
 
-  // classify
-  const ai = await classifyReview({ rating: b.rating, text: b.text ?? null });
+  // Best-effort inline delivery (GHL is a no-op until configured); sweeper retries the rest.
+  await deliverNow(result.outbox_id, 2500);
 
-  // insert review
-  const { data: review, error } = await sb.from("reviews").insert({
-    business_id: biz.id,
-    campaign_id,
-    request_id: req?.id ?? null,
-    customer_id,
-    rating: b.rating,
-    text: b.text ?? null,
-    ai_sentiment: ai.sentiment,
-    ai_route: ai.route,
-    ai_confidence: ai.confidence,
-    ai_summary: ai.summary,
-    ai_suggested_response: ai.suggested_business_response,
-    ai_tags: ai.tags,
-    ai_raw: ai as any,
-  }).select("id").single();
-  if (error || !review) return bad(error?.message ?? "insert failed", 500);
-
-  // fire-and-forget GHL sync (don't block customer UX)
-  syncReviewToGHL({
-    business_id: biz.id, review_id: review.id,
-    rating: b.rating, text: b.text ?? null,
-    sentiment: ai.sentiment, route: ai.route,
-    customer: b.customer ?? null,
-  }).catch(() => undefined);
-
-  return ok({ review_id: review.id, route: ai.route, sentiment: ai.sentiment });
+  return ok({ review_id: result.review_id, route: result.route, coupon: result.coupon, sentiment: ai.sentiment });
 };

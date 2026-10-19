@@ -17,3 +17,7 @@ coverage
 *.tsbuildinfo
 vite.config.js
 vite.config.d.ts
+
+# tests
+playwright-report
+test-results

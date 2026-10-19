@@ -1,18 +1,22 @@
 {
   "name": "reviewflow-ai",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "ReviewFlow AI — reputation management, review routing, WhatsApp-first recovery, coupons, and GoHighLevel integration for local businesses.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "tsc --noEmit",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
+    "lucide-react": "^0.445.0",
+    "openai": "^4.63.0",
     "qrcode.react": "^4.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -21,15 +25,16 @@
   },
   "devDependencies": {
     "@netlify/functions": "^2.8.1",
+    "@playwright/test": "^1.47.2",
     "@types/node": "^22.5.5",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
-    "openai": "^4.63.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.12",
     "typescript": "^5.6.2",
-    "vite": "^5.4.6"
+    "vite": "^5.4.6",
+    "vitest": "^2.1.1"
   }
 }

@@ -1,13 +1,16 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-const url = import.meta.env.VITE_SUPABASE_URL as string;
-const anon = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+const anon = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 
-if (!url || !anon) {
-  // Don't throw — let the app render a config screen.
-  console.warn("Supabase env vars missing. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.");
-}
+/** True when the client-side Supabase config is present. The app renders a
+ *  configuration screen instead of crashing at import time when it's missing. */
+export const supabaseConfigured = !!(url && anon);
 
-export const supabase = createClient(url ?? "", anon ?? "", {
-  auth: { persistSession: true, autoRefreshToken: true },
-});
+// A placeholder URL keeps createClient from throwing; every call then fails
+// gracefully, and <ConfigGate> shows the fix instead of a blank page.
+export const supabase: SupabaseClient = createClient(
+  url || "https://not-configured.supabase.co",
+  anon || "not-configured",
+  { auth: { persistSession: true, autoRefreshToken: true } },
+);

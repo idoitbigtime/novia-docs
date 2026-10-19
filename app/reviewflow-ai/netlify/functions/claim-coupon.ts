@@ -1,59 +1,34 @@
 import type { Handler } from "@netlify/functions";
 import { getServiceSupabase } from "./_shared/supabase";
-import { triggerWebhook } from "./_shared/ghlService";
-import { ok, bad, parseBody } from "./_shared/http";
+import { ok, fail, parseBody, preflight } from "./_shared/http";
+import { isUuid } from "./_shared/validators";
 
-interface Body { review_id: string; }
+// Coupons are created inside submit_review_tx for every route. This endpoint only
+// re-reads one (direct link / refresh / manual-approval polling). It never creates.
+
+interface Body { review_id?: string }
 
 export const handler: Handler = async (event) => {
-  if (event.httpMethod !== "POST") return bad("method not allowed", 405);
+  const pre = preflight(event); if (pre) return pre;
+  if (event.httpMethod !== "POST") return fail("METHOD_NOT_ALLOWED", 405);
+
   const b = parseBody<Body>(event);
-  if (!b.review_id) return bad("invalid input");
+  if (!isUuid(b.review_id)) return fail("INVALID_INPUT");
 
   const sb = getServiceSupabase();
-  const { data: review } = await sb
-    .from("reviews")
-    .select("id, business_id, customer_id, ai_route")
-    .eq("id", b.review_id).maybeSingle();
-  if (!review) return bad("review not found", 404);
-  if (review.ai_route !== "positive_flow") return bad("coupon not available for this review", 403);
+  const { data: coupon } = await sb.from("coupons")
+    .select("status, code, discount_type, discount_value, expiration_date, business_id")
+    .eq("review_id", b.review_id).maybeSingle();
+  if (!coupon) return fail("COUPON_NOT_FOUND", 404);
 
-  // reuse existing coupon for this review if any
-  const { data: existing } = await sb
-    .from("coupons").select("*").eq("review_id", review.id).maybeSingle();
-  if (existing) return ok(formatCoupon(existing));
+  const { data: settings } = await sb.from("coupon_settings").select("terms_text").eq("business_id", coupon.business_id).maybeSingle();
 
-  const { data: codeRow } = await sb.rpc("generate_coupon_code", { prefix: "RFAI" });
-  const code = (codeRow as unknown as string) ?? `RFAI-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
-
-  const expires = new Date(); expires.setDate(expires.getDate() + 30);
-
-  const { data: coupon, error } = await sb.from("coupons").insert({
-    business_id: review.business_id,
-    review_id: review.id,
-    customer_id: review.customer_id,
-    code,
-    status: "pending",
-    discount_type: "custom_text",
-    discount_value: "הטבה שתשלח בוואטסאפ",
-    expiration_date: expires.toISOString().slice(0, 10),
-  }).select("*").single();
-  if (error || !coupon) return bad(error?.message ?? "create coupon failed", 500);
-
-  triggerWebhook(review.business_id, {
-    event: "coupon_requested",
-    business_id: review.business_id, review_id: review.id,
-    coupon_id: coupon.id, code,
-  }).catch(() => undefined);
-
-  return ok(formatCoupon(coupon));
+  return ok({
+    status: coupon.status,
+    code: coupon.status === "approved" || coupon.status === "sent" ? coupon.code : undefined,
+    discount_type: coupon.discount_type,
+    discount_value: coupon.discount_value,
+    expiration_date: coupon.expiration_date,
+    terms_text: settings?.terms_text ?? null,
+  });
 };
-
-function formatCoupon(c: any) {
-  return {
-    status: c.status,
-    code: c.status === "pending" ? undefined : c.code,
-    discount: c.discount_value,
-    expiration: c.expiration_date,
-  };
-}

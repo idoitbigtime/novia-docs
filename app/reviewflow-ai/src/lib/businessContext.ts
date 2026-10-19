@@ -55,22 +55,38 @@ export function useActiveBusiness() {
     const stored = getActiveBusinessId();
     if (stored && businesses.some((b) => b.id === stored)) {
       setActiveId(stored);
-    } else if (businesses[0] && !stored) {
+    } else if (stored) {
+      // Stored id is not among memberships: keep it only if the user can still
+      // resolve it (platform admin); otherwise fall back to the first business.
+      setActiveId(stored);
+    } else if (businesses[0]) {
       setActiveBusinessId(businesses[0].id);
       setActiveId(businesses[0].id);
     } else {
-      setActiveId(stored);
+      setActiveId(null);
     }
   }, [loading, businesses]);
 
   // If the active id isn't among memberships (platform admin case), fetch it.
+  // If it cannot be resolved (stale id, membership removed), fall back.
   useEffect(() => {
     const inList = businesses.find((b) => b.id === activeId);
     if (!activeId || inList) { setResolved(null); return; }
     let cancelled = false;
     (async () => {
       const { data } = await supabase.from("businesses").select("id, name, slug").eq("id", activeId).maybeSingle();
-      if (!cancelled && data) setResolved({ id: data.id, name: data.name, slug: data.slug, role: "platform_admin" });
+      if (cancelled) return;
+      if (data) {
+        setResolved({ id: data.id, name: data.name, slug: data.slug, role: "platform_admin" });
+      } else if (businesses[0]) {
+        setActiveBusinessId(businesses[0].id);
+        setActiveId(businesses[0].id);
+        setResolved(null);
+      } else {
+        localStorage.removeItem(ACTIVE_KEY);
+        setActiveId(null);
+        setResolved(null);
+      }
     })();
     return () => { cancelled = true; };
   }, [activeId, businesses]);
