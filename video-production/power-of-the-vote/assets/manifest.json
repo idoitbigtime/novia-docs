@@ -1,0 +1,97 @@
+{
+ "total": 116.5,
+ "images": {
+  "galilee": "assets/img/galilee.jpg",
+  "galilee_blur": "assets/img/galilee_blur.jpg",
+  "galilee_gamla": "assets/img/galilee_gamla.jpg",
+  "galilee_gamla_blur": "assets/img/galilee_gamla_blur.jpg",
+  "galilee_gamla_illus": "assets/img/galilee_gamla_illus.jpg",
+  "galilee_illus": "assets/img/galilee_illus.jpg",
+  "haifa_view": "assets/img/haifa_view.jpg",
+  "haifa_view_blur": "assets/img/haifa_view_blur.jpg",
+  "haifa_view_illus": "assets/img/haifa_view_illus.jpg",
+  "jerusalem_sunrise": "assets/img/jerusalem_sunrise.jpg",
+  "jerusalem_sunrise_blur": "assets/img/jerusalem_sunrise_blur.jpg",
+  "jerusalem_sunrise_illus": "assets/img/jerusalem_sunrise_illus.jpg",
+  "knesset_aerial": "assets/img/knesset_aerial.jpg",
+  "knesset_aerial_blur": "assets/img/knesset_aerial_blur.jpg",
+  "knesset_aerial_illus": "assets/img/knesset_aerial_illus.jpg",
+  "knesset_gpo": "assets/img/knesset_gpo.jpg",
+  "knesset_gpo_blur": "assets/img/knesset_gpo_blur.jpg",
+  "knesset_gpo_illus": "assets/img/knesset_gpo_illus.jpg",
+  "knesset_night": "assets/img/knesset_night.jpg",
+  "knesset_night_blur": "assets/img/knesset_night_blur.jpg",
+  "knesset_night_illus": "assets/img/knesset_night_illus.jpg",
+  "ramon_aerial": "assets/img/ramon_aerial.jpg",
+  "ramon_aerial_blur": "assets/img/ramon_aerial_blur.jpg",
+  "ramon_aerial_illus": "assets/img/ramon_aerial_illus.jpg",
+  "ramon_view": "assets/img/ramon_view.jpg",
+  "ramon_view_blur": "assets/img/ramon_view_blur.jpg",
+  "ramon_view_illus": "assets/img/ramon_view_illus.jpg",
+  "telaviv_skyline": "assets/img/telaviv_skyline.jpg",
+  "telaviv_skyline_blur": "assets/img/telaviv_skyline_blur.jpg",
+  "telaviv_skyline_illus": "assets/img/telaviv_skyline_illus.jpg"
+ },
+ "credits": {
+  "knesset_night": {
+   "author": "Adiel lo",
+   "license": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:The_knesset_illuminated.jpg"
+  },
+  "knesset_gpo": {
+   "author": "Tsvika Israeli",
+   "license": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Flickr_-_Government_Press_Office_(GPO)_-_The_Knesset_Building_in_Jerusalem.jpg"
+  },
+  "knesset_lit": {
+   "author": "Israel GPO / Flickr",
+   "license": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Flickr_-_Government_Press_Office_(GPO)_-_The_Supreme_Court_(Foreground)_And_the_Knesset_buildings_lighting_up_Jerusalem_skies.jpg"
+  },
+  "knesset_aerial": {
+   "author": "Neukoln",
+   "license": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:WikiAir_IL-13-06_022_-_Knesset.JPG"
+  },
+  "jerusalem_sunrise": {
+   "author": "Bcohn",
+   "license": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Jerusalem_Skyline_at_sunrise_of_%22Birkas_HaChamah%22.JPG"
+  },
+  "telaviv_skyline": {
+   "author": "Markus Trienke",
+   "license": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Skyline_Tel_Aviv_(239986737).jpeg"
+  },
+  "haifa_view": {
+   "author": "Someone35",
+   "license": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:View_of_Haifa_from_the_Bahai_gardens.JPG"
+  },
+  "haifa_gardens": {
+   "author": "No machine-readable author provided. EdoM assumed (based on copyright claims).",
+   "license": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Israel_-_Haifa_-_Bahai_Gardens_002.jpg"
+  },
+  "ramon_aerial": {
+   "author": "Godot13",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Israel-2013-Aerial_00-Negev-Makhtesh_Ramon.jpg"
+  },
+  "ramon_view": {
+   "author": "Godot13",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:ISR-2013-Makhtesh_Ramon-Near_Makhtesh_Ramon_(looking_in).jpg"
+  },
+  "galilee": {
+   "author": "Obendorf",
+   "license": "CC0",
+   "page": "https://commons.wikimedia.org/wiki/File:View_of_the_Sea_of_Galilee_from_the_Mount_of_the_Beatitudes.jpg"
+  },
+  "galilee_gamla": {
+   "author": "Davidbena",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:View_of_Sea_of_Galilee_from_Gamla.jpg"
+  }
+ }
+}

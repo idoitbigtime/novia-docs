@@ -1,0 +1,23 @@
+// Word onsets (seconds) measured from the master narration (ASR word timestamps refined against the energy envelope).
+export const K = {
+  q1end: 4.02,
+  s2: 4.65, misheu: 5.36, acher: 5.84, lehachlit: 6.18, bishvil: 6.68, s2end: 7.36,
+  achshav: 8.11, takshivu: 8.38,
+  s3: 9.29, yamin: 10.14, smol: 10.89, merkaz: 11.42, o: 11.96, nimas: 12.42, mikulam: 13.06, s3end: 13.42,
+  atem: 14.09, chayavim: 14.58, latset: 15.42, lehatzbia: 16.12, s4end: 16.94,
+  s5: 17.92, kshe: 19.15, hakol: 20.88, lemisheu: 22.10, aval: 23.18, lehashpia: 24.28, pashut: 24.78, neelam: 25.56, s5end: 26.04,
+  s6: 27.07, hakolShelo: 28.86, mekabel: 29.42, mishkal: 30.02, s6end: 30.68,
+  vaaz: 31.95, kamim: 33.39, baboker: 33.86, habchirot: 34.64, mistaklim: 35.78, hatotzaot: 36.22, vechulam: 37.79, mitchilim: 38.08, lehitlonen: 38.42, s7end: 39.0,
+  avalRega: 40.16, chashavtem: 41.80, im: 44.13, lehatzbia2: 45.34, s8end: 45.86,
+  ulai: 47.72, rakUlai: 49.12, hayinu: 50.78, lemetziut: 51.42, acheret: 52.08, legamrei: 52.70, s9end: 53.56,
+  q1: 54.26, shinui: 54.88, q2: 55.71, atid: 56.38, q3: 57.81, mitzagim: 59.70, yekablu: 60.58, hachlatot: 61.42, q3end: 62.90,
+  az: 63.77, laacherim: 64.80, lehachlit2: 65.40, s11end: 66.58,
+  vetakshivu: 67.67, loIchpat: 68.95, lemi: 69.54, beemet: 70.78, ichpat: 72.19, shetatzbiu: 72.92, s12end: 73.80,
+  ki: 74.21, israelim: 75.36, lakalpiyot: 76.24, kacha: 76.95, mashkafot: 78.06, hatzibur: 79.78, s13end: 81.34,
+  veachshav: 82.66, ani: 83.87, katan: 85.18, tashtfu: 86.40, tishlechu: 88.26, lachaverim: 88.96, lamishpacha: 90.13, uvemyuchad: 91.53,
+  laele: 93.09, hityaashu: 93.90, veomrim: 94.56, sheein: 95.34, s14end: 96.98,
+  kiBasof: 98.23, imAtem: 99.70, lehashpia2: 100.58, machar: 102.30, s15aEnd: 102.76,
+  atemChayavim: 104.08, chelek: 105.34, mehahachlata: 105.82, hayom: 106.70, hayomEnd: 107.48,
+  yalla: 108.88, bebchirot: 109.68, kulanu: 110.70, yotzim: 111.54, lehatzbia3: 112.12, end: 112.74,
+  audioEnd: 113.19, total: 116.5,
+};

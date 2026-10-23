@@ -1,0 +1,16 @@
+{
+  "name": "power-of-the-vote",
+  "private": true,
+  "description": "Non-partisan Israeli civic get-out-the-vote film: deterministic HTML/Three.js renderer + synthesized score",
+  "type": "module",
+  "dependencies": {
+    "three": "0.169.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.50.0"
+  },
+  "scripts": {
+    "preview": "node preview.mjs preview.jpg 1 15 30 45 60 75 90 105",
+    "render": "node render.mjs frames 3 30"
+  }
+}

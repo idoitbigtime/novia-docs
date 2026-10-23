@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>כוחו של הקול</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  html, body { margin: 0; padding: 0; background: #000; overflow: hidden; }
+  #stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; transform-origin: 50% 50%; }
+  #stage canvas { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  #titles, #subs, #ui { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; pointer-events: none; }
+
+  /* ---------- kinetic titles ---------- */
+  .t { position: absolute; left: 0; top: 0; white-space: nowrap; text-align: center; direction: rtl; will-change: transform, opacity, filter; transform-style: preserve-3d; }
+  .t .ext, .t .face { display: block; line-height: 1.02; }
+  .t .ext { position: absolute; left: 0; right: 0; top: 0; color: transparent; }
+  .t .face { position: relative; }
+  .t .w { display: inline-block; }
+
+  /* chrome: white/silver face, deep-blue extrusion */
+  .s-chrome .face .w { background: linear-gradient(180deg, #ffffff 0%, #eef3fb 38%, #a9bddf 50%, #ffffff 62%, #d5e0f3 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .s-chrome .ext { color: #0a2a6b; text-shadow: 0 2px 0 #0c3080, 0 4px 0 #0b2b74, 0 6px 0 #0a2768, 0 8px 0 #09235e, 0 10px 0 #081f53, 0 12px 0 #071b49, 0 14px 0 #06173e, 0 16px 0 #051334, 0 26px 40px rgba(0,0,0,.75); }
+  /* gold */
+  .s-gold .face .w { background: linear-gradient(180deg, #fff8d6 0%, #ffe48a 30%, #e6a92a 50%, #fff1b0 64%, #c98a12 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .s-gold .ext { color: #5a3a00; text-shadow: 0 2px 0 #6b4500, 0 4px 0 #634000, 0 6px 0 #5a3a00, 0 8px 0 #513400, 0 10px 0 #482e00, 0 12px 0 #3f2800, 0 14px 0 #362200, 0 24px 40px rgba(0,0,0,.7); }
+  /* electric blue */
+  .s-blue .face .w { background: linear-gradient(180deg, #e9f6ff 0%, #8fd3ff 35%, #2f8cff 52%, #b9e4ff 66%, #2f6bff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .s-blue .ext { color: #041a4d; text-shadow: 0 2px 0 #062160, 0 4px 0 #051d57, 0 6px 0 #04194d, 0 8px 0 #031544, 0 10px 0 #02113a, 0 12px 0 #020e31, 0 22px 36px rgba(0,0,0,.7); }
+  /* red accent (tension only) */
+  .s-red .face .w { background: linear-gradient(180deg, #fff1f1 0%, #ff8a8a 34%, #ff2d2d 52%, #ffb3b3 66%, #d11a1a 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .s-red .ext { color: #3d0000; text-shadow: 0 2px 0 #4a0505, 0 4px 0 #430404, 0 6px 0 #3b0303, 0 8px 0 #340202, 0 10px 0 #2c0101, 0 12px 0 #250000, 0 22px 36px rgba(0,0,0,.7); }
+  /* thin, elegant */
+  .s-thin .face { color: #ffffff; font-weight: 300 !important; text-shadow: 0 0 24px rgba(120,180,255,.55), 0 2px 12px rgba(0,0,0,.6); }
+  .s-thin .ext { display: none; }
+  .s-thingold .face { color: #ffe9a8; font-weight: 300 !important; text-shadow: 0 0 26px rgba(255,200,90,.55), 0 2px 12px rgba(0,0,0,.6); }
+  .s-thingold .ext { display: none; }
+  /* plain white bold */
+  .s-white .face { color: #fff; text-shadow: 0 4px 0 rgba(0,20,70,.9), 0 10px 30px rgba(0,0,0,.7); }
+  .s-white .ext { display: none; }
+  /* comic */
+  .s-comic .face { color: #ffd400; -webkit-text-stroke: 10px #0b0b12; paint-order: stroke fill; text-shadow: 10px 12px 0 #0b0b12; }
+  .s-comic .ext { display: none; }
+  .s-comicw .face { color: #ffffff; -webkit-text-stroke: 9px #0b0b12; paint-order: stroke fill; text-shadow: 8px 10px 0 #0b0b12; }
+  .s-comicw .ext { display: none; }
+  .s-ink .face { color: #0b0b12; }
+  .s-ink .ext { display: none; }
+
+  /* ---------- subtitles ---------- */
+  #subs .cue { position: absolute; left: 70px; right: 70px; text-align: center; direction: rtl; font-family: 'Heebo', sans-serif; font-weight: 800; font-size: 58px; line-height: 1.22; color: #fff; }
+  #subs .cue .sw { display: inline-block; margin: 0 7px; -webkit-text-stroke: 9px rgba(2,8,26,.92); paint-order: stroke fill; text-shadow: 0 6px 18px rgba(0,0,0,.75); }
+  #subs .cue .sw.on { color: #ffd400; }
+  #subs .cue .sw.pre { color: rgba(255,255,255,.98); }
+
+  /* ---------- small UI tags ---------- */
+  .tag { position: absolute; font-family: 'Heebo', sans-serif; font-weight: 500; font-size: 30px; color: rgba(255,255,255,.92); background: rgba(5,12,32,.55); border: 2px solid rgba(255,255,255,.35); border-radius: 30px; padding: 6px 22px; letter-spacing: 1px; direction: rtl; }
+  .credits { position: absolute; left: 60px; right: 60px; font-family: 'Heebo', sans-serif; font-weight: 300; font-size: 19px; line-height: 1.35; color: rgba(255,255,255,.62); text-align: center; direction: rtl; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg" width="1080" height="1920"></canvas>
+  <canvas id="gl" width="1080" height="1920"></canvas>
+  <canvas id="fx" width="1080" height="1920"></canvas>
+  <div id="titles"></div>
+  <canvas id="post" width="1080" height="1920"></canvas>
+  <div id="subs"></div>
+  <div id="ui"></div>
+</div>
+<script type="importmap">
+{ "imports": { "three": "./node_modules/three/build/three.module.js", "three/addons/": "./node_modules/three/examples/jsm/" } }
+</script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
