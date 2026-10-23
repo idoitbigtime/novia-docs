@@ -527,6 +527,7 @@ export function scenesA(ctx) {
 
   // ---------------------------------------------------------------- S8 WHAT IF
   const s7 = out[out.length - 1];
+  let freezeCanvas = null;
   const crowdBuilt = { done: false, sprites: [] };
   function buildCrowd() {
     if (crowdBuilt.done) return; crowdBuilt.done = true;
@@ -549,8 +550,12 @@ export function scenesA(ctx) {
     if (t < 41.25) {
       // freeze + rewind of the comic, then peel away
       const tf = 39.9, des = prog(t, K.avalRega, K.avalRega + 0.15), peel = E.inCubic(prog(t, 40.75, 41.25));
+      if (!freezeCanvas) { // render the frozen comic frame once, then filter it as a single image
+        freezeCanvas = document.createElement('canvas'); freezeCanvas.width = W; freezeCanvas.height = H;
+        const fc = freezeCanvas.getContext('2d'); s7.draw(tf, { ...S, bg: fc, fx: fc, titles: { show() {} }, tag: null });
+      }
       bg.save(); bg.translate(0, peel * -1900); bg.filter = `grayscale(${des}) contrast(${1 + des * 0.2})`;
-      s7.draw(tf, { ...S, fx: bg, titles: { show() {} }, tag: null });
+      bg.drawImage(freezeCanvas, 0, 0);
       bg.filter = 'none'; bg.restore();
       fill(bg, '#000', peel);
       if (t < 40.75) {

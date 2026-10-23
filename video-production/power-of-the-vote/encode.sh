@@ -4,7 +4,7 @@
 set -e
 F="$1"; MIX="$2"; VO="$3"; OUT="$4"; mkdir -p "$OUT"
 # master for Reels / TikTok / Shorts uploads
-ffmpeg -y -framerate 30 -i "$F/f_%05d.jpg" -i "$MIX" -map 0:v -map 1:a -c:v libx264 -preset slow -crf 17 -tune film \
+ffmpeg -y -framerate 30 -i "$F/f_%05d.jpg" -i "$MIX" -map 0:v -map 1:a -c:v libx264 -preset slow -crf 22 -tune film -maxrate 16M -bufsize 32M \
   -pix_fmt yuv420p -profile:v high -level 4.2 -colorspace bt709 -color_primaries bt709 -color_trc bt709 \
   -c:a aac -b:a 320k -ar 48000 -movflags +faststart -metadata title="כולנו יוצאים להצביע" "$OUT/power_of_the_vote_1080x1920.mp4"
 # same picture, narration only (no score)

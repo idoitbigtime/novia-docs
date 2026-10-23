@@ -106,15 +106,21 @@ export function scenesB(ctx) {
   // citizen mosaic (offscreen) → points → Knesset
   let mosaic = null, mosaicPts = null;
   const MC = 9, MR = 16, TS = 120;
+  const mtiles = [];
+  function drawTile(g, k, t) {
+    const m = mtiles[k], x = m.i * TS, y = m.j * TS;
+    g.save(); g.beginPath(); g.rect(x + 3, y + 3, TS - 6, TS - 6); g.clip();
+    g.fillStyle = m.bg; g.fillRect(x, y, TS, TS);
+    const kk = m.p.kind === 'child' ? 0.62 : m.p.kind === 'teen' ? 0.88 : m.p.kind === 'elder' ? 0.95 : 1, hh = TS * 2.4 / kk; // head centred in the tile
+    person(g, m.p, x + TS / 2, y + TS * 0.5 + hh * kk * (m.p.kind === 'child' ? 0.98 : 0.9), hh, { t: t + m.ph });
+    g.restore();
+  }
   function buildMosaic() {
     if (mosaic) return;
-    mosaic = document.createElement('canvas'); mosaic.width = W; mosaic.height = H; const g = mosaic.getContext('2d');
     const pal = ['#1d3f8f', '#2f6bd8', '#e9eef7', '#f2c14e', '#5aa0e8', '#c9a227', '#3b4a63', '#8fb8ff'], r = rng(17), mc = makeCast(MC * MR, 404);
-    for (let j = 0; j < MR; j++) for (let i = 0; i < MC; i++) {
-      const x = i * TS, y = j * TS; g.save(); g.beginPath(); g.rect(x + 3, y + 3, TS - 6, TS - 6); g.clip();
-      g.fillStyle = pal[(r() * pal.length) | 0]; g.fillRect(x, y, TS, TS);
-      person(g, mc[j * MC + i], x + TS / 2, y + TS * 2.15, TS * 2.6, { t: r() * 5 }); g.restore();
-    }
+    for (let j = 0; j < MR; j++) for (let i = 0; i < MC; i++) mtiles.push({ i, j, bg: pal[(r() * pal.length) | 0], p: mc[j * MC + i], ph: r() * 5 });
+    mosaic = document.createElement('canvas'); mosaic.width = W; mosaic.height = H; const g = mosaic.getContext('2d');
+    mtiles.forEach((_, k) => drawTile(g, k, 0));
     const d = g.getImageData(0, 0, W, H).data; mosaicPts = [];
     for (let y = 6; y < H; y += 22) for (let x = 6; x < W; x += 22) { const k = (y * W + x) * 4; mosaicPts.push([x, y, d[k] / 255, d[k + 1] / 255, d[k + 2] / 255]); }
   }
@@ -164,7 +170,12 @@ export function scenesB(ctx) {
       const morph = prog(t, 59.55, 61.4), solid = ease(prog(t, 60.9, 62.2));
       if (t < 59.75) {
         const z = lerp(8.5, 1, zo), cx = 4 * TS + TS / 2, cy = 7 * TS + TS / 2;
-        bg.save(); bg.translate(540, 960); bg.scale(z, z); bg.translate(-lerp(cx, 540, zo), -lerp(cy, 960, zo)); bg.globalAlpha = 1 - prog(t, 59.55, 59.75); bg.drawImage(mosaic, 0, 0); bg.restore();
+        const ox = lerp(cx, 540, zo), oy = lerp(cy, 960, zo);
+        bg.save(); bg.translate(540, 960); bg.scale(z, z); bg.translate(-ox, -oy); bg.globalAlpha = 1 - prog(t, 59.55, 59.75);
+        // vector-draw only the tiles in view, so the zoom stays crisp
+        const hw = 540 / z, hh2 = 960 / z;
+        mtiles.forEach((m, k) => { const x = m.i * TS, y = m.j * TS; if (x + TS > ox - hw && x < ox + hw && y + TS > oy - hh2 && y < oy + hh2) drawTile(bg, k, t); });
+        bg.restore();
       }
       if (t >= 59.55) {
         const c = kn.cl, cam = kn.camera;
