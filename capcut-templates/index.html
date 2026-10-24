@@ -1,0 +1,969 @@
+<title>תבניות העצמה ל-CapCut</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Caveat:wght@600&family=Cormorant+Garamond:ital,wght@1,600&family=Frank+Ruhl+Libre:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=Karantina:wght@400;700&display=swap">
+<style>
+/* Layout: a production sheet. One reading column; each template is a spread — phone monitor beside its build sheet, with the edit timeline running full width beneath it. */
+:root{
+  --bg:#EEEEF2; --surface:#FFFFFF; --sunk:#E4E3EA; --ink:#17141D; --muted:#5B5666; --line:#D6D3DE;
+  --accent:#C21A53; --accent-soft:#F8DCE6; --on-accent:#FFFFFF;
+  --trk-clip:#16807A; --trk-speed:#3A66C4; --trk-text:#A87406; --trk-fx:#C21A53; --trk-beat:#8C85A4; --on-trk:#FFFFFF;
+  --screen:#0B0A0E; --screen-ink:#FFFFFF; --stamp:#FFB54A; --frame:#1B1920;
+  --f-display:"Karantina","IBM Plex Sans Hebrew",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Hebrew",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono","IBM Plex Sans Hebrew",ui-monospace,Menlo,Consolas,monospace;
+  --f-serif-en:"Cormorant Garamond","Frank Ruhl Libre",Georgia,serif;
+  --f-serif-he:"Frank Ruhl Libre",Georgia,serif;
+  --f-hand-en:"Caveat","Amatic SC",cursive;
+  --f-hand-he:"Amatic SC","Caveat",cursive;
+  --lab:76px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121116; --surface:#1B1A21; --sunk:#24222B; --ink:#EFEDF4; --muted:#A7A1B3; --line:#33303B;
+    --accent:#FF5A8E; --accent-soft:#3A1B27; --on-accent:#16070D;
+    --trk-clip:#3DB7AE; --trk-speed:#7FA2F2; --trk-text:#E5B23E; --trk-fx:#FF5A8E; --trk-beat:#8F88AA; --on-trk:#0E0D12;
+    --frame:#2A2731; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121116; --surface:#1B1A21; --sunk:#24222B; --ink:#EFEDF4; --muted:#A7A1B3; --line:#33303B;
+  --accent:#FF5A8E; --accent-soft:#3A1B27; --on-accent:#16070D;
+  --trk-clip:#3DB7AE; --trk-speed:#7FA2F2; --trk-text:#E5B23E; --trk-fx:#FF5A8E; --trk-beat:#8F88AA; --on-trk:#0E0D12;
+  --frame:#2A2731; color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65}
+.page{max-width:1080px;margin:0 auto;padding-block:40px 80px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:64px}
+h1,h2,h3{text-wrap:balance;margin:0;line-height:1.15}
+p{margin:0}
+code,.mono{font-family:var(--f-mono);font-size:.88em}
+code{background:var(--sunk);padding:.08em .38em;border-radius:4px;unicode-bidi:isolate;direction:ltr;display:inline-block}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ltr{direction:ltr;unicode-bidi:isolate}
+
+/* hero */
+.hero{display:flex;flex-direction:column;gap:20px}
+.hero h1{font-family:var(--f-display);font-weight:700;font-size:clamp(64px, 14vw, 132px);line-height:.9;letter-spacing:.005em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.lede{font-size:clamp(17px, 2.2vw, 20px);max-width:62ch;color:var(--ink)}
+.notice{max-width:68ch;border-inline-start:3px solid var(--accent);padding:12px 16px;background:var(--surface);border-radius:0 8px 8px 0;color:var(--ink)}
+.notice b{color:var(--accent)}
+.index{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:4px 0 0;list-style:none}
+.index a{display:flex;align-items:baseline;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--ink);background:var(--surface);font-size:14px}
+.index a:hover{border-color:var(--accent)}
+.index .fmt{font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
+
+/* section heads */
+.sec{display:flex;flex-direction:column;gap:28px}
+.sec-head{display:flex;flex-direction:column;gap:8px;max-width:70ch}
+.sec-head h2{font-family:var(--f-display);font-weight:700;font-size:clamp(40px, 7vw, 64px);line-height:.95}
+.sec-head p{color:var(--muted)}
+
+/* chart */
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.chart h3{font-size:16px;font-weight:600}
+.bars{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.bar-row{display:flex;flex-direction:column;gap:4px}
+.bar-top{display:flex;justify-content:space-between;gap:12px;font-size:14px}
+.bar-top .name{font-family:var(--f-mono);font-size:13px}
+.bar-top .val{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--muted)}
+.bar-track{height:10px;background:var(--sunk);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px}
+.c-vel{background:var(--trk-speed)} .c-rec{background:var(--trk-clip)} .c-mot{background:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.caption{font-size:13px;color:var(--muted);max-width:75ch}
+
+.findings{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:28px 36px}
+.finding{display:flex;flex-direction:column;gap:6px;min-width:0}
+.finding h3{font-size:18px;font-weight:700}
+.finding p{color:var(--ink)}
+.finding .num{font-family:var(--f-mono);color:var(--accent);font-weight:500}
+
+.req{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 24px;display:flex;flex-direction:column;gap:12px}
+.req h3{font-size:18px}
+.req ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:8px}
+
+/* toolbar */
+.toolbar{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+.seg button{font:inherit;font-size:14px;border:0;background:transparent;color:var(--ink);padding:6px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.toolbar label{display:inline-flex;gap:8px;align-items:center;font-size:14px;cursor:pointer}
+.toolbar .tlabel{font-size:13px;color:var(--muted)}
+.gender-note{font-size:14px;color:var(--muted);max-width:75ch}
+
+.prep{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 24px;display:flex;flex-direction:column;gap:12px}
+.prep h3{font-size:18px}
+.prep ol{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:8px}
+
+/* template card */
+.tpl{display:flex;flex-direction:column;gap:22px;padding-top:28px;border-top:2px solid var(--ink);scroll-margin-top:72px}
+.tpl-head{display:flex;flex-direction:column;gap:6px}
+.tpl-head .eyebrow{color:var(--accent)}
+.tpl-name{font-family:var(--f-display);font-weight:700;font-size:clamp(44px, 8vw, 76px);line-height:.92;direction:ltr;unicode-bidi:isolate;text-align:right}
+.tpl-he{font-size:18px;color:var(--muted)}
+.specs{display:flex;flex-wrap:wrap;gap:8px 28px;margin:6px 0 0;padding:0}
+.specs div{display:flex;flex-direction:column}
+.specs dt{font-size:12px;color:var(--muted)}
+.specs dd{margin:0;font-family:var(--f-mono);font-size:15px;font-variant-numeric:tabular-nums}
+.spread{display:grid;grid-template-columns:300px minmax(0,1fr);gap:32px;align-items:start}
+@media (max-width:760px){.spread{grid-template-columns:minmax(0,1fr)}}
+.monitor{display:flex;flex-direction:column;gap:10px;align-items:center}
+.sheet{display:flex;flex-direction:column;gap:22px;min-width:0}
+.sheet h4{margin:0 0 6px;font-size:15px;font-weight:700}
+.why{font-size:16px}
+
+/* phone */
+.phone{width:min(100%, 288px);aspect-ratio:9/16;max-width:100%;border:9px solid var(--frame);border-radius:30px;background:var(--screen);position:relative;overflow:hidden;container-type:inline-size;direction:ltr}
+.screen{position:absolute;inset:0;overflow:hidden;background:var(--screen)}
+.clip{position:absolute;inset:0;opacity:0}
+.foot{position:absolute;inset:-6%;will-change:transform,filter}
+.slotmark{position:absolute;left:8%;bottom:24%;display:flex;flex-direction:column;gap:2px;color:rgba(255,255,255,.42);font-family:var(--f-mono);pointer-events:none}
+.slotmark .n{font-family:var(--f-display);font-size:30cqw;line-height:.8;font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.35)}
+.slotmark .k{font-size:3.6cqw;letter-spacing:.08em;direction:rtl;text-align:left}
+.ov{position:absolute;inset:0;pointer-events:none}
+.grain{opacity:0;mix-blend-mode:overlay}
+.vig{background:radial-gradient(ellipse at center, transparent 52%, rgba(0,0,0,.78) 100%);opacity:0}
+.leak{background:radial-gradient(ellipse 70% 55% at 85% 20%, rgba(255,150,80,.85), transparent 70%),radial-gradient(ellipse 60% 50% at 10% 85%, rgba(255,90,140,.6), transparent 70%);mix-blend-mode:screen;opacity:0}
+.flash{background:#fff;opacity:0}
+.lb{display:none}
+.lb.on{display:block}
+.lb::before,.lb::after{content:"";position:absolute;left:0;right:0;height:11%;background:#000}
+.lb::before{top:0} .lb::after{bottom:0}
+.txt{position:absolute;left:7%;right:7%;text-align:center;color:var(--screen-ink);transform:translateY(-50%);opacity:0;text-shadow:0 1px 12px rgba(0,0,0,.45);white-space:pre-wrap;text-wrap:balance;line-height:1.05}
+.s-sans{font-family:var(--f-body);font-weight:500;font-size:6cqw}
+.s-sanssm{font-family:var(--f-body);font-weight:400;font-size:5.4cqw;letter-spacing:.02em}
+.s-serif{font-size:9cqw;font-weight:600}
+.s-serif.en{font-family:var(--f-serif-en);font-style:italic}
+.s-serif.he{font-family:var(--f-serif-he);font-weight:500;font-size:8cqw}
+.s-velocity{font-family:var(--f-display);font-weight:700;font-size:12cqw;text-transform:uppercase;letter-spacing:.01em}
+.s-huge{font-family:var(--f-display);font-weight:700;text-transform:uppercase}
+.s-mono{font-family:var(--f-mono);font-size:5.2cqw}
+.s-letter{font-size:5.6cqw;line-height:1.3}
+.s-letter.en{font-family:var(--f-mono)}
+.s-letter.he{font-family:var(--f-serif-he);font-size:6.6cqw}
+.s-stamp{font-family:var(--f-mono);font-size:4.2cqw;color:var(--stamp);text-align:left;text-shadow:0 0 6px rgba(255,140,40,.5);letter-spacing:.06em}
+.s-hand.en{font-family:var(--f-hand-en);font-size:10cqw}
+.s-hand.he{font-family:var(--f-hand-he);font-size:11cqw}
+.hud{position:absolute;left:5%;top:4%;font-family:var(--f-mono);font-size:3.6cqw;color:#fff;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.25);padding:.25em .6em;border-radius:999px;letter-spacing:.04em}
+.safe{display:none}
+.safe.on{display:block}
+.safe .z{position:absolute;background:repeating-linear-gradient(45deg, rgba(255,70,120,.32) 0 6px, rgba(255,70,120,.1) 6px 12px);border:1px dashed rgba(255,120,160,.9);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--f-body);font-size:3.4cqw;text-align:center}
+.safe .zb{left:0;right:0;bottom:0;height:20%}
+.safe .zr{right:0;width:13%;top:38%;bottom:20%;writing-mode:vertical-rl}
+.ctrls{display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:13px;color:var(--muted);direction:ltr}
+.ctrls button{font:inherit;font-family:var(--f-body);font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 14px;cursor:pointer;min-width:84px}
+.ctrls button:hover{border-color:var(--accent)}
+.tc{font-variant-numeric:tabular-nums}
+
+/* texts table */
+.ttable-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:8px 12px;text-align:start;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:12px;color:var(--muted);font-weight:500;background:var(--sunk)}
+td.t{font-family:var(--f-mono);font-size:12px;white-space:nowrap;color:var(--muted);direction:ltr;text-align:right}
+td.en{direction:ltr;text-align:left;font-family:var(--f-mono);font-size:13px}
+.copyline{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+
+/* grade */
+.grade{display:flex;flex-wrap:wrap;gap:6px 6px}
+.grade-group{display:flex;flex-direction:column;gap:6px;width:100%}
+.grade-group .gl{font-size:13px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--f-mono);font-size:12.5px;padding:3px 9px;border-radius:6px;background:var(--sunk);direction:ltr;font-variant-numeric:tabular-nums}
+
+/* steps */
+.steps{margin:0;padding-inline-start:24px;display:flex;flex-direction:column;gap:10px}
+.steps li{padding-inline-start:4px}
+.steps li::marker{font-family:var(--f-mono);color:var(--accent);font-weight:500}
+
+/* timeline */
+.tl-wrap{display:flex;flex-direction:column;gap:8px}
+.tl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.tl{position:relative;min-width:620px;direction:ltr;padding:6px 10px 8px;cursor:pointer;user-select:none}
+.tl-row{display:grid;grid-template-columns:var(--lab) 1fr;align-items:center;min-height:26px}
+.tl-lab{font-size:11px;color:var(--muted);direction:rtl;text-align:right;padding-right:10px}
+.tl-track{position:relative;height:24px;border-bottom:1px dashed var(--line)}
+.tl-row:last-child .tl-track{border-bottom:0}
+.ruler .tl-track{height:18px;border-bottom:1px solid var(--line)}
+.rt{position:absolute;bottom:0;width:1px;height:6px;background:var(--muted)}
+.rt span{position:absolute;bottom:7px;left:2px;font-family:var(--f-mono);font-size:10px;color:var(--muted);white-space:nowrap}
+.blk{position:absolute;top:3px;bottom:3px;border-radius:4px;color:var(--on-trk);font-size:10.5px;line-height:18px;padding:0 5px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-family:var(--f-mono);border-inline-start:1px solid var(--surface)}
+.b-clip{background:var(--trk-clip)} .b-speed{background:var(--trk-speed)} .b-text{background:var(--trk-text)}
+.mk{position:absolute;top:50%;width:9px;height:9px;transform:translate(-50%,-50%) rotate(45deg)}
+.m-flash{background:var(--trk-fx)}
+.m-shake{border:2px solid var(--trk-fx);background:var(--surface)}
+.m-pulse{border-radius:50%;transform:translate(-50%,-50%);width:7px;height:7px;background:var(--trk-speed)}
+.m-leak{border-radius:2px;transform:translate(-50%,-50%);width:14px;height:5px;background:var(--trk-text)}
+.bt{position:absolute;top:30%;bottom:30%;width:1px;background:var(--trk-beat)}
+.bt.down{top:8%;bottom:8%;width:2px}
+.ph{position:absolute;top:0;bottom:0;width:2px;background:var(--accent);left:calc(10px + var(--lab) + (100% - 20px - var(--lab)) * var(--p, 0));pointer-events:none}
+.ph::before{content:"";position:absolute;top:0;left:-4px;border:5px solid transparent;border-top-color:var(--accent)}
+.tl-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted)}
+.tl-legend span{display:inline-flex;align-items:center;gap:6px}
+.tl-legend .mk{position:static;transform:rotate(45deg);display:inline-block}
+.tl-legend .m-pulse,.tl-legend .m-leak{transform:none}
+
+/* meta */
+.meta{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.meta-row{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:10px;align-items:start}
+@media (max-width:520px){.meta-row{grid-template-columns:minmax(0,1fr) auto}.meta-row .mk-k{grid-column:1 / -1}}
+.mk-k{font-size:13px;color:var(--muted);padding-top:3px}
+.mk-v{font-family:var(--f-mono);font-size:13.5px;word-break:break-word;min-width:0}
+.mk-v.en{direction:ltr;text-align:left;unicode-bidi:isolate}
+.tags{display:flex;flex-wrap:wrap;gap:6px;direction:ltr;justify-content:flex-start}
+.tag{font-family:var(--f-mono);font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--bg)}
+.copy{font:inherit;font-size:12.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:3px 10px;cursor:pointer;white-space:nowrap}
+.copy:hover{border-color:var(--accent)}
+.copy.done{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+
+/* plan */
+.plan{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.plan li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+@media (max-width:560px){.plan li{grid-template-columns:minmax(0,1fr);gap:4px}}
+.plan .when{font-family:var(--f-mono);font-size:13px;color:var(--accent);font-weight:500}
+.check{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:8px 24px}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:6px 0}
+.check input{margin-top:5px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.sources{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.sources a{word-break:break-word}
+.foot-note{font-size:13px;color:var(--muted)}
+
+@media (prefers-reduced-motion: reduce){ .copy, .seg button{transition:none} }
+</style>
+
+<div class="page" dir="rtl" lang="he">
+
+  <header class="hero">
+    <span class="eyebrow ltr" style="text-align:right">CapCut templates · 9:16 · 24.10.2026</span>
+    <h1>חמש תבניות <em>העצמה</em></h1>
+    <p class="lede">חמש תבניות CapCut שמוכנות לבנייה ולפרסום בחשבון יוצר. כל תבנית לוקחת פורמט שכבר מוכיח את עצמו במספר השימושים, ושמה עליו מסר של העצמה. לכל אחת יש תצוגה מקדימה חיה, טקסטים באנגלית ובעברית, זמנים מדויקים, ערכי צבע, הוראות בנייה ואת כל מה שצריך למסך הפרסום.</p>
+    <p class="notice"><b>לפני שמתחילים:</b> את התבנית בונים ומפרסמים בתוך אפליקציית CapCut בנייד, ואין קובץ תבנית שאפשר לייבא מבחוץ. לכן כל תבנית כאן היא תוכנית בנייה מלאה. התצוגה המקדימה מראה מה קורה בכל שנייה, וציר הזמן מתחתיה מתאים לציר הזמן שתבנו באפליקציה.</p>
+    <ul class="index" id="index"></ul>
+  </header>
+
+  <section class="sec" aria-labelledby="research-h">
+    <div class="sec-head">
+      <span class="eyebrow">מחקר</span>
+      <h2 id="research-h">מה המחקר הראה</h2>
+      <p>בדקתי את דפי ה-Explore של CapCut, את מרכז העזרה הרשמי ומדריכי יוצרים מ-2025–2026. אלה המסקנות שקבעו איך נבנו התבניות.</p>
+    </div>
+
+    <figure class="chart" style="margin:0">
+      <h3>שימושים בתבניות מובילות, לפי פורמט</h3>
+      <ul class="bars" id="bars"></ul>
+      <div class="legend">
+        <span><i class="c-vel"></i>Velocity / Slowmo</span>
+        <span><i class="c-rec"></i>סיכום שנה</span>
+        <span><i class="c-mot"></i>מוטיבציה וציטוטים</span>
+      </div>
+      <figcaption class="caption">המספרים מופיעים בדפי ה-Explore של CapCut בלי תווית, וכנראה מייצגים שימושים. הם נאספו בתאריכים שונים, אז הם טובים להשוואת סדרי גודל ולא כמספר מדויק.</figcaption>
+    </figure>
+
+    <div class="findings">
+      <div class="finding">
+        <h3>הפורמט חשוב יותר מהנושא</h3>
+        <p>תבניות velocity ו-slowmo מגיעות ל-<span class="num">1.2M</span> שימושים, ותבניות המוטיבציה המובילות נעצרות סביב <span class="num">80–115K</span>. לכן לא בניתי "עוד תבנית מוטיבציה". כל אחת מהחמש מכניסה מסר של העצמה לפורמט שאנשים כבר מחפשים.</p>
+      </div>
+      <div class="finding">
+        <h3>פחות סלוטים, יותר שימושים</h3>
+        <p>מדריכי יוצרים ממליצים על 3–5 קליפים להחלפה, ותבנית עמוסה מדי היא טעות נפוצה. גם "oneclip velocity", עם קליפ אחד בלבד, הגיעה ל-<span class="num">220K</span>. היוצא מהכלל הוא סיכום שנה, שבו הרבה תמונות הן כל הרעיון.</p>
+      </div>
+      <div class="finding">
+        <h3>שם קצר שאנשים מחפשים</h3>
+        <p>השמות של התבניות המובילות הם משפט קצר ("You can...", "it's a journey") או שם של פורמט ("1 clip", "slowmo", "recap"). בכל שם תבנית כאן יש את שניהם.</p>
+      </div>
+      <div class="finding">
+        <h3>עונת הסיכומים מתחילה</h3>
+        <p>תבניות סיכום של 2025 הגיעו ל-<span class="num">590–710K</span> שימושים. היום 24 באוקטובר, אז זה הזמן לבנות סיכום 2026 ולפרסם אותו עד אמצע נובמבר, לפני הגל של דצמבר. בינואר אפשר לפרסם את אותה תבנית בגרסת "2027 season".</p>
+      </div>
+      <div class="finding">
+        <h3>גמישות בחומרים</h3>
+        <p>תבנית שמקבלת גם תמונה וגם וידאו, ולא נשברת כשהקליפ קצר או ארוך, נכנסת לשימוש הרבה יותר. כל התבניות כאן עובדות גם עם תמונות, חוץ מתבנית ה-velocity שצריכה וידאו.</p>
+      </div>
+      <div class="finding">
+        <h3>הקידום קורה בטיקטוק</h3>
+        <p>סרטון שנעשה מתבנית מקבל בטיקטוק מדבקה של CapCut בפינה השמאלית התחתונה, ומשם הצופים פותחים את התבנית. לכל תבנית צריך סרטון דוגמה שאתם מעלים בעצמכם, ורצוי גם סרטון הדרכה קצר של 15–30 שניות.</p>
+      </div>
+    </div>
+
+    <div class="req">
+      <h3>מה צריך כדי לפרסם תבניות</h3>
+      <ul>
+        <li><b>גישה ל-Creator Center.</b> בעמוד Me באפליקציה. אם הכניסה מופיעה שם, אפשר לפרסם תבניות. רק יוצרים מאושרים יכולים לפרסם.</li>
+        <li><b>גיל 18 ומעלה וחשבון אישי.</b> CapCut לא מקבלת כרגע עסקים או סוכנויות לתוכנית.</li>
+        <li><b>זמינות לפי מדינה.</b> תוכנית התשלומים מתועדת בעיקר לארה"ב ולבריטניה. לא מצאתי אישור רשמי לגבי ישראל, אז צריך לבדוק באפליקציה אם Creator Center מופיע.</li>
+        <li><b>מפרסמים רק מהנייד.</b> פרסום תבנית אפשרי באפליקציה ל-iOS ול-Android. את הקליפים להחלפה מגדירים בנייד או ב-CapCut Web. הגרסה לדסקטופ לא תומכת בזה, אז אם עורכים בדסקטופ, מסיימים ומפרסמים בנייד.</li>
+        <li><b>זמן בדיקה.</b> בדרך כלל 6–24 שעות, ובתקופות עומס 48–72. אודיו חיצוני, פונטים מותאמים ותמונות מוכרות מעבירים את התבנית לבדיקה ידנית ומוסיפים 24–48 שעות.</li>
+        <li><b>מוזיקה רק מהספרייה של CapCut.</b> שיר שאין עליו הסכם זכויות מושתק בכל התבניות והסרטונים שמשתמשים בו.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="tpl-h">
+    <div class="sec-head">
+      <span class="eyebrow">תבניות</span>
+      <h2 id="tpl-h">חמש התבניות</h2>
+    </div>
+
+    <div class="toolbar" role="group" aria-label="הגדרות תצוגה">
+      <span class="tlabel">טקסט בתצוגה</span>
+      <span class="seg" id="langSeg">
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="true">English</button>
+        <button type="button" id="lang-he" data-lang="he" aria-pressed="false">עברית</button>
+      </span>
+      <label for="safeToggle"><input type="checkbox" id="safeToggle"> הצגת האזורים שטיקטוק מכסה</label>
+    </div>
+
+    <p class="gender-note">כל הטקסטים בעברית מנוסחים כך שיתאימו לכל מגדר (גוף ראשון בעבר או בעתיד, או פנייה בלי נטייה), כי כל אחד יכול להשתמש בתבנית. כדאי לפרסם את הגרסה האנגלית ואת העברית כשתי תבניות נפרדות.</p>
+
+    <div class="prep">
+      <h3>הכנה שחוזרת בכל התבניות</h3>
+      <ol>
+        <li>פרויקט חדש באפליקציה בנייד, יחס <code>9:16</code>.</li>
+        <li>חומרי הדוגמה: וידאו ותמונות מהספרייה של CapCut, או צילומים שלכם עם זכויות מלאות. בלי לוגואים ובלי אנשים שלא הסכימו. סרטון הדוגמה הוא מה שאנשים רואים לפני שהם בוחרים בתבנית, אז כדאי להשקיע בו.</li>
+        <li>מוזיקה: <code>Audio → Sounds</code>, חיפוש לפי מילות המפתח של כל תבנית. אחר כך <code>Beats → Auto generate</code> כדי לקבל סימוני ביט בציר הזמן.</li>
+        <li>פונטים רק מהרשימה המובנית של CapCut. בטקסט עברי, ודאו שהפונט מציג עברית.</li>
+        <li>טקסט רק באזור הבטוח: לא ב-20% התחתונים (הכיתוב ושם המשתמש בטיקטוק) ולא בפס הימני (הכפתורים). אפשר לסמן למעלה "הצגת האזורים שטיקטוק מכסה" ולראות אותם על התצוגה.</li>
+        <li>גרייד: <code>Adjust</code> כשכבה נפרדת לכל אורך הסרטון, או על קליפ מסוים כשזה מצוין.</li>
+      </ol>
+    </div>
+
+    <div id="templates" class="sec" style="gap:72px"></div>
+  </section>
+
+  <section class="sec" aria-labelledby="plan-h">
+    <div class="sec-head">
+      <span class="eyebrow">השקה</span>
+      <h2 id="plan-h">סדר הפרסום</h2>
+      <p>הסדר נקבע לפי הביקוש לכל פורמט ולפי לוח השנה, כך שתבנית הסיכום תעבור בדיקה ותצבור שימושים לפני דצמבר.</p>
+    </div>
+    <ol class="plan">
+      <li><span class="when">26–31 באוקטובר</span><span><b>UNSTOPPABLE</b> ו-<b>look how far I've come</b>. שני הפורמטים עם הביקוש הגבוה ביותר, ולא תלויים בעונה.</span></li>
+      <li><span class="when">2–8 בנובמבר</span><span><b>you're doing better than you think</b> ו-<b>dear younger me</b>. שתי תבניות שמתאימות לכל עונה ובונות קהל קבוע.</span></li>
+      <li><span class="when">עד 15 בנובמבר</span><span><b>2026: the year I chose me</b>. מספיק זמן לבדיקה ולצבירת שימושים לפני שהביקוש לסיכומים עולה בדצמבר.</span></li>
+      <li><span class="when">7–10 ימים אחרי כל פרסום</span><span>בדקו שימושים. אם תבנית חלשה, החליפו מוזיקה, צבע או טקסט ופרסמו גרסה מרועננת.</span></li>
+      <li><span class="when">1 בינואר 2027</span><span>שכפלו את תבנית הסיכום, החליפו את הטקסטים ל-"2027 season" ופרסמו אותה כתבנית חדשה.</span></li>
+      <li><span class="when">כל הזמן</span><span>לכל תבנית: סרטון דוגמה בטיקטוק שנעשה מהתבנית עצמה, כדי שתופיע מדבקת CapCut, ועוד סרטון הדרכה קצר. ב-60 הימים הראשונים כדאי לפרסם כמה תבניות בשבוע.</span></li>
+    </ol>
+  </section>
+
+  <section class="sec" aria-labelledby="check-h">
+    <div class="sec-head">
+      <span class="eyebrow">לפני כל פרסום</span>
+      <h2 id="check-h">רשימת בדיקה</h2>
+      <p>הסימונים נשמרים רק בדפדפן שלכם.</p>
+    </div>
+    <ul class="check" id="check"></ul>
+  </section>
+
+  <section class="sec" aria-labelledby="src-h">
+    <div class="sec-head">
+      <span class="eyebrow">מקורות</span>
+      <h2 id="src-h">מקורות</h2>
+    </div>
+    <ul class="sources">
+      <li><a href="https://www.capcut.com/help/how-to-create-templates-in-capcut" target="_blank" rel="noopener">CapCut Help: How do I create templates in CapCut?</a></li>
+      <li><a href="https://www.capcut.com/help/how-to-set-replaceable-material-clips" target="_blank" rel="noopener">CapCut Help: How to set replaceable material clips</a></li>
+      <li><a href="https://www.capcut.com/help/template-review-time" target="_blank" rel="noopener">CapCut Help: Why has the template review time become longer?</a></li>
+      <li><a href="https://www.capcut.com/help/published-template-no-sound-resolution" target="_blank" rel="noopener">CapCut Help: What should I do if a published template has no sound?</a></li>
+      <li><a href="https://www.capcut.com/explore/latest-velocity-trend-2026" target="_blank" rel="noopener">CapCut Explore: Latest velocity trend 2026</a></li>
+      <li><a href="https://www.capcut.com/explore/trending-templates-2026" target="_blank" rel="noopener">CapCut Explore: Trending templates 2026</a></li>
+      <li><a href="https://www.capcut.com/explore/motivational-video-template" target="_blank" rel="noopener">CapCut Explore: Motivational video template</a></li>
+      <li><a href="https://www.capcut.com/explore/recap-2025-template" target="_blank" rel="noopener">CapCut Explore: Recap 2025 template</a></li>
+      <li><a href="https://www.capcut.com/explore/2016-vs-2026" target="_blank" rel="noopener">CapCut Explore: 2016 vs 2026</a></li>
+      <li><a href="https://store.hollyland.com/blogs/creator-hub/become-a-capcut-creator" target="_blank" rel="noopener">Hollyland: How to become a CapCut creator in 2026</a></li>
+      <li><a href="https://shotkit.com/capcut-template/" target="_blank" rel="noopener">Shotkit: How to make a CapCut template and join the creator program</a></li>
+      <li><a href="https://later.com/blog/capcut-templates/" target="_blank" rel="noopener">Later: CapCut templates on TikTok</a></li>
+    </ul>
+    <p class="foot-note">שמות האפקטים בספרייה של CapCut משתנים בין גרסאות. לכן כל אפקט מופיע כמילת חיפוש (למשל <code>flash</code>, <code>grain</code>) ולא כשם מדויק.</p>
+  </section>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- research chart ---------- */
+var BARS = [
+  ["Velocity", 1200000, "vel", "1.2M"],
+  ["NEW VELOCITY SLOWMO", 1000000, "vel", "1M"],
+  ["2025 season!", 712000, "rec", "712K"],
+  ["2025 100 photos", 591500, "rec", "591.5K"],
+  ["oneclip velocity", 220400, "vel", "220.4K"],
+  ["1% Better Everyday", 114300, "mot", "114.3K"],
+  ["consistency", 108500, "mot", "108.5K"],
+  ["You can...", 88300, "mot", "88.3K"],
+  ["Great as you are", 78400, "mot", "78.4K"]
+];
+var barsEl = document.getElementById("bars");
+BARS.forEach(function(b){
+  var li = document.createElement("li"); li.className = "bar-row";
+  li.innerHTML = '<div class="bar-top"><span class="name ltr"></span><span class="val ltr"></span></div><div class="bar-track"><div class="bar-fill c-' + b[2] + '"></div></div>';
+  li.querySelector(".name").textContent = b[0];
+  li.querySelector(".val").textContent = b[3];
+  li.querySelector(".bar-fill").style.width = (b[1] / 1200000 * 100).toFixed(2) + "%";
+  barsEl.appendChild(li);
+});
+
+/* ---------- template data ---------- */
+var b128 = 60 / 128, b120 = 0.5, b80 = 0.75;
+function r2(x){ return Math.round(x * 100) / 100; }
+
+// T1 speed curve: [start, end, rate]
+var t1Phases = [[0, 2*b128 - 0.12, 1], [2*b128 - 0.12, 2*b128, 4], [2*b128, 8*b128, 0.3]];
+for (var k = 8; k < 14; k++){ t1Phases.push([k*b128, k*b128 + b128/2, 2.5]); t1Phases.push([k*b128 + b128/2, (k+1)*b128, 0.4]); }
+t1Phases.push([14*b128, 18*b128, 0.2]);
+var t1Pulses = []; for (k = 8; k < 14; k++) t1Pulses.push({t:k*b128, type:"pulse"});
+
+var MONTHS_EN = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+var MONTHS_HE = ["ינו׳","פבר׳","מרץ","אפר׳","מאי","יוני","יולי","אוג׳","ספט׳","אוק׳","נוב׳","דצמ׳"];
+var t4Clips = [{slot:1, s:0, e:4*b128, kb:[1.0,1.15], look:"vivid"}];
+var t4Fx = [], t4Texts = [];
+for (var m = 2; m <= 12; m++){
+  var s = 4*b128 + (m-2)*2*b128, e = s + 2*b128;
+  if (m === 12) e = 30*b128;
+  t4Clips.push({slot:m, s:s, e:e, kb:[1.09,1.0], kbDur:0.3, look:"vivid", blur: m === 12 ? [26*b128, 30*b128] : null});
+  t4Fx.push({t:s, type:"flash", d:0.09, a:0.75}); t4Fx.push({t:s, type:"pulse"});
+}
+for (m = 0; m < 12; m++){
+  var ms = m === 0 ? 0 : 4*b128 + (m-1)*2*b128;
+  var me = m === 0 ? 4*b128 : (m === 11 ? 26*b128 : ms + 2*b128);
+  t4Texts.push({s:ms, e:me, en:"● " + MONTHS_EN[m] + " '26", he:"● " + MONTHS_HE[m] + " 26", st:"stamp", y:0.1, an:"none", tl:false});
+}
+t4Texts.push({s:0.12, e:4*b128, en:"2026", he:"2026", st:"huge", size:34, y:0.42, an:"pop"});
+t4Texts.push({s:0.5, e:4*b128, en:"the year I chose me", he:"השנה שבחרתי בעצמי", st:"serif", y:0.57, an:"blur"});
+t4Texts.push({s:26*b128, e:30*b128, en:"2027, I'm ready.", he:"2027, בואי.", st:"velocity", y:0.45, an:"pop"});
+
+var TPL = [
+{
+  id:"t1", name:"UNSTOPPABLE", he:"אי אפשר לעצור אותי", fmt:"One-clip velocity",
+  dur:18*b128, bpm:128, slotsLabel:"1 · וידאו בלבד", poster:7.2,
+  slotKinds:{1:"וידאו"},
+  clips:[{slot:1, s:0, e:18*b128, kb:[1.0,1.1], look:"cool", phases:t1Phases}],
+  speedTrack:[[0, 2*b128, "1x"], [2*b128, 8*b128, "0.3x"], [8*b128, 14*b128, "2.5x ↔ 0.4x"], [14*b128, 18*b128, "0.2x"]],
+  fx:[{t:2*b128, type:"flash", d:0.18, a:1}, {t:2*b128, type:"shake", d:0.35}, {t:4*b128, type:"shake", d:0.2}, {t:6*b128, type:"shake", d:0.2}, {t:14*b128, type:"flash", d:0.12, a:0.85}].concat(t1Pulses),
+  texts:[
+    {s:0.05, e:2*b128, en:"they said I couldn't", he:"אמרו שלא אצליח", st:"sans", y:0.42, an:"fade"},
+    {s:2*b128, e:8*b128, en:"so I did it anyway.", he:"אז עשיתי את זה בכל זאת.", st:"velocity", y:0.44, an:"pop"},
+    {s:14*b128, e:18*b128, en:"UNSTOPPABLE", he:"אי אפשר לעצור אותי", st:"huge", size:17, y:0.46, an:"spread"}
+  ],
+  ov:{grain:0.14, vig:0.55},
+  why:"Velocity עם קליפ אחד הוא הפורמט עם הכי הרבה שימושים שמצאתי (עד 1.2M), והוא דורש רק סרטון אחד, אז הכי קל להשתמש בו. המסר מגיע מהטקסט: ביקורת בפתיחה, תשובה על הדרופ, והצהרה בסוף.",
+  grade:[["כל הסרטון", ["Contrast +20","Saturation −10","Highlight −15","Shadow +5","Temp −5","Sharpen +15","Vignette +20"]]],
+  steps:[
+    "ייבאו קליפ אחד של 10–15 שניות עם תנועה ברורה: הליכה לכיוון המצלמה, סיבוב, הנפת שיער, ריצה או אימון.",
+    "מוזיקה: חפשו <code>phonk</code>, <code>funk</code> או <code>trap</code> בטמפו 120–135 BPM. הזיזו את האודיו כך שהדרופ נופל ב-<code>00:00.94</code>.",
+    "<b>אל תחתכו את הקליפ.</b> כל חיתוך יוצר סלוט נוסף, והמשתמש יצטרך למלא ארבעה במקום אחד. במקום זה: <code>Speed → Curve → Custom</code>, ובנו עקומה אחת: 1x בהתחלה, קפיצה קצרה ל-4x ממש לפני הדרופ, 0.3x מהדרופ עד <code>00:03.75</code>, אחר כך 2.5x ו-0.4x לסירוגין על כל ביט עד <code>00:06.56</code>, וסיום ב-0.2x.",
+    "הזיזו את נקודות העקומה עד שכל מעבר מהיר-לאיטי יושב על סימון ביט בציר הזמן. התוצאה צריכה להיראות כמו שורת \"מהירות\" בציר שלמטה.",
+    "Effects: <code>flash</code> ב-<code>00:00.94</code> (0.15 שנ׳), ו-<code>shake</code> ב-<code>00:00.94</code> (0.35 שנ׳), ב-<code>00:01.88</code> וב-<code>00:02.81</code> (0.2 שנ׳ כל אחד). עוד flash קצר ב-<code>00:06.56</code>.",
+    "פולסים של זום על כל ביט בין <code>00:03.75</code> ל-<code>00:06.09</code>: Keyframes על הקליפ, Scale ‏100% → 108% → 100%, או אפקט מהחיפוש <code>zoom</code>.",
+    "שלושה טקסטים (Text → Add text), לפי הטבלה. השורה הראשונה בסאנס קטן עם Fade in. השנייה בפונט צר ומודגש עם Pop או Bounce. השלישית באותו פונט, באותיות גדולות וענקיות, עם אנימציית Zoom.",
+    "Adjust על כל הסרטון לפי ערכי הצבע.",
+    "פרסום: סמנו את הקליפ כניתן להחלפה. אם יש אפשרות להגביל לוידאו בלבד (לחיצה ארוכה על הקליפ), הגבילו. אם מופיעה אפשרות לאפשר עריכת טקסט, הפעילו אותה."
+  ],
+  meta:{title:"UNSTOPPABLE ⚡ 1 clip velocity", heTitle:"אי אפשר לעצור אותי ⚡ קליפ אחד", desc:"1 clip slowmo velocity. Add one video of you walking, turning or training. Text is editable.", tags:["velocity","slowmo","1 clip","motivation","glow up","unstoppable","gym motivation","trend"], cover:"הפריים של UNSTOPPABLE, בסביבות 00:07."}
+},
+{
+  id:"t2", name:"you're doing better than you think", he:"הגעת רחוק יותר ממה שנדמה לך", fmt:"Affirmation quotes",
+  dur:12, bpm:80, slotsLabel:"3 · תמונה או וידאו", poster:10.6,
+  clips:[
+    {slot:1, s:0, e:4, kb:[1.0,1.06], look:"warm"},
+    {slot:2, s:4, e:8, kb:[1.0,1.06], look:"warm", xin:0.5},
+    {slot:3, s:8, e:12, kb:[1.0,1.06], look:"warm", xin:0.5}
+  ],
+  fx:[{t:4, type:"leak", d:0.9}, {t:8, type:"leak", d:0.9}, {t:11.1, type:"glow", d:0.9}],
+  texts:[
+    {s:0.3, e:3.7, en:"slow progress", he:"זה בסדר", st:"sanssm", y:0.4, an:"blur"},
+    {s:1.1, e:3.7, en:"is still progress.", he:"להתקדם לאט.", st:"serif", y:0.48, an:"blur"},
+    {s:4.3, e:7.7, en:"rest is not", he:"מנוחה היא", st:"sanssm", y:0.4, an:"blur"},
+    {s:5.1, e:7.7, en:"giving up.", he:"לא ויתור.", st:"serif", y:0.48, an:"blur"},
+    {s:8.3, e:11.85, en:"you're doing", he:"הגעת רחוק", st:"sanssm", y:0.4, an:"blur"},
+    {s:9.1, e:11.85, en:"better than you think.", he:"יותר ממה שנדמה לך.", st:"serif", y:0.49, an:"blur"}
+  ],
+  ov:{grain:0.24, vig:0.35, leak:0.18},
+  why:"תבניות המוטיבציה המובילות הן משפט קצר וחם (\"You can...\", \"Great as you are\"). כאן יש שלושה משפטים על שלושה קליפים רגועים, בלי תלות בביט, כך שהתבנית עובדת עם כל צילום: שמיים, קפה, ים, הליכה.",
+  grade:[["כל הסרטון", ["Fade +15","Contrast −10","Saturation −15","Temp +8","Highlight −10","Vignette +10"]]],
+  steps:[
+    "שלושה קליפים של 4 שניות כל אחד, תמונה או וידאו רגוע: שמיים, ים, קפה, הליכה, מראה.",
+    "מוזיקה: חפשו <code>soft piano</code>, <code>lofi</code> או <code>calm</code>, בטמפו 70–85 BPM. כאן לא צריך סנכרון לביט.",
+    "מעברים: <code>Mix</code> או <code>Dissolve</code> של 0.5 שנ׳ בין הקליפים.",
+    "בכל קליפ: Keyframe בהתחלה ובסוף, Scale ‏100% → 106%, לתנועה איטית ועדינה.",
+    "טקסט: שתי שורות לכל קליפ, לפי הטבלה. העליונה בסאנס קטן באותיות קטנות, והשנייה בסריף איטלקי גדול יותר. In: <code>Blur in</code> או <code>Fade in</code> (0.6–0.8 שנ׳). Out: <code>Fade out</code> (0.4 שנ׳). השורה השנייה נכנסת 0.8 שנ׳ אחרי הראשונה.",
+    "Effects: גרעין (חיפוש <code>grain</code> או <code>film</code>) לכל האורך, ו-<code>light leak</code> עדין סביב שני המעברים.",
+    "Adjust על כל הסרטון לפי ערכי הצבע. בשנייה האחרונה הוסיפו Keyframe של Brightness ‏+15 לזוהר בסיום.",
+    "פרסום: שלושה סלוטים, תמונה או וידאו. אפשרו עריכת טקסט אם האפשרות מופיעה. בתבנית ציטוטים, זה מה שגורם לאנשים לבחור בה."
+  ],
+  meta:{title:"you're doing better than you think 🤍", heTitle:"הגעת רחוק יותר ממה שנדמה לך 🤍", desc:"3 calm clips, 3 soft affirmations. Works with photos or videos. Text is editable.", tags:["affirmations","self love","healing","reminder","soft life","motivation quotes","aesthetic","3 clips"], cover:"השורה האחרונה על הקליפ השלישי, בסביבות 00:10."}
+},
+{
+  id:"t3", name:"look how far I've come", he:"תראו כמה רחוק הגעתי", fmt:"Then vs Now",
+  dur:11, bpm:120, slotsLabel:"4 · תמונה או וידאו", poster:8.6,
+  clips:[
+    {slot:1, s:0, e:2.5, kb:[1.06,1.0], look:"retro", blur:[0, 1.0]},
+    {slot:2, s:2.5, e:4.0, kb:[1.0,1.06], look:"retro"},
+    {slot:3, s:4.0, e:7.0, kb:[1.0,1.1], look:"vivid", rate:0.5},
+    {slot:4, s:7.0, e:11.0, kb:[1.0,1.1], look:"vivid", rate:0.5}
+  ],
+  speedTrack:[[0, 4, "1x"], [4, 11, "0.5x"]],
+  fx:[{t:1.0, type:"shake", d:0.15}, {t:2.5, type:"shake", d:0.15}, {t:4.0, type:"flash", d:0.22, a:1}, {t:4.0, type:"shake", d:0.3}, {t:4.0, type:"pulse"}, {t:7.0, type:"flash", d:0.1, a:0.6}],
+  texts:[
+    {s:0.1, e:1.0, en:"2016 me had no idea…", he:"ב-2016 לא האמנתי…", st:"mono", y:0.45, an:"type"},
+    {s:1.0, e:4.0, en:"● REC  JUN 12 2016", he:"● REC  12.06.2016", st:"stamp", y:0.1, an:"none", tl:false},
+    {s:2.6, e:4.0, en:"that one day…", he:"שיום אחד…", st:"mono", y:0.45, an:"type"},
+    {s:4.08, e:7.0, en:"I'd become my own reason.", he:"אהיה הסיבה של עצמי.", st:"velocity", y:0.44, an:"pop"},
+    {s:7.2, e:10.0, en:"look how far I've come.", he:"תראו כמה רחוק הגעתי.", st:"serif", y:0.45, an:"blur"},
+    {s:10.0, e:11.0, en:"THEN → NOW", he:"אז ← עכשיו", st:"velocity", y:0.45, an:"pop"}
+  ],
+  ovByClip:{retro:{grain:0.42, vig:0.55}, vivid:{grain:0.06, vig:0.3}},
+  ov:{grain:0.1, vig:0.4},
+  why:"טרנד ההשוואה בין שנים (\"2016 vs 2026\") פתח את 2026 ועדיין מוכר לכולם. כאן הוא הופך לסיפור צמיחה: שני צילומים ישנים בגוון רטרו, דרופ, ושני צילומים מהיום בצבע מלא.",
+  grade:[["קליפים 1–2 (אז)", ["Saturation −60","Fade +25","Temp +15","Contrast −10"]], ["קליפים 3–4 (עכשיו)", ["Contrast +12","Saturation +10","Sharpen +20","Highlight −10"]]],
+  steps:[
+    "ארבעה סלוטים: 1–2 לתמונות ישנות, 3–4 לתמונות או וידאו מהיום. משכים: 2.5, 1.5, 3 ו-4 שניות.",
+    "מוזיקה: חפשו <code>inspiring</code>, <code>epic build up</code> או <code>cinematic drop</code>, בערך 120 BPM, עם דרופ ב-<code>00:04.00</code>.",
+    "על קליפים 1–2 בלבד: Adjust לפי ערכי \"אז\", ואפקט מהחיפוש <code>VHS</code>, <code>retro</code> או <code>grain</code> על אותו טווח.",
+    "קליפ 1, מ-<code>00:00.00</code> עד <code>00:01.00</code>: אפקט <code>blur</code> והחשכה, ועליו טקסט הפתיחה עם אנימציית Typewriter.",
+    "חותמת תאריך: הטקסט <b class=\"ltr\">● REC JUN 12 2016</b> בפונט מונו כתום, בפינה העליונה, מ-<code>00:01.00</code> עד <code>00:04.00</code>. אפשרו לערוך אותו, כדי שכל משתמש יכתוב את התאריך שלו.",
+    "המעבר מקליפ 2 ל-3: <code>flash</code> או <code>Pull in</code> של 0.3 שנ׳, ועוד <code>shake</code> של 0.3 שנ׳ ב-<code>00:04.00</code>.",
+    "קליפים 3–4: Speed ‏0.5x (משפיע רק על וידאו), Adjust לפי ערכי \"עכשיו\", וזום איטי ב-Keyframes מ-100% ל-110%.",
+    "טקסטים לפי הטבלה: שורות ה\"אז\" במונו קטן עם Typewriter, ושורות ה\"עכשיו\" בפונט צר ומודגש עם Pop.",
+    "פרסום: ארבעה סלוטים, תמונה או וידאו. בתיאור כתבו \"2 old + 2 new\" כדי שיהיה ברור מה לשים איפה."
+  ],
+  meta:{title:"look how far I've come ✨ then vs now", heTitle:"תראו כמה רחוק הגעתי ✨ אז מול עכשיו", desc:"2 old photos + 2 new photos or videos. Retro then, full color now. Text is editable.", tags:["then vs now","glow up","2016 vs 2026","transformation","before after","self growth","4 photos","trend"], cover:"הפריים של look how far I've come, בסביבות 00:08."}
+},
+{
+  id:"t4", name:"2026: the year I chose me", he:"2026: השנה שבחרתי בעצמי", fmt:"Year recap · photo dump",
+  dur:30*b128, bpm:128, slotsLabel:"12 · תמונה או וידאו", poster:1.3,
+  clips:t4Clips, fx:t4Fx, texts:t4Texts,
+  ov:{grain:0.08, vig:0.3},
+  why:"סיכומי שנה הם מהתבניות עם הכי הרבה שימושים בכל דצמבר. יש כאן 12 סלוטים, אחד לכל חודש, וחותמת חודש שמראה למשתמש מה לשים בכל מקום. הכותרת מוסיפה את זווית ההעצמה.",
+  grade:[["כל הסרטון", ["Contrast +10","Saturation +8","Temp +5","Sharpen +10"]]],
+  steps:[
+    "‏12 סלוטים, אחד לכל חודש. קליפ 1 באורך 1.88 שנ׳, קליפים 2–11 באורך 0.94 שנ׳ כל אחד, וקליפ 12 באורך 2.81 שנ׳ (כולל הסיום).",
+    "מוזיקה: חפשו <code>upbeat pop</code>, <code>house</code> או <code>happy</code>, בטמפו 128 BPM. אחרי <code>Beats → Auto generate</code>, כל חיתוך יושב על כל ביט שני.",
+    "קליפ 1: זום איטי ב-Keyframes מ-100% ל-115%. מעליו הכותרת <b>2026</b> בפונט צר וענק, ומתחתיה <b>the year I chose me</b> בסריף איטלקי.",
+    "קליפים 2–12: <code>Animation → In → Zoom in</code> של 0.3 שנ׳, ו-<code>flash</code> של 0.08 שנ׳ בכל חיתוך (כאפקט או כמעבר).",
+    "חותמות חודש: טקסט מונו קטן בפינה העליונה, מ-<b class=\"ltr\">● JAN '26</b> עד <b class=\"ltr\">● DEC '26</b>, כל אחד מיושר לקליפ שלו. כך המשתמש יודע מה לשים בכל סלוט.",
+    "סיום, מ-<code>00:12.19</code> עד <code>00:14.06</code>: אפקט <code>blur</code> על קליפ 12, ומעליו <b>2027, I'm ready.</b> עם Pop.",
+    "Adjust על כל הסרטון לפי ערכי הצבע.",
+    "פרסום: 12 סלוטים, תמונה או וידאו. אפשרו עריכת טקסט כדי שאפשר יהיה לשנות את המשפט בכותרת."
+  ],
+  meta:{title:"2026: the year I chose me ✨ recap", heTitle:"2026: השנה שבחרתי בעצמי ✨ סיכום שנה", desc:"12 photos or videos, one for each month. Beat synced. Text is editable.", tags:["recap 2026","2026 recap","photo dump","goodbye 2026","year in review","12 photos","memories","glow up"], cover:"כותרת ה-2026 בפתיחה, בסביבות 00:01."}
+},
+{
+  id:"t5", name:"dear younger me", he:"מכתב לעצמי מפעם", fmt:"Cinematic letter",
+  dur:15, bpm:0, slotsLabel:"4 · תמונת ילדות + 3", poster:2.6,
+  slotKinds:{1:"תמונת ילדות"},
+  clips:[
+    {slot:1, s:0, e:3.5, kb:[1.0,1.1], look:"film"},
+    {slot:2, s:3.5, e:7.0, kb:[1.0,1.1], look:"film", xin:0.8},
+    {slot:3, s:7.0, e:11.0, kb:[1.0,1.1], look:"film", xin:0.8},
+    {slot:4, s:11.0, e:15.0, kb:[1.0,1.1], look:"film", xin:0.8}
+  ],
+  fx:[{t:3.5, type:"leak", d:1.0}, {t:7.0, type:"leak", d:1.0}, {t:11.0, type:"leak", d:1.0}],
+  texts:[
+    {s:0.4, e:3.3, en:"dear younger me,", he:"מכתב לעצמי מפעם,", st:"letter", y:0.5, an:"type"},
+    {s:3.9, e:6.8, en:"the things you were afraid of…", he:"הדברים שפחדת מהם…", st:"letter", y:0.5, an:"type"},
+    {s:7.4, e:10.8, en:"became the things you conquered.", he:"הפכו לדברים שניצחת.", st:"letter", y:0.5, an:"type"},
+    {s:11.4, e:15.0, en:"we made it. ♡", he:"הצלחנו. ♡", st:"letter", y:0.48, an:"type"},
+    {s:13.0, e:15.0, en:"— me", he:"— אני", st:"hand", y:0.58, an:"fade"}
+  ],
+  ov:{grain:0.32, vig:0.55, lb:true},
+  why:"תבנית רגשית בסגנון קולנועי, בתחום שיש בו פחות תחרות על אותו חיפוש. היא עובדת עם תמונת ילדות אחת ושלושה צילומים מהיום, והטקסט האישי גורם לאנשים לשתף.",
+  grade:[["כל הסרטון", ["Temp +12","Tint +3","Contrast −5","Fade +10","Highlight −20","Saturation −10","Vignette +25"]]],
+  steps:[
+    "ארבעה סלוטים: 1 לתמונת ילדות, 2–4 לצילומים מהיום. משכים: 3.5, 3.5, 4 ו-4 שניות.",
+    "מוזיקה: חפשו <code>emotional piano</code> או <code>cinematic strings</code>, איטי (60–75 BPM).",
+    "פסים קולנועיים: באפקטים חפשו <code>cinema</code> או <code>letterbox</code>. אם אין, הוסיפו שני מלבנים שחורים כ-Overlay למעלה ולמטה, ואל תסמנו אותם כניתנים להחלפה.",
+    "מעברים: <code>Dissolve</code> של 0.8 שנ׳. בכל קליפ: Keyframes לזום איטי מ-100% ל-110%.",
+    "Effects: <code>grain</code> לכל האורך, ו-<code>light leak</code> סביב כל מעבר.",
+    "טקסט: פונט של מכונת כתיבה, אותיות קטנות, במרכז, עם <code>In → Typewriter</code>. שורה אחת לכל קליפ, לפי הטבלה.",
+    "חתימה: <b>— me</b> בפונט כתב יד, מ-<code>00:13.00</code> עד <code>00:15.00</code>, מתחת לשורה האחרונה.",
+    "Adjust על כל הסרטון לפי ערכי הצבע.",
+    "פרסום: סלוט 1 לתמונה בלבד אם אפשר להגביל, והשאר תמונה או וידאו. אפשרו עריכת טקסט."
+  ],
+  meta:{title:"dear younger me 💌 cinematic", heTitle:"מכתב לעצמי מפעם 💌 קולנועי", desc:"1 childhood photo + 3 photos or videos of you today. A cinematic letter to yourself. Text is editable.", tags:["dear younger me","inner child","healing","cinematic","letter to myself","then and now","self love","4 clips"], cover:"השורה dear younger me על תמונת הילדות, בסביבות 00:02."}
+}
+];
+
+/* ---------- helpers ---------- */
+var LOOKS = {
+  none:"", cool:"contrast(1.18) saturate(.85) hue-rotate(-10deg)", warm:"sepia(.22) saturate(.85) contrast(.92) brightness(1.04)",
+  retro:"grayscale(.55) sepia(.45) contrast(.86) brightness(.95)", vivid:"saturate(1.25) contrast(1.1)", film:"sepia(.32) saturate(.78) contrast(.9) brightness(1.02)"
+};
+function clamp(x){ return x < 0 ? 0 : (x > 1 ? 1 : x); }
+function ease(x){ return 1 - Math.pow(1 - x, 3); }
+function fmtTC(t){ var c = Math.round(t * 100), s = Math.floor(c / 100), cs = c % 100; return "00:" + String(s).padStart(2,"0") + "." + String(cs).padStart(2,"0"); }
+function srcTime(phases, t){ var s = 0; for (var i = 0; i < phases.length; i++){ var p = phases[i]; if (t <= p[0]) break; s += (Math.min(t, p[1]) - p[0]) * p[2]; } return s; }
+function rateAt(phases, t){ for (var i = 0; i < phases.length; i++){ if (t >= phases[i][0] && t < phases[i][1]) return phases[i][2]; } return phases[phases.length-1][2]; }
+function slotGrad(n){
+  var h = (n * 47 + 300) % 360;
+  return "linear-gradient(160deg, hsl(" + h + " 52% 20%), hsl(" + ((h + 38) % 360) + " 58% 44%))";
+}
+function el(tag, cls, html){ var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]; }); }
+function chars(s){ return Array.from(s); }
+
+var grainURL = (function(){
+  try {
+    var c = document.createElement("canvas"); c.width = c.height = 128;
+    var x = c.getContext("2d"), d = x.createImageData(128, 128);
+    for (var i = 0; i < d.data.length; i += 4){ var v = Math.random() * 255 | 0; d.data[i] = d.data[i+1] = d.data[i+2] = v; d.data[i+3] = 255; }
+    x.putImageData(d, 0, 0); return c.toDataURL();
+  } catch (e) { return ""; }
+})();
+
+var lang = "en";
+var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- copy ---------- */
+function copyText(btn, text){
+  function ok(){ btn.classList.add("done"); var o = btn.dataset.label; btn.textContent = "הועתק"; setTimeout(function(){ btn.classList.remove("done"); btn.textContent = o; }, 1400); }
+  function fallback(){
+    var ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly",""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); ok(); } catch (e) { btn.textContent = "סמנו והעתיקו"; }
+    document.body.removeChild(ta);
+  }
+  try { navigator.clipboard.writeText(text).then(ok, fallback); } catch (e) { fallback(); }
+}
+function copyBtn(text, label){
+  var b = el("button", "copy"); b.type = "button"; b.textContent = label || "העתקה"; b.dataset.label = b.textContent;
+  b.addEventListener("click", function(){ copyText(b, text); });
+  return b;
+}
+
+/* ---------- build index ---------- */
+var idx = document.getElementById("index");
+TPL.forEach(function(T){
+  var li = el("li"); var a = el("a"); a.href = "#" + T.id;
+  a.innerHTML = '<span class="ltr"></span><span class="fmt ltr"></span>';
+  a.children[0].textContent = T.name; a.children[1].textContent = T.fmt;
+  li.appendChild(a); idx.appendChild(li);
+});
+
+/* ---------- build template cards ---------- */
+var players = [];
+var host = document.getElementById("templates");
+
+TPL.forEach(function(T, ti){
+  var art = el("article", "tpl"); art.id = T.id;
+
+  var head = el("div", "tpl-head");
+  head.appendChild(el("span", "eyebrow ltr", esc(T.fmt)));
+  head.lastChild.style.textAlign = "right";
+  var nm = el("h3", "tpl-name"); nm.textContent = T.name; head.appendChild(nm);
+  var he = el("p", "tpl-he"); he.textContent = T.he; head.appendChild(he);
+  var specs = el("dl", "specs");
+  [["משך", String(r2(T.dur)) + " שנ׳"], ["סלוטים", T.slotsLabel], ["טמפו", T.bpm ? T.bpm + " BPM" : "חופשי, 60–75"], ["יחס", "9:16"]].forEach(function(p){
+    var d = el("div"); var dt = el("dt"); dt.textContent = p[0]; var dd = el("dd"); dd.textContent = p[1]; d.appendChild(dt); d.appendChild(dd); specs.appendChild(d);
+  });
+  head.appendChild(specs);
+  art.appendChild(head);
+
+  var spread = el("div", "spread");
+
+  /* monitor */
+  var mon = el("div", "monitor");
+  var phone = el("div", "phone"); phone.setAttribute("role", "img"); phone.setAttribute("aria-label", "תצוגה מקדימה של התבנית " + T.name);
+  var scr = el("div", "screen"); phone.appendChild(scr);
+  var clipEls = T.clips.map(function(c, i){
+    var ce = el("div", "clip"); ce.style.zIndex = String(i + 1);
+    var f = el("div", "foot");
+    f.style.backgroundImage = "radial-gradient(circle at 50% 50%, rgba(255,255,255,.28), transparent 38%), repeating-linear-gradient(115deg, rgba(255,255,255,.07) 0 12px, transparent 12px 38px), " + slotGrad(c.slot);
+    f.style.backgroundSize = "70% 70%, auto, auto";
+    f.style.backgroundRepeat = "no-repeat, repeat, no-repeat";
+    ce.appendChild(f);
+    var kind = (T.slotKinds && T.slotKinds[c.slot]) || "תמונה / וידאו";
+    var sm = el("div", "slotmark", '<span class="n">' + c.slot + '</span><span class="k"></span>');
+    sm.querySelector(".k").textContent = "סלוט " + c.slot + " · " + kind;
+    ce.appendChild(sm);
+    scr.appendChild(ce);
+    return {el:ce, foot:f};
+  });
+  var z = T.clips.length + 1;
+  function ov(cls){ var o = el("div", "ov " + cls); o.style.zIndex = String(z++); scr.appendChild(o); return o; }
+  var oGrain = ov("grain"); if (grainURL) oGrain.style.backgroundImage = "url(" + grainURL + ")";
+  var oLeak = ov("leak"); var oVig = ov("vig"); var oLb = ov("lb" + (T.ov && T.ov.lb ? " on" : ""));
+  var txLayer = ov("");
+  var txEls = T.texts.map(function(tx){
+    var t = el("div", "txt s-" + tx.st);
+    t.style.top = (tx.y * 100) + "%";
+    if (tx.size) t.style.fontSize = tx.size + "cqw";
+    txLayer.appendChild(t);
+    return t;
+  });
+  var oFlash = ov("flash");
+  var hud = el("div", "hud"); hud.style.zIndex = String(z++); scr.appendChild(hud);
+  var safe = ov("safe"); safe.innerHTML = '<div class="z zb">כיתוב ושם משתמש</div><div class="z zr">כפתורים</div>';
+  mon.appendChild(phone);
+
+  var ctr = el("div", "ctrls");
+  var playB = el("button"); playB.type = "button"; playB.id = "play-" + T.id;
+  var tc = el("span", "tc");
+  ctr.appendChild(playB); ctr.appendChild(tc);
+  mon.appendChild(ctr);
+  spread.appendChild(mon);
+
+  /* sheet */
+  var sheet = el("div", "sheet");
+  var why = el("div"); why.appendChild(el("h4", null, "למה זה עובד")); var wp = el("p", "why"); wp.textContent = T.why; why.appendChild(wp); sheet.appendChild(why);
+
+  var txSec = el("div"); txSec.appendChild(el("h4", null, "טקסטים על המסך"));
+  var tw = el("div", "ttable-wrap"); var tb = el("table");
+  tb.innerHTML = "<thead><tr><th>זמן</th><th>English</th><th>עברית</th></tr></thead>";
+  var tbody = el("tbody");
+  var shown = T.texts.filter(function(x){ return x.tl !== false; });
+  if (T.id === "t4") shown.push({s:0, e:26*b128, en:"● JAN '26 … ● DEC '26", he:"● ינו׳ 26 … ● דצמ׳ 26"});
+  if (T.id === "t3") shown.splice(1, 0, T.texts[1]);
+  shown.sort(function(a, b){ return a.s - b.s; });
+  shown.forEach(function(x){
+    var tr = el("tr");
+    var a = el("td", "t"); a.textContent = fmtTC(x.s) + "–" + fmtTC(x.e);
+    var b = el("td", "en"); b.textContent = x.en;
+    var c = el("td"); c.textContent = x.he;
+    tr.appendChild(a); tr.appendChild(b); tr.appendChild(c); tbody.appendChild(tr);
+  });
+  tb.appendChild(tbody); tw.appendChild(tb); txSec.appendChild(tw);
+  var cl = el("div", "copyline");
+  cl.appendChild(copyBtn(shown.map(function(x){ return x.en; }).join("\n"), "העתקת הטקסטים באנגלית"));
+  cl.appendChild(copyBtn(shown.map(function(x){ return x.he; }).join("\n"), "העתקת הטקסטים בעברית"));
+  txSec.appendChild(cl);
+  sheet.appendChild(txSec);
+
+  var gr = el("div"); gr.appendChild(el("h4", null, "ערכי צבע (Adjust)"));
+  var grw = el("div", "grade");
+  T.grade.forEach(function(g){
+    var gg = el("div", "grade-group"); var gl = el("span", "gl"); gl.textContent = g[0]; gg.appendChild(gl);
+    var ch = el("div", "chips"); g[1].forEach(function(v){ var c = el("span", "chip"); c.textContent = v; ch.appendChild(c); }); gg.appendChild(ch);
+    grw.appendChild(gg);
+  });
+  gr.appendChild(grw); sheet.appendChild(gr);
+  spread.appendChild(sheet);
+  art.appendChild(spread);
+
+  /* timeline */
+  var tlw = el("div", "tl-wrap"); tlw.appendChild(el("h4", null, "ציר הזמן"));
+  tlw.firstChild.style.margin = "0";
+  var tls = el("div", "tl-scroll"); var tl = el("div", "tl"); tl.setAttribute("aria-label", "ציר זמן. לחיצה קופצת לנקודה בזמן");
+  var D = T.dur;
+  function row(label, cls){ var r = el("div", "tl-row " + (cls || "")); var l = el("div", "tl-lab"); l.textContent = label; var tr = el("div", "tl-track"); r.appendChild(l); r.appendChild(tr); tl.appendChild(r); return tr; }
+  function pct(t){ return (t / D * 100).toFixed(3) + "%"; }
+  var ru = row("", "ruler");
+  for (var s = 0; s <= Math.floor(D); s++){ var rt = el("div", "rt"); rt.style.left = pct(s); rt.innerHTML = "<span>" + s + "s</span>"; ru.appendChild(rt); }
+  var rc = row("קליפים");
+  T.clips.forEach(function(c){ var bk = el("div", "blk b-clip"); bk.style.left = pct(c.s); bk.style.width = pct(c.e - c.s); bk.textContent = String(c.slot); bk.title = "סלוט " + c.slot + " · " + fmtTC(c.s) + "–" + fmtTC(c.e); rc.appendChild(bk); });
+  if (T.speedTrack){
+    var rs = row("מהירות");
+    T.speedTrack.forEach(function(p){ var bk = el("div", "blk b-speed"); bk.style.left = pct(p[0]); bk.style.width = pct(p[1] - p[0]); bk.textContent = p[2]; rs.appendChild(bk); });
+  }
+  var rtx = row("טקסט");
+  var tlTextEls = [];
+  T.texts.forEach(function(x){ if (x.tl === false) return; var bk = el("div", "blk b-text"); bk.style.left = pct(x.s); bk.style.width = pct(x.e - x.s); rtx.appendChild(bk); tlTextEls.push({el:bk, tx:x}); });
+  if (T.id === "t3" || T.id === "t4"){
+    var rst = row("חותמת");
+    T.texts.forEach(function(x){ if (x.tl !== false) return; var bk = el("div", "blk b-text"); bk.style.left = pct(x.s); bk.style.width = pct(x.e - x.s); bk.style.opacity = ".7"; rst.appendChild(bk); tlTextEls.push({el:bk, tx:x}); });
+  }
+  var rf = row("אפקטים");
+  T.fx.forEach(function(f){ var mk = el("div", "mk m-" + (f.type === "glow" ? "leak" : f.type)); mk.style.left = pct(f.t); mk.title = f.type + " · " + fmtTC(f.t); rf.appendChild(mk); });
+  if (T.bpm){
+    var rb = row("ביט");
+    var d = 60 / T.bpm;
+    for (var kk = 0; kk * d <= D + 1e-6; kk++){ var bt = el("div", "bt" + (kk % 4 === 0 ? " down" : "")); bt.style.left = pct(kk * d); rb.appendChild(bt); }
+  }
+  var ph = el("div", "ph"); tl.appendChild(ph);
+  tls.appendChild(tl); tlw.appendChild(tls);
+  var lg = el("div", "tl-legend");
+  lg.innerHTML = '<span><i class="mk m-flash"></i>flash</span><span><i class="mk m-shake"></i>shake</span><span><i class="mk m-pulse"></i>פולס זום</span><span><i class="mk m-leak"></i>light leak / זוהר</span>' + (T.bpm ? '<span>קו עבה בשורת הביט = תחילת תיבה (4 ביטים)</span>' : '') + '<span>לחיצה על הציר קופצת לאותה שנייה</span>';
+  tlw.appendChild(lg);
+  art.appendChild(tlw);
+
+  /* steps */
+  var st = el("div"); st.appendChild(el("h4", null, "בנייה ב-CapCut, שלב אחר שלב"));
+  var ol = el("ol", "steps"); T.steps.forEach(function(s){ ol.appendChild(el("li", null, s)); }); st.appendChild(ol);
+  art.appendChild(st);
+
+  /* meta */
+  var mt = el("div", "meta"); mt.appendChild(el("h4", null, "מסך הפרסום"));
+  mt.firstChild.style.margin = "0";
+  function metaRow(k, v, en, copyVal){
+    var r = el("div", "meta-row"); var a = el("span", "mk-k"); a.textContent = k; var b = el("div", "mk-v" + (en ? " en" : ""));
+    if (typeof v === "string") b.textContent = v; else b.appendChild(v);
+    r.appendChild(a); r.appendChild(b); r.appendChild(copyVal != null ? copyBtn(copyVal) : el("span")); mt.appendChild(r);
+  }
+  metaRow("שם התבנית", T.meta.title, true, T.meta.title);
+  metaRow("שם בעברית", T.meta.heTitle, false, T.meta.heTitle);
+  metaRow("תיאור", T.meta.desc, true, T.meta.desc);
+  var tg = el("div", "tags"); T.meta.tags.forEach(function(x){ var s = el("span", "tag"); s.textContent = x; tg.appendChild(s); });
+  metaRow("תגיות", tg, true, T.meta.tags.join(", "));
+  metaRow("קאבר", T.meta.cover, false, null);
+  art.appendChild(mt);
+
+  host.appendChild(art);
+
+  /* player state */
+  var P = {T:T, clipEls:clipEls, txEls:txEls, tlTextEls:tlTextEls, oGrain:oGrain, oLeak:oLeak, oVig:oVig, oFlash:oFlash, hud:hud, tc:tc, ph:tl, playB:playB, safe:safe,
+           t:T.poster, playing:!reduce, visible:false, last:0, gt:0};
+  players.push(P);
+
+  function setPlayLabel(){ playB.textContent = P.playing ? "השהיה" : "הפעלה"; playB.setAttribute("aria-label", (P.playing ? "השהיית" : "הפעלת") + " התצוגה של " + T.name); }
+  setPlayLabel();
+  playB.addEventListener("click", function(){ P.playing = !P.playing; P.last = 0; setPlayLabel(); render(P); });
+  tl.addEventListener("click", function(ev){
+    var r = tl.getBoundingClientRect(); var lab = 76, pad = 10;
+    var x = (ev.clientX - r.left - pad - lab) / (r.width - pad * 2 - lab);
+    if (x < 0 || x > 1) return;
+    P.t = x * D; render(P);
+  });
+  P.setPlayLabel = setPlayLabel;
+});
+
+/* ---------- render ---------- */
+function applyLang(){
+  players.forEach(function(P){
+    P.T.texts.forEach(function(tx, i){
+      var e = P.txEls[i];
+      e.dataset.full = lang === "he" ? tx.he : tx.en;
+      e.setAttribute("dir", lang === "he" ? "rtl" : "ltr");
+      e.classList.toggle("he", lang === "he"); e.classList.toggle("en", lang !== "he");
+      e.textContent = e.dataset.full;
+    });
+    P.tlTextEls.forEach(function(o){ o.el.textContent = lang === "he" ? o.tx.he : o.tx.en; o.el.title = o.el.textContent; o.el.setAttribute("dir", lang === "he" ? "rtl" : "ltr"); });
+    render(P);
+  });
+}
+
+function render(P){
+  var T = P.T, t = P.t, D = T.dur;
+  // fx accumulators
+  var flash = 0, shake = 0, pulse = 1, leak = 0;
+  T.fx.forEach(function(f){
+    var dt = t - f.t;
+    if (f.type === "flash" && dt >= 0 && dt < f.d) flash = Math.max(flash, (f.a || 1) * (1 - dt / f.d));
+    if (f.type === "shake" && dt >= 0 && dt < f.d) shake = Math.max(shake, 1 - dt / f.d);
+    if (f.type === "pulse" && dt >= 0 && dt < 0.22) pulse = Math.max(pulse, 1 + 0.06 * (1 - dt / 0.22));
+    if ((f.type === "leak" || f.type === "glow") && Math.abs(dt) < f.d / 2) leak = Math.max(leak, (f.type === "glow" ? 0.8 : 0.75) * (1 - Math.abs(dt) / (f.d / 2)));
+  });
+  var sx = shake ? Math.sin(t * 95) * 3.2 * shake : 0, sy = shake ? Math.cos(t * 77) * 2.4 * shake : 0;
+
+  var activeLook = null, hudLabel = "";
+  T.clips.forEach(function(c, i){
+    var ce = P.clipEls[i], xin = c.xin || 0, next = T.clips[i + 1], xout = next && next.xin ? next.xin : 0;
+    var vis = t >= c.s - xin / 2 && t < c.e + xout / 2;
+    if (!vis){ ce.el.style.opacity = "0"; return; }
+    var op = xin && t < c.s + xin / 2 ? clamp((t - (c.s - xin / 2)) / xin) : 1;
+    ce.el.style.opacity = String(op);
+    var local = clamp((t - c.s) / (c.e - c.s));
+    var kbk = c.kbDur ? ease(clamp((t - c.s) / c.kbDur)) : local;
+    var sc = (c.kb[0] + (c.kb[1] - c.kb[0]) * kbk) * pulse;
+    var src = c.phases ? srcTime(c.phases, t) : (t - c.s) * (c.rate || 1);
+    ce.foot.style.transform = "translate(" + sx.toFixed(2) + "%," + sy.toFixed(2) + "%) scale(" + sc.toFixed(4) + ")";
+    ce.foot.style.backgroundPosition = (30 + Math.sin(src * 1.6) * 28).toFixed(1) + "% " + (35 + Math.cos(src * 1.1) * 22).toFixed(1) + "%, " + (src * 70).toFixed(1) + "px 0, 0 0";
+    var filt = LOOKS[c.look] || "";
+    if (c.blur && t >= c.blur[0] && t < c.blur[1]) filt += " blur(6px) brightness(.55)";
+    ce.foot.style.filter = filt;
+    if (t >= c.s && t < c.e){
+      activeLook = c.look;
+      hudLabel = c.phases ? (rateAt(c.phases, t) + "x") : ((c.rate || 1) + "x");
+    }
+  });
+
+  var ovs = (T.ovByClip && activeLook && T.ovByClip[activeLook]) || T.ov || {};
+  P.oGrain.style.opacity = String(ovs.grain || 0);
+  P.oGrain.style.backgroundPosition = ((P.gt * 37) % 128) + "px " + ((P.gt * 53) % 128) + "px";
+  P.oVig.style.opacity = String(ovs.vig || 0);
+  P.oLeak.style.opacity = String(Math.max(leak, (T.ov && T.ov.leak) || 0));
+  P.oFlash.style.opacity = String(flash);
+
+  T.texts.forEach(function(tx, i){
+    var e = P.txEls[i];
+    if (t < tx.s || t >= tx.e){ e.style.opacity = "0"; return; }
+    var p = t - tx.s, out = tx.e >= D - 0.01 ? 1 : clamp((tx.e - t) / 0.22), op = out, tr = "translateY(-50%)", filt = "", ls = "";
+    var full = e.dataset.full || "";
+    if (tx.an === "fade"){ op *= clamp(p / 0.3); }
+    else if (tx.an === "pop"){ var k = ease(clamp(p / 0.2)); op *= clamp(p / 0.08); tr += " scale(" + (1.28 - 0.28 * k).toFixed(3) + ")"; }
+    else if (tx.an === "blur"){ var k2 = ease(clamp(p / 0.65)); op *= k2; filt = "blur(" + ((1 - k2) * 7).toFixed(2) + "px)"; }
+    else if (tx.an === "spread"){ var k3 = ease(clamp(p / 0.7)); op *= clamp(p / 0.25); ls = (0.0 + 0.09 * k3).toFixed(3) + "em"; tr += " scale(" + (1.12 - 0.12 * k3).toFixed(3) + ")"; }
+    if (tx.an === "type"){
+      var cs = chars(full), n = Math.min(cs.length, Math.floor(p / 0.05) + 1);
+      var shownTxt = cs.slice(0, n).join("");
+      if (e.textContent !== shownTxt) e.textContent = shownTxt;
+    } else if (e.textContent !== full) e.textContent = full;
+    e.style.opacity = String(op); e.style.transform = tr; e.style.filter = filt; e.style.letterSpacing = ls;
+  });
+
+  P.hud.textContent = hudLabel;
+  P.hud.hidden = !(T.speedTrack);
+  P.tc.textContent = fmtTC(t) + " / " + fmtTC(D);
+  P.ph.style.setProperty("--p", (t / D).toFixed(4));
+}
+
+/* ---------- loop ---------- */
+function frame(now){
+  players.forEach(function(P){
+    if (!P.playing || !P.visible){ P.last = 0; return; }
+    if (P.last){ var dt = Math.min(0.1, (now - P.last) / 1000); P.t += dt; if (P.t >= P.T.dur) P.t = P.t % P.T.dur; }
+    P.last = now;
+    P.gt = Math.floor(now / 83);
+    render(P);
+  });
+  requestAnimationFrame(frame);
+}
+
+if ("IntersectionObserver" in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ var P = players.filter(function(p){ return p.playB.closest(".tpl") === en.target; })[0]; if (P) P.visible = en.isIntersecting; });
+  }, {rootMargin:"120px"});
+  players.forEach(function(P){ io.observe(P.playB.closest(".tpl")); });
+} else players.forEach(function(P){ P.visible = true; });
+
+/* ---------- toolbar ---------- */
+var segBtns = Array.prototype.slice.call(document.querySelectorAll("#langSeg button"));
+segBtns.forEach(function(b){
+  b.addEventListener("click", function(){
+    lang = b.dataset.lang;
+    segBtns.forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); });
+    try { localStorage.setItem("cc-lang", lang); } catch (e) {}
+    applyLang();
+  });
+});
+try { var sl = localStorage.getItem("cc-lang"); if (sl === "he" || sl === "en"){ lang = sl; segBtns.forEach(function(x){ x.setAttribute("aria-pressed", String(x.dataset.lang === lang)); }); } } catch (e) {}
+
+var safeT = document.getElementById("safeToggle");
+safeT.addEventListener("change", function(){ players.forEach(function(P){ P.safe.classList.toggle("on", safeT.checked); }); });
+
+/* ---------- checklist ---------- */
+var CHECK = [
+  "החלפתי את כל הסלוטים בעצמי פעם אחת, עם תמונה ועם וידאו.",
+  "כל המוזיקה מהספרייה של CapCut.",
+  "כל הפונטים מהרשימה המובנית של CapCut.",
+  "בדוגמה אין לוגואים, מותגים או אנשים שלא הסכימו.",
+  "כל הטקסט בתוך האזור הבטוח.",
+  "השם כולל משפט ופורמט, וכל שדות התגיות מלאים.",
+  "בחרתי קאבר שבו רואים את הטקסט המרכזי.",
+  "סימנתי את הקליפים הנכונים כניתנים להחלפה, ואפשרתי עריכת טקסט."
+];
+var saved = {};
+try { saved = JSON.parse(localStorage.getItem("cc-check") || "{}") || {}; } catch (e) { saved = {}; }
+var chk = document.getElementById("check");
+CHECK.forEach(function(c, i){
+  var li = el("li"); var lb = el("label"); var inp = el("input"); inp.type = "checkbox"; inp.id = "chk-" + i; inp.checked = !!saved[i];
+  lb.setAttribute("for", inp.id); var sp = el("span"); sp.textContent = c;
+  inp.addEventListener("change", function(){ saved[i] = inp.checked; try { localStorage.setItem("cc-check", JSON.stringify(saved)); } catch (e) {} });
+  lb.appendChild(inp); lb.appendChild(sp); li.appendChild(lb); chk.appendChild(li);
+});
+
+applyLang();
+requestAnimationFrame(frame);
+})();
+</script>
