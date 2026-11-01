@@ -8,8 +8,9 @@ import { apiError } from "@/lib/errors";
 import type { PublicBusinessPage } from "@/lib/types";
 
 /**
- * Post-submit page for recovery_flow. Same blocks as ThanksPage (coupon + share),
- * plus an optional "let us make it right" form. Nothing here is conditioned on rating.
+ * Post-submit page for recovery_flow: "let us make it right" form + the same coupon
+ * block every customer gets. Public review links are shown here ONLY if the business
+ * enabled `share_on_negative` (default off — the owner's product decision).
  */
 export default function RecoveryFlow() {
   const { businessSlug = "" } = useParams();
@@ -88,7 +89,9 @@ export default function RecoveryFlow() {
         )}
 
         <CouponBlock coupon={last.coupon} phone={phone || last.phone} />
-        <SharePlatforms platforms={page?.platforms ?? []} reviewId={last.review_id} loading={loading} />
+        {page?.business.share_on_negative && (
+          <SharePlatforms platforms={page.platforms} reviewId={last.review_id} loading={loading} />
+        )}
 
         <p className="text-center text-sm text-slate-400 py-2">סיימנו — אפשר לסגור את העמוד. תודה!</p>
       </div>

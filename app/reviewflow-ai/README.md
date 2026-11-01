@@ -38,9 +38,13 @@ QR → /r/{slug} ─ track-visit ─► rate + text (+ optional contact, explici
       └─ recovery          → /recovery   ┘  [CouponBlock] → [SharePlatforms] → done
 ```
 
-Compliance by design: platform links are shown to **everyone**, with identical
-copy and placement; the coupon rewards *feedback* and is never conditioned on
-posting. `tests/e2e/customer-flow.spec.ts` asserts this invariant.
+The coupon rewards *feedback* and is never conditioned on posting — every route
+gets it. Public review links are always shown after positive/neutral feedback; after
+a **negative** review they are hidden unless the business turns on
+`businesses.share_on_negative` (Settings → זרימת הלקוח). Note for operators: hiding
+links selectively by sentiment is "review gating" under Google's review policy — the
+default reflects the platform owner's product decision and the risk sits with each
+business. `tests/e2e/customer-flow.spec.ts` covers both modes.
 
 ## Project layout
 

@@ -17,6 +17,7 @@ export default function SettingsPage() {
   const { business } = useActiveBusiness();
   const [ghl, setGhl] = useState<GhlSettingsSafe | null>(null);
   const [coupon, setCoupon] = useState<CouponSettings | null>(null);
+  const [shareOnNegative, setShareOnNegative] = useState<boolean>(false);
   const [apiKey, setApiKey] = useState("");
   const [msg, setMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
   const [saving, setSaving] = useState(false);
@@ -24,10 +25,12 @@ export default function SettingsPage() {
   useEffect(() => {
     if (!business) return;
     (async () => {
-      const [{ data: g }, { data: c }] = await Promise.all([
+      const [{ data: g }, { data: c }, { data: b }] = await Promise.all([
         supabase.from("ghl_settings").select(GHL_SAFE_COLUMNS).eq("business_id", business.id).maybeSingle(),
         supabase.from("coupon_settings").select("*").eq("business_id", business.id).maybeSingle(),
+        supabase.from("businesses").select("share_on_negative").eq("id", business.id).maybeSingle(),
       ]);
+      setShareOnNegative(!!(b as { share_on_negative?: boolean } | null)?.share_on_negative);
       setGhl((g as unknown as GhlSettingsSafe) ?? emptyGhl(business.id));
       setCoupon((c as CouponSettings) ?? {
         business_id: business.id, approval_mode: "auto", discount_type: "custom_text",
@@ -45,6 +48,14 @@ export default function SettingsPage() {
     const { error } = await supabase.from("coupon_settings").upsert(coupon, { onConflict: "business_id" });
     setSaving(false);
     flash(error ? "err" : "ok", error ? "השמירה נכשלה" : "הגדרות ההטבה נשמרו");
+  }
+
+  async function saveFlow() {
+    if (!business) return;
+    setSaving(true);
+    const { error } = await supabase.from("businesses").update({ share_on_negative: shareOnNegative }).eq("id", business.id);
+    setSaving(false);
+    flash(error ? "err" : "ok", error ? "השמירה נכשלה" : "הגדרות הזרימה נשמרו");
   }
 
   async function saveGhl() {
@@ -80,6 +91,22 @@ export default function SettingsPage() {
           {msg.text}
         </div>
       )}
+
+      {/* ---------------- Customer flow ---------------- */}
+      <section className="card p-6 flex flex-col gap-4">
+        <h2 className="text-lg font-bold">זרימת הלקוח</h2>
+        <label className="flex items-start gap-3">
+          <input type="checkbox" className="mt-1" checked={shareOnNegative} onChange={(e) => setShareOnNegative(e.target.checked)} />
+          <span>
+            <span className="font-medium">להציג קישורי שיתוף (Google וכו׳) גם אחרי ביקורת שלילית</span>
+            <span className="block text-sm text-slate-500 mt-0.5">
+              כבוי (ברירת מחדל): לקוח לא מרוצה רואה רק טופס טיפול והטבה. שימו לב — הסתרה סלקטיבית של קישור Google לפי
+              סנטימנט נחשבת ל-review gating לפי מדיניות Google; ההחלטה והאחריות על בעל העסק.
+            </span>
+          </span>
+        </label>
+        <button className="btn-primary self-start" disabled={saving} onClick={saveFlow}>שמירת הגדרות זרימה</button>
+      </section>
 
       {/* ---------------- Coupon ---------------- */}
       <section className="card p-6 flex flex-col gap-4">

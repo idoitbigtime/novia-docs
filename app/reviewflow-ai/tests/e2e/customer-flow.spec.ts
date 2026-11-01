@@ -2,7 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 
 // ---- mocks ------------------------------------------------------------------
 const PAGE = {
-  business: { id: "b1", name: "מסעדת הדגים של דני", slug: "dani-fish", logo_url: null, brand_color: "#0ea5e9", welcome_text: "תודה שאכלתם אצלנו!", default_lang: "he" },
+  business: { id: "b1", name: "מסעדת הדגים של דני", slug: "dani-fish", logo_url: null, brand_color: "#0ea5e9", welcome_text: "תודה שאכלתם אצלנו!", default_lang: "he", share_on_negative: false },
   platforms: [
     { id: "p1", kind: "google", display_name: "Google", icon: null, review_url: "https://g.page/r/demo", display_order: 1 },
     { id: "p2", kind: "facebook", display_name: "Facebook", icon: null, review_url: "https://facebook.com/demo", display_order: 2 },
@@ -11,9 +11,10 @@ const PAGE = {
 };
 const COUPON = { status: "approved", code: "RFAI-TEST42", discount_type: "custom_text", discount_value: "קפה חינם", expiration_date: "2030-01-01", terms_text: PAGE.coupon.terms_text };
 
-async function mockApi(page: Page, opts: { route?: "positive_flow" | "recovery_flow" | "manual_review"; notFound?: boolean } = {}) {
+async function mockApi(page: Page, opts: { route?: "positive_flow" | "recovery_flow" | "manual_review"; notFound?: boolean; shareOnNegative?: boolean } = {}) {
+  const pageBody = opts.notFound ? null : { ...PAGE, business: { ...PAGE.business, share_on_negative: !!opts.shareOnNegative } };
   await page.route("**/rest/v1/rpc/public_business_page", (r) =>
-    r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(opts.notFound ? null : PAGE) }));
+    r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(pageBody) }));
   await page.route("**/api/track-visit", (r) => r.fulfill({ status: 200, body: "{}" }));
   await page.route("**/api/platform-click", (r) => r.fulfill({ status: 200, body: "{}" }));
   await page.route("**/api/recovery-details", (r) => r.fulfill({ status: 200, body: '{"ok":true}' }));
@@ -72,34 +73,47 @@ test("5★ → thanks page with coupon AND share block", async ({ page }) => {
   await noHorizontalScroll(page);
 });
 
-test("1★ → recovery page with the SAME coupon and SAME share block (no gating)", async ({ page }) => {
+test("1★ → recovery page: coupon yes, recovery form yes, share links HIDDEN by default", async ({ page }) => {
   await mockApi(page);
   await page.goto("/r/dani-fish");
   await rate(page, 1);
   await page.getByRole("button", { name: "שליחה" }).click();
   await expect(page).toHaveURL(/\/r\/dani-fish\/recovery$/);
   await expect(page.getByText("RFAI-TEST42")).toBeVisible();
-  await expect(page.getByRole("heading", { name: /נשמח אם תשתפו/ })).toBeVisible();
-  const links = page.getByRole("link", { name: /Google|Facebook/ });
-  await expect(links).toHaveCount(2);
+  await expect(page.getByRole("button", { name: "שלחו לטיפול" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /נשמח אם תשתפו/ })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: /Google|Facebook/ })).toHaveCount(0);
   await noHorizontalScroll(page);
 });
 
-test("compliance invariant: share block is identical across routes", async ({ page }) => {
+test("1★ with share_on_negative enabled → share links shown on recovery page", async ({ page }) => {
+  await mockApi(page, { shareOnNegative: true });
+  await page.goto("/r/dani-fish");
+  await rate(page, 1);
+  await page.getByRole("button", { name: "שליחה" }).click();
+  await expect(page).toHaveURL(/\/r\/dani-fish\/recovery$/);
+  await expect(page.getByRole("heading", { name: /נשמח אם תשתפו/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Google|Facebook/ })).toHaveCount(2);
+});
+
+test("coupon is granted on every route; share block identical on positive and neutral", async ({ page }) => {
   const snapshots: string[] = [];
-  for (const route of ["positive_flow", "recovery_flow", "manual_review"] as const) {
+  for (const route of ["positive_flow", "manual_review"] as const) {
     await mockApi(page, { route });
     await page.goto("/r/dani-fish");
     await rate(page, 5);
     await page.getByRole("button", { name: "שליחה" }).click();
     await expect(page.getByRole("heading", { name: /נשמח אם תשתפו/ })).toBeVisible();
-    const html = await page.locator("section[aria-labelledby='share-h']").innerHTML();
-    snapshots.push(html);
-    // coupon must be present on every route too
+    snapshots.push(await page.locator("section[aria-labelledby='share-h']").innerHTML());
     await expect(page.getByText("RFAI-TEST42")).toBeVisible();
   }
   expect(snapshots[0]).toBe(snapshots[1]);
-  expect(snapshots[1]).toBe(snapshots[2]);
+  // recovery route still gets the coupon
+  await mockApi(page, { route: "recovery_flow" });
+  await page.goto("/r/dani-fish");
+  await rate(page, 5);
+  await page.getByRole("button", { name: "שליחה" }).click();
+  await expect(page.getByText("RFAI-TEST42")).toBeVisible();
 });
 
 test("recovery form: server error is shown, success is shown only on 2xx", async ({ page }) => {

@@ -6,9 +6,9 @@ const ICONS: Record<string, string> = {
 };
 
 /**
- * Shown IDENTICALLY on every post-submit page, regardless of sentiment or route.
- * Never varies placement, copy or set of buttons by rating — no selective solicitation.
- * Plain anchors (not window.open after await) so iOS Safari never blocks the navigation.
+ * Public review links. Always shown on the thanks page (positive / neutral); on the
+ * recovery page only when the business enabled `share_on_negative`. Same markup wherever
+ * it renders. Plain anchors (not window.open after await) so iOS Safari never blocks navigation.
  */
 export default function SharePlatforms({ platforms, reviewId, loading }: { platforms: ReviewPlatform[]; reviewId: string | null; loading?: boolean }) {
   if (loading) {

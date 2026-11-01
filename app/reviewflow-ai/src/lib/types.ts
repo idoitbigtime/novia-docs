@@ -14,6 +14,8 @@ export interface BusinessBrand {
   brand_color: string;
   welcome_text: string | null;
   default_lang: string;
+  /** Show public review links on the recovery (negative) page. Default false. */
+  share_on_negative?: boolean;
 }
 
 export interface ReviewPlatform {
