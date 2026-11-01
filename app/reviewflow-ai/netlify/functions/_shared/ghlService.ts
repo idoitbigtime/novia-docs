@@ -155,6 +155,7 @@ export async function dispatchEvent(s: GhlSettings | null, event: GhlEvent, payl
   const settings = s!;
   const customer = payload?.customer ?? {};
   const consent = customer.consent === true;
+  let delivered = false; // "sent" only when something actually left the server
 
   // 1) Contact + tags (only if the customer consented to be contacted)
   let contact_id: string | null = null;
@@ -176,6 +177,7 @@ export async function dispatchEvent(s: GhlSettings | null, event: GhlEvent, payl
         rf_business: ctx.business_name, rf_dashboard_link: `${process.env.APP_PUBLIC_URL ?? ""}/app/reviews?review=${payload.review_id ?? ""}`,
       },
     }, { review_id: ctx.review_id, event });
+    if (contact_id) delivered = true;
 
     if (contact_id) {
       if (event === "negative_review" || event === "manual_followup_required") {
@@ -197,6 +199,14 @@ export async function dispatchEvent(s: GhlSettings | null, event: GhlEvent, payl
       alert_text: buildAlertText(event, payload, ctx.business_name),
       dashboard_link: `${process.env.APP_PUBLIC_URL ?? ""}/app/negative`,
     }, { review_id: ctx.review_id, event_id: ctx.event_id });
+    delivered = true;
+  }
+  // Configured, but nothing to deliver (e.g. customer gave no phone/email or no consent,
+  // and no webhook) — record that honestly instead of pretending it was sent.
+  if (!delivered) {
+    await logEvent({ business_id: settings.business_id, review_id: ctx.review_id, event,
+      payload: { skipped: true, reason: !consent ? "no_consent" : "no_contact_details_or_webhook" } });
+    return "skipped";
   }
   return "sent";
 }
